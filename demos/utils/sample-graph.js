@@ -635,11 +635,12 @@ export function initializeFolding(graphComponent) {
   })
 
   const foldingView = manager.createFoldingView()
-  foldingView.enqueueNavigationalUndoUnits = true
   graphComponent.graph = foldingView.graph
 
   // enable undo/redo support
   manager.masterGraph.undoEngineEnabled = true
+  // also enable undo for folding operations
+  foldingView.enqueueNavigationalUndoUnits = true
 }
 
 export function initializeBasicDemoStyles(graph) {

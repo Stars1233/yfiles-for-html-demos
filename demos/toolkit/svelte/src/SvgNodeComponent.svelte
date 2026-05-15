@@ -21,9 +21,7 @@
   const zoomIntermediate = 0.4
   const zoomDetail = 0.7
 
-  function getAbbreviatedName(name: string) {
-    return name.replace(/^(.)\S+(.*)$/, '$1.$2')
-  }
+  const abbreviatedName = $derived(item.name.replace(/^(.)\S+(.*)$/, '$1.$2'))
 </script>
 
 <!-- Shadow -->
@@ -44,7 +42,7 @@
   <rect fill="white" stroke="#C0C0C0" {width} {height}></rect>
 {/if}
 <g
-  style="font-family: Roboto,sans-serif; font-weight: 300; fill: #444"
+  style="fill: #444"
   font-size={zoom > zoomDetail ? 10 : 15}
 >
   <!-- Icon -->
@@ -64,7 +62,7 @@
     fill={selected ? 'orange' : '#336699'}
     font-size={zoom > zoomIntermediate ? (zoom > zoomDetail ? 16 : 24) : 40}
   >
-    {zoom > zoomIntermediate ? item.name : getAbbreviatedName(item.name)}
+    {zoom > zoomIntermediate ? item.name : abbreviatedName}
   </text>
   <!-- Position -->
   {#if zoom > zoomIntermediate}
@@ -75,7 +73,7 @@
       maxHeight={35}
       textWrapping="wrap-word-ellipsis"
       text={item.position.toUpperCase()}
-      fontFamily="Roboto"
+      fontFamily="Tahoma"
       fontSize={10}
       fontStyle="normal"
       fontWeight="item400"

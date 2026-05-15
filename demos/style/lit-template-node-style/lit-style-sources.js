@@ -38,9 +38,9 @@ $\{zoom >= 0.5 ? svg\`
   <g style="font-family: Roboto,sans-serif; fill: #444" width="185">
     <text transform="translate(90 25)" style="font-size: 16px; fill: #336699">$\{tag.name}</text>
     <text transform="translate(90 45)" style="font-size: 9px; text-transform: uppercase">$\{tag.position}</text>
-    <text transform="translate(90 72)">$\{tag.email}</text>
-    <text transform="translate(90 88)">$\{tag.phone}</text>
-    <text transform="translate(170 88)">$\{tag.fax}</text>
+    <text transform="translate(90 72)" style="font-size: 10px;">$\{tag.email}</text>
+    <text transform="translate(90 88)" style="font-size: 10px;">$\{tag.phone}</text>
+    <text transform="translate(170 88)" style="font-size: 10px;">$\{tag.fax}</text>
   </g>
   \`: svg\`
   <image href=$\{'./resources/' + tag.icon + '.svg'} x="15" y="20" width="56.25" height="56.25"></image>
@@ -94,9 +94,9 @@ export const demoHtmlNodeStyleLitSources = `({ tag, selected, zoom }) => {
                   <div style="font-size: 8px; text-transform: uppercase; margin: 8px 0;">
                     $\{tag.position}
                   </div>
-                  <div>$\{tag.email}</div>
-                  <span>$\{tag.phone}</span>
-                  <span style="margin-left: 1rem;">$\{tag.fax}</span>
+                  <div style="font-size: 10px;">$\{tag.email}</div>
+                  <span style="font-size: 10px;">$\{tag.phone}</span>
+                  <span style="margin-left: 10px; font-size: 10px;">$\{tag.fax}</span>
                 </div>
               \`
                : html\`

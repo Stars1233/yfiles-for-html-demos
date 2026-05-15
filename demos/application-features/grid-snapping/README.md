@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Grid Snapping - Application Features
+# Grid Snapping Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/grid-snapping.webp" alt="demo-thumbnail" height="320"/>
 

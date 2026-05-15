@@ -139,8 +139,8 @@ export class LensInputMode extends InputModeBase {
       canvasComponent.zoom < 0.7 &&
       canvasComponent.size.width > 200 &&
       canvasComponent.size.height > 200 &&
-      canvasComponent.lastInputEvent !== EventArgs.EMPTY &&
-      canvasComponent.viewport.contains(canvasComponent.lastEventLocation)
+      canvasComponent.lastPointerEvent !== EventArgs.EMPTY &&
+      canvasComponent.viewport.contains(canvasComponent.lastPointerEvent.location)
     ) {
       this.showLens()
       return true

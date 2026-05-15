@@ -34,7 +34,6 @@ import {
   License
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { configureLayout } from './configure-layout'
 import { initializeStyles } from './styles'
 import { scaleData } from './scale-data'
@@ -43,6 +42,7 @@ import { drawAxis } from './draw-axis'
 import { initializeGraph } from './create-graph'
 import { configureHighlight } from './configure-highlight'
 import { nodeData } from './resources/TrekkingData'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run(): Promise<void> {
   License.value = licenseData

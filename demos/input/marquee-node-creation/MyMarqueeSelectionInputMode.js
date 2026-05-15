@@ -106,7 +106,8 @@ export class MyMarqueeSelectionInputMode extends MarqueeSelectionInputMode {
 
     const initialBounds = Rect.from(evt.rectangle)
 
-    const lastEventLocation = this.parentInputModeContext?.canvasComponent?.lastEventLocation
+    const lastEventLocation =
+      this.parentInputModeContext?.canvasComponent?.lastPointerEvent.location
     this.currentReshapePosition = this.getReshapePosition(lastEventLocation, evt.rectangle)
 
     this.getSnapContext().addItemToBeReshaped(this.dummyNode)

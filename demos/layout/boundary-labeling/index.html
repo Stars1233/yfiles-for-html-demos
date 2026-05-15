@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="utf-8" />
 <!-- ////////////////////////////////////////////////////////////////////////
@@ -33,45 +33,330 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
-    <title>Boundary Labeling [yFiles for HTML]</title>
-    <script type="module" src="../../demo-app/demo-page-init.ts" async></script>
+    <title>Boundary Labeling Demo - yFiles for HTML</title>
+    <script src="../../demo-app/set-theme.js"></script>
 
-    <link rel="stylesheet" href="../../demo-app/style/demo.css" />
+    <style>
+      #splash-screen {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: var(--splash-bg-color);
+        color: var(--splash-text-color);
+        z-index: 99999;
+        transition:
+          opacity 0.15s ease-in-out,
+          visibility 0.15s;
+      }
+
+      :root {
+        /* Brand / glow color for light mode */
+        --splash-glow-color: oklch(0.55 0.12 215);
+        --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
+        --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
+        --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
+        --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
+        --splash-bg-color: #ffffff;
+        --splash-text-color: var(--splash-glow-color);
+      }
+
+      :root[data-theme='dark'] {
+        --splash-bg-color: oklch(0.2775 0.0279 242.63);
+        --splash-text-color: #ffffff;
+        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
+        --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
+        --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
+        --splash-glow-color-transparent-0: oklch(0.75 0.135 217 / 0);
+      }
+
+      .splash-glow-pulse {
+        position: relative;
+        width: 180px;
+        height: 180px;
+        display: inline-block;
+        isolation: isolate;
+        opacity: 0;
+        animation: splash-content-fade-in 0.4s ease-out 0.3s forwards;
+      }
+      @keyframes splash-content-fade-in {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .splash-glow-pulse svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+        position: relative;
+        z-index: 1;
+        filter: drop-shadow(0 0 8px var(--splash-glow-color-transparent-85))
+          drop-shadow(0 0 24px var(--splash-glow-color-transparent-35));
+      }
+
+      .splash-glow-pulse::before {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          var(--splash-bg-color) 0%,
+          var(--splash-bg-color) 42%,
+          var(--splash-glow-color-transparent-90) 58%,
+          var(--splash-glow-color-transparent-0) 78%
+        );
+        transform: translate(-50%, -50%) scale(1);
+        pointer-events: none;
+        filter: blur(14px);
+        opacity: 0.75;
+        animation: radiate 1.3s ease-out infinite;
+        z-index: 0;
+      }
+
+      @keyframes radiate {
+        0% {
+          transform: translate(-50%, -50%) scale(1);
+          opacity: 0.75;
+          filter: blur(14px);
+        }
+        55% {
+          opacity: 0.2;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(2.15);
+          opacity: 0;
+          filter: blur(26px);
+        }
+      }
+    </style>
+
+    <script type="module" async>
+      import '@yfiles/demo-app/initialize-ui'
+    </script>
   </head>
-  <body>
-    <header class="demo-header">
-      <a
-        href="https://www.yfiles.com"
-        class="demo-header__y-logo"
-        title="yFiles homepage"
-        target="_blank"
-      ></a>
-      <div class="demo-header__breadcrumb-wrapper">
-        <a href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html">yFiles for HTML</a>
-        <a href="../../README.html">Demos</a>
-
-        <span>Boundary Labeling</span>
-        <a href="../../README.html" class="demo-header__mobile-back">yFiles Demos</a>
+  <body class="demo-modern">
+    <div id="splash-screen">
+      <div class="splash-glow-pulse" aria-hidden="true">
+        <svg id="b" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.4228 42.4228">
+          <defs>
+            <clipPath id="e">
+              <rect width="42.4228" height="42.4228" fill="none" />
+            </clipPath>
+            <clipPath id="f">
+              <rect width="42.4228" height="42.4228" fill="none" />
+            </clipPath>
+          </defs>
+          <g clip-path="url(#e)">
+            <g clip-path="url(#f)">
+              <path
+                d="M40.0692,16.7147c-.0272-4.4475-2.424-8.5429-6.2884-10.7446l-7.6095-4.3384c-3.8651-2.201-8.6107-2.1735-12.45.0721l-7.5594,4.4247C2.3239,8.3773-.0244,12.5015.0003,16.9497l.0496,8.7586c.028,4.4483,2.4244,8.5446,6.2885,10.7487l7.6094,4.3339c3.8649,2.2013,8.6105,2.1738,12.4496-.0721l7.5598-4.4246c3.8405-2.2465,6.1896-6.3722,6.1616-10.8214l-.0496-8.7581ZM33.2107,15.4162c-.1304.7924-.6313,1.4748-1.3481,1.8367-.6964.3303-1.4554.5076-2.2261.5202-.7941.0396-1.575.2188-2.3069.5292-.2526.1248-.4988.2623-.7376.4119-.5171.3208-1.0141.6727-1.4885,1.0539-.6457.4535-1.1971,1.0281-1.6237,1.6919-.2767.4592-.4643.9627-.5878,1.4834.2083.1644.4108.3371.6281.4893.6175.4288,1.3119.7344,2.0451.9001.3889.0862.7733.1268,1.1036.1945.5625.0502,1.1161.1733,1.6468.3664.9684.3588,1.6349,1.254,1.7009,2.2847.0814,1.2872-.8514,2.4161-2.1309,2.5789-.8726.1044-1.7389-.2396-2.3023-.9141-.395-.4716-.6947-1.0154-.8825-1.6012-.1868-.5403-.4088-1.0678-.6646-1.5791-.3318-.5933-.7694-1.1197-1.286-1.561-.0089.3687.004.7375.0505,1.1042.0587.5472.1087,1.0991.2035,1.6467.1343.7391.4092,1.4454.8098,2.0808.1945.3393.439.6425.6245.9231.3616.434.6657.9128.9046,1.4248.4318.9382.2705,2.0428-.4115,2.8185-.8515.9694-2.3106,1.1082-3.3297.3167-.6895-.543-1.0587-1.397-.9818-2.2712.0555-.6125.2291-1.2086.5112-1.7551.2468-.5162.4628-1.0464.647-1.5881.189-.6702.2549-1.3691.1944-2.0627-.0433-.705-.1233-1.4072-.2396-2.1038-.0964-.6736-.3354-1.3123-.6794-1.8918-.8134-.6066-1.7865-.9617-2.7993-1.0217-.9556-.0155-1.9027.1808-2.7734.5748-.3934.1583-.7918.3032-1.1807.4706-.8965.3845-1.6844.9842-2.2937,1.746-.3934.4796-.7553.9862-1.1943,1.4297-.5002.5373-1.1824.8693-1.9139.9316-1.2056.0813-2.296-.7136-2.5875-1.8864-.3052-1.3605.5502-2.7108,1.9106-3.0161.0161-.0036.0322-.0071.0484-.0104.4675-.1077.9514-.1232,1.4248-.0456.421.0682.8414.1313,1.2624.1949.699.1091,1.4113.1029,2.1083-.0185.4938-.1059.9769-.2572,1.4428-.4521.4615-.1719.9141-.3528,1.3661-.5522.5751-.238,1.0979-.5809,1.5473-1.0057-.1596-.0699-.3179-.1412-.4796-.2063-.905-.3626-1.8856-.4962-2.8546-.3889-.6199.0632-1.2303.1624-1.8548.1674-.7344.0264-1.4523-.2222-2.0131-.697-.9117-.7938-1.1199-2.1286-.4931-3.1623.746-1.1777,2.3055-1.5277,3.4832-.7817.0137.0087.0273.0175.0409.0264.4071.2549.7605.5869,1.0404.9772.249.3438.5021.6876.7557,1.0269.4156.5741.9249,1.0742,1.5065,1.4794.4248.2727.8729.5073,1.3391.7011.0583.0265.1182.0486.1766.0748.3588-.5126.6441-1.0731.8004-1.6807.1539-.6199.2401-1.2579.3352-1.8868.1187-.666.1385-1.3459.0587-2.0176-.0847-.5151-.2227-1.02-.4119-1.5065-.2895-.6389-.5123-1.306-.665-1.9906-.1338-.7034.0141-1.4313.4119-2.0266.7524-1.1301,2.2784-1.4362,3.4085-.6838.2495.1661.4665.3765.6403.6207.4683.6527.5977,1.4894.3483,2.2531-.2582.7263-.6702,1.3882-1.2078,1.9405-.5353.5877-.9614,1.2664-1.2579,2.0041-.0905.2674-.1675.5392-.2305.8144-.1389.5934-.2416,1.1947-.3077,1.8006-.135.777-.118,1.5729.05,2.3434.0694.2818.1674.5547.2828.8197.4654.0809.9402.1039,1.4134.0531.7363-.0806,1.447-.3165,2.0853-.6921.5477-.3303,1.0589-.7192,1.5746-1.0991.5556-.3884,1.051-.8565,1.4703-1.3892.3047-.424.564-.8788.7733-1.3571.2473-.6561.5611-1.2852.9366-1.8773.4028-.5922,1.0214-1.0031,1.7234-1.1446,1.3295-.2693,2.6257.5901,2.895,1.9197.06.2961.0648.6008.0142.8987Z"
+                fill="currentColor"
+              />
+            </g>
+          </g>
+        </svg>
       </div>
-      <div class="demo-header__right">
-        <show-source-button></show-source-button>
-        <fullscreen-button></fullscreen-button>
-      </div>
-    </header>
+    </div>
 
-    <aside class="demo-page__description">
-      <div class="demo-description__header">
+    <div class="header">
+      <span class="breadcrumb-wrapper yFiles-link">
         <a
-          href="https://www.yfiles.com"
-          class="demo-description__logo"
-          title="yFiles homepage"
+          href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+          class="y-logo"
           target="_blank"
+          title="yFiles Product Page"
         ></a>
-      </div>
-      <div class="demo-description__toggle-button" title="Toggle description"></div>
-      <div class="demo-description__play-button">Start here</div>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </span>
 
-      <div class="demo-description__content">
+      <a
+        href="../../README.html"
+        class="breadcrumb-wrapper demo-overview"
+        title="Demos Overview Page"
+        >Demos</a
+      >
+      <span class="material-symbols-outlined demo-overview">chevron_right</span>
+
+      <span class="breadcrumb-wrapper demo-name"> Boundary Labeling </span>
+
+      <button class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">dark_mode</button>
+      <button class="fullscreen-button" aria-label="Full screen" title="Full screen">
+        fullscreen
+      </button>
+      <button class="burger-menu-button" aria-label="Menu">menu</button>
+    </div>
+
+    <div class="navbar rail rail-collapsed">
+      <nav>
+        <button
+          class="guided-tour guided-tour-trigger hidden"
+          aria-label="Walkthrough"
+          title="Get a walkthrough of the demo"
+        >
+          <span class="icon">tooltip_2</span>
+          <span class="label">Walkthrough</span>
+        </button>
+      </nav>
+    </div>
+    <dialog id="burger-menu" class="burger-menu" aria-label="Navigation menu">
+      <!-- Main Menu Section -->
+      <section class="active" data-level="main" aria-label="Main navigation">
+        <header>
+          <div class="breadcrumbs">
+            <a
+              href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+              class="breadcrumb-link"
+              target="_blank"
+              >yFiles for HTML</a
+            >
+            <span class="material-symbols-outlined breadcrumb-icon">chevron_right</span>
+            <a href="../../README.html" class="breadcrumb-link">Demos</a>
+            <span class="material-symbols-outlined breadcrumb-icon">chevron_right</span>
+
+            <span>Boundary Labeling</span>
+          </div>
+          <button class="icon-button close" aria-label="Close menu">
+            <span aria-hidden="true">close</span>
+          </button>
+        </header>
+        <main>
+          <nav class="items" aria-label="Main menu">
+            <button class="item" id="open-description">Description</button>
+
+            <span id="linked-demos-hint" class="sr-only"
+              >Navigate to a submenu of links to more demos</span
+            >
+            <button class="item guided-tour-trigger hidden" id="start-tour">Walkthrough</button>
+
+            <button class="item" id="toggle-theme">Switch theme</button>
+            <a href="https://www.yfiles.com/the-yfiles-sdk" class="link secondary" target="_blank">
+              <span>About yFiles</span>
+              <span class="icon">open_in_new</span>
+            </a>
+          </nav>
+        </main>
+      </section>
+
+      <!-- Linked Demos Submenu Section -->
+      <section data-level="linked-demos" aria-label="More demos navigation">
+        <header>
+          <button class="icon-button back" aria-label="Back to main menu" data-navigate="main">
+            <span aria-hidden="true">arrow_back</span>
+          </button>
+          <span class="headline">Discover More</span>
+          <button class="icon-button close" aria-label="Close menu">
+            <span aria-hidden="true">close</span>
+          </button>
+        </header>
+        <main>
+          <nav class="items" aria-label="Linked demos menu">
+            <a href="../../README.html" class="demo-overview-link" style="font-weight: 600">
+              Demos Overview
+            </a>
+          </nav>
+        </main>
+      </section>
+      <!-- Live Demo Submenu Section -->
+      <section data-level="live-demo" aria-label="Live demo navigation">
+        <header>
+          <button class="icon-button back" aria-label="Back to main menu" data-navigate="main">
+            <span aria-hidden="true">arrow_back</span>
+          </button>
+          <span class="headline">Book a live Demo</span>
+          <button class="icon-button close" aria-label="Close menu">
+            <span aria-hidden="true">close</span>
+          </button>
+        </header>
+        <main>
+          <div class="live-demo-container">
+            <h2 class="bold highlight">Live Demo — yFiles in Action</h2>
+            <p class="highlight">30–45 min | Online | No install required</p>
+            <p class="bold">For Developers, Product Mangers & Executives</p>
+            <ul class="compact">
+              <li>Interactive graph visualization in real time</li>
+              <li>Integration example</li>
+              <li>Live Q&A and next step recommendations</li>
+            </ul>
+            <p class="bold">30–45 minutes | 1:1 or team session</p>
+            <div class="live-demo-separator"></div>
+            <div class="button-container">
+              <a
+                class="btn bold"
+                href="https://www.yfiles.com/book-live-demo?demo-id=boundary-labeling&demo-name=Boundary Labeling"
+                target="_blank"
+                >Book a free live demo</a
+              >
+            </div>
+          </div>
+        </main>
+      </section>
+    </dialog>
+
+    <div id="live-demo-popover" popover="auto" class="rail-popover dialog text-content">
+      <div class="live-demo-container">
+        <h2 class="bold highlight">Live Demo — yFiles in Action</h2>
+        <p class="highlight">30–45 min | Online | No install required</p>
+        <p class="bold">For Developers, Product Mangers & Executives</p>
+        <ul class="compact">
+          <li>Interactive graph visualization in real time</li>
+          <li>Integration example</li>
+          <li>Live Q&A and next step recommendations</li>
+        </ul>
+        <p class="bold">30–45 minutes | 1:1 or team session</p>
+        <div class="live-demo-separator"></div>
+        <div class="button-container">
+          <a
+            class="btn bold"
+            href="https://www.yfiles.com/book-live-demo?demo-id=boundary-labeling&demo-name=Boundary Labeling"
+            target="_blank"
+            >Book a free live demo</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="main-container">
+      <div class="graph-panel">
+        <div class="toolbar" data-tip-id="toolbar">
+          <button data-command="DECREASE_ZOOM" id="zoom-out-button" title="Zoom Out">
+            zoom_out
+          </button>
+          <button data-command="INCREASE_ZOOM" id="zoom-in-button" title="Zoom In">zoom_in</button>
+          <button data-command="FIT_GRAPH_BOUNDS" id="fit-graph-button" title="Fit Graph">
+            zoom_out_map
+          </button>
+
+          <span class="separator"></span>
+
+          <label class="option-label" title="Set the font size of the labels"
+            >Label Font Size:
+            <input
+              type="range"
+              min="10"
+              max="25"
+              value="12"
+              step="1"
+              id="font-size-slider"
+              class="option-element"
+            />
+            <span id="font-size-label">12</span>
+          </label>
+        </div>
+        <div id="graphComponent"></div>
+      </div>
+      <div class="description-panel">
         <h1>Boundary Labeling</h1>
         <p>
           This demo shows how to configure the
@@ -99,37 +384,8 @@
           algorithm re-arranges the labels.
         </p>
       </div>
-    </aside>
-
-    <div class="demo-page__toolbar">
-      <button data-command="INCREASE_ZOOM"></button>
-      <button data-command="ZOOM_ORIGINAL"></button>
-      <button data-command="DECREASE_ZOOM"></button>
-      <button data-command="FIT_GRAPH_BOUNDS"></button>
-      <span class="demo-separator"></span>
-
-      <label for="font-size-slider" class="yplay__menu--select-label option-label"
-        >Label Font Size:</label
-      >
-      <div class="yplay__menu--slider-container option-element">
-        <input
-          type="range"
-          min="10"
-          max="25"
-          value="12"
-          step="1"
-          id="font-size-slider"
-          class="yplay__menu--slider option-element"
-        />
-        <span class="yplay__menu--slider-value" id="font-size-label">12</span>
-      </div>
+      <div class="panel-bar"></div>
     </div>
-
-    <div class="demo-page__main">
-      <div class="demo-main__graph-component">
-        <div id="graphComponent"></div>
-      </div>
-    </div>
-    <script type="module" crossorigin="anonymous" src="BoundaryLabelingDemo.ts" async></script>
+    <script type="module" crossorigin="anonymous" async="" src="BoundaryLabelingDemo.ts"></script>
   </body>
 </html>

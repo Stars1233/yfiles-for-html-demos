@@ -59,7 +59,32 @@ import {
   initDemoStyles
 } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, addOptions, finishLoading } from '@yfiles/demo-app/demo-page'
+
+import computerNetworkSettings from './resources/computer_network.json'
+import groupsSettings from './resources/groups.json'
+import mixedLargeSettings from './resources/mixed_large.json'
+import mixedSmallSettings from './resources/mixed_small.json'
+import parallelSettings from './resources/parallel.json'
+import starSettings from './resources/star.json'
+import { addNavigationButtons, addOptions } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+
+type SampleSettings = {
+  cycleSubstructureStyle: string
+  chainSubstructureStyle: string
+  starSubstructureStyle: string
+  parallelSubstructureStyle: string
+  treeSubstructureStyle: string
+  groupSubstructures: string
+  useEdgeGrouping: boolean
+  considerNodeTypes: boolean
+  parallelSubstructureTypeSeparation: boolean
+  starSubstructureTypeSeparation: boolean
+  overrideStyles: boolean
+  allowItemCreation: boolean
+  allowItemModification: boolean
+  allowTypeChanges: boolean
+}
 
 /**
  * The color sets for the eight different node types.
@@ -98,6 +123,8 @@ async function run(): Promise<void> {
 
   // enable undo/redo
   graphComponent.graph.undoEngineEnabled = true
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 
   // initializes the context menu for changing a node's type
   initializeTypePanel(graphComponent)
@@ -353,7 +380,7 @@ function setNodeType(node: INode, type: number): void {
  * Loads a sample graph for testing the substructure and node types support of the organic layout
  * algorithm.
  */
-async function loadSample(sample: string): Promise<void> {
+async function loadSample(sample: string, settings: SampleSettings): Promise<void> {
   disableUI(true)
   try {
     const newGraph = new Graph()
@@ -363,12 +390,9 @@ async function loadSample(sample: string): Promise<void> {
     // load sample data
     await new GraphMLIOHandler().readFromURL(newGraph, `resources/${sample}.graphml`)
 
-    // update the settings UI to match the sample's default layout settings
-    const data = await loadSampleData(`resources/${sample}.json`)
-    updateLayoutSettings(data)
+    updateLayoutSettings(settings)
 
-    const { overrideStyles, allowItemCreation, allowItemModification, allowTypeChanges } =
-      data.settings
+    const { overrideStyles, allowItemCreation, allowItemModification, allowTypeChanges } = settings
 
     // enable/disable node type changes depending on the sample
     allowNodeTypeChange = allowTypeChanges
@@ -422,44 +446,20 @@ function updateNodeStyles(graph: IGraph): void {
 }
 
 /**
- * Loads sample data from the file identified by the given sample path.
- * @param samplePath the path to the sample data file.
- */
-async function loadSampleData(samplePath: string): Promise<any> {
-  const response = await fetch(samplePath)
-  return await response.json()
-}
-
-/**
  * Updates the settings UI to match the given sample's default layout settings
  * @yjs:keep = cycleSubstructureStyle,chainSubstructureStyle,starSubstructureStyle,parallelSubstructureStyle,parallelSubstructureTypeSeparation,starSubstructureTypeSeparation
- * @param data the sample data representing the desired graph structure.
  */
-function updateLayoutSettings(data: any): void {
-  const settings = data.settings
-  if (settings) {
-    updateSelectedIndex('cycleStyle', settings.cycleSubstructureStyle)
-    updateSelectedIndex('chainStyle', settings.chainSubstructureStyle)
-    updateSelectedIndex('starStyle', settings.starSubstructureStyle)
-    updateSelectedIndex('parallelStyle', settings.parallelSubstructureStyle)
-    updateSelectedIndex('treeStyle', settings.treeSubstructureStyle)
-    updateSelectedIndex('groupScope', settings.groupSubstructures)
-    updateState('use-edge-grouping', settings.useEdgeGrouping, false)
-    updateState('consider-node-types', settings.considerNodeTypes, true)
-    updateState('separate-parallel', settings.parallelSubstructureTypeSeparation, false)
-    updateState('separate-star', settings.starSubstructureTypeSeparation, false)
-  } else {
-    document.querySelector<HTMLSelectElement>(`#cycleStyle`)!.selectedIndex = 0
-    document.querySelector<HTMLSelectElement>(`#chainStyle`)!.selectedIndex = 0
-    document.querySelector<HTMLSelectElement>(`#starStyle`)!.selectedIndex = 0
-    document.querySelector<HTMLSelectElement>(`#parallelStyle`)!.selectedIndex = 0
-    document.querySelector<HTMLSelectElement>(`#treeStyle`)!.selectedIndex = 0
-    document.querySelector<HTMLSelectElement>(`#groupScope`)!.selectedIndex = 0
-    document.querySelector<HTMLInputElement>(`#use-edge-grouping`)!.checked = false
-    document.querySelector<HTMLInputElement>(`#consider-node-types`)!.checked = true
-    document.querySelector<HTMLInputElement>(`#separate-parallel`)!.checked = false
-    document.querySelector<HTMLInputElement>(`#separate-star`)!.checked = false
-  }
+function updateLayoutSettings(settings: SampleSettings): void {
+  updateSelectedIndex('cycleStyle', settings.cycleSubstructureStyle)
+  updateSelectedIndex('chainStyle', settings.chainSubstructureStyle)
+  updateSelectedIndex('starStyle', settings.starSubstructureStyle)
+  updateSelectedIndex('parallelStyle', settings.parallelSubstructureStyle)
+  updateSelectedIndex('treeStyle', settings.treeSubstructureStyle)
+  updateSelectedIndex('groupScope', settings.groupSubstructures)
+  updateState('use-edge-grouping', settings.useEdgeGrouping, false)
+  updateState('consider-node-types', settings.considerNodeTypes, true)
+  updateState('separate-parallel', settings.parallelSubstructureTypeSeparation, false)
+  updateState('separate-star', settings.starSubstructureTypeSeparation, false)
 }
 
 /**
@@ -528,22 +528,26 @@ function disableUI(disabled: boolean): void {
  * Binds actions and commands to the demo's UI controls.
  */
 function initializeUI(): void {
+  const samples = {
+    mixed_large: { text: 'Simple Mixed, Large', settings: mixedLargeSettings },
+    mixed_small: { text: 'Simple Mixed, Small', settings: mixedSmallSettings },
+    parallel: { text: 'Simple Parallel', settings: parallelSettings },
+    star: { text: 'Simple Star', settings: starSettings },
+    groups: { text: 'Simple Groups', settings: groupsSettings },
+    computer_network: { text: 'Computer Network', settings: computerNetworkSettings }
+  } as const
+
   const sampleSelect = document.querySelector<HTMLSelectElement>('#sample-combo-box')!
-  sampleSelect.addEventListener('change', async () => {
-    await loadSample(sampleSelect.options[sampleSelect.selectedIndex].value)
+  sampleSelect.addEventListener('change', async (event: Event) => {
+    const selectedValue = (event.target as HTMLSelectElement).value as keyof typeof samples
+    const sample = samples[selectedValue]
+    await loadSample(selectedValue, sample.settings)
   })
+
   // as a final step, addOptions will fire a change event
   // due to the change listener registered above, this will load the initial sample graph
-  addOptions(
-    sampleSelect,
-    { text: 'Simple Mixed, Large', value: 'mixed_large' },
-    { text: 'Simple Mixed, Small', value: 'mixed_small' },
-    { text: 'Simple Parallel', value: 'parallel' },
-    { text: 'Simple Star', value: 'star' },
-    { text: 'Simple Groups', value: 'groups' },
-    { text: 'Computer Network', value: 'computer_network' }
-  )
-  addNavigationButtons(sampleSelect, true, false, 'sidebar-button')
+  addOptions(sampleSelect, ...Object.entries(samples).map(([value, { text }]) => ({ text, value })))
+  addNavigationButtons(sampleSelect, '', true, true, 'sidebar-button')
 
   // changing a value automatically runs a layout
   for (const editor of document.querySelectorAll('.settings-editor')) {

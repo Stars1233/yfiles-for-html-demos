@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Component Drag and Drop Demo
+# Component Drag and Drop Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/component-drag-and-drop.webp" alt="demo-thumbnail" height="320"/>
 
@@ -26,10 +26,3 @@ If a component is dragged from the palette onto the canvas, the _ClearAreaLayout
 - Press the Esc key while dragging to cancel the drag and drop operation.
 - Select the button _Keep Components_ to prevent the components from being changed during the drag and drop operation.
 - Select a component by clicking on a node, drag the component through the remaining graph, and watch how the graph changes to provide space for it.
-
-## Related Demos
-
-- [Drag and Drop Demo](../../input/draganddrop/)
-- [Graph Drag and Drop Demo](../../input/graph-drag-and-drop/)
-- [Custom Drag and Drop Demo](../../input/custom-drag-and-drop/)
-- [Component Drag and Drop Demo](../../input/componentdraganddrop/)

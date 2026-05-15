@@ -63,13 +63,14 @@ import {
 import { VoronoiDiagram } from './VoronoiDiagram'
 import { PolygonVisual, VoronoiVisual } from './DemoVisuals'
 import { DendrogramComponent } from './DendrogramSupport'
-import { createDemoEdgeStyle, createDemoShapeNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
-import { edgeBetweennessData } from './data/edge-betweenness-data'
-import { biconnectedComponentsData } from './data/biconnected-components-data'
-import { kMeansData } from './data/k-means-data'
-import { hierarchicalData } from './data/hierarchical-data'
+import edgeBetweennessData from './data/edge-betweenness-data.json'
+import biconnectedComponentsData from './data/biconnected-components-data.json'
+import kMeansData from './data/k-means-data.json'
+import hierarchicalData from './data/hierarchical-data.json'
+import { createDemoEdgeStyle, createDemoShapeNodeStyle } from '@yfiles/demo-app/demo-styles'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -243,6 +244,9 @@ function configureUserInteraction(graphComponent: GraphComponent): void {
   graphComponent.clipboard.addEventListener('items-cut', async () => {
     await runAlgorithm()
   })
+
+  // Add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**
@@ -600,7 +604,10 @@ function initializeUI(): void {
   const graph = graphComponent.graph
 
   const samplesComboBox = document.querySelector<HTMLSelectElement>(`#algorithms`)!
-  addNavigationButtons(samplesComboBox).addEventListener('change', onAlgorithmChanged)
+  addNavigationButtons(samplesComboBox, 'Clustering Algorithms:').addEventListener(
+    'change',
+    onAlgorithmChanged
+  )
 
   // edge-betweenness menu
   const minInput = document.querySelector<HTMLInputElement>(`#ebMinClusterNumber`)!

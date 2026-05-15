@@ -30,7 +30,6 @@ import {
   type GraphComponent,
   NodeStyleIndicatorRenderer,
   ShapeNodeStyle,
-  Stroke,
   StyleIndicatorZoomPolicy
 } from '@yfiles/yfiles'
 import { onMounted } from 'vue'
@@ -52,7 +51,7 @@ export function useGraphSearch(getGraphComponent: () => GraphComponent) {
   function register(): void {
     graphSearch = new GraphSearch(graphComponent)
     graphSearch.highlightRenderer = new NodeStyleIndicatorRenderer({
-      nodeStyle: new ShapeNodeStyle({ stroke: new Stroke(0x03, 0xa9, 0xf4, 220, 3), fill: null }),
+      nodeStyle: new ShapeNodeStyle({ stroke: '3px solid #00d8ff', fill: null }),
       margins: 3,
       zoomPolicy: StyleIndicatorZoomPolicy.MIXED
     })

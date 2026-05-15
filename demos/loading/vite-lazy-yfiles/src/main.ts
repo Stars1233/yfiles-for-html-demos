@@ -48,7 +48,7 @@ loadDiagramComponentBtn.addEventListener('click', async () => {
   // hide the note and remove the inactive background color
   const gcContainer = document.querySelector<HTMLDivElement>('#graphComponent')!
   gcContainer.removeChild(gcContainer.firstElementChild!)
-  gcContainer.className = ''
+  gcContainer.className = 'graph-component'
 
   // instantiate a new GraphComponent
   new DiagramComponent(gcContainer)

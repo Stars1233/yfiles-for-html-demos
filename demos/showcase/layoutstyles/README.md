@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Layout Styles Demo
+# Layout Styles Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-styles.webp" alt="demo-thumbnail" height="320"/>
 

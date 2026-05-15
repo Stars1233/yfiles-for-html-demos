@@ -31,9 +31,6 @@ import './DemoDataPanel.css'
 import ItemElement from './ItemElement'
 import { GraphData } from '../page'
 
-const plusIcon = '/assets/plus-16.svg'
-const minusIcon = '/assets/minus-16.svg'
-
 interface DemoDataPanelProps {
   graphData: GraphData
   onRemoveNode(): void
@@ -60,7 +57,7 @@ export default function DemoDataPanel(props: DemoDataPanelProps) {
         </p>
         <div className="controls">
           <button className="control-button" onClick={props.onAddNode}>
-            <img src={plusIcon} alt="AddNodeIcon" />
+            <span className="material-symbols-outlined">add</span>
             <span>Add Node to Data</span>
           </button>
           <button
@@ -68,7 +65,7 @@ export default function DemoDataPanel(props: DemoDataPanelProps) {
             onClick={props.onRemoveNode}
             disabled={props.graphData.nodesSource.length === 0}
           >
-            <img src={minusIcon} alt="RemoveNodeIcon" />
+            <span className="material-symbols-outlined">remove</span>
             <span>Remove Node from Data</span>
           </button>
         </div>

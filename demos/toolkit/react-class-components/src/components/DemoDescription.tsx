@@ -26,7 +26,6 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import yLogo from '../assets/ylogo-text.svg'
 import './DemoDescription.css'
 import { Component } from 'react'
 
@@ -34,13 +33,8 @@ export default class DemoDescription extends Component {
   render() {
     return (
       <>
-        <div className="demo-sidebar-header">
-          <a href="https://www.yfiles.com">
-            <img src={yLogo} alt="yWorks Logo" className="demo-left-logo" />
-          </a>
-        </div>
         <div className="demo-sidebar-content">
-          <h1>React Demo</h1>
+          <h1>React Class Components</h1>
           <p>
             This demo shows how to integrate yFiles in a{' '}
             <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">

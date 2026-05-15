@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Partial Layout Demo
+# Partial Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/partial-layout.webp" alt="demo-thumbnail" height="320"/>
 

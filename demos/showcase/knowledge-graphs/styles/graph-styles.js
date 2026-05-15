@@ -28,11 +28,12 @@
  ***************************************************************************/
 import {
   Color,
-  ILabelStyle,
   INode,
   LabelStyle,
+  WebGLLabelStyle,
   WebGLPolylineEdgeStyle,
-  WebGLShapeNodeStyle
+  WebGLShapeNodeStyle,
+  WebGLZoomVisibilityPolicy
 } from '@yfiles/yfiles'
 import { getEdgeTag, getLabelTag, getNodeTag } from '../types'
 
@@ -66,8 +67,29 @@ export const errorLightColor = '#ff6933'
 /** Default text color. */
 export const textColor = '#2A323C'
 
+const transitionEasing = 'ease'
+const transitionDuration = '300ms'
+
+const nodeLabelZoomVisibilityPolicy = new WebGLZoomVisibilityPolicy({
+  lowerThreshold: 0.2,
+  transitionEasing,
+  transitionDuration
+})
+
+const nodeIconLabelZoomVisibilityPolicy = new WebGLZoomVisibilityPolicy({
+  lowerThreshold: 0.1,
+  transitionEasing,
+  transitionDuration
+})
+
+const edgeLabelZoomVisibilityPolicy = new WebGLZoomVisibilityPolicy({
+  lowerThreshold: 0.5,
+  transitionEasing,
+  transitionDuration
+})
+
 /**
- * Returns the Material Icons name for a given node type.
+ * Returns the Material symbols name for a given node type.
  *
  * @param type - The node type to get the icon for
  */
@@ -88,7 +110,7 @@ export function getNodeIcon(type) {
 }
 
 /**
- * Returns the Material Icons name for a problem indicator.
+ * Returns the Material symbols name for a problem indicator.
  *
  * @param problem - The problem to get the icon for
  */
@@ -149,14 +171,10 @@ export function getEdgeStyle(edge) {
  * or text style for regular labels.
  *
  * @param label - The label to style
- * @param ignoreVisibility - Whether to return the style regardless of the label's visibility
+ * @param alwaysVisible - Whether the label should always be visible regardless of the zoom level
  */
-export function getLabelStyle(label, ignoreVisibility = false) {
+export function getLabelStyle(label, alwaysVisible = false) {
   const tag = getLabelTag(label)
-
-  if (!tag.visible && !ignoreVisibility) {
-    return ILabelStyle.VOID_LABEL_STYLE
-  }
 
   if (tag.type === 'icon') {
     return getIconLabelStyle(label.owner)
@@ -164,60 +182,68 @@ export function getLabelStyle(label, ignoreVisibility = false) {
     return errorNodeLabelStyle
   }
 
-  return getTextLabelStyle(label.owner)
+  return getTextLabelStyle(label.owner, alwaysVisible)
 }
 
 /**
  * Creates a text label style for nodes or edges.
  *
  * @param item - The node or edge to style the label for
+ * @param alwaysVisible - Whether the label should always be visible regardless of the zoom level
  */
-export function getTextLabelStyle(item) {
-  const tag = item instanceof INode ? getNodeTag(item) : getEdgeTag(item)
-  const clusterId =
-    item instanceof INode ? getNodeTag(item).clusterId : getNodeTag(item.sourceNode).clusterId
+export function getTextLabelStyle(item, alwaysVisible = false) {
+  const isNodeLabel = item instanceof INode
+  const tag = isNodeLabel ? getNodeTag(item) : getEdgeTag(item)
+  const clusterId = isNodeLabel ? getNodeTag(item).clusterId : getNodeTag(item.sourceNode).clusterId
   const colorSet = clusterIdToColors.get(clusterId)
 
   const backgroundStroke = `2px ${!tag.problem ? colorSet.main : errorMainColor}`
   const backgroundFill = `${!tag.problem ? colorSet.light : errorMainColor}`
   const textFill = !tag.problem ? textColor : 'white'
-  const fontSize = item instanceof INode ? 60 : 28
+  const fontSize = isNodeLabel ? item.layout.width / 10 + 22 : 20
 
-  return new LabelStyle({
+  return new WebGLLabelStyle({
     font: `${fontSize}px sans-serif`,
     backgroundStroke,
-    backgroundFill,
-    textFill,
+    backgroundColor: backgroundFill,
+    textColor: textFill,
     horizontalTextAlignment: 'center',
     verticalTextAlignment: 'center',
     padding: [2, 6, 2, 6],
-    shape: 'pill'
+    shape: 'pill',
+    zoomVisibilityPolicy: alwaysVisible
+      ? null
+      : isNodeLabel
+        ? nodeLabelZoomVisibilityPolicy
+        : edgeLabelZoomVisibilityPolicy
   })
 }
 
 /**
- * Creates an icon label style for Material Icons.
+ * Creates an icon label style for Material symbols.
  *
  * @param node - The node to create icon style for
+ * @param alwaysVisible - Whether the label should always be visible regardless of the zoom level
  */
-export function getIconLabelStyle(node) {
+export function getIconLabelStyle(node, alwaysVisible = false) {
   const size = node.layout.width
 
-  return new LabelStyle({
-    font: `${Math.floor(size * 0.6)}px Material Icons Outlined, sans-serif`,
+  return new WebGLLabelStyle({
+    font: `${Math.floor(size * 0.6)}px Material Symbols Outlined, sans-serif`,
     horizontalTextAlignment: 'center',
     verticalTextAlignment: 'center',
-    textFill: textColor,
+    textColor,
     wrapping: 'none',
-    padding: [0, 0, size * 0.1, 0]
+    padding: [0, 0, size * 0.1, 0],
+    zoomVisibilityPolicy: alwaysVisible ? null : nodeIconLabelZoomVisibilityPolicy
   })
 }
 
 /**
- * Predefined label style for error indicators using Material Icons.
+ * Predefined label style for error indicators using Material Symbols.
  */
 export const errorNodeLabelStyle = new LabelStyle({
-  font: '40px Material Icons Outlined',
+  font: '40px Material Symbols Outlined',
   horizontalTextAlignment: 'center',
   verticalTextAlignment: 'center',
   textFill: errorMainColor

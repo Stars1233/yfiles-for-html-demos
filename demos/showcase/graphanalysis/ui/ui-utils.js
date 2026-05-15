@@ -31,14 +31,13 @@ import { AdjacencyGraphBuilder, EdgeCreator, FreeEdgeLabelModel } from '@yfiles/
 import { runLayout } from '../layout/layout'
 import { updateDescriptionText } from './algorithm-description'
 import { updateGraphInformation } from './graph-structure-information'
-import { addNavigationButtons } from '@yfiles/demo-app/demo-page'
 import { TagColoredShapeNodeStyle } from '../styles'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 
 const sampleComboBox = document.querySelector('#samples')
 const algorithmComboBox = document.querySelector('#algorithms')
 const directionComboBox = document.querySelector('#directions')
 const uniformEdgeWeightsComboBox = document.querySelector('#uniform-edge-weights')
-const clearButton = document.querySelector('#clear-graph')
 const layoutButton = document.querySelector('#layout-button')
 
 /**
@@ -74,19 +73,9 @@ export function useDirectedEdges() {
 export function initializeToolbar(graphComponent) {
   const graph = graphComponent.graph
 
-  clearButton.addEventListener('click', async () => {
-    graph.clear()
-    graph.undoEngine.clear()
-    await graphComponent.fitGraphBounds()
-    updateGraphInformation(graphComponent)
-  })
-
   fillComboBox(
     sampleComboBox,
-    Object.entries(algorithms).map(([name, algorithm]) => ({
-      key: name,
-      name: `Sample: ${algorithm.name}`
-    }))
+    Object.entries(algorithms).map(([name, algorithm]) => ({ key: name, name: algorithm.name }))
   )
   addNavigationButtons(sampleComboBox).addEventListener('change', () =>
     switchSample(graphComponent)
@@ -94,10 +83,7 @@ export function initializeToolbar(graphComponent) {
 
   fillComboBox(
     algorithmComboBox,
-    Object.entries(algorithms).map(([name, algorithm]) => ({
-      key: name,
-      name: `Algorithm: ${algorithm.name}`
-    }))
+    Object.entries(algorithms).map(([name, algorithm]) => ({ key: name, name: algorithm.name }))
   )
   addNavigationButtons(algorithmComboBox).addEventListener('change', () =>
     switchAlgorithm(graphComponent)
@@ -220,13 +206,6 @@ async function switchAlgorithm(graphComponent) {
  * When enabling the UI elements, the current algorithm is considered and only suitable elements are enabled.
  */
 export function setUIDisabled(disabled, graphComponent) {
-  document
-    .querySelectorAll('.demo-page__toolbar select, .demo-page__toolbar button')
-    .forEach((element) => {
-      if (element instanceof HTMLSelectElement || element instanceof HTMLButtonElement) {
-        element.disabled = disabled
-      }
-    })
   setTimeout(() => {
     // timeout to make sure the mutex can be acquired even if it was triggered by another input mode's event
     graphComponent.inputMode.waiting = disabled

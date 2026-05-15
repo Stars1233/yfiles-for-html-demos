@@ -37,7 +37,7 @@ import {
 } from '../common'
 import { CustomLabelStyle } from './CustomLabelStyle'
 
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 License.value = licenseData
 

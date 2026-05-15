@@ -67,8 +67,8 @@ import { createEdgeCreationButtons, createExtensibilityButtons } from './UMLCont
 
 import licenseData from '../../../lib/license.json'
 import { configureTwoPointerPanning } from '@yfiles/demo-utils/configure-two-pointer-panning'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 

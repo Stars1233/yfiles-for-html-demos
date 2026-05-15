@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Node Overlap Avoiding Demo
+# Node Overlap Avoiding Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/node-overlap-avoiding.webp" alt="demo-thumbnail" height="320"/>
 

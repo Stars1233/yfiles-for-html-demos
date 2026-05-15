@@ -32,83 +32,38 @@
      ////////////////////////////////////////////////////////////////////////-->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-
     <title>Web Components Integration Demo [yFiles for HTML]</title>
-    <script type="module" src="../../demo-app/demo-page-init.ts" async></script>
-
-    <link rel="stylesheet" href="../../demo-app/style/demo.css" />
-
-    <style>
-      .yfiles-canvascomponent {
-        background: #e0e0e0;
-      }
-
-      .visible-style-tag {
-        display: inline-block;
-        box-sizing: border-box;
-        width: 100%;
-        border: 1px solid gray;
-        outline: none;
-        padding: 5px;
-        white-space: pre;
-      }
-
-      :root {
-        --description-width: 360px;
-      }
-    </style>
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body class="loaded">
     <div class="demo-header">
-      <a href="https://www.yfiles.com" target="_blank">
-        <img src="../../demo-app/icons/ylogo.svg" class="demo-y-logo" />
-      </a>
-      <div class="demo-header__breadcrumb-wrapper">
-        <a
-          href="https://www.yfiles.com"
-          class="demo-header__breadcrumb demo-header__breadcrumb--link"
-          target="_blank"
-        >
-          yFiles for HTML
-        </a>
-        <a
-          href="../../README.html"
-          class="demo-header__breadcrumb demo-header__breadcrumb--link"
-          target="_blank"
-        >
-          Demos
-        </a>
-        <span class="demo-header__breadcrumb">Web Components Integration Demo</span>
-      </div>
+      <a
+        href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+        class="y-logo"
+        target="_blank"
+      ></a>
+      <span class="chevron-right"></span>
+      <a href="../../README.html" style="cursor: pointer"> Demos </a>
+      <span class="chevron-right"></span>
+      <span>Web Components Integration Demo</span>
     </div>
-    <div class="demo-page__toolbar">
-      <button data-command="INCREASE_ZOOM"></button>
-      <button data-command="ZOOM_ORIGINAL"></button>
-      <button data-command="DECREASE_ZOOM"></button>
-      <button data-command="FIT_GRAPH_BOUNDS"></button>
+    <div class="main-container">
+      <div class="graph-container">
+        <div class="demo-toolbar">
+          <button data-command="INCREASE_ZOOM">zoom_in</button>
+          <button data-command="ZOOM_ORIGINAL">view_real_size</button>
+          <button data-command="DECREASE_ZOOM">zoom_out</button>
+          <button data-command="FIT_GRAPH_BOUNDS">zoom_out_map</button>
 
-      <span class="demo-separator"></span>
+          <span class="demo-separator"></span>
 
-      <span>
-        <label style="width: auto">
-          <input type="checkbox" id="useShadow" checked="" />
-          Use Shadow Root
-        </label>
-      </span>
-    </div>
-    <aside class="demo-page__description">
-      <div class="demo-description__header">
-        <a
-          href="https://www.yfiles.com"
-          class="demo-description__logo"
-          title="yFiles homepage"
-          target="_blank"
-        ></a>
+          <div class="toggle">
+            <input type="checkbox" id="useShadow" checked="" />
+            <label for="useShadow">Use Shadow Root</label>
+          </div>
+        </div>
       </div>
-      <div class="demo-description__toggle-button" title="Toggle description"></div>
-      <div class="demo-description__play-button">Start here</div>
-
-      <div class="demo-description__content">
+      <div class="demo-description">
         <h1>Web Components Integration Demo</h1>
 
         <p>This demo shows how yFiles for HTML can be used with Web Components.</p>
@@ -120,9 +75,9 @@
         <h3>Custom Graph Component Element</h3>
 
         <p>The GraphComponent is wrapped in a custom element. It can be used by writing</p>
-        <pre><code>&lt;graph-component&gt;&lt;/graph-component&gt;</code></pre>
+        <code>&lt;graph-component&gt;&lt;/graph-component&gt;</code>
         <p>in your HTML markup, or by calling</p>
-        <pre><code>document.createElement('graph-component')</code></pre>
+        <code>document.createElement('graph-component')</code>
         <p>in your JavaScript code.</p>
         <p>
           The zoom property of the GraphComponent is reflected to an attribute of the custom
@@ -140,29 +95,28 @@
           underneath, where the right one is inside a shadow root while the left one is not:
         </p>
         <style class="visible-style-tag" contenteditable="">
-          svg rect {
-            fill: green;
+          svg .node {
+            fill: #19535f;
           }
         </style>
-        <p>
-          <svg width="120" height="60">
-            <text x="0" y="15">No Shadow Root</text>
-            <rect height="40" width="40" x="25" y="20"></rect>
-          </svg>
+        <div class="sample-svgs">
           <shadow-dom>
-            <svg width="120" height="60">
+            <svg width="130" height="70">
               <text x="0" y="15">With Shadow Root</text>
-              <rect height="40" width="40" x="25" y="20" fill="orange"></rect>
+              <rect height="40" width="40" x="25" y="30" fill="#0d9a94" rx="10"></rect>
             </svg>
           </shadow-dom>
-        </p>
+          <svg width="130" height="70">
+            <text x="0" y="15">No Shadow Root</text>
+            <rect class="node" height="40" width="40" x="25" y="30" rx="10"></rect>
+          </svg>
+        </div>
         <p>
           You can also uncheck the 'Use Shadow Root' option in the toolbar to see how the user
           defined CSS affects the graph visualization.
         </p>
       </div>
-    </aside>
-    <div class="demo-page__main"></div>
+    </div>
     <script type="module" crossorigin="anonymous" src="WebComponentsDemo.ts" async></script>
   </body>
 </html>

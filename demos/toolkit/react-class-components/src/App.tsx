@@ -30,32 +30,28 @@ import { Component } from 'react'
 import './App.css'
 import ReactGraphComponent from './components/ReactGraphComponent'
 import DemoDescription from './components/DemoDescription'
-import yLogo from './assets/ylogo.svg'
 
 export default class App extends Component {
   render() {
     return (
       <div className="app">
-        <aside className="demo-sidebar left demo-page__description">
+        <aside className="demo-sidebar right demo-page__description">
           <DemoDescription />
         </aside>
 
         <div className="demo-header">
-          <a href="https://www.yfiles.com" target="_blank" rel="noopener noreferrer">
-            <img src={yLogo} className="demo-y-logo" alt="yWorks Logo" />
-          </a>
-          <a href="https://www.yfiles.com" target="_blank" rel="noopener noreferrer">
-            yFiles for HTML
-          </a>
           <a
-            href="../../../README.html"
+            href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+            className="y-logo"
             target="_blank"
-            className={'demo-title'}
-            rel="noopener noreferrer"
-          >
+            title="yFiles Product Page"
+          ></a>
+          <span className="chevron-right"></span>
+          <a href="../../../README.html" target="_blank" rel="noopener noreferrer">
             Demos
           </a>
-          <span className="demo-title">React Class Components Demo</span>
+          <span className="chevron-right"></span>
+          <span className="demo-title">React Class Components</span>
         </div>
 
         <ReactGraphComponent />

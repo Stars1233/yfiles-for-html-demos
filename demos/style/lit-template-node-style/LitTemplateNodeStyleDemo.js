@@ -42,7 +42,7 @@ import {
 import SampleData from './resources/sample'
 import { createLitNodeStyleFromSource, LitNodeStyle } from './LitNodeStyle'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
 import {
   createCodemirrorEditor,

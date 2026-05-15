@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { AfterViewInit, Component, ElementRef, NgZone, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core'
 import { GraphComponent, GraphOverviewComponent } from '@yfiles/yfiles'
 import { GraphComponentService } from '../services/graph-component.service'
 
@@ -38,10 +38,7 @@ export class GraphOverviewComponentComponent implements AfterViewInit {
   @ViewChild('graphOverviewComponentRef') graphOverviewComponentRef!: ElementRef
   graphOverviewComponent!: GraphOverviewComponent
   private readonly graphComponent: GraphComponent
-  constructor(
-    private zone: NgZone,
-    graphComponentService: GraphComponentService
-  ) {
+  constructor(graphComponentService: GraphComponentService) {
     this.graphComponent = graphComponentService.getGraphComponent()
   }
 
@@ -51,12 +48,9 @@ export class GraphOverviewComponentComponent implements AfterViewInit {
 
   private initializeOverview(graphComponent: GraphComponent): void {
     // Instantiate a new GraphOverviewComponent
-    // See https://docs.yworks.com/yfileshtml/#/kb/article/848/Improving_performance_of_large_Angular_applications
-    this.zone.runOutsideAngular(() => {
-      this.graphOverviewComponent = new GraphOverviewComponent(
-        '#graph-overview-component',
-        graphComponent
-      )
-    })
+    this.graphOverviewComponent = new GraphOverviewComponent(
+      '#graph-overview-component',
+      graphComponent
+    )
   }
 }

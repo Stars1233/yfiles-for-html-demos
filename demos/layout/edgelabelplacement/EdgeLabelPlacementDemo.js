@@ -57,9 +57,10 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
 import { toDegrees, toRadians } from '@yfiles/demo-utils/LegacyGeometryUtilities'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The graph component.
@@ -131,7 +132,7 @@ function buildGraph(graph, graphData) {
   graphBuilder.createNodesSource({
     data: graphData.nodeList,
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
 
   const edgesSource = graphBuilder.createEdgesSource({
@@ -390,7 +391,7 @@ function getIndex(comboBox, value) {
  * Binds the actions to the buttons of the toolbar and the input elements of the option handler.
  */
 function initializeUI() {
-  addNavigationButtons(layoutComboBox)
+  addNavigationButtons(layoutComboBox, 'Layout:')
 
   layoutButton.addEventListener('click', () => doLayout(true))
   layoutComboBox.addEventListener('change', () => doLayout(true))

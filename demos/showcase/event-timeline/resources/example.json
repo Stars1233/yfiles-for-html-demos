@@ -1,0 +1,48 @@
+{
+  "nodes": [
+    {
+      "id": "A",
+      "label": "Node A",
+      "group": "Group A"
+    },
+    {
+      "id": "B",
+      "label": "Node B",
+      "group": "Group A"
+    },
+    {
+      "id": "C",
+      "label": "Node C",
+      "group": "Group A"
+    }
+  ],
+  "edges": [
+    {
+      "id": "0",
+      "source": "A",
+      "target": "B",
+      "type": "Type 1",
+      "time": "2025-01-13T03:24:00",
+      "label": "Edge 1",
+      "weight": 1
+    },
+    {
+      "id": "1",
+      "source": "A",
+      "target": "C",
+      "type": "Type 1",
+      "time": "2025-01-13T04:55:00",
+      "label": "Edge 2",
+      "weight": 1
+    },
+    {
+      "id": "2",
+      "source": "B",
+      "target": "C",
+      "type": "Type 2",
+      "time": "2025-01-13T06:00:00",
+      "label": "Edge 3",
+      "weight": 1
+    }
+  ]
+}

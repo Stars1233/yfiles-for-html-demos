@@ -49,7 +49,7 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import graphData from './graph-data.json'
 
 let graphComponent
@@ -89,7 +89,7 @@ function buildGraph(graph, graphData) {
   const nodesSource = graphBuilder.createNodesSource({
     data: graphData.nodeList.filter((item) => !item.isGroup),
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
   nodesSource.nodeCreator.createLabelBinding((item) => item.label)
   nodesSource.nodeCreator.layoutProvider = (item) =>
@@ -138,7 +138,8 @@ function initializeGraph(graph) {
   graph.groupNodeDefaults.style = new GroupNodeStyle({
     tabFill: '#46a8d5',
     tabPosition: 'top-leading',
-    contentAreaFill: '#b5dcee'
+    contentAreaFill: '#b5dcee',
+    tabSizePolicy: 'adjust-to-label'
   })
   graph.groupNodeDefaults.labels.style = new LabelStyle({
     horizontalTextAlignment: 'left',

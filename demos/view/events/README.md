@@ -9,24 +9,52 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Events Demo
+# Events Viewer Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/events-viewer.webp" alt="demo-thumbnail" height="320"/>
 
 [You can also run this demo online](https://www.yfiles.com/demos/view/events/).
 
-This demo shows the multitude of events provided by the classes [IGraph](https://docs.yworks.com/yfileshtml/api/IGraph) and [GraphComponent](https://docs.yworks.com/yfileshtml/api/GraphComponent) and the _Input Modes_.
+This demo shows the multitude of events provided by the classes [IGraph](https://docs.yworks.com/yfileshtml/api/IGraph) and [GraphComponent](https://docs.yworks.com/yfileshtml/api/GraphComponent) and the _Input Modes_. Feel free to switch event logging on and off for the kinds of events below, while interacting with the graph and its elements. You might want to try toggling the input mode using the "Edit Mode" checkbox.
 
-The events are logged to the _Event Log_ panel. Logging can be switched on and off for each _kind of events_ in the respective panel.
+Generally, when looking for an event that fits your needs, you should start looking at the top of the list and work your way down. In most cases, it is preferable to use input mode events instead of subscribing to the low-level graph events, which should be reserved for rare cases where the layers above won't suffice.
 
-When looking for an event that fits your needs, you should generally start looking at the top of the list above and work your way down. In most cases, it is preferable to use events of a particular input mode instead of subscribing to the low-level graph events (which should be reserved for rare, exceptional cases where the layers above won't suffice).
+## Event Types
 
-## Things to Try
+### Input Mode Events keyboard_arrow_down
 
-- Toggle the various event log options to see different kinds of events.
-- Create, delete, move, resize and edit graph items.
-- Drag and drop nodes, labels or ports from the palette.
-- Move the whole graph within the viewport by dragging the mouse (Ctrl\-Drag in Edit Mode).
-- Select and deselect graph items.
-- Expand, collapse, enter and exit group nodes.
-- Toggle the input mode using the "Edit Mode" checkbox.
+- Viewer/Editor Events
+- Navigation Events
+- Click Events
+- Move Events
+- Move Viewport Events
+- Handle Move Events
+- Item Hover Events
+- Edit Label Events
+- Text Editor Events
+- Context Menu Events
+- Create Bend Events
+- Create Edge Events
+- Drag and Drop Events
+
+### GraphComponent Events keyboard_arrow_right
+
+- Clipboard Events
+- Pointer Events
+- Key Events
+- Selection Events
+- Viewport Events
+- Render Events
+- Other Events
+
+### Graph Events keyboard_arrow_right
+
+- Node Events
+- Edge Events
+- Label Events
+- Port Events
+- Bend Events
+- Hierarchy Events
+- Folding Events
+- Graph Render Events
+- Undo Events

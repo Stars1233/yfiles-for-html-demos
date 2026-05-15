@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Compact Tabular Layout
+# Compact Tabular Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-compact-tabular-layout.webp" alt="demo-thumbnail" height="320"/>
 

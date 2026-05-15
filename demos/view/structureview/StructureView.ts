@@ -362,6 +362,7 @@ export class StructureView {
     const collapseBox = document.createElement('input')
     collapseBox.id = 'graph-root'
     collapseBox.type = 'checkbox'
+    collapseBox.classList.add('custom-checkbox')
     collapseBox.checked = true
 
     graphRootElement.append(label, collapseBox)
@@ -391,6 +392,7 @@ export class StructureView {
     collapseBox.id = `group-${groupId}`
     collapseBox.type = 'checkbox'
     collapseBox.checked = true
+    collapseBox.classList.add('custom-checkbox')
 
     // sync the folding state with the graph if enabled
     collapseBox.addEventListener('change', (e) => this.syncGroupNodeStateWithElement(e))

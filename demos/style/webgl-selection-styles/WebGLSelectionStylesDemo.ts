@@ -35,10 +35,11 @@ import {
 } from '@yfiles/yfiles'
 
 import licenseData from '../../../lib/license.json'
-import { checkWebGL2Support, finishLoading } from '@yfiles/demo-app/demo-page'
 import { initStyleDefaults, type SelectionStyle, updateSelectionStyles } from './graph-styles'
 import { createGraph } from './load-sample-graph'
 import { createTransition, selectNodes, wireUpUI } from './ui-interaction'
+import { checkWebGL2Support } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent = null!
 

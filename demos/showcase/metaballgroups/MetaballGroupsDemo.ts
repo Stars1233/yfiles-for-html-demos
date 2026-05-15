@@ -44,7 +44,8 @@ import {
 import { WebglBlobVisual } from './WebglBlobVisual'
 
 import licenseData from '../../../lib/license.json'
-import { checkWebGLSupport, finishLoading } from '@yfiles/demo-app/demo-page'
+import { checkWebGLSupport } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -64,6 +65,8 @@ async function run(): Promise<void> {
     allowEditLabel: true,
     editLabelInputMode: { hideLabelDuringEditing: false }
   })
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 
   createSampleGraph()
 

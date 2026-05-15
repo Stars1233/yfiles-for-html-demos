@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Preact Demo
+# Preact Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/preact.webp" alt="demo-thumbnail" height="320"/>
 

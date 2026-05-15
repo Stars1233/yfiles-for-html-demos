@@ -17,7 +17,23 @@
   import licenseData from './license.json'
   import { SvelteComponentNodeStyle } from './SvelteComponentNodeStyle.svelte'
   import SvgNodeComponent from './SvgNodeComponent.svelte'
-  import type { Person } from './types'
+  import { type Person, SveltePerson } from './Person.svelte'
+
+  interface Props {
+    width?: string
+    height?: string
+    data: { nodes: Person[]; edges: { from: string; to: string }[] }
+    search?: string
+    onSelectedEmployeeChanged?: (value: Person | null) => void
+  }
+
+  let {
+    width = '100%',
+    height = '100%',
+    data,
+    search = '',
+    onSelectedEmployeeChanged
+  }: Props = $props()
 
   License.value = licenseData
 
@@ -29,27 +45,23 @@
   // yFiles license in the Web Worker as well.
   worker.postMessage({ license: licenseData })
 
-
-  export let width = '100%'
-  export let height = '100%'
-  export let data: { nodes: Person[]; edges: { from: string; to: string }[] }
-  export let search = ''
-  export let selectedEmployee: Person | null = null
-
-  export const methods = {
-    zoomIn: () => graphComponent.executeCommand(Command.INCREASE_ZOOM),
-    zoomOut: () => graphComponent.executeCommand(Command.DECREASE_ZOOM),
-    setZoom: (zoom: number) => graphComponent.executeCommand(Command.ZOOM, zoom),
-    fitContent: () => void graphComponent.fitGraphBounds()
+  export function zoomIn() {
+    graphComponent.executeCommand(Command.INCREASE_ZOOM)
+  }
+  export function zoomOut() {
+    graphComponent.executeCommand(Command.DECREASE_ZOOM)
+  }
+  export function fitContent() {
+    graphComponent.fitGraphBounds()
   }
 
   let graphComponentDiv: HTMLDivElement
   let graphComponent: GraphComponent
   let layoutRunning = false
 
-  $: if (graphComponent) {
+  $effect(() => {
     highlightNodes(search)
-  }
+  })
 
   const layoutDescriptor: LayoutDescriptor = {
     name: 'HierarchicalLayout',
@@ -73,20 +85,7 @@
     inputMode.addEventListener('multi-selection-finished', () => {
       // Get the selected node's tag
       let current = graphComponent.selection.nodes.at(0)?.tag
-      if (current) {
-        // Create a proxy that updates the view whenever something in the Person object changes
-        current = new Proxy<Person>(current, {
-          set: (obj, prop: keyof Person, value) => {
-            obj[prop] = value
-            if (prop === 'name') {
-              highlightNodes(search)
-            }
-            graphComponent.invalidate()
-            return true
-          }
-        })
-      }
-      selectedEmployee = current
+      onSelectedEmployeeChanged?.(current)
     })
 
     graphComponent.inputMode = inputMode
@@ -108,7 +107,7 @@
       data: data.nodes,
       id: 'name',
       layout: () => new Rect(0, 0, 285, 100),
-      tag: d => d
+      tag: d => new SveltePerson(d)
     })
     graphBuilder.createEdgesSource(data.edges, 'from', 'to')
     graphBuilder.buildGraph()
@@ -146,6 +145,9 @@
   }
 
   function highlightNodes(filter: string) {
+    if (!graphComponent) {
+      return
+    }
     const highlights = graphComponent.highlights
     highlights.clear()
     if (filter) {
@@ -161,16 +163,10 @@
 </script>
 
 <div
-  class="demo-main__graph-component"
   bind:this={graphComponentDiv}
-  style="width: {width ?? '100%'}; height: {height ?? '100%'}"
->
-  <slot />
-</div>
+  style:width={width}
+  style:height={height}
+></div>
 
 <style>
-  .demo-main__graph-component {
-    min-width: 300px;
-    min-height: 300px;
-  }
 </style>

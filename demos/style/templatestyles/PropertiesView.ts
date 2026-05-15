@@ -66,7 +66,8 @@ export class PropertiesView {
     heading.appendChild(nameInput)
 
     const editButton = document.createElement('button')
-    editButton.setAttribute('class', 'demo-edit-name-button')
+    editButton.setAttribute('class', 'demo-edit-name-button material-symbols-outlined')
+    editButton.innerHTML = 'build'
     editButton.setAttribute('title', 'Click to Edit')
     editButton.style.position = 'absolute'
     editButton.style.right = '0'
@@ -82,8 +83,12 @@ export class PropertiesView {
     heading.appendChild(icon)
 
     // Display the individual properties
+    const tableWrapper = document.createElement('div')
+    tableWrapper.className = 'table-wrapper'
+
     const table = document.createElement('table')
-    this.element.appendChild(table)
+    tableWrapper.appendChild(table)
+    this.element.appendChild(tableWrapper)
     // The employee business unit
     let tr: HTMLTableRowElement = document.createElement('tr')
     table.appendChild(tr)

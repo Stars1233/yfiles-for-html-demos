@@ -55,7 +55,8 @@ import {
 } from '@yfiles/yfiles'
 
 import licenseData from '../../../lib/license.json'
-import { checkWebGL2Support, finishLoading, showLoadingIndicator } from '@yfiles/demo-app/demo-page'
+import { checkWebGL2Support, showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The current number of tree layers. Also, the starting value for the demo.
@@ -77,6 +78,8 @@ async function run(): Promise<void> {
 
   License.value = licenseData
   const graphComponent = new GraphComponent('#graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
   graphComponent.inputMode = new GraphViewerInputMode()
 
   initializeStyleDefaults()
@@ -113,7 +116,7 @@ function initializeInputElements(graphComponent: GraphComponent): void {
   const childInputElement = document.querySelector<HTMLInputElement>('#childCountInput')!
   const childCountElement = document.querySelector<HTMLSpanElement>('#child-count')!
   childCountElement.textContent = childInputElement.value
-  childInputElement.addEventListener('change', () => {
+  childInputElement.addEventListener('input', () => {
     childCountElement.textContent = childInputElement.value
     updateLayersUI(graphComponent)
   })
@@ -187,7 +190,7 @@ async function createGraph(graphComponent: GraphComponent, layers: number): Prom
 
   extendTree(graphComponent, layers, childCount, queue, fadeInAnimation)
   graph.tag = { maxLayer: layers, childCount: childCount }
-
+  await showLoadingIndicator(false)
   await runExtendLayout(graphComponent, fadeInAnimation)
 
   updateGraphInformation(graphComponent.graph)
@@ -391,12 +394,9 @@ function shouldReduceEdgeLength(graph: IGraph): boolean {
 function cleanupAnimations(graphComponent: GraphComponent): void {
   const graph = graphComponent.graph
   const gmm = graphComponent.graphModelManager as WebGLGraphModelManager
-  graph.nodes.forEach((node) => {
-    gmm.setAnimations(node, [])
-  })
-  graph.edges.forEach((edge) => {
-    gmm.setAnimations(edge, [])
-  })
+  for (const item of graph.nodes.concat(graph.edges)) {
+    gmm.setAnimations(item, [])
+  }
 }
 
 /**

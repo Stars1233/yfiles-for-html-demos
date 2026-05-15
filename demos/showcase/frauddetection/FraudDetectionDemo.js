@@ -43,10 +43,7 @@ import {
 } from './fraud-detection/inspection-view'
 import { initializeLayout } from './interactive-layout'
 import { ConnectionEdgeStyle } from './styles/ConnectionEdgeStyle'
-import { bankFraudData } from './resources/bank-fraud-data'
-import { insuranceFraudData } from './resources/insurance-fraud-data'
 import licenseData from '../../../lib/license.json'
-import { finishLoading, showLoadingIndicator } from '@yfiles/demo-app/demo-page'
 import {
   calculateComponents,
   clearFraudHighlights,
@@ -55,7 +52,7 @@ import {
   updateFraudWarnings
 } from './fraud-detection/fraud-components'
 import { EntityNodeStyle } from './styles/EntityNodeStyle'
-import { getEntityData, getTimeEntry } from './entity-data'
+import { bankFraudData, getEntityData, getTimeEntry, insuranceFraudData } from './entity-data'
 import { Timeline } from './timeline/Timeline'
 import { detectBankFraud, detectInsuranceFraud } from './fraud-detection/fraud-detection'
 import './resources/fraud-detection-demo.css'
@@ -64,6 +61,8 @@ import { initializeHighlights } from './initialize-highlights'
 import { clearPropertiesView, initializePropertiesView } from './properties-view'
 import { enableTooltips } from './entity-tooltip'
 import { useSingleSelection } from '../mindmap/interaction/single-selection'
+import { showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The main graph component that displays the graph.
@@ -167,7 +166,7 @@ function initializeGraphComponent() {
   graphComponent.inputMode = inputMode
 
   // limit the minimum and the maximum zoom of the graphComponent
-  graphComponent.minimumZoom = 0.2
+  graphComponent.minimumZoom = 0.1
   graphComponent.maximumZoom = 3
 
   useSingleSelection(graphComponent)
@@ -201,13 +200,13 @@ async function buildGraph(graph, data) {
   }
 
   const builder = new GraphBuilder(graph)
-  const entityNodesSource = builder.createNodesSource(data.nodesSource, 'id')
+  const entityNodesSource = builder.createNodesSource(data.nodes, 'id')
   entityNodesSource.nodeCreator.tagProvider = (entity) => ({
     ...entity,
     enter: convertDates(entity.enter),
     exit: convertDates(entity.exit)
   })
-  builder.createEdgesSource(data.edgesSource, 'from', 'to')
+  builder.createEdgesSource(data.edges, 'source', 'target')
   builder.buildGraph()
 }
 
@@ -322,7 +321,7 @@ function initializeTimelineComponent(selector, graphComponent) {
 async function setBusy(state) {
   graphComponent.inputMode.waiting = state
   document.querySelector('#samples').disabled = state
-  await showLoadingIndicator(state)
+  await showLoadingIndicator(state, 'Loading the graph. This may take a while...')
 }
 
 void run().then(finishLoading)

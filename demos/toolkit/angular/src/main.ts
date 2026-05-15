@@ -26,19 +26,13 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { enableProdMode } from '@angular/core'
 import { bootstrapApplication } from '@angular/platform-browser'
 import { appComponentConfig } from './app/app.component.config'
 import { AppComponent } from './app/app.component'
 
-import { environment } from './environments/environment'
 import { License } from '@yfiles/yfiles'
 import licenseData from './license.json'
 
 License.value = licenseData
-
-if (environment.production) {
-  enableProdMode()
-}
 
 bootstrapApplication(AppComponent, appComponentConfig).catch((err) => console.error(err))

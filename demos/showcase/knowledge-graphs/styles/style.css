@@ -26,13 +26,11 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import '@fontsource/material-icons-outlined';
-
 .yfiles-rendertreepanel {
   background: radial-gradient(#39434f, #1e232b);
 }
 
-.demo-main__graph-component {
+.graph-panel {
   background: radial-gradient(#39434f, #1e232b);
 }
 
@@ -90,9 +88,7 @@
 
 .main-interaction-button {
   border: none;
-  background: linear-gradient(to right, #29323c 0%, #38434f 100%);
   padding: 5px 10px;
-  color: white;
   border-radius: 999px;
   line-height: 1;
   cursor: pointer;
@@ -111,8 +107,8 @@
 }
 
 .data-problem-container {
-  display: flex;
   margin-top: 20px;
+  display: flex;
   margin-bottom: 20px;
   align-items: start;
   padding: 5px;
@@ -124,7 +120,7 @@
 }
 
 .material-icon {
-  font-family: 'Material Icons Outlined', sans-serif;
+  font-family: 'Material Symbols Outlined', sans-serif;
   font-size: 2rem;
   margin-right: 10px;
   height: 30px;
@@ -140,8 +136,14 @@
   vertical-align: sub;
 }
 
-.data-problem-container p {
-  margin: 0;
+.data-problem-container {
+  p {
+    margin: 0 !important;
+  }
+  button {
+    display: inline;
+    font-size: 11px;
+  }
 }
 
 .data-problem-container .main-interaction-button {
@@ -274,4 +276,10 @@ p.footnote {
   height: 2px;
   background: currentColor;
   transform: rotate(-45deg);
+}
+
+#toggle_highlighting {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }

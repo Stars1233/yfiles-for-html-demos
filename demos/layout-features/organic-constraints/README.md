@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Organic Layout with Constraints
+# Organic Layout with Constraints Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-organic-constraints.webp" alt="demo-thumbnail" height="320"/>
 

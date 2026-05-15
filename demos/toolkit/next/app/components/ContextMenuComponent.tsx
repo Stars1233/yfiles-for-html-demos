@@ -30,7 +30,6 @@ import './ContextMenuComponent.css'
 import React, { ReactElement, useCallback, useLayoutEffect, useState } from 'react'
 import {
   Command,
-  GraphComponent,
   GraphViewerInputMode,
   IEdge,
   IModelItem,
@@ -38,20 +37,19 @@ import {
   PopulateItemContextMenuEventArgs,
   Rect
 } from '@yfiles/yfiles'
+import { useGraphComponent } from './GraphComponentContext'
 
 interface ContextMenuItem {
   title: string
   action: () => void
 }
 
-interface ContextMenuProps {
-  graphComponent: GraphComponent
-}
-
-export function ContextMenuComponent({ graphComponent }: ContextMenuProps) {
+export function ContextMenuComponent() {
   const [menuVisible, setMenuVisible] = useState(false)
   const [menuLocation, setMenuLocation] = useState({ x: 0, y: 0 })
   const [menuItems, setMenuItems] = useState<ContextMenuItem[]>([])
+
+  const graphComponent = useGraphComponent()
 
   const populateContextMenu = useCallback(
     (args: PopulateItemContextMenuEventArgs<IModelItem>) => {

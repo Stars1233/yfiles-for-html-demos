@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Tree Layout with Subtree Placers
+# Tree Layout with Subtree Placers Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-tree-node-placers.webp" alt="demo-thumbnail" height="320"/>
 

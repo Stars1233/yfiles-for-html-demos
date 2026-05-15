@@ -41,16 +41,20 @@ interface DemoToolbarProps {
 export default function DemoToolbar(props: DemoToolbarProps) {
   return (
     <div className="demo-toolbar">
-      <button className="demo-icon-yIconReload" title="Reset Data" onClick={props.resetData} />
+      <button title="Reset Data" onClick={props.resetData}>
+        <span className="material-symbols-outlined">refresh</span>
+      </button>
       <span className="demo-separator" />
-      <button className="demo-icon-yIconZoomIn" title="Zoom In" onClick={props.zoomIn} />
-      <button
-        className="demo-icon-yIconZoomOriginal"
-        title="Reset Zoom"
-        onClick={props.resetZoom}
-      />
-      <button className="demo-icon-yIconZoomOut" title="Zoom Out" onClick={props.zoomOut} />
-      <button className="demo-icon-yIconZoomFit" title="Fit Diagram" onClick={props.fitContent} />
+      <button title="Zoom Out" onClick={props.zoomOut}>
+        <span className="material-symbols-outlined">zoom_out</span>
+      </button>
+      <button title="Zoom In" onClick={props.zoomIn}>
+        <span className="material-symbols-outlined">zoom_in</span>
+      </button>
+      <button title="Fit Diagram" onClick={props.fitContent}>
+        <span className="material-symbols-outlined">zoom_out_map</span>
+      </button>
+      <span className="demo-separator" />
       <input className="search" placeholder="Search Nodes" onChange={props.searchChange} />
     </div>
   )

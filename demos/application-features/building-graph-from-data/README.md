@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Building Graphs From Data
+# Building Graphs From Data Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/building-graph-from-data.webp" alt="demo-thumbnail" height="320"/>
 

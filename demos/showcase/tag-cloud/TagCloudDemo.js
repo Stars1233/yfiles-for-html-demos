@@ -45,7 +45,7 @@ import {
   updateTagCloud
 } from './TagCloudHelper'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 // The minimum frequency of the words to be shown in the tag cloud visualization
 let minFrequency = 80
@@ -57,6 +57,9 @@ async function run() {
   License.value = licenseData
 
   const graphComponent = new GraphComponent('#graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [60, 10, 10, 10]
+
   // restrict user interaction to panning (and zooming)
   graphComponent.inputMode = new GraphViewerInputMode()
 

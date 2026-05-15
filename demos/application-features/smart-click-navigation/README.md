@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Smart Click Navigation - Application Features
+# Smart Click Navigation Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/smart-click-navigation.webp" alt="demo-thumbnail" height="320"/>
 

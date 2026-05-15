@@ -110,7 +110,8 @@ import { DragAndDropPanel } from '@yfiles/demo-utils/DragAndDropPanel'
 import { BpmnDiParser } from './bpmn-di'
 import licenseData from '../../../lib/license.json'
 import { configureTwoPointerPanning } from '@yfiles/demo-utils/configure-two-pointer-panning'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { saveGraphML } from '@yfiles/demo-utils/graphml-support'
 import { openFile } from '@yfiles/demo-utils/file-support'
 
@@ -136,7 +137,7 @@ let popupSupport
  * The combo box to choose the sample graphs from.
  */
 const graphChooserBox = document.querySelector('#sample-combobox')
-addNavigationButtons(graphChooserBox)
+addNavigationButtons(graphChooserBox, 'Sample:', false)
 
 /**
  * Starts the BPMN editor.
@@ -481,12 +482,6 @@ async function onLayoutButtonClicked() {
  * Binds the toolbar elements to listeners to be able to react to interactive changes.
  */
 function initializeUI(graphMLIOHandler) {
-  document.getElementById('new-button').addEventListener('click', () => {
-    popupSupport.hidePropertyPopup()
-    graphComponent.graph.clear()
-    graphComponent.fitGraphBounds()
-  })
-
   graphChooserBox.addEventListener('change', onGraphChooserBoxSelectionChanged)
 
   document.getElementById('layout-button').addEventListener('click', onLayoutButtonClicked)

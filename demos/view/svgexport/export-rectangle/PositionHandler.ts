@@ -61,8 +61,8 @@ export class PositionHandler extends BaseClass(IPositionHandler) {
    * Initializes the mouse event offset before the actual move gesture starts.
    */
   initializeDrag(context: IInputModeContext): void {
-    const x = this.rectangle.x - context.canvasComponent!.lastEventLocation.x
-    const y = this.rectangle.y - context.canvasComponent!.lastEventLocation.y
+    const x = this.rectangle.x - context.canvasComponent!.lastPointerEvent.location.x
+    const y = this.rectangle.y - context.canvasComponent!.lastPointerEvent.location.y
     this.offset.setLocation(x, y)
   }
 

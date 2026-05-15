@@ -38,6 +38,7 @@ import {
   GraphEditorInputMode,
   GraphItemTypes,
   HierarchicalLayout,
+  HierarchicalLayoutData,
   HierarchicalLayoutEdgeDescriptor,
   HierarchicalLayoutLayeringStrategy,
   IHitTestable,
@@ -534,7 +535,7 @@ class DendrogramLayout extends BaseClass(ILayoutAlgorithm) {
       fromScratchLayeringStrategy: HierarchicalLayoutLayeringStrategy.USER_DEFINED
     })
 
-    const hierarchicalLayoutData = hierarchicalLayout.createLayoutData(graph)
+    const hierarchicalLayoutData = new HierarchicalLayoutData()
     // edges at source node should use either the left or the right side
     hierarchicalLayoutData.ports.sourcePortCandidates = () => {
       return new EdgePortCandidates()
@@ -661,7 +662,7 @@ export class CutOffPositionHandler extends BaseClass(IPositionHandler) {
    * @param context The context to retrieve information
    */
   initializeDrag(context) {
-    this.offset.y = this.location.y - context.canvasComponent.lastInputEvent.location.y
+    this.offset.y = this.location.y - context.canvasComponent.lastPointerEvent.location.y
   }
 
   /**

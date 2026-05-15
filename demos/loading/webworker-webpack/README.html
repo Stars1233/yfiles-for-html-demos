@@ -31,21 +31,21 @@
      //
      ////////////////////////////////////////////////////////////////////////-->
 
-    <title>Web Worker Demo [yFiles for HTML]</title>
+    <title>Web Worker Demo (Webpack) [yFiles for HTML]</title>
     <link rel="stylesheet" href="../../../doc/resources/readme-style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   </head>
   <body>
-    <div id="header" class="simple-header">Web Worker Demo</div>
+    <div id="header" class="simple-header">Web Worker Demo (Webpack)</div>
     <main>
-      <div class="content-centered">
+      <div class="simple content-centered">
         <div class="content">
           <div class="breadcrumbs">
             <a href="../../README.html">yFiles for HTML</a>
             <span class="angle-right"></span>
             Web Worker Demo
           </div>
-          <h1>Web Worker Demo</h1>
+          <h1>Web Worker Demo (Webpack)</h1>
 
           <p>
             This demo shows how to run a yFiles layout algorithm in a
@@ -54,6 +54,7 @@
             >
             task in order to prevent the layout calculation from blocking the UI.
           </p>
+          <p>This demo uses webpack to handle the loading of the yFiles library.</p>
           <p>
             The graph, layout, and layout data are configured in the main thread and transferred to
             the web worker using class <a data-api>LayoutExecutorAsync</a>. The actual layout
@@ -61,24 +62,12 @@
             <a data-api>LayoutExecutorAsyncWorker</a> on the web worker thread.
           </p>
 
-          <h2>Build</h2>
+          <h2>Running the demo</h2>
 
-          <p>Install the required npm packages and run the build script</p>
-          <pre>
-> npm install
-> npm run build
-</pre
-          >
-          <h2>Run</h2>
-
-          <p>
-            The output files will be placed in the <code>dist/</code> directory inside this demo's
-            directory. To run the demo, open <code>dist/index.html</code> in a browser with
-          </p>
-          <pre>
-> npm run serve
-</pre
-          >
+          <p>First, install the required npm modules in the demo directory:</p>
+          <pre>> npm install</pre>
+          <h2>Now the demo can be started:</h2>
+          <pre>> npm start</pre>
         </div>
         <!-- populated by readme-style.js -->
         <div id="footer-detailed"></div>

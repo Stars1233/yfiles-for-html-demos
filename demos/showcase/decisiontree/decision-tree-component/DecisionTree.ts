@@ -112,7 +112,7 @@ export class DecisionTree {
     const graphComponent = new GraphComponent('#decision-tree')
     this.graph = graphComponent.graph
     this.graphComponent = graphComponent
-    this.graphComponent.minimumZoom = 1.2
+    this.graphComponent.minimumZoom = 0.8
 
     // load the input module and initialize the input mode
     this.initializeInputModes()

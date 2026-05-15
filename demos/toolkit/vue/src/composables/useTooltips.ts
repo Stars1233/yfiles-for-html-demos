@@ -62,12 +62,6 @@ export function useTooltips(getGraphComponent: () => GraphComponent) {
     // show tooltips only for nodes and edges
     inputMode.toolTipItems = GraphItemTypes.NODE | GraphItemTypes.EDGE
 
-    // Customize the tooltip's behavior to our liking.
-    const tooltipInputMode = inputMode.toolTipInputMode
-    tooltipInputMode.toolTipLocationOffset = new Point(15, 15)
-    tooltipInputMode.delay = TimeSpan.fromMilliseconds(500)
-    tooltipInputMode.duration = TimeSpan.fromSeconds(5)
-
     // Register a listener for when a tooltip should be shown.
     inputMode.addEventListener(
       'query-item-tool-tip',

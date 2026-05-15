@@ -31,13 +31,13 @@ import {
   type IGraph,
   type IInputMode,
   License,
+  PolylineEdgeStyle,
   Rect,
   ShapeNodeStyle
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
 
 import './GraphComponentElement'
-import { createDemoEdgeStyle } from '@yfiles/demo-app/demo-styles'
 
 // wait for the custom graph-component element to be defined
 window.customElements.whenDefined('graph-component').then(run)
@@ -57,7 +57,7 @@ async function run(): Promise<void> {
   const graphComponent = document.createElement('graph-component') as GraphComponentElementType
   graphComponent.setAttribute('id', 'graphComponent')
 
-  document.querySelector('.demo-page__main')!.appendChild(graphComponent)
+  document.querySelector('.graph-container')!.appendChild(graphComponent)
 
   graphComponent.editMode = new GraphEditorInputMode()
 
@@ -74,13 +74,22 @@ async function run(): Promise<void> {
 
 function initializeGraph(graph: IGraph): void {
   // initialize default styles
-  graph.nodeDefaults.style = new ShapeNodeStyle({ fill: 'orange' })
-  graph.edgeDefaults.style = createDemoEdgeStyle()
+  graph.nodeDefaults.style = new ShapeNodeStyle({
+    fill: '#0d9a94',
+    shape: 'squircle',
+    cssClass: 'node',
+    stroke: '2px solid #032523'
+  })
+  graph.edgeDefaults.style = new PolylineEdgeStyle({
+    smoothingLength: 8,
+    stroke: '1.5px #032523',
+    targetArrow: '#032523 small triangle'
+  })
 
   // create a small sample graph
-  const node1 = graph.createNode(new Rect(50, 50, 30, 30))
-  const node2 = graph.createNode(new Rect(0, 150, 30, 30))
-  const node3 = graph.createNode(new Rect(100, 150, 30, 30))
+  const node1 = graph.createNode(new Rect(50, 50, 50, 50))
+  const node2 = graph.createNode(new Rect(0, 150, 50, 50))
+  const node3 = graph.createNode(new Rect(100, 150, 50, 50))
   graph.createEdge(node1, node2)
   graph.createEdge(node1, node3)
 }

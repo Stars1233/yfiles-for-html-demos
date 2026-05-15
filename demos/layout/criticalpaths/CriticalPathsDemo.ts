@@ -46,10 +46,12 @@ import {
 } from '@yfiles/yfiles'
 
 import { PriorityPanel } from './PriorityPanel'
-import * as SampleData from './resources/SampleData'
+import hierarchicalGraphData from './resources/hierarchical-graph-data.json'
+import treeGraphData from './resources/tree-graph-data.json'
 import { createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The graph component in which the graph is displayed.
@@ -74,6 +76,8 @@ let layoutStyle: 'hierarchical' | 'tree' = 'hierarchical'
 async function run(): Promise<void> {
   License.value = licenseData
   graphComponent = new GraphComponent('graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
   initializeInputMode()
   initializePriorityPanel()
   loadGraph(layoutStyle)
@@ -90,7 +94,7 @@ function loadGraph(sample: 'hierarchical' | 'tree'): void {
   graph.edgeDefaults.style = new PolylineEdgeStyle()
   graph.edgeDefaults.shareStyleInstance = false
 
-  const data = SampleData[sample]
+  const data = sample === 'hierarchical' ? hierarchicalGraphData : treeGraphData
 
   const builder = new GraphBuilder(graph)
   builder.createNodesSource(data.nodes, 'id')
@@ -310,7 +314,8 @@ function initializeUI(): void {
     .addEventListener('click', clearPriorities)
 
   addNavigationButtons(
-    document.querySelector<HTMLSelectElement>('#change-sample')!
+    document.querySelector<HTMLSelectElement>('#change-sample')!,
+    'Sample:'
   ).addEventListener('change', async (evt) => {
     const value = (evt.target as HTMLSelectElement).value
     layoutStyle = value === 'Hierarchical Layout' ? 'hierarchical' : 'tree'

@@ -55,7 +55,7 @@ import {
   initDemoStyles
 } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { PurplePortCandidateProvider } from './PurplePortCandidateProvider'
 
 async function run(): Promise<void> {
@@ -174,6 +174,8 @@ function createSampleGraph(graphComponent: GraphComponent): void {
   // The orange node
   createNode(graph, 100, 400, 100, 100, 'demo-orange', 'orange', 'Dynamic Ports')
 
+  //center graph
+  graphComponent.fitGraphBounds()
   // clear undo after initial graph loading
   graph.undoEngine!.clear()
 }

@@ -39,7 +39,6 @@ import {
 
 import { DragAndDropPanel } from '@yfiles/demo-utils/DragAndDropPanel'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { NotNodeStyle } from './node-styles/NotNodeStyle'
 import { XOrNodeStyle } from './node-styles/XOrNodeStyle'
 import { AndGateNodeStyle } from './node-styles/AndGateNodeStyle'
@@ -52,6 +51,7 @@ import { createPortAwareGraphBuilder } from './port-aware-graph-builder'
 import { sampleData } from './resources/sample-data'
 import { createInputMode } from './input'
 import { runLayout } from './logicgates-layout'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The main graph component

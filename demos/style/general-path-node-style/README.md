@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# General Path Node Style Demo
+# General Path Node Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/general-path-node-style.webp" alt="demo-thumbnail" height="320"/>
 

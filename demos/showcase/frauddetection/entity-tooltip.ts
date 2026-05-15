@@ -31,9 +31,7 @@ import {
   type GraphEditorInputMode,
   GraphItemTypes,
   IEdge,
-  INode,
-  Point,
-  TimeSpan
+  INode
 } from '@yfiles/yfiles'
 import { getConnectionData, getEntityInfo } from './entity-data'
 
@@ -46,11 +44,6 @@ export function enableTooltips(graphComponent: GraphComponent): void {
   // enable tooltips for nodes and edges
   inputMode.toolTipItems = GraphItemTypes.NODE | GraphItemTypes.EDGE
 
-  const toolTipInputMode = inputMode.toolTipInputMode
-  toolTipInputMode.toolTipLocationOffset = new Point(15, 15)
-  toolTipInputMode.delay = TimeSpan.fromMilliseconds(100)
-  toolTipInputMode.duration = TimeSpan.fromSeconds(3)
-
   inputMode.addEventListener('query-item-tool-tip', (evt) => {
     if (evt.handled) {
       // Tooltip content has already been assigned -> nothing to do.
@@ -61,7 +54,9 @@ export function enableTooltips(graphComponent: GraphComponent): void {
     if (item instanceof INode) {
       const nodeInfo = getEntityInfo(item)
       // show the first entry of the info element stored in the business data
-      evt.toolTip = typeof nodeInfo == 'string' ? nodeInfo : nodeInfo[Object.keys(nodeInfo)[0]]
+      if (nodeInfo != null) {
+        evt.toolTip = typeof nodeInfo === 'string' ? nodeInfo : nodeInfo[Object.keys(nodeInfo)[0]]
+      }
     } else if (item instanceof IEdge) {
       const connectionData = getConnectionData(item)
       if (connectionData.type !== undefined) {

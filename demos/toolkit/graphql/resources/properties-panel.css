@@ -26,8 +26,6 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import url('https://fonts.googleapis.com/css?family=Roboto:400, 300, 100');
-
 dt {
   font-weight: bold;
   margin-top: 4px;
@@ -46,31 +44,43 @@ dd {
   padding: 10px;
 }
 
+#propertiesView .table-wrapper {
+  overflow-y: auto;
+  overflow-x: auto;
+  display: block;
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+#propertiesView table {
+  white-space: nowrap;
+  display: table;
+}
+
 #propertiesView td {
   padding: 3px 0;
 }
 
+#propertiesView td:last-child {
+  white-space: nowrap;
+}
+
+#propertiesView td:first-child {
+  white-space: nowrap;
+}
+
 #propertiesView td:first-of-type {
   text-transform: uppercase;
-  color: #336699;
   font-weight: bold;
   padding-right: 20px;
   width: 120px;
 }
 
-#propertiesView td a {
-  color: #407fbf;
-  text-decoration: none;
-}
-
-#propertiesView td a:hover {
-  color: #336699;
-}
-
 .user-detail {
   position: relative;
-  height: 50px;
   margin: 10px 0;
+  display: flex;
+  align-items: center;
 }
 
 .user-detail svg {
@@ -83,9 +93,7 @@ dd {
   display: inline-block;
   font-size: 20px;
   font-weight: normal;
-  margin: 1rem 0 0 1rem;
-  vertical-align: top;
-  color: #242265 !important;
+  margin-left: 1rem !important;
 }
 
 .user-detail div {

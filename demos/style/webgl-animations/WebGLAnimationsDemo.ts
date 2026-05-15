@@ -39,8 +39,11 @@ import {
   type IModelItem,
   INode,
   InteriorNodeLabelModel,
+  IPort,
+  IPortStyle,
   LabelStyle,
   License,
+  ShapePortStyle,
   type WebGLAnimation,
   WebGLAnimationDirection,
   WebGLAnimationEasing,
@@ -56,18 +59,22 @@ import {
   WebGLLabelStyleDecorator,
   WebGLNodeIndicatorStyle,
   WebGLNodeStyleDecorator,
+  WebGLPortStyleDecorator,
   WebGLPulseAnimationType,
   WebGLScaleAnimationType,
   WebGLSelectionIndicatorManager,
   WebGLShakeAnimationType,
+  WebGLShapeNodeShape,
   type WebGLShapeNodeShapeStringValues,
   WebGLShapeNodeStyle,
+  WebGLShapePortStyle,
   WebGLStroke
 } from '@yfiles/yfiles'
 
 import licenseData from '../../../lib/license.json'
 import { enableSingleSelection } from './SingleSelectionHelper'
-import { checkWebGL2Support, finishLoading } from '@yfiles/demo-app/demo-page'
+import { checkWebGL2Support } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 type BaseAnimation =
   | 'pulse'
@@ -107,6 +114,7 @@ async function run(): Promise<void> {
 
   License.value = licenseData
   const graphComponent = new GraphComponent('#graphComponent')
+  graphComponent.contentMargins = [90, 10, 40, 10]
 
   graphComponent.graphModelManager = new WebGLGraphModelManager()
   graphComponent.selectionIndicatorManager = new WebGLSelectionIndicatorManager({
@@ -131,6 +139,9 @@ async function run(): Promise<void> {
 function configureUI(graphComponent: GraphComponent) {
   document.querySelector('#use-labels')!.addEventListener('change', (e) => {
     changeLabels(graphComponent, (e.target as HTMLInputElement).checked)
+  })
+  document.querySelector('#use-ports')!.addEventListener('change', (e) => {
+    changePorts(graphComponent, (e.target as HTMLInputElement).checked)
   })
 
   document.querySelector('#shape-select')!.addEventListener('change', (e) => {
@@ -172,9 +183,8 @@ function configureUI(graphComponent: GraphComponent) {
   options.set('scale-effect', document.querySelector<HTMLDivElement>(`#scale-options`)!)
 
   const magnitudeOptions = document.querySelector<HTMLDivElement>('#magnitude-options')!
-  const animatedElementOptions = document.querySelector<HTMLDivElement>(
-    '#animated-elements-options'
-  )!
+  const animateLabelsSelect = document.querySelector<HTMLSelectElement>('#animate-labels')!
+  const animatePortsSelect = document.querySelector<HTMLSelectElement>('#animate-ports')!
 
   const useViewCoordinatesOptions = document.querySelector<HTMLDivElement>(
     '#use-view-coordinates-options'
@@ -215,7 +225,8 @@ function configureUI(graphComponent: GraphComponent) {
     switch (animationType) {
       case 'pulse':
         magnitudeOptions.style.display = 'block'
-        animatedElementOptions.style.display = 'block'
+        animateLabelsSelect.disabled = false
+        animatePortsSelect.disabled = false
         animationMagnitudeSelect.value = '5'
         animationDurationSelect.value = '1s'
         iterationCountSelect.value = '10'
@@ -225,7 +236,8 @@ function configureUI(graphComponent: GraphComponent) {
         break
       case 'pulse-effect':
         magnitudeOptions.style.display = 'block'
-        animatedElementOptions.style.display = 'none'
+        animateLabelsSelect.disabled = true
+        animatePortsSelect.disabled = true
         animationMagnitudeSelect.value = '5'
         animationDurationSelect.value = '1s'
         iterationCountSelect.value = '10'
@@ -235,7 +247,9 @@ function configureUI(graphComponent: GraphComponent) {
         break
       case 'scale':
         magnitudeOptions.style.display = 'block'
-        animatedElementOptions.style.display = 'block'
+        animateLabelsSelect.disabled = false
+        animatePortsSelect.disabled = false
+        animationMagnitudeSelect.value = '5'
         animationDurationSelect.value = '500ms'
         iterationCountSelect.value = '1'
         animationDirectionSelect.value = 'normal'
@@ -244,7 +258,9 @@ function configureUI(graphComponent: GraphComponent) {
         break
       case 'scale-effect':
         magnitudeOptions.style.display = 'block'
-        animatedElementOptions.style.display = 'none'
+        animateLabelsSelect.disabled = true
+        animatePortsSelect.disabled = true
+        animationMagnitudeSelect.value = '5'
         animationDurationSelect.value = '500ms'
         iterationCountSelect.value = '1'
         animationDirectionSelect.value = 'normal'
@@ -253,7 +269,8 @@ function configureUI(graphComponent: GraphComponent) {
         break
       case 'fade':
         magnitudeOptions.style.display = 'none'
-        animatedElementOptions.style.display = 'block'
+        animateLabelsSelect.disabled = false
+        animatePortsSelect.disabled = false
         animationDurationSelect.value = '1s'
         iterationCountSelect.value = '1'
         animationDirectionSelect.value = 'normal'
@@ -262,7 +279,8 @@ function configureUI(graphComponent: GraphComponent) {
         break
       case 'fade-effect':
         magnitudeOptions.style.display = 'none'
-        animatedElementOptions.style.display = 'none'
+        animateLabelsSelect.disabled = true
+        animatePortsSelect.disabled = true
         animationDurationSelect.value = '1s'
         iterationCountSelect.value = '1'
         animationDirectionSelect.value = 'normal'
@@ -271,7 +289,8 @@ function configureUI(graphComponent: GraphComponent) {
         break
       case 'shake':
         magnitudeOptions.style.display = 'block'
-        animatedElementOptions.style.display = 'block'
+        animateLabelsSelect.disabled = false
+        animatePortsSelect.disabled = false
         animationMagnitudeSelect.value = '5'
         animationDurationSelect.value = '100ms'
         iterationCountSelect.value = '10'
@@ -280,7 +299,8 @@ function configureUI(graphComponent: GraphComponent) {
         break
       case 'beacon':
         magnitudeOptions.style.display = 'block'
-        animatedElementOptions.style.display = 'none'
+        animateLabelsSelect.disabled = false
+        animatePortsSelect.disabled = false
         animationMagnitudeSelect.value = '20'
         beaconPulseCountSelect.value = '3'
         beaconPulseWidthSelect.value = '2'
@@ -293,7 +313,8 @@ function configureUI(graphComponent: GraphComponent) {
         break
       case 'halo':
         magnitudeOptions.style.display = 'block'
-        animatedElementOptions.style.display = 'none'
+        animateLabelsSelect.disabled = false
+        animatePortsSelect.disabled = false
         animationMagnitudeSelect.value = '20'
         beaconSmoothCheckbox.checked = true
         document.querySelector<HTMLInputElement>('#beacon-color')!.style.display = 'block'
@@ -409,6 +430,22 @@ function setWebGLStyles(
         )
         graph.setLabelLayoutParameter(label, nodeLabelParameter)
       })
+      const showPorts = document.querySelector<HTMLInputElement>('#use-ports')!.checked
+      node.ports.forEach((port) => {
+        graph.setStyle(
+          port,
+          new WebGLPortStyleDecorator(
+            port.style,
+            !showPorts
+              ? new WebGLShapePortStyle({ fill: Color.TRANSPARENT, stroke: WebGLStroke.NONE })
+              : new WebGLShapePortStyle({
+                  shape: WebGLShapeNodeShape.ELLIPSE,
+                  fill: Color.WHITE,
+                  stroke: new WebGLStroke(strokeColor)
+                })
+          )
+        )
+      })
     })
     component.edges.forEach((edge) => {
       graph.setStyle(
@@ -419,7 +456,8 @@ function setWebGLStyles(
             stroke: new WebGLStroke(fillColor, 5),
             sourceArrow: 'none',
             targetArrow: 'none',
-            height: 10
+            height: 15,
+            effect: WebGLEffect.AMBIENT_FILL_COLOR
           })
         )
       )
@@ -445,7 +483,27 @@ function getComponentForItem(item: IModelItem | null | undefined): null | Connec
   if (item instanceof ILabel) {
     return getComponentForItem(item.owner)
   }
+  if (item instanceof IPort) {
+    return getComponentForItem(item.owner)
+  }
   return null
+}
+
+/**
+ * Returns which kind of graph items should be animated.
+ */
+function getAnimationStates() {
+  const animateNodes = getAnimateNodes()
+  const animateEdges = document.querySelector<HTMLInputElement>(
+    'input[id="animate-edges"]'
+  )!.checked
+  const animateLabels =
+    document.querySelector<HTMLInputElement>('input[id="animate-labels"]')!.checked &&
+    document.querySelector<HTMLInputElement>('input[id="use-labels"]')!.checked
+  const animatePorts =
+    document.querySelector<HTMLInputElement>('input[id="animate-ports"]')!.checked &&
+    document.querySelector<HTMLInputElement>('input[id="use-ports"]')!.checked
+  return { animateNodes, animateEdges, animateLabels, animatePorts }
 }
 
 /**
@@ -455,14 +513,8 @@ function startNewAnimation(graphComponent: GraphComponent, component: ConnectedC
   const applyToComponentMembers =
     document.querySelector<HTMLInputElement>('input[name="animated-elements"]:checked')!.id ===
     'component-members'
-  const animateNodes = getAnimateNodes()
-  const animateEdges = document.querySelector<HTMLInputElement>(
-    'input[id="animate-edges"]'
-  )!.checked
-  const animateLabels = document.querySelector<HTMLInputElement>(
-    'input[id="animate-labels"]'
-  )!.checked
-  if (!animateNodes && !animateEdges && !animateLabels) {
+  const { animateNodes, animateEdges, animateLabels, animatePorts } = getAnimationStates()
+  if (!animateNodes && !animateEdges && !animateLabels && !animatePorts) {
     return Promise.resolve(false)
   }
 
@@ -488,6 +540,11 @@ function startNewAnimation(graphComponent: GraphComponent, component: ConnectedC
         gmm.setAnimations(label, animations)
       })
     }
+    if (animatePorts) {
+      node.ports.forEach((port) => {
+        gmm.setAnimations(port, animations)
+      })
+    }
   })
   edgesToAnimate.forEach((edge: IEdge) => {
     if (animateEdges) {
@@ -504,7 +561,7 @@ function startNewAnimation(graphComponent: GraphComponent, component: ConnectedC
 }
 
 /**
- * Configures the interaction behaviour.
+ * Configures the interaction behavior.
  */
 function configureInteraction(graphComponent: GraphComponent) {
   // Allow only viewing of the graph
@@ -512,7 +569,7 @@ function configureInteraction(graphComponent: GraphComponent) {
 
   gvim.itemHoverInputMode.enabled = true
   gvim.itemHoverInputMode.hoverItems =
-    GraphItemTypes.NODE | GraphItemTypes.EDGE | GraphItemTypes.LABEL
+    GraphItemTypes.NODE | GraphItemTypes.EDGE | GraphItemTypes.LABEL | GraphItemTypes.PORT
 
   // Add the configured animation either to the whole component the hovered item
   // is part of or to the rest of the graph.
@@ -554,7 +611,7 @@ function stopAnimation(graphComponent: GraphComponent, item: IModelItem | null |
 }
 
 /**
- * Starts a new animation for the given component, or re-starts the existing one.
+ * Starts a new animation for the given component or re-starts the existing one.
  */
 function startAnimation(graphComponent: GraphComponent, item: IModelItem | null | undefined) {
   const component = getComponentForItem(item)
@@ -568,7 +625,7 @@ function startAnimation(graphComponent: GraphComponent, item: IModelItem | null 
     return
   }
 
-  startNewAnimation(graphComponent, component)
+  void startNewAnimation(graphComponent, component)
 }
 
 /**
@@ -588,33 +645,63 @@ function changeAnimation(graphComponent: GraphComponent, item: IModelItem | null
         if (reachedInitialState) {
           removeAnimation(graphComponent, existingAnimation)
           componentToAnimationMap.delete(component)
-          startNewAnimation(graphComponent, component)
+          void startNewAnimation(graphComponent, component)
         }
       })
 }
 
 /**
- * Removes all animations from all nodes and edges.
+ * Removes all animations from all items.
  */
 function removeAnimation(graphComponent: GraphComponent, animation: WebGLAnimation) {
   const graph = graphComponent.graph
   const gmm = graphComponent.graphModelManager as WebGLGraphModelManager
+  const { animateNodes, animateEdges, animateLabels, animatePorts } = getAnimationStates()
   graph.nodes.forEach((node) => {
     const currentAnimations = gmm.getAnimations(node)
     if (currentAnimations.length) {
-      gmm.setAnimations(
-        node,
-        currentAnimations.filter((currentAnimation) => currentAnimation !== animation)
+      const remainingAnimations = currentAnimations.filter(
+        (currentAnimation) => currentAnimation !== animation
       )
+      if (animateNodes) {
+        gmm.setAnimations(node, remainingAnimations)
+      } else {
+        gmm.setAnimations(node, [])
+      }
+      node.labels.forEach((label) => {
+        if (animateLabels) {
+          gmm.setAnimations(label, remainingAnimations)
+        } else {
+          gmm.setAnimations(label, [])
+        }
+      })
+      node.ports.forEach((port) => {
+        if (animatePorts) {
+          gmm.setAnimations(port, remainingAnimations)
+        } else {
+          gmm.setAnimations(port, [])
+        }
+      })
     }
   })
   graph.edges.forEach((edge) => {
     const currentAnimations = gmm.getAnimations(edge)
     if (currentAnimations.length) {
-      gmm.setAnimations(
-        edge,
-        currentAnimations.filter((currentAnimation) => currentAnimation !== animation)
+      const remainingAnimations = currentAnimations.filter(
+        (currentAnimation) => currentAnimation !== animation
       )
+      if (animateEdges) {
+        gmm.setAnimations(edge, remainingAnimations)
+      } else {
+        gmm.setAnimations(edge, [])
+      }
+      edge.labels.forEach((label) => {
+        if (animateLabels) {
+          gmm.setAnimations(label, remainingAnimations)
+        } else {
+          gmm.setAnimations(label, [])
+        }
+      })
     }
   })
 }
@@ -628,9 +715,7 @@ function getAnimateNodes(): boolean {
   const alwaysNode =
     config.baseAnimation == 'pulse-effect' ||
     config.baseAnimation == 'fade-effect' ||
-    config.baseAnimation == 'scale-effect' ||
-    config.baseAnimation == 'beacon' ||
-    config.baseAnimation == 'halo'
+    config.baseAnimation == 'scale-effect'
   return checkBox.checked || alwaysNode
 }
 
@@ -971,7 +1056,27 @@ function changeLabels(graphComponent: GraphComponent, showLabels: boolean) {
 }
 
 /**
- * Calculate all connected components, i.e. all sub-graphs that only contain nodes that are pair-wise
+ * Adds or removes ports from the graph
+ */
+function changePorts(graphComponent: GraphComponent, showPorts: boolean) {
+  if (!showPorts) {
+    graphComponent.graph.ports.forEach((port) =>
+      graphComponent.graph.setStyle(port, IPortStyle.VOID_PORT_STYLE)
+    )
+  } else {
+    connectedComponents.forEach((component) => {
+      component.nodes.forEach((node) => {
+        node.ports.forEach((port) => {
+          graphComponent.graph.setStyle(port, new ShapePortStyle())
+        })
+      })
+    })
+  }
+  setWebGLStyles(graphComponent, connectedComponents, 'ellipse')
+}
+
+/**
+ * Calculate all connected components, i.e., all sub-graphs that only contain nodes that are pair-wise
  * connected by a path of edges.
  * Note that calculating these connected components is also provided by the algorithm class
  * ConnectedComponents.

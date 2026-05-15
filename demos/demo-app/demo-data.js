@@ -115,7 +115,17 @@ export function getAllEntries() {
         'label placement',
         'compact disk',
         'v2.4.0.0'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'event-timeline',
+          'supply-chain',
+          'large-graphs',
+          'organization-chart',
+          'process-mining'
+        ]
+      }
     },
     {
       id: 'layout-styles-hierarchical',
@@ -165,7 +175,11 @@ export function getAllEntries() {
         'pathways',
         'entity relationship',
         'workflow'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['company-ownership', 'network-monitoring', 'tree-map', 'supply-chain', 'biofabrics']
+      }
     },
     {
       id: 'layout-styles-organic',
@@ -202,7 +216,17 @@ export function getAllEntries() {
         'mesh',
         'undirected',
         'large graphs'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'bpmn-editor',
+          'knowledge-graphs',
+          'sankey-diagram',
+          'process-mining',
+          'home-automation'
+        ]
+      }
     },
     {
       id: 'layout-styles-edge-router',
@@ -235,7 +259,17 @@ export function getAllEntries() {
         'polyline',
         'bus',
         'backbone'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'network-monitoring',
+          'graph-wizard-flowchart',
+          'time-space',
+          'tag-cloud',
+          'chord-diagram-non-ribbon'
+        ]
+      }
     },
     {
       id: 'layout-styles-tree',
@@ -264,7 +298,11 @@ export function getAllEntries() {
         'hierarchical',
         'hierarchy',
         'data analysis'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['process-mining', 'metaball-groups', 'uml-editor', 'tree-map', 'event-timeline']
+      }
     },
     {
       id: 'layout-styles-radial-tree',
@@ -291,7 +329,17 @@ export function getAllEntries() {
         'star like',
         'social networks',
         'organic'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'process-mining',
+          'tree-of-life',
+          'neighborhood-circles',
+          'biofabrics',
+          'bpmn-editor'
+        ]
+      }
     },
     {
       id: 'layout-styles-orthogonal',
@@ -319,7 +367,17 @@ export function getAllEntries() {
         'system management',
         'uml',
         'data management'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'supply-chain',
+          'mindmap-editor',
+          'fraud-detection',
+          'neighborhood-circles',
+          'graph-analysis'
+        ]
+      }
     },
     {
       id: 'layout-styles-circular',
@@ -348,7 +406,17 @@ export function getAllEntries() {
         'arcs',
         'rings',
         'chords'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'bpmn-editor',
+          'neighborhood-circles',
+          'flowchart-editor',
+          'metaball-groups',
+          'knowledge-graphs'
+        ]
+      }
     },
     {
       id: 'layout-styles-radial',
@@ -376,7 +444,17 @@ export function getAllEntries() {
         'tree',
         'directed',
         'bundling'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'biofabrics',
+          'large-graphs',
+          'graph-analysis',
+          'organization-chart',
+          'tree-of-life'
+        ]
+      }
     },
     {
       id: 'layout-styles-disk',
@@ -393,7 +471,17 @@ export function getAllEntries() {
        and tailor the layout to your requirements.`,
       category: 'layout',
       tags: ['layout', 'compact disk'],
-      keywords: ['v2.5.0.0', 'layout styles samples', 'concentric', 'compact disk', 'round']
+      keywords: ['v2.5.0.0', 'layout styles samples', 'concentric', 'compact disk', 'round'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'tree-map',
+          'sankey-diagram',
+          'organization-chart',
+          'tag-cloud',
+          'neighborhood-circles'
+        ]
+      }
     },
     {
       id: 'layout-styles-series-parallel',
@@ -420,7 +508,17 @@ export function getAllEntries() {
         'octilinear',
         'directed',
         'sp graph'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'fraud-detection',
+          'chord-diagram',
+          'uml-editor',
+          'logic-gates',
+          'large-graph-aggregation'
+        ]
+      }
     },
     {
       id: 'layout-styles-components',
@@ -436,7 +534,17 @@ export function getAllEntries() {
        and tailor the layout to your requirements.`,
       category: 'layout',
       tags: ['layout', 'component'],
-      keywords: ['layout styles samples', 'layout algorithm', 'component layout', 'components']
+      keywords: ['layout styles samples', 'layout algorithm', 'component layout', 'components'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'tag-cloud',
+          'tree-of-life',
+          'large-graph-aggregation',
+          'network-monitoring',
+          'process-mining'
+        ]
+      }
     },
     {
       id: 'layout-styles-tabular',
@@ -463,7 +571,11 @@ export function getAllEntries() {
         'components',
         'disconnected',
         'tables'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['supply-chain', 'metaball-groups', 'knowledge-graphs', 'tag-cloud', 'uml-editor']
+      }
     },
     {
       id: 'layout-styles-labeling',
@@ -477,7 +589,11 @@ export function getAllEntries() {
        and tailor the algorithm to your requirements.`,
       category: 'layout',
       tags: ['label placement'],
-      keywords: ['layout styles samples', 'generic labeling', 'preferred placement']
+      keywords: ['layout styles samples', 'generic labeling', 'preferred placement'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['supply-chain', 'time-space', 'neighborhood-view', 'map', 'decision-tree']
+      }
     },
     {
       id: 'layout-styles-partial',
@@ -500,6 +616,40 @@ export function getAllEntries() {
         'mental map',
         'subgraph',
         'fixed'
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['neighborhood-view', 'graph-analysis', 'map', 'network-monitoring', 'logic-gates']
+      }
+    },
+    {
+      id: 'layout-styles-bundled-edge-router',
+      name: 'Layout Styles: Bundled Edge Router',
+      hiddenInGrid: true,
+      demoPath:
+        'showcase/layoutstyles/index.html?layout=bundled-edge-router&sample=bundled-edge-router',
+      summary: `Presents yFiles' bundled edge routing algorithm and its other layout styles.`,
+      description: `This demo presents yFiles' bundled edge routing algorithm and its other layout
+       styles.
+       The bundled edge routing algorithm merges the common parts of multiple edges to
+       increase the readability of dense graph drawings.
+       Explore a wide range of pre-built sample graphs and use cases, or delve into the specifics
+       and tailor the layout to your requirements.`,
+      category: 'layout',
+      tags: ['edge routing', 'bundle'],
+      keywords: [
+        'layout styles samples',
+        'bundle',
+        'bundling',
+        'routing algorithm',
+        'router',
+        'layout',
+        'routing',
+        'route',
+        're-routing',
+        'curved',
+        'curves',
+        'path'
       ]
     },
     {
@@ -523,8 +673,19 @@ export function getAllEntries() {
         'notable style',
         'overview',
         'palette',
-        'ports'
-      ]
+        'ports',
+        'popover'
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'organization-chart',
+          'supply-chain',
+          'large-graph-aggregation',
+          'network-monitoring',
+          'event-timeline'
+        ]
+      }
     },
     {
       id: 'organization-chart',
@@ -553,7 +714,11 @@ export function getAllEntries() {
         'notable style',
         'data management',
         'level of detail'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['company-ownership', 'supply-chain', 'bpmn-editor', 'knowledge-graphs', 'tag-cloud']
+      }
     },
     {
       id: 'process-mining',
@@ -567,7 +732,17 @@ export function getAllEntries() {
        smoothly.`,
       category: 'showcase',
       tags: ['webgl', 'animation', 'heatmap'],
-      keywords: ['v2.3.0.2', 'notable style', 'data analysis']
+      keywords: ['v2.3.0.2', 'notable style', 'data analysis', 'heat map'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'event-timeline',
+          'organization-chart',
+          'home-automation',
+          'bpmn-editor',
+          'knowledge-graphs'
+        ]
+      }
     },
     {
       id: 'supply-chain',
@@ -600,7 +775,17 @@ export function getAllEntries() {
         'data management',
         'explore',
         'animations'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'company-ownership',
+          'knowledge-graphs',
+          'event-timeline',
+          'fraud-detection',
+          'organization-chart'
+        ]
+      }
     },
     {
       id: 'company-ownership',
@@ -634,7 +819,17 @@ export function getAllEntries() {
         'detail',
         'notable style',
         'data management'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'organization-chart',
+          'graph-analysis',
+          'supply-chain',
+          'neighborhood-view',
+          'time-space'
+        ]
+      }
     },
     {
       id: 'gantt-chart',
@@ -682,7 +877,17 @@ export function getAllEntries() {
         'data management',
         'detail view',
         'inspection view'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'knowledge-graphs',
+          'event-timeline',
+          'time-space',
+          'isometric-drawing',
+          'company-ownership'
+        ]
+      }
     },
     {
       id: 'isometric-drawing',
@@ -707,7 +912,17 @@ export function getAllEntries() {
         'isometric',
         'padding',
         'margin'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'knowledge-graphs',
+          'time-space',
+          'neighborhood-view',
+          'flowchart-editor',
+          'organization-chart'
+        ]
+      }
     },
     {
       id: 'network-monitoring',
@@ -729,8 +944,19 @@ export function getAllEntries() {
         'd3.js',
         'notable style',
         'data analysis',
-        'data management'
-      ]
+        'data management',
+        'popover'
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'bpmn-editor',
+          'fraud-detection',
+          'company-ownership',
+          'knowledge-graphs',
+          'neighborhood-view'
+        ]
+      }
     },
     {
       id: 'knowledge-graphs',
@@ -753,10 +979,21 @@ export function getAllEntries() {
         'clustering',
         'filtering',
         'fade',
+        'fading',
         'beacon',
         'neighborhood',
         'interactive'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'organization-chart',
+          'network-monitoring',
+          'large-graph-aggregation',
+          'fraud-detection',
+          'large-graphs'
+        ]
+      }
     },
     {
       id: 'metaball-groups',
@@ -770,7 +1007,102 @@ export function getAllEntries() {
       Hardware-accelerated WebGL is used in this demo for the efficient rendering of the metaballs.`,
       category: 'showcase',
       tags: ['background', 'webgl'],
-      keywords: ['v2.2.0.0', 'overlapping', 'heatmap', 'data analysis']
+      keywords: ['v2.2.0.0', 'overlapping', 'heatmap', 'data analysis', 'heat map'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'time-space',
+          'isometric-drawing',
+          'tag-cloud',
+          'network-monitoring',
+          'home-automation'
+        ]
+      }
+    },
+    {
+      id: 'biofabrics',
+      name: 'Biofabrics',
+      demoPath: 'layout/biofabrics/',
+      summary: 'A showcase of and introduction to simple, interactive biofabric visualization.',
+      description: `A demonstration of biofabrics; a simple yet powerful tabular approach to graph drawing and network visualization:
+      understand the basics of biofabric layouts, appreciate the many advantages that (interactive) biofabric visualizations offer
+      across three domain-specific use cases, experiment with different layout and style settings, and kickstart your own implementation
+      using the demo's codebase.`,
+      category: 'layout',
+      tags: ['interaction', 'style', 'layout'],
+      keywords: [
+        'v3.1.0.0',
+        'biofabric',
+        'biofabrics',
+        'biofabric visualization',
+        'biofabric visualizations',
+        'edge ordering',
+        'node ordering',
+        'node grouping',
+        'edge grouping',
+        'edge color gradients',
+        'edge gradients',
+        'style',
+        'styling',
+        'highlight',
+        'highlighting',
+        'expand',
+        'collapse',
+        'explore',
+        'animations',
+        'company networks',
+        'social networks',
+        'ego networks',
+        'logistics networks',
+        'trading networks',
+        'neighborhood view'
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'event-timeline',
+          'supply-chain',
+          'large-graphs',
+          'organization-chart',
+          'process-mining'
+        ]
+      }
+    },
+    {
+      id: 'event-timeline',
+      name: 'Event Timeline',
+      demoPath: 'showcase/event-timeline/',
+      summary: 'A demonstration of an event timeline visualization in yFiles.',
+      description: `A demonstration of event timelines, a simple, yet powerful approach to
+      visualizing dynamic graph data, in which nodes (entities) are represented as (labeled)
+      parallel horizontal line-segments and edges (events) as (labeled) parallel vertical ones.`,
+      category: 'showcase',
+      tags: ['interaction', 'timeline', 'layout'],
+      keywords: [
+        'v3.1',
+        'biofabrics',
+        'biofabric visualizations',
+        'edge color gradients',
+        'edge gradients',
+        'style',
+        'styling',
+        'highlight',
+        'highlighting',
+        'expand',
+        'collapse',
+        'explore',
+        'animations',
+        'event timelines',
+        'event data',
+        'dynamic graphs',
+        'dynamic data',
+        'time-dependent graphs',
+        'time-dependent data'
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['biofabrics', 'time-space', 'fraud-detection', 'supply-chain', 'knowledge-graphs']
+      }
     },
     {
       id: 'map',
@@ -792,7 +1124,44 @@ export function getAllEntries() {
         'filtering',
         'curves',
         'data management'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'time-space',
+          'organization-chart',
+          'chord-diagram-non-ribbon',
+          'process-mining',
+          'logic-gates'
+        ]
+      }
+    },
+    {
+      id: 'time-space',
+      name: 'Space & Time',
+      demoPath: 'showcase/time-space/',
+      summary: 'Visualizes data in temporal, geospatial and relational dimensions',
+      description: `This interactive demo visualizes the spread of contaminants across different locations
+            over time. It allows you to trace how a single incident - a train derailment - can lead
+            to a widespread contamination event. Moreover, you can explore the events in a centric layout
+            or a tree layout to analyze their immediate impacts or view the incident from the source`,
+      category: 'showcase',
+      tags: ['map', 'timeline'],
+      keywords: [
+        'v3.1.0.0',
+        'leaflet',
+        'overlay',
+        'layers',
+        'tooltips',
+        'filtering',
+        'curves',
+        'data',
+        'geographic'
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['fraud-detection', 'map', 'event-timeline', 'process-mining', 'neighborhood-view']
+      }
     },
     {
       id: 'graph-wizard-flowchart',
@@ -805,7 +1174,11 @@ export function getAllEntries() {
       summary: 'Customizes defaults and input gestures to support fast creation of flowcharts.',
       category: 'showcase',
       tags: ['wizard', 'flowchart'],
-      keywords: ['v2.4.0.4', 'flow', 'shapes', 'layout', 'input', 'button', 'data management']
+      keywords: ['v2.4.0.4', 'flow', 'shapes', 'layout', 'input', 'button', 'data management'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['bpmn-editor', 'supply-chain', 'flowchart-editor', 'mindmap-editor', 'uml-editor']
+      }
     },
     {
       id: 'flowchart-editor',
@@ -820,7 +1193,17 @@ export function getAllEntries() {
       tried out.`,
       category: 'showcase',
       tags: ['style', 'layout', 'drag and drop'],
-      keywords: ['hierarchical', 'palette', 'dnd', 'data management']
+      keywords: ['hierarchical', 'palette', 'dnd', 'data management'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'bpmn-editor',
+          'uml-editor',
+          'mindmap-editor',
+          'graph-wizard-flowchart',
+          'supply-chain'
+        ]
+      }
     },
     {
       id: 'uml-editor',
@@ -843,7 +1226,17 @@ export function getAllEntries() {
         'hierarchical',
         'structures',
         'data management'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'supply-chain',
+          'mindmap-editor',
+          'knowledge-graphs',
+          'neighborhood-view',
+          'organization-chart'
+        ]
+      }
     },
     {
       id: 'decision-tree',
@@ -857,7 +1250,17 @@ export function getAllEntries() {
       step-by-step with the selected nodes.`,
       category: 'showcase',
       tags: ['layout', 'interaction'],
-      keywords: ['hierarchical', 'context menu', 'data management']
+      keywords: ['hierarchical', 'context menu', 'data management'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'sankey-diagram',
+          'mindmap-editor',
+          'neighborhood-view',
+          'tree-of-life',
+          'supply-chain'
+        ]
+      }
     },
     {
       id: 'mindmap-editor',
@@ -872,7 +1275,18 @@ export function getAllEntries() {
       are automatically arranged.`,
       category: 'showcase',
       tags: ['style', 'layout', 'interaction'],
-      keywords: ['context menu', 'tree', 'structures', 'labels', 'notable style']
+      keywords: ['context menu', 'tree', 'structures', 'labels', 'notable style', 'popover'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'isometric-drawing',
+          'map',
+          'supply-chain',
+          'tree-of-life',
+          'tag-cloud',
+          'html-popup'
+        ]
+      }
     },
     {
       id: 'sankey-diagram',
@@ -886,7 +1300,25 @@ export function getAllEntries() {
       layout is realized with yFiles hierarchical layout algorithm.`,
       category: 'layout',
       tags: ['edge thickness', 'style', 'layout'],
-      keywords: ['context menu', 'hierarchical', 'generic labeling', 'labels', 'data analysis']
+      keywords: [
+        'context menu',
+        'hierarchical',
+        'generic labeling',
+        'labels',
+        'data analysis',
+        'popover'
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'network-monitoring',
+          'metaball-groups',
+          'time-space',
+          'tree-of-life',
+          'tag-cloud',
+          'html-popup'
+        ]
+      }
     },
     {
       id: 'tree-of-life',
@@ -912,7 +1344,17 @@ export function getAllEntries() {
         'phylogenetic',
         'biology',
         'webgl2'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'graph-analysis',
+          'neighborhood-circles',
+          'knowledge-graphs',
+          'isometric-drawing',
+          'large-graph-aggregation'
+        ]
+      }
     },
     {
       id: 'home-automation',
@@ -926,7 +1368,11 @@ export function getAllEntries() {
       must be provided.`,
       category: 'showcase',
       tags: ['interaction', 'layout', 'drag and drop'],
-      keywords: ['v2.6.0.3', 'validation', 'grid']
+      keywords: ['v2.6.0.3', 'validation', 'grid'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['tag-cloud', 'layout-styles', 'tree-map', 'network-monitoring', 'fraud-detection']
+      }
     },
     {
       id: 'tree-map',
@@ -964,7 +1410,11 @@ export function getAllEntries() {
       slider.`,
       category: 'showcase',
       tags: ['layout', 'style'],
-      keywords: ['v2.4.0.4', 'words', 'components', 'labels']
+      keywords: ['v2.4.0.4', 'words', 'components', 'labels'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['knowledge-graphs', 'tree-map', 'tree-of-life', 'time-space', 'layout-styles']
+      }
     },
     {
       id: 'critical-path-analysis',
@@ -1011,7 +1461,17 @@ export function getAllEntries() {
         'reversed edge creation',
         'dnd',
         'data management'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'time-space',
+          'large-graphs',
+          'home-automation',
+          'neighborhood-view',
+          'layout-styles'
+        ]
+      }
     },
     {
       id: 'graph-analysis',
@@ -1051,7 +1511,11 @@ export function getAllEntries() {
         'cliques',
         'directed',
         'direction'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['tree-of-life', 'supply-chain', 'large-graphs', 'layout-styles', 'map']
+      }
     },
     {
       id: 'hierarchical-nesting',
@@ -1121,7 +1585,17 @@ export function getAllEntries() {
         'Shows how to display large graphs with both good performance in WebGL and high quality in SVG.',
       category: 'showcase',
       tags: ['performance', 'webgl'],
-      keywords: ['v2.4.0.0', 'rendering', 'large', 'huge', 'webgl2', 'svg', 'data management']
+      keywords: ['v2.4.0.0', 'rendering', 'large', 'huge', 'webgl2', 'svg', 'data management'],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'knowledge-graphs',
+          'tree-of-life',
+          'layout-styles',
+          'large-graph-aggregation',
+          'graph-analysis'
+        ]
+      }
     },
     {
       id: 'large-graph-aggregation',
@@ -1149,7 +1623,11 @@ export function getAllEntries() {
         'bezier',
         'clusters',
         'data analysis'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: ['tree-of-life', 'layout-styles', 'tree-map', 'knowledge-graphs', 'large-graphs']
+      }
     },
     {
       id: 'interactive-aggregation',
@@ -1226,7 +1704,17 @@ export function getAllEntries() {
         'data analysis',
         'data management',
         'margin'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'network-monitoring',
+          'graph-analysis',
+          'neighborhood-view',
+          'isometric-drawing',
+          'organization-chart'
+        ]
+      }
     },
     {
       id: 'contextual-toolbar',
@@ -1237,7 +1725,7 @@ export function getAllEntries() {
       category: 'view',
       distributionType: 'needs-layout',
       tags: ['interaction', 'overlay'],
-      keywords: ['v2.1.0.2', 'html', 'popup', 'context menu']
+      keywords: ['v2.1.0.2', 'html', 'popup', 'context menu', 'popover']
     },
     {
       id: 'magnifying-glass',
@@ -1261,7 +1749,17 @@ export function getAllEntries() {
       category: 'style',
       distributionType: 'needs-layout',
       tags: ['css', 'animation', 'style'],
-      keywords: ['v2.6.0.0', 'stylesheets', 'transition', 'fading', 'fade-out', 'padding', 'margin']
+      keywords: [
+        'v2.6.0.0',
+        'stylesheets',
+        'transition',
+        'fading',
+        'fade-out',
+        'padding',
+        'margin',
+        'fade'
+      ],
+      linkedDemos: { type: 'related-demos', demos: ['css-styling'] }
     },
     {
       id: 'label-style',
@@ -1270,7 +1768,16 @@ export function getAllEntries() {
       summary: 'Shows the features of the LabelStyle class.',
       category: 'style',
       tags: ['style', 'labels'],
-      keywords: ['v2.5.0.0', 'library style', 'style options', 'padding']
+      keywords: ['v2.5.0.0', 'library style', 'style options', 'padding'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'html-label-style',
+          'markdown-label',
+          'rich-text-label',
+          'tutorial-style-implementation-label-render-label-text'
+        ]
+      }
     },
     {
       id: 'rectangle-node-style',
@@ -1291,7 +1798,16 @@ export function getAllEntries() {
         'octagons',
         'library style',
         'style options'
-      ]
+      ],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'shape-node-style',
+          'group-node-style',
+          'arrow-node-style',
+          'tutorial-style-implementation-node-create-a-rectangle'
+        ]
+      }
     },
     {
       id: 'shape-node-style',
@@ -1302,6 +1818,7 @@ export function getAllEntries() {
       tags: ['style', 'nodes', 'shapes'],
       keywords: [
         'v2.5.0.0',
+        'v3.1',
         'library style',
         'style options',
         'node shape',
@@ -1313,8 +1830,18 @@ export function getAllEntries() {
         'diamond',
         'hexagon',
         'triangle',
-        'star'
-      ]
+        'star',
+        'squircle'
+      ],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'rectangle-node-style',
+          'group-node-style',
+          'arrow-node-style',
+          'tutorial-style-implementation-node-create-a-rectangle'
+        ]
+      }
     },
     {
       id: 'shape-port-style',
@@ -1325,9 +1852,11 @@ export function getAllEntries() {
        Besides port shapes, ShapePortStyle class offers other properties to further customize ports,
        including fill, stroke, size and offset.`,
       category: 'style',
-      tags: ['style', 'ports', 'shapes'],
+      linkedDemos: { type: 'related-demos', demos: ['shape-node-style'] },
+      tags: ['style', 'ports', 'shapes', 'webgl'],
       keywords: [
         'v3.0.0.0',
+        'v3.1.0.0',
         'library style',
         'style options',
         'port shape',
@@ -1339,7 +1868,8 @@ export function getAllEntries() {
         'diamond',
         'hexagon',
         'triangle',
-        'star'
+        'star',
+        'squircle'
       ]
     },
     {
@@ -1350,7 +1880,16 @@ export function getAllEntries() {
         'Shows the group and folder node visualization options offered by the GroupNodeStyle class.',
       category: 'style',
       tags: ['style', 'nodes', 'webgl'],
-      keywords: ['v2.5.0.0', 'library style', 'style options', 'webgl2', 'padding', 'margin']
+      keywords: ['v2.5.0.0', 'library style', 'style options', 'webgl2', 'padding', 'margin'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'shape-node-style',
+          'rectangle-node-style',
+          'arrow-node-style',
+          'tutorial-style-implementation-node-create-a-rectangle'
+        ]
+      }
     },
     {
       id: 'arrow',
@@ -1384,7 +1923,16 @@ export function getAllEntries() {
       summary: 'Shows the features of the ArrowNodeStyle class.',
       category: 'style',
       tags: ['style', 'nodes', 'arrows'],
-      keywords: ['v2.5.0.0', 'library style', 'style options']
+      keywords: ['v2.5.0.0', 'library style', 'style options'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'shape-node-style',
+          'rectangle-node-style',
+          'group-node-style',
+          'tutorial-style-implementation-node-create-a-rectangle'
+        ]
+      }
     },
     {
       id: 'arrow-edge-style',
@@ -1412,7 +1960,7 @@ export function getAllEntries() {
         'Shows how to achieve a simple level of detail effect by fading in/out labels at a certain zoom value using WebGL rendering.',
       category: 'view',
       tags: ['webgl'],
-      keywords: ['v2.6.0.0', 'rendering', 'webgl2', 'level of detail', 'LOD', 'fading']
+      keywords: ['v3.1.0.0', 'rendering', 'webgl2', 'level of detail', 'LOD', 'fading', 'fade']
     },
     {
       id: 'clustering-algorithms',
@@ -1449,7 +1997,15 @@ export function getAllEntries() {
         'Presents three network flow graph analysis algorithms that are applied on a network of water pipes.',
       category: 'analysis',
       tags: ['analysis', 'style'],
-      keywords: ['network flows', 'maximum', 'minimum', 'cuts', 'labels', 'data management']
+      keywords: [
+        'network flows',
+        'maximum',
+        'minimum',
+        'cuts',
+        'labels',
+        'data management',
+        'popover'
+      ]
     },
     {
       id: 'transitivity',
@@ -1537,7 +2093,7 @@ export function getAllEntries() {
         'Shows HTML pop-up panels that displays additional information about a clicked node or edge.',
       category: 'view',
       tags: ['interaction', 'overlay'],
-      keywords: ['html popups', 'data panel', 'tool tips', 'structures', 'details']
+      keywords: ['html popups', 'data panel', 'tool tips', 'structures', 'details', 'popover']
     },
     {
       id: 'structure-view',
@@ -1664,7 +2220,18 @@ export function getAllEntries() {
       category: 'style',
       distributionType: 'needs-layout',
       tags: ['style', 'data binding'],
-      keywords: ['v3.0.0.0', 'svg', 'data panel', 'templates', 'notable style']
+      keywords: ['v3.0.0.0', 'svg', 'data panel', 'templates', 'notable style'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'template-node-style',
+          'vue-component-node-style',
+          'vue-template-node-style',
+          'react-component-node-style',
+          'react-template-node-style',
+          'lit-template-node-style'
+        ]
+      }
     },
     {
       id: 'template-node-style',
@@ -1676,7 +2243,16 @@ export function getAllEntries() {
        creation of rich, responsive node style visualizations.`,
       category: 'style',
       tags: ['style', 'template'],
-      keywords: ['v3.0.0.0', 'data bindings', 'data panel']
+      keywords: ['v3.0.0.0', 'data bindings', 'data panel'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'template-styles',
+          'vue-component-node-style',
+          'react-component-node-style',
+          'lit-template-node-style'
+        ]
+      }
     },
     {
       id: 'react-template-node-style',
@@ -1687,7 +2263,16 @@ export function getAllEntries() {
       category: 'style',
       languageType: 'ts-only',
       tags: ['style', 'template', 'react', 'jsx'],
-      keywords: ['v2.5.0.2', 'data bindings', 'data panel', 'tree', 'htmlvisual']
+      keywords: ['v2.5.0.2', 'data bindings', 'data panel', 'tree', 'htmlvisual'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'react-component-node-style',
+          'vue-component-node-style',
+          'vue-template-node-style',
+          'lit-template-node-style'
+        ]
+      }
     },
     {
       id: 'vue-template-node-style',
@@ -1697,7 +2282,16 @@ export function getAllEntries() {
       category: 'style',
       languageType: 'ts-only',
       tags: ['style', 'template', 'vuejs'],
-      keywords: ['v2.1.0.0', 'data bindings', 'data panel', 'tree']
+      keywords: ['v2.1.0.0', 'data bindings', 'data panel', 'tree'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'vue-component-node-style',
+          'react-component-node-style',
+          'react-template-node-style',
+          'lit-template-node-style'
+        ]
+      }
     },
     {
       id: 'lit-template-node-style',
@@ -1707,7 +2301,16 @@ export function getAllEntries() {
         'Presents a versatile and easily customizable template node style based on the Lit templating framework.',
       category: 'style',
       tags: ['style', 'template', 'lit'],
-      keywords: ['v2.5.0.2', 'data bindings', 'data panel', 'conditional', 'rendering']
+      keywords: ['v2.5.0.2', 'data bindings', 'data panel', 'conditional', 'rendering'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'vue-component-node-style',
+          'vue-template-node-style',
+          'react-component-node-style',
+          'react-template-node-style'
+        ]
+      }
     },
     {
       id: 'webgl-styles',
@@ -1721,7 +2324,7 @@ export function getAllEntries() {
        different from SVG, where you can use any SVG feature and snippet for visualization.`,
       category: 'style',
       tags: ['style', 'webgl'],
-      keywords: ['v2.4.0.0', 'v2.5.0.0', 'styles', 'notable style', 'webgl2']
+      keywords: ['v2.4.0.0', 'v2.5.0.0', 'v3.1', 'styles', 'notable style', 'webgl2']
     },
     {
       id: 'webgl-selection-styles',
@@ -1889,7 +2492,16 @@ export function getAllEntries() {
       category: 'style',
       distributionType: 'needs-layout',
       tags: ['style', 'label', 'markdown'],
-      keywords: ['v2.3.0.0', 'rich text', 'styling', 'html', 'markdown']
+      keywords: ['v2.3.0.0', 'rich text', 'styling', 'html', 'markdown'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'label-style',
+          'html-label-style',
+          'rich-text-label',
+          'tutorial-style-implementation-label-render-label-text'
+        ]
+      }
     },
     {
       id: 'rich-text-label',
@@ -1899,7 +2511,16 @@ export function getAllEntries() {
       category: 'style',
       distributionType: 'needs-layout',
       tags: ['style', 'label', 'rich text'],
-      keywords: ['v2.3.0.0', 'styling', 'html', 'xml', 'markdown', 'markup', 'colors', 'wysiwyg']
+      keywords: ['v2.3.0.0', 'styling', 'html', 'xml', 'markdown', 'markup', 'colors', 'wysiwyg'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'label-style',
+          'html-label-style',
+          'markdown-label',
+          'tutorial-style-implementation-label-render-label-text'
+        ]
+      }
     },
     {
       id: 'overview-styling',
@@ -1919,7 +2540,17 @@ export function getAllEntries() {
       category: 'style',
       distributionType: 'needs-layout',
       tags: ['style', 'label'],
-      keywords: ['v2.6.0.0', 'html', 'responsive', 'htmlvisual']
+      keywords: ['v2.6.0.0', 'html', 'responsive', 'htmlvisual'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'react-component-node-style',
+          'vue-component-node-style',
+          'angular-component-node-style',
+          'html-label-style',
+          'data-table'
+        ]
+      }
     },
     {
       id: 'html-label-style',
@@ -1929,7 +2560,16 @@ export function getAllEntries() {
       category: 'style',
       distributionType: 'needs-layout',
       tags: ['style', 'label', 'htmlvisual'],
-      keywords: ['v2.6.0.0']
+      keywords: ['v2.6.0.0'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'label-style',
+          'markdown-label',
+          'rich-text-label',
+          'tutorial-style-implementation-label-render-label-text'
+        ]
+      }
     },
     {
       id: 'invariant-label-style',
@@ -1948,7 +2588,11 @@ export function getAllEntries() {
       summary: 'Shows how to create a simple custom arrow for edges.',
       category: 'style',
       tags: ['style', 'arrow'],
-      keywords: ['v2.5.0.2', 'styling', 'arrow', 'edge', 'custom']
+      keywords: ['v2.5.0.2', 'styling', 'arrow', 'edge', 'custom'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: ['tutorial-style-implementation-edge-custom-arrow']
+      }
     },
     {
       id: 'selection-styling',
@@ -2000,6 +2644,7 @@ export function getAllEntries() {
       category: 'layout',
       tags: ['style', 'curve', 'layout'],
       keywords: [
+        'v3.1',
         'layoutfeatures',
         'context menu',
         'organic',
@@ -2008,6 +2653,7 @@ export function getAllEntries() {
         'radial tree',
         'balloon',
         'bundles',
+        'bundling',
         'bezier',
         'curves',
         'data analysis'
@@ -2048,7 +2694,17 @@ export function getAllEntries() {
         'curves',
         'notable style',
         'node types'
-      ]
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'chord-diagram',
+          'knowledge-graphs',
+          'biofabrics',
+          'large-graph-aggregation',
+          'mindmap-editor'
+        ]
+      }
     },
     {
       id: 'arc-diagram',
@@ -2096,7 +2752,16 @@ export function getAllEntries() {
         'palette',
         'dnd',
         'interactive'
-      ]
+      ],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'drag-and-drop',
+          'graph-drag-and-drop',
+          'custom-drag-and-drop',
+          'component-drag-and-drop'
+        ]
+      }
     },
     {
       id: 'edge-label-placement',
@@ -2167,7 +2832,28 @@ export function getAllEntries() {
         'The from sketch mode of the hierarchical layout style can incrementally fit new nodes and edges into the existing drawing.',
       category: 'layout',
       tags: ['layout', 'hierarchical'],
-      keywords: ['layoutfeatures', 'ports', 'background', 'incremental', 'from sketch']
+      keywords: ['v3.1', 'layoutfeatures', 'ports', 'background', 'incremental', 'from sketch']
+    },
+    {
+      id: 'hierarchical-exact-coordinates',
+      name: 'Hierarchical Layout with Exact Coordinates',
+      summary: 'Shows how to configure hierarchical layout from sketch with exact coordinates.',
+      demoPath: 'layout/hierarchical-exact-coordinates/',
+      category: 'layout',
+      tags: ['hierarchical', 'from-sketch'],
+      keywords: [
+        'v3.1',
+        'layout',
+        'subset',
+        'nodes',
+        'set',
+        'node-set',
+        'partial',
+        'mental map',
+        'fixed',
+        'incremental'
+      ],
+      linkedDemos: { type: 'related-demos', demos: ['partial-layout'] }
     },
     {
       id: 'interactive-edge-routing',
@@ -2585,7 +3271,8 @@ export function getAllEntries() {
       summary: 'Shows how to integrate new graph elements into an existing graph layout.',
       category: 'layout',
       tags: ['layout', 'incremental', 'partial'],
-      keywords: ['layoutfeatures', 'hierarchical', 'orthogonal', 'organic', 'circular', 'curves']
+      keywords: ['layoutfeatures', 'hierarchical', 'orthogonal', 'organic', 'circular', 'curves'],
+      linkedDemos: { type: 'related-demos', demos: ['hierarchical-exact-coordinates'] }
     },
     {
       id: 'bridges',
@@ -2595,7 +3282,7 @@ export function getAllEntries() {
         'Shows the capabilities of the <code>BridgeManager</code> class for inserting bridges into edge paths.',
       category: 'view',
       tags: ['line gaps', 'line jumps'],
-      keywords: ['layoutfeatures', 'intersection', 'intersecting', 'groups']
+      keywords: ['v3.1', 'layoutfeatures', 'intersection', 'intersecting', 'groups']
     },
     {
       id: 'custom-edge-creation',
@@ -2961,17 +3648,6 @@ export function getAllEntries() {
       keywords: ['v2.6.0.0', 'component', 'integration', 'web worker', 'vite', 'framework']
     },
     {
-      id: 'nodejs',
-      name: 'Node.js',
-      demoPath: 'loading/nodejs/',
-      summary:
-        "Shows how to run a yFiles layout algorithm in a <a href='https://nodejs.org/' target='_blank'>Node.js&reg;</a> environment.",
-      category: 'loading',
-      distributionType: 'needs-layout',
-      tags: ['nodejs', 'layout'],
-      keywords: ['folding', 'hierarchical', 'json', 'web worker']
-    },
-    {
       id: 'web-components',
       name: 'Web Components',
       demoPath: 'toolkit/webcomponents/',
@@ -2999,34 +3675,37 @@ export function getAllEntries() {
       ]
     },
     {
-      id: 'rollup',
-      name: 'Rollup.js',
-      demoPath: 'loading/rollupjs/README.html',
+      id: 'nodejs',
+      name: 'Node.js',
+      demoPath: 'loading/nodejs/',
       summary:
-        'Shows how to bundle the yFiles library in a <a href="https://rollupjs.org" target="_blank">rollup</a> project.',
+        "Shows how to run a yFiles layout algorithm in a <a href='https://nodejs.org/' target='_blank'>Node.js&reg;</a> environment.",
       category: 'loading',
-      languageType: 'js-only',
-      tags: ['deployment', 'optimizer'],
-      keywords: ['v2.2.0.0', 'web worker', 'modules']
+      distributionType: 'needs-layout',
+      tags: ['nodejs', 'layout'],
+      keywords: ['folding', 'hierarchical', 'json', 'web worker']
     },
     {
-      id: 'web-worker-webpack',
-      name: 'Web Worker Webpack',
-      demoPath: 'loading/webworker-webpack/README.html',
-      summary: 'Shows how to run a yFiles layout algorithm in a Web Worker task using Webpack.',
+      id: 'vite',
+      name: 'Vite',
+      demoPath: 'loading/vite/README.html',
+      summary:
+        'Shows how to integrate the yFiles library in a <a href="https://vitejs.dev/" target="_blank">Vite</a> project.',
       category: 'loading',
       languageType: 'ts-only',
-      tags: ['webpack', 'web worker', 'layout'],
-      keywords: [
-        'v2.4.0.0',
-        'threads',
-        'threading',
-        'background',
-        'json',
-        'folding',
-        'hierarchical',
-        'webpack'
-      ]
+      tags: ['modules', 'esm', 'deployment', 'web worker'],
+      keywords: ['v2.4.0.4', 'webworker']
+    },
+    {
+      id: 'vite-lazy-yfiles',
+      name: 'Vite Lazy Load yFiles',
+      demoPath: 'loading/vite-lazy-yfiles/README.html',
+      summary:
+        'Shows how to lazily load yFiles in a <a href="https://vitejs.dev/" target="_blank">Vite</a> project with dynamic imports.',
+      category: 'loading',
+      languageType: 'ts-only',
+      tags: ['modules', 'esm', 'deployment'],
+      keywords: ['v3.0', 'hierarchical', 'dynamic imports', 'vite']
     },
     {
       id: 'web-worker',
@@ -3058,26 +3737,34 @@ export function getAllEntries() {
       keywords: ['organic']
     },
     {
-      id: 'vite',
-      name: 'Vite',
-      demoPath: 'loading/vite/README.html',
-      summary:
-        'Shows how to integrate the yFiles library in a <a href="https://vitejs.dev/" target="_blank">Vite</a> project.',
+      id: 'web-worker-webpack',
+      name: 'Web Worker Webpack',
+      demoPath: 'loading/webworker-webpack/README.html',
+      summary: 'Shows how to run a yFiles layout algorithm in a Web Worker task using Webpack.',
       category: 'loading',
       languageType: 'ts-only',
-      tags: ['modules', 'esm', 'deployment', 'web worker'],
-      keywords: ['v2.4.0.4', 'webworker']
+      tags: ['webpack', 'web worker', 'layout'],
+      keywords: [
+        'v2.4.0.0',
+        'threads',
+        'threading',
+        'background',
+        'json',
+        'folding',
+        'hierarchical',
+        'webpack'
+      ]
     },
     {
-      id: 'vite-lazy-yfiles',
-      name: 'Vite Lazy Load yFiles',
-      demoPath: 'loading/vite-lazy-yfiles/README.html',
+      id: 'rollup',
+      name: 'Rollup.js',
+      demoPath: 'loading/rollupjs/README.html',
       summary:
-        'Shows how to lazily load yFiles in a <a href="https://vitejs.dev/" target="_blank">Vite</a> project with dynamic imports.',
+        'Shows how to bundle the yFiles library in a <a href="https://rollupjs.org" target="_blank">rollup</a> project.',
       category: 'loading',
-      languageType: 'ts-only',
-      tags: ['modules', 'esm', 'deployment'],
-      keywords: ['v3.0', 'hierarchical', 'dynamic imports', 'vite']
+      languageType: 'js-only',
+      tags: ['deployment', 'optimizer'],
+      keywords: ['v2.2.0.0', 'web worker', 'modules']
     },
     {
       id: 'web-dev-server',
@@ -3253,7 +3940,11 @@ export function getAllEntries() {
       summary: 'Shows how to implement and use a custom port location model.',
       category: 'input',
       tags: ['interaction', 'port'],
-      keywords: ['port candidate providers', 'placements']
+      keywords: ['port candidate providers', 'placements'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: ['border-aligned-label-model', 'offset-wrapper-label-model']
+      }
     },
     {
       id: 'custom-snapping',
@@ -3272,7 +3963,16 @@ export function getAllEntries() {
       category: 'input',
       distributionType: 'needs-layout',
       tags: ['interaction', 'drag and drop'],
-      keywords: ['v2.4.0.4', 'move', 'dnd']
+      keywords: ['v2.4.0.4', 'move', 'dnd'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'drag-and-drop',
+          'graph-drag-and-drop',
+          'custom-drag-and-drop',
+          'component-drag-and-drop'
+        ]
+      }
     },
     {
       id: 'context-menu',
@@ -3293,7 +3993,16 @@ export function getAllEntries() {
       category: 'application-features',
       distributionType: 'needs-layout',
       tags: ['interaction', 'drag and drop'],
-      keywords: ['DropInputMode', 'move', 'events', 'input mode', 'dnd']
+      keywords: ['DropInputMode', 'move', 'events', 'input mode', 'dnd'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'drag-and-drop',
+          'graph-drag-and-drop',
+          'custom-drag-and-drop',
+          'drag-from-component'
+        ]
+      }
     },
     {
       id: 'drag-and-drop',
@@ -3303,7 +4012,16 @@ export function getAllEntries() {
       category: 'input',
       distributionType: 'needs-layout',
       tags: ['interaction', 'drag and drop'],
-      keywords: ['palette', 'ports', 'labels', 'groups', 'html', 'move', 'dnd']
+      keywords: ['palette', 'ports', 'labels', 'groups', 'html', 'move', 'dnd'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'graph-drag-and-drop',
+          'drag-from-component',
+          'custom-drag-and-drop',
+          'component-drag-and-drop'
+        ]
+      }
     },
     {
       id: 'graph-drag-and-drop',
@@ -3312,7 +4030,16 @@ export function getAllEntries() {
       summary: 'Shows drag and drop of graphs consisting of multiple items.',
       category: 'input',
       tags: ['interaction', 'drag and drop'],
-      keywords: ['v2.4.0.4', 'palette', 'graphs', 'groups', 'dnd']
+      keywords: ['v2.4.0.4', 'palette', 'graphs', 'groups', 'dnd'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'drag-and-drop',
+          'drag-from-component',
+          'custom-drag-and-drop',
+          'component-drag-and-drop'
+        ]
+      }
     },
     {
       id: 'custom-drag-and-drop',
@@ -3321,7 +4048,16 @@ export function getAllEntries() {
       summary: 'Shows how to change the color of nodes and edges using drag and drop operations.',
       category: 'input',
       tags: ['interaction', 'drag and drop'],
-      keywords: ['v2.4.0.4', 'palette', 'colors', 'dnd']
+      keywords: ['v2.4.0.4', 'palette', 'colors', 'dnd'],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'drag-and-drop',
+          'graph-drag-and-drop',
+          'drag-from-component',
+          'component-drag-and-drop'
+        ]
+      }
     },
     {
       id: 'edge-reconnection',
@@ -3482,6 +4218,15 @@ export function getAllEntries() {
       keywords: ['size constraint providers', 'handles']
     },
     {
+      id: 'custom-copy-and-paste',
+      name: 'Custom Copy and Paste',
+      demoPath: 'input/custom-copy-and-paste/',
+      summary: 'Shows how to copy and paste graph item styles.',
+      category: 'input',
+      tags: ['interaction'],
+      keywords: ['v3.1.0.0', 'copy', 'paste', 'styles', 'popover']
+    },
+    {
       id: 'button-input-mode',
       name: 'Button Input Mode',
       demoPath: 'input/button-input-mode/',
@@ -3568,7 +4313,8 @@ export function getAllEntries() {
         'hide',
         'hiding',
         'playground'
-      ]
+      ],
+      linkedDemos: { type: 'related-demos', demos: ['filtering-with-folding', 'flow-filtering'] }
     },
     {
       id: 'filtering-with-folding',
@@ -3611,7 +4357,17 @@ export function getAllEntries() {
         'hide',
         'collapse',
         'playground'
-      ]
+      ],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'folding-with-merged-edges',
+          'folding-with-layout',
+          'filtering-with-folding',
+          'hierarchical-nesting',
+          'hierarchical-nesting-incremental'
+        ]
+      }
     },
     {
       id: 'folding-with-merged-edges',
@@ -3724,6 +4480,32 @@ export function getAllEntries() {
       ]
     },
     {
+      id: 'heat-map',
+      name: 'Heat Map',
+      summary: 'Shows how to display a heat map on a graph.',
+      demoPath: 'application-features/heat-map/',
+      category: 'application-features',
+      distributionType: 'needs-layout',
+      tags: ['background', 'animation'],
+      keywords: [
+        'v3.1.0.0',
+        'intensity',
+        'density',
+        'hotspot',
+        'temperature',
+        'thermal',
+        'concentration',
+        'activity',
+        'engagement',
+        'popularity',
+        'risk',
+        'renderer',
+        'gradient',
+        'heatmap',
+        'playground'
+      ]
+    },
+    {
       id: 'input-output',
       name: 'Save and Load GraphML',
       summary: 'Shows how to use GraphML input and output.',
@@ -3773,6 +4555,24 @@ export function getAllEntries() {
       distributionType: 'needs-layout',
       tags: ['interaction', 'style'],
       keywords: ['NodeDecorator', 'ILookupDecorator', 'NodeStyleBase', 'events', 'decorator']
+    },
+    {
+      id: 'octilinear-edge-editing',
+      name: 'Octilinear Edge Editing',
+      summary: 'Shows how to implement interactive octilinear edge editing.',
+      demoPath: 'application-features/octilinear-edges/',
+      category: 'application-features',
+      distributionType: 'needs-layout',
+      tags: ['style', 'interaction', 'bends'],
+      keywords: [
+        'v3.1.0.0',
+        'v3.0.0.6',
+        'OrthogonalEdgeEditingContext',
+        'PositionHandler',
+        'handles',
+        'IHandle',
+        'selection'
+      ]
     },
     {
       id: 'orthogonal-edge-editing',
@@ -3830,7 +4630,17 @@ export function getAllEntries() {
         'dnd',
         'insert',
         'divide'
-      ]
+      ],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'drag-and-drop',
+          'component-drag-and-drop',
+          'graph-drag-and-drop',
+          'custom-drag-and-drop',
+          'drag-from-component'
+        ]
+      }
     },
     {
       id: 'simple-theming',
@@ -3844,13 +4654,13 @@ export function getAllEntries() {
     },
     {
       id: 'tooltips',
-      name: 'Tooltips',
-      summary: 'Shows how to enable tooltips for graph items.',
+      name: 'Tooltips & Popovers',
+      summary: 'Shows how to enable tooltips and popovers for graph items.',
       demoPath: 'application-features/tooltips/',
       category: 'application-features',
       distributionType: 'needs-layout',
       tags: ['hover', 'interaction'],
-      keywords: ['mouseHoverInputMode', 'query-item-tool-tip', 'events', 'data', 'json']
+      keywords: ['v3.1.0.0', 'mouseHoverInputMode', 'query-item-tool-tip', 'events', 'data', 'json']
     },
     {
       id: 'accessibility',
@@ -3921,7 +4731,18 @@ export function getAllEntries() {
         'collapse',
         'interaction',
         'playground'
-      ]
+      ],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'filtering',
+          'simple-highlight',
+          'collapsible-trees',
+          'company-ownership',
+          'neighborhood-view',
+          'neighborhood-circles'
+        ]
+      }
     },
     {
       id: 'layout-hierarchical',
@@ -3951,7 +4772,6 @@ export function getAllEntries() {
         'v2.4.0.4',
         'layout',
         'subset',
-        'layout',
         'nodes',
         'set',
         'node-set',
@@ -4298,6 +5118,28 @@ export function getAllEntries() {
         'tabular',
         'edgerouter',
         'aspect ratio',
+        'playground'
+      ]
+    },
+    {
+      id: 'layout-bundled-edge-router',
+      name: 'Bundled Edge Router',
+      summary: 'Shows common configuration options for the bundled edge routing algorithm.',
+      demoPath: 'layout-features/bundled-edge-router/',
+      category: 'layout-features',
+      tags: ['bundle', 'router'],
+      keywords: [
+        'v3.1',
+        'layout',
+        'router',
+        'bundling',
+        'bundle',
+        'routing-strategy',
+        'EdgeBundleDescriptor',
+        'curved',
+        'curves',
+        'splines',
+        'routing',
         'playground'
       ]
     },
@@ -5108,6 +5950,11 @@ function postProcess(demos) {
     const demo = baseDemo
     demo.thumbnailPath ??= `../doc/demo-thumbnails/${baseDemo.id}.webp`
     demo.demoDir ??= getDemoDir(demo)
+    if (demo.linkedDemos) {
+      demo.linkedDemos.name = demo.linkedDemos.type
+        .replaceAll('-', ' ')
+        .replace(/^./, (char) => char.toUpperCase())
+    }
   }
 
   return demos

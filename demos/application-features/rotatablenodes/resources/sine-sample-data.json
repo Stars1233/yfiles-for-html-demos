@@ -1,0 +1,42 @@
+{
+  "nodes": [
+    { "id": 0, "angle": 0, "layout": { "x":  0,  "y": 0, "width": 100, "height": 50 } },
+    { "id": 1, "angle": 18, "layout": { "x":  70,  "y": -144.2079307083088, "width": 100, "height": 50 } },
+    { "id": 2, "angle": 36, "layout": { "x":  140,  "y": -274.29978440315415, "width": 100, "height": 50 } },
+    { "id": 3, "angle": 54, "layout": { "x":  210,  "y": -377.54126404164214, "width": 100, "height": 50 } },
+    { "id": 4, "angle": 72, "layout": { "x":  280,  "y": -443.82637427107164, "width": 100, "height": 50 } },
+    { "id": 5, "angle": 90, "layout": { "x":  350,  "y": -466.6666666666667, "width": 100, "height": 50 } },
+    { "id": 6, "angle": 108, "layout": { "x":  420,  "y": -443.8263742710717, "width": 100, "height": 50 } },
+    { "id": 7, "angle": 126, "layout": { "x":  490,  "y": -377.54126404164214, "width": 100, "height": 50 } },
+    { "id": 8, "angle": 144, "layout": { "x":  560,  "y": -274.2997844031542, "width": 100, "height": 50 } },
+    { "id": 9, "angle": 162, "layout": { "x":  630,  "y": -144.20793070830885, "width": 100, "height": 50 } },
+    { "id": 10, "angle": 180, "layout": { "x":  700,  "y": 5.6843418860808e-14, "width": 100, "height": 50 } },
+    { "id": 11, "angle": 162, "layout": { "x":  770,  "y": 144.20793070830857, "width": 100, "height": 50 } },
+    { "id": 12, "angle": 144, "layout": { "x":  840,  "y": 274.2997844031541, "width": 100, "height": 50 } },
+    { "id": 13, "angle": 126, "layout": { "x":  910,  "y": 377.5412640416421, "width": 100, "height": 50 } },
+    { "id": 14, "angle": 108, "layout": { "x":  980,  "y": 443.82637427107164, "width": 100, "height": 50 } },
+    { "id": 15, "angle": 90, "layout": { "x":  1050,  "y": 466.6666666666667, "width": 100, "height": 50 } },
+    { "id": 16, "angle": 72, "layout": { "x":  1120,  "y": 443.8263742710717, "width": 100, "height": 50 } },
+    { "id": 17, "angle": 54, "layout": { "x":  1190,  "y": 377.54126404164225, "width": 100, "height": 50 } },
+    { "id": 18, "angle": 36, "layout": { "x":  1260,  "y": 274.2997844031542, "width": 100, "height": 50 } },
+    { "id": 19, "angle": 18, "layout": { "x":  1330,  "y": 144.20793070830888, "width": 100, "height": 50 } },
+    { "id": 20, "angle": 0, "layout": { "x":  1400,  "y": -1.1368683772161603e-13, "width": 100, "height": 50 } }
+  ],
+  "edges": [
+    { "source": 19, "target": 12 },
+    { "source": 3, "target": 16 },
+    { "source": 7, "target": 4 },
+    { "source": 5, "target": 17 },
+    { "source": 19, "target": 18 },
+    { "source": 15, "target": 6 },
+    { "source": 11, "target": 6 },
+    { "source": 4, "target": 10 },
+    { "source": 0, "target": 5 },
+    { "source": 20, "target": 16 },
+    { "source": 6, "target": 10 },
+    { "source": 20, "target": 9 },
+    { "source": 13, "target": 1 },
+    { "source": 14, "target": 15 },
+    { "source": 11, "target": 19 }
+  ]
+}

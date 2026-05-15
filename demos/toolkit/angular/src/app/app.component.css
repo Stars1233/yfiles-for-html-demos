@@ -28,9 +28,9 @@
  ***************************************************************************/
 :host {
   display: grid;
-  grid-area: content;
-  grid-template-rows: auto 1fr;
-  grid-template-areas: 'toolbar' 'content';
+  grid-template-columns: auto 320px;
+  gap: 8px;
+  min-height: 0;
 }
 .demo-separator {
   height: 20px;

@@ -88,6 +88,14 @@
   opacity: 0;
   animation: fadein 0.3s linear 1s forwards;
 }
+.yfiles-popover__container {
+  width: auto;
+}
+.yfiles-context-menu {
+  background: initial;
+  border: none;
+  box-shadow: none;
+}
 
 @keyframes fadein {
   from {
@@ -181,28 +189,22 @@
 }
 
 #panning-options-div {
-  border-bottom: 5px solid #eee;
   padding: 20px 5px;
 }
 
 .panning-options-box {
-  background: url('../../demo-app/icons/arrowheadDownWhite.png') no-repeat 99px 7px;
-  height: 29px;
   overflow: hidden;
-  width: 120px;
   margin: auto;
-  border-radius: 5px;
-  background-color: #0b7189;
+  display: flex;
+  justify-content: center;
 }
 
 .panning-options-box select {
-  background: transparent;
   border: none;
   font-size: 14px;
-  height: 29px;
   padding: 5px;
-  width: 268px;
-  color: #fff;
+  width: auto;
+  color: var(--color-text);
 }
 
 .panning-options-box option {
@@ -212,5 +214,5 @@
 .panning-label {
   margin: 10px 0 10px 0;
   text-align: center;
-  color: #333333;
+  color: var(--color-text);
 }

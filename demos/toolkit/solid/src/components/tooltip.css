@@ -30,6 +30,7 @@
   /* overwrite the default tooltip styling */
   border: initial;
   padding: initial;
+  border-radius: 16px;
 }
 
 .diagram-tooltip {
@@ -39,19 +40,19 @@
     0 1px 10px 0 rgba(0, 0, 0, 0.12);
   padding: 10px 24px;
   background-color: white;
-  border-radius: 4px;
+  border-radius: 16px;
 }
 
 .diagram-tooltip h4 {
-  font-size: 1.25rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
   line-height: 2rem;
   font-family: Roboto, sans-serif;
   margin: 0 0 4px 0;
 }
 
 .diagram-tooltip p {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 400;
   line-height: 1.5rem;
   letter-spacing: 0.03125em;

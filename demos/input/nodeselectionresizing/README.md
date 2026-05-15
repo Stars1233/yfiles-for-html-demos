@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Node Selection Resizing Demo
+# Node Selection Resizing Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/node-selection-resizing.webp" alt="demo-thumbnail" height="320"/>
 

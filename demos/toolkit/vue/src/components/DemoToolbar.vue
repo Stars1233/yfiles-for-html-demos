@@ -54,7 +54,7 @@ export default defineComponent({
 .demo-toolbar button.labeled {
   background-position-x: left;
   width: inherit;
-  padding: 0 2px;
+  padding: 0 5px;
 }
 
 .demo-toolbar button.labeled[class*='demo-icon'] {
@@ -67,6 +67,8 @@ export default defineComponent({
   display: inline-block;
   outline: none;
   border: none;
+  border-radius: 999px;
+  padding: 0;
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-color: transparent;
@@ -74,13 +76,15 @@ export default defineComponent({
   width: 24px;
   line-height: 24px;
   box-sizing: border-box;
-  padding: 0;
   cursor: pointer;
+  text-wrap: nowrap;
+  color: #1c2a35;
+  font-size: 14px;
 }
 
 .demo-toolbar button:hover,
 .demo-toolbar > label:hover {
-  background-color: #dedede;
+  background-color: #aec3d5;
 }
 
 .demo-toggle-button {
@@ -88,11 +92,12 @@ export default defineComponent({
 }
 
 .demo-toggle-button:checked + label {
-  background-color: #dedede;
+  background-color: #aec3d5;
 }
 
 .demo-toggle-button:checked:hover + label {
-  background-color: #b2b2b2;
+  background-color: #38536b;
+  color: white;
 }
 
 .demo-toggle-button:disabled + label {
@@ -104,14 +109,15 @@ export default defineComponent({
 .demo-toggle-button.labeled + label {
   background-position-x: left;
   width: inherit;
-  padding: 0 2px;
+  padding: 0 5px;
   line-height: 24px;
 }
 
 .demo-toolbar button:active,
 .demo-toolbar > label:active,
 .demo-toolbar .demo-toggle-button:checked:active + label {
-  background-color: #b2b2b2;
+  background-color: #38536b;
+  color: white;
 }
 
 .demo-toolbar button:disabled,
@@ -124,7 +130,7 @@ export default defineComponent({
 .demo-separator {
   height: 20px;
   width: 1px;
-  background: #999;
+  background: #38536b;
   display: inline-block;
   vertical-align: middle;
   margin: 0 10px;
@@ -139,25 +145,21 @@ export default defineComponent({
 }
 
 .demo-icon-yIconExportImage {
-  background-image: url('@yfiles/demo-app/icons/export-image-16.svg');
+  background-image: url('../assets/export-image-16.svg');
 }
 
 .search {
+  margin-left: auto;
   line-height: 20px;
   padding: 4px 8px;
   font-size: 14px;
   letter-spacing: normal;
   width: 300px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
 }
 
 .search:focus {
   outline: none;
-}
-@media screen and (max-height: 500px) {
-  .demo-toolbar {
-    top: 30px !important;
-    height: 30px !important;
-    line-height: 30px !important;
-  }
 }
 </style>

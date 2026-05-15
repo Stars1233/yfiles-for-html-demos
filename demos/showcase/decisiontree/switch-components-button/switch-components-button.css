@@ -27,28 +27,36 @@
  **
  ***************************************************************************/
 .action-button {
-  position: fixed;
-  right: 40px;
-  bottom: 40px;
-  width: 100px;
-  height: 100px;
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  width: 70px;
+  height: 70px;
   border-radius: 100px;
-  background-size: 70px 70px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #38434f;
+  display: flex;
+  font-size: 50px;
+  background-color: #59789b;
+  color: white;
   cursor: pointer;
-  background-image: url('../resources/icons/play2-16.svg');
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  box-shadow: var(--shadow-crispy-gray);
 }
 .action-button:hover {
-  background-color: #465064;
-}
-.action-button.decision-tree {
-  background-image: url('../resources/icons/settings-16.svg');
+  background-color: #2a3e50;
 }
 .action-button.disabled {
   background-color: #aaaaaa;
 }
 .hidden {
   display: none;
+}
+
+.main-container {
+  .graph-panel {
+    #graphComponent.hidden {
+      background-color: transparent;
+    }
+  }
 }

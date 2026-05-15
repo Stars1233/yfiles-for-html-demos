@@ -36,6 +36,7 @@ import {
   ILayoutAlgorithm,
   Insets,
   OrganicLayout,
+  OrganicLayoutData,
   OrganicLayoutStarSubstructureStyle,
   Point,
   Rect
@@ -83,7 +84,7 @@ class KrebsCycleLayout extends BaseClass(ILayoutAlgorithm) {
     // get the nodes that belong on the circle
     const circleNodes = this.getCircleNodes(graph)
 
-    // align vertically the nodes on top and place the nodes on the circle
+    // vertically align the nodes on top and place the nodes on the circle
     this.applyFirstPhase(graph, vAlignedNodes, circleNodes)
     // arrange the enzymes and the co-reactants
     this.applySecondPhase(graph, vAlignedNodes, circleNodes)
@@ -149,7 +150,7 @@ class KrebsCycleLayout extends BaseClass(ILayoutAlgorithm) {
       defaultMinimumNodeDistance: 5
     })
 
-    const organicLayoutData = organicLayout.createLayoutData(graph)
+    const organicLayoutData = new OrganicLayoutData()
     const organicConstraintData = organicLayoutData.constraints
 
     if (circleNodes) {
@@ -197,10 +198,10 @@ class KrebsCycleLayout extends BaseClass(ILayoutAlgorithm) {
       defaultMinimumNodeDistance: 12
     })
 
-    const organicLayoutData = organicLayout.createLayoutData(graph)
+    const organicLayoutData = new OrganicLayoutData()
     const organicConstraintData = organicLayoutData.constraints
 
-    // used to mark the nodes that connected to the vertically aligned nodes and have already constraints
+    // used to mark the nodes that connected to the vertically aligned nodes and already have constraints
     const handledNodes = new Set()
     const circleNodesSet = new Set(circleNodes)
 
@@ -211,7 +212,7 @@ class KrebsCycleLayout extends BaseClass(ILayoutAlgorithm) {
       new Rect(bounds.x, bounds.y, bounds.width, bounds.height)
     ).source = this.getEnzymesOnCircle(graph, circleNodesSet)
 
-    // add constraints to the nodes connected to the vertically aligned path on the top, and
+    // add constraints to the nodes connected to the vertically aligned path on the top and
     // mark them as already handled
     this.addConstraintsToVerticallyAlignedPath(
       vAlignedNodes,
@@ -473,7 +474,7 @@ function isCoReactant(node) {
 }
 
 /**
- * Returns whether the given node has type 'OTHER'.
+ * Returns whether the given node has the type 'OTHER'.
  */
 function isOther(node) {
   return getType(node) === 'other'

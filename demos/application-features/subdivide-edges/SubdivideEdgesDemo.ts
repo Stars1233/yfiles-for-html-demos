@@ -48,11 +48,10 @@ import {
   SmartEdgeLabelModel,
   SvgExport
 } from '@yfiles/yfiles'
-
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { createDemoShapeNodeStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
 import { SubdivideEdgeDropInputMode } from './SubdivideEdgeDropInputMode'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -99,7 +98,7 @@ function configureDragAndDrop(): void {
  */
 function initializeDragAndDropPanel(): void {
   // retrieve the panel element
-  const panel = document.querySelector<Element>('#drag-and-drop-panel')!
+  const panel = document.querySelector<Element>('#dnd-panel')!
 
   // prepare node styles for the palette
   const defaultNodeStyle = graphComponent.graph.nodeDefaults.style
@@ -120,7 +119,8 @@ function initializeDragAndDropPanel(): void {
 function addNodeVisual(style: INodeStyle, panel: Element): void {
   // Create the HTML element for the visual.
   const div = document.createElement('div')
-  div.setAttribute('style', 'width: 40px; height: 40px; margin: 10px auto; cursor: grab;')
+  div.setAttribute('style', 'height: 40px; cursor: grab;')
+  div.setAttribute('class', 'demo-dnd-panel__item')
   const img = document.createElement('img')
   img.setAttribute('style', 'width: auto; height: auto;')
   // Create a visual for the style.

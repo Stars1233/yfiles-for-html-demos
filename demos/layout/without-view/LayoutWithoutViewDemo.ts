@@ -28,13 +28,17 @@
  ***************************************************************************/
 import {
   HierarchicalLayout,
+  HierarchicalLayoutData,
   type IMapper,
   type IOrientedRectangle,
   type LayoutEdge,
+  type LayoutEdgeLabel,
   LayoutGraph,
   LayoutGraphAlgorithms,
+  type LayoutGraphItem,
   LayoutGrid,
   type LayoutNode,
+  type LayoutNodeLabel,
   License,
   OrientedRectangle,
   Point
@@ -118,7 +122,13 @@ function runLayout(layoutGraph: LayoutGraph, centralNode: LayoutNode): void {
 
   // create the partition
   const layoutGrid = new LayoutGrid(2, 1, 0, 5, 30, 30)
-  const layoutData = layout.createLayoutData(layoutGraph)
+  const layoutData = new HierarchicalLayoutData<
+    LayoutNode,
+    LayoutEdge,
+    LayoutGraphItem,
+    LayoutNodeLabel,
+    LayoutEdgeLabel
+  >()
   // assign the central node to its own row
   layoutData.layoutGridData.layoutGridCellDescriptors = (node: LayoutNode) =>
     layoutGrid.createRowSpanDescriptor(node === centralNode ? 0 : 1)

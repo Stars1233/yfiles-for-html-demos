@@ -49,7 +49,7 @@ import {
   initDemoStyles
 } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Runs the demo.
@@ -83,31 +83,37 @@ function createSampleNodeLabels(graph) {
   graph.addLabel({
     owner: n1,
     text: 'Rectangle Node Label',
-    layoutParameter: createNodeLabelParameter([1, 0.2], [100, 0]),
+    layoutParameter: createNodeLabelParameter([1, 0.1], [100, 0]),
     style: createNodeLabelStyle({ shape: LabelShape.RECTANGLE })
   })
   graph.addLabel({
     owner: n1,
     text: 'Rounded Node Label',
-    layoutParameter: createNodeLabelParameter([1, 0.4], [100, 0]),
+    layoutParameter: createNodeLabelParameter([1, 0.3], [100, 0]),
     style: createNodeLabelStyle({ shape: LabelShape.ROUND_RECTANGLE, padding: new Insets(2) })
   })
   graph.addLabel({
     owner: n1,
     text: 'Hexagon Node Label',
-    layoutParameter: createNodeLabelParameter([1, 0.6], [100, 0]),
+    layoutParameter: createNodeLabelParameter([1, 0.5], [100, 0]),
     //The hexagon background needs slightly larger insets at the sides
     style: createNodeLabelStyle({ shape: LabelShape.HEXAGON })
   })
   graph.addLabel({
     owner: n1,
     text: 'Pill Node Label',
-    layoutParameter: createNodeLabelParameter([1, 0.8], [100, 0]),
+    layoutParameter: createNodeLabelParameter([1, 0.7], [100, 0]),
     style: createNodeLabelStyle({ shape: LabelShape.PILL })
+  })
+  graph.addLabel({
+    owner: n1,
+    text: 'Squircle Node Label',
+    layoutParameter: createNodeLabelParameter([1, 0.9], [100, 0]),
+    style: createNodeLabelStyle({ shape: LabelShape.SQUIRCLE })
   })
 
   // Create two more nodes, the bottom one and the right one
-  const n2 = graph.createNode({ layout: [275, 600, 50, 50] })
+  const n2 = graph.createNode({ layout: [375, 700, 50, 50] })
   graph.setStyle(n2, createDemoNodeStyle('demo-palette-14'))
   const n3 = graph.createNode({ layout: [525, -100, 50, 200] })
   graph.setStyle(n3, createDemoNodeStyle('demo-palette-12'))
@@ -168,13 +174,13 @@ function createSampleEdgeLabels(graph) {
   graph.addLabel({
     owner: edge1,
     text: 'Rectangle Edge Label\n' + 'A second line of sample text.',
-    layoutParameter: edgeLabelModel.createParameterFromSource(0, 0, 0.2),
+    layoutParameter: edgeLabelModel.createParameterFromSource(0, 0, 0.1),
     style: createEdgeLabelStyle({ shape: LabelShape.RECTANGLE })
   })
   graph.addLabel({
     owner: edge1,
     text: 'Rounded Edge Label\n' + 'A second line of sample text.',
-    layoutParameter: edgeLabelModel.createParameterFromSource(0, 0, 0.4),
+    layoutParameter: edgeLabelModel.createParameterFromSource(0, 0, 0.3),
     // For the round rectangle, we can manually increase the padding around the text
     // using the insets property. By default, this would be just as tight as for
     // LabelShape.RECTANGLE, but in order to make sure that text is less likely to touch
@@ -184,14 +190,20 @@ function createSampleEdgeLabels(graph) {
   graph.addLabel({
     owner: edge1,
     text: 'Hexagon Edge Label\n' + 'A second line of sample text.',
-    layoutParameter: edgeLabelModel.createParameterFromSource(0, 0, 0.6),
+    layoutParameter: edgeLabelModel.createParameterFromSource(0, 0, 0.5),
     style: createEdgeLabelStyle({ shape: LabelShape.HEXAGON })
   })
   graph.addLabel({
     owner: edge1,
     text: 'Pill Edge Label\n' + 'A second line of sample text.',
-    layoutParameter: edgeLabelModel.createParameterFromSource(0, 0, 0.8),
+    layoutParameter: edgeLabelModel.createParameterFromSource(0, 0, 0.7),
     style: createEdgeLabelStyle({ shape: LabelShape.PILL })
+  })
+  graph.addLabel({
+    owner: edge1,
+    text: 'Squircle Edge Label\n' + 'A second line of sample text.',
+    layoutParameter: edgeLabelModel.createParameterFromSource(0, 0, 0.9),
+    style: createEdgeLabelStyle({ shape: LabelShape.SQUIRCLE })
   })
 
   //Add rotated edge labels on the second edge segment, distributed evenly and with different
@@ -199,7 +211,7 @@ function createSampleEdgeLabels(graph) {
   graph.addLabel({
     owner: edge1,
     text: 'Rotated Rectangle',
-    layoutParameter: edgeLabelModel.createParameterFromSource(1, 0, 0.2),
+    layoutParameter: edgeLabelModel.createParameterFromSource(1, 0, 0.35),
     style: createEdgeLabelStyle({
       theme: 'demo-palette-15',
       shape: LabelShape.RECTANGLE,
@@ -209,7 +221,7 @@ function createSampleEdgeLabels(graph) {
   graph.addLabel({
     owner: edge1,
     text: 'Rotated Rounded Rectangle',
-    layoutParameter: edgeLabelModel.createParameterFromSource(1, 0, 0.4),
+    layoutParameter: edgeLabelModel.createParameterFromSource(1, 0, 0.5),
     style: createEdgeLabelStyle({
       theme: 'demo-palette-15',
       shape: LabelShape.ROUND_RECTANGLE,
@@ -234,23 +246,33 @@ function createSampleEdgeLabels(graph) {
   graph.addLabel({
     owner: edge1,
     text: 'Rotated Pill',
-    layoutParameter: edgeLabelModel.createParameterFromSource(1, 0, 0.8),
+    layoutParameter: edgeLabelModel.createParameterFromSource(1, 0, 0.7),
     style: createEdgeLabelStyle({
       theme: 'demo-palette-15',
       shape: LabelShape.PILL,
       font: new Font('Monospace', 16)
     })
   })
+  graph.addLabel({
+    owner: edge1,
+    text: 'Rotated Squircle',
+    layoutParameter: edgeLabelModel.createParameterFromSource(1, 0, 0.85),
+    style: createEdgeLabelStyle({
+      theme: 'demo-palette-15',
+      shape: LabelShape.SQUIRCLE,
+      font: new Font('Monospace', 16)
+    })
+  })
 
   const edge2 = graph.createEdge(graph.nodes.get(2), graph.nodes.get(1))
-  graph.addBend(edge2, [550, 625])
+  graph.addBend(edge2, [550, 725])
   graph.setStyle(edge2, createDemoEdgeStyle({ colorSetName: 'demo-palette-12' }))
 
   // Add larger edge labels with different vertical and horizontal text alignment settings to the second edge
   graph.addLabel({
     owner: edge2,
     text: 'Edge Label\nwith vertical text\nalignment at bottom',
-    layoutParameter: edgeLabelModel.createParameterFromSource(0, -20, 0.4),
+    layoutParameter: edgeLabelModel.createParameterFromSource(0, -20, 0.2),
     style: createEdgeLabelStyle({
       theme: 'demo-palette-12',
       shape: LabelShape.ROUND_RECTANGLE,
@@ -264,7 +286,7 @@ function createSampleEdgeLabels(graph) {
   graph.addLabel({
     owner: edge2,
     text: 'Edge Label\nwith vertical text\nalignment at top',
-    layoutParameter: edgeLabelModel.createParameterFromSource(0, 20, 0.4),
+    layoutParameter: edgeLabelModel.createParameterFromSource(0, 20, 0.2),
     style: createEdgeLabelStyle({
       theme: 'demo-palette-12',
       shape: LabelShape.ROUND_RECTANGLE,
@@ -278,7 +300,7 @@ function createSampleEdgeLabels(graph) {
   graph.addLabel({
     owner: edge2,
     text: 'Edge Label\nwith vertical center\nand horizontal left\ntext alignment',
-    layoutParameter: edgeLabelModel.createParameterFromSource(0, 20, 0.7),
+    layoutParameter: edgeLabelModel.createParameterFromSource(0, 20, 0.5),
     style: createEdgeLabelStyle({
       theme: 'demo-palette-12',
       shape: LabelShape.ROUND_RECTANGLE,
@@ -293,7 +315,7 @@ function createSampleEdgeLabels(graph) {
   graph.addLabel({
     owner: edge2,
     text: 'Edge Label\nwith vertical bottom\nand horizontal right\ntext alignment',
-    layoutParameter: edgeLabelModel.createParameterFromSource(0, -20, 0.7),
+    layoutParameter: edgeLabelModel.createParameterFromSource(0, -20, 0.5),
     style: createEdgeLabelStyle({
       theme: 'demo-palette-12',
       shape: LabelShape.ROUND_RECTANGLE,

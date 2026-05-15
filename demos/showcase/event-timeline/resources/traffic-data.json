@@ -1,0 +1,781 @@
+{
+  "nodes": [
+    {
+      "id": "srv-web",
+      "label": "Web Server",
+      "group": "Infrastructure"
+    },
+    {
+      "id": "srv-db",
+      "label": "Database",
+      "group": "Infrastructure"
+    },
+    {
+      "id": "srv-backup",
+      "label": "Backup Storage",
+      "group": "Infrastructure"
+    },
+    {
+      "id": "usr-alice",
+      "label": "Alice (Admin)",
+      "group": "Users"
+    },
+    {
+      "id": "usr-bob",
+      "label": "Bob (Dev)",
+      "group": "Users"
+    },
+    {
+      "id": "usr-charlie",
+      "label": "Charlie (HR)",
+      "group": "Users"
+    },
+    {
+      "id": "ip-ext-1",
+      "label": "External-A",
+      "group": "External"
+    },
+    {
+      "id": "ip-ext-2",
+      "label": "External-B",
+      "group": "External"
+    },
+    {
+      "id": "ip-vpn",
+      "label": "Corporate VPN",
+      "group": "External"
+    },
+    {
+      "id": "fw-gateway",
+      "label": "Firewall",
+      "group": "Network"
+    },
+    {
+      "id": "siem-log",
+      "label": "Log Server",
+      "group": "Network"
+    }
+  ],
+  "edges": [
+    {
+      "id": "reg-1",
+      "source": "usr-alice",
+      "target": "ip-vpn",
+      "type": "auth",
+      "label": "VPN Login",
+      "weight": 1,
+      "time": "2023-11-01T08:00:10Z"
+    },
+    {
+      "id": "reg-2",
+      "source": "usr-bob",
+      "target": "ip-vpn",
+      "type": "auth",
+      "label": "VPN Login",
+      "weight": 1,
+      "time": "2023-11-01T08:05:45Z"
+    },
+    {
+      "id": "reg-3",
+      "source": "usr-bob",
+      "target": "srv-web",
+      "type": "ssh",
+      "label": "Terminal Start",
+      "weight": 1,
+      "time": "2023-11-01T08:10:00Z"
+    },
+    {
+      "id": "reg-4",
+      "source": "srv-web",
+      "target": "srv-db",
+      "type": "sql",
+      "label": "Keepalive",
+      "weight": 1,
+      "time": "2023-11-01T08:15:00Z"
+    },
+    {
+      "id": "reg-5",
+      "source": "usr-charlie",
+      "target": "srv-web",
+      "type": "http",
+      "label": "Portal Access",
+      "weight": 1,
+      "time": "2023-11-01T08:22:12Z"
+    },
+    {
+      "id": "b1-1",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:01Z"
+    },
+    {
+      "id": "b1-2",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:02Z"
+    },
+    {
+      "id": "b1-3",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:03Z"
+    },
+    {
+      "id": "b1-4",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:04Z"
+    },
+    {
+      "id": "b1-5",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:05Z"
+    },
+    {
+      "id": "b1-6",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:06Z"
+    },
+    {
+      "id": "b1-7",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:07Z"
+    },
+    {
+      "id": "b1-8",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:08Z"
+    },
+    {
+      "id": "b1-9",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:09Z"
+    },
+    {
+      "id": "b1-10",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:10Z"
+    },
+    {
+      "id": "b1-11",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:11Z"
+    },
+    {
+      "id": "b1-12",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:12Z"
+    },
+    {
+      "id": "b1-13",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:13Z"
+    },
+    {
+      "id": "b1-14",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:14Z"
+    },
+    {
+      "id": "b1-15",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "scan",
+      "label": "Port Scan",
+      "weight": 1,
+      "time": "2023-11-01T09:00:15Z"
+    },
+    {
+      "id": "reg-6",
+      "source": "srv-web",
+      "target": "siem-log",
+      "type": "log",
+      "label": "Health Check OK",
+      "weight": 1,
+      "time": "2023-11-01T09:30:00Z"
+    },
+    {
+      "id": "reg-7",
+      "source": "usr-alice",
+      "target": "srv-db",
+      "type": "query",
+      "label": "Table Audit",
+      "weight": 1,
+      "time": "2023-11-01T09:45:00Z"
+    },
+    {
+      "id": "c1-1",
+      "source": "fw-gateway",
+      "target": "siem-log",
+      "type": "alert",
+      "label": "Policy Block",
+      "weight": 1,
+      "time": "2023-11-01T10:00:00Z"
+    },
+    {
+      "id": "c1-2",
+      "source": "usr-bob",
+      "target": "srv-web",
+      "type": "ssh",
+      "label": "Cmd: ls -la",
+      "weight": 1,
+      "time": "2023-11-01T10:00:00Z"
+    },
+    {
+      "id": "c1-3",
+      "source": "srv-db",
+      "target": "srv-backup",
+      "type": "sync",
+      "label": "Heartbeat",
+      "weight": 1,
+      "time": "2023-11-01T10:00:00Z"
+    },
+    {
+      "id": "c1-4",
+      "source": "usr-charlie",
+      "target": "ip-vpn",
+      "type": "auth",
+      "label": "Re-auth",
+      "weight": 1,
+      "time": "2023-11-01T10:00:00Z"
+    },
+    {
+      "id": "c1-5",
+      "source": "ip-ext-2",
+      "target": "fw-gateway",
+      "type": "ping",
+      "label": "ICMP Echo",
+      "weight": 1,
+      "time": "2023-11-01T10:00:00Z"
+    },
+    {
+      "id": "b2-1",
+      "source": "srv-web",
+      "target": "srv-db",
+      "type": "data",
+      "label": "Batch Update",
+      "weight": 2,
+      "time": "2023-11-01T10:30:01Z"
+    },
+    {
+      "id": "b2-2",
+      "source": "srv-web",
+      "target": "srv-db",
+      "type": "data",
+      "label": "Batch Update",
+      "weight": 2,
+      "time": "2023-11-01T10:30:02Z"
+    },
+    {
+      "id": "b2-3",
+      "source": "srv-web",
+      "target": "srv-db",
+      "type": "data",
+      "label": "Batch Update",
+      "weight": 2,
+      "time": "2023-11-01T10:30:03Z"
+    },
+    {
+      "id": "b2-4",
+      "source": "srv-web",
+      "target": "srv-db",
+      "type": "data",
+      "label": "Batch Update",
+      "weight": 2,
+      "time": "2023-11-01T10:30:04Z"
+    },
+    {
+      "id": "b2-5",
+      "source": "srv-web",
+      "target": "srv-db",
+      "type": "data",
+      "label": "Batch Update",
+      "weight": 2,
+      "time": "2023-11-01T10:30:05Z"
+    },
+    {
+      "id": "b2-6",
+      "source": "srv-backup",
+      "target": "siem-log",
+      "type": "log",
+      "label": "Job Progress",
+      "weight": 1,
+      "time": "2023-11-01T10:30:01Z"
+    },
+    {
+      "id": "b2-7",
+      "source": "srv-backup",
+      "target": "siem-log",
+      "type": "log",
+      "label": "Job Progress",
+      "weight": 1,
+      "time": "2023-11-01T10:30:02Z"
+    },
+    {
+      "id": "b2-8",
+      "source": "srv-backup",
+      "target": "siem-log",
+      "type": "log",
+      "label": "Job Progress",
+      "weight": 1,
+      "time": "2023-11-01T10:30:03Z"
+    },
+    {
+      "id": "b2-9",
+      "source": "srv-backup",
+      "target": "siem-log",
+      "type": "log",
+      "label": "Job Progress",
+      "weight": 1,
+      "time": "2023-11-01T10:30:04Z"
+    },
+    {
+      "id": "b2-10",
+      "source": "srv-backup",
+      "target": "siem-log",
+      "type": "log",
+      "label": "Job Progress",
+      "weight": 1,
+      "time": "2023-11-01T10:30:05Z"
+    },
+    {
+      "id": "reg-8",
+      "source": "usr-alice",
+      "target": "srv-web",
+      "type": "admin",
+      "label": "Server Restart",
+      "weight": 5,
+      "time": "2023-11-01T12:00:00Z"
+    },
+    {
+      "id": "reg-9",
+      "source": "srv-web",
+      "target": "fw-gateway",
+      "type": "sys",
+      "label": "Interface Up",
+      "weight": 1,
+      "time": "2023-11-01T12:01:00Z"
+    },
+    {
+      "id": "c2-1",
+      "source": "usr-alice",
+      "target": "siem-log",
+      "type": "view",
+      "label": "Open Dash",
+      "weight": 1,
+      "time": "2023-11-01T13:00:00Z"
+    },
+    {
+      "id": "c2-2",
+      "source": "usr-bob",
+      "target": "siem-log",
+      "type": "view",
+      "label": "Open Dash",
+      "weight": 1,
+      "time": "2023-11-01T13:00:00Z"
+    },
+    {
+      "id": "c2-3",
+      "source": "srv-web",
+      "target": "siem-log",
+      "type": "log",
+      "label": "Access Log",
+      "weight": 1,
+      "time": "2023-11-01T13:00:00Z"
+    },
+    {
+      "id": "c2-4",
+      "source": "srv-db",
+      "target": "siem-log",
+      "type": "log",
+      "label": "Slow Query",
+      "weight": 1,
+      "time": "2023-11-01T13:00:00Z"
+    },
+    {
+      "id": "c2-5",
+      "source": "fw-gateway",
+      "target": "siem-log",
+      "type": "log",
+      "label": "DPI Rule",
+      "weight": 1,
+      "time": "2023-11-01T13:00:00Z"
+    },
+    {
+      "id": "c2-6",
+      "source": "ip-ext-1",
+      "target": "fw-gateway",
+      "type": "reject",
+      "label": "Auth Fail",
+      "weight": 1,
+      "time": "2023-11-01T13:00:00Z"
+    },
+    {
+      "id": "c2-7",
+      "source": "ip-ext-2",
+      "target": "fw-gateway",
+      "type": "reject",
+      "label": "Auth Fail",
+      "weight": 1,
+      "time": "2023-11-01T13:00:00Z"
+    },
+    {
+      "id": "c2-8",
+      "source": "srv-backup",
+      "target": "srv-db",
+      "type": "check",
+      "label": "Index Verify",
+      "weight": 1,
+      "time": "2023-11-01T13:00:00Z"
+    },
+    {
+      "id": "ex-1",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:01Z"
+    },
+    {
+      "id": "ex-2",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:02Z"
+    },
+    {
+      "id": "ex-3",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:03Z"
+    },
+    {
+      "id": "ex-4",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:04Z"
+    },
+    {
+      "id": "ex-5",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:05Z"
+    },
+    {
+      "id": "ex-6",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:06Z"
+    },
+    {
+      "id": "ex-7",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:07Z"
+    },
+    {
+      "id": "ex-8",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:08Z"
+    },
+    {
+      "id": "ex-9",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:09Z"
+    },
+    {
+      "id": "ex-10",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:10Z"
+    },
+    {
+      "id": "ex-11",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:11Z"
+    },
+    {
+      "id": "ex-12",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:12Z"
+    },
+    {
+      "id": "ex-13",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:13Z"
+    },
+    {
+      "id": "ex-14",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:14Z"
+    },
+    {
+      "id": "ex-15",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:15Z"
+    },
+    {
+      "id": "ex-16",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:16Z"
+    },
+    {
+      "id": "ex-17",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:17Z"
+    },
+    {
+      "id": "ex-18",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:18Z"
+    },
+    {
+      "id": "ex-19",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:19Z"
+    },
+    {
+      "id": "ex-20",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:20Z"
+    },
+    {
+      "id": "ex-21",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:21Z"
+    },
+    {
+      "id": "ex-22",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:22Z"
+    },
+    {
+      "id": "ex-23",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:23Z"
+    },
+    {
+      "id": "ex-24",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:24Z"
+    },
+    {
+      "id": "ex-25",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:25Z"
+    },
+    {
+      "id": "ex-26",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:26Z"
+    },
+    {
+      "id": "ex-27",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:27Z"
+    },
+    {
+      "id": "ex-28",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:28Z"
+    },
+    {
+      "id": "ex-29",
+      "source": "srv-db",
+      "target": "srv-web",
+      "type": "tunnel",
+      "label": "Tunnel Send",
+      "weight": 3,
+      "time": "2023-11-01T14:00:29Z"
+    },
+    {
+      "id": "ex-30",
+      "source": "srv-web",
+      "target": "ip-ext-1",
+      "type": "tunnel",
+      "label": "Tunnel Recv",
+      "weight": 3,
+      "time": "2023-11-01T14:00:30Z"
+    },
+    {
+      "id": "reg-10",
+      "source": "usr-alice",
+      "target": "fw-gateway",
+      "type": "admin",
+      "label": "Rule Update",
+      "weight": 2,
+      "time": "2023-11-01T15:00:00Z"
+    },
+    {
+      "id": "reg-11",
+      "source": "usr-bob",
+      "target": "ip-vpn",
+      "type": "auth",
+      "label": "Logout",
+      "weight": 1,
+      "time": "2023-11-01T17:00:00Z"
+    },
+    {
+      "id": "reg-12",
+      "source": "usr-alice",
+      "target": "ip-vpn",
+      "type": "auth",
+      "label": "Logout",
+      "weight": 1,
+      "time": "2023-11-01T17:30:00Z"
+    }
+  ]
+}

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Rectangle Node Style Demo
+# Rectangle Node Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/rectangle-node-style.webp" alt="demo-thumbnail" height="320"/>
 
@@ -24,10 +24,3 @@ This is made possible by numerous configuration options for the representation o
 - Change some of the settings in the property panel on the right-hand side while a node is selected and see how it affects the selected node.
 - Resize a selected node via its round handles and see how the shape changes based on the value of [scale corner size](https://docs.yworks.com/yfileshtml/api/RectangleNodeStyle#scaleCornerSize).
 - Drag the rectangular handle of a selected node to change its [corner size](https://docs.yworks.com/yfileshtml/api/RectangleNodeStyle#cornerSize) interactively. A blue rectangle will be displayed during the drag that visualizes the top-left corner using the current corner size.
-
-## Related Demos
-
-- [Shape Node Style Demo](../../style/shape-node-style/)
-- [Group Node Style Demo](../../style/group-node-style/)
-- [Arrow Node Style Demo](../../style/arrow-node-style/)
-- [Create A Rectangle](../../tutorial-style-implementation-node/01-create-a-rectangle/)

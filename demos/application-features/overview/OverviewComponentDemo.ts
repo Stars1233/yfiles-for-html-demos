@@ -41,9 +41,10 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+
 import type { JSONGraph } from '@yfiles/demo-utils/json-model'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Application Features - Add an overview component to the application
@@ -63,15 +64,7 @@ async function run(): Promise<void> {
   /////////////////////// overview component ///////////////////////
 
   // initialize the GraphOverviewComponent
-  const overviewComponent = new GraphOverviewComponent('overviewComponent', graphComponent)
-
-  // This code toggles the visibility of the overview.
-  // Developers who want to keep the overview component always visible don't need this
-  const overviewContainer = overviewComponent.htmlElement.parentElement!
-  const overviewHeader = overviewContainer.querySelector('.demo-overlay__header')!
-  overviewHeader.addEventListener('click', () => {
-    overviewContainer.classList.toggle('collapsed')
-  })
+  new GraphOverviewComponent('overviewComponent', graphComponent)
 
   //////////////////////////////////////////////////////////////////
 
@@ -110,7 +103,7 @@ function buildGraph(graph: IGraph, graphData: JSONGraph): void {
   graphBuilder.createNodesSource({
     data: graphData.nodeList.filter((item) => !item.isGroup),
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
 
   graphBuilder

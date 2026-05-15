@@ -128,7 +128,7 @@ export async function runShortestPathAlgorithm(
   if (endNode) {
     const graphEditorInputMode =
       graphComponent.inputMode as GraphEditorInputMode
-    await graphEditorInputMode.toolTipInputMode.show(
+    await graphEditorInputMode.toolTipInputMode.open(
       endNode.layout.center,
       `Distance: ${pathDistance}`
     )

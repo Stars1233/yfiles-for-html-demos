@@ -30,7 +30,8 @@ import { NodeTypePanel } from '@yfiles/demo-utils/NodeTypePanel'
 import { colorSets, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import type { GraphComponent, INode } from '@yfiles/yfiles'
 import type { ColorSetName } from '@yfiles/demo-app/demo-colors'
-import type { MultiPageNodeType } from './resources/SampleData'
+
+type MultiPageNodeType = { type: number }
 
 /**
  * The color sets for the eight different node types.
@@ -55,7 +56,7 @@ export function getNodeType(node: INode): number {
 
 /**
  * Sets the type for the given node by updating the node's tag and the according style.
- * This function is invoked when the type of node is changed via the type panel.
+ * This function is invoked when the type value of a node is changed via the type panel.
  */
 export function setNodeType(node: INode, type: number): void {
   // set a new tag and style so that this change is easily undo-able

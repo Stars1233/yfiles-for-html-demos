@@ -47,8 +47,9 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { checkWebGL2Support, finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './resources/hierarchical_2000_2100.json'
+import { checkWebGL2Support } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 
@@ -97,6 +98,8 @@ function enableWebGLRendering(graphComponent) {
  */
 function initInteraction(graphComponent) {
   graphComponent.inputMode = new GraphEditorInputMode()
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**

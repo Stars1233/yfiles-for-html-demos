@@ -29,6 +29,7 @@
 .main-view-buttons {
   display: flex;
   align-items: center;
+  margin-right: -7px;
 }
 
 .demo-content__components {
@@ -38,14 +39,25 @@
   flex: 1;
   height: 100%;
 }
-
-#graphComponent {
-  border-bottom: 4px solid #f7f7f7;
+.main-container {
+  .demo-main__graph-component {
+    flex: 1 1 auto;
+    #graphComponent {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom: 4px solid #f7f7f7;
+      z-index: 0;
+    }
+  }
 }
 
 #timeline-component {
-  height: 250px;
+  flex: 0 0 250px;
   width: 100%;
+  background-color: #f7f7f7;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+  z-index: 0;
 }
 
 #fraud-detection-component {
@@ -61,7 +73,8 @@
   position: absolute;
   display: none;
   flex-direction: column;
-  border: 5px solid orangered;
+  border: 5px solid var(--rail-highlighted);
+  border-radius: var(--border-radius);
   background-color: white;
 }
 
@@ -71,7 +84,7 @@
 
 .fraud-detection-view__title {
   position: relative;
-  padding-left: 5px;
+  padding: 0 5px;
   font-size: 20px;
   color: white;
 }
@@ -79,30 +92,31 @@
 #layout-button {
   display: none;
   height: 24px;
+  align-items: center;
 }
 
 #layout-button:hover {
   cursor: pointer;
-  background-color: #bbb !important;
 }
 
 #layout-button.visible {
-  display: inline-block;
+  display: flex;
+  padding: 16px;
+}
+#separate-layout-button.visible {
+  display: inline;
 }
 
-.fraud-detection-view__close-button {
-  position: absolute;
-  right: 4px;
-  top: 1px;
-  width: 24px;
-  height: 24px;
+#fraud-detection-view__close {
   cursor: pointer;
-  background: url('./icons/close-large.svg') no-repeat center;
 }
 
 .fraud-detection-view__header {
-  background-color: orangered;
-  height: 30px;
+  background-color: var(--rail-highlighted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
 }
 
 #fraud-detection-timeline-component {
@@ -133,25 +147,34 @@
   background-color: #4281a4;
   display: flex;
   flex-direction: row;
+  padding: 0;
+  border-top-left-radius: var(--border-radius);
+  border-top-right-radius: var(--border-radius);
 }
 
 #properties-view .details-container {
   height: 250px;
+  color: var(--color-casper-blue-black);
 }
 
 #properties-view .properties-container {
   height: 100%;
-  background: white;
+  background: var(--toolbar-toggle-button-enabled);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 #properties-view .no-item-selection {
-  background: white url('icons/no-selection.svg') no-repeat center;
+  background: var(--toolbar-toggle-button-enabled) url('icons/no-selection.svg') no-repeat center;
   background-size: 50px;
   height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--border-radius);
 }
 
 #properties-view .no-item-selection-text {
@@ -169,6 +192,7 @@
 }
 
 #properties-view .header img {
+  padding-left: 5px;
   width: 15%;
   align-self: center;
   margin: 0;
@@ -177,69 +201,69 @@
 #properties-view td {
   padding: 4px 5px;
   font-size: 14px;
+  color: var(--color-text);
 }
 
 #properties-view td:first-of-type {
   text-transform: uppercase;
   font-weight: bold;
-  color: #4281a4;
   width: 100px;
   vertical-align: top;
 }
 
 #properties-view .table-container {
+  flex: 1;
   overflow: auto;
-  height: calc(100% - 40px);
-  padding: 10px 5px;
+}
+
+#properties-view .table-container::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+#properties-view .table-container::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 4px;
+}
+
+#properties-view .table-container::-webkit-scrollbar-corner {
+  background: var(--toolbar-toggle-button-enabled);
 }
 
 #fraud-rings {
-  display: inline-block;
-  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
   margin-left: 1ex;
+  button {
+    justify-content: center;
+  }
 }
 
-.demo-page__toolbar .warning {
-  background-image: url('./icons/fraud-warning.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 24px;
-  background-color: transparent;
-  margin-right: 1px;
-  border: none;
-  color: orangered;
-  font-size: 10px;
-  font-weight: bold;
-  padding: 0;
-  vertical-align: middle;
+.toolbar .warning {
+  border: 1px solid var(--color-text);
+  justify-content: center;
 }
 
-.demo-page__toolbar .warning:active {
-  background-color: #b2b2b2;
-  border: none;
-}
-
-.demo-page__toolbar .warning:hover {
+.toolbar .warning:hover {
   cursor: pointer;
-  background-color: #bbb !important;
   border: none;
 }
 
-.demo-page__toolbar .warning.highlight {
-  background-color: #bbb !important;
+.toolbar > .separator:last-child {
+  display: none !important;
 }
-
-.demo-page__toolbar .warning:focus {
-  outline: none;
+.toolbar .toolbar-overflow-container .separator {
+  display: none !important;
 }
-
 .customCursor {
   cursor: pointer !important;
 }
 
 .legend__box {
   width: 160px;
-  background: white;
+  background: var(--toolbar-toggle-button-enabled);
   border: 2px solid #7e7979;
   border-radius: 4px;
   margin: auto;
@@ -280,7 +304,7 @@
 }
 
 .legend__line.blue {
-  background-color: #4281a4;
+  background-color: #2d5a73;
 }
 
 .legend__desc {

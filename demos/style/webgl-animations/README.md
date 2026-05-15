@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# WebGL Animations Demo
+# WebGL Animations Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/webgl-animations.webp" alt="demo-thumbnail" height="320"/>
 

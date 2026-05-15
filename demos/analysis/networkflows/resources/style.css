@@ -26,24 +26,27 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-.popupContent {
-  position: absolute;
+.popup-content {
   display: block;
-  opacity: 1;
   border: 1px solid #c9c9c9;
-  overflow: visible;
+  border-radius: 15px;
+  padding: 5px;
+  font-size: 14px;
+  color: var(--color-casper-blue-black);
   background: rgba(255, 255, 255, 0.85);
-  z-index: 5;
+  input {
+    color: var(--color-casper-blue-black);
+  }
 }
 
-#popupContentInfo label {
+.popup-content label {
   width: 65px;
   display: inline-block;
   font-weight: bold;
   vertical-align: middle;
 }
 
-#popupContentInfo button {
+.popup-content button {
   border: none;
   cursor: pointer;
   width: 16px;
@@ -61,17 +64,24 @@
 
 #apply {
   background: url('./apply-16.svg');
-  border-left: 1px inset;
 }
 
-.popupSeparator {
+.popup-separator {
   border: 1px inset;
   margin: 5px;
   vertical-align: middle;
 }
-
-img {
-  vertical-align: middle;
+.interaction-panel {
+  img {
+    vertical-align: middle;
+    display: inline-block;
+    padding: 5px;
+  }
+  p.material-symbols-outlined {
+    margin: 0;
+    vertical-align: middle;
+    display: inline-block;
+  }
 }
 
 #cost-form {
@@ -83,19 +93,22 @@ img {
   text-align: center;
 }
 
-#flowValue {
-  width: 50px;
+#flow-value {
   text-align: right;
   display: none;
   padding-right: 2px;
 }
 
-.demo-toolbar label {
-  font-weight: bold;
-  width: auto;
-}
-
-.demo-toolbar label:hover {
+#flow-value {
   background-color: transparent;
-  cursor: default;
+  margin-right: 10px;
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+#description {
+  position: absolute;
+  top: 0;
+  width: calc(100% - calc(2 * var(--dialog-padding)));
 }

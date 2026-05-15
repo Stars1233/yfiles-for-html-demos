@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Neighborhood Circles Demo
+# Neighborhood Circles Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/neighborhood-circles.webp" alt="demo-thumbnail" height="320"/>
 

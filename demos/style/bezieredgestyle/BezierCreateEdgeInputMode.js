@@ -36,12 +36,13 @@ import {
 } from '@yfiles/yfiles'
 
 /**
- * Custom create edge input mode for bezier edges.
+ * Custom create edge input mode for Bézier edges.
  * This mode can operate in two different ways:
- * If {@link BezierCreateEdgeInputMode.createSmoothSplines} is `true`, you create only
+ * - If {@link BezierCreateEdgeInputMode.createSmoothSplines} is `true`, you create only
  * the exterior control points and the mode interpolates the missing middle control point for each
  * triple.
- * Otherwise, you specify each control point exactly as intended.
+ * - Otherwise, you specify each control point exactly as intended.
+ *
  * During the gesture, the current hull curve is shown.
  */
 export class BezierCreateEdgeInputMode extends CreateEdgeInputMode {
@@ -116,15 +117,15 @@ export class BezierCreateEdgeInputMode extends CreateEdgeInputMode {
   }
 
   /**
-   * If we have a bezier edge style, we decorate it so that we can also show the control points.
+   * If we have a Bézier edge style, we decorate it so that we can also show the control points.
    * A better solution that would however be more involved would be to show the decoration.
    */
   configureDummyEdge() {
     const simpleEdge = this.previewEdge
     if (simpleEdge instanceof SimpleEdge && simpleEdge.style instanceof BezierEdgeStyle) {
-      // By default, the BezierEdgeStyle has no bend creator
+      // By default, the BezierEdgeStyle has no bend creator.
       // However, we want to be able to create bends here
-      // So we sneakily insert a BendCreator into the dummy edge lookup
+      // so we sneakily insert a BendCreator into the dummy edge lookup.
       const defaultBendCreator = new SimpleEdge().lookup(IBendCreator)
       simpleEdge.getDecorator().bendCreator.addConstant(defaultBendCreator)
     }
@@ -164,40 +165,42 @@ export class BezierCreateEdgeInputMode extends CreateEdgeInputMode {
   }
 
   onBendRemoved() {
-    if (!this.augmenting) {
-      if (this.createSmoothSplines && this.previewEdge.style instanceof BezierEdgeStyle) {
-        this.augmenting = true
-        try {
-          if (this.previewEdge.bends.size > 0 && this.previewEdge.bends.size % 3 === 0) {
-            // Undo bend creation that finished a triple
-            this.previewGraph.remove(this.previewEdge.bends.last())
-          }
-        } finally {
-          this.augmenting = false
-        }
+    if (this.augmenting) {
+      return
+    }
+    if (!(this.createSmoothSplines && this.previewEdge.style instanceof BezierEdgeStyle)) {
+      return
+    }
+    this.augmenting = true
+    try {
+      if (this.previewEdge.bends.size > 0 && this.previewEdge.bends.size % 3 === 0) {
+        // Undo bend creation that finished a triple
+        this.previewGraph.remove(this.previewEdge.bends.last())
       }
+    } finally {
+      this.augmenting = false
     }
   }
 
   onBendAdded(evt) {
-    if (!this.augmenting) {
-      if (this.createSmoothSplines && this.previewEdge.style instanceof BezierEdgeStyle) {
-        this.augmenting = true
-        try {
-          if (this.previewEdge.bends.size % 3 === 0) {
-            // Bend creation that finishes a control point line
-            // Insert a middle bend
-            const cp0 = this.previewEdge.bends
-              .get(this.previewEdge.bends.size - 2)
-              .location.toPoint()
-            const cp2 = evt.item.location.toPoint()
-            const cp1 = cp2.subtract(cp0).multiply(0.5).add(cp0)
-            this.previewGraph.addBend(this.previewEdge, cp1, this.previewEdge.bends.size - 1)
-          }
-        } finally {
-          this.augmenting = false
-        }
+    if (this.augmenting) {
+      return
+    }
+    if (!(this.createSmoothSplines && this.previewEdge.style instanceof BezierEdgeStyle)) {
+      return
+    }
+    this.augmenting = true
+    try {
+      if (this.previewEdge.bends.size % 3 === 0) {
+        // Bend creation that finishes a control point line
+        // Insert a middle bend
+        const cp0 = this.previewEdge.bends.get(this.previewEdge.bends.size - 2).location.toPoint()
+        const cp2 = evt.item.location.toPoint()
+        const cp1 = cp2.subtract(cp0).multiply(0.5).add(cp0)
+        this.previewGraph.addBend(this.previewEdge, cp1, this.previewEdge.bends.size - 1)
       }
+    } finally {
+      this.augmenting = false
     }
   }
 

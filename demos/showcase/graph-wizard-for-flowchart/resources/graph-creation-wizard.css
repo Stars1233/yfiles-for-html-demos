@@ -26,21 +26,46 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import '@yfiles/demo-app/demo.css';
-
 .wizard-legend {
   width: 400px;
   height: 100%;
-  background-color: #fff;
+  background-color: var(--color-bg-hover);
   padding: 10px;
   font-size: 12pt;
+}
+
+.graph-panel .graph-overview {
+  width: 400px;
+  height: fit-content;
+  top: 5rem;
+  left: 30px;
+}
+
+.graph-panel .graph-overview.graph-overview--collapsed {
+  height: 50px;
+  width: 400px;
+  border-radius: var(--border-radius);
+}
+
+.graph-panel .graph-overview .graph-overview__header {
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-family), 'sans-serif';
+  font-size: 1rem;
+}
+
+.graph-panel .graph-overview.graph-overview--collapsed .graph-overview__header::after {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: normal;
+  font-size: 1.5rem;
+  content: 'keyboard_arrow_left';
 }
 
 .wizard-legend em {
   color: #336699;
   font-style: normal;
   background-color: #ddd;
-  padding: 0px 4px;
+  padding: 0 4px;
   border-radius: 4px;
 }
 
@@ -60,10 +85,6 @@ legend {
  Be careful to not increase the specificity.
  Otherwise, it interferes with the collapse feature.
  */
-.demo-overlay {
-  width: inherit;
-  height: inherit;
-}
 
 .shortcut {
   margin: 0 0.15em;
@@ -108,7 +129,7 @@ legend {
   border-radius: 2px;
   border-style: none;
   color: #fff;
-  padding: 0px;
+  padding: 0;
 }
 
 .container-drop-shadow {

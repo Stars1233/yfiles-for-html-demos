@@ -54,7 +54,7 @@ export function readJSON(graphComponent: GraphComponent, text: string): void {
     const nodesSource = graphBuilder.createNodesSource({
       data: data.nodeList.filter((item) => item.isGroup !== true),
       id: (item) => item.id,
-      parentId: (item) => item.parentId,
+      parentId: (item) => item.parent,
       layout: (item) => item.layout
     })
     const nodeLabelSource = nodesSource.nodeCreator.createLabelsSource<JSONLabel>({
@@ -69,7 +69,7 @@ export function readJSON(graphComponent: GraphComponent, text: string): void {
     const groupNodesSource = graphBuilder.createGroupNodesSource({
       data: data.nodeList.filter((item) => item.isGroup === true),
       id: (item) => item.id,
-      parentId: (item) => item.parentId,
+      parentId: (item) => item.parent,
       layout: (item) => item.layout
     })
     const groupNodeLabelSource = groupNodesSource.nodeCreator.createLabelsSource<JSONLabel>({

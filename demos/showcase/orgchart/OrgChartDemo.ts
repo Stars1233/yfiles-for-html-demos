@@ -39,11 +39,11 @@ import {
 import { PrintingSupport } from '@yfiles/demo-utils/PrintingSupport'
 import { CollapsibleTree } from './CollapsibleTree'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { initializeGraphSearch } from './OrgChartGraphSearch'
 import { buildGraph, getEmployee } from './model/data-loading'
 import { createOrgChartNodeStyle } from './graph-style/orgchart-node-style'
 import { initializeInputMode, initializeInteractivity } from './input'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent = null!
 
@@ -118,7 +118,7 @@ function initializeGraph(orgChartGraph: CollapsibleTree): void {
  * Sets style defaults for nodes and edges.
  */
 function initializeDefaultStyle(orgChartGraph: CollapsibleTree): void {
-  const nodeSize = new Size(285, 100)
+  const nodeSize = new Size(300, 100)
 
   const graph = orgChartGraph.completeGraph
 

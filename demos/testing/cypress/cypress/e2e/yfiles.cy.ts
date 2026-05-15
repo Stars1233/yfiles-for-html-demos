@@ -29,6 +29,12 @@
 import { type GraphComponent } from '@yfiles/yfiles'
 
 describe('yfiles spec', () => {
+  beforeEach(() => {
+    // Set the viewport size, otherwise we'll get the mobile "first view" of the
+    // testing application (see comment below), and that is basically the description panel.
+    cy.viewport(1920, 1080)
+  })
+
   it('should increase edge count by 1', () => {
     /**
      * We assume that the yFiles demo server is running.
@@ -40,25 +46,23 @@ describe('yfiles spec', () => {
         'testing/application-under-test/index.html',
         Cypress.env('testingUrl') || 'http://localhost:4241/demos-ts/'
       ).href
-    ).then(() => {
-      cy.get('.loaded').should('exist')
-      cy.window().then((win) => {
-        // win is the remote window
-        const graphComponent = (win as Cypress.AUTWindow & { graphComponent: GraphComponent })
-          .graphComponent
-        if (!graphComponent) {
-          throw new Error('graphComponent is undefined')
-        }
-        const startEdges = graphComponent.graph.edges.size
+    )
 
-        cy.get('button[id="create-edge"]')
-          .click()
-          .then(() => {
-            const endEdges = graphComponent.graph.edges.size
-            if (endEdges !== startEdges + 1) {
-              throw new Error(`number of edges after creating a new one is wrong: ${endEdges}.`)
-            }
-          })
+    cy.get('.loaded').should('exist')
+
+    cy.window().then((win) => {
+      const graphComponent = (win as Cypress.AUTWindow & { graphComponent: GraphComponent })
+        .graphComponent
+
+      expect(graphComponent, 'graphComponent').to.exist
+
+      const startEdges = graphComponent.graph.edges.size
+
+      cy.get('#create-edge').click()
+
+      cy.then(() => {
+        const endEdges = graphComponent.graph.edges.size
+        expect(endEdges).to.equal(startEdges + 1)
       })
     })
   })

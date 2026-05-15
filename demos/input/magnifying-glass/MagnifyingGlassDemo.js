@@ -44,7 +44,7 @@ import { LensInputMode } from './LensInputMode'
 import { colorSets, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import { deviceIcons, networkData } from './resources/network-sample'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent = null
 let lensInputMode = null
@@ -69,6 +69,8 @@ async function run() {
   graphComponent.inputMode = graphEditorInputMode
   // Decrease the zoom of the graphComponent to make sure the magnifying glass is visible
   graphComponent.zoom = 0.5
+  // Add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 
   initDemoStyles(graphComponent.graph)
   populateGraph(graphComponent.graph)

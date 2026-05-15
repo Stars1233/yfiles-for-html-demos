@@ -45,7 +45,7 @@ import { enableSingleSelection } from './SingleSelectionHelper'
 
 import licenseData from '../../../lib/license.json'
 import { colorSets } from '@yfiles/demo-app/demo-colors'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const [yellow, orange, green, blue, gray] = [
   colorSets['demo-palette-71'],
@@ -103,6 +103,20 @@ function initializeGraph(graph) {
     new Point(400, 600),
     blue,
     RectangleCornerStyle.CUT,
+    true,
+    0.8,
+    RectangleCorners.BOTTOM
+  )
+
+  // Create nodes with squircle corners with different resizing behaviors
+  createNode(graph, new Point(800, 0), yellow, RectangleCornerStyle.SQUIRCLE, false, 10)
+  createNode(graph, new Point(800, 200), orange, RectangleCornerStyle.SQUIRCLE, true, 0.2)
+  createNode(graph, new Point(800, 400), green, RectangleCornerStyle.SQUIRCLE, true, 0.5)
+  createNode(
+    graph,
+    new Point(800, 600),
+    blue,
+    RectangleCornerStyle.SQUIRCLE,
     true,
     0.8,
     RectangleCorners.BOTTOM
@@ -197,7 +211,7 @@ function onSelectionChanged(selectedNode) {
   if (selectedNode != null) {
     const style = selectedNode.style
 
-    const cornerStyle = style.cornerStyle === RectangleCornerStyle.ROUND ? 'rounded' : 'cut'
+    const cornerStyle = cornerStyleValueToText(style.cornerStyle)
     const cornerSizeScaling = style.scaleCornerSize ? 'relative' : 'absolute'
     const topLeftCornerAffected = (style.corners & RectangleCorners.TOP_LEFT) !== 0
     const topRightCornerAffected = (style.corners & RectangleCorners.TOP_RIGHT) !== 0
@@ -235,8 +249,17 @@ function updateStyleProperties(graphComponent) {
   const style = node.style
 
   const cornerStyle = document.querySelector('#corner-style').value
-  style.cornerStyle =
-    cornerStyle === 'rounded' ? RectangleCornerStyle.ROUND : RectangleCornerStyle.CUT
+  switch (cornerStyle) {
+    case 'round':
+      style.cornerStyle = RectangleCornerStyle.ROUND
+      break
+    case 'cut':
+      style.cornerStyle = RectangleCornerStyle.CUT
+      break
+    case 'squircle':
+      style.cornerStyle = RectangleCornerStyle.SQUIRCLE
+      break
+  }
 
   const cornerSizeScaling = document.querySelector('#corner-size-scaling').value
   style.scaleCornerSize = cornerSizeScaling === 'relative'
@@ -278,7 +301,7 @@ function setPropertiesViewState(disabled) {
  */
 function styleToText(style) {
   return (
-    `Corner Style: ${style.cornerStyle === RectangleCornerStyle.ROUND ? 'rounded' : 'cut'}\n` +
+    `Corner Style: ${cornerStyleValueToText(style.cornerStyle)}\n` +
     `Corner Size Scaling: ${style.scaleCornerSize ? 'relative' : 'absolute'}\n` +
     `Affected Corners: ${cornersToText(style.corners)}`
   )
@@ -315,6 +338,13 @@ function cornersToText(corners) {
  */
 function cornerValueToText(corner) {
   return RectangleCorners[corner].toLocaleLowerCase().replace('_', '-')
+}
+
+/**
+ * Returns the display text for the given corner style value.
+ */
+function cornerStyleValueToText(style) {
+  return RectangleCornerStyle[style].toLocaleLowerCase()
 }
 
 /**

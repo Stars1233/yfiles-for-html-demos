@@ -30,7 +30,6 @@ import {
   BaseClass,
   type IInputModeContext,
   IPositionHandler,
-  MutablePoint,
   type MutableRectangle,
   Point
 } from '@yfiles/yfiles'
@@ -40,12 +39,11 @@ import {
  */
 export class PositionHandler extends BaseClass(IPositionHandler) {
   rectangle: MutableRectangle
-  offset: MutablePoint
+  offset: Point | undefined
 
   constructor(rectangle: MutableRectangle) {
     super()
     this.rectangle = rectangle
-    this.offset = new MutablePoint()
   }
 
   get location(): Point {
@@ -54,24 +52,18 @@ export class PositionHandler extends BaseClass(IPositionHandler) {
 
   initializeDrag(context: IInputModeContext): void {
     const canvasComponent = context.canvasComponent!
-    const x = this.rectangle.x - canvasComponent.lastEventLocation.x
-    const y = this.rectangle.y - canvasComponent.lastEventLocation.y
-    this.offset.setLocation(x, y)
+    this.offset = this.rectangle.topLeft.subtract(canvasComponent.lastPointerEvent.location)
   }
 
-  handleMove(context: IInputModeContext, originalLocation: Point, newLocation: Point): void {
-    const newX = newLocation.x + this.offset.x
-    const newY = newLocation.y + this.offset.y
-    this.rectangle.setLocation(new Point(newX, newY))
+  handleMove(_context: IInputModeContext, _originalLocation: Point, newLocation: Point): void {
+    this.rectangle.setLocation(newLocation.add(this.offset!))
   }
 
-  cancelDrag(context: IInputModeContext, originalLocation: Point): void {
+  cancelDrag(_context: IInputModeContext, originalLocation: Point): void {
     this.rectangle.setLocation(originalLocation)
   }
 
-  dragFinished(context: IInputModeContext, originalLocation: Point, newLocation: Point): void {
-    const newX = newLocation.x + this.offset.x
-    const newY = newLocation.y + this.offset.y
-    this.rectangle.setLocation(new Point(newX, newY))
+  dragFinished(_context: IInputModeContext, _originalLocation: Point, newLocation: Point): void {
+    this.rectangle.setLocation(newLocation.add(this.offset!))
   }
 }

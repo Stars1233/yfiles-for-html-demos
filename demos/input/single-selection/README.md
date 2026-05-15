@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Single Selection
+# Single Selection Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/single-selection.webp" alt="demo-thumbnail" height="320"/>
 

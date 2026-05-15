@@ -46,9 +46,9 @@ import {
 import { GraphDropInputMode } from './GraphDropInputMode'
 import { ClearAreaLayoutHelper } from './ClearAreaLayoutHelper'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import sampleComponents from './resources/PaletteComponents.json'
 import graphData from './resources/SampleGraph.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent = null
 
@@ -242,7 +242,7 @@ function onDragStarted(_evt, moveInputMode) {
  * Updates the layout when a node has been moved.
  */
 function onDragged(_evt, _moveInputMode) {
-  layoutHelper.location = graphComponent.lastEventLocation.toPoint()
+  layoutHelper.location = graphComponent.lastPointerEvent.location
   layoutHelper.runLayout()
 }
 
@@ -250,7 +250,7 @@ function onDragged(_evt, _moveInputMode) {
  * Finalizes the component after a node movement.
  */
 function dragFinished(_evt, moveInputMode) {
-  layoutHelper.location = graphComponent.lastEventLocation.toPoint()
+  layoutHelper.location = graphComponent.lastPointerEvent.location
   layoutHelper.component = moveInputMode.affectedItems.filter((item) => item instanceof INode)
 }
 
@@ -314,8 +314,9 @@ function addComponentVisual(component, panel) {
   const div = document.createElement('div')
   div.setAttribute(
     'style',
-    'width: 150px; height: 150px; margin: 10px auto; cursor: grab; touch-action: none;'
+    'width: 100%; height: 150px; margin: 10px auto; cursor: grab; touch-action: none;'
   )
+  div.setAttribute('class', 'demo-dnd-panel__item')
   const img = document.createElement('img')
   img.setAttribute('style', 'width: auto; height: auto;')
   img.setAttribute('src', createComponentVisual(componentGraph))

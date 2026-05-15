@@ -32,37 +32,40 @@
      ////////////////////////////////////////////////////////////////////////-->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="../../demo-app/icons/favicon.ico" type="image/x-icon" />
     <title>Vue Component Node Style Demo [yFiles for HTML]</title>
   </head>
   <body class="loaded">
     <header class="demo-header">
-      <a href="https://www.yfiles.com" class="demo-header__y-logo"></a>
-      <div class="demo-header__breadcrumb-wrapper">
-        <a href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html">yFiles for HTML</a>
-        <a href="../../../README.html">Demos</a>
-        <span>Vue Component Node Style Demo</span>
-        <a href="../../../README.html" class="demo-header__mobile-back">yFiles Demos</a>
-      </div>
+      <a
+        href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+        class="y-logo"
+        target="_blank"
+      ></a>
+      <span class="material-symbols-outlined">chevron_right</span>
+      <a href="../../README.html" class="breadcrumb-wrapper" target="_blank">Demos</a>
+      <span class="material-symbols-outlined">chevron_right</span>
+      <span id="name" class="breadcrumb-wrapper demo-name">Vue Component Node Style</span>
     </header>
-    <aside class="demo-page__description">
-      <div class="demo-description__content">
-        <h1>Vue Component Node Style Demo</h1>
+    <div class="main-container">
+      <div class="demo-page__main" id="app"></div>
+      <div class="demo-page__description">
+        <div class="demo-description__content">
+          <h1>Vue Component Node Style Demo</h1>
 
-        <p>
-          This demo presents the Vue.js component node style that uses a
-          <a href="https://vuejs.org/" target="_blank">Vue</a>
-          component to visualize nodes.
-        </p>
+          <p>
+            This demo presents the Vue.js component node style that uses a
+            <a href="https://vuejs.org/" target="_blank">Vue</a>
+            component to visualize nodes.
+          </p>
 
-        <p>
-          In this demo, the <a href="https://vuetifyjs.com/en/">Vuetify UI library</a>
-          components are used to display graph nodes. You can just as well use any other UI
-          framework, or your own custom Vue components.
-        </p>
+          <p>
+            In this demo, the <a href="https://vuetifyjs.com/en/">Vuetify UI library</a>
+            components are used to display graph nodes. You can just as well use any other UI
+            framework, or your own custom Vue components.
+          </p>
+        </div>
       </div>
-    </aside>
-    <div class="demo-page__main" id="app"></div>
+    </div>
     <script type="module" src="./src/main.ts"></script>
   </body>
 </html>

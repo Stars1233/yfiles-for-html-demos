@@ -2,5 +2,5 @@
   <circle r="5" fill="#DADADA" transform="translate(5.5 5.5)"></circle>
   <circle r="5" fill="#888" transform="translate(5 5)"></circle>
   <text fill="white" transform="translate(3 8)" style="font-size:8px; font-weight:bold">?</text>
-  <text fill="#999" style="font-family: Roboto, sans-serif; font-size: 9px" transform="translate(14 8.5)">Offline</text>
+  <text fill="#999" style="font-family: Poppins, sans-serif; font-size: 9px" transform="translate(14 8.5)">Offline</text>
 </svg>

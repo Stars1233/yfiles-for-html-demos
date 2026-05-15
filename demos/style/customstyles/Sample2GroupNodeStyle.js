@@ -286,9 +286,9 @@ export class Sample2GroupNodeStyle extends NodeStyleBase {
           context.canvasComponent.executeCommand(Command.TOGGLE_EXPANSION_STATE, node)
         }
       })
-      // yfiles needs to capture all events after pointerdown, this interferes with
-      // the click listener, thus we disable pointerdown for the button
-      collapseButton.svgElement.addEventListener('pointerdown', (evt) => evt.preventDefault())
+      // Stop the pointerdown event propagation, so yFiles does not start pointer capture.
+      // Otherwise, the click listener above would not be triggered.
+      collapseButton.svgElement.addEventListener('pointerdown', (evt) => evt.stopPropagation())
       collapseButton.svgElement.setAttribute('transform', `translate(${width - 17} 5)`)
       container.appendChild(collapseButton.svgElement)
     }

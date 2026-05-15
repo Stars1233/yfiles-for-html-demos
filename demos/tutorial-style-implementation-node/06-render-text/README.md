@@ -9,49 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# 06 Rendering Text - Tutorial: Node Style Implementation
+# 06 Rendering Text Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/tutorial-style-implementation-node-render-text.webp" alt="demo-thumbnail" height="320"/>
 
 [You can also run this demo online](https://www.yfiles.com/demos/tutorial-style-implementation-node/06-render-text/).
-
-Not all visualizations consist of shapes and colors. Frequently, the business data stored in the [tag](https://docs.yworks.com/yfileshtml/api/ITagOwner#tag) property also contains textual content that should be rendered. Although yFiles for HTML offers labels for that purpose, text can also be rendered as part of the node visualization. This can be useful when users don’t need to interact with the text, or when the text should be integrated into the node visualization.
-
-We add another property to the node [tag](https://docs.yworks.com/yfileshtml/api/ITagOwner#tag)s that contains the node title.
-
-```
-graph.createNode({
-  layout: [0, 0, 100, 70],
-  tag: { color: '#b91c3b', title: 'Title' }
-})
-graph.createNode({
-  layout: [140, 0, 100, 70],
-  tag: { color: '#9e7cb5', title: 'Long title', showBadge: true }
-})
-```
-
-yFiles for HTML offers the [TextRenderSupport](https://docs.yworks.com/yfileshtml/api/TextRenderSupport) utility class to measure and render text. Compared with just a plain SVG `<text>` element it supports wrapping and trimming text based on a specified maximum size. In this example, we add text to the “tab” in a way that the text is cut off with an ellipsis if it doesn’t fit.
-
-```
-const title = node.tag?.title
-if (title) {
-  const text = document.createElementNS(
-    'http://www.w3.org/2000/svg',
-    'text'
-  )
-  text.setAttribute('fill', '#eee')
-  SvgVisual.setTranslate(text, 10, 2)
-
-  TextRenderSupport.addText({
-    targetElement: text,
-    text: node.tag.title,
-    font: new Font('sans-serif', 10),
-    wrapping: TextWrapping.WRAP_CHARACTER_ELLIPSIS,
-    maximumSize: new Size(tabWidth - 12, 15)
-  })
-
-  g.append(text)
-}
-```
-
-[07 Hit-Testing](../../tutorial-style-implementation-node/07-hit-testing/)

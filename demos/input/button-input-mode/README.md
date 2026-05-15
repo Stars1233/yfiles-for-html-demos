@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Button Input Mode Demo
+# Button Input Mode Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/button-input-mode.webp" alt="demo-thumbnail" height="320"/>
 

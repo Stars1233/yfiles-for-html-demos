@@ -44,16 +44,23 @@ export class D3BarChart {
   }
   private readonly chartWidth: number
   private readonly chartHeight: number
-  private chart: d3.Selection<d3.BaseType, unknown, HTMLElement, unknown>
+  private chart: d3.Selection<SVGSVGElement, unknown, null, unknown>
+  private container: HTMLElement
+  private tooltip: d3.Selection<HTMLDivElement, unknown, null, unknown>
 
-  constructor() {
+  constructor(container: HTMLElement) {
+    this.container = container
     this.chartWidth = 250 - this.chartMargin.left - this.chartMargin.right
     this.chartHeight = 75 - this.chartMargin.top - this.chartMargin.bottom
 
     this.chart = d3
-      .select('.chart')
+      .select(container)
+      .append('svg')
       .attr('width', this.chartWidth + this.chartMargin.left + this.chartMargin.right)
       .attr('height', this.chartHeight + this.chartMargin.top + this.chartMargin.bottom)
+
+    // Create tooltip once (re-used on updates)
+    this.tooltip = d3.select(this.container).append('div').attr('class', 'd3-tooltip')
 
     const y = d3.scaleLinear().domain([0, 1]).range([this.chartHeight, 5])
 
@@ -85,7 +92,7 @@ export class D3BarChart {
       .range([this.chartHeight - 1, 5])
 
     // Bind the data to the surrounding bar elements
-    const groups = this.chart.selectAll('.bar').data(remainingLoads)
+    const groups = this.chart.selectAll<SVGGElement, number>('.bar').data(remainingLoads)
 
     // Add new bars on entering of new data which consist of ...
     const newGroups = groups
@@ -109,15 +116,18 @@ export class D3BarChart {
       .attr('y', (d) => y(d))
       .attr('height', (d) => this.chartHeight - y(d))
 
-    const tooltip = d3.select('.d3-loadTooltip')
-    this.addTooltip(groups, tooltip)
+    // attach tooltip handlers to enter and update
+    const allGroups = newGroups.merge(groups)
+    this.addTooltip(allGroups, this.tooltip)
 
     // Remove bars which are no longer bound to data in the current data set
     groups.exit().remove()
 
     // The same pattern is applied to the special 'now'-bar also
     // Bind data
-    const currentGroup = this.chart.selectAll('.current-load').data(currentBarLoad)
+    const currentGroup = this.chart
+      .selectAll<SVGGElement, number>('.current-load')
+      .data(currentBarLoad)
 
     // Enter new data
     const newCurrentGroup = currentGroup
@@ -151,7 +161,9 @@ export class D3BarChart {
       .attr('y', (d) => y(d))
       .attr('height', (d) => this.chartHeight - y(d))
 
-    this.addTooltip(currentGroup, tooltip)
+    // attach tooltip handlers to enter and update
+    const allCurrentGroups = newCurrentGroup.merge(currentGroup)
+    this.addTooltip(allCurrentGroups, this.tooltip)
 
     // Remove old data
     currentGroup.exit().remove()
@@ -170,8 +182,8 @@ export class D3BarChart {
    * Creates a tooltip for each bar.
    */
   addTooltip(
-    groups: d3.Selection<d3.BaseType, number, d3.BaseType, unknown>,
-    tooltip: d3.Selection<d3.BaseType, unknown, HTMLElement, unknown>
+    groups: d3.Selection<SVGGElement, number, SVGSVGElement, unknown>,
+    tooltip: d3.Selection<HTMLDivElement, unknown, null, unknown>
   ): void {
     groups
       .select('rect')
@@ -179,8 +191,9 @@ export class D3BarChart {
         tooltip.style('visibility', 'visible').html(`Load: ${(load as number).toFixed(2)}`)
       })
       .on('mousemove', (event: MouseEvent) => {
-        const currentTarget = event.currentTarget as SVGSVGElement
-        const [x, y] = d3.pointer(event, currentTarget.closest('svg'))
+        const currentTarget = event.currentTarget as SVGGraphicsElement
+        const svg = currentTarget.closest('svg')!
+        const [x, y] = d3.pointer(event, svg)
         tooltip.style('left', `${x + 10}px`).style('top', `${y + 10}px`)
       })
       .on('mouseleave', () => tooltip.style('visibility', 'hidden'))

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Template Node Style Demo
+# Template Node Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/template-node-style.webp" alt="demo-thumbnail" height="320"/>
 
@@ -28,10 +28,3 @@ Change the template of one or more nodes. Bind colors or text to properties in t
 ## Related Documentation
 
 - [Using Data Binding in Node Styles](https://docs.yworks.com/yfileshtml/dguide/custom-styles_data-binding-in-styles)
-
-## Related Demos
-
-- [Template Styles Demo](../../style/templatestyles/)
-- [Vue Component Node Style Demo](../../../demos-ts/style/vue-component-node-style/README.html)
-- [React Component Node Style Demo](../../../demos-ts/style/react-component-node-style/README.html)
-- [Lit Template Node Style Demo](../../style/lit-template-node-style/)

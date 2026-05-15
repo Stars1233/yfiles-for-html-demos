@@ -46,7 +46,8 @@ export class LinkItemHoverInputMode extends ItemHoverInputMode {
    */
   isValidHoverItem(item) {
     if (
-      this.parentInputModeContext.canvasComponent.lastInputEvent.modifiers !== ModifierKeys.CONTROL
+      this.parentInputModeContext.canvasComponent.lastPointerEvent.modifiers !==
+      ModifierKeys.CONTROL
     ) {
       return false
     }

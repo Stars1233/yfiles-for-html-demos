@@ -48,7 +48,6 @@ import {
   OrientedRectangle,
   Point,
   PortCandidate,
-  Rect,
   RectangleNodeStyle,
   ShapeNodeShape,
   ShapeNodeStyle,
@@ -59,7 +58,8 @@ import {
 } from '@yfiles/yfiles'
 
 import { RotatedNodeLayoutStage } from './RotatedNodeLayoutStage'
-import { CircleSample, SineSample } from './resources/SampleData'
+import CircleSample from './resources/circle-sample-data.json'
+import SineSample from './resources/sine-sample-data.json'
 import { RotationAwareGroupBoundsCalculator } from './RotationAwareGroupBoundsCalculator'
 import { AdjustOutlinePortInsidenessEdgePathCropper } from './AdjustOutlinePortInsidenessEdgePathCropper'
 import * as RotatableNodeLabels from './RotatableNodeLabels'
@@ -86,8 +86,9 @@ import {
   createDemoNodeStyle
 } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -212,6 +213,8 @@ function initializeGraph(): void {
   foldingManager.masterGraph.undoEngineEnabled = true
 
   graphComponent.graph = graph
+  // Add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**
@@ -221,8 +224,8 @@ function createPortCandidateProvider(node: INode): IPortCandidateProvider {
   const rotatedPortModel = RotatablePortLocationModelDecorator.INSTANCE
   const freeModel = FreeNodePortLocationModel.INSTANCE
 
-  const rnsd = node.style as RotatableNodeStyleDecorator
-  const wrapped = rnsd.wrapped
+  const decorator = node.style as RotatableNodeStyleDecorator
+  const wrapped = decorator.wrapped
 
   if (isRoundRectangle(wrapped)) {
     return IPortCandidateProvider.combine(
@@ -325,7 +328,7 @@ function createPortCandidateProvider(node: INode): IPortCandidateProvider {
     )
   }
   if (wrapped instanceof ShapeNodeStyle) {
-    // Can be an arbitrary shape. First create a dummy node that is not rotated
+    // Can be an arbitrary shape. First, create a dummy node that is not rotated
     const dummyNode = new SimpleNode()
     dummyNode.style = wrapped
     dummyNode.layout = node.layout
@@ -376,12 +379,11 @@ async function loadGraph(sample: 'sine' | 'circle'): Promise<void> {
   graph.clear()
   const data = sample === 'sine' ? SineSample : CircleSample
 
-  const defaultNodeSize = graph.nodeDefaults.size
   const builder = new GraphBuilder(graph)
   const nodesSource = builder.createNodesSource({
     data: data.nodes,
     id: 'id',
-    layout: (data) => new Rect(data.cx, data.cy, defaultNodeSize.width, defaultNodeSize.height),
+    layout: 'layout',
     style: (data) => {
       const nodeStyle = graph.nodeDefaults.getStyleInstance() as RotatableNodeStyleDecorator
       nodeStyle.angle = data.angle
@@ -394,8 +396,8 @@ async function loadGraph(sample: 'sine' | 'circle'): Promise<void> {
   builder.buildGraph()
 
   // apply an initial edge routing
-  await applyLayout('edge-router')
   void graphComponent.fitGraphBounds()
+  await applyLayout('edge-router')
 
   // clear undo-queue
   graphComponent.graph.undoEngine!.clear()
@@ -513,11 +515,14 @@ function initializeUI(): void {
     inputMode.orthogonalEdgeEditingContext!.enabled = orthogonalEditing.checked
   })
 
-  addNavigationButtons(selectSample).addEventListener('change', (e: Event) => {
-    loadGraph((e.target as HTMLSelectElement).value as 'sine' | 'circle')
-  })
+  addNavigationButtons(selectSample, '', true, true).addEventListener(
+    'change',
+    async (e: Event) => {
+      await loadGraph((e.target as HTMLSelectElement).value as 'sine' | 'circle')
+    }
+  )
 
-  addNavigationButtons(selectLayout).addEventListener('change', () =>
+  addNavigationButtons(selectLayout, '').addEventListener('change', () =>
     applyLayout(selectLayout.value)
   )
 
@@ -527,7 +532,7 @@ function initializeUI(): void {
 }
 
 /**
- * When loading a graph without rotatable nodes, the node styles, node label models and port
+ * When loading a graph without rotatable nodes, the node styles, node label models, and port
  * location models are wrapped so they can be rotated in this demo.
  */
 function addRotatedStyles(): void {

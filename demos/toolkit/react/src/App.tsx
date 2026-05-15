@@ -29,9 +29,10 @@
 import './App.css'
 import DemoDescription from './components/DemoDescription.tsx'
 import DemoDataPanel from './components/DemoDataPanel.tsx'
-import yLogo from '@yfiles/demo-app/icons/ylogo.svg'
 import { useCallback, useState } from 'react'
 import { ReactGraphComponent } from './components/ReactGraphComponent.tsx'
+
+import { GraphComponentProvider } from './components/GraphComponentProvider.tsx'
 
 export interface NodeData {
   id: number
@@ -101,34 +102,33 @@ function App() {
   }, [setGraphData])
 
   return (
-    <div className="app">
-      <aside className="demo-sidebar left demo-page__description">
-        <DemoDescription />
-      </aside>
-      <aside className="demo-sidebar right">
-        <DemoDataPanel graphData={graphData} onAddNode={addNode} onRemoveNode={removeNode} />
-      </aside>
-
-      <div className="demo-header">
-        <a href="https://www.yfiles.com" target="_blank" rel="noopener noreferrer">
-          <img src={yLogo} className="demo-y-logo" alt="yWorks Logo" />
-        </a>
-        <a href="https://www.yfiles.com" target="_blank" rel="noopener noreferrer">
-          yFiles for HTML
-        </a>
-        <a
-          href="../../../README.html"
-          target="_blank"
-          className={'demo-title'}
-          rel="noopener noreferrer"
-        >
-          Demos
-        </a>
-        <span className="demo-title">React Demo</span>
+    <GraphComponentProvider>
+      <div className="app">
+        <div className="demo-header">
+          <a
+            href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+            className="y-logo"
+            target="_blank"
+            title="yFiles Product Page"
+          ></a>
+          <span className="material-symbols-outlined demo-overview">chevron_right</span>
+          <a href="../../../README.html" target="_blank" rel="noopener noreferrer">
+            Demos
+          </a>
+          <span className="material-symbols-outlined demo-overview">chevron_right</span>
+          <span>React Demo</span>
+        </div>
+        <div className="main">
+          <ReactGraphComponent graphData={graphData} onResetData={resetData} />
+          <div className="demo-sidebar interaction">
+            <DemoDataPanel graphData={graphData} onAddNode={addNode} onRemoveNode={removeNode} />
+          </div>
+          <div className="demo-sidebar description demo-page__description">
+            <DemoDescription />
+          </div>
+        </div>
       </div>
-
-      <ReactGraphComponent graphData={graphData} onResetData={resetData} />
-    </div>
+    </GraphComponentProvider>
   )
 }
 

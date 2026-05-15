@@ -1,0 +1,399 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+.demo-overview .overview-main-container {
+  max-height: 100vh;
+  position: relative;
+  width: 100%;
+  overflow-y: scroll;
+  background: var(--toolbar-bg);
+  border-top-left-radius: var(--border-radius);
+}
+.demo-overview .overview-main-container .overview-header-anchor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+.demo-overview .overview-main-container .overview-search-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: background-color 0.2s ease;
+  padding: 5px;
+}
+.demo-overview .overview-main-container .overview-search-header.header-sticky {
+  background: rgb(from var(--toolbar-bg) r g b / 0.7);
+  backdrop-filter: blur(2px);
+  box-shadow: 0 5px 15px -15px #000;
+}
+.demo-overview .overview-main-container .overview-search-header:has(.overview-pills-expand-toggle-checkbox:checked) {
+  box-shadow: 0 15px 15px -15px #000;
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills {
+  position: static;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  left: 0;
+  width: 100%;
+  padding-bottom: 22px;
+  background-color: var(--color-background);
+  transition: background-color 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s, top 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s, box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s, opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.header-sticky .demo-overview .overview-main-container .overview-search-header .overview-pills {
+  background-color: var(--color-header);
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .category-pills {
+  gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  justify-content: flex-start;
+  max-width: 1600px;
+  max-height: 30px;
+  margin-bottom: 5px;
+  transition: max-height 0.3s ease;
+}
+@media (max-width: 1350px) {
+  .demo-overview .overview-main-container .overview-search-header .overview-pills .category-pills {
+    justify-content: center;
+  }
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .category-pills .category-pill {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--color-text);
+  overflow: visible;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 5rem;
+  border: none;
+  cursor: pointer;
+  background-color: var(--toolbar-button);
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .category-pills .category-pill:hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .category-pills .category-pill.active,
+.demo-overview .overview-main-container .overview-search-header .overview-pills .category-pills .category-pill.selected {
+  border: none;
+  color: var(--color-text);
+  font-weight: 500;
+  background-color: var(--toolbar-bg-hover);
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .overview-pills-expand-toggle-checkbox {
+  display: none;
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .overview-pills-expand-toggle-checkbox:checked + .category-pills {
+  max-height: fit-content;
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .overview-pills-expand-toggle-checkbox:checked ~ .overview-pills-expand-toggle .overview-pills-expand-toggle-icon {
+  transform: rotate(-90deg);
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .overview-pills-expand-toggle {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  bottom: 1px;
+  width: 100%;
+  height: 22px;
+  cursor: pointer;
+  overflow: hidden;
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .overview-pills-expand-toggle:hover {
+  background-color: rgba(125, 125, 125, 0.2);
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .overview-pills-expand-toggle-icon {
+  height: 32px;
+  transform: rotate(90deg);
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.demo-overview .overview-main-container .overview-search-header .overview-pills .y-icon {
+  vertical-align: middle;
+}
+.demo-overview .overview-main-container .overview-search-header .search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto;
+}
+.demo-overview .overview-main-container .overview-search-header .search-container #icon-search {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #757575;
+  font-size: 20px;
+  pointer-events: none;
+  z-index: 1;
+}
+.demo-overview .overview-main-container .overview-search-header .search-container #search {
+  outline: none;
+  border: 1px solid #bdbdbd;
+  border-radius: 5em;
+  width: 100%;
+  margin-right: 50px;
+  background: #fff;
+  padding: 10px 20px 10px 40px;
+  line-height: 1.15;
+  color: #000;
+  font-weight: 500;
+  font-size: inherit;
+  transition: box-shadow 0.2s ease;
+}
+@media (min-width: 40rem) {
+  .demo-overview .overview-main-container .overview-search-header .search-container #search {
+    width: 400px;
+  }
+}
+.demo-overview .overview-main-container .overview-search-header .search-container #search:focus,
+.demo-overview .overview-main-container .overview-search-header .search-container #search:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+.demo-overview .overview-main-container .overview-search-header .search-container #search:focus {
+  border-color: transparent;
+  outline: none;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+.demo-overview .overview-main-container .overview-search-header .search-container #search::-webkit-search-cancel-button {
+  -webkit-appearance: searchfield-cancel-button;
+  appearance: auto;
+  cursor: pointer;
+  filter: invert(50%);
+}
+.demo-overview .rail .spacer {
+  height: 0;
+}
+.demo-overview .demo-grid {
+  padding-top: 50px;
+}
+.demo-overview #no-search-results {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+}
+.demo-overview #no-search-results a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  color: var(--color-text);
+  background-color: var(--color-no-search-result);
+  border-radius: 999px;
+  margin-top: 15px;
+  text-decoration: none;
+}
+.demo-overview #no-search-results a:hover {
+  text-decoration: underline;
+}
+.demo-overview #no-search-results p {
+  margin-top: 50px;
+}
+.demo-overview .responsive-css-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, max-content));
+  gap: 16px;
+  padding: 16px;
+  justify-content: center;
+}
+.demo-overview .responsive-css-grid .hidden {
+  display: none;
+}
+.demo-overview .responsive-css-grid a {
+  color: var(--color-text);
+}
+.demo-overview .grid-item {
+  background-color: var(--color-grid-item);
+  position: relative;
+  vertical-align: text-top;
+  height: 295px;
+  border-radius: 8px;
+  max-width: 350px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  overflow: hidden;
+  transition: box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-overview .grid-item:not(.not-available):hover,
+.demo-overview .grid-item:not(.not-available):focus-within {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+}
+.demo-overview .grid-item:not(.not-available):hover .description,
+.demo-overview .grid-item:not(.not-available):focus-within .description {
+  height: 200px;
+}
+.demo-overview .grid-item:not(.not-available):hover .description .details,
+.demo-overview .grid-item:not(.not-available):focus-within .description .details {
+  opacity: 1;
+}
+.demo-overview .grid-item:not(.not-available):hover .thumbnail,
+.demo-overview .grid-item:not(.not-available):focus-within .thumbnail {
+  height: 95px;
+}
+.demo-overview .grid-item:not(.not-available):hover .thumbnail > a,
+.demo-overview .grid-item:not(.not-available):focus-within .thumbnail > a {
+  opacity: 0.6;
+}
+.demo-overview .grid-item:not(.not-available):hover .thumbnail > a > img,
+.demo-overview .grid-item:not(.not-available):focus-within .thumbnail > a > img {
+  top: -50px;
+  opacity: 0.6;
+}
+.demo-overview .grid-item:not(.not-available):hover .actions,
+.demo-overview .grid-item:not(.not-available):focus-within .actions {
+  opacity: 0.7;
+}
+.demo-overview .grid-item:not(.not-available):hover .actions:hover,
+.demo-overview .grid-item:not(.not-available):focus-within .actions:hover {
+  opacity: 1;
+}
+.demo-overview .grid-item.filtered {
+  display: none;
+}
+.demo-overview .grid-item .thumbnail {
+  position: relative;
+  overflow: hidden;
+  background: white;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 190px;
+  height: 190px;
+  transition: height 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s, opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-overview .grid-item .thumbnail a {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-overview .grid-item .thumbnail a img {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  aspect-ratio: 16/9;
+  transition: top 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-overview .grid-item .description {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 10px 5px 10px;
+  height: 105px;
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: height 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-overview .grid-item .description a {
+  text-decoration: none;
+}
+.demo-overview .grid-item .description a:hover {
+  text-decoration: underline;
+}
+.demo-overview .grid-item .description .title {
+  position: relative;
+  margin: 0;
+  padding: 0 3px;
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.demo-overview .grid-item .description .details {
+  max-height: 0;
+  margin: 0;
+  padding: 0 3px;
+  font-size: 14px;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s, margin-top 0.5s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-overview .grid-item .description .gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 15px;
+  background: linear-gradient(transparent, var(--color-grid-item));
+}
+.demo-overview .grid-item .tags {
+  padding-top: 10px;
+  margin-top: auto;
+  transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+.demo-overview .grid-item .tags .tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: var(--color-tag-background);
+  padding: 0 6px;
+  height: 24px;
+  line-height: 24px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+}
+.demo-overview .grid-item.not-available {
+  pointer-events: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.demo-overview .grid-item.not-available .not-available-notice {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 200px;
+  padding: 8px;
+  background-color: var(--color-bg);
+  border-radius: var(--border-radius);
+  z-index: 2;
+  box-shadow: var(--shadow-crispy-gray);
+}
+.demo-overview .grid-item.not-available .not-available-notice div:first-child {
+  font-weight: bold;
+  margin-bottom: 1ex;
+}
+.demo-overview .grid-item.not-available .not-available-notice a {
+  pointer-events: auto;
+  text-decoration: underline;
+}

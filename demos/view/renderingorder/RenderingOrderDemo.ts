@@ -49,7 +49,8 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -307,7 +308,8 @@ function createNestedGroupSample(origin: Point): void {
  */
 function initializeUI(): void {
   addNavigationButtons(
-    document.querySelector<HTMLSelectElement>('#select-rendering-order')!
+    document.querySelector<HTMLSelectElement>('#select-rendering-order')!,
+    'Rendering Order:'
   ).addEventListener('change', (evt) => {
     const value = (evt.target as HTMLSelectElement).value
     selectRenderingOrder(value)

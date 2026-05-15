@@ -36,13 +36,14 @@ import {
   LayoutExecutor,
   License
 } from '@yfiles/yfiles'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
-import { pentosePhosphateData } from './resources/pentose-phosphate-data'
+import pentosePhosphateData from './resources/pentose-phosphate-data.json'
 import { configurePentosePhosphateLayout } from './configure-pentose-layout'
 import { type InputNodeData, nodeTypesMap } from './data-types'
 import { getArcEdgeStyle, initializeDefaultStyles, updateStyles } from './styles'
-import { krebsCycleData } from './resources/krebs-cycle-data'
+import krebsCycleData from './resources/krebs-cycle-data.json'
 import { configureKrebsCycleLayout } from './configure-krebs-cycle-layout'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -75,6 +76,8 @@ function loadSample(): void {
   updateStyles(graphComponent.graph)
   // remove the parallel edge since we use a bidirectional edge style
   removeParallelEdges()
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**
@@ -91,7 +94,7 @@ async function runLayout(): Promise<void> {
     graphComponent,
     layout: config.layout,
     layoutData: config.layoutData,
-    animationDuration: '0s',
+    animationDuration: '0.5s',
     animateViewport: true
   })
   await layoutExecutor.start()
@@ -118,7 +121,7 @@ function createGraph(): void {
     tag: (data) => {
       return { ...data.tag, type: nodeTypesMap.get(data.tag.type) }
     },
-    labels: [(data: InputNodeData): string | null => data.label ?? '']
+    labels: [(data: InputNodeData): string | null => data.labels ?? '']
   })
 
   // create the edges
@@ -145,12 +148,21 @@ function removeParallelEdges(): void {
  */
 function initializeUI(): void {
   const sampleComboBox = document.querySelector<HTMLSelectElement>('#select-sample')!
-  addNavigationButtons(sampleComboBox)
+  addNavigationButtons(sampleComboBox, '', false)
   sampleComboBox.addEventListener('change', async () => {
+    setUIDisabled(true)
     graphComponent.graph.clear()
     loadSample()
     await runLayout()
+    setUIDisabled(false)
   })
+}
+
+/**
+ * Enables/disables the combobox in the toolbar.
+ */
+function setUIDisabled(disabled: boolean): void {
+  document.querySelector<HTMLSelectElement>(`#select-sample`)!.disabled = disabled
 }
 
 void run().then(finishLoading)

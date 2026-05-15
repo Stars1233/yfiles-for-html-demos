@@ -43,10 +43,10 @@ import {
   TextWrapping
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { ImageVisualCreator } from './ImageVisualCreator'
 import { configureLayout } from './configure-layout'
 import { pointsData } from './resources/points-data'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const imageRect = new Rect(0, 0, 350, 477)
 

@@ -45,8 +45,8 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 
@@ -85,7 +85,7 @@ function buildGraph(graph, graphData) {
   graphBuilder.createNodesSource({
     data: graphData.nodeList.filter((item) => !item.isGroup),
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
 
   graphBuilder

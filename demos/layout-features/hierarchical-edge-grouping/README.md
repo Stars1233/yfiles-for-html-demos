@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Edge Grouping
+# Hierarchical Layout with Edge Grouping Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-hierarchical-edge-grouping.webp" alt="demo-thumbnail" height="320"/>
 

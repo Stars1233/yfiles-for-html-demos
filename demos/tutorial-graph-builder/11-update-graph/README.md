@@ -9,69 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# 11 Update Graph - Tutorial: Graph Builder
+# 11 Update Graph Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/tutorial-graph-builder-update-graph.webp" alt="demo-thumbnail" height="320"/>
 
 [You can also run this demo online](https://www.yfiles.com/demos/tutorial-graph-builder/11-update-graph/).
-
-This tutorial step shows how to update the graph structure when the underlying business data has changed.
-
-This is usually necessary after the app received or queried new data from a data source, e.g. a database or a webservice.
-
-## Assigning new data and updating the graph structure
-
-After the business data has changed, you can assign the new data to one or more nodes and/or edges sources. Then, it’s only a matter of calling the [updateGraph](https://docs.yworks.com/yfileshtml/api/GraphBuilder#updateGraph) method to update the graph structure to the new data.
-
-```
-// assign the new data to the nodesSource
-graphBuilder.setData(nodesSource, newData)
-// tell GraphBuilder to update the graph structure
-graphBuilder.updateGraph()
-```
-
-Note
-
-When a new data item has the same `id` as an existing item as defined by the [idProvider](https://docs.yworks.com/yfileshtml/api/NodesSource#idProvider), it is interpreted as being the same and the node or edge in the graph is re-used. Only the visualization and the data in the [tag](https://docs.yworks.com/yfileshtml/api/ITagOwner#tag) are updated.
-
-## Updating the graph with dynamic data
-
-In [step 2](../../tutorial-graph-builder/02-create-nodes-sources/) of this tutorial, we’ve already learned how to create a graph using a dynamic generator function. In this example, we select the nodes to display in the graph using a set of node types.
-
-```
-nodeTypes = new Set(['Corporation', 'Trust'])
-
-function* nodes(): Generator<EntityData, void, unknown> {
-  for (const entity of data.nodesSource) {
-    if (entity.type && nodeTypes.has(entity.type)) {
-      yield entity as EntityData
-    }
-  }
-}
-
-// create nodes source from dynamic data
-return graphBuilder.createNodesSource(nodes, 'id')
-```
-
-When using a dynamic data source, the graph structure can be updated without assigning new data. The following code removes corporations from the graph and adds `Branch` and `PE_Risk` nodes.
-
-```
-// update displayed node types
-nodeTypes.delete('Corporation')
-nodeTypes.add('Branch')
-nodeTypes.add('PE_Risk')
-
-// since the nodesSource uses a generator function,
-// calling updateGraph is enough to update the graph structure
-graphBuilder.updateGraph()
-```
-
-Note
-
-Please have a look in this tutorial step’s demo code in `update-graph.ts` and try to change how the data is updated.
-
-Use the buttons below to apply the changes from the sample code to the graph, and to revert the graph to its initial state.
-
-Update the graph Reset the graph
-
-[12 Adjacency Graph Builder](../../tutorial-graph-builder/12-adjacency-graph-builder/)

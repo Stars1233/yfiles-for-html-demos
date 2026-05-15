@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# WebGL Rendering - Application Features
+# WebGL Rendering Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/webgl-rendering.webp" alt="demo-thumbnail" height="320"/>
 

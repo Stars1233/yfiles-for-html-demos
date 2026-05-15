@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Custom Drag and Drop Demo
+# Custom Drag and Drop Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/custom-drag-and-drop.webp" alt="demo-thumbnail" height="320"/>
 
@@ -28,10 +28,3 @@ As an example, the demo uses an implementation of the [DropInputMode](https://do
 - Drag the color over an item that has not the same color. The element is highlighted to show that the element can be recolored by the drop operation.
 - Drop a the color on an valid element and observe how the element is recolored accordingly.
 - Use the undo and redo buttons to revert the effect of a drag and drop recoloring operation.
-
-## Related Demos
-
-- [Drag and Drop Demo](../../input/draganddrop/)
-- [Graph Drag and Drop Demo](../../input/graph-drag-and-drop/)
-- [Drag From Component Demo](../../input/drag-from-component/)
-- [Component Drag and Drop Demo](../../input/componentdraganddrop/)

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Arrange Objects Demo
+# Arrange Objects Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/arrange-objects.webp" alt="demo-thumbnail" height="320"/>
 
@@ -19,12 +19,30 @@ This demo presents simple operations for aligning and distributing nodes.
 
 ## Things to Try
 
-- Select several nodes and use  
-  ![Align Top](../../demo-app/icons/align-top-16.svg 'Align Top')   ![Align Bottom](../../demo-app/icons/align-bottom-16.svg 'Align Bottom')   ![Align Left](../../demo-app/icons/align-left-16.svg 'Align Left')   ![Align Right](../../demo-app/icons/align-right-16.svg 'Align Right')  
+- Select several nodes and use
+
+  vertical_align_top
+
+  vertical_align_bottom
+
+  horizontal_align_left
+
+  horizontal_align_right
+
   to align these nodes at their top, bottom, left, or right border.
-- Select several nodes and use  
-  ![Align Vertically](../../demo-app/icons/align-vertical-16.svg 'Align Vertically')   ![Align Horizontally](../../demo-app/icons/align-horizontal-16.svg 'Align Horizontally')  
+
+- Select several nodes and use
+
+  align_vertical_center
+
+  align_horizontal_center
+
   to align these nodes such that their centers coincide.
-- Select several horizontally and/or vertically overlapping nodes and use  
-  ![Distribute Vertically](../../demo-app/icons/distribute-vertical-16.svg 'Distribute Vertically')   ![Distribute Horizontally](../../demo-app/icons/distribute-horizontal-16.svg 'Distribute Horizontally')  
+
+- Select several horizontally and/or vertically overlapping nodes and use
+
+  vertical_distribute
+
+  horizontal_distribute
+
   to distribute these nodes along the indicated coordinate axis.

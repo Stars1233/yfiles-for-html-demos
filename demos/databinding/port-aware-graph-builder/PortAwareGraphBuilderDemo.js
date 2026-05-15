@@ -39,7 +39,7 @@ import { createPortAwareGraphBuilder, setBuilderData } from './port-aware-graph-
 import GraphBuilderData from './graph-builder-data'
 import licenseData from '../../../lib/license.json'
 import { hideNodesAndRelatedItems, showNodesAndRelatedItems } from './hide-items'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * This demo shows how to automatically build a graph from business data using

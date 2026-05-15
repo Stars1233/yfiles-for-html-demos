@@ -68,7 +68,8 @@ import {
 import { NodeTypePanel } from '@yfiles/demo-utils/NodeTypePanel'
 import { colorSets, createDemoEdgeStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Initialization of the seven samples.
@@ -387,6 +388,8 @@ function configureGraphComponent() {
   graphComponent.graph.nodeDefaults.style = createDemoNodeStyle()
 
   graphComponent.graph.undoEngineEnabled = true
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**
@@ -450,7 +453,7 @@ function initializeUI() {
 
   const sampleComboBox = document.querySelector('#sample-combo-box')
   sampleComboBox.addEventListener('change', () => loadSample(true))
-  addNavigationButtons(sampleComboBox)
+  addNavigationButtons(sampleComboBox, 'Sample:', false)
 }
 
 /**

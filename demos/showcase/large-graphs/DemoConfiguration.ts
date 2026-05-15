@@ -43,9 +43,9 @@ import {
  */
 export abstract class DemoConfiguration {
   /**
-   * The resource path for the graph to load
+   * The graph data in JSON format.
    */
-  abstract graphResourcePath: string
+  abstract graphData: any
 
   /**
    * The zoom threshold to switch between WebGL and SVG rendering
@@ -91,9 +91,7 @@ export abstract class DemoConfiguration {
     const graph = graphComponent.graph
     graph.undoEngineEnabled = false
 
-    const response = await fetch(this.graphResourcePath)
-    const graphData = await response.json()
-    this.createGraph(graph, graphData)
+    this.createGraph(graph, this.graphData)
 
     graph.undoEngineEnabled = true
   }

@@ -33,7 +33,8 @@
   right: 25%;
   top: 20%;
   bottom: 20%;
-  background: #f9f9f9;
+  background-color: var(--toolbar-bg);
+  border-radius: var(--border-radius);
   border: 1px solid #ccc;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
   text-align: center;
@@ -117,4 +118,17 @@
 
 .hidden {
   display: none;
+}
+
+#save-button,
+#close-button {
+  color: var(--color-text);
+  background-color: var(--toolbar-button);
+  border: none;
+  border-radius: 99px;
+  padding: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--toolbar-bg-hover);
+  }
 }

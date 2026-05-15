@@ -56,10 +56,10 @@ import {
 } from '@yfiles/yfiles'
 import { IntersectionVisualCreator } from './DemoVisuals'
 import { colorSets, initDemoStyles } from '@yfiles/demo-app/demo-styles'
-import graphData from './graph-data'
+import graphData from './graph-data.json'
 import licenseData from '../../../lib/license.json'
 import { createToolTipContent } from './TooltipHelper'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 
@@ -229,13 +229,13 @@ function initializeIntersectionVisual() {
 function loadSampleGraph(graph) {
   const builder = new GraphBuilder(graph)
   const ns = builder.createNodesSource({
-    data: graphData.nodeList.filter((data) => !data.isGroup),
+    data: graphData.nodes.filter((data) => !data.isGroup),
     id: 'id',
     layout: 'layout',
     parentId: (dataItem) => dataItem.parent
   })
   ns.nodeCreator.addEventListener('node-created', (evt) => {
-    if (evt.dataItem.isEllipse) {
+    if (evt.dataItem.tag?.isEllipse) {
       const defaultStyle = graph.nodeDefaults.style
       graph.setStyle(
         evt.item,
@@ -264,7 +264,7 @@ function loadSampleGraph(graph) {
   })
 
   const groupSource = builder.createGroupNodesSource({
-    data: graphData.nodeList.filter((data) => data.isGroup),
+    data: graphData.nodes.filter((data) => data.isGroup),
     id: 'id',
     layout: 'layout'
   })
@@ -274,7 +274,7 @@ function loadSampleGraph(graph) {
   groupLabelCreator.textProvider = (data) => data.text || ''
 
   const es = builder.createEdgesSource({
-    data: graphData.edgeList,
+    data: graphData.edges,
     id: 'id',
     sourceId: 'source',
     targetId: 'target',
@@ -466,11 +466,9 @@ function initializeUI() {
  * The tool tips show a description of the corresponding label's configuration.
  */
 function configureToolTips(inputMode) {
-  // Customize the tool tip's behavior to our liking.
   const toolTipInputMode = inputMode.toolTipInputMode
-  toolTipInputMode.toolTipLocationOffset = new Point(15, 15)
+  // Show the tooltip faster when hovering an item.
   toolTipInputMode.delay = TimeSpan.fromMilliseconds(50)
-  toolTipInputMode.duration = TimeSpan.fromSeconds(10)
 
   // Register a listener for when a tool tip should be shown.
   inputMode.addEventListener('query-item-tool-tip', (evt) => {

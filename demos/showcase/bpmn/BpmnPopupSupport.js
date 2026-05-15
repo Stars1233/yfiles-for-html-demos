@@ -28,19 +28,14 @@
  ***************************************************************************/
 import {
   ExteriorNodeLabelModel,
-  FreeNodeLabelModel,
   HashMap,
   IEdge,
   ILabel,
-  ILabelOwner,
   INode,
   IPort,
   NinePositionsEdgeLabelModel,
   Point,
-  Rect,
-  SimpleLabel,
-  SimpleNode,
-  Size
+  PopoverDescriptor
 } from '@yfiles/yfiles'
 
 import {
@@ -74,6 +69,7 @@ class BpmnPopup {
   divField
   _currentItem = null
   dirty = false
+  currentPopoverDescriptor = null
 
   constructor(graphComponent, div, labelModelParameter) {
     this.graphComponent = graphComponent
@@ -150,8 +146,18 @@ class BpmnPopup {
   /**
    * Makes this pop-up visible near the given item.
    */
-  show() {
+  async show() {
     this.divField.style.display = 'block'
+    const descriptor = new PopoverDescriptor({
+      content: this.divField,
+      offset: new Point(0, -20),
+      ratios: new Point(0.5, 1)
+    })
+    this.currentPopoverDescriptor = descriptor
+
+    const mode = this.graphComponent.inputMode
+    await mode.popoverManager.open(descriptor)
+
     this.updateLocation()
   }
 
@@ -159,7 +165,8 @@ class BpmnPopup {
    * Hides this pop-up.
    */
   hide() {
-    this.divField.style.display = 'none'
+    this.currentPopoverDescriptor?.close()
+    this.currentPopoverDescriptor = null
   }
 
   /**
@@ -167,43 +174,22 @@ class BpmnPopup {
    * {@link BpmnPopupSupport.labelModelParameter}. Currently, this implementation does not support rotated pop-ups.
    */
   updateLocation() {
-    if (!this._currentItem && !this.labelModelParameter) {
+    if (!this._currentItem || !this.currentPopoverDescriptor) {
       return
     }
-    const width = this.divField.clientWidth
-    const height = this.divField.clientHeight
-    const zoom = this.graphComponent.zoom
-
-    const dummyLabel = new SimpleLabel({
-      text: '',
-      layoutParameter: FreeNodeLabelModel.CENTER,
-      preferredSize: new Size(width / zoom, height / zoom)
-    })
 
     if (this._currentItem instanceof IPort) {
-      const location = this._currentItem.location
-      const newSimpleNode = new SimpleNode()
-      newSimpleNode.layout = new Rect(location.x - 10, location.y - 10, 20, 20)
-      dummyLabel.owner = newSimpleNode
-    } else if (this._currentItem instanceof ILabelOwner) {
-      dummyLabel.owner = this._currentItem
+      this.currentPopoverDescriptor.anchor = this._currentItem.location
+    } else if (this._currentItem instanceof INode) {
+      const layout = this._currentItem.layout
+      this.currentPopoverDescriptor.anchor = new Point(layout.center.x, layout.y)
+    } else if (this._currentItem instanceof IEdge) {
+      const edge = this._currentItem
+      const bounds = edge.style.renderer
+        .getBoundsProvider(edge, edge.style)
+        .getBounds(this.graphComponent.canvasContext)
+      this.currentPopoverDescriptor.anchor = new Point(bounds.center.x, bounds.center.y)
     }
-
-    dummyLabel.layoutParameter = this.labelModelParameter
-    const layout = this.labelModelParameter.model.getGeometry(dummyLabel, this.labelModelParameter)
-    this.setLocation(layout.anchorX, layout.anchorY - height / zoom)
-  }
-
-  /**
-   * Sets the location of this pop-up to the given world coordinates.
-   * @param x The target x-coordinate of the pop-up.
-   * @param y The target y-coordinate of the pop-up.
-   */
-  setLocation(x, y) {
-    // Calculate the view coordinates since we have to place the div in the regular HTML coordinate space
-    const viewPoint = this.graphComponent.worldToViewCoordinates(new Point(x, y))
-    this.divField.style.left = `${viewPoint.x}px`
-    this.divField.style.top = `${viewPoint.y}px`
   }
 }
 

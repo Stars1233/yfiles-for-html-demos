@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Clear Marquee Area Demo
+# Clear Marquee Area Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/clear-marquee-area.webp" alt="demo-thumbnail" height="320"/>
 

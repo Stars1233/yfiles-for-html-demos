@@ -59,11 +59,11 @@ import {
 import { ButtonInputMode, type QueryButtonsEvent } from './ButtonInputMode'
 import { OffsetLabelModelWrapper } from './OffsetLabelModelWrapper'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
-import cutIcon from '@yfiles/demo-app/icons/cut2-16.svg'
+import cutIcon from './resources/cut2-16.svg'
 
 import type { JSONGraph } from '@yfiles/demo-utils/json-model'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 let buttonInputMode: ButtonInputMode

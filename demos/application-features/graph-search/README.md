@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Graph Search - Application Features
+# Graph Search Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-search.webp" alt="demo-thumbnail" height="320"/>
 
@@ -19,6 +19,6 @@ This demo shows an implementation of the search functionality on the nodes of a 
 
 The search is performed on the labels of the nodes and those that match the queried term are being highlighted.
 
-There exists also a separate graph search implementation in `demos-js/utils` package currently used by [these demos](../../README.html#search). This implementation can be extended to support custom search on graph elements.
+There also exists a separate graph search implementation in the `demos-js/utils` package currently used by [these demos](../../README.html#search). This implementation can be extended to support custom search on graph elements.
 
 See the sources for details.

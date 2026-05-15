@@ -12,17 +12,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@yfiles/demo-app": "../../demo-app",
-    "@yfiles/demo-utils": "../../utils",
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-30.0.5+dev.tgz"
+    "@fontsource/material-symbols-outlined": "^5.2.0",
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.0+dev.tgz"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^6.2.1",
-    "@tsconfig/svelte": "^5.0.6",
-    "@yworks/optimizer": "^1.8.8",
-    "svelte": "^5.46.0",
-    "svelte-preprocess": "^6.0.3",
-    "typescript": "~5.9.3",
-    "vite": "^7.3.0"
+    "@sveltejs/vite-plugin-svelte": "^7.1.2",
+    "@tsconfig/svelte": "^5.0.8",
+    "svelte": "^5.55.5",
+    "typescript": "~6.0.3",
+    "vite": "^8.0.12"
   }
 }

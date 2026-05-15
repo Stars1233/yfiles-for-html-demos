@@ -32,88 +32,48 @@
      ////////////////////////////////////////////////////////////////////////-->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <link rel="shortcut icon" href="../../demo-app/icons/favicon.ico" type="image/x-icon" />
     <title>React JSX Component Style Demo [yFiles for HTML]</title>
     <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
     <header class="demo-header">
-      <a href="https://www.yfiles.com" class="demo-header__y-logo"></a>
-      <div class="demo-header__breadcrumb-wrapper">
-        <a href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html">yFiles for HTML</a>
-        <a href="../../../README.html">Demos</a>
-        <span>React JSX Component Style Demo</span>
-        <a href="../../../README.html" class="demo-header__mobile-back">yFiles Demos</a>
-      </div>
+      <a
+        href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+        class="y-logo"
+        target="_blank"
+      ></a>
+      <span class="material-symbols-outlined">chevron_right</span>
+      <a href="../../README.html" class="breadcrumb-wrapper" target="_blank">Demos</a>
+      <span class="material-symbols-outlined">chevron_right</span>
+      <span id="name" class="breadcrumb-wrapper demo-name">React JSX Component Style</span>
     </header>
-    <div class="demo-page__toolbar">
-      <button
-        id="open-file-button"
-        title="Open a GraphML file"
-        class="demo-icon-yIconOpen"
-      ></button>
-      <button id="save-button" title="Save a GraphML file" class="demo-icon-yIconSave"></button>
-      <div class="demo-separator"></div>
-      <button data-command="INCREASE_ZOOM"></button>
-      <button data-command="ZOOM_ORIGINAL"></button>
-      <button data-command="DECREASE_ZOOM"></button>
-      <button data-command="FIT_GRAPH_BOUNDS"></button>
-      <span class="demo-separator"></span>
-      <button id="reload" title="Reload" class="demo-icon-yIconReload"></button>
-    </div>
-    <aside class="demo-page__description">
-      <div class="demo-description__content">
-        <h1>React JSX Component Style Demo</h1>
-
-        <p>
-          This demo presents the React Component node and label style that leverages JSX and the
-          powerful data binding features of the
-          <a href="https://reactjs.org/" target="_blank">React framework</a>.
-        </p>
-        <p>
-          With the React Component Style, node and label visualizations are defined by SVG or HTML
-          component templates written with JSX, similar to the template styles that are included
-          with the library. However, since the templates of this style can use JSX and the powerful
-          data binding of React, complex requirements are easier to realize.
-        </p>
-        <p>
-          Note that the implementation used here employs a runtime JSX compiler (Babel) that
-          transforms the code to JavaScript which then gets evaluated for the purpose of the demo
-          and interactivity. Real applications define the rendering function in JSX or TSX files and
-          the compiler tool-chain performs the compilation at build time.
-        </p>
-
-        <h2>Things to Try</h2>
-
-        <ul>
-          <li>
-            Select nodes or labels to examine their templates and tag values in the text editors.
-          </li>
-          <li>
-            Modify the JSX code, bind colors or text to tag properties, and click the button to
-            apply the new template to the selected item.
-          </li>
-          <li>Modify the tag and observe the visualization update.</li>
-        </ul>
-
-        <h2>Related Demos</h2>
-        <ul>
-          <li><a data-demo>react-component-node-style</a></li>
-          <li><a data-demo>vue-component-node-style</a></li>
-          <li><a data-demo>vue-template-node-style</a></li>
-          <li><a data-demo>lit-template-node-style</a></li>
-        </ul>
+    <div class="main-container">
+      <div class="demo-page__main">
+        <div class="demo-main__graph-component">
+          <div class="demo-page__toolbar">
+            <button data-command="DECREASE_ZOOM" class="material-symbols-outlined">zoom_out</button>
+            <button data-command="INCREASE_ZOOM" class="material-symbols-outlined">zoom_in</button>
+            <button data-command="FIT_GRAPH_BOUNDS" class="material-symbols-outlined">
+              zoom_out_map
+            </button>
+            <span class="separator"></span>
+            <button
+              id="open-file-button"
+              title="Open a GraphML file"
+              class="material-symbols-outlined"
+            >
+              file_open
+            </button>
+            <button id="save-button" title="Save a GraphML file" class="material-symbols-outlined">
+              save
+            </button>
+            <div class="separator"></div>
+            <button id="reload" title="Reload" class="material-symbols-outlined">refresh</button>
+          </div>
+          <div id="graphComponent"></div>
+        </div>
       </div>
-    </aside>
-    <div class="demo-page__main">
-      <div class="demo-main__graph-component">
-        <div id="graphComponent"></div>
-      </div>
-      <aside
-        data-title="Template Editor"
-        class="demo-main__sidebar"
-        style="--sidebar-width: max(50%, min(100%, 450px))"
-      >
+      <div data-title="Template Editor" class="demo-main__sidebar">
         <div class="demo-sidebar__content">
           <div class="heading-row">
             <h2>JSX Render function</h2>
@@ -147,8 +107,53 @@
           <div id="tag-text-area-error" class="error">Could not parse tag object!</div>
           <div id="tagEditorContainer" class="editorText"></div>
         </div>
-      </aside>
+      </div>
+      <div class="demo-page__description">
+        <div class="demo-description__content">
+          <h1>React JSX Component Style Demo</h1>
+
+          <p>
+            This demo presents the React Component node and label style that leverages JSX and the
+            powerful data binding features of the
+            <a href="https://reactjs.org/" target="_blank">React framework</a>.
+          </p>
+          <p>
+            With the React Component Style, node and label visualizations are defined by SVG or HTML
+            component templates written with JSX, similar to the template styles that are included
+            with the library. However, since the templates of this style can use JSX and the
+            powerful data binding of React, complex requirements are easier to realize.
+          </p>
+          <p>
+            Note that the implementation used here employs a runtime JSX compiler (Babel) that
+            transforms the code to JavaScript which then gets evaluated for the purpose of the demo
+            and interactivity. Real applications define the rendering function in JSX or TSX files
+            and the compiler tool-chain performs the compilation at build time.
+          </p>
+
+          <h2>Things to Try</h2>
+
+          <ul>
+            <li>
+              Select nodes or labels to examine their templates and tag values in the text editors.
+            </li>
+            <li>
+              Modify the JSX code, bind colors or text to tag properties, and click the button to
+              apply the new template to the selected item.
+            </li>
+            <li>Modify the tag and observe the visualization update.</li>
+          </ul>
+
+          <h2>Related Demos</h2>
+          <ul>
+            <li><a data-demo>react-component-node-style</a></li>
+            <li><a data-demo>vue-component-node-style</a></li>
+            <li><a data-demo>vue-template-node-style</a></li>
+            <li><a data-demo>lit-template-node-style</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
+
     <script
       type="module"
       crossorigin="anonymous"

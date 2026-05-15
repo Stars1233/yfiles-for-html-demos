@@ -44,12 +44,12 @@ import {
 } from '@yfiles/yfiles'
 import { createConfiguredLayoutAlgorithm, createDefaultSettings } from './configure-layout'
 import { SnapDistanceVisualCreator } from './SnapDistanceVisualCreator'
-import { sampleData } from './resources/node-alignment-data'
+import graphData from './resources/node-alignment-data.json'
 import { DragAndDropPanel, type DragAndDropPanelItem } from '@yfiles/demo-utils/DragAndDropPanel'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import licenseData from '../../../lib/license.json'
 import { createDemoShapeNodeStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import { enableSingleSelection } from './SingleSelectionHelper'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The settings for re-aligning the nodes in the demo's graph.
@@ -198,10 +198,6 @@ function initializeHints(
   mode: MoveInputMode | NodeDropInputMode,
   snapDistanceRenderTreeElement: IRenderTreeElement
 ): void {
-  // the render tree element for the hints has to be marked as dirty to make yFiles rendering framework
-  // request a visualization of the hints
-  snapDistanceRenderTreeElement.dirty = true
-
   // calculate the columns and rows to be displayed as visual hints
   // if a column or row contains the current mouse position, this column or row is highlighted
   // because dropping a dragged node template at this position will result in new node positions
@@ -223,9 +219,9 @@ function updateHints(
   snapDistanceRenderTreeElement: IRenderTreeElement
 ): void {
   const SnapDistanceVisualCreator = snapDistanceRenderTreeElement.tag as SnapDistanceVisualCreator
-  snapDistanceRenderTreeElement.dirty = SnapDistanceVisualCreator.updateNodeCenter(
-    getNodeCenter(mode)
-  )
+  if (SnapDistanceVisualCreator.updateNodeCenter(getNodeCenter(mode))) {
+    snapDistanceRenderTreeElement.invalidate()
+  }
 }
 
 /**
@@ -234,7 +230,6 @@ function updateHints(
  */
 function disposeHints(snapDistanceRenderTreeElement: IRenderTreeElement): void {
   ;(snapDistanceRenderTreeElement.tag as SnapDistanceVisualCreator).clear()
-  snapDistanceRenderTreeElement.dirty = true
 }
 
 /**
@@ -282,10 +277,10 @@ function createSampleGraph(graph: IGraph): void {
   const graphBuilder = new GraphBuilder(graph)
 
   // create nodes
-  graphBuilder.createNodesSource({ data: sampleData.nodes, id: 'id', layout: 'layout' })
+  graphBuilder.createNodesSource({ data: graphData.nodes, id: 'id', layout: 'layout' })
 
   // create edges
-  graphBuilder.createEdgesSource({ data: sampleData.edges, sourceId: 'source', targetId: 'target' })
+  graphBuilder.createEdgesSource({ data: graphData.edges, sourceId: 'source', targetId: 'target' })
 
   graphBuilder.buildGraph()
 }

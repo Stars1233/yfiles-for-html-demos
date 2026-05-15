@@ -188,7 +188,7 @@ export class SubtreePlacerPanel {
       return
     } else {
       noSubtreePlacerElement.style.display = 'none'
-      subtreePlacerElement.style.display = 'inline-block'
+      subtreePlacerElement.style.display = 'inline-flex'
       subtreePlacerLabelElement.style.display = 'inline-block'
       previewElement.style.visibility = 'visible'
     }

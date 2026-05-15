@@ -46,7 +46,6 @@ import {
   Rect,
   Size
 } from '@yfiles/yfiles'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { createNodeContainerHTML, ListNodeStyle } from './styles/ListNodeStyle'
 import { findNeighbors, produceStock, sellStock } from './utils/graph-logic'
 import { testGraphData } from './resources/bakery-graph-data'
@@ -57,6 +56,7 @@ import { PortMapWrapper } from './utils/PortMapWrapper'
 import { NodeTag } from './utils/NodeTag'
 import type { NodeData } from './types'
 import licenseValue from '../../../lib/license.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 License.value = licenseValue
 
@@ -74,7 +74,6 @@ const fallbackNodeHeight = 100
  */
 async function run(): Promise<void> {
   graphComponent = new GraphComponent('#graphComponent')
-  graphComponent.contentMargins = 30
   inputMode = new GraphViewerInputMode({ focusableItems: 'none' })
   graphComponent.inputMode = inputMode
 
@@ -286,6 +285,11 @@ async function buildGraph() {
     nodeIdToNode.set(nodeData.id, node)
   }
 
+  // wait for the font to be loaded before the bounding box measurements
+  await Promise.race([
+    document.fonts.load(`1em Poppins`),
+    new Promise((resolve) => setTimeout(resolve, 5000))
+  ])
   // call updateVisual to be able to access the node's HTML inside the DOM for port location calculations
   graphComponent.updateVisual()
 

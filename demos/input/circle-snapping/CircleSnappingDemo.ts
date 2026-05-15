@@ -38,12 +38,12 @@ import {
 
 import { createDemoShapeNodeStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import type { JSONGraph } from '@yfiles/demo-utils/json-model'
 import { SnapCircleProvider } from './SnapCircleProvider'
 import { CircleSnapResultProvider } from './CircleSnapResultProvider'
 
 import graphData from './resources/circle-snapping.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Runs the demo.

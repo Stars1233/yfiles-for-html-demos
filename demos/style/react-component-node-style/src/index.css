@@ -26,7 +26,9 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import '@yfiles/demo-app/demo.css';
+@import url('@fontsource/poppins/600.css');
+@import url('@fontsource/poppins/400.css');
+@import '@fontsource/material-symbols-outlined/300.css';
 
 #app {
   position: absolute;
@@ -51,4 +53,89 @@
 }
 .node-card ::-webkit-scrollbar-thumb:hover {
   background-color: #bbbbbb;
+}
+html,
+body {
+  height: 100%;
+  background-color: #e8edf2;
+  font-family: 'poppins', sans-serif;
+  margin: 0;
+  color: #2a3e50;
+  overflow: hidden;
+}
+.demo-header {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 70px;
+  font-size: 1.125rem;
+  font-weight: 400;
+  padding-left: 92px;
+  padding-right: 8px;
+  color: #2a3e50;
+  gap: 12px;
+}
+.demo-header a {
+  text-decoration: none;
+  color: inherit;
+}
+.y-logo {
+  margin: 4px 4px 4px 16px;
+  height: 100%;
+  background-color: #2a3e50;
+
+  mask: url('./assets/ylogo-large.svg') no-repeat center;
+  width: 12rem;
+}
+.main-container {
+  height: calc(100% - 80px);
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 320px;
+  gap: 8px;
+  padding-bottom: 8px;
+  padding-right: 8px;
+}
+.demo-page__description {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  font-family: 'poppins', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  h1 {
+    color: #00adcc;
+    margin-top: 0;
+    font-size: 160%;
+    font-weight: 600;
+  }
+  a {
+    color: #2a3e50;
+    &:hover {
+      text-decoration-thickness: 2px;
+    }
+  }
+}
+.demo-page__main {
+  height: 100%;
+  border-radius: 16px;
+  background-color: #ffffff;
+}
+.demo-main__graph-component {
+  height: 100%;
+}
+.material-symbols-outlined {
+  font-variation-settings: 'GRAD' 30;
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
 }

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Subdivide Edges - Application Features
+# Subdivide Edges Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/subdivide-edges.webp" alt="demo-thumbnail" height="320"/>
 
@@ -27,11 +27,3 @@ More precisely, when a node is dropped onto an edge, a new node is created and t
 - Drag a node onto an edge and see how the edge is being split.
 
 See the sources for details.
-
-## Related Demos
-
-- [Drag and Drop Demo](../../input/draganddrop/)
-- [Component Drag and Drop Demo](../../input/componentdraganddrop/)
-- [Graph Drag and Drop Demo](../../input/graph-drag-and-drop/)
-- [Custom Drag and Drop Demo](../../input/custom-drag-and-drop/)
-- [Drag From Component Demo](../../input/drag-from-component/)

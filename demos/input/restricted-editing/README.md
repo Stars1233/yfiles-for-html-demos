@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Restricted Editing Demo
+# Restricted Editing Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/restricted-editing.webp" alt="demo-thumbnail" height="320"/>
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Complex Highlight Decorator - Application Features
+# Complex Highlight Decorator Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/complex-highlight.webp" alt="demo-thumbnail" height="320"/>
 

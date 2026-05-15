@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Port-aware Adjacency Graph Builder Demo
+# Port-aware Adjacency Graph Builder Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/port-aware-adjacency-graph-builder.webp" alt="demo-thumbnail" height="320"/>
 

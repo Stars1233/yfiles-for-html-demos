@@ -43,7 +43,7 @@ import {
   initDemoStyles
 } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Runs the demo.
@@ -51,6 +51,7 @@ import { finishLoading } from '@yfiles/demo-app/demo-page'
 async function run() {
   License.value = licenseData
   const graphComponent = new GraphComponent('#graphComponent')
+  graphComponent.contentMargins = [90, 10, 40, 10]
   initializeStyleDefaults(graphComponent.graph)
 
   // Create and configure nodes using shape node style
@@ -71,6 +72,7 @@ function createSampleNodes(graph) {
     ShapeNodeShape.RECTANGLE,
     ShapeNodeShape.ROUND_RECTANGLE,
     ShapeNodeShape.PILL,
+    ShapeNodeShape.SQUIRCLE,
     ShapeNodeShape.ELLIPSE
   ]
   const triangles = [

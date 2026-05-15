@@ -28,9 +28,14 @@
  ***************************************************************************/
 import {
   HierarchicalLayout,
+  HierarchicalLayoutData,
   IGraph,
   type LayoutEdge,
+  type LayoutEdgeLabel,
   type LayoutGraph,
+  type LayoutGraphItem,
+  type LayoutNode,
+  type LayoutNodeLabel,
   LayoutStageBase,
   NodeDataKey
 } from '@yfiles/yfiles'
@@ -40,11 +45,11 @@ import {
  * priorities when the core layout is {@link HierarchicalLayout}.
  *
  * This sample shows how to define a custom {@link Mapper} which is used to define
- * data for this layout stage. In this case, the data is boolean and defines whether or
- * not a node is part of the alignment nodes set.
+ * data for this layout stage. In this case, the data is boolean and defines whether
+ * a node is part of the alignment nodes set.
  *
  * Furthermore, it demonstrates how a graph can be pre-processed before the core layout and
- * post-processed (restored) afterwards. In the pre-processing step, dummy elements (in this
+ * post-processed (restored) afterward. In the pre-processing step, dummy elements (in this
  * case edges) are inserted to realize the alignment and have to be marked as critical using
  * {@link HierarchicalLayoutData.criticalEdgePriorities}.
  * In the restoration step, the dummy elements are removed.
@@ -103,7 +108,13 @@ export class AlignmentStage extends LayoutStageBase {
     )!
 
     const alignmentEdgesSet = new Set(alignmentEdges)
-    const layoutData = (this.coreLayout as HierarchicalLayout).createLayoutData(graph)
+    const layoutData = new HierarchicalLayoutData<
+      LayoutNode,
+      LayoutEdge,
+      LayoutGraphItem,
+      LayoutNodeLabel,
+      LayoutEdgeLabel
+    >()
     layoutData.criticalEdgePriorities = (edge) => {
       if (alignmentEdgesSet.has(edge)) {
         // An inserted edge gets a large criticality priority which means that it is important
@@ -119,7 +130,7 @@ export class AlignmentStage extends LayoutStageBase {
 
   /**
    * Prepares the graph by introducing temporary alignment edges between nodes marked as
-   * alignment nodes in the data map registered with key {@link ALIGNED_NODES_DATA_KEY}.
+   * alignment nodes in the data map registered with the key {@link ALIGNED_NODES_DATA_KEY}.
    */
   private insertAlignmentEdges(graph: LayoutGraph): LayoutEdge[] {
     const dataMap = graph.context.getItemData(AlignmentStage.ALIGNED_NODES_DATA_KEY)

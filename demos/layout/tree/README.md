@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Tree Layout Demo
+# Tree Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/tree-layout.webp" alt="demo-thumbnail" height="320"/>
 

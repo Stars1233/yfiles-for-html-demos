@@ -36,8 +36,7 @@ import {
   ILabel,
   INode,
   LayoutExecutor,
-  SpanningTree,
-  ViewportLimitingPolicy
+  SpanningTree
 } from '@yfiles/yfiles'
 import { getCompany, getRelationship } from './data-types'
 import { enableBridgeRendering } from './bridge-rendering'
@@ -209,17 +208,9 @@ export class CompanyStructureView {
    * @param graphComponent The given graphComponent
    */
   limitViewportNavigation(graphComponent) {
-    graphComponent.viewportLimiter.policy = ViewportLimitingPolicy.TOWARDS_LIMIT
     graphComponent.maximumZoom = 3
-  }
-
-  /**
-   * Loads the graph from the JSON file.
-   * @param src The JSON file
-   */
-  async loadGraph(src) {
-    const graphData = await this.loadGraphData(src)
-    this.buildGraphFromData(graphData)
+    // add some padding to prevent overlaps with the demo toolbar
+    graphComponent.contentMargins = [80, 10, 10, 10]
   }
 
   /**
@@ -429,14 +420,6 @@ export class CompanyStructureView {
     )
 
     return builder
-  }
-
-  /**
-   * Loads the graph data from the JSON file.
-   */
-  async loadGraphData(data) {
-    const result = await fetch(data)
-    return await result.json()
   }
 
   /**

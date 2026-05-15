@@ -114,7 +114,7 @@ export async function runShortestPathAlgorithm(graphComponent) {
   // the sink node
   if (endNode) {
     const graphEditorInputMode = graphComponent.inputMode
-    await graphEditorInputMode.toolTipInputMode.show(
+    await graphEditorInputMode.toolTipInputMode.open(
       endNode.layout.center,
       `Distance: ${pathDistance}`
     )

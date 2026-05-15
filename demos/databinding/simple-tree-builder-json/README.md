@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Simple Tree Builder (JSON)
+# Simple Tree Builder (JSON) Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-tree-builder-json.webp" alt="demo-thumbnail" height="320"/>
 

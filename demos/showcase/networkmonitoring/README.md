@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Network Monitoring Demo
+# Network Monitoring Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/network-monitoring.webp" alt="demo-thumbnail" height="320"/>
 

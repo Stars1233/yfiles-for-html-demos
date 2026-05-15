@@ -65,17 +65,11 @@ export const SolidGraphComponent = (props: SolidGraphComponentProps) => {
         resetGraph={() => resetGraph()}
         layout={() => layout()}
       />
-      <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-        <SolidGraphOverviewComponent graphComponent={() => gc} />
-        <div
-          ref={gcDiv}
-          style={{
-            height: props?.height ?? '500px',
-            width: props?.width ?? '500px',
-            ...props.style
-          }}
-        ></div>
-      </div>
+      <SolidGraphOverviewComponent graphComponent={() => gc} />
+      <div
+        ref={gcDiv}
+        style={{ height: props?.height ?? '100%', width: props?.width ?? '100%', ...props.style }}
+      ></div>
     </>
   )
 }

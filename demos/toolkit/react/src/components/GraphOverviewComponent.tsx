@@ -28,13 +28,11 @@
  ***************************************************************************/
 import { useEffect, useRef } from 'react'
 import './GraphOverviewComponent.css'
-import { GraphComponent, GraphOverviewComponent } from '@yfiles/yfiles'
+import { GraphOverviewComponent } from '@yfiles/yfiles'
+import { useGraphComponent } from './GraphComponentContext.ts'
 
-interface ReactGraphOverviewComponentProps {
-  graphComponent: GraphComponent
-}
-
-export function ReactGraphOverviewComponent({ graphComponent }: ReactGraphOverviewComponentProps) {
+export function ReactGraphOverviewComponent() {
+  const graphComponent = useGraphComponent()
   const overviewElement = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

@@ -34,9 +34,12 @@ import {
   type IEdge,
   Insets,
   type LayoutDescriptor,
+  type LayoutEdge,
+  type LayoutEdgeLabel,
   LayoutExecutorAsync,
   type LayoutGraph,
   type LayoutNode,
+  type LayoutNodeLabel,
   LayoutStageBase,
   NodeDataKey,
   OrganicLayout,
@@ -220,7 +223,12 @@ export class CustomOrganicLayoutStage extends LayoutStageBase {
       groupNodeLayouts: organicLayout
     })
     // Configure edge label placement
-    const organicLayoutData = organicLayout.createLayoutData(graph)
+    const organicLayoutData = new OrganicLayoutData<
+      LayoutNode,
+      LayoutEdge,
+      LayoutNodeLabel,
+      LayoutEdgeLabel
+    >()
     const edge2ProblemMap = graph.context.getItemData<boolean>(problemEdgeDataKey)!
     organicLayoutData.edgeLabelPreferredPlacements = (label) =>
       new EdgeLabelPreferredPlacement({

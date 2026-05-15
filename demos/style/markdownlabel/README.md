@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Markdown Label Demo
+# Markdown Label Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/markdown-label.webp" alt="demo-thumbnail" height="320"/>
 
@@ -50,10 +50,3 @@ The stylesheet for labels _markdown-label.css_ shows how the label texts are sty
 #### Text Wrapping
 
 Markdown labels can use line wrapping. In this demo application, the labels use word wrapping with ellipsis. Select and resize a node to observe the interactive text wrapping. Markdown labels can also be wrapped at character boundaries.
-
-## Related Demos
-
-- [Label Style Demo](../../style/label-style/)
-- [HTML Label Style Demo](../../style/html-label-style/)
-- [Rich Text Label Demo](../../style/richtextlabel/)
-- [Rendering the Label Text](../../tutorial-style-implementation-label/01-render-label-text/)

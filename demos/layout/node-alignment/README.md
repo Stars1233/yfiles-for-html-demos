@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Node Alignment Demo
+# Node Alignment Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/node-alignment.webp" alt="demo-thumbnail" height="320"/>
 

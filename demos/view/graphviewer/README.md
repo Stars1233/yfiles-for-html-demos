@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Graph Viewer Demo
+# Graph Viewer Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-viewer.webp" alt="demo-thumbnail" height="320"/>
 

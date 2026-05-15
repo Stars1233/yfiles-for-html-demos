@@ -48,8 +48,8 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 
@@ -81,6 +81,8 @@ async function run() {
 
   // enable undo after the initial graph was populated since we don't want to allow undoing that
   foldingView.manager.masterGraph.undoEngineEnabled = true
+  // also enable undo for folding operations
+  foldingView.enqueueNavigationalUndoUnits = true
 }
 
 /**
@@ -92,7 +94,7 @@ function buildGraph(graph, graphData) {
   graphBuilder.createNodesSource({
     data: graphData.nodeList.filter((item) => !item.isGroup),
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
 
   graphBuilder

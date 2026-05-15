@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Edge Bundling Demo
+# Edge Bundling Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/edge-bundling.webp" alt="demo-thumbnail" height="320"/>
 
@@ -24,8 +24,11 @@ For circular layouts, a circular-sector style is used for the visualization of t
 ## Things to Try
 
 - Select one of the layout algorithms that support edge bundling using the combo-box in the toolbar.
-- Modify the strength of the bundles using the slider in the toolbar and notice how this change influences the shape of the curves of the bundled edges. Values close to `1` lead to tight bundles, while values close to `0` lead to straight-line non-bundled edges. Values larger than `0.85` are recommended.
+- Modify the strength of the bundles using the slider in the toolbar and notice how this change influences the shape of the curves of the bundled edges. Values close to `1` lead to tight bundles, while values close to `0` lead to straight-line non-bundled edges.
 - Hover over an edge to highlight its path and its source and target nodes. The edges are highlighted also with gradient colors from red (source node) to gold (target node).
 - Hover over a node to highlight its adjacent edges.
+- Toggle the color scheme from the toolbar. By default, the color of each edge is determined by the angle formed by its source and target ports.
 - Right-click on a node to open a popup-menu and determine whether the edges adjacent to the particular node or to all other currently selected nodes should be bundled or not.
 - Right-click on an edge to open a popup-menu and determine whether the particular edge or all other currently edges should be bundled or not.
+
+Note that the force-directed based routing of [BundledEdgeRouter](https://docs.yworks.com/yfileshtml/api/BundledEdgeRouter) is not recommended for large graphs since high values of bundling strength affect the routing performance. Prefer one of the other two options instead.

@@ -53,7 +53,7 @@ import {
 import { EditablePathNodeStyle, PathHandle, updateHandles } from './EditablePathNodeStyle'
 import { createDemoEdgeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent = null!
 

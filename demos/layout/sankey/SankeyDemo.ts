@@ -30,15 +30,16 @@ import { GraphBuilder, GraphComponent, License } from '@yfiles/yfiles'
 
 import { electionData } from './resources/samples'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+
 import type { VoterShift } from './data-types'
 import { initializeDefaultStyles, updateAdjacentEdges } from './styles-support'
 import { configureInteraction } from './interaction/configure-interaction'
-import { initializeNodePopup } from './node-popup'
+import { initializeNodePopup } from './initialize-node-popup'
 import { initializeHighlight } from './interaction/configure-highlight'
 import { getThickness } from './edge-thickness'
 import { updateStylesAndLayout } from './sankey-layout'
 import { allowOnlyVerticalNodeMovement } from './interaction/constrain-node-movement'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run(): Promise<void> {
   License.value = licenseData

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Valid Begin Cursors
+# Valid Begin Cursors Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/valid-begin-cursors.webp" alt="demo-thumbnail" height="320"/>
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Grid Components Demo
+# Hierarchical Grid Components Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/hierarchical-grid-components.webp" alt="demo-thumbnail" height="320"/>
 
@@ -52,4 +52,4 @@ In this mode, you can play around with the sliders that control the `maximumNode
 - Click _Toggle Grid Components_ to see the difference between the layout without grid components and the current grid component preset.
 - Try the different grid component presets in the dropdown menu.
 - Choose the _Custom_ preset of the dropdown and try different settings for `maximumNodesAfterBus` and `maximumNodesBeforeBus` with the sliders.
-- Edit the graph and click the button to re-run the layout with the current settings.
+- Edit the graph and click the play_arrow button to re-run the layout with the current settings.

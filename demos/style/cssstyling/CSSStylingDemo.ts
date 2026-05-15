@@ -48,12 +48,12 @@ import {
 } from '@yfiles/yfiles'
 import { createDemoEdgeStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { CssNodeStyleWrapper } from './CssNodeStyleWrapper'
 import type { JSONGraph } from '@yfiles/demo-utils/json-model'
 import graphData from './graph-data.json'
 import { GraphOverviewRenderer } from './GraphOverviewRenderer'
 import { getColor } from './getColor'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -61,7 +61,7 @@ async function run(): Promise<void> {
   License.value = licenseData
 
   graphComponent = new GraphComponent('graphComponent')
-  const overviewComponent = new GraphOverviewComponent('overviewComponent', graphComponent)
+  const overviewComponent = new GraphOverviewComponent('overview-component', graphComponent)
   // add a custom visualization for the elements in the overview
   overviewComponent.graphOverviewRenderer = new GraphOverviewRenderer()
 
@@ -123,12 +123,6 @@ function configureInputMode(): void {
   // allow hovering of all graph elements
   graphEditorInputMode.itemHoverInputMode.hoverItems = GraphItemTypes.ALL
 
-  // enable tooltips
-  const toolTipInputMode = graphEditorInputMode.toolTipInputMode
-  toolTipInputMode.toolTipLocationOffset = [15, 15]
-  toolTipInputMode.delay = '500ms'
-  toolTipInputMode.duration = '5s'
-
   // add a tooltip for hovered items
   graphEditorInputMode.addEventListener('query-item-tool-tip', (evt) => {
     if (evt.handled) {
@@ -147,13 +141,6 @@ function configureInputMode(): void {
     if (evt.item) {
       highlights.add(evt.item)
     }
-  })
-
-  // whenever the user creates a node, we set a created flag on its tag data object, which will then be used
-  // by the custom node style to set the appropriate CSS classes
-  graphEditorInputMode.addEventListener('node-created', (evt) => {
-    const node = evt.item
-    node.tag = { created: true }
   })
 
   graphComponent.inputMode = graphEditorInputMode

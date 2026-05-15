@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout
+# Hierarchical Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-hierarchical.webp" alt="demo-thumbnail" height="320"/>
 
@@ -23,7 +23,7 @@ It highlights the configuration of various aspects, including:
 - Edge routing: both default [orthogonal](https://docs.yworks.com/yfileshtml/api/HierarchicalLayoutRoutingStyle#ORTHOGONAL) routing and custom [octilinear](https://docs.yworks.com/yfileshtml/api/HierarchicalLayoutRoutingStyle#OCTILINEAR) routing for specific edges
 - Source and target [port candidates](https://docs.yworks.com/yfileshtml/api/HierarchicalLayoutData#ports)
 - [Critical paths](https://docs.yworks.com/yfileshtml/api/HierarchicalLayoutData#criticalEdgePriorities)
-- [Edge straightening](https://docs.yworks.com/yfileshtml/api/CoordinateAssigner#straightenEdges)
+- [Straightened Edges](https://docs.yworks.com/yfileshtml/api/CoordinateAssigner#maximumPortDeviation)
 - Spacing controls: such as [minimum layer distance](https://docs.yworks.com/yfileshtml/api/HierarchicalLayout#minimumLayerDistance), [node distance](https://docs.yworks.com/yfileshtml/api/HierarchicalLayout#nodeDistance), and [node-to-edge distance](https://docs.yworks.com/yfileshtml/api/HierarchicalLayout#nodeToEdgeDistance).
 
 ## Things to Try
@@ -31,7 +31,7 @@ It highlights the configuration of various aspects, including:
 - Observe the bottom-to-top layout orientation.
 - Identify the **critical edges** routed with minimal bends.
 - Compare the default orthogonal routing with the custom **octilinear routed edges**.
-- Check the **straightened edges**.
+- Check the **straightened edges** by increasing allowed port deviation.
 - Examine how **port candidates** dictate specific connection points on nodes.
 
 ## Demos

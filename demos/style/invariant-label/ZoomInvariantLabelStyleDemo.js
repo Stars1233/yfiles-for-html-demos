@@ -34,7 +34,14 @@ import {
   HierarchicalLayout,
   LayoutExecutor,
   License,
-  Rect
+  Rect,
+  SelectionIndicatorManager,
+  WebGLGraphModelManager,
+  WebGLLabelIndicatorStyle,
+  WebGLLabelStyle,
+  WebGLLabelStyleDecorator,
+  WebGLSelectionIndicatorManager,
+  WebGLZoomScalingPolicy
 } from '@yfiles/yfiles'
 import {
   FitOwnerLabelStyle,
@@ -44,12 +51,14 @@ import {
 } from './ZoomInvariantLabelStyle'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, addOptions, finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
+import { addNavigationButtons, addOptions } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run() {
   License.value = licenseData
   const graphComponent = new GraphComponent('graphComponent')
+  graphComponent.graphModelManager = new WebGLGraphModelManager({ renderMode: 'svg' })
   graphComponent.inputMode = new GraphViewerInputMode({
     selectableItems: GraphItemTypes.NODE | GraphItemTypes.EDGE | GraphItemTypes.LABEL
   })
@@ -58,7 +67,7 @@ async function run() {
   // For the general appearance of a label, we use the common demo defaults set above
   const baseLabelStyle = graphComponent.graph.nodeDefaults.labels.style
   // Initially, use FIXED_BELOW_THRESHOLD mode
-  setLabelStyle(graphComponent.graph, 'FIXED_BELOW_THRESHOLD', baseLabelStyle)
+  setLabelStyle(graphComponent.graph, 'FIXED_BELOW_THRESHOLD', [1, 3], baseLabelStyle)
 
   // build the graph from the given data set
   buildGraph(graphComponent.graph, graphData)
@@ -113,33 +122,48 @@ function buildGraph(graph, graphData) {
  * Sets a new label style for the given mode to all labels in the graph.
  * @param graph The graph.
  * @param mode The label style mode.
+ * @param thresholds The zoom thresholds for the label style mode
  * @param baseLabelStyle An optional base label style. If not provided, the graph defaults are used.
  */
-function setLabelStyle(graph, mode, baseLabelStyle = null) {
+function setLabelStyle(graph, mode, thresholds, baseLabelStyle = null) {
   const innerLabelStyle =
     baseLabelStyle ??
-    graph.nodeDefaults.labels.style.innerLabelStyle ??
+    graph.nodeDefaults.labels.style.style?.innerLabelStyle ??
     graph.nodeDefaults.labels.style
-  graph.nodeDefaults.labels.style = createLabelStyle(mode, innerLabelStyle)
-  graph.edgeDefaults.labels.style = createLabelStyle(mode, innerLabelStyle)
+
+  // the webgl style should be shared so we don't run into webgl animation count limits
+  const webGLStyle = createWebGLLabelStyle(mode, thresholds)
+
+  graph.nodeDefaults.labels.style = createLabelStyle(mode, thresholds, innerLabelStyle, webGLStyle)
+  graph.edgeDefaults.labels.style = createLabelStyle(mode, thresholds, innerLabelStyle, webGLStyle)
   // to make sure that the selection rectangle has the correct label bounds, the label style should not be shared
   graph.nodeDefaults.labels.shareStyleInstance = false
   graph.edgeDefaults.labels.shareStyleInstance = false
   for (const label of graph.labels) {
-    graph.setStyle(label, createLabelStyle(mode, innerLabelStyle))
+    graph.setStyle(label, createLabelStyle(mode, thresholds, innerLabelStyle, webGLStyle))
   }
 }
 
 /**
  * Creates a new label style for the given mode and base style.
  */
-function createLabelStyle(mode, baseLabelStyle) {
+function createLabelStyle(mode, thresholds, baseLabelStyle, webGLStyle) {
+  return new WebGLLabelStyleDecorator(
+    createSvgLabelStyle(mode, thresholds, baseLabelStyle),
+    webGLStyle
+  )
+}
+
+/**
+ * Creates the SVG label style for the desired mode.
+ */
+function createSvgLabelStyle(mode, [lowerThreshold, upperThreshold], baseLabelStyle) {
   if (mode === 'FIXED_ABOVE_THRESHOLD') {
-    return new ZoomInvariantAboveThresholdLabelStyle(baseLabelStyle, 1)
+    return new ZoomInvariantAboveThresholdLabelStyle(baseLabelStyle, lowerThreshold)
   } else if (mode === 'FIXED_BELOW_THRESHOLD') {
-    return new ZoomInvariantBelowThresholdLabelStyle(baseLabelStyle, 1)
+    return new ZoomInvariantBelowThresholdLabelStyle(baseLabelStyle, lowerThreshold)
   } else if (mode === 'INVARIANT_OUTSIDE_RANGE') {
-    return new ZoomInvariantOutsideRangeLabelStyle(baseLabelStyle, 1, 3)
+    return new ZoomInvariantOutsideRangeLabelStyle(baseLabelStyle, lowerThreshold, upperThreshold)
   } else if (mode === 'FIT_OWNER') {
     return new FitOwnerLabelStyle(baseLabelStyle)
   } else {
@@ -148,9 +172,66 @@ function createLabelStyle(mode, baseLabelStyle) {
 }
 
 /**
+ * Creates the WebGL label style with the zoom scaling control points for the desired mode. The
+ * style should be shared among all labels.
+ */
+function createWebGLLabelStyle(mode, [lowerThreshold, upperThreshold]) {
+  let zoomControlPoints
+  if (mode === 'FIXED_ABOVE_THRESHOLD') {
+    zoomControlPoints = [
+      [lowerThreshold, lowerThreshold],
+      [Number.POSITIVE_INFINITY, lowerThreshold]
+    ]
+  } else if (mode === 'FIXED_BELOW_THRESHOLD') {
+    zoomControlPoints = [
+      [0, lowerThreshold],
+      [lowerThreshold, lowerThreshold]
+    ]
+  } else if (mode === 'INVARIANT_OUTSIDE_RANGE') {
+    zoomControlPoints = [
+      [0, lowerThreshold],
+      [lowerThreshold, lowerThreshold],
+      [upperThreshold, upperThreshold],
+      [Number.POSITIVE_INFINITY, upperThreshold]
+    ]
+  } else {
+    zoomControlPoints = []
+  }
+
+  return new WebGLLabelStyle({
+    backgroundColor: '#ffc499',
+    shape: 'round-rectangle',
+    verticalTextAlignment: 'center',
+    horizontalTextAlignment: 'center',
+    zoomScalingPolicy: new WebGLZoomScalingPolicy(zoomControlPoints)
+  })
+}
+
+/**
  * Wires up the UI.
  */
 function initializeUI(graphComponent) {
+  const renderModeSelectElement = document.querySelector('#renderModeChooserBox')
+  addOptions(
+    renderModeSelectElement,
+    { value: 'svg', text: 'SVG Mode' },
+    { value: 'webgl', text: 'WebGL Mode' }
+  )
+  addNavigationButtons(renderModeSelectElement).addEventListener('change', (_evt) => {
+    const renderMode = renderModeSelectElement.value
+    graphComponent.graphModelManager.renderMode = renderMode
+
+    if (renderMode === 'svg') {
+      graphComponent.selectionIndicatorManager = new SelectionIndicatorManager()
+    } else {
+      // webgl zoom scaling policy only works with zoomPolicy "world-coordinates"
+      graphComponent.selectionIndicatorManager = new WebGLSelectionIndicatorManager({
+        nodeLabelStyle: new WebGLLabelIndicatorStyle({ zoomPolicy: 'world-coordinates' }),
+        edgeLabelStyle: new WebGLLabelIndicatorStyle({ zoomPolicy: 'world-coordinates' })
+      })
+    }
+  })
+
   const modeSelectElement = document.querySelector('#modeChooserBox')
   addOptions(
     modeSelectElement,
@@ -160,8 +241,8 @@ function initializeUI(graphComponent) {
     { value: 'FIT_OWNER', text: "Fit into the label's owner" },
     { value: 'DEFAULT', text: 'Default behaviour' }
   )
-  addNavigationButtons(modeSelectElement).addEventListener('change', (_evt) => {
-    setLabelStyle(graphComponent.graph, modeSelectElement.value)
+  addNavigationButtons(modeSelectElement, 'Zoom Mode').addEventListener('change', (_evt) => {
+    setLabelStyle(graphComponent.graph, modeSelectElement.value, getZoomThresholds())
 
     // hide the threshold controls if not applicable for the selected zoom style
     document.getElementById('zoomThresholdControls').hidden =
@@ -176,24 +257,20 @@ function initializeUI(graphComponent) {
   const zoomThresholdInput = document.querySelector('#zoomThreshold')
   zoomThresholdInput.addEventListener('change', () => {
     document.querySelector('#zoomThresholdLabel').textContent = zoomThresholdInput.value
-    const zoomThreshold = parseFloat(zoomThresholdInput.value)
-
-    for (const label of graphComponent.graph.labels) {
-      label.style.zoomThreshold = zoomThreshold
-    }
+    setLabelStyle(graphComponent.graph, modeSelectElement.value, getZoomThresholds())
     graphComponent.updateVisual()
   })
 
   const maxScaleInput = document.querySelector('#maxScale')
   maxScaleInput.addEventListener('change', () => {
     document.querySelector('#maxScaleLabel').textContent = maxScaleInput.value
-    const maxScale = parseFloat(maxScaleInput.value)
-
-    for (const label of graphComponent.graph.labels) {
-      label.style.maxScale = maxScale
-    }
+    setLabelStyle(graphComponent.graph, modeSelectElement.value, getZoomThresholds())
     graphComponent.updateVisual()
   })
+
+  function getZoomThresholds() {
+    return [parseFloat(zoomThresholdInput.value), parseFloat(maxScaleInput.value)]
+  }
 
   // shows the current zoom level in the toolbar
   graphComponent.addEventListener('zoom-changed', () => {

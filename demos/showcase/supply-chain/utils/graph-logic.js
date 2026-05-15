@@ -201,7 +201,7 @@ export function produceStock(graphComponent, portMapWrapper, currentPropertyElem
       )
       const snackbar = document.getElementById('snackbar')
       snackbar.className = 'show'
-      snackbar.textContent = `Not enough ${propertyElement?.textContent} in stock`
+      snackbar.textContent = `Not enough ${propertyElement ? propertyElement.textContent : 'produce'} in stock`
       setTimeout(function () {
         snackbar.className = snackbar.className.replace('show', '')
       }, 6000)

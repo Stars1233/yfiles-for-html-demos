@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Tag Cloud Demo
+# Tag Cloud Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/tag-cloud.webp" alt="demo-thumbnail" height="320"/>
 

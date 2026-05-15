@@ -14,13 +14,13 @@
     "@types/node": "^24.10.4",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "@yfiles/demo-app": "../../demo-app",
     "next": "^16.0.10",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-30.0.5+dev.tgz"
+    "@fontsource/material-symbols-outlined": "^5.2.41",
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.0+dev.tgz"
   },
   "devDependencies": {
-    "typescript": "~5.9.3"
+    "typescript": "~6.0.2"
   }
 }

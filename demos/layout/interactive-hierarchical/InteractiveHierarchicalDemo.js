@@ -32,15 +32,18 @@ import {
   GraphBuilder,
   GraphComponent,
   GraphEditorInputMode,
+  GraphSnapContext,
   HierarchicalLayout,
   HierarchicalLayoutData,
   IEdge,
+  IncrementalNodeHint,
   INode,
   LayoutExecutor,
   License,
   List,
   Mapper,
-  Size
+  Size,
+  SnappableItems
 } from '@yfiles/yfiles'
 
 import { PortCandidateBendHandle } from './PortCandidateBendHandle'
@@ -48,8 +51,8 @@ import { LayerPositionHandler } from './LayerPositionHandler'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import { LayerVisual } from './LayerVisual'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Sample that interactively demonstrates the usage of {@link HierarchicalLayout}.
@@ -66,6 +69,7 @@ async function run() {
   newLayerMapper = new Mapper()
   incrementalNodes = new List()
   incrementalEdges = new List()
+  selectedNodeHint = (_) => IncrementalNodeHint.FROM_SKETCH
 
   // initialize the input mode
   initializeInputModes()
@@ -88,6 +92,8 @@ async function run() {
 
   // enable undo after the initial graph was populated since we don't want to allow undoing that
   graphComponent.graph.undoEngineEnabled = true
+
+  initializeUI()
 }
 
 /**
@@ -196,6 +202,11 @@ function createEditorMode() {
     }
   })
 
+  mode.snapContext = new GraphSnapContext({
+    snappableItems: SnappableItems.NODE,
+    collectNodePairSnapLines: false
+  })
+
   return mode
 }
 
@@ -210,6 +221,8 @@ async function updateLayout() {
   layouting = true
   graphComponent.inputMode.enabled = false
 
+  const movedNodes = new Set(newLayerMapper.entries.map((entry) => entry.key))
+
   // update the layers for moved nodes
   updateMovedNodes()
 
@@ -222,9 +235,12 @@ async function updateLayout() {
   const layoutData = new HierarchicalLayoutData({
     givenLayersIndices: layerMapper,
     ports: { sourcePortCandidates, targetPortCandidates },
-    // now pass the incremental nodes to the layout algorithm
-    incrementalNodes,
-    // the same for edges
+    // specify incremental node hints for nodes
+    incrementalNodeHints: (node) =>
+      incrementalNodes.includes(node)
+        ? IncrementalNodeHint.INCREMENTAL
+        : selectedNodeHint(movedNodes.has(node)),
+    // specify the edges to rearrange
     incrementalEdges
   })
 
@@ -313,6 +329,27 @@ function initializeGraph() {
   )
 }
 
+function initializeUI() {
+  document.querySelector('#node-hints')?.addEventListener('change', (event) => {
+    const value = event.target.value
+    switch (value) {
+      case 'keep-order':
+        selectedNodeHint = (_) => IncrementalNodeHint.KEEP_RELATIVE_ORDER
+        break
+      case 'from-sketch':
+        selectedNodeHint = (_) => IncrementalNodeHint.FROM_SKETCH
+        break
+      case 'exact-coordinates':
+        selectedNodeHint = (_) => IncrementalNodeHint.EXACT_COORDINATES
+        break
+      case 'moved-from-sketch-others-fixed':
+        selectedNodeHint = (moved) =>
+          moved ? IncrementalNodeHint.FROM_SKETCH : IncrementalNodeHint.EXACT_COORDINATES
+        break
+    }
+  })
+}
+
 /**
  * Visualizes the layers and manages layer regions and contains tests.
  */
@@ -352,5 +389,10 @@ let incrementalNodes
  * holds a list of edges to reroute incrementally during the next layout
  */
 let incrementalEdges
+
+/**
+ * holds a function that maps from whether a node was moved or not to the selected incremental node hint
+ */
+let selectedNodeHint
 
 run().then(finishLoading)

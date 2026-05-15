@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Context Menu
+# Context Menu Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/context-menu.webp" alt="demo-thumbnail" height="320"/>
 

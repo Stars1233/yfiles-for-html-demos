@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { IEdge, INode, Point } from '@yfiles/yfiles'
+import { IEdge, INode } from '@yfiles/yfiles'
 import { getCompany, getRelationship } from './data-types'
 
 /**
@@ -43,9 +43,4 @@ export function enableTooltips(graphComponent) {
       evt.toolTip = nodeTag.nodeType
     }
   })
-  const toolTipInputMode = viewerInputMode.toolTipInputMode
-  toolTipInputMode.toolTipLocationOffset = new Point(15, 15)
-  // show the tooltip faster and for a longer time
-  toolTipInputMode.duration = '10s'
-  toolTipInputMode.delay = '0.5s'
 }

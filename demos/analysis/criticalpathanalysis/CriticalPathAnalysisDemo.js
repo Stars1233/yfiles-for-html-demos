@@ -36,11 +36,11 @@ import {
   License,
   PolylineEdgeStyle
 } from '@yfiles/yfiles'
-import graphData from './graph-data'
+import graphData from './graph-data.json'
 import { calculateCriticalPathEdges, runLayout } from './CriticalPathHelper'
 import { createDemoNodeStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Runs this demo.
@@ -160,7 +160,7 @@ function loadSampleGraph(graphComponent) {
     id: 'id',
     tag: 'tag',
     layout: 'layout',
-    labels: ['label']
+    labels: ['labels']
   })
 
   builder.createEdgesSource({
@@ -169,7 +169,7 @@ function loadSampleGraph(graphComponent) {
     sourceId: 'source',
     targetId: 'target',
     tag: 'tag',
-    labels: ['label']
+    labels: ['labels']
   })
 
   builder.buildGraph()

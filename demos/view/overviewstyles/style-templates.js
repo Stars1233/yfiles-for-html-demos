@@ -36,9 +36,9 @@ export const detailNodeStyleTemplate = `({ layout, tag, selected, zoom }) => svg
           class="node-background"></rect>
     <image href="./resources/\${tag.icon}.svg" x='15' y='10' width='63.75' height='63.75'></image>
     <image href="./resources/\${tag.status}_icon.svg" x='25' y='80' height='15' width='60'></image>
-    <g style='font-size:10px; font-family:Roboto,sans-serif; font-weight: 300; fill: #444'>
+    <g style='font-size:10px; font-family:Poppins,sans-serif; font-weight: 300; fill: #444'>
       <text transform='translate(100 25)' style='font-size:16px; fill:#336699'>\${tag.name}</text>
-      <text x='100' y='45' font-size='10' font-family='Roboto,sans-serif'>
+      <text x='100' y='45' font-size='10' font-family='Poppins,sans-serif'>
         \${tag.position.toUpperCase()}
       </text>
       <text transform='translate(100 72)'>\${tag.email}</text>
@@ -52,6 +52,6 @@ export const overviewNodeStyleTemplate = `({ layout, tag, selected, zoom }) => s
     <rect fill="#FFFFFF" stroke="#C0C0C0" width="$\{layout.width}" height="$\{layout.height}"></rect>
     <rect width="15" height="\${layout.height}" fill='$\{tag.status === "present" ? "#76b041" :
     tag.status === "busy" ? "#ab2346" : tag.status === "travel" ? "#a367dc" : "#c1c1c1"}' class="node-background"></rect>
-    <text transform='translate(30 50)' style='font-size:40px; font-family:Roboto,sans-serif; fill:#444; dominant-baseline: central;'>
+    <text transform='translate(30 50)' style='font-size:40px; font-family:Poppins,sans-serif; fill:#444; dominant-baseline: central;'>
     \${tag.name.replace(/^(.)(\\S*)(.*)/, "$1.$3")}</text>
   </g>\``

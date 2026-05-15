@@ -95,28 +95,27 @@ export class RectangleVisualCreator extends BaseClass(IVisualCreator) {
     }
 
     const rect = this.boundsProvider()
-    if (rect != null) {
-      if (this.renderInViewCoordinates) {
-        oldVisual.transform = context.viewTransform
-      }
-
-      const rectangle = oldVisual.children.get(0).svgElement
-      rectangle.setAttribute('x', rect.x.toString())
-      rectangle.setAttribute('y', rect.y.toString())
-      rectangle.setAttribute('width', rect.width > 0 ? rect.width.toString() : '1')
-      rectangle.setAttribute('height', rect.height > 0 ? rect.height.toString() : '1')
-
-      const text = oldVisual.children.get(1).svgElement
-
-      text.setAttribute('x', `${rect.x + 10}`)
-      if (this.titlePosition === 'top') {
-        text.setAttribute('y', `${rect.y + 20}`)
-      } else {
-        const effectiveRectHeight = rect.height > 0 ? rect.height : 1
-        text.setAttribute('y', `${rect.y + effectiveRectHeight - 10}`)
-      }
-    } else {
+    if (rect == null) {
       return new SvgVisualGroup()
+    }
+    if (this.renderInViewCoordinates) {
+      oldVisual.transform = context.viewTransform
+    }
+
+    const rectangle = oldVisual.children.get(0).svgElement
+    rectangle.setAttribute('x', rect.x.toString())
+    rectangle.setAttribute('y', rect.y.toString())
+    rectangle.setAttribute('width', rect.width > 0 ? rect.width.toString() : '1')
+    rectangle.setAttribute('height', rect.height > 0 ? rect.height.toString() : '1')
+
+    const text = oldVisual.children.get(1).svgElement
+
+    text.setAttribute('x', `${rect.x + 10}`)
+    if (this.titlePosition === 'top') {
+      text.setAttribute('y', `${rect.y + 20}`)
+    } else {
+      const effectiveRectHeight = rect.height > 0 ? rect.height : 1
+      text.setAttribute('y', `${rect.y + effectiveRectHeight - 10}`)
     }
     return oldVisual
   }

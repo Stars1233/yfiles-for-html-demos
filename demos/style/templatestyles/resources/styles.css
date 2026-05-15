@@ -55,30 +55,43 @@
   padding: 10px;
 }
 
+#propertiesView .table-wrapper {
+  overflow-y: auto;
+  overflow-x: auto;
+  display: block;
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+#propertiesView table {
+  display: table;
+}
+
 #propertiesView td {
+  white-space: nowrap;
   padding: 3px 0;
 }
 
 #propertiesView td:first-of-type {
   text-transform: uppercase;
-  color: #336699;
+  /*color: #336699;*/
   font-weight: bold;
   padding-right: 20px;
 }
 
-#propertiesView td a {
-  color: #407fbf;
-  text-decoration: none;
+#propertiesView td:last-child {
+  white-space: nowrap;
 }
 
-#propertiesView td a:hover {
-  color: #336699;
+#propertiesView td:first-child {
+  white-space: nowrap;
 }
 
 #propertiesView .user-detail {
   position: relative;
   height: 65px;
   margin: 10px 0;
+  font-size: 14px;
 }
 
 #propertiesView .user-detail img {
@@ -93,7 +106,6 @@
   font-size: 20px;
   font-weight: normal;
   margin: 0 0 5px 60px;
-  color: #336699;
 }
 
 #propertiesView .user-detail input {
@@ -107,17 +119,27 @@
 }
 
 #propertiesView .demo-edit-name-button {
-  width: 24px;
-  height: 24px;
-  background-image: url(../../../demo-app/icons/settings2-16.svg);
+  width: 40px;
+  height: 40px;
   border: none;
   outline: none;
   background-repeat: no-repeat;
   background-position: center;
   display: inline-block;
   margin-left: 10px;
-  background-color: transparent;
+  background-color: var(--toolbar-button);
+  margin-right: -20px;
+  margin-top: -5px;
+  font-size: 20px;
 }
 #propertiesView .demo-edit-name-button:hover {
-  background-color: #dedede;
+  background-color: var(--toolbar-bg-hover);
+}
+#propertiesView table {
+  font-size: 14px;
+}
+.main-container {
+  .interaction-panel {
+    flex: 0 1 320px;
+  }
 }

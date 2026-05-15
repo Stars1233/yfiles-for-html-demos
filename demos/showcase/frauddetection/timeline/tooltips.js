@@ -40,9 +40,8 @@ const toolTipItems = GraphItemTypes.NODE | GraphItemTypes.EDGE
  *
  * @param graphInputMode The graph component.
  * @param getToolTip Provides the tooltip content for a graph item.
- * @param tooltipParentElement The element to which the tooltips should be added. Defaults to body.
  */
-export function initializeToolTips(graphInputMode, getToolTip, tooltipParentElement) {
+export function initializeToolTips(graphInputMode, getToolTip) {
   graphInputMode.toolTipItems = toolTipItems
 
   graphInputMode.addEventListener('query-item-tool-tip', (evt) => {
@@ -53,12 +52,4 @@ export function initializeToolTips(graphInputMode, getToolTip, tooltipParentElem
 
   // slightly offset the tooltip so that it does not interfere with the mouse
   graphInputMode.toolTipInputMode.toolTipLocationOffset = new Point(2, 14)
-
-  // show the tooltip faster and for a longer time
-  graphInputMode.toolTipInputMode.duration = '10s'
-  graphInputMode.toolTipInputMode.delay = '0.5s'
-
-  if (tooltipParentElement) {
-    graphInputMode.toolTipInputMode.toolTipParentElement = tooltipParentElement
-  }
 }

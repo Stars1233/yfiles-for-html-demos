@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Simple Adjacency Graph Builder
+# Simple Adjacency Graph Builder Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-adjacency-graph-builder.webp" alt="demo-thumbnail" height="320"/>
 

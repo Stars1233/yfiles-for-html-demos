@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Label Text Wrapping - Application Features
+# Label Text Wrapping Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/label-text-wrapping.webp" alt="demo-thumbnail" height="320"/>
 

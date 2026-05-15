@@ -32,13 +32,13 @@ import { html } from '../../preact-loader'
 export default (props) => html`
   <div class="item">
     <div class="item-row item-head">
-      <h3>Item ${props.data.id}</h3>
+      <span style="font-weight: 700">Item ${props.data.id}</span>
       <button
         class="remove-button"
         onClick=${() => props.removeDataItem(props.index)}
         disabled=${props.disabled}
       >
-        remove
+        Remove
       </button>
     </div>
     <div class="item-row">

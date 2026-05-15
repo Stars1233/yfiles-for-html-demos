@@ -39,6 +39,7 @@ export default defineComponent({
   width: 200px;
   height: 200px;
   background-color: white;
+  border-radius: 0 0 10px 10px;
 }
 
 .title {
@@ -47,10 +48,11 @@ export default defineComponent({
   justify-content: center;
   font-size: 1.25rem;
   font-weight: 500;
-  line-height: 2rem;
+  line-height: 1.7rem;
   letter-spacing: 0.0125em;
   font-family: 'Roboto', sans-serif;
-  color: #fff;
-  background-color: #29323c;
+  color: #1c2a35;
+  background-color: #f2f5f8;
+  border-radius: 10px 10px 0 0;
 }
 </style>

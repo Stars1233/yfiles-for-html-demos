@@ -67,13 +67,11 @@ import { SectorVisual } from './SectorVisual'
 import { getGlobalRoot, getSubtree, highlightSubtree } from './SubtreeSupport'
 import { initializeGraphSearch, resetGraphSearch } from './TreeOfLifeSearch'
 import licenseData from '../../../lib/license.json'
-import {
-  addNavigationButtons,
-  BrowserDetection,
-  finishLoading,
-  showLoadingIndicator
-} from '@yfiles/demo-app/demo-page'
+
 import graphData from './resources/TreeOfLifeData.json'
+import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
+import { addNavigationButtons, showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 type Palette = {
   primary: string
@@ -129,6 +127,7 @@ async function run(): Promise<void> {
   License.value = licenseData
 
   graphComponent = new GraphComponent('#graphComponent')
+  graphComponent.contentMargins = { top: 170, bottom: 40, left: 10, right: 10 }
   if (BrowserDetection.webGL2) {
     graphComponent.graphModelManager = new WebGLGraphModelManager()
   }
@@ -299,10 +298,10 @@ function initializeSectorVisualization() {
  * Loads the initial graph, colorizes the subtrees and filters the data that will be visualized.
  */
 async function loadAndFilterGraph() {
-  graphComponent.graph = new FilteredGraphWrapper(graphComponent.graph, (node) => isVisible(node))
-
   await showLoadingIndicator(true, `Loading 'Tree Of Life' data...`)
   setUIDisabled(graphComponent, true)
+
+  graphComponent.graph = new FilteredGraphWrapper(graphComponent.graph, (node) => isVisible(node))
 
   const graph = await loadGraph()
 
@@ -443,7 +442,7 @@ async function showSubtree(subtreeRoot: INode, prepareAnimation?: boolean) {
   }
 
   // update sector highlight
-  if (sectorVisual.updateHighlight(graphComponent.lastEventLocation)) {
+  if (sectorVisual.updateHighlight(graphComponent.lastPointerEvent.location)) {
     graphComponent.invalidate()
   }
 }

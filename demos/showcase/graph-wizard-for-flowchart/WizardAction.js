@@ -157,7 +157,7 @@ export class WizardAction {
    */
   getDefaultAction(mode) {
     return (button) =>
-      mode.handleAction(this, button.owner, button.tag, mode.graphComponent.lastInputEvent)
+      mode.handleAction(this, button.owner, button.tag, mode.graphComponent.lastPointerEvent)
   }
 
   /**

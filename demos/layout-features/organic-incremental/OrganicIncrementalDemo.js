@@ -32,15 +32,17 @@ import graphData from './sample.json'
 
 const organicLayoutData = new OrganicLayoutData({
   scope: {
-    // Only include nodes that have the 'includeInLayout' tag
-    nodes: (node) => node.tag && node.tag === 'includeInLayout',
     // Also arrange nodes that are close to the included nodes
-    scopeModes: OrganicScope.INCLUDE_CLOSE_NODES
+    scopeModes: (node) =>
+      node.tag && node.tag === 'includeInLayout'
+        ? OrganicScope.INCLUDE_CLOSE_NODES
+        : OrganicScope.FIXED
   }
 })
 
 // Build the graph from JSON data
 demoApp.buildGraphFromJson(graphData)
+await graphComponent.fitGraphBounds()
 
 // Apply the incremental organic layout to the graph
-await graphComponent.applyLayoutAnimated(new OrganicLayout(), '0', organicLayoutData)
+await graphComponent.applyLayoutAnimated(new OrganicLayout(), '1s', organicLayoutData)

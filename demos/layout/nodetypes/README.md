@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Node Types Demo
+# Node Types Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/node-types.webp" alt="demo-thumbnail" height="320"/>
 

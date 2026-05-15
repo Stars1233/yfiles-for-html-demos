@@ -28,6 +28,7 @@
  ***************************************************************************/
 import { GraphComponent, GraphOverviewComponent } from '@yfiles/yfiles'
 import { onCleanup, onMount } from 'solid-js'
+import './SolidGraphOverviewComponent.css'
 
 type SolidGraphOverviewComponentProps = { graphComponent: () => GraphComponent }
 
@@ -45,9 +46,9 @@ export const SolidGraphOverviewComponent = (props: SolidGraphOverviewComponentPr
   })
 
   return (
-    <div class={'demo-overlay'}>
-      <div class={'demo-overlay__header'}>Overview</div>
-      <div ref={overviewDiv}></div>
+    <div class="overview-container">
+      <div class="overview-title">Overview</div>
+      <div class="graph-overview-component" ref={overviewDiv}></div>
     </div>
   )
 }

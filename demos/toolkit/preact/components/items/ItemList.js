@@ -44,7 +44,7 @@ export default (props) => {
     `
   )
   return html`
-    <div class="item-list">
+    <div class="interaction-panel">
       <h2>Data Items</h2>
       <div>
         <button class="add-button" onClick="${props.addDataItem}" disabled=${props.disabled}>

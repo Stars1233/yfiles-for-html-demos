@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Organic Layout with Substructures
+# Organic Layout with Substructures Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-organic-substructures.webp" alt="demo-thumbnail" height="320"/>
 

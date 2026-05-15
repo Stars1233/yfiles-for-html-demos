@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Compact Disk Groups
+# Compact Disk Groups Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-compact-disk-groups.webp" alt="demo-thumbnail" height="320"/>
 

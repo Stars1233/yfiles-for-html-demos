@@ -1,7 +1,4 @@
 <template>
-  <div class="demo-sidebar-header">
-    <a href="https://www.yfiles.com" class="demo-left-logo" />
-  </div>
   <div class="demo-sidebar-content">
     <h1>Vue Demo</h1>
     <p>
@@ -64,24 +61,6 @@ export default defineComponent({ name: 'DemoSidebar' })
 </script>
 
 <style scoped>
-.demo-sidebar-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  width: 100%;
-  background-color: #bdd8e0;
-  font-size: 1.1rem;
-}
-
-.demo-left-logo {
-  display: block;
-  height: 60px;
-  width: calc(2 * 60px);
-  margin-left: 16px;
-  background: left center / 90% url('../assets/ylogo-text.svg') no-repeat;
-}
-
 .demo-sidebar-content {
   overflow-y: auto;
   height: calc(100% - 70px);

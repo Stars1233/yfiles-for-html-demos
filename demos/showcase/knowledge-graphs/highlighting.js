@@ -39,11 +39,6 @@ import {
 } from '@yfiles/yfiles'
 import { getEdgeTag, getLabelTag, getNodeTag } from './types'
 import { getEdgeStyle, isVirtual } from './styles/graph-styles'
-import {
-  edgeLabelThreshold,
-  nodeLabelThreshold,
-  toggleLabelVisibility
-} from './label-level-of-detail-rendering'
 
 /**
  * Configures visual highlighting and hover behavior for graph items.
@@ -121,43 +116,6 @@ export function configureHighlighting(graphComponent) {
       }
     }
   })
-}
-
-/**
- * Toggles the visibility of the labels of the edges that are adjacent to the given node.
- * @param graphComponent - The graphComponent
- * @param node - The reference node
- * @param visible - True if the labels should be visible, false otherwise
- */
-export function toggleAdjacentEdgeLabels(graphComponent, node, visible) {
-  if (!isItemVisible(node)) {
-    return
-  }
-  const zoom = graphComponent.zoom
-  const graph = graphComponent.graph
-  if (zoom < edgeLabelThreshold) {
-    graph.edgesAt(node).forEach((edge) => {
-      toggleLabelVisibility(graph, edge.labels.filter(isTextualLabel), visible)
-    })
-  }
-}
-
-/**
- * Toggles the visibility of the labels of the given node or edge.
- * @param graphComponent - The graphComponent
- * @param item - The reference item
- * @param visible - True if the labels should be visible, false otherwise
- */
-export function toggleItemLabels(graphComponent, item, visible) {
-  if (!isItemVisible(item)) {
-    return
-  }
-  const zoom = graphComponent.zoom
-  const graph = graphComponent.graph
-  const threshold = item instanceof INode ? nodeLabelThreshold : edgeLabelThreshold
-  if (zoom < threshold) {
-    toggleLabelVisibility(graph, item.labels.filter(isTextualLabel), visible)
-  }
 }
 
 /**

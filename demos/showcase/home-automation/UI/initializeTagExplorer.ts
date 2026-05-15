@@ -110,14 +110,15 @@ function createTagInputLine({
   validate: FlowNodeValidationFn
 }): Node {
   const inputName = name as string
+  const elementId = `flow_${inputName}`
   const label = document.createElement('label')
-  label.setAttribute('for', inputName)
+  label.setAttribute('for', elementId)
   label.className = 'tags-explorer-list-label'
   label.innerHTML = inputName + ':'
 
   const item = document.createElement('li')
   const input = document.createElement('input')
-  input.setAttribute('id', inputName)
+  input.setAttribute('id', elementId)
   input.setAttribute('type', 'text')
   input.setAttribute('value', initValue)
   if (lockedProperties.includes(name)) {

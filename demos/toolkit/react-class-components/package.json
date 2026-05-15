@@ -15,7 +15,7 @@
   "dependencies": {
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-30.0.5+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.0+dev.tgz"
   },
   "devDependencies": {
     "@types/react": "~19.2.7",
@@ -23,10 +23,10 @@
     "@typescript-eslint/eslint-plugin": "~8.50.0",
     "@typescript-eslint/parser": "~8.50.0",
     "@vitejs/plugin-react": "^5.1.2",
-    "@yworks/optimizer": "^1.8.8",
+    "@yworks/optimizer": "^1.8.9",
     "eslint": "~9.39.2",
     "eslint-plugin-react-refresh": "~0.4.26",
-    "typescript": "~5.9.3",
+    "typescript": "~5.9.0",
     "vite": "^7.3.0"
   }
 }

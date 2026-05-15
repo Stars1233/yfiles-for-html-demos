@@ -44,10 +44,11 @@ import {
   Size
 } from '@yfiles/yfiles'
 
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import { colorSets, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const busStructuresToggle = document.querySelector<HTMLInputElement>('#grid-components-toggle')!
 const beforeBusSlider = document.querySelector<HTMLInputElement>('#before-bus-slider')!
@@ -275,6 +276,8 @@ function configureGraph(graph: IGraph): void {
   graph.nodeDefaults.size = new Size(50, 30)
   graph.edgeDefaults.style = newEdgeStyle(colorSets['demo-palette-58'].fill)
   graph.edgeDefaults.shareStyleInstance = false
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**
@@ -282,7 +285,7 @@ function configureGraph(graph: IGraph): void {
  * @param graph The demo's graph.
  */
 function loadGraph(graph: IGraph): void {
-  const data = SampleData
+  const data = GraphData
   const builder = new GraphBuilder(graph)
   builder.createNodesSource(data.nodes, 'id')
   builder.createEdgesSource(data.edges, 'source', 'target')
@@ -323,7 +326,7 @@ function initializeUI(): void {
 
   const beforeBusLabel = document.querySelector<HTMLLabelElement>('#before-bus-label')!
   const afterBusLabel = document.querySelector<HTMLLabelElement>('#after-bus-label')!
-  addNavigationButtons(busPresetSelect).addEventListener('change', async () => {
+  addNavigationButtons(busPresetSelect, 'Bus Preset:').addEventListener('change', async () => {
     const preset = busPresetSelect.value
     busSliders.style.opacity = preset === 'custom' ? '1' : '0.5'
     if (preset === 'custom') {

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Isometric Drawing Demo
+# Isometric Drawing Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/isometric-drawing.webp" alt="demo-thumbnail" height="320"/>
 

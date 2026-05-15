@@ -29,17 +29,9 @@
 import React from 'react'
 import './DemoDescription.css'
 
-const reloadIcon = '/assets/reload-16.svg'
-const yLogo = '/assets/ylogo-text.svg'
-
 export default function DemoDescription() {
   return (
-    <>
-      <div className="demo-sidebar-header">
-        <a href="https://www.yfiles.com">
-          <img src={yLogo} alt="yWorks Logo" className="demo-left-logo" />
-        </a>
-      </div>
+    <div className="demo-sidebar">
       <div className="demo-sidebar-content">
         <h1>Next.js Demo</h1>
         <p>
@@ -97,8 +89,13 @@ export default function DemoDescription() {
           </li>
           <li>
             After the graph has been changed, click{' '}
-            <img style={{ verticalAlign: 'middle' }} src={reloadIcon} alt="reload-icon" /> to reload
-            the initial sample graph.
+            <span
+              className="material-symbols-outlined"
+              style={{ verticalAlign: 'middle', fontSize: '16px' }}
+            >
+              refresh
+            </span>{' '}
+            to reload the initial sample graph.
           </li>
           <li>
             Next.js&apos;s development server automatically updates the application upon code
@@ -118,6 +115,6 @@ export default function DemoDescription() {
           to create visualization prototypes – quickly and easily.
         </p>
       </div>
-    </>
+    </div>
   )
 }

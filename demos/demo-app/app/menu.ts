@@ -106,4 +106,10 @@ export interface Menu {
     initialValue?: number,
     step?: number
   ): HTMLInputElement
+
+  /**
+   * Adds a separator element to the menu.
+   * @returns The created separator element.
+   */
+  addSeparator(): HTMLSpanElement
 }

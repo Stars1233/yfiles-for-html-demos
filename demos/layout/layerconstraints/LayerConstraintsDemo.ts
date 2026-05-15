@@ -45,8 +45,8 @@ import {
 } from '@yfiles/yfiles'
 import { RandomGraphGenerator } from '@yfiles/demo-utils/RandomGraphGenerator'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { constraintNodeStyle } from './style-templates'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 type LayerConstraintsData = { value: number; constraints: boolean }
 
@@ -54,6 +54,8 @@ async function run(): Promise<void> {
   License.value = licenseData
 
   const graphComponent = new GraphComponent('graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
   initializeInputMode(graphComponent)
   initializeGraph(graphComponent.graph)
 

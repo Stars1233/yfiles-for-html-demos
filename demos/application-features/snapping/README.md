@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Snapping - Application Features
+# Snapping Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/snapping.webp" alt="demo-thumbnail" height="320"/>
 

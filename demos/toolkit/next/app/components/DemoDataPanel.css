@@ -41,7 +41,14 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  border-radius: 16px;
+  border: none;
+
+  &:hover {
+    background-color: #dedede;
+  }
 }
-.control-button > img {
+.control-button > .material-symbols-outlined {
   margin-bottom: 5px;
+  font-size: 20px;
 }

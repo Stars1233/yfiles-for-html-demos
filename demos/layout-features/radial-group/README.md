@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Radial Group Layout
+# Radial Group Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-radial-group-layout.webp" alt="demo-thumbnail" height="320"/>
 

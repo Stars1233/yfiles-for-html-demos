@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Reshape Handle Provider Configuration Demo
+# Reshape Handle Provider Configuration Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/reshape-handle-provider-configuration.webp" alt="demo-thumbnail" height="320"/>
 

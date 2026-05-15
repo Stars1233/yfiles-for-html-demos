@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Theming - Application Features
+# Theming Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-theming.webp" alt="demo-thumbnail" height="320"/>
 
@@ -36,7 +36,7 @@ This is done by setting the following CSS variables:
 - Observe the round handles on the preselected node.
 - Select, create or move graph elements to see the appearance of the handles and snapping lines.
 - Drag a marquee selection and observe that it uses the orange color defined by the custom theme.
-- Note that the viewport rectangle of the graph overview component on the top left is defined by the color of the custom theme as well.
-- Switch between light and dark mode by using the toolbar buttons. When switching, the coloring of graph items is changed and the background color of the graph component is changed by adding a _CSS_ class.
+- Note that the viewport rectangle of the graph overview component on the bottom right is defined by the color of the custom theme as well.
+- Switch between light and dark mode with the toggle theme button. When switching, the coloring of graph items is changed and the background color of the graph component is changed by adding a _CSS_ class.
 
 See the sources for details.

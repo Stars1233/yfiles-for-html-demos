@@ -36,7 +36,7 @@ import {
   StretchNodeLabelModel
 } from '@yfiles/yfiles'
 import type { TimeInterval } from './Timeline'
-import { intervalsIntersect } from './Utilities'
+import { intervalsIntersect } from './utils'
 import type { Bucket } from './bucket-aggregation'
 
 type LegendTextStyle = Partial<{ textFill: string; backgroundFill: string; font: string }>

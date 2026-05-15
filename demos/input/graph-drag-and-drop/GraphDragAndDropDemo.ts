@@ -49,7 +49,7 @@ import {
 import { GraphDropInputMode } from './GraphDropInputMode'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import graphDataList from './resources/graphs.json'
 
 let graphComponent: GraphComponent
@@ -117,6 +117,7 @@ async function initializePalette(): Promise<void> {
   graphDataList.forEach((graphData: any) => {
     const graph = toGraph(graphData)
     const paletteEntry = createPaletteEntry(graph)
+    paletteEntry.setAttribute('class', 'demo-dnd-panel__item')
     palette.appendChild(paletteEntry)
   })
 }

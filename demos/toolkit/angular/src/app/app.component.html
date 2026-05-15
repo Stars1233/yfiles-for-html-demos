@@ -1,45 +1,52 @@
-<div class="demo-page__toolbar">
-  <button
-    (click)="zoomIn()"
-    title="Zoom In"
-    class="demo-icon-yIconZoomIn demo-toolbar-button"
-  ></button>
-  <button
-    (click)="zoomOriginal()"
-    title="Zoom to original size"
-    class="demo-icon-yIconZoomOriginal demo-toolbar-button"
-  ></button>
-  <button
-    (click)="zoomOut()"
-    title="Zoom Out"
-    class="demo-icon-yIconZoomOut demo-toolbar-button"
-  ></button>
-  <button
-    (click)="fitContent()"
-    title="Fit Content"
-    class="demo-icon-yIconZoomFit demo-toolbar-button"
-  ></button>
-  <button
-    (click)="exportSvg()"
-    title="Export SVG"
-    class="demo-icon-yIconSave demo-toolbar-button"
-  ></button>
-  <span class="demo-separator"></span>
-  <input
-    type="text"
-    [ngModel]="searchString"
-    (ngModelChange)="onSearchInput($event)"
-    (keyup.enter)="graphSearch.zoomToSearchResult()"
-    class="search"
-    placeholder="Search Names"
-    name="searchString"
-  />
-</div>
-
 <div class="demo-page__main">
   <app-graph-overview-component class="demo-overlay"></app-graph-overview-component>
   <div class="demo-main__graph-component">
+    <div class="demo-page__toolbar">
+      <button
+        (click)="zoomOut()"
+        title="Zoom Out"
+        class="material-symbols-outlined demo-toolbar-button"
+      >
+        zoom_out
+      </button>
+      <button
+        (click)="zoomIn()"
+        title="Zoom In"
+        class="material-symbols-outlined demo-toolbar-button"
+      >
+        zoom_in
+      </button>
+      <button
+        (click)="fitContent()"
+        title="Fit Content"
+        class="material-symbols-outlined demo-toolbar-button"
+      >
+        zoom_out_map
+      </button>
+      <span class="separator"></span>
+      <button
+        (click)="exportSvg()"
+        title="Export SVG"
+        class="material-symbols-outlined demo-toolbar-button"
+      >
+        save
+      </button>
+      <span class="separator"></span>
+      <input
+        type="text"
+        [ngModel]="searchString"
+        (ngModelChange)="onSearchInput($event)"
+        (keyup.enter)="graphSearch.zoomToSearchResult()"
+        class="search"
+        placeholder="Search Names"
+        name="searchString"
+      />
+    </div>
     <graph-component></graph-component>
   </div>
-  <properties-view class="demo-main__sidebar" [person]="currentPerson"></properties-view>
 </div>
+<properties-view
+  class="demo-main__sidebar"
+  [person]="currentPerson()"
+  (personChange)="onPersonChange()"
+></properties-view>

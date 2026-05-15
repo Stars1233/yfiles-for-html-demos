@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Rich Text Label Demo
+# Rich Text Label Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/rich-text-label.webp" alt="demo-thumbnail" height="320"/>
 
@@ -56,10 +56,3 @@ The stylesheet for labels _markup-label.css_ shows how the label texts are style
 #### Text Wrapping
 
 Markup labels can use line wrapping. In this demo application, the labels use word wrapping with ellipsis. Select and resize a node to observe the interactive text wrapping. Rich text labels can also be wrapped at character boundaries.
-
-## Related Demos
-
-- [Label Style Demo](../../style/label-style/)
-- [HTML Label Style Demo](../../style/html-label-style/)
-- [Markdown Label Demo](../../style/markdownlabel/)
-- [Rendering the Label Text](../../tutorial-style-implementation-label/01-render-label-text/)

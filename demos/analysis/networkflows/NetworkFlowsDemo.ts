@@ -29,8 +29,6 @@
 import {
   Color,
   EdgeLabelPreferredPlacement,
-  EdgePathLabelModel,
-  EdgeSides,
   EdgeStyleIndicatorRenderer,
   FreeNodePortLocationModel,
   GraphComponent,
@@ -42,7 +40,6 @@ import {
   IEdge,
   type IGraph,
   ILabel,
-  type ILabelOwner,
   type IMapper,
   INode,
   IPortCandidateProvider,
@@ -55,18 +52,21 @@ import {
   MaximumFlow,
   MinimumCostFlow,
   type MinimumCostFlowResult,
+  Point,
+  PopoverDescriptor,
+  PopoverBehavior,
   PortCandidate,
   Rect,
   Size,
   SmartEdgeLabelModel
 } from '@yfiles/yfiles'
 
-import { HTMLPopupSupport } from './HTMLPopupSupport'
 import { EmptyReshapeHandleProvider, NetworkFlowInputMode } from './NetworkFlowsHelper'
 import { MinCutLine, NetworkFlowEdgeStyle, NetworkFlowNodeStyle } from './DemoStyles'
 
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 
 /**
  * The GraphComponent.
@@ -79,9 +79,9 @@ let graphComponent: GraphComponent
 let minCutLine: MinCutLine
 
 /**
- * Manages a Popup which offers some interactive HTML elements.
+ * The currently active popup descriptor.
  */
-let edgePopup: HTMLPopupSupport
+let edgePopup: PopoverDescriptor | null = null
 
 /**
  * Determines if a layout is currently running.
@@ -123,10 +123,8 @@ const newButton = document.querySelector<HTMLButtonElement>('#new-button')!
 const algorithmComboBox = document.querySelector<HTMLSelectElement>('#algorithm-combo-box')!
 const reloadButton = document.querySelector<HTMLButtonElement>('#reload-button')!
 const layoutButton = document.querySelector<HTMLButtonElement>('#layout-button')!
-const edgePopupContent = document.querySelector<HTMLElement>('#edgePopupContent')!
-const costForm = document.querySelector<HTMLInputElement>('#cost-form')!
-const flowLabel = document.querySelector<HTMLElement>('#flowInformationLabel')!
-const flowInput = document.querySelector<HTMLInputElement>('#flowValue')!
+const flowLabel = document.querySelector<HTMLElement>('#flow-information-label')!
+const flowDiv = document.querySelector<HTMLInputElement>('#flow-value')!
 /**
  * Runs the demo.
  */
@@ -203,21 +201,6 @@ function initializeGraph(): void {
 function initializeGraphComponent(): void {
   minCutLine = new MinCutLine()
   graphComponent.renderTree.createElement(graphComponent.renderTree.highlightGroup, minCutLine)
-
-  // We use the EdgePathLabelModel for the edge pop-up
-  const edgeLabelModel = new EdgePathLabelModel({
-    autoRotation: false,
-    sideOfEdge: EdgeSides.LEFT_OF_EDGE,
-    distance: 25
-  })
-
-  // Creates the pop-up for the edge pop-up template
-  edgePopup = new HTMLPopupSupport(
-    graphComponent,
-    edgePopupContent,
-    edgeLabelModel.createRatioParameter()
-  )
-
   graphComponent.addEventListener('zoom-changed', () => graphComponent.invalidate())
 }
 
@@ -273,6 +256,13 @@ function createEditorInputMode(): void {
 
   inputMode.add(networkFlowsInputMode)
 
+  inputMode.moveSelectedItemsInputMode.addEventListener('drag-finished', () => {
+    void runLayout(true)
+  })
+  inputMode.moveUnselectedItemsInputMode.addEventListener('drag-finished', () => {
+    void runLayout(true)
+  })
+
   // deletion
   inputMode.addEventListener('deleted-selection', async (_) => {
     const deletedCompoundEdit = graphComponent.graph.beginEdit('Element deleted', 'Element deleted')
@@ -291,7 +281,7 @@ function createEditorInputMode(): void {
   })
 
   inputMode.addEventListener('deleting-selection', (evt) => {
-    edgePopup.currentItem = null
+    edgePopup?.close()
     // collect all nodes that are endpoints of removed edges
     evt.selection.forEach((item) => {
       if (item instanceof IEdge) {
@@ -334,21 +324,50 @@ function createEditorInputMode(): void {
     }
   })
 
-  inputMode.addEventListener('canvas-clicked', () => (edgePopup.currentItem = null))
-
   // Presents a popup that provides buttons for increasing/decreasing the edge capacity.
-  inputMode.addEventListener('item-clicked', (evt) => {
+  inputMode.addEventListener('item-clicked', (evt, { popoverManager }) => {
     const item = evt.item
-    if (item instanceof ILabel && item.tag === 'cost') {
-      costForm.value = parseInt(item.text).toString()
-      edgePopup.currentItem = item.owner
-      return
+    if (item instanceof ILabel && item.owner instanceof IEdge && item.tag === 'cost') {
+      const labelLayout = item.layout
+      edgePopup = new PopoverDescriptor({
+        behavior: PopoverBehavior.AUTO,
+        anchor: new Point(labelLayout.center.x, labelLayout.anchorY - labelLayout.height),
+        ratios: new Point(0.5, 1)
+      })
+      edgePopup.content = createPopup(item.owner, edgePopup)
+      void popoverManager.open(edgePopup)
     }
-
-    edgePopup.currentItem = null
   })
 
   graphComponent.inputMode = inputMode
+}
+
+function createPopup(edge: IEdge, popoverDescriptor: PopoverDescriptor): HTMLElement {
+  const popup = document.createElement('div')
+  popup.className = 'popup-content'
+  popup.innerHTML = `
+    <label>Cost (€):</label>
+    <button id="cost-minus" title="Decrease"></button>
+    <input type="text" id="cost-form" value="${edge.tag.cost}" min="1" readonly="" />
+    <button id="cost-plus" title="Increase"></button>
+    <span class="popup-separator"></span>
+    <button id="apply" title="Apply"></button>
+  `
+
+  const costForm = popup.querySelector<HTMLInputElement>('#cost-form')!
+  popup
+    .querySelector<HTMLButtonElement>('#cost-plus')!
+    .addEventListener('click', () => updateCostForm(edge, 1, costForm))
+  popup
+    .querySelector<HTMLButtonElement>('#cost-minus')!
+    .addEventListener('click', () => updateCostForm(edge, -1, costForm))
+  popup.querySelector<HTMLButtonElement>('#apply')!.addEventListener('click', async () => {
+    popoverDescriptor.close()
+    runFlowAlgorithm()
+    await runLayout(true)
+  })
+
+  return popup
 }
 
 /**
@@ -424,10 +443,10 @@ function runFlowAlgorithm(): void {
   }
 
   // update flow information
-  flowLabel.innerHTML = `${algorithmComboBox[algorithmComboBox.selectedIndex].textContent}`
+  flowLabel.innerHTML = `${algorithmComboBox[algorithmComboBox.selectedIndex].textContent}:`
   flowLabel.style.display = 'inline-block'
-  flowInput.style.display = 'inline-block'
-  flowInput.value = flowValue.toString()
+  flowDiv.style.display = 'inline-block'
+  flowDiv.innerHTML = flowValue.toString()
 }
 
 /**
@@ -836,31 +855,19 @@ function generateColors(startColor: Color, endColor: Color, gradientCount: numbe
  * Wires up the UI.
  */
 function initializeUI(): void {
-  addNavigationButtons(algorithmComboBox).addEventListener('change', onAlgorithmChanged)
+  addNavigationButtons(algorithmComboBox, 'Algorithm:').addEventListener(
+    'change',
+    onAlgorithmChanged
+  )
 
   reloadButton.addEventListener('click', async () => {
-    edgePopup.currentItem = null
+    edgePopup?.close()
     await createSampleGraph()
   })
   layoutButton.addEventListener('click', async () => {
-    edgePopup.currentItem = null
+    edgePopup?.close()
     await runLayout(false)
   })
-  document
-    .querySelector<HTMLButtonElement>('#cost-plus')!
-    .addEventListener('click', () => updateCostForm(1), true)
-  document
-    .querySelector<HTMLButtonElement>('#cost-minus')!
-    .addEventListener('click', () => updateCostForm(-1), true)
-  document.querySelector<HTMLButtonElement>('#apply')!.addEventListener(
-    'click',
-    async () => {
-      edgePopup.currentItem = null
-      runFlowAlgorithm()
-      await runLayout(true)
-    },
-    true
-  )
 }
 
 /**
@@ -871,7 +878,7 @@ async function onAlgorithmChanged() {
 
   graphComponent.selection.clear()
 
-  edgePopup.currentItem = null
+  edgePopup?.close()
 
   const graph = graphComponent.graph
   if (graph.nodes.size > 0) {
@@ -909,25 +916,23 @@ function updateDescriptionText(): void {
 
 /**
  * Updates the value of the form and the edge tag.
+ * @param edge The edge whose value is updated
  * @param newValue The new value to be set
+ * @param valueElement The UI element that shows the current value
  */
-function updateCostForm(newValue: number): void {
-  const form = costForm
-  form.value = Math.max(parseInt(form.value) + newValue, 0).toString()
+function updateCostForm(edge: IEdge, newValue: number, valueElement: HTMLInputElement): void {
+  valueElement.value = Math.max(parseInt(valueElement.value) + newValue, 0).toString()
 
-  const currentItem = edgePopup.currentItem as ILabelOwner
-  if (currentItem) {
-    currentItem.tag = {
-      flow: currentItem.tag.flow,
-      color: currentItem.tag.color,
-      capacity: currentItem.tag.capacity,
-      cost: parseInt(form.value)
-    }
+  edge.tag = {
+    flow: edge.tag.flow,
+    color: edge.tag.color,
+    capacity: edge.tag.capacity,
+    cost: parseInt(valueElement.value)
+  }
 
-    if (currentItem.labels.size > 1) {
-      const label = currentItem.labels.get(1)
-      graphComponent.graph.setLabelText(label, `${currentItem.tag.cost} \u20AC`)
-    }
+  if (edge.labels.size > 1) {
+    const label = edge.labels.get(1)
+    graphComponent.graph.setLabelText(label, `${edge.tag.cost} \u20AC`)
   }
 }
 

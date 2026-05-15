@@ -27,34 +27,33 @@
  **
  ***************************************************************************/
 import type { Component } from 'solid-js'
-import styles from './App.module.css'
+import './App.css'
 import { SolidGraphComponent } from './components/SolidGraphComponent'
 import { DemoDescription } from './components/DemoDescription'
-import yLogo from './assets/ylogo.svg'
+import yLogo from './assets/ylogo-large.svg'
 
 export const App: Component = () => {
   return (
-    <div class={styles.app}>
-      <div class={'demo-header'}>
-        <a href="https://www.yfiles.com" target="_blank" rel="noopener noreferrer">
-          {' '}
-          <img src={yLogo} class={'demo-header__y-logo'} alt="yWorks Logo" />{' '}
+    <div class="app">
+      <div class="demo-header">
+        <a
+          href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+          class="y-logo"
+          target="_blank"
+          title="yFiles Product Page"
+        ></a>
+        <span class="material-symbols-outlined demo-overview">chevron_right</span>
+        <a href="../../../README.html" target="_blank" rel="noopener noreferrer">
+          Demos
         </a>
-        <div class={'demo-header__breadcrumb-wrapper'}>
-          <a href="https://www.yfiles.com" target="_blank" rel="noopener noreferrer">
-            {' '}
-            yFiles for HTML{' '}
-          </a>{' '}
-          <a href="../../README.html" target="_blank" rel="noopener noreferrer">
-            {' '}
-            Demos{' '}
-          </a>{' '}
-          <span>SolidJS Demo</span>
-        </div>
+        <span class="material-symbols-outlined demo-overview">chevron_right</span>
+        <span>SolidJS Demo</span>
       </div>
-      <DemoDescription></DemoDescription>
-      <div class={`${styles['demo-main']} demo-page__main`}>
-        <SolidGraphComponent width={'100%'} height={'100%'} />
+      <div class="demo-page__main">
+        <div class="graph-panel">
+          <SolidGraphComponent />
+        </div>
+        <DemoDescription></DemoDescription>
       </div>
     </div>
   )

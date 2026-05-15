@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Background - Application Features
+# Background Image Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/background-image.webp" alt="demo-thumbnail" height="320"/>
 

@@ -43,7 +43,7 @@ import { GreenSizeConstraintProvider } from './GreenSizeConstraintProvider'
 import { BlueSizeConstraintProvider } from './BlueSizeConstraintProvider'
 import { createDemoNodeLabelStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Registers a callback function as decorator that provides a custom
@@ -99,7 +99,7 @@ async function run() {
   // register size constraint providers that are the main subject of this demo
   registerSizeConstraintProvider(graph, boundaryRectangle)
 
-  createSampleGraph(graph)
+  createSampleGraph(graphComponent)
 
   // enable undo and redo
   graph.undoEngineEnabled = true
@@ -107,9 +107,9 @@ async function run() {
 
 /**
  * Creates the demo's sample graph.
- * @param graph The graph to populate
  */
-function createSampleGraph(graph) {
+function createSampleGraph(graphComponent) {
+  const graph = graphComponent.graph
   createNode(graph, 100, 100, 100, 60, 'demo-lightblue', 'blue', 'Never Shrink\n(Max 3x)')
   createNode(graph, 300, 100, 160, 30, 'demo-lightblue', 'blue', 'Never Shrink (Max 3x)')
   createNode(graph, 100, 215, 100, 30, 'demo-green', 'green', 'Enclose Label')
@@ -124,6 +124,8 @@ function createSampleGraph(graph) {
     'orange',
     'Encompass Rectangle,\nMin and Max Size'
   )
+  //center graph
+  graphComponent.fitGraphBounds()
 }
 
 /**

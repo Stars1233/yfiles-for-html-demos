@@ -52,9 +52,21 @@
   transform: scaleY(0);
 }
 
+#propertiesView .table-wrapper {
+  overflow-y: auto;
+  overflow-x: auto;
+  display: block;
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+#propertiesView table {
+  display: table;
+}
+
 #propertiesView td:first-of-type {
   text-transform: uppercase;
-  color: #336699;
+  color: var(--color-text);
   font-weight: bold;
   padding-right: 1ex;
   vertical-align: top;
@@ -62,6 +74,7 @@
 }
 
 #propertiesView td {
+  white-space: nowrap;
   padding: 3px 0;
 }
 
@@ -74,13 +87,21 @@
   margin: 30px 0;
 }
 
-.inline-button {
-  margin: 1px 0;
+#propertiesView td:last-child {
+  white-space: nowrap;
 }
 
-.inline-img {
-  vertical-align: middle;
-  margin: 0 1px;
+#propertiesView td:first-child {
+  white-space: nowrap;
+}
+
+.main-container {
+  .description-panel {
+    & .inline-button {
+      color: inherit;
+      font-family: unset;
+    }
+  }
 }
 
 .yfiles-tooltip {

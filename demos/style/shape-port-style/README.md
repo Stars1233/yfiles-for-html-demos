@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Shape Port Style Demo
+# Shape Port Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/shape-port-style.webp" alt="demo-thumbnail" height="320"/>
 
@@ -24,5 +24,5 @@ One can also create fully custom port visualizations by extending the [PortStyle
 ## Things to Try
 
 - Drag from one unselected port to another to create new connections.
-- Drag a selected port to position it elsewhere.
 - Drag a node around or resize it to see how its ports move accordingly.
+- Switch between SVG and WebGL render mode. Note that in WebGL some shapes are currently not supported and replaced with other shapes.

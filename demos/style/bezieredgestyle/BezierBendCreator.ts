@@ -41,8 +41,8 @@ import {
 } from '@yfiles/yfiles'
 
 /**
- * Custom bend creator for bezier edges
- * This implementation always creates collinear triples of bends since the bezier edge model expects this.
+ * Custom bend creator for Bézier edges
+ * This implementation always creates collinear triples of bends since the Bézier edge model expects this.
  * In addition, the new bends and the neighboring bends are positioned so that the curve shape stays constant.
  */
 export class BezierBendCreator extends BaseClass(IBendCreator) {
@@ -57,8 +57,8 @@ export class BezierBendCreator extends BaseClass(IBendCreator) {
 
   /**
    * If the existing number of bends is 2 mod 3 (i.e. the bends are consistent with
-   * what the bezier style expects),
-   * this implementation creates a triple of collinear bends and adjust the neighboring bends
+   * what the Bézier style expects),
+   * this implementation creates a triple of collinear bends and adjusts the neighboring bends
    * in a way that the shape of the curve is not changed initially and returns the middle bend.
    * If there are no bends at all, it creates a triple plus two initial and final control bends, all of them collinear.
    * Otherwise, the fallback bend creator is used to create a bend with its default strategy.
@@ -111,72 +111,72 @@ export class BezierBendCreator extends BaseClass(IBendCreator) {
         return this.originalBendCreator.createBend(context, graph, location)
       default: {
         const pathPoints = IEdge.getPathPoints(this.edge)
-        if (pathPoints.size % 3 === 1) {
-          // Consistent number of existing points
-          // Try to insert a smooth bend
-          // I.e. a triple of three collinear bends and adjust the neighbor bends
-
-          // Various quality measures and counters
-          let segmentIndex = 0
-          let pathCounter = 0
-          let bestDistanceSqr = Number.POSITIVE_INFINITY
-          let bestRatio = Number.NaN
-
-          // The index of the segment where we want to create the bend in the end
-          let bestIndex = -1
-
-          // Find the best segment
-          while (pathCounter + 3 < pathPoints.size) {
-            // Get the control points defining the current segment
-            const cp0 = pathPoints.get(pathCounter++)
-            const cp1 = pathPoints.get(pathCounter++)
-            const cp2 = pathPoints.get(pathCounter++)
-            // Consecutive segments share the last/first control point! So we may not advance the counter here
-            const cp3 = pathPoints.get(pathCounter)
-            // Shift a cubic segment
-            // Here we assume that the path is actually composed of cubic segments, only.
-            // Alternatively, we could inspect the actual path created by the edge renderer - this would also
-            // allow to deal with intermediate non cubic segments, but we'd have to associate those
-            // path segments somehow with the correct bends again, so again this would be tied to the actual
-            // renderer implementation.
-            const fragment = new GeneralPath(2)
-            fragment.moveTo(cp0)
-            fragment.cubicTo(cp1, cp2, cp3)
-
-            // Try to find the projection onto the fragment
-            const ratio = fragment.getProjection(location, 0)
-            if (ratio) {
-              // Actually found a projection ratio
-              // Determine the point on the curve - the tangent provides this
-              const tangent = fragment.getTangentForSegment(0, ratio)
-              if (tangent) {
-                // There actually is a tangent
-                const d = location.subtract(tangent.point).squaredVectorLength
-                // Is this the best distance?
-                if (d < bestDistanceSqr) {
-                  bestDistanceSqr = d
-                  // Remember ratio (needed to split the curve)
-                  bestRatio = ratio
-                  // and the index, of course
-                  bestIndex = segmentIndex
-                }
-              }
-            }
-            ++segmentIndex
-          }
-          if (bestIndex !== -1) {
-            // Actually found a segment
-            // For the drag, we want to move the middle bend
-            return this.createBends(graph, bestIndex, bestRatio, pathPoints).index
-          }
-          // No best segment found (for whatever reason) - we don't want to create a bend so that we don't mess up anything
-          return -1
-        } else {
+        if (pathPoints.size % 3 !== 1) {
           // No consistent number of bends - just insert a single bend
           // We could also see whether we actually would have a cubic segment on the path, and treat that differently
           // However, why bother - just create the edge with a correct number of points instead
           return this.originalBendCreator.createBend(context, graph, location)
         }
+
+        // Consistent number of existing points
+        // Try to insert a smooth bend
+        // I.e. a triple of three collinear bends and adjust the neighbor bends
+
+        // Various quality measures and counters
+        let segmentIndex = 0
+        let pathCounter = 0
+        let bestDistanceSqr = Number.POSITIVE_INFINITY
+        let bestRatio = Number.NaN
+
+        // The index of the segment where we want to create the bend in the end
+        let bestIndex = -1
+
+        // Find the best segment
+        while (pathCounter + 3 < pathPoints.size) {
+          // Get the control points defining the current segment
+          const cp0 = pathPoints.get(pathCounter++)
+          const cp1 = pathPoints.get(pathCounter++)
+          const cp2 = pathPoints.get(pathCounter++)
+          // Consecutive segments share the last/first control point! So we may not advance the counter here
+          const cp3 = pathPoints.get(pathCounter)
+          // Shift a cubic segment
+          // Here we assume that the path is actually composed of cubic segments, only.
+          // Alternatively, we could inspect the actual path created by the edge renderer - this would also
+          // allow to deal with intermediate non-cubic segments, but we'd have to associate those
+          // path segments somehow with the correct bends again, so again this would be tied to the actual
+          // renderer implementation.
+          const fragment = new GeneralPath(2)
+          fragment.moveTo(cp0)
+          fragment.cubicTo(cp1, cp2, cp3)
+
+          // Try to find the projection onto the fragment
+          const ratio = fragment.getProjection(location, 0)
+          if (ratio) {
+            // Actually found a projection ratio
+            // Determine the point on the curve - the tangent provides this
+            const tangent = fragment.getTangentForSegment(0, ratio)
+            if (tangent) {
+              // There actually is a tangent
+              const d = location.subtract(tangent.point).squaredVectorLength
+              // Is this the best distance?
+              if (d < bestDistanceSqr) {
+                bestDistanceSqr = d
+                // Remember ratio (needed to split the curve)
+                bestRatio = ratio
+                // and the index, of course
+                bestIndex = segmentIndex
+              }
+            }
+          }
+          ++segmentIndex
+        }
+        if (bestIndex !== -1) {
+          // Actually found a segment
+          // For the drag, we want to move the middle bend
+          return this.createBends(graph, bestIndex, bestRatio, pathPoints).index
+        }
+        // No best segment found (for whatever reason) - we don't want to create a bend so that we don't mess up anything
+        return -1
       }
     }
   }

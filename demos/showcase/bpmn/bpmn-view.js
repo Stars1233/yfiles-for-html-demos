@@ -128,19 +128,6 @@ import {
  */
 const Enum = yfiles.lang.Enum
 
-/** Feature detection whether or not the browser supports active and passive event listeners. */
-let passiveSupported = false
-try {
-  const opts = Object.defineProperty({}, 'passive', {
-    get: () => {
-      passiveSupported = true
-    }
-  })
-  window.addEventListener('test', null, opts)
-} catch (ignored) {
-  // ignore
-}
-
 /**
  * The namespace URI for yFiles BPMN extensions to GraphML.
  * This field has the constant value "http://www.yworks.com/xml/yfiles-bpmn/2.0"
@@ -503,16 +490,6 @@ class ScalingLabelModel extends BaseClass(ILabelModel) {
     return scalingParameter
   }
 
-  createScaledParameter(scale) {
-    if (scale <= 0 || scale > 1) {
-      throw new Exception(`Argument '${scale}' not allowed. Valid values are in ]0; 1].`)
-    }
-    const scalingParameter = new ScalingLabelModelParameter()
-    scalingParameter.model = this
-    scalingParameter.scalingInsets = new Insets((1 - scale) / 2)
-    return scalingParameter
-  }
-
   createScaledParameterWithRatio(scale, ratio) {
     if (scale <= 0 || scale > 1) {
       throw new Exception(`Argument '${scale}' not allowed. Valid values are in ]0; 1].`)
@@ -614,7 +591,7 @@ export class BpmnPortCandidateProvider extends PortCandidateProviderBase {
 
     if (
       !(context.inputMode instanceof CreateEdgeInputMode) ||
-      context.canvasComponent.lastInputEvent.shiftKey
+      context.canvasComponent.lastPointerEvent.shiftKey
     ) {
       // add a dynamic candidate
       portCandidates.add(new PortCandidate(node, new FreeNodePortLocationModel()))
@@ -3784,21 +3761,13 @@ class IconFactory {
   static equalRadialGradient(fill1, fill2) {
     const sameCenter = fill1.center.equals(fill2.center)
     const sameOrigin = fill1.gradientOrigin.equals(fill2.gradientOrigin)
-    const sameRadiusX = fill1.radiusX === fill2.radiusX
-    const sameRadiusY = fill1.radiusY === fill2.radiusY
+    const sameRadius = fill1.radius === fill2.radius
     const sameSpreadMethod = fill1.spreadMethod === fill2.spreadMethod
     const sameGradientStops = IconFactory.sameGradientStops(
       fill1.gradientStops,
       fill2.gradientStops
     )
-    return (
-      sameCenter &&
-      sameOrigin &&
-      sameRadiusX &&
-      sameRadiusY &&
-      sameSpreadMethod &&
-      sameGradientStops
-    )
+    return sameCenter && sameOrigin && sameRadius && sameSpreadMethod && sameGradientStops
   }
 
   /**
@@ -6647,7 +6616,7 @@ class BorderVisual extends Visual {
   _stroke = null
   _insets = Insets.EMPTY
 
-  createVisual(context, bounds, data) {
+  createVisual(context, bounds, _data) {
     const container = document.createElementNS('http://www.w3.org/2000/svg', 'g')
 
     const backgroundRectangle = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
@@ -9941,8 +9910,6 @@ class CollapseButtonIcon extends Icon {
   iconFill
   collapsedIcon
   expandedIcon
-  touchEndRegistered = false
-  onTouchEndDelegate = null
 
   constructor(node, iconFill) {
     super()
@@ -10016,48 +9983,15 @@ class CollapseButtonIcon extends Icon {
    */
   addToggleGroupStateCommand(button, context) {
     const currentItem = this.node
-    button.svgElement.addEventListener(
-      'click',
-      () => {
-        toggleExpansionState(currentItem, context)
-        button.checked = !isExpanded(context, this.node)
-      },
-      false
-    )
-    // yfiles needs to capture all events after pointerdown, this interferes with
-    // the click listener, thus we overwrite the yfiles pointerdown for the button
-    button.svgElement.addEventListener('pointerdown', (evt) => {
-      evt.preventDefault()
+    button.svgElement.addEventListener('click', () => {
+      toggleExpansionState(currentItem, context)
+      button.checked = !isExpanded(context, this.node)
     })
-    this.onTouchEndDelegate = (event) => {
-      // prevent click event
-      event.preventDefault()
-      this.onTouchEnd(button, currentItem, context)
-    }
-    button.svgElement.addEventListener(
-      'touchstart',
-      () => {
-        if (!this.touchEndRegistered) {
-          this.touchEndRegistered = true
-          button.svgElement.addEventListener(
-            'touchend',
-            this.onTouchEndDelegate,
-            passiveSupported ? { passive: false } : false
-          )
-        }
-      },
-      passiveSupported ? { passive: false } : false
-    )
-  }
-
-  onTouchEnd(button, currentItem, context) {
-    button.svgElement.removeEventListener(
-      'touchend',
-      this.onTouchEndDelegate,
-      passiveSupported ? { passive: false } : false
-    )
-    this.touchEndRegistered = false
-    toggleExpansionState(currentItem, context)
+    // Stop the pointerdown event propagation, so yFiles does not start pointer capture.
+    // Otherwise, the click listener above would not be triggered.
+    button.svgElement.addEventListener('pointerdown', (evt) => {
+      evt.stopPropagation()
+    })
   }
 }
 

@@ -264,6 +264,7 @@ export class FlowchartConfiguration {
     )
     graphComponent.currentItem = startNode
     graphComponent.focus()
+    graphComponent.fitGraphBounds()
     graph.undoEngine?.clear()
   }
 

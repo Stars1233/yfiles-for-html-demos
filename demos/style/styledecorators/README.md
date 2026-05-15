@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Style Decorators Demo
+# Style Decorators Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/style-decorators.webp" alt="demo-thumbnail" height="320"/>
 

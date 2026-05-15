@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Node Port Candidates
+# Hierarchical Layout with Node Port Candidates Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-hierarchical-node-port-candidates.webp" alt="demo-thumbnail" height="320"/>
 

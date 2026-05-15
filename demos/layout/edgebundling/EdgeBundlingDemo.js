@@ -29,6 +29,7 @@
 import {
   BundledEdgeRouter,
   BundledEdgeRouterData,
+  BundledEdgeRouterStrategy,
   CircularLayout,
   CircularLayoutData,
   CircularLayoutPartitioningPolicy,
@@ -42,8 +43,8 @@ import {
   GenericLabeling,
   GraphBuilder,
   GraphComponent,
-  GraphEditorInputMode,
   GraphItemTypes,
+  GraphViewerInputMode,
   IEdge,
   INode,
   LayoutExecutor,
@@ -55,25 +56,21 @@ import {
   RadialLayout,
   RadialLayoutData,
   RadialTreeLayout,
-  Rect,
-  StraightLineEdgeRouter,
   TreeLayout,
   TreeReductionStageData
 } from '@yfiles/yfiles'
 
-import { DemoEdgeStyle, DemoNodeStyle } from './DemoStyles'
-import RadialTreeSampleData from './resources/radial-tree'
-import BccCircularSampleData from './resources/bccCircular'
-import CircularSampleData from './resources/circular'
-import RadialSampleData from './resources/radial'
-import TreeSampleData from './resources/tree'
-import RoutingSampleData from './resources/routing'
+import { ColoredDelegatingEdgeStyle, DemoEdgeStyle, DemoNodeStyle } from './DemoStyles'
+import RadialTreeSampleData from './resources/radial-tree.json'
+import BccCircularSampleData from './resources/bccCircular.json'
+import CircularSampleData from './resources/circular.json'
+import RadialSampleData from './resources/radial.json'
+import TreeSampleData from './resources/tree.json'
+import RoutingSampleData from './resources/routing.json'
+import BundledSampleData from './resources/voronoi-spanner.json'
 import licenseData from '../../../lib/license.json'
-import {
-  addNavigationButtons,
-  finishLoading,
-  showLoadingIndicator
-} from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons, showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The GraphComponent
@@ -101,6 +98,7 @@ const bundlesMap = new Mapper()
 const samplesComboBox = document.querySelector('#sample-combo-box')
 const bundlingStrengthSlider = document.querySelector('#bundling-strength-slider')
 const bundlingStrengthLabel = document.querySelector('#bundling-strength-label')
+const toggleColorSchemeButton = document.querySelector('#color-scheme-button')
 
 async function run() {
   License.value = licenseData
@@ -123,40 +121,7 @@ async function run() {
  * Creates the input mode.
  */
 function createInputMode() {
-  const mode = new GraphEditorInputMode({
-    focusableItems: GraphItemTypes.NONE,
-    showHandleItems: GraphItemTypes.NONE,
-    // disable node moving
-    movableSelectedItems: GraphItemTypes.NONE,
-    clickHitTestOrder: [GraphItemTypes.NODE, GraphItemTypes.EDGE]
-  })
-
-  // disallow interactive bend creation
-  mode.allowCreateBend = false
-
-  // when an item is deleted, calculate the new components and apply the layout
-  mode.addEventListener('deleted-selection', async () => {
-    calculateConnectedComponents()
-    await applyLayout()
-  })
-
-  // when an edge is created, calculate the new components and apply the layout
-  mode.createEdgeInputMode.addEventListener('edge-created', async () => {
-    calculateConnectedComponents()
-    await applyLayout()
-  })
-
-  // when a node is created, calculate the new components
-  mode.addEventListener('node-created', () => {
-    calculateConnectedComponents()
-  })
-
-  // when a drag operation has finished, apply a layout
-  mode.moveSelectedItemsInputMode.addEventListener('drag-finished', async () => await applyLayout())
-  mode.moveUnselectedItemsInputMode.addEventListener(
-    'drag-finished',
-    async () => await applyLayout()
-  )
+  const mode = new GraphViewerInputMode()
 
   mode.itemHoverInputMode.hoverItems = GraphItemTypes.NODE | GraphItemTypes.EDGE
   mode.itemHoverInputMode.hoverCursor = Cursor.POINTER
@@ -183,6 +148,7 @@ function createInputMode() {
   mode.addEventListener('populate-item-context-menu', (evt) => populateContextMenu(evt))
 
   graphComponent.inputMode = mode
+  graphComponent.maximumZoom = 2
 }
 
 /**
@@ -290,7 +256,7 @@ function initializeGraph() {
   const graph = graphComponent.graph
   // set the node and edge default styles
   graph.nodeDefaults.style = new DemoNodeStyle()
-  graph.edgeDefaults.style = new DemoEdgeStyle()
+  graph.edgeDefaults.style = new ColoredDelegatingEdgeStyle()
   graph.nodeDefaults.labels.layoutParameter = FreeNodeLabelModel.CENTER
 
   // hide the selection indication
@@ -300,13 +266,16 @@ function initializeGraph() {
   // configure the node/edge highlighting
   graph.decorator.nodes.highlightRenderer.addConstant(
     new NodeStyleIndicatorRenderer({
-      nodeStyle: new DemoNodeStyle(Color.RED),
+      nodeStyle: new DemoNodeStyle(Color.from('#67b7dc')),
       zoomPolicy: 'world-coordinates'
     })
   )
 
   graph.decorator.edges.highlightRenderer.addConstant(
-    new EdgeStyleIndicatorRenderer({ edgeStyle: new DemoEdgeStyle(6, Color.RED, Color.GOLD) })
+    new EdgeStyleIndicatorRenderer({
+      edgeStyle: new DemoEdgeStyle(8, Color.DARK_BLUE, Color.DODGER_BLUE),
+      zoomPolicy: 'world-coordinates'
+    })
   )
 
   // when a node is selected, select also the adjacent edges
@@ -320,6 +289,8 @@ function initializeGraph() {
       })
     }
   })
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**
@@ -327,26 +298,45 @@ function initializeGraph() {
  */
 async function onSampleChanged() {
   let sampleData
+  let bundlingStrengthDefaultValue
   switch (samplesComboBox.value) {
     default:
     case 'single-cycle-layout':
       sampleData = CircularSampleData
+      bundlingStrengthDefaultValue = 0.98
       break
     case 'circular-layout':
       sampleData = BccCircularSampleData
+      bundlingStrengthDefaultValue = 0.98
       break
     case 'radial-layout':
       sampleData = RadialSampleData
+      bundlingStrengthDefaultValue = 0.98
       break
     case 'radial-tree-layout':
       sampleData = RadialTreeSampleData
+      bundlingStrengthDefaultValue = 0.95
       break
     case 'tree-layout':
       sampleData = TreeSampleData
+      bundlingStrengthDefaultValue = 0.95
       break
-    case 'bundled-routing':
+    case 'spanner':
+      sampleData = BundledSampleData
+      bundlingStrengthDefaultValue = 0.85
+      break
+    case 'voronoi':
+      sampleData = BundledSampleData
+      bundlingStrengthDefaultValue = 0.75
+      break
+    case 'force-directed':
       sampleData = RoutingSampleData
+      bundlingStrengthDefaultValue = 0.75
+      break
   }
+  bundlingStrengthSlider.value = `${bundlingStrengthDefaultValue}`
+  bundlingStrengthLabel.textContent = bundlingStrengthSlider.value
+
   // clear the current graph
   graphComponent.graph.clear()
   // set the UI busy
@@ -363,28 +353,9 @@ async function onSampleChanged() {
  * @param graphData The JSON data
  */
 async function loadGraph(graph, graphData) {
-  await setBusy(true)
-
-  graph.clear()
-
   const builder = new GraphBuilder({
     graph: graph,
-    nodes: [
-      {
-        data: graphData.nodes,
-        id: 'id',
-        layout: (data) => {
-          const layout = data.layout
-          return new Rect(
-            layout.x,
-            layout.y,
-            layout.w || graph.nodeDefaults.size.width,
-            layout.h || graph.nodeDefaults.size.height
-          )
-        },
-        labels: ['name']
-      }
-    ],
+    nodes: [{ data: graphData.nodes, id: 'id', layout: 'layout', labels: ['labels'] }],
     edges: [{ data: graphData.edges, sourceId: 'source', targetId: 'target' }]
   })
   graph = builder.buildGraph()
@@ -424,8 +395,18 @@ async function runLayout() {
       layoutData = new TreeReductionStageData({ edgeBundleDescriptors: bundleDescriptorMap })
       break
     }
-    case 'bundled-routing': {
-      layoutAlgorithm = createBundleEdgeRouter()
+    case 'spanner': {
+      layoutAlgorithm = createBundleEdgeRouter(BundledEdgeRouterStrategy.SPANNER)
+      layoutData = new BundledEdgeRouterData({ edgeBundleDescriptors: bundleDescriptorMap })
+      break
+    }
+    case 'voronoi': {
+      layoutAlgorithm = createBundleEdgeRouter(BundledEdgeRouterStrategy.VORONOI)
+      layoutData = new BundledEdgeRouterData({ edgeBundleDescriptors: bundleDescriptorMap })
+      break
+    }
+    case 'force-directed': {
+      layoutAlgorithm = createBundleEdgeRouter(BundledEdgeRouterStrategy.FORCE_DIRECTED)
       layoutData = new BundledEdgeRouterData({ edgeBundleDescriptors: bundleDescriptorMap })
       break
     }
@@ -507,24 +488,30 @@ function createTreeReductionStage(treeReductionStage) {
 }
 
 /**
- * Creates and configures the edge bundling stage
+ * Creates and configures the bundled edge router.
  */
-function createBundleEdgeRouter() {
-  const edgeBundlingStage = new BundledEdgeRouter(new StraightLineEdgeRouter())
-  configureEdgeBundling(edgeBundlingStage)
-  return new GenericLabeling({ coreLayout: edgeBundlingStage, scope: 'node-labels' })
+function createBundleEdgeRouter(strategy) {
+  const bundledEdgeRouter = new BundledEdgeRouter({ strategy })
+  configureEdgeBundling(bundledEdgeRouter)
+  return new GenericLabeling({
+    coreLayout: bundledEdgeRouter,
+    scope: 'node-labels',
+    qualityTimeRatio: 0.6
+  })
 }
 
 /**
- * Configures the edge bundling descriptor.
+ * Configures the edge bundling descriptor and the bundling strength.
  * @param layoutAlgorithm The layout algorithm to integrate the edge bundling
  */
 function configureEdgeBundling(layoutAlgorithm) {
-  // we could either enable here the bezier fitting or append the CurveFittingLayoutStage to our layout algorithm
-  // if we would like to adjust the approximation error
-  // bundlingDescriptor.bezierFitting = true;
   layoutAlgorithm.edgeBundling.bundlingStrength = parseFloat(bundlingStrengthSlider.value)
-  layoutAlgorithm.edgeBundling.defaultBundleDescriptor = new EdgeBundleDescriptor({ bundled: true })
+  layoutAlgorithm.edgeBundling.defaultBundleDescriptor = new EdgeBundleDescriptor({
+    bundled: true
+    // we could either enable here the bezier fitting or append the CurveFittingLayoutStage to our layout algorithm
+    // if we would like to adjust the approximation error
+    // bezierFitting: true
+  })
 }
 
 /**
@@ -611,16 +598,23 @@ function calculateConnectedComponents() {
  * Wires up the UI.
  */
 function initializeUI() {
-  addNavigationButtons(samplesComboBox).addEventListener('change', onSampleChanged)
+  addNavigationButtons(samplesComboBox, '', false).addEventListener('change', onSampleChanged)
 
-  bundlingStrengthSlider.addEventListener(
-    'change',
-    async () => {
-      bundlingStrengthLabel.textContent = bundlingStrengthSlider.value.toString()
-      await applyLayout()
-    },
-    true
-  )
+  bundlingStrengthSlider.addEventListener('change', async () => {
+    bundlingStrengthLabel.textContent = bundlingStrengthSlider.value.toString()
+    await applyLayout()
+  })
+
+  toggleColorSchemeButton.addEventListener('change', () => {
+    const graph = graphComponent.graph
+    const edgeStyle = toggleColorSchemeButton.checked
+      ? new ColoredDelegatingEdgeStyle()
+      : new DemoEdgeStyle()
+    graph.edgeDefaults.style = edgeStyle
+    graph.edges.forEach((edge) => {
+      graph.setStyle(edge, edgeStyle)
+    })
+  })
 }
 
 /**
@@ -646,7 +640,7 @@ async function setBusy(isBusy) {
     graphComponent.htmlElement.classList.remove('gc-busy')
   }
   setUIDisabled(isBusy)
-  await showLoadingIndicator(isBusy)
+  await showLoadingIndicator(isBusy, 'Calculating the layout. This may take a while.')
 }
 
 /**

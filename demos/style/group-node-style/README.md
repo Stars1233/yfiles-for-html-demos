@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Group Node Style Demo
+# Group Node Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/group-node-style.webp" alt="demo-thumbnail" height="320"/>
 
@@ -23,19 +23,25 @@ The related [GroupNodeLabelModel](https://docs.yworks.com/yfileshtml/api/GroupNo
 
 ## Things to try
 
-- Click the expansion state icons  
-  ![Minus](../../demo-app/icons/group-minus-16.svg 'Minus')   ![Plus](../../demo-app/icons/group-plus-16.svg 'Plus')   ![Chevron Down](../../demo-app/icons/group-chevron-down-16.svg 'Chevron Down')   ![Chevron Up](../../demo-app/icons/group-chevron-up-16.svg 'Chevron Up')   ![Triangle Down](../../demo-app/icons/group-triangle-down-16.svg 'Triangle Down')   ![Triangle Up](../../demo-app/icons/group-triangle-up-16.svg 'Triangle Up')  
+- Click the expansion state icons
+
+  minus
+
+  add_2
+
+  keyboard_arrow_down
+
+  keyboard_arrow_up
+
+  arrow_drop_down
+
+  arrow_drop_up
+
   to collapse groups or expand folders.
+
 - Double-click a group or a folder. This will collapse a group and expand a folder even if there is no expansion state icon.
-- When using the SVG style, move the mouse over one of the expansion state icons. The icon will slightly increase in size in response to the mouse hovering over it.  
+- When using SVG rendering, move the mouse over one of the expansion state icons. The icon will slightly increase in size in response to the mouse hovering over it.  
   This CSS transition effect is specified in the demo's local <style> definition.
-- When using SVG styles, collapse a group or expand a folder with a chevron or triangle icon. The expansion state icon will change in an animated fashion in response to the state change.  
+- When using SVG rendering, collapse a group or expand a folder with a chevron or triangle icon. The expansion state icon will change in an animated fashion in response to the state change.  
   This CSS transition effect is specified in the demo's local <style> definition.
 - Hover over a group node to get a tool tip that lists the configured properties for each group style.
-
-## Related Demos
-
-- [Shape Node Style Demo](../../style/shape-node-style/)
-- [Rectangle Node Style Demo](../../style/rectangle-node-style/)
-- [Arrow Node Style Demo](../../style/arrow-node-style/)
-- [Create A Rectangle](../../tutorial-style-implementation-node/01-create-a-rectangle/)

@@ -59,8 +59,8 @@ import {
   RowPositionHandler
 } from './RowPositionHandler'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { graphComponent } from '@yfiles/demo-app/init'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run() {
   License.value = licenseData

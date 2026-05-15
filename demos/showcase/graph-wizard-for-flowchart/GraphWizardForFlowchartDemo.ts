@@ -30,9 +30,9 @@ import { Graph, GraphComponent, LayoutOrientation, License } from '@yfiles/yfile
 
 import { FlowchartConfiguration } from './FlowchartConfiguration'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { generateGraphMLIOHandler } from '../flowchart/style/generate-graphMLIO-handler'
 import { saveGraphML } from '@yfiles/demo-utils/graphml-support'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -80,7 +80,16 @@ function setUpNewDiagram(): void {
 }
 
 function initializeUI(): void {
-  document.querySelector('#new')!.addEventListener('click', setUpNewDiagram)
+  //make sure the Content of Overview-component remains 'Legend'
+  const el = document.querySelector('.graph-overview__header')
+  el!.textContent = 'Legend'
+  if (el) {
+    const observer = new MutationObserver(() => {
+      if (el!.textContent !== 'Legend') el!.textContent = 'Legend'
+    })
+
+    observer.observe(el!, { attributes: true, attributeFilter: ['class'] })
+  }
   document.querySelector('#layout-button')!.addEventListener('click', async () => {
     await configuration.runFromScratchLayout(graphComponent)
   })

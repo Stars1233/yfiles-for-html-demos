@@ -34,11 +34,12 @@ import {
   OrganicLayout
 } from '@yfiles/yfiles'
 
-import { timelineData } from './timeline-data'
+import timelineData from './timeline-data.json'
+import {} from './data-types'
 import { Timeline } from './timeline-component/Timeline'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The main graph component that displays the graph.
@@ -53,6 +54,9 @@ async function run() {
 
   // initialize the main graph component and graph style
   graphComponent = new GraphComponent('graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
+
   const graph = graphComponent.graph
   initDemoStyles(graph)
 
@@ -121,7 +125,7 @@ function initializeTimeline() {
 function buildGraph(graph, data) {
   const builder = new GraphBuilder(graph)
 
-  const entityNodesSource = builder.createNodesSource(data.nodeList, 'id')
+  const entityNodesSource = builder.createNodesSource(data.nodes, 'id')
 
   entityNodesSource.nodeCreator.tagProvider = (node) => ({
     ...node,
@@ -129,7 +133,7 @@ function buildGraph(graph, data) {
     end: convertDates(node.end)
   })
 
-  builder.createEdgesSource(data.edgeList, 'from', 'to')
+  builder.createEdgesSource(data.edges, 'source', 'target')
 
   builder.buildGraph()
 }
@@ -139,14 +143,12 @@ function buildGraph(graph, data) {
  * of the start and end dates stored in the data for the given node.
  */
 function getTimeEntry(item) {
-  const ni = item
-
-  if (ni.start.length === 1 && ni.end.length === 1) {
-    return { start: ni.start[0].getTime(), end: ni.end[0].getTime() }
+  if (item.start.length === 1 && item.end.length === 1) {
+    return { start: item.start[0].getTime(), end: item.end[0].getTime() }
   } else {
-    return ni.start.map((enter, index) => ({
+    return item.start.map((enter, index) => ({
       start: enter.getTime(),
-      end: ni.end[index].getTime()
+      end: item.end[index].getTime()
     }))
   }
 }

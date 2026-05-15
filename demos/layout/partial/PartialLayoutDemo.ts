@@ -57,7 +57,8 @@ import {
 } from '@yfiles/yfiles'
 import { createDemoGroupStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -419,7 +420,8 @@ function initializeUI(): void {
   document.querySelector<HTMLButtonElement>('#layout')!.addEventListener('click', runLayout)
 
   addNavigationButtons(
-    document.querySelector<HTMLSelectElement>('#select-sample')!
+    document.querySelector<HTMLSelectElement>('#select-sample')!,
+    'Sample:'
   ).addEventListener('change', loadScenario)
   document.querySelector<HTMLButtonElement>('#refresh')!.addEventListener('click', loadScenario)
 }
@@ -475,13 +477,9 @@ async function loadScenario(): Promise<void> {
 
   const graph = graphComponent.graph
   await ioHandler.readFromURL(graph, path)
-  graph.nodes.forEach((node) => {
-    const fixed = isFixed(node)
-    updateStyle(node, fixed)
-  })
-  graph.edges.forEach((edge) => {
-    updateStyle(edge, isFixed(edge))
-  })
+  for (const item of graph.nodes.concat(graph.edges)) {
+    updateStyle(item, isFixed(item))
+  }
   await graphComponent.fitGraphBounds()
 }
 

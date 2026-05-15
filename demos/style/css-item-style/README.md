@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# CSS Item Style
+# CSS Item Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/css-item-style.webp" alt="demo-thumbnail" height="320"/>
 
@@ -31,7 +31,3 @@ The CSS stylesheet for the graph items of the displayed sample is shown in the s
 - Press and hold the following button to see how things look without CSS.
 
 Hold to disable CSS
-
-## Related Demo
-
-- [CSS Styling Demo](../../style/cssstyling/)

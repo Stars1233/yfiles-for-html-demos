@@ -41,7 +41,7 @@ import { RedPositionHandler } from './RedPositionHandler'
 import { OrangePositionHandler } from './OrangePositionHandler'
 import { createDemoNodeLabelStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Registers a callback function as decorator that provides a custom
@@ -103,7 +103,7 @@ async function run() {
 
   registerPositionHandler(graphComponent.graph, boundaryRectangle)
 
-  createSampleGraph(graphComponent.graph)
+  createSampleGraph(graphComponent)
 }
 
 /**
@@ -127,14 +127,22 @@ function configureUserInteraction(graphComponent) {
 
 /**
  * Creates the sample graph for this demo.
- * @param graph The graph displayed in the demo's graph component.
  */
-function createSampleGraph(graph) {
-  createNode(graph, 100, 100, 100, 30, 'demo-red', 'red', 'Unmovable')
-  createNode(graph, 300, 100, 100, 30, 'demo-green', 'green', 'One Axis')
-  createNode(graph, 80, 250, 140, 40, 'demo-orange', 'orange', 'Limited to Rectangle')
+function createSampleGraph(graphComponent) {
+  createNode(graphComponent.graph, 100, 100, 100, 30, 'demo-red', 'red', 'Unmovable')
+  createNode(graphComponent.graph, 300, 100, 100, 30, 'demo-green', 'green', 'One Axis')
   createNode(
-    graph,
+    graphComponent.graph,
+    80,
+    250,
+    140,
+    40,
+    'demo-orange',
+    'orange',
+    'Limited to Rectangle'
+  )
+  createNode(
+    graphComponent.graph,
     280,
     250,
     140,
@@ -143,6 +151,7 @@ function createSampleGraph(graph) {
     'blue',
     'Limited to Rectangle\nand One Axis'
   )
+  graphComponent.fitGraphBounds()
 }
 
 /**

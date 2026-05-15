@@ -29,7 +29,6 @@
 import { GraphComponent, GraphEditorInputMode, License, SvgExport } from '@yfiles/yfiles'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { initializeToggleWebGlRenderingButton } from './webgl-support'
 import { initializeExportRectangle } from './export-rectangle/export-rectangle'
 import { createSampleGraph } from './samples'
@@ -38,6 +37,7 @@ import { exportSvg } from './svg-export'
 import { initializeExportDialog, showExportDialog } from './export-dialog/export-dialog'
 import { retainAspectRatio } from './aspect-ratio'
 import { downloadFile } from '@yfiles/demo-utils/file-support'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run() {
   License.value = licenseData

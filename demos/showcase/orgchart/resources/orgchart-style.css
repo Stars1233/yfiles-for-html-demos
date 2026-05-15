@@ -26,8 +26,6 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import url('https://fonts.googleapis.com/css?family=Roboto:400, 300, 100');
-
 dt {
   font-weight: bold;
   margin-top: 4px;
@@ -39,38 +37,57 @@ dt img {
 }
 
 dd {
-  margin-left: 10px;
+  margin-left: 8px;
 }
 
 #properties-view {
   overflow-x: hidden;
 }
 
+#properties-view .table-wrapper {
+  overflow-y: auto;
+  overflow-x: auto;
+  display: block;
+  width: 100%;
+  padding-bottom: 5px;
+}
+
+#propertiesView table {
+  display: table;
+}
+
 #properties-view td {
-  padding: 3px 0;
+  white-space: nowrap;
+  padding: 4px 0;
+}
+
+#properties-view td:last-child {
+  white-space: nowrap;
+}
+
+#properties-view td:first-child {
+  white-space: nowrap;
 }
 
 #properties-view td:first-of-type {
-  text-transform: uppercase;
-  color: #336699;
   font-weight: bold;
-  padding-right: 1ex;
+  padding-right: 8px;
   vertical-align: top;
-  font-size: smaller;
 }
 
 #properties-view td a {
-  color: #407fbf;
-  text-decoration: none;
+  color: var(--color-text);
+  text-decoration: underline;
 }
 
 #properties-view td a:hover {
-  color: #336699;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
 }
 
 #properties-view .user-detail {
   position: relative;
-  margin: 10px 0;
+  margin: 12px 0;
 }
 
 #properties-view .user-detail svg {
@@ -83,7 +100,6 @@ dd {
   font-size: 20px;
   font-weight: normal;
   margin: 0 0 5px 60px;
-  color: #336699;
 }
 
 #properties-view .user-detail div {

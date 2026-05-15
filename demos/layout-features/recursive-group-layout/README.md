@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Recursive Group Layout
+# Recursive Group Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-recursive-group-layout.webp" alt="demo-thumbnail" height="320"/>
 

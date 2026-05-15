@@ -38,11 +38,11 @@ import {
   NodeAlignmentPolicy,
   Size
 } from '@yfiles/yfiles'
-import { graphData } from './sample-graph'
+import graphData from './graph-data.json'
 import { initializeInteractiveHierarchicalNestingLayout } from './InteractiveHierarchicalNestingLayout'
 import { DemoStyleOverviewRenderer, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 let builder
@@ -57,6 +57,8 @@ async function run() {
 
   // initialize the GraphComponent
   graphComponent = new GraphComponent('graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
   graphComponent.inputMode = new GraphViewerInputMode({
     focusableItems: 'none',
     selectableItems: 'none'
@@ -121,17 +123,17 @@ async function loadSampleGraph() {
   // only load the nodes that are not inside any group
   builder = new GraphBuilder(mainGraph)
   nodesSource = builder.createNodesSource({
-    data: graphData.nodesSource.filter((node) => !node.group),
+    data: graphData.nodes.filter((node) => !node.isGroup),
     id: 'id',
-    parentId: 'group'
+    parentId: 'parent'
   })
   groupNodesSource = builder.createGroupNodesSource({
-    data: graphData.groupsSource.filter((group) => !group.parentGroup),
+    data: graphData.nodes.filter((node) => node.isGroup),
     id: 'id',
-    labels: ['label'],
-    parentId: 'parentGroup'
+    labels: ['labels'],
+    parentId: 'parent'
   })
-  builder.createEdgesSource({ data: graphData.edgesSource, sourceId: 'from', targetId: 'to' })
+  builder.createEdgesSource({ data: graphData.edges, sourceId: 'source', targetId: 'target' })
   builder.buildGraph()
 
   // no layout information available, yet
@@ -150,16 +152,18 @@ function addGroupDescendantsToGraph(groupNode) {
   // append all child nodes of the given group node to the current nodes in graph
   builder.setData(
     nodesSource,
-    graphData.nodesSource
-      .filter((node) => node.group === groupNode.tag.id)
-      .concat(...graphComponent.graph.nodes.map((node) => node.tag).filter((node) => !node.label))
+    graphData.nodes
+      .filter((node) => !node.isGroup)
+      .filter((node) => node.parent === groupNode.tag.id)
+      .concat(...graphComponent.graph.nodes.map((node) => node.tag).filter((node) => !node.labels))
   )
   // append all child group nodes of the given group node to the current group nodes in graph
   builder.setData(
     groupNodesSource,
-    graphData.groupsSource
-      .filter((group) => group.parentGroup === groupNode.tag.id)
-      .concat(...graphComponent.graph.nodes.map((node) => node.tag).filter((node) => node.label))
+    graphData.nodes
+      .filter((node) => node.isGroup)
+      .filter((group) => group.parent === groupNode.tag.id)
+      .concat(...graphComponent.graph.nodes.map((node) => node.tag).filter((node) => node.labels))
   )
   // update the graph
   builder.updateGraph()

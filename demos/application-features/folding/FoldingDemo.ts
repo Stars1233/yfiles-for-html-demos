@@ -58,6 +58,9 @@ await graphComponent.applyLayoutAnimated(new HierarchicalLayout({ minimumLayerDi
 const graphEditorInputMode = new GraphEditorInputMode()
 graphComponent.inputMode = graphEditorInputMode
 
+//Add separator
+demoApp.toolbar.addSeparator()
+
 // Toggle whether to fix the group node location when collapsing/expanding groups
 demoApp.toolbar.addToggleButton('Automatic Group Node Alignment', (pressed) => {
   graphEditorInputMode.navigationInputMode.autoGroupNodeAlignmentPolicy = pressed

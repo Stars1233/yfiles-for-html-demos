@@ -50,8 +50,8 @@ import {
 
 import { createDemoShapeNodeStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 
@@ -92,7 +92,7 @@ function buildGraph(graph, graphData) {
   graphBuilder.createNodesSource({
     data: graphData.nodeList.filter((item) => !item.isGroup),
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
 
   graphBuilder
@@ -133,7 +133,7 @@ function configureDragAndDrop() {
  */
 function initializeDragAndDropPanel() {
   // retrieve the panel element
-  const panel = document.querySelector('#drag-and-drop-panel')
+  const panel = document.querySelector('#dnd-panel')
 
   // prepare node styles for the palette
   const defaultNodeStyle = graphComponent.graph.nodeDefaults.style
@@ -154,7 +154,8 @@ function initializeDragAndDropPanel() {
 function addNodeVisual(style, panel) {
   // Create the HTML element for the visual.
   const div = document.createElement('div')
-  div.setAttribute('style', 'width: 40px; height: 40px; margin: 10px auto; cursor: grab;')
+  div.setAttribute('style', ' height: 40px; margin: 10px auto; cursor: grab;')
+  div.setAttribute('class', 'demo-dnd-panel__item')
   const img = document.createElement('img')
   img.setAttribute('style', 'width: auto; height: auto;')
   // Create a visual for the style.

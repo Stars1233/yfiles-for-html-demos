@@ -1,5 +1,4 @@
 <!doctype html>
-<!-- no-demo-header -->
 <html lang="en">
   <head>
 <!-- ////////////////////////////////////////////////////////////////////////
@@ -39,27 +38,35 @@
   </head>
   <body class="loaded">
     <div class="demo-header">
-      <h1><a href="../../README.html">yFiles for HTML</a> - Basic Demo</h1>
+      <a
+        href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+        class="y-logo"
+        target="_blank"
+      ></a>
+      <span class="chevron-right"></span>
+      <a href="../../../README.html" style="cursor: pointer" target="_blank"> Demos </a>
+      <span class="chevron-right"></span>
+      <span>Basic Demo</span>
     </div>
 
-    <div class="demo-sidebar">
-      <h2>Actions</h2>
-
-      <div id="actionsArea"></div>
-
-      <div class="demo-description__content">
-        <h2>Description</h2>
-
-        <p>A simple demo that you can use as a starting point for your own project.</p>
-        <p>
-          For other options, see the <a href="https://docs.yworks.com/yfileshtml/dguide/getting_started" class="dguide" target="_blank">Getting Started</a> section in
-          the documentation.
-        </p>
+    <div class="main-container">
+      <div class="demo-page__main">
+        <div id="graphComponent" class="graph-component"></div>
       </div>
-    </div>
+      <div class="demo-page__description">
+        <div class="demo-description__content">
+          <h1>Basic Demo</h1>
 
-    <div class="demo-main">
-      <div id="graphComponent"></div>
+          <p>A simple demo that you can use as a starting point for your own project.</p>
+          <p>
+            For other options, see the <a href="https://docs.yworks.com/yfileshtml/dguide/getting_started" class="dguide" target="_blank">Getting Started</a> section
+            in the documentation.
+          </p>
+
+          <h2>Actions</h2>
+          <div id="actions-area"></div>
+        </div>
+      </div>
     </div>
 
     <script type="module" crossorigin="anonymous" src="basic-demo.ts"></script>

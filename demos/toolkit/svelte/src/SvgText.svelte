@@ -16,18 +16,18 @@
     fontWeight = 'normal',
     fill = 'black'
   }: {
-    maxWidth: number,
-    maxHeight: number,
-    x: number,
-    y: number,
-    text: string,
-    rtl: boolean,
-    fontFamily: string,
-    textWrapping: TextWrappingStringValues,
-    fontSize: number,
-    fontStyle: FontStyleStringValues,
-    fontWeight: string,
-    fill: string
+    maxWidth?: number,
+    maxHeight?: number,
+    x?: number,
+    y?: number,
+    text?: string,
+    rtl?: boolean,
+    fontFamily?: string,
+    textWrapping?: TextWrappingStringValues,
+    fontSize?: number,
+    fontStyle?: FontStyleStringValues,
+    fontWeight?: string,
+    fill?: string
   } = $props()
 
   let element: SVGTextElement | SVGGElement = $state()
@@ -40,7 +40,7 @@
         maxHeight < 0 ? Number.MAX_VALUE : maxHeight
       )
       : null)
-  const wrapping = $derived(TextWrapping.from(textWrapping.replaceAll('-', '_') as TextWrappingStringValues))
+  const wrapping = $derived(TextWrapping.from(textWrapping!.replaceAll('-', '_') as TextWrappingStringValues))
   const font = $derived(new Font(fontFamily, fontSize, fontStyle, fontWeight))
   $effect(() => {
     if (element) {

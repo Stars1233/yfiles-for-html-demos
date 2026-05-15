@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Simple Graph Builder With Implicit Groups
+# Simple Graph Builder With Implicit Groups Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-graph-builder-implicit-groups.webp" alt="demo-thumbnail" height="320"/>
 

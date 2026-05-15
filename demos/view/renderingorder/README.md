@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Rendering Order Demo
+# Rendering Order Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/rendering-order.webp" alt="demo-thumbnail" height="320"/>
 

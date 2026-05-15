@@ -43,7 +43,7 @@ import {
 const EPS = 1e-6
 
 /**
- * Handle for an outer control point bend of a bezier curve
+ * Handle for an outer control point bend of a Bézier curve
  * The outer control point bends are those that are not located on the path, but determine the slope of the segments.
  * If the control point triple is currently collinear, this implementation moves the __other__ outer control point
  * of the triple so that this invariant is kept. Otherwise, the other control point is not adjusted.
@@ -57,7 +57,13 @@ export class OuterControlPointHandle extends BaseClass(IHandle) {
   /**
    * The bend that belongs to this handle instance
    */
-  private readonly bend: IBend
+  public readonly bend: IBend
+
+  /**
+   * The original location of this handle.
+   * @private
+   */
+  private origin!: Point
 
   /**
    * The other handle that is controlled indirectly from us.
@@ -87,9 +93,10 @@ export class OuterControlPointHandle extends BaseClass(IHandle) {
   }
 
   /**
-   * Initializes our own drag and determines whether we are a slave or the master and if there are actual slvae handles in that case
+   * Initializes our own drag and determines whether we are a slave or the master and if there are actual slave handles in that case
    */
   public initializeDrag(context: IInputModeContext): void {
+    this.origin = this.bend.location.toPoint()
     this.coreHandle.initializeDrag(context)
     if (context.inputMode instanceof MoveInputMode) {
       // If we are moved via MoveInputMode (happens when the whole edge is dragged)
@@ -98,51 +105,48 @@ export class OuterControlPointHandle extends BaseClass(IHandle) {
     }
 
     // If we are indirectly controlled from the other control point or the bend curve point
-    // those implementations put a marker in the lookup
+    // those implementations put a marker in the lookup.
     // If such a marker is present, we DON'T delegate to the other handle and just move ourselves.
     const bcph = context.lookup(InnerControlPointHandle)
     const cph = context.lookup(OuterControlPointHandle)
 
-    if (!bcph && !cph) {
-      // We are the master handle and so we control the other one
-      const index = this.bend.index
-
-      // Whether this is the first or the last bend in such a control point triple
-      const isFirstInTriplet = index % 3 === 1
-
-      let otherBend = null
-      let middleBend = null
-      if (isFirstInTriplet && index < this.bend.owner.bends.size - 1) {
-        // We are the first of the triple and there is a potential slave handle
-        // So get the slave and the middle bend
-        otherBend = this.bend.owner.bends.get(index + 2)
-        middleBend = this.bend.owner.bends.get(index + 1)
-      } else if (index >= 3) {
-        // We are the last of the triple and there is a potential slave handle
-        // So get the slave and the middle bend
-        otherBend = this.bend.owner.bends.get(index - 2)
-        middleBend = this.bend.owner.bends.get(index - 1)
-      }
-      if (
-        otherBend &&
-        middleBend &&
-        areCollinear(this.bend.location, middleBend.location, otherBend.location)
-      ) {
-        this.slaveHandle = otherBend.lookup(IHandle)
-        this.middleLocation = middleBend.location.toPoint()
-      }
-
-      if (this.slaveHandle) {
-        // There not only a bend, but actually a handle to control
-        // notify it that it is the slave
-        // We just put ourselves in the context, so our presence serves as flag to the other handle
-        // And from now on control its actions.
-        const childContext = new InputModeContext(context)
-        childContext.getDecoratorFor(OuterControlPointHandle).addConstant(this)
-        this.slaveHandle.initializeDrag(childContext)
-        this.slaveOrigin = this.slaveHandle.location.toPoint()
-      }
+    if (!(!bcph && !cph)) {
+      return
     }
+
+    // We are the master handle so we control the other one
+    const index = this.bend.index
+    const isFirstInTriplet = index % 3 === 1
+    let otherBend = null
+    let middleBend = null
+    const allBends = this.bend.owner.bends
+    if (isFirstInTriplet && index < allBends.size - 1) {
+      // We are the first of the triple and there is a potential slave handle
+      // So get the slave and the middle bend
+      otherBend = allBends.get(index + 2)
+      middleBend = allBends.get(index + 1)
+    } else if (index >= 3) {
+      // We are the last of the triple and there is a potential slave handle
+      // So get the slave and the middle bend
+      otherBend = allBends.get(index - 2)
+      middleBend = allBends.get(index - 1)
+    }
+    if (
+      otherBend &&
+      middleBend &&
+      areCollinear(this.bend.location, middleBend.location, otherBend.location)
+    ) {
+      this.slaveHandle = otherBend.lookup(IHandle)
+      this.middleLocation = middleBend.location.toPoint()
+    }
+    if (!this.slaveHandle) {
+      return
+    }
+
+    const childContext = new InputModeContext(context)
+    childContext.getDecoratorFor(OuterControlPointHandle).addConstant(this)
+    this.slaveHandle.initializeDrag(childContext)
+    this.slaveOrigin = this.slaveHandle.location.toPoint()
   }
 
   /**
@@ -151,37 +155,37 @@ export class OuterControlPointHandle extends BaseClass(IHandle) {
   public handleMove(context: IInputModeContext, originalLocation: Point, newLocation: Point): void {
     this.coreHandle.handleMove(context, originalLocation, newLocation)
 
-    if (this.slaveHandle) {
-      // If necessary, rotate the slave handle
-      // Move the other one by the point reflection of our move delta, keeping its distance, though
-      const delta = newLocation.subtract(this.middleLocation)
-      // The distance of the slave handle - we keep this
-      const otherDist = this.slaveOrigin.subtract(this.middleLocation).vectorLength
-      // We can use the original context since we have already done all decisions in InitializeDrag
-      this.slaveHandle.handleMove(
-        context,
-        this.slaveOrigin,
-        this.middleLocation.subtract(delta.normalized.multiply(otherDist))
-      )
+    if (!this.slaveHandle) {
+      return
     }
+
+    const delta = newLocation.subtract(this.middleLocation)
+    const otherDist = this.slaveOrigin.subtract(this.middleLocation).vectorLength
+    this.slaveHandle.handleMove(
+      context,
+      this.slaveOrigin,
+      this.middleLocation.subtract(delta.normalized.multiply(otherDist))
+    )
   }
 
   /**
-   * Cancel the movement on the core handle and if present also on the slave handle
+   * Cancel the movement on the core handle and if present also on the slave handle.
    */
   public cancelDrag(context: IInputModeContext, originalLocation: Point): void {
-    this.coreHandle.cancelDrag(context, originalLocation)
+    this.coreHandle.cancelDrag(context, this.origin)
 
-    if (this.slaveHandle) {
-      // If necessary, cancel the movement of the slave handle, using its old origin
-      // We can use the original context since we have already done all decisions in InitializeDrag
-      this.slaveHandle.cancelDrag(context, this.slaveOrigin)
-      this.slaveHandle = null
+    if (!this.slaveHandle) {
+      return
     }
+
+    // If necessary, cancel the movement of the slave handle, using its old origin
+    // We can use the original context since we have already done all decisions in InitializeDrag
+    this.slaveHandle.cancelDrag(context, this.slaveOrigin)
+    this.slaveHandle = null
   }
 
   /**
-   * Finish the movement on the core handle and if present also on the slave handle
+   * Finish the movement on the core handle and if present also on the slave handle.
    */
   public dragFinished(
     context: IInputModeContext,
@@ -189,44 +193,43 @@ export class OuterControlPointHandle extends BaseClass(IHandle) {
     newLocation: Point
   ): void {
     this.coreHandle.dragFinished(context, originalLocation, newLocation)
-    if (this.slaveHandle) {
-      // If necessary, rotate the slave handle
-      // Move the other one by the point reflection of our move delta, keeping its distance, though
-      const delta = newLocation.subtract(this.middleLocation)
-      // The distance of the slave handle - we keep this
-      const otherDist = this.slaveOrigin.subtract(this.middleLocation).vectorLength
-      this.slaveHandle.dragFinished(
-        context,
-        this.slaveOrigin,
-        this.middleLocation.subtract(delta.normalized.multiply(otherDist))
-      )
-      this.cleanUp()
+    if (!this.slaveHandle) {
+      return
     }
+
+    const delta = newLocation.subtract(this.middleLocation)
+    const otherDist = this.slaveOrigin.subtract(this.middleLocation).vectorLength
+    this.slaveHandle.dragFinished(
+      context,
+      this.slaveOrigin,
+      this.middleLocation.subtract(delta.normalized.multiply(otherDist))
+    )
+    this.cleanUp()
   }
 
   /**
-   * Clean up work at the end of the gesture, either by canceling or finishing
+   * Clean up work at the end of the gesture, either by canceling or finishing.
    */
   private cleanUp(): void {
     this.slaveHandle = null
   }
 
   /**
-   * We use a slightly different visualization
+   * We use a slightly different visualization.
    */
   public get type(): HandleType {
     return HandleType.MOVE2
   }
 
   /**
-   * Use the core handle's cursor
+   * Use the core handle's cursor.
    */
   public get cursor(): Cursor {
     return this.coreHandle.cursor
   }
 
   /**
-   * Use the core handle's location
+   * Use the core handle's location.
    */
   public get location(): IPoint {
     return this.coreHandle.location
@@ -243,7 +246,7 @@ export class OuterControlPointHandle extends BaseClass(IHandle) {
 }
 
 /**
- * Handle for an inner control point bend of a bezier curve
+ * Handle for an inner control point bend of a Bézier curve
  * The inner control point bends are those that are actually located on the path.
  * If the control point triple is currently collinear, this implementation moves the  outer control points
  * of the triple so that this invariant is kept. Otherwise, the other control points are not adjusted.
@@ -255,17 +258,23 @@ export class InnerControlPointHandle extends BaseClass(IHandle) {
   private readonly coreHandle: IHandle
 
   /**
-   * The bend that belongs to this handle instance
+   * The bend that belongs to this handle instance.
    */
   private readonly bend: IBend
 
   /**
-   * The first (slave) handle in a control point triple
+   * The original location of this handle.
+   * @private
+   */
+  private origin!: Point
+
+  /**
+   * The first (slave) handle in a control point triple.
    */
   private firstSlaveHandle: IHandle | null
 
   /**
-   * The last (slave) handle in a control point triple
+   * The last (slave) handle in a control point triple.
    */
   private lastSlaveHandle: IHandle | null
 
@@ -294,9 +303,10 @@ export class InnerControlPointHandle extends BaseClass(IHandle) {
   }
 
   /**
-   * Initializes our own drag and determines whether we are a slave or the master and if there are actual slvae handles in that case
+   * Initializes our own drag and determines whether we are a slave or the master and if there are actual slave handles in that case.
    */
   public initializeDrag(context: IInputModeContext): void {
+    this.origin = this.bend.location.toPoint()
     this.coreHandle.initializeDrag(context)
 
     if (context.inputMode instanceof MoveInputMode) {
@@ -348,12 +358,12 @@ export class InnerControlPointHandle extends BaseClass(IHandle) {
   }
 
   /**
-   * Cancel the movement on the core handle and if present also on the slave handles
+   * Cancel the movement on the core handle and if present also on the slave handles.
    */
   public cancelDrag(context: IInputModeContext, originalLocation: Point): void {
     const childContext = new InputModeContext(context)
     childContext.getDecoratorFor(InnerControlPointHandle).addConstant(this)
-    this.coreHandle.cancelDrag(context, originalLocation)
+    this.coreHandle.cancelDrag(context, this.origin)
     if (this.firstSlaveHandle) {
       this.firstSlaveHandle.cancelDrag(childContext, this.firstOrigin)
     }
@@ -363,7 +373,7 @@ export class InnerControlPointHandle extends BaseClass(IHandle) {
   }
 
   /**
-   * Finish the movement on the core handle and if present also on the slave handles
+   * Finish the movement on the core handle and if present also on the slave handles.
    */
   public dragFinished(
     context: IInputModeContext,
@@ -382,7 +392,7 @@ export class InnerControlPointHandle extends BaseClass(IHandle) {
   }
 
   /**
-   * Clean up work at the end of the gesture, either by canceling or finishing
+   * Clean up work at the end of the gesture, either by canceling or finishing.
    */
   private cleanUp(): void {
     this.firstSlaveHandle = null
@@ -394,21 +404,21 @@ export class InnerControlPointHandle extends BaseClass(IHandle) {
   }
 
   /**
-   * Use the core handle's type
+   * Use the core handle's type.
    */
   public get type(): HandleType {
     return this.coreHandle.type
   }
 
   /**
-   * Use the core handle's cursor
+   * Use the core handle's cursor.
    */
   public get cursor(): Cursor {
     return this.coreHandle.cursor
   }
 
   /**
-   * Use the core handle's location
+   * Use the core handle's location.
    */
   public get location(): IPoint {
     return this.coreHandle.location
@@ -417,7 +427,9 @@ export class InnerControlPointHandle extends BaseClass(IHandle) {
   /**
    * This implementation does nothing special when clicked.
    */
-  handleClick(evt: ClickEventArgs): void {}
+  handleClick(evt: ClickEventArgs): void {
+    this.coreHandle.handleClick(evt)
+  }
 }
 
 /**
@@ -425,9 +437,68 @@ export class InnerControlPointHandle extends BaseClass(IHandle) {
  * @param p1 the first point
  * @param p2 the second point
  * @param p3 the third point
- * @returns true iff all three points are (approximately) collinear.
+ * @returns `true` iff all three points are (approximately) collinear.
  */
 function areCollinear(p1: IPoint, p2: IPoint, p3: IPoint): boolean {
   // Use the cross product to check whether we are collinear
   return Math.abs(0.5 * (p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y))) < EPS
+}
+
+/**
+ * Handle for control points of a Bézier curve if <see cref="BezierEdgeStyleWindow.smoothEditing"/> is disabled.
+ *
+ * Used to store the corresponding bend and the information whether it belongs to an outer control point. This
+ * information is used to visualize inner and outer control point handles differently. Every other functionality is
+ * delegated to the core handle.
+ */
+export class SimpleControlPointHandle extends BaseClass(IHandle) {
+  private readonly coreHandle: IHandle
+  readonly bend: IBend
+  readonly isOuterControlPoint: boolean
+
+  constructor(coreHandle: IHandle, bend: IBend, isOuterControlPoint: boolean) {
+    super()
+    this.coreHandle = coreHandle
+    this.bend = bend
+    this.isOuterControlPoint = isOuterControlPoint
+  }
+
+  get location(): IPoint {
+    return this.coreHandle.location
+  }
+
+  initializeDrag(context: IInputModeContext): void {
+    this.coreHandle.initializeDrag(context)
+  }
+
+  handleMove(context: IInputModeContext, originalLocation: Point, newLocation: Point): void {
+    this.coreHandle.handleMove(context, originalLocation, newLocation)
+  }
+
+  cancelDrag(context: IInputModeContext, originalLocation: Point): void {
+    this.coreHandle.cancelDrag(context, originalLocation)
+  }
+
+  dragFinished(context: IInputModeContext, originalLocation: Point, newLocation: Point): void {
+    this.coreHandle.dragFinished(context, originalLocation, newLocation)
+  }
+
+  /**
+   * Inner control point handles are round and outer ones quadratic.
+   */
+  get type(): HandleType {
+    return this.isOuterControlPoint ? HandleType.MOVE2 : this.coreHandle.type
+  }
+
+  get tag(): any {
+    return this.coreHandle.tag
+  }
+
+  get cursor(): Cursor {
+    return this.coreHandle.cursor
+  }
+
+  handleClick(eventArgs: ClickEventArgs): void {
+    this.coreHandle.handleClick(eventArgs)
+  }
 }

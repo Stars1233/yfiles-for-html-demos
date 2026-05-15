@@ -29,6 +29,7 @@
 import {
   CloneTypes,
   Color,
+  Graph,
   GraphComponent,
   GraphCopier,
   IBend,
@@ -79,7 +80,7 @@ export function createNeighborhoodView() {
     toggleNeighborhoodPanel(false)
   })
 
-  document.querySelector('.demo-page__toolbar').addEventListener('click', () => {
+  document.querySelector('.toolbar').addEventListener('click', () => {
     toggleNeighborhoodPanel(false)
   })
 
@@ -101,7 +102,12 @@ export async function showNeighborhood(sourceComponent, targetComponent, node) {
   const srcGraph = sourceComponent.graph
   const tgtGraph = targetComponent.graph
 
-  tgtGraph.clear()
+  // replace the graph in the target component to copy the srcGraph to the target graph without GraphComponent
+  // keeping its configuration
+  // this is important because the GraphCopier copies the WebGLZoomVisibilityPolicy in the label styles which
+  // cannot be used in multiple GraphComponents
+  targetComponent.graph = new Graph()
+
   toggleNeighborhoodPanel(true)
 
   const nodesToCopy = new Set([node, ...srcGraph.neighbors(node)])
@@ -144,6 +150,9 @@ export async function showNeighborhood(sourceComponent, targetComponent, node) {
     }
   })
   targetComponent.selection.add(selectedNode)
+
+  // assign the copied graph to the target component
+  targetComponent.graph = tgtGraph
 }
 
 /**

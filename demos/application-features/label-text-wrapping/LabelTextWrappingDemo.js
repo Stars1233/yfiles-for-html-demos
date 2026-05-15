@@ -45,11 +45,9 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { BrowserDetection, finishLoading } from '@yfiles/demo-app/demo-page'
-import {
-  initializeSvgWebGlSwitchButton,
-  updateSvgWebGlSwitchButton
-} from '../../style/group-node-style/svg-webgl-switch'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
+import { initializeSvgWebGlSwitchButton, updateSvgWebGlSwitchButton } from './svg-webgl-switch'
 
 let graphComponent
 
@@ -159,6 +157,14 @@ function createGraph() {
     new Rect(1000, -150, 190, 200),
     new ShapeNodeStyle({
       shape: 'octagon',
+      fill: defaultNodeStyle.fill,
+      stroke: defaultNodeStyle.stroke
+    })
+  )
+  const node10 = graph.createNode(
+    new Rect(1250, 0, 190, 200),
+    new ShapeNodeStyle({
+      shape: 'squircle',
       fill: defaultNodeStyle.fill,
       stroke: defaultNodeStyle.stroke
     })
@@ -297,6 +303,18 @@ function createGraph() {
     topParameter,
     topLabelStyle
   )
+
+  // A label that is wrapped at word boundaries inside a squircle shape.
+  const wordEllipsisSquircleShapeStyle = new LabelStyle({
+    font,
+    wrapping: 'wrap-word-ellipsis',
+    verticalTextAlignment: 'center',
+    horizontalTextAlignment: rtlDirection ? 'right' : 'left',
+    textWrappingShape: 'squircle',
+    textWrappingPadding: 5
+  })
+  graph.addLabel(node10, longText, centerParameter, wordEllipsisSquircleShapeStyle)
+  graph.addLabel(node10, 'Word Wrapping\nat Squircle Shape\n', topParameter, topLabelStyle)
 
   graph.undoEngine.clear()
   void graphComponent.fitGraphBounds()

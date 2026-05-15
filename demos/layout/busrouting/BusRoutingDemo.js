@@ -42,10 +42,10 @@ import {
   PolylineEdgeStyle,
   Stroke
 } from '@yfiles/yfiles'
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Provides different color fills for new edge busses in this demo.
@@ -178,23 +178,23 @@ function loadGraph(graph) {
   const blue = newEdgeStyle()
 
   // the demo's sample data
-  const data = SampleData
+  const data = GraphData
 
   const builder = new GraphBuilder(graph)
   builder.createNodesSource({
-    data: data.nodes, // array of { id: string, bounds: number[] }
+    data: data.nodes, // array of { id: string, layout: number[] }
     id: 'id', // uses the 'id' property to uniquely identify each created node
-    layout: 'bounds' // uses the 'bounds' property to determine each node's geometry
+    layout: 'layout' // uses the 'bounds' property to determine each node's geometry
   })
   builder.createEdgesSource({
-    data: data.edges, // array of { source: string, target: string, color: string }
+    data: data.edges, // array of { source: string, target: string, tag: { color: string } }
     sourceId: 'source', // uses the 'source' property to determine the source node for each created edge
     targetId: 'target', // uses the 'target' property to determine the target node for each created edge
     style: (item) => {
       // uses the 'color' property to determine the style for each created edge
-      if ('#AB2346' === item.color) {
+      if ('#AB2346' === item.tag.color) {
         return red
-      } else if ('#662b00' === item.color) {
+      } else if ('#662b00' === item.tag.color) {
         return brown
       } else {
         return blue

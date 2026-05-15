@@ -38,7 +38,9 @@ describe('Test yFiles in Chrome', function () {
   testBrowser(
     new Builder()
       .forBrowser('chrome')
-      .setChromeOptions(new chrome.Options().addArguments('--headless=new'))
+      .setChromeOptions(
+        new chrome.Options().addArguments('--headless=new', '--window-size=1920,1080')
+      )
   )
 })
 
@@ -48,7 +50,9 @@ describe('Test yFiles in Firefox', function () {
   testBrowser(
     new Builder()
       .forBrowser('firefox')
-      .setFirefoxOptions(new firefox.Options().addArguments('--headless'))
+      .setFirefoxOptions(
+        new firefox.Options().addArguments('--headless', '--width=1920', '--height=1080')
+      )
   )
 })
 

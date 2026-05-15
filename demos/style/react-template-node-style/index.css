@@ -26,10 +26,13 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import '@yfiles/demo-app/demo.css';
+@import url('@fontsource/poppins/600.css');
+@import url('@fontsource/poppins/400.css');
+@import '@fontsource/material-symbols-outlined/300.css';
 
 #graphComponent {
-  background-color: #f7f7f7;
+  height: 100%;
+  border-radius: 16px;
 }
 .editorText {
   font-family: 'Consolas', 'Courier New', Courier, mono, serif;
@@ -42,12 +45,12 @@
 }
 
 #templateEditorContainer {
-  flex: 2;
+  flex: 0 1 70%;
   min-height: 0;
 }
 
 #tagEditorContainer {
-  flex: 1;
+  flex: 0 1 fit-content;
   min-height: 0;
 }
 .cm-editor {
@@ -90,16 +93,20 @@
 .apply-button {
   margin: 1ex 0 1ex 0;
   padding: 5px 9px 5px 9px;
-  background-color: #1871bd;
-  color: #f7f7f7;
-  border: none;
+  color: #00adcc;
+  background-color: transparent;
+  border: 1px solid #00adcc;
+  border-radius: 16px;
   cursor: pointer;
+  &:hover {
+    color: #ffffff;
+    background-color: #00adcc;
+  }
 }
-.apply-button:hover {
-  background-color: #328ad5;
-}
+
 .apply-button:disabled {
   background-color: #a0a0a0;
+  color: #ffffff;
 }
 .switch {
   position: relative;
@@ -152,4 +159,155 @@ input:checked + .slider:before {
 .demo-sidebar__content {
   display: flex;
   flex-direction: column;
+  height: 100%;
+}
+html,
+body {
+  height: 100%;
+  background-color: #e8edf2;
+  font-family: 'poppins', sans-serif;
+  color: #2a3e50;
+  margin: 0;
+  overflow: hidden;
+}
+.demo-header {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 70px;
+  font-size: 1.125rem;
+  font-weight: 400;
+  padding-left: 92px;
+  padding-right: 8px;
+  color: #2a3e50;
+  gap: 12px;
+}
+.demo-header a {
+  text-decoration: none;
+  color: inherit;
+}
+.y-logo {
+  margin: 4px 4px 4px 16px;
+  height: 100%;
+  background-color: #2a3e50;
+
+  mask: url('./resources/ylogo-large.svg') no-repeat center;
+  width: 12rem;
+}
+.main-container {
+  height: calc(100% - 80px);
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 320px;
+  grid-auto-rows: minmax(0, 1fr);
+  gap: 8px;
+  padding-bottom: 8px;
+  padding-right: 8px;
+}
+.demo-page__description {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  font-family: 'poppins', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  overflow: auto;
+  h1 {
+    color: #00adcc;
+    margin-top: 0;
+    font-size: 160%;
+    font-weight: 600;
+  }
+  a {
+    color: #2a3e50;
+    &:hover {
+      text-decoration-thickness: 2px;
+    }
+  }
+}
+.demo-main__sidebar {
+  border-radius: 16px;
+  padding: 16px;
+  font-family: 'poppins', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  background-color: #f3f4f6;
+  h2 {
+    color: #00adcc;
+    font-size: 160%;
+    font-weight: 600;
+  }
+}
+.demo-page__toolbar {
+  font-family: 'poppins', sans-serif;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap; /* keep items on a single line */
+  white-space: nowrap; /* prevent the text button from wrapping */
+  color: #000000;
+  background: #f2f5f8;
+  padding: 4px 6px;
+  gap: 2px;
+  z-index: 2;
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.1),
+    0 3px 10px rgba(0, 0, 0, 0.1),
+    0 1px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+  user-select: none;
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  button {
+    width: 2.25rem;
+    height: 2.25rem;
+    border: none;
+    border-radius: 16px;
+    background-color: transparent;
+    color: #000000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    &:hover {
+      background-color: #aec3d5;
+      color: #000000;
+      cursor: pointer;
+    }
+  }
+
+  .separator {
+    width: 1px;
+    height: 1.75rem;
+    margin-inline: 4px;
+    background: #000000;
+    display: inline-block;
+  }
+}
+.demo-page__main {
+  height: 100%;
+  border-radius: 16px;
+  background-color: #ffffff;
+  position: relative;
+}
+.demo-main__graph-component {
+  height: 100%;
+}
+.material-symbols-outlined {
+  font-variation-settings: 'GRAD' 30;
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
 }

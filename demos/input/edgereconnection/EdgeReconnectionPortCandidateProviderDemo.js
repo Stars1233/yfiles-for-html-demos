@@ -45,7 +45,7 @@ import { BlueEdgePortCandidateProvider } from './BlueEdgePortCandidateProvider'
 import { OrangeEdgePortCandidateProvider } from './OrangeEdgePortCandidateProvider'
 import { RedEdgePortCandidateProvider } from './RedEdgePortCandidateProvider'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Registers a callback function as decorator that provides a custom
@@ -85,6 +85,7 @@ async function run() {
   License.value = licenseData
   // initialize the GraphComponent
   const graphComponent = new GraphComponent('graphComponent')
+
   const graph = graphComponent.graph
 
   // Disable automatic cleanup of unconnected ports since some nodes have a predefined set of ports
@@ -110,6 +111,10 @@ async function run() {
   registerEdgePortCandidateProvider(graph)
 
   createSampleGraph(graphComponent)
+
+  //center graph
+  await graphComponent.fitGraphBounds()
+
   graphComponent.updateContentBounds()
 }
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Edge Router
+# Edge Router Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-edgerouter.webp" alt="demo-thumbnail" height="320"/>
 

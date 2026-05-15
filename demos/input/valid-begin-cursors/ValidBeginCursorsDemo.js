@@ -89,7 +89,7 @@ editorInputMode.addEventListener('query-item-tool-tip', (evt) => {
 const defaultBeginHitTestable = editorInputMode.createEdgeInputMode.beginHitTestable
 editorInputMode.createEdgeInputMode.beginHitTestable = IHitTestable.create(
   (context, location) =>
-    defaultBeginHitTestable.isHit(context, location) && graphComponent.lastInputEvent.ctrlKey
+    defaultBeginHitTestable.isHit(context, location) && graphComponent.lastPointerEvent.ctrlKey
 )
 // Set custom cursors to indicate when edge creation is valid to begin and during port dragging.
 editorInputMode.createEdgeInputMode.validBeginCursor = CustomCursorIcons.create_edge

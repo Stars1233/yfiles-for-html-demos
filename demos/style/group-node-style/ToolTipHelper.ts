@@ -34,8 +34,7 @@ import {
   GroupNodeStyleIconType,
   GroupNodeStyleTabPosition,
   INode,
-  Point,
-  TimeSpan
+  Point
 } from '@yfiles/yfiles'
 
 /**
@@ -43,11 +42,9 @@ import {
  * The tool tips show a description of the corresponding node style configuration.
  */
 export function configureToolTips(inputMode: GraphEditorInputMode): void {
-  // Customize the tool tip's behavior to our liking.
   const toolTipInputMode = inputMode.toolTipInputMode
+  // Show the tooltip with an additional offset to the pointer location.
   toolTipInputMode.toolTipLocationOffset = new Point(30, 30)
-  toolTipInputMode.delay = TimeSpan.fromMilliseconds(500)
-  toolTipInputMode.duration = TimeSpan.fromSeconds(10)
 
   // Register a listener for when a tool tip should be shown.
   inputMode.addEventListener('query-item-tool-tip', (evt): void => {

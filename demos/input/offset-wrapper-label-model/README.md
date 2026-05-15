@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Offset Wrapper Label Model
+# Offset Wrapper Label Model Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/offset-wrapper-label-model.webp" alt="demo-thumbnail" height="320"/>
 

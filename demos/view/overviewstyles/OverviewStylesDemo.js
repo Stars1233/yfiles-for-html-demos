@@ -47,13 +47,14 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
 import { HtmlLabelStyle } from './HtmlLabelStyle'
 import graphData from './graph-data.json'
 import { OverviewCanvasRenderer } from './OverviewCanvasRenderer'
 import { OverviewSvgRenderer } from './OverviewSvgRenderer'
 import { detailNodeStyleTemplate, overviewNodeStyleTemplate } from './style-templates'
 import { createLitNodeStyleFromSource } from '@yfiles/demo-utils/LitNodeStyle'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The GraphComponent
@@ -82,6 +83,8 @@ async function run() {
   graphComponent.focusIndicatorManager.showFocusPolicy = ShowFocusPolicy.ALWAYS
   graphComponent.selectionIndicatorManager.enabled = false
   graphComponent.focusIndicatorManager.enabled = false
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 
   graphComponent.inputMode = new GraphViewerInputMode()
 
@@ -198,7 +201,7 @@ function overviewStyling(styleType) {
  * toolbar buttons, during the creation of this application.
  */
 function initializeUI() {
-  addNavigationButtons(overviewStyleBox).addEventListener('change', (evt) => {
+  addNavigationButtons(overviewStyleBox, 'Overview Style:').addEventListener('change', (evt) => {
     const selectedValue = evt.target.value
     overviewStyling(selectedValue)
   })

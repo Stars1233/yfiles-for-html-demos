@@ -31,7 +31,7 @@ import {
   ApplicationRef,
   Component,
   EnvironmentInjector,
-  NgZone
+  signal
 } from '@angular/core'
 import {
   Command,
@@ -71,7 +71,7 @@ function downloadFile(content: string, filename: string, type: string): void {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrl: './app.component.css',
   imports: [
     FormsModule,
     GraphComponentComponent,
@@ -82,14 +82,14 @@ function downloadFile(content: string, filename: string, type: string): void {
 export class AppComponent implements AfterViewInit {
   title = 'app'
 
-  public currentPerson?: Person
+  public currentPerson = signal<Person | undefined>(undefined)
   private graphComponent!: GraphComponent
+  private nodeStyle!: NodeComponentStyle
   searchString = ''
   graphSearch!: GraphSearch
 
   constructor(
     private _appRef: ApplicationRef,
-    private _zone: NgZone,
     private _environmentInjector: EnvironmentInjector,
     private _graphComponentService: GraphComponentService
   ) {}
@@ -102,21 +102,15 @@ export class AppComponent implements AfterViewInit {
 
     // hook up the properties view panel with the current item of the graph
     this.graphComponent.addEventListener('current-item-changed', () => {
-      this.currentPerson = this.graphComponent.currentItem!.tag
+      this.currentPerson.set(this.graphComponent.currentItem?.tag)
     })
 
     // create a sample graph from data
     createSampleGraph(this.graphComponent.graph)
-    this.graphComponent.fitGraphBounds()
+    void this.graphComponent.fitGraphBounds()
 
-    // Run the layout animation outside angular zone, so no change detection
-    // is initiated for listeners registered during the layout process.
-    // See https://docs.yworks.com/yfileshtml/#/kb/article/848/Improving_performance_of_large_Angular_applications
-    this._zone.runOutsideAngular(() => {
-      // Arrange the graph elements in a tree-like fashion
-      // See https://docs.yworks.com/yfileshtml/#/kb/article/848/Improving_performance_of_large_Angular_applications
-      void runLayout(this.graphComponent)
-    })
+    // Arrange the graph elements in a tree-like fashion
+    void runLayout(this.graphComponent)
 
     // register the graph search
     this.graphSearch = new PersonSearch(this.graphComponent)
@@ -124,11 +118,8 @@ export class AppComponent implements AfterViewInit {
 
   private setDefaultStyles(graph: IGraph) {
     graph.nodeDefaults.size = new Size(285, 100)
-    graph.nodeDefaults.style = new NodeComponentStyle(
-      this._appRef,
-      this._environmentInjector,
-      this._zone
-    )
+    this.nodeStyle = new NodeComponentStyle(this._appRef, this._environmentInjector)
+    graph.nodeDefaults.style = this.nodeStyle
 
     graph.edgeDefaults.style = new PolylineEdgeStyle({
       stroke: '2px rgb(170, 170, 170)',
@@ -149,7 +140,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   fitContent() {
-    void this.graphComponent.fitGraphBounds()
+    this.graphComponent.executeCommand(Command.FIT_GRAPH_BOUNDS)
   }
 
   /**
@@ -176,6 +167,13 @@ export class AppComponent implements AfterViewInit {
 
     // download the result
     downloadFile(SvgExport.exportSvgString(svg), 'graph.svg', 'image/svg+xml')
+  }
+
+  onPersonChange() {
+    // Directly run change detection on all node components so they pick up
+    // the mutated Person properties, then tell yFiles to repaint.
+    this.nodeStyle.detectChanges()
+    this.graphComponent.invalidate()
   }
 
   onSearchInput(query: string) {

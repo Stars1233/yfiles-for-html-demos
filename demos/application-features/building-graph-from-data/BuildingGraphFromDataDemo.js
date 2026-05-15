@@ -26,7 +26,6 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { graphComponent } from '@yfiles/demo-app/init'
 import {
   GraphEditorInputMode,
   GroupNodeLabelModel,
@@ -36,6 +35,7 @@ import {
   RectangleNodeStyle
 } from '@yfiles/yfiles'
 import graphData from './graph-data.json'
+import { graphComponent } from '@yfiles/demo-app/init'
 
 const graph = graphComponent.graph
 

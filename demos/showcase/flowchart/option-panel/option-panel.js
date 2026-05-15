@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { addNavigationButtons } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 import { BranchDirection } from '../layout/FlowchartLayout'
 
 const initialOptions = {
@@ -70,7 +70,7 @@ const allowFlatwiseEdges = document.querySelector('#allow-flatwise-edges')
 const layoutButton = document.querySelector('#layout-button')
 
 export function initializeOptionPanel(sampleChanged, layoutPressed) {
-  addNavigationButtons(sample, true, false, 'select-button')
+  addNavigationButtons(sample, '', true, false, 'select-button')
 
   sample.addEventListener('change', () => {
     const options = initialOptions[sample.value]

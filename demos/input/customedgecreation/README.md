@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Custom Edge Creation Demo
+# Custom Edge Creation Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/custom-edge-creation.webp" alt="demo-thumbnail" height="320"/>
 

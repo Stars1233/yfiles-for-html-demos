@@ -44,7 +44,8 @@ import {
 import { CustomCallback, GroupNodeObstacleProvider } from './BridgeHelper'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Holds the graphComponent.
@@ -114,7 +115,7 @@ function configureBridges() {
  */
 function initializeToolBarElements() {
   const crossingStylesComboBox = document.querySelector('#crossing-styles')
-  addNavigationButtons(crossingStylesComboBox).addEventListener('change', () => {
+  addNavigationButtons(crossingStylesComboBox, 'Style:').addEventListener('change', () => {
     bridgeManager.defaultBridgeCrossingStyle = getValueFromComboBox('#crossing-styles')
     graphComponent.invalidate()
   })
@@ -131,10 +132,13 @@ function initializeToolBarElements() {
   fillComboBox(crossingStylesComboBox, crossingStylesElements)
 
   const crossingPolicyComboBox = document.querySelector('#crossing-policies')
-  addNavigationButtons(crossingPolicyComboBox).addEventListener('change', () => {
-    bridgeManager.bridgeCrossingPolicy = getValueFromComboBox('#crossing-policies')
-    graphComponent.invalidate()
-  })
+  addNavigationButtons(crossingPolicyComboBox, 'Crossing Policy:').addEventListener(
+    'change',
+    () => {
+      bridgeManager.bridgeCrossingPolicy = getValueFromComboBox('#crossing-policies')
+      graphComponent.invalidate()
+    }
+  )
   const crossingDeterminationElements = [
     { text: 'HorizontalBridgesVertical', value: BridgeCrossingPolicy.HORIZONTAL_BRIDGES_VERTICAL },
     { text: 'VerticalBridgesHorizontal', value: BridgeCrossingPolicy.VERTICAL_BRIDGES_HORIZONTAL },
@@ -150,10 +154,13 @@ function initializeToolBarElements() {
   fillComboBox(crossingPolicyComboBox, crossingDeterminationElements)
 
   const bridgeOrientationComboBox = document.querySelector('#bridge-orientations')
-  addNavigationButtons(bridgeOrientationComboBox).addEventListener('change', () => {
-    bridgeManager.defaultBridgeOrientationStyle = getValueFromComboBox('#bridge-orientations')
-    graphComponent.invalidate()
-  })
+  addNavigationButtons(bridgeOrientationComboBox, 'Orientation: ').addEventListener(
+    'change',
+    () => {
+      bridgeManager.defaultBridgeOrientationStyle = getValueFromComboBox('#bridge-orientations')
+      graphComponent.invalidate()
+    }
+  )
   const bridgeOrientationElements = [
     { text: 'Up', value: BridgeOrientationStyle.UP },
     { text: 'Down', value: BridgeOrientationStyle.DOWN },
@@ -166,17 +173,43 @@ function initializeToolBarElements() {
   ]
   fillComboBox(bridgeOrientationComboBox, bridgeOrientationElements)
 
-  document.querySelector('#bridge-width-slider').addEventListener('change', (evt) => {
-    const value = evt.target.value
-    bridgeManager.defaultBridgeWidth = parseInt(value)
-    graphComponent.invalidate()
-    document.getElementById('bridge-width-label').textContent = value
-  })
-  document.querySelector('#bridge-height-slider').addEventListener('change', (evt) => {
-    const value = evt.target.value
-    bridgeManager.defaultBridgeHeight = parseInt(value)
-    graphComponent.invalidate()
-    document.getElementById('bridge-height-label').textContent = value
+  const sliders = [
+    {
+      sliderId: '#bridge-width-slider',
+      labelId: 'bridge-width-label',
+      defaultValue: bridgeManager.defaultBridgeWidth,
+      updateValue: (value) => {
+        bridgeManager.defaultBridgeWidth = value
+      }
+    },
+    {
+      sliderId: '#bridge-height-slider',
+      labelId: 'bridge-height-label',
+      defaultValue: bridgeManager.defaultBridgeHeight,
+      updateValue: (value) => {
+        bridgeManager.defaultBridgeHeight = value
+      }
+    },
+    {
+      sliderId: '#bridge-max-width-slider',
+      labelId: 'bridge-max-width-label',
+      defaultValue: bridgeManager.maximumBridgeWidth,
+      updateValue: (value) => {
+        bridgeManager.maximumBridgeWidth = value
+      }
+    }
+  ]
+  sliders.forEach((slider) => {
+    const sliderElement = document.querySelector(slider.sliderId)
+    const labelElement = document.getElementById(slider.labelId)
+    sliderElement.value = slider.defaultValue.toString()
+    labelElement.textContent = slider.defaultValue.toString()
+    sliderElement.addEventListener('input', (evt) => {
+      const value = evt.target.value
+      slider.updateValue(parseInt(value))
+      graphComponent.invalidate()
+      labelElement.textContent = value
+    })
   })
 }
 
@@ -212,46 +245,61 @@ function getValueFromComboBox(selector) {
  */
 function createSampleGraph() {
   const graph = graphComponent.graph
-  const nodes = []
-  for (let i = 1; i < 5; i++) {
-    nodes.push(graph.createNodeAt(new Point(50 + 40 * i, 260)))
-    nodes.push(graph.createNodeAt(new Point(50 + 40 * i, 40)))
-    nodes.push(graph.createNodeAt(new Point(40, 50 + 40 * i)))
-    nodes.push(graph.createNodeAt(new Point(260, 50 + 40 * i)))
+
+  const gridSize = 4
+  const nodeDist = 40
+  for (let i = 1; i <= gridSize; i++) {
+    // create a vertical and a horizontal node pair
+    for (let dimension = 0; dimension < 2; dimension++) {
+      const isVertical = dimension % 2 == 0
+      const location1 = isVertical ? new Point(nodeDist * i, 0) : new Point(0, nodeDist * i)
+      const location2 = isVertical
+        ? new Point(nodeDist * i, (gridSize + 1) * nodeDist)
+        : new Point((gridSize + 1) * nodeDist, nodeDist * i)
+      const n1 = graph.createNodeAt(location1)
+      const n2 = graph.createNodeAt(location2)
+
+      // create edge with alternating direction
+      const even = i % 2 == 0
+      const source1 = even ? n1 : n2
+      const target1 = even ? n2 : n1
+      graph.createEdge(source1, target1)
+    }
   }
 
-  for (let i = 0; i < nodes.length; i++) {
-    graph.addLabel(nodes[i], `${i}`)
-  }
-
-  graph.createEdge(nodes[0], nodes[1])
-
-  const p1 = graph.addPortAt(nodes[0], new Point(0, 0))
+  // create a second edge between node 0 and 1
+  const p1 = graph.addPortAt(graph.nodes.get(1), new Point(0, 0))
   graph.setRelativePortLocation(p1, new Point(5, 0))
-
-  const p2 = graph.addPortAt(nodes[1], new Point(0, 0))
+  const p2 = graph.addPortAt(graph.nodes.get(0), new Point(0, 0))
   graph.setRelativePortLocation(p2, new Point(5, 0))
   graph.createEdge(p1, p2)
 
-  graph.createEdge(nodes[5], nodes[4])
-  graph.createEdge(nodes[2], nodes[3])
-  graph.createEdge(nodes[7], nodes[6])
-  graph.createEdge(nodes[2 + 8], nodes[3 + 8])
-  graph.createEdge(nodes[7 + 8], nodes[6 + 8])
-  graph.createEdge(nodes[0 + 8], nodes[1 + 8])
-  graph.createEdge(nodes[5 + 8], nodes[4 + 8])
+  // label nodes with their index
+  for (let i = 0; i < graph.nodes.size; i++) {
+    graph.addLabel(graph.nodes.get(i), i.toString())
+  }
 
-  const n1 = graph.createNodeAt(new Point(300, 150))
-  const n2 = graph.createNodeAt(new Point(500, 150))
+  // create edges with different angles
+  const n3 = graph.createNodeAt(new Point(300, 50))
+  const n4 = graph.createNodeAt(new Point(750, 50))
+  graph.createEdge(n3, n4)
+  const n5 = graph.createNodeAt(new Point(350, 0))
+  for (let i = 0; i < 6; i++) {
+    const n = graph.createNodeAt(new Point(350 + i * 70, 100))
+    graph.createEdge(n5, n)
+  }
 
-  graph.createEdge(n1, n2)
+  const n6 = graph.createNodeAt(new Point(300, 200))
+  const n7 = graph.createNodeAt(new Point(400, 200))
+  const n8 = graph.createNodeAt(new Point(500, 200))
+  graph.createEdge(n6, n8)
 
-  const groupNode = graph.createGroupNode({
-    labels: ['Group Node'],
-    children: [{ layout: new Rect(400, 140, 30, 30) }]
-  })
+  // create a group node to show the effect of the custom GroupNodeObstacleProvider
+  const groupNode = graph.createGroupNode()
+  graph.addLabel(groupNode, 'Group Node')
+  graph.setParent(n7, groupNode)
   graph.adjustGroupNodeLayout(groupNode)
-  graph.setNodeLayout(groupNode, groupNode.layout.toRect().getEnlarged(new Insets(0, 15, 0, 15)))
+  graph.setNodeLayout(groupNode, groupNode.layout.toRect().getEnlarged(new Insets(15, 0, 15, 0)))
 
   graphComponent.fitGraphBounds()
 }

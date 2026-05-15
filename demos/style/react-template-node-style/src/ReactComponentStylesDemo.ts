@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 import * as ReactDOM from 'react-dom'
 
@@ -303,9 +303,9 @@ const demoSvgNodeStyleJSXSources = `({width, height, selected, detail, tag}) =>
               >
                 {tag.position}
               </text>
-              <text transform="translate(90 72)">{tag.email}</text>
-              <text transform="translate(90 88)">{tag.phone}</text>
-              <text transform="translate(170 88)">{tag.fax}</text>
+              <text transform="translate(90 72)" style={{ fontSize: '10px'}}>{tag.email}</text>
+              <text transform="translate(90 88)" style={{ fontSize: '10px'}}>{tag.phone}</text>
+              <text transform="translate(170 88)" style={{ fontSize: '10px'}}>{tag.fax}</text>
             </g>
           </>
         ),
@@ -341,7 +341,8 @@ const demoHtmlNodeStyleJSXSources = `({selected, detail, tag}) =>
       height:"100%",
       background:"white",
       boxShadow:"2px 3px 3px rgba(0,0,0,0.15)",
-      border: "1px solid #C0C0C0"
+      border: selected ? "2px solid #FF6C00" : "2px solid transparent",
+      borderTop: "2px solid " + (selected ? "#FF6C00" : {present:'#55b757', busy:'#e7527c',  travel:'#9945e9', unavailable:'#8d8f91'}[tag.status])
     }
   }>
     <div style={
@@ -350,9 +351,7 @@ const demoHtmlNodeStyleJSXSources = `({selected, detail, tag}) =>
         width: "100%",
         height: "100%",
         alignItems: "center",
-        padding: "0px 0 0 12px",
-        border: selected ? "2px solid #FF6C00" : "2px solid transparent",
-        borderTop: "2px solid " + (selected ? "#FF6C00" : {present:'#55b757', busy:'#e7527c',  travel:'#9945e9', unavailable:'#8d8f91'}[tag.status])
+        padding: "0px 0 0 12px"
       }
     }>
       {
@@ -366,9 +365,9 @@ const demoHtmlNodeStyleJSXSources = `({selected, detail, tag}) =>
               <div style={{padding: "0px 6px", fontFamily: "Roboto,sans-serif", color: "#444", lineHeight: "1.2" }}>
                 <div style={{ fontSize: "16px", color: "#336699" }}>{tag.name}</div>
                 <div style={{ fontSize: "8px", textTransform: "uppercase", margin: "8px 0" }}>{tag.position}</div>
-                <div>{tag.email}</div>
-                <span>{tag.phone}</span>
-                <span style={{marginLeft: "1rem"}}>{tag.fax}</span>
+                <div style={{ fontSize: "10px", marginTop: "15px"  }}>{tag.email}</div>
+                <span style={{ fontSize: "10px" }}>{tag.phone}</span>
+                <span style={{ fontSize: "10px", marginLeft: "2.5rem" }}>{tag.fax}</span>
               </div>
             </>
           ),

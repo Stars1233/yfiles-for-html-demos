@@ -26,7 +26,13 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { MarkupLabelStyle, TextEditorInputMode } from '@yfiles/yfiles'
+import {
+  type GraphEditorInputMode,
+  type ILabel,
+  type LabelEditingEventArgs,
+  MarkupLabelStyle,
+  TextEditorInputMode
+} from '@yfiles/yfiles'
 import Quill from 'quill'
 
 // Quill snow theme
@@ -38,6 +44,7 @@ import 'quill/dist/quill.snow.css'
  */
 export class RichTextEditorInputMode extends TextEditorInputMode {
   private quill: Quill
+  private affectedLabel: ILabel | null = null
 
   /**
    * Wire up Quill with the {@link TextEditorInputMode.editorText}.
@@ -61,9 +68,12 @@ export class RichTextEditorInputMode extends TextEditorInputMode {
    * allows to easily create labels with the {@link MarkupLabelStyle}.
    * @yjs:keep = theme,handlers
    */
-  constructor() {
+  constructor(parentInputMode: GraphEditorInputMode) {
     const container = RichTextEditorInputMode.initializeQuillContainer()
     super(container)
+
+    // track the currently edited label
+    this.registerAffectedLabelListener(parentInputMode)
 
     // initialize Quill in the editor container
     this.quill = new Quill(container.firstElementChild as HTMLElement, {
@@ -71,6 +81,7 @@ export class RichTextEditorInputMode extends TextEditorInputMode {
       modules: {
         keyboard: {
           bindings: {
+            'list autofill': null, // disable the automatic list binding (the asterisk/space shortcut)
             cancelEdit: {
               key: 'Escape',
               handler: () => {
@@ -96,6 +107,29 @@ export class RichTextEditorInputMode extends TextEditorInputMode {
         }
       }
     })
+
+    // remove rich text attributes that are not supported
+    const clipboard = this.quill.clipboard
+    clipboard.addMatcher(Node.ELEMENT_NODE, (_, delta) => {
+      delta.ops = delta.ops.map((op) => {
+        if (op.insert && typeof op.attributes === 'object') {
+          // remove background color
+          if ('background' in op.attributes) {
+            delete op.attributes.background
+          }
+          // remove code-block formatting
+          if (op.attributes['code-block']) {
+            delete op.attributes['code-block']
+          }
+          if (Object.keys(op.attributes).length === 0) {
+            delete op.attributes
+          }
+        }
+        return op
+      })
+      return delta
+    })
+
     // edits should not be discarded when the editor is closed due to focus lost
     this.autoCommitOnFocusLost = true
   }
@@ -105,7 +139,36 @@ export class RichTextEditorInputMode extends TextEditorInputMode {
    */
   installTextBox(): void {
     super.installTextBox()
-    setTimeout(() => this.quill.setSelection(0, Number.POSITIVE_INFINITY), 0)
+
+    this.quill.focus()
+
+    // start with an empty undo/redo queue
+    this.quill.history.clear()
+
+    // capture the value of this.selectContent to use it in the timeout shortly after
+    const selectContent = this.selectContent
+
+    // position the cursor correctly, or preselect existing content
+    setTimeout(() => {
+      if (this.affectedLabel !== null && selectContent) {
+        // editing an existing label, select content
+        this.quill.setSelection(0, Number.POSITIVE_INFINITY)
+      } else {
+        // just position the cursor at the end but do not select anything to prevent dropping the first character on
+        // instant typing
+        this.quill.setSelection(Number.POSITIVE_INFINITY, 0)
+      }
+    }, 0)
+  }
+
+  /**
+   * Removes the text box.
+   * This method is overwritten to clear the mode's affected label, because it is called for both
+   * {@link #onStopEditing} and {@link #onCancelEditing}.
+   */
+  protected uninstallTextBox(): void {
+    super.uninstallTextBox()
+    this.affectedLabel = null
   }
 
   /**
@@ -115,30 +178,38 @@ export class RichTextEditorInputMode extends TextEditorInputMode {
     const container = document.createElement('div')
     container.style.backgroundColor = 'white'
     container.style.position = 'absolute'
-    container.style.maxWidth = '800px'
+    container.style.maxWidth = '95%'
+    container.style.zIndex = '100'
     container.tabIndex = -1
-    container.appendChild(document.createElement('div'))
 
-    // stop propagation on the events of the editor container, otherwise the GraphComponent gains
-    // focus when clicking elements in the editor and thus close the editor box.
-    ;[
-      'mousedown',
-      'mouseup',
-      'mouseout',
-      'mousemove',
-      'mouseover',
-      'click',
-      'touchstart',
-      'touchend',
-      'touchmove',
-      'pointerup',
-      'pointerdown',
-      'pointermove'
-    ].forEach((event) => {
-      container.addEventListener(event, (container) => container.stopPropagation(), {
-        passive: false
-      })
-    })
+    const quillHostElement = document.createElement('div')
+    // Quill only works on iOS when use-select is defined
+    quillHostElement.style.setProperty('-webkit-user-select', 'text')
+    quillHostElement.style.setProperty('user-select', 'text')
+    container.appendChild(quillHostElement)
+
     return container
+  }
+
+  /**
+   * Registers a listener that sets the currently edited label.
+   */
+  private registerAffectedLabelListener(parentMode: GraphEditorInputMode): void {
+    parentMode.editLabelInputMode.addEventListener(
+      'query-label-adding',
+      (args: LabelEditingEventArgs) => {
+        // this will set a null label, because at this point there is not label yet
+        // but this is fine, because in this case we want to place the cursor after the first typed character
+        this.affectedLabel = args.label
+      }
+    )
+    parentMode.editLabelInputMode.addEventListener(
+      'query-label-editing',
+      (args: LabelEditingEventArgs) => {
+        if (args.label) {
+          this.affectedLabel = args.label
+        }
+      }
+    )
   }
 }

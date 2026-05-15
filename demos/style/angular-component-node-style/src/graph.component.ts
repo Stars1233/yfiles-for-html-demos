@@ -27,40 +27,44 @@
  **
  ***************************************************************************/
 import {
-  type AfterViewInit,
+  afterNextRender,
   ApplicationRef,
+  ChangeDetectionStrategy,
   Component,
   type ElementRef,
   EnvironmentInjector,
-  NgZone,
-  ViewChild
+  inject,
+  OnDestroy,
+  viewChild
 } from '@angular/core'
 import { GraphComponent, GraphEditorInputMode, Size } from '@yfiles/yfiles'
 import graphData from './assets/graph-data.json'
 import { AngularNodeComponentStyle } from './AngularComponentNodeStyle'
 import { NodeComponent } from './node.component'
 
-@Component({ selector: 'graph-component', templateUrl: './graph.component.html' })
-export class GraphComponentComponent implements AfterViewInit {
-  @ViewChild('graphComponentRef') graphComponentRef!: ElementRef
+@Component({
+  selector: 'graph-component',
+  templateUrl: './graph.component.html',
+  standalone: true,
+  imports: [],
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class GraphComponentComponent implements OnDestroy {
+  private graphComponentRef = viewChild.required<ElementRef>('graphComponentRef')
+  private environmentInjector = inject(EnvironmentInjector)
+  private applicationRef = inject(ApplicationRef)
 
   private graphComponent!: GraphComponent
 
-  constructor(
-    private zone: NgZone,
-    private environmentInjector: EnvironmentInjector,
-    private applicationRef: ApplicationRef
-  ) {}
-
-  ngAfterViewInit(): void {
-    // Create the GraphComponent outside the angular zone, so no change detection
-    // is initiated for listeners registered during the creation.
-    this.zone.runOutsideAngular(() => {
+  constructor() {
+    afterNextRender(() => {
+      // Create the GraphComponent.
+      // In zoneless mode, we don't need NgZone to run outside Angular.
       this.graphComponent = new GraphComponent()
       this.graphComponent.inputMode = new GraphEditorInputMode()
       const div = this.graphComponent.htmlElement
       div.style.height = '100%'
-      this.graphComponentRef.nativeElement.appendChild(div)
+      this.graphComponentRef().nativeElement.appendChild(div)
 
       const width = 300
       const height = 250
@@ -83,5 +87,9 @@ export class GraphComponentComponent implements AfterViewInit {
       }
       void this.graphComponent.fitGraphBounds()
     })
+  }
+
+  ngOnDestroy(): void {
+    this.graphComponent?.cleanUp()
   }
 }

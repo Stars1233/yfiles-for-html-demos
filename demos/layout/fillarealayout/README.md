@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Fill Area Layout Demo
+# Fill Area Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/fill-area-layout.webp" alt="demo-thumbnail" height="320"/>
 

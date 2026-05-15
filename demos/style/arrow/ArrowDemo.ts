@@ -40,12 +40,12 @@ import {
   Stroke
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import {
   type ColorSetName,
   colorSets,
   createDemoEdgeLabelStyle
 } from '@yfiles/demo-app/demo-styles'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Bootstraps the demo.

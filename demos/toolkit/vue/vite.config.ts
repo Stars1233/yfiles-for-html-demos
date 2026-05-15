@@ -30,25 +30,11 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import optimizer from '@yworks/optimizer/rollup-plugin'
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({}) => {
   return {
     base: './',
-    plugins: [
-      vue(),
-      mode === 'production'
-        ? optimizer({
-            shouldOptimize({ id }) {
-              // Make sure not to exclude the demo-app and demo-utils directories which are
-              // installed as dependencies but use yFiles API.
-              return (
-                id.includes('demo-app') || id.includes('demo-utils') || !id.includes('node_modules')
-              )
-            }
-          })
-        : undefined
-    ],
+    plugins: [vue()],
     resolve: {
       alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
       preserveSymlinks: true

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Clickable Style Decorator Demo
+# Clickable Style Decorator Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/clickable-style-decorator.webp" alt="demo-thumbnail" height="320"/>
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Deferred Cut Clipboard Demo
+# Deferred Cut Clipboard Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/clipboard-deferred-cut.webp" alt="demo-thumbnail" height="320"/>
 

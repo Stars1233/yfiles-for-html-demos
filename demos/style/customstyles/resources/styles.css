@@ -26,31 +26,8 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-.highlight-description {
-  animation-name: highlight-animation;
-  animation-duration: 3s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes highlight-animation {
-  0% {
-    background-color: #c8dce1;
-  }
-  20% {
-    background-color: #ff9800;
-  }
-  100% {
-    background-color: #c8dce1;
-  }
-}
-
 .hidden {
   display: none;
-}
-
-.demo-left-hidden #sample-selection--toolbar {
-  display: inline-block;
 }
 
 .demo-description__content {
@@ -58,45 +35,6 @@
 }
 
 #sample-description-container {
-  background-color: #c8dce1;
-  border-radius: 8px;
   padding: 16px;
   margin: 0 -8px;
-}
-
-#sample-selection--sidebar {
-  display: grid;
-  margin-bottom: 8px;
-  grid-template-columns: [start] 25px [mid] auto [end] 25px;
-  justify-items: center;
-}
-
-#sample-selection--sidebar button {
-  display: inline-block;
-  outline: none;
-  border: none;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-color: transparent;
-  height: 32px;
-  width: 32px;
-  border-radius: 50%;
-  line-height: 24px;
-  box-sizing: border-box;
-  padding: 0;
-}
-
-#sample-selection--sidebar button:disabled {
-  opacity: 0.5;
-}
-
-#sample-selection--sidebar button:not(:disabled):hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-}
-
-#sample-select--sidebar {
-  font-size: 14px;
-  width: 95%;
-  margin: 0 4px;
 }

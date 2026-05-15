@@ -26,7 +26,6 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { demoApp, graphComponent } from '@yfiles/demo-app/init'
 import {
   FilteredGraphWrapper,
   GraphEditorInputMode,
@@ -36,6 +35,7 @@ import {
   type INode
 } from '@yfiles/yfiles'
 import graphData from './graph-data.json'
+import { demoApp, graphComponent } from '@yfiles/demo-app/init'
 
 // Predicates to determine which items to hide
 const nodePredicate = (node: INode): boolean => !node.tag || !node.tag.filtered
@@ -50,7 +50,8 @@ const fullGraph = filteredGraph.wrappedGraph!
 graphComponent.graph = filteredGraph
 
 // --- UI Button Setup ---
-
+//Add separator
+demoApp.toolbar.addSeparator()
 // Add a button to filter selected items
 const filterItemsButton = demoApp.toolbar.addButton('Filter Items', () => {
   // Mark the selected items such that the predicates will filter them

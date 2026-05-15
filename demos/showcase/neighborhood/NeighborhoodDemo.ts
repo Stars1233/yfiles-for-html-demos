@@ -45,14 +45,14 @@ import { getBuildGraphCallback } from './build-graph-callback'
 import { enableFolding } from './enable-folding'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
+import { StringTemplateNodeStyle } from '@yfiles/demo-utils/template-styles/StringTemplateNodeStyle'
+import { registerTemplateStyleSerialization } from '@yfiles/demo-utils/template-styles/MarkupExtensions'
 import {
   addNavigationButtons,
   disableUIElements,
-  enableUIElements,
-  finishLoading
-} from '@yfiles/demo-app/demo-page'
-import { StringTemplateNodeStyle } from '@yfiles/demo-utils/template-styles/StringTemplateNodeStyle'
-import { registerTemplateStyleSerialization } from '@yfiles/demo-utils/template-styles/MarkupExtensions'
+  enableUIElements
+} from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -82,6 +82,7 @@ async function run(): Promise<void> {
 
 function createNeighborhoodView(graphComponent: GraphComponent): NeighborhoodView {
   const neighborhoodView = new NeighborhoodView('#neighborhood-graph-component')
+
   neighborhoodView.graphComponent = graphComponent
   configureNeighborhoodView(neighborhoodView, 'neighborhood', 1)
   return neighborhoodView
@@ -126,7 +127,7 @@ function initializeUI(neighborhoodView: NeighborhoodView): void {
   // initialize the sample graphs dropdown
   const sampleGraphSelect = document.querySelector<HTMLSelectElement>('#sample-graph-select')!
   sampleGraphSelect.addEventListener('change', readSampleGraph)
-  addNavigationButtons(sampleGraphSelect)
+  addNavigationButtons(sampleGraphSelect, 'Sample:', false)
   populateSelectElement(sampleGraphSelect, [
     'social-network',
     'computer-network',
@@ -141,7 +142,7 @@ function initializeUI(neighborhoodView: NeighborhoodView): void {
   neighborhoodModeSelect.addEventListener('change', () =>
     changeNeighborhoodType(neighborhoodView, neighborhoodModeSelect.value as NeighborhoodType)
   )
-  addNavigationButtons(neighborhoodModeSelect)
+  addNavigationButtons(neighborhoodModeSelect, 'Mode:')
   populateSelectElement(neighborhoodModeSelect, [
     'Neighbors',
     'Predecessors',
@@ -184,7 +185,6 @@ function changeNeighborhoodType(neighborhoodView: NeighborhoodView, type: Neighb
 
   // disable distance slider when the NeighborhoodView is in the FOLDER_CONTENTS mode
   neighborhoodDistanceSlider.disabled = type === 'folder-contents'
-
   neighborhoodView.update()
 }
 

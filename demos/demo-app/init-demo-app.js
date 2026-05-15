@@ -28,9 +28,10 @@
  ***************************************************************************/
 import { GraphComponent, LayoutExecutor, License } from '@yfiles/yfiles'
 import licenseData from '../../lib/license.json'
-import { finishLoading } from './demo-ui/finish-loading'
+import { finishLoading } from './modern/finish-loading'
 import { initializeBasicDemoStyles } from '@yfiles/demo-utils/sample-graph'
 import { DefaultApp } from './app/default-app'
+import { initializeSidePanel } from './initialize-ui'
 
 License.value = licenseData
 const graphComponent = new GraphComponent('#graphComponent')
@@ -38,22 +39,22 @@ graphComponent.maximumZoom = 5
 graphComponent.minimumZoom = 0.2
 initializeBasicDemoStyles(graphComponent.graph)
 
-const toolbarFactory = () => document.querySelector('.demo-page__toolbar')
+const toolbarFactory = () => document.querySelector('.toolbar')
 
 const sidebarFactory = () => {
-  const sidebarDiv = document.createElement('aside')
-  sidebarDiv.className = 'demo-main__sidebar'
-  document.querySelector('.demo-page__main').appendChild(sidebarDiv)
+  const sidebarPanel = document.createElement('div')
+  sidebarPanel.className = 'interaction-panel'
 
-  const sidebarContent = document.createElement('div')
-  sidebarContent.className = 'demo-sidebar__content'
-  sidebarDiv.appendChild(sidebarContent)
+  const descriptionPanel = document.querySelector('.description-panel')
+  if (descriptionPanel) {
+    descriptionPanel.before(sidebarPanel)
+  } else {
+    document.querySelector('.main-container')?.appendChild(sidebarPanel)
+  }
 
-  const propertyPanel = document.createElement('div')
-  propertyPanel.className = 'yplay__graph-sidebar'
-  sidebarContent.append(propertyPanel)
+  initializeSidePanel(document.querySelector('.interaction-panel'), 'Interaction')
 
-  return propertyPanel
+  return sidebarPanel
 }
 
 const demoApp = new DefaultApp(

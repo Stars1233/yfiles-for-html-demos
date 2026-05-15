@@ -44,9 +44,9 @@ import {
   distributeVertically
 } from './AlignmentUtils'
 import SampleData from './resources/SampleData'
-import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Bootstraps this demo.

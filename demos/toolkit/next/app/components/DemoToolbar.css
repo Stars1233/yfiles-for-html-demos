@@ -33,59 +33,32 @@
   gap: 4px;
 }
 .demo-toolbar button {
-  line-height: normal;
-  height: 24px;
-}
-.demo-toolbar button,
-.demo-toolbar > label {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   outline: none;
   border: none;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
   background-color: transparent;
-  height: 24px;
-  width: 24px;
-  line-height: 24px;
+  height: 2.25rem;
+  width: 2.25rem;
   box-sizing: border-box;
   padding: 0;
   cursor: pointer;
+  border-radius: 50%;
 }
-.demo-toolbar button:hover,
-.demo-toolbar > label:hover {
+.demo-toolbar button:hover {
   background-color: #dedede;
 }
-.demo-toggle-button {
-  display: none !important;
-}
-.demo-toggle-button:checked + label {
-  background-color: #dedede;
-}
-.demo-toggle-button:checked:hover + label {
+.demo-toolbar button:active {
   background-color: #b2b2b2;
 }
-.demo-toggle-button:disabled + label {
-  opacity: 0.5;
-  cursor: default;
-  background-color: transparent;
+
+.demo-toolbar .material-symbols-outlined {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #2a3e50;
 }
-.demo-toggle-button.labeled + label {
-  background-position-x: left;
-  width: inherit;
-  padding: 0 2px;
-  line-height: 24px;
-}
-.demo-toolbar button:active,
-.demo-toolbar > label:active,
-.demo-toolbar .demo-toggle-button:checked:active + label {
-  background-color: #b2b2b2;
-}
-.demo-toolbar button:disabled,
-.demo-toolbar > .demo-toggle-button:disabled + label {
-  opacity: 0.5;
-  cursor: default;
-  background-color: transparent;
-}
+
 .demo-separator {
   height: 20px;
   width: 1px;
@@ -94,28 +67,15 @@
   vertical-align: middle;
   margin: 0 2px;
 }
-.demo-icon-yIconReload {
-  background-image: url('/assets/reload-16.svg');
-}
-.demo-icon-yIconZoomOriginal {
-  background-image: url('/assets/zoom-original-16.svg');
-}
-.demo-icon-yIconZoomIn {
-  background-image: url('/assets/magnify-16.svg');
-}
-.demo-icon-yIconZoomOut {
-  background-image: url('/assets/demagnify-16.svg');
-}
-.demo-icon-yIconZoomFit {
-  background-image: url('/assets/fit-16.svg');
-}
 .search {
   margin-left: auto;
   line-height: 20px;
   padding: 4px 8px;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: normal;
-  width: 295px;
+  width: 250px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
 }
 
 .search:focus {

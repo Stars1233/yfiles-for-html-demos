@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { Component, Input } from '@angular/core'
+import { Component, input } from '@angular/core'
 import { Person } from '../person'
 
 function findBreak(text: string): number {
@@ -42,13 +42,8 @@ export const zoomDetail = 0.7
 
 @Component({ selector: 'g[node-component]', templateUrl: `./node.component.html` })
 export class NodeComponent {
-  @Input() public item: Person
-  @Input() public zoom: number
-
-  constructor() {
-    this.item = <Person>{}
-    this.zoom = 1
-  }
+  item = input.required<Person>()
+  zoom = input.required<number>()
 
   get zoomDetail() {
     return zoomDetail
@@ -59,20 +54,20 @@ export class NodeComponent {
   }
 
   get positionFirstLine() {
-    const pos = this.item.position
+    const pos = this.item().position
     return pos.substring(0, findBreak(pos))
   }
 
   get positionSecondLine() {
-    const pos = this.item.position
+    const pos = this.item().position
     return pos.substring(findBreak(pos) + 1)
   }
 
   get nameAbbreviation() {
-    if (this.zoom >= this.zoomIntermediate) {
-      return this.item.name
+    if (this.zoom() >= this.zoomIntermediate) {
+      return this.item().name
     }
-    const strings = this.item.name.split(' ')
+    const strings = this.item().name.split(' ')
     let converted = `${strings[0].substr(0, 1)}.`
     for (let i = 1; i < strings.length; i++) {
       converted += ` ${strings[i]}`

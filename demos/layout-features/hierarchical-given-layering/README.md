@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Given Layering
+# Hierarchical Layout with Given Layering Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-hierarchical-with-given-layering.webp" alt="demo-thumbnail" height="320"/>
 

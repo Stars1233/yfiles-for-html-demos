@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import { GraphComponent, License } from '@yfiles/yfiles'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { initializeSnapping } from './layout/initializeSnapping'
 import { initializeGrid } from './layout/initializeGrid'
 import { initializeToolbar } from './UI/initializeToolbar'
@@ -44,6 +43,7 @@ import { configureFlowNodePorts } from './FlowNode/FlowNodePort'
 import { configureFlowEdges } from './FlowEdge/FlowEdge'
 import { importGraphData, initializeJsonIo } from './ImportExportManager/ImportExportManager'
 import { SampleData } from './resources/weather-data'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run() {
   License.value = licenseData

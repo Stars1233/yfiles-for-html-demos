@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Graph Decorator - Application Features
+# Graph Decorator Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-decorator.webp" alt="demo-thumbnail" height="320"/>
 
@@ -17,7 +17,7 @@
 
 This demo shows how to use the graph decorator concept to customize the behavior and the visualization of graph items.
 
-As example, this demo decorates the nodes with a port candidate provider that is a combination of the following existing port candidate providers:
+As an example, this demo decorates the nodes with a port candidate provider that is a combination of the following existing port candidate providers:
 
 [IPortCandidateProvider.fromExistingPorts](https://docs.yworks.com/yfileshtml/api/IPortCandidateProvider#fromExistingPorts)
 

@@ -28,6 +28,7 @@
  ***************************************************************************/
 import {
   HierarchicalLayout,
+  HierarchicalLayoutData,
   LayoutGraph,
   LayoutGraphAlgorithms,
   LayoutGrid,
@@ -114,7 +115,7 @@ function runLayout(layoutGraph, centralNode) {
 
   // create the partition
   const layoutGrid = new LayoutGrid(2, 1, 0, 5, 30, 30)
-  const layoutData = layout.createLayoutData(layoutGraph)
+  const layoutData = new HierarchicalLayoutData()
   // assign the central node to its own row
   layoutData.layoutGridData.layoutGridCellDescriptors = (node) =>
     layoutGrid.createRowSpanDescriptor(node === centralNode ? 0 : 1)

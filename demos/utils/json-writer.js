@@ -78,7 +78,7 @@ function createNodeData(node, graph, nodeIdProvider, options) {
     nodeData.isGroup = true
   }
   if (graph.getParent(node) !== null) {
-    nodeData.parentId = nodeIdProvider(graph.getParent(node))
+    nodeData.parent = nodeIdProvider(graph.getParent(node))
   }
 
   if (options.nodeLayout) {

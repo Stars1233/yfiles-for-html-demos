@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Orthogonal Layout
+# Orthogonal Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-orthogonal.webp" alt="demo-thumbnail" height="320"/>
 
@@ -21,7 +21,7 @@ It highlights the configuration of various aspects, including:
 
 - Decreased [grid spacing](https://docs.yworks.com/yfileshtml/api/OrthogonalLayout#gridSpacing) for a more compact graph
 - [node margins](https://docs.yworks.com/yfileshtml/api/OrthogonalLayoutData#nodeMargins) to reserve space around specific node (with the "Insets" label)
-- [Directed edges](https://docs.yworks.com/yfileshtml/api/OrthogonalLayoutData#edgeDirectedness) (orange edges) with top-to-bottom orientation
+- [Oriented edges](https://docs.yworks.com/yfileshtml/api/OrthogonalLayoutData#edgeOrientation) (orange edges) with top-to-bottom orientation
 - [Tree substructures](https://docs.yworks.com/yfileshtml/api/OrthogonalLayout#treeSubstructureStyle) configured with a compact arrangement style and left-to-right orientation
 
 ## Demos

@@ -52,10 +52,10 @@ import {
   Size
 } from '@yfiles/yfiles'
 import { generateGradientColors, LayoutGridVisualCreator } from './LayoutGridVisualCreator'
-import GraphData from './resources/GraphData'
+import GraphData from './resources/graph-data.json'
 import { createDemoGroupStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Holds the GraphComponent.
@@ -182,13 +182,16 @@ function initializeGraph(graph) {
 function createSampleGraph(graph) {
   const graphBuilder = new GraphBuilder(graph)
   graphBuilder.createNodesSource({
-    data: GraphData.nodes,
+    data: GraphData.nodes.filter((node) => !node.isGroup),
     id: 'id',
-    parentId: 'group',
-    labels: ['label']
+    parentId: 'parent'
   })
-  const groupNodeCreator = graphBuilder.createGroupNodesSource(GraphData.groups, 'id').nodeCreator
-  groupNodeCreator.createLabelBinding(() => 'Group')
+  graphBuilder
+    .createGroupNodesSource(
+      GraphData.nodes.filter((node) => node.isGroup),
+      'id'
+    )
+    .nodeCreator.createLabelBinding(() => 'Group')
   graphBuilder.createEdgesSource(GraphData.edges, 'source', 'target')
 
   graphBuilder.buildGraph()

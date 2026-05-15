@@ -70,6 +70,14 @@
 
 .editable-node-style__input {
   border: none;
+  background-color: white;
+  color: var(--color-casper-blue-black);
+}
+input[type='date'] {
+  color: var(--color-casper-blue-black);
+}
+:root[data-theme='dark'] input[type='date']::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }
 
 .editable-node-style__submit {

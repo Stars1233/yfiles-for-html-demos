@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Z-Order Demo
+# Z-Order Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/z-order.webp" alt="demo-thumbnail" height="320"/>
 

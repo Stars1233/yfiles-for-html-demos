@@ -54,10 +54,12 @@ import { getBuildGraphCallback } from './build-graph-callback'
 import type { NeighborhoodType } from './NeighborhoodType'
 import { NeighborhoodView } from '../neighborhood/NeighborhoodView'
 import licenseData from '../../../lib/license.json'
-import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+
 import type { JSONGraph } from '@yfiles/demo-utils/json-model'
 import graphData from './resources/graph-data.json'
+import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run(): Promise<void> {
   License.value = licenseData
@@ -102,7 +104,7 @@ function buildGraph(graph: IGraph, graphData: JSONGraph): void {
   const nodesSource = graphBuilder.createNodesSource({
     data: graphData.nodeList,
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
 
   nodesSource.nodeCreator.styleProvider = (item): INodeStyle =>
@@ -280,7 +282,7 @@ function initializeUI(neighborhoodView: NeighborhoodView): void {
   neighborhoodTypeSelect.addEventListener('change', () =>
     changeNeighborhoodType(neighborhoodView, neighborhoodTypeSelect.value as NeighborhoodType)
   )
-  addNavigationButtons(neighborhoodTypeSelect)
+  addNavigationButtons(neighborhoodTypeSelect, 'Mode:')
   populateSelectElement(neighborhoodTypeSelect, [
     'Neighborhood',
     'Predecessors',

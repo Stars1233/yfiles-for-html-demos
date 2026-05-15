@@ -31,21 +31,21 @@ import type { GraphBuilder } from '@yfiles/yfiles'
 export function createGroupNodes(graphBuilder: GraphBuilder): void {
   const nodeData = [
     { id: 'item0' },
-    { id: 'item1', parentId: 'group0' },
-    { id: 'item2', parentId: 'group1' },
+    { id: 'item1', parent: 'group0' },
+    { id: 'item2', parent: 'group1' },
     { id: 'group0' },
-    { id: 'group1', parentId: 'group0' }
+    { id: 'group1', parent: 'group0' }
   ]
 
   graphBuilder.createNodesSource({
     data: nodeData.filter((item) => item.id.startsWith('item')),
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
 
   graphBuilder.createGroupNodesSource({
     data: nodeData.filter((item) => item.id.startsWith('group')),
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
 }

@@ -49,9 +49,6 @@ import {
   WebGLTextureRendering
 } from '@yfiles/yfiles'
 
-import plusIcon from '@yfiles/demo-app/icons/plus2-16.svg'
-import minusIcon from '@yfiles/demo-app/icons/minus2-16.svg'
-
 type ItemType = 'node' | 'edge' | 'label' | 'group'
 
 /*
@@ -345,7 +342,7 @@ function colorToHexString(c: Color): string {
 
 /**
  * Returns the hexadecimal representation of the given number.
- * This methods assumes a value in the range [0, 255].
+ * This method assumes a value in the range [0, 255].
  */
 function toHexString(value: number): string {
   return (value < 16 ? '0' : '') + value.toString(16)
@@ -373,15 +370,15 @@ function openSection(id: string): void {
 
 function toggleSectionButton(button: HTMLButtonElement) {
   button.classList.toggle('active')
-  const img = button.firstElementChild as HTMLImageElement
+  const p = button.firstElementChild as HTMLImageElement
   const section = button.nextElementSibling as HTMLDivElement
 
   if (section.style.display === 'block') {
     section.style.display = 'none'
-    img.src = plusIcon
+    p.innerHTML = 'add_circle'
   } else {
     section.style.display = 'block'
-    img.src = minusIcon
+    p.innerHTML = 'do_not_disturb_on'
   }
 }
 
@@ -440,7 +437,7 @@ function configureSectionHeaders() {
 }
 
 /**
- * Registers listeners for choosing one of stroke types 'None', 'Solid', and 'Dashed'.
+ * Registers listeners for choosing one of the stroke types 'None', 'Solid', and 'Dashed'.
  */
 function configureStrokeSections(): void {
   configureStrokeSectionsImpl('node')
@@ -450,7 +447,7 @@ function configureStrokeSections(): void {
 }
 
 /**
- * Registers listeners for choosing one of stroke types 'None', 'Solid', and 'Dashed' in the
+ * Registers listeners for choosing one of the stroke types 'None', 'Solid', and 'Dashed' in the
  * given item type section.
  */
 function configureStrokeSectionsImpl(type: ItemType): void {

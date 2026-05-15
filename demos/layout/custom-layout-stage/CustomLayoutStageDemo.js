@@ -45,7 +45,7 @@ import { AlignmentStage } from './AlignmentStage'
 import { ZigZagEdgesStage } from './ZigZagEdgesStage'
 import { createDemoNodeLabelStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The graph component in which the graph is displayed.

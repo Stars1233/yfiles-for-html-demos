@@ -29,7 +29,7 @@
 /**
  * An {@link IReshapeHandler} that resizes a node and creates space if it grows.
  */
-import { BaseClass, IReshapeHandler, MoveInputMode, WaitInputMode } from '@yfiles/yfiles'
+import { BaseClass, HandleInputMode, IReshapeHandler, WaitInputMode } from '@yfiles/yfiles'
 import { LayoutHelper } from './LayoutHelper'
 
 export class NonOverlapReshapeHandler extends BaseClass(IReshapeHandler) {
@@ -66,7 +66,7 @@ export class NonOverlapReshapeHandler extends BaseClass(IReshapeHandler) {
    * The node is upon to be resized.
    */
   initializeReshape(context) {
-    if (context.inputMode instanceof MoveInputMode) {
+    if (context.inputMode instanceof HandleInputMode) {
       this.layoutHelper = new LayoutHelper(context.canvasComponent, this.node)
       this.layoutHelper.initializeLayout()
     } else {

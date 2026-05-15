@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Viewport Limiter - Application Features
+# Viewport Limiter Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/viewport-limiter.webp" alt="demo-thumbnail" height="320"/>
 

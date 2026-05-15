@@ -41,12 +41,10 @@ type ToolTipItemType = INode | IEdge
  *
  * @param graphInputMode The graph component.
  * @param getToolTip Provides the tooltip content for a graph item.
- * @param tooltipParentElement The element to which the tooltips should be added. Defaults to body.
  */
 export function initializeToolTips(
   graphInputMode: GraphInputMode,
-  getToolTip: (item: ToolTipItemType) => HTMLElement | string | null,
-  tooltipParentElement?: HTMLElement | null
+  getToolTip: (item: ToolTipItemType) => HTMLElement | string | null
 ): void {
   graphInputMode.toolTipItems = toolTipItems
 
@@ -58,12 +56,4 @@ export function initializeToolTips(
 
   // slightly offset the tooltip so that it does not interfere with the mouse
   graphInputMode.toolTipInputMode.toolTipLocationOffset = new Point(2, 14)
-
-  // show the tooltip faster and for a longer time
-  graphInputMode.toolTipInputMode.duration = '10s'
-  graphInputMode.toolTipInputMode.delay = '0.5s'
-
-  if (tooltipParentElement) {
-    graphInputMode.toolTipInputMode.toolTipParentElement = tooltipParentElement
-  }
 }

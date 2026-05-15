@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Bezier Edge Style Demo
+# Bezier Edge Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/bezier-edge-style.webp" alt="demo-thumbnail" height="320"/>
 

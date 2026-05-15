@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Algorithms Without a View
+# Layout Without View Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/without-view.webp" alt="demo-thumbnail" height="320"/>
 

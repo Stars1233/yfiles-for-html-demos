@@ -55,7 +55,8 @@ import {
   updateTime
 } from './process-visualization/ProcessItemVisual'
 import licenseData from '../../../lib/license.json'
-import { checkWebGLSupport, finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { checkWebGLSupport } from '@yfiles/demo-app/modern/element-utils'
 import { prepareProcessVisualization } from './process-visualization/process-visualization'
 import { showItemOverlay } from './item-overlay'
 import eventLog from './data/events.json'
@@ -90,6 +91,7 @@ async function run(): Promise<void> {
   }
 
   graphComponent = new GraphComponent('#graphComponent')
+  graphComponent.contentMargins = [100, 40, 40, 40]
   const inputMode = new GraphViewerInputMode()
   inputMode.addEventListener('item-clicked', graphClickListener)
   inputMode.addEventListener('canvas-clicked', graphClickListener)
@@ -127,14 +129,17 @@ async function run(): Promise<void> {
     // animation has finished but infinite loop button is enabled -> automatic restart
     if (infiniteLoopEnabled && time === maxTime) {
       progressInput.classList.add('hide-thumb')
-      setSingleCssClass(animationControlButton, 'demo-icon-yIconPause')
+      animationControlButton.textContent = ''
+      animationControlButton.textContent = 'pause'
+
       // wait for animation's last tick to complete
       setTimeout(() => animationController.startAnimation(0))
     }
     // animation has finished -> no automatic restart, enable slider
     else if (time === maxTime) {
       progressInput.classList.remove('hide-thumb')
-      setSingleCssClass(animationControlButton, 'demo-icon-yIconReload')
+      animationControlButton.textContent = ''
+      animationControlButton.textContent = 'refresh'
     }
     // animation still running
     else {
@@ -157,7 +162,8 @@ async function run(): Promise<void> {
     updateProgressBarBackground()
     graphComponent.invalidate()
     if (Number(progressInput.value) < 100) {
-      setSingleCssClass(animationControlButton, 'demo-icon-yIconPlay')
+      animationControlButton.textContent = ''
+      animationControlButton.textContent = 'play_arrow'
     }
   })
 
@@ -165,13 +171,16 @@ async function run(): Promise<void> {
     if (animationController.running) {
       animationController.stopAnimation()
       progressInput.classList.remove('hide-thumb')
-      setSingleCssClass(animationControlButton, 'demo-icon-yIconPlay')
+      animationControlButton.textContent = ''
+      animationControlButton.textContent = 'play_arrow'
     } else if (Number(progressInput.value) === 100) {
       animationController.startAnimation(0)
-      setSingleCssClass(animationControlButton, 'demo-icon-yIconPause')
+      animationControlButton.textContent = ''
+      animationControlButton.textContent = 'pause'
     } else {
       animationController.startAnimation(sliderValueToTime(progressInput.value))
-      setSingleCssClass(animationControlButton, 'demo-icon-yIconPause')
+      animationControlButton.textContent = ''
+      animationControlButton.textContent = 'pause'
     }
   })
 
@@ -240,11 +249,6 @@ function graphClickListener(evt: ClickEventArgs) {
   const clickedEntries = processItemVisual.getEntriesAtLocation(evt.location)
   const viewCoordinates = graphComponent.worldToViewCoordinates([evt.location.x, evt.location.y])
   showItemOverlay(clickedEntries, viewCoordinates, caseData)
-}
-
-function setSingleCssClass(element: HTMLElement, cssClass: string): void {
-  element.classList.remove(...element.classList)
-  element.classList.add(cssClass)
 }
 
 run().then(finishLoading)

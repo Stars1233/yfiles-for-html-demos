@@ -1,0 +1,381 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+@import '@fontsource/poppins/600.css';
+@import '@fontsource/poppins/400.css';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+.node {
+  fill: #0b7189;
+  stroke: #042d37;
+}
+.node.highlight {
+  fill: #ff6c00;
+  stroke: #662b00;
+}
+.edge {
+  color: #042d37;
+}
+.edge.highlight {
+  color: #ff6c00;
+}
+.node-label .yfiles-label-background {
+  fill: #9dc6d0;
+}
+.node-label .yfiles-label-text {
+  fill: #042d37;
+}
+.node-label.highlight .yfiles-label-background {
+  fill: #ffc499;
+}
+.node-label.highlight .yfiles-label-text {
+  fill: #662b00;
+}
+.edge-label .yfiles-label-background {
+  fill: #9babaf;
+}
+.edge-label .yfiles-label-text {
+  fill: #042d37;
+}
+.edge-label.highlight .yfiles-label-background {
+  fill: #c2aa99;
+}
+.edge-label.highlight .yfiles-label-text {
+  fill: #662b00;
+}
+.group-node .yfiles-group-node-stroke {
+  stroke: #042d37;
+}
+.group-node .yfiles-group-node-tab {
+  fill: #0b7189;
+}
+.group-node .yfiles-icon-foreground {
+  fill: #9dc6d0;
+}
+.group-node .yfiles-icon-background {
+  fill: #9dc6d0;
+}
+.group-node .yfiles-group-node-content {
+  fill: #f3f4f6;
+}
+.group-node.highlight .yfiles-group-node-stroke {
+  stroke: #662b00;
+}
+.group-node.highlight .yfiles-group-node-tab {
+  fill: #ff6c00;
+}
+.group-node.highlight .yfiles-icon-foreground {
+  fill: #ffc499;
+}
+.group-node.highlight .yfiles-icon-background {
+  fill: #ffc499;
+}
+.group-node-label .yfiles-label-text {
+  fill: #9dc6d0;
+}
+.group-node-label.highlight .yfiles-label-text {
+  fill: #ffc499;
+}
+.yfiles-node-highlight-template,
+.yfiles-label-highlight-template,
+.yfiles-edge-highlight-template,
+.yfiles-port-highlight-template {
+  stroke: #0b7189;
+  stroke-linejoin: round;
+}
+.yfiles-context-menu button.icon {
+  font-family: var(--font-family), sans-serif;
+  font-size: 1rem;
+}
+.yplay__menu--slider-container {
+  display: inline-flex;
+  gap: 8px;
+}
+.yplay__message-host {
+  --foreground-color: #0b1014;
+  --background-color: rgba(255, 255, 255, 0.95);
+  pointer-events: none;
+  left: 0;
+  width: 100%;
+  position: absolute;
+  top: 10px;
+  display: grid;
+  place-items: start center;
+  z-index: 10;
+}
+.yplay__message-host > * {
+  pointer-events: auto;
+  color: var(--foreground-color);
+  background: var(--background-color);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 10px 14px;
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.98);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.yplay__message-host > *.yplay__message--visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.yplay__message-host .yplay__message--close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: var(--foreground-color);
+  cursor: pointer;
+  background: none;
+  font-size: 20px;
+  border: none;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+.yplay__message-host .yplay__message--close-button:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+.material-symbols-outlined {
+  font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+:root[data-theme='dark'] .material-symbols-outlined {
+  font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+button.icon,
+button .icon,
+a .icon,
+.icon-inline,
+button[data-command] {
+  font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+:root[data-theme='dark'] button.icon,
+:root[data-theme='dark'] button .icon,
+:root[data-theme='dark'] a .icon,
+:root[data-theme='dark'] .icon-inline,
+:root[data-theme='dark'] button[data-command] {
+  font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+.icon-inline {
+  font-size: inherit;
+  display: inline;
+  vertical-align: text-bottom;
+  line-height: unset;
+}
+html,
+body {
+  height: 100%;
+  background-color: #e8edf2;
+  font-family: 'poppins', sans-serif;
+  color: #2a3e50;
+  overflow: hidden;
+  margin: 0;
+}
+.demo-header {
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 70px;
+  font-size: 1.125rem;
+  font-weight: 400;
+  padding-left: 92px;
+  padding-right: 8px;
+  color: #2a3e50;
+  gap: 12px;
+}
+.demo-header a {
+  text-decoration: none;
+  color: inherit;
+}
+.demo-header .chevron-right {
+  mask: url('./resources/header-angle.svg') no-repeat center;
+  font-weight: 270;
+  background-color: #2a3e50;
+  height: 100%;
+  width: 30px;
+}
+.y-logo {
+  margin: 4px 4px 4px 16px;
+  height: 100%;
+  background-color: #2a3e50;
+  mask: url('./resources/ylogo-large.svg') no-repeat center;
+  width: 12rem;
+}
+.main-container {
+  height: calc(100% - 80px);
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 320px;
+  gap: 8px;
+  box-sizing: border-box;
+  min-height: 0;
+}
+.demo-page__main {
+  height: 100%;
+  border-radius: 16px;
+  background-color: #ffffff;
+  position: relative;
+}
+.demo-main__graph-component,
+.graph-component,
+#graphComponent {
+  height: 100%;
+}
+.demo-page__description {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  font-family: 'poppins', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  overflow: auto;
+}
+.demo-page__description h1 {
+  color: #00adcc;
+  margin-top: 0;
+  font-size: 160%;
+  font-weight: 600;
+}
+.demo-page__description a {
+  color: #2a3e50;
+}
+.demo-page__description a:hover {
+  text-decoration-thickness: 2px;
+}
+.demo-page__toolbar {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  height: 2.5rem;
+  width: fit-content;
+  padding: 0 12px;
+  box-sizing: border-box;
+  user-select: none;
+  background-color: #f2f5f8;
+  z-index: 10;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.1), 0 1px 5px rgba(0, 0, 0, 0.15);
+}
+.demo-page__toolbar button,
+.demo-page__toolbar > label {
+  display: inline-block;
+  outline: none;
+  border: none;
+  border-radius: 16px;
+  padding: 0;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-color: transparent;
+  height: 2rem;
+  width: 2rem;
+  line-height: 2rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  text-wrap: nowrap;
+  color: #1c2a35;
+  font-size: 1.5rem;
+  margin: 5px;
+}
+.demo-page__toolbar button:hover,
+.demo-page__toolbar > label:hover {
+  background-color: #aec3d5;
+}
+.demo-page__toolbar button:active,
+.demo-page__toolbar > label:active {
+  background-color: #38536b;
+  color: white;
+}
+.demo-page__toolbar button:disabled,
+.demo-page__toolbar > label:disabled {
+  opacity: 0.5;
+  cursor: default;
+  background-color: transparent;
+}
+.demo-separator {
+  height: 20px;
+  width: 1px;
+  background: #38536b;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 10px;
+}
+.demo-page__toolbar button.labeled {
+  font-size: 0.8rem;
+  width: fit-content;
+  height: 1.75rem;
+  border: none;
+  border-radius: 16px;
+  background-color: #aec3d5;
+  color: inherit;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  background-position: 50% 50%;
+}
+.demo-page__toolbar button.labeled:hover {
+  background-color: #0000000f;
+}
+.demo-page__toolbar button.labeled:active {
+  background-color: #0000001f;
+}
+.demo-page__toolbar button.labeled[class*='demo-icon'] {
+  padding-left: 1.5rem;
+  background-position-x: 2px;
+}

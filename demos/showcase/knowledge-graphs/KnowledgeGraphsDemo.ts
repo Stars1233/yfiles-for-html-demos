@@ -54,7 +54,6 @@ import {
 } from '@yfiles/yfiles'
 
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-ui/finish-loading'
 import data from './resources/data.json'
 import { updateEdgePorts, updateGraphStructure } from './analysis/handle-problematic-data'
 import { type EdgeData, getEdgeTag, getNodeTag, type NodeData } from './types'
@@ -69,7 +68,7 @@ import {
 } from './styles/graph-styles'
 import { applyClustering, applyPageRankAlgorithm } from './analysis/clustering'
 import { runLayout } from './layout'
-import { showLoadingIndicator } from '@yfiles/demo-app/demo-ui/element-utils'
+
 import { configureHighlighting } from './highlighting'
 import { configureContentMenu } from './context-menu'
 import { initializeDescriptionPanel } from './description-panel'
@@ -79,11 +78,6 @@ import {
   updateGraphInformation
 } from './filter-panel'
 import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
-import {
-  configureLevelOfDetailRendering,
-  edgeLabelThreshold,
-  toggleLabelVisibility
-} from './label-level-of-detail-rendering'
 import { GraphSearch } from '@yfiles/demo-utils/GraphSearch'
 import {
   createNeighborhoodView,
@@ -91,6 +85,8 @@ import {
   toggleNeighborhoodPanel
 } from './neighborhood-panel'
 import { resetBeaconAnimation } from './beacon-animation'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
 
 let graphComponent: GraphComponent
 let neighborhoodComponent: GraphComponent
@@ -113,7 +109,7 @@ async function run(): Promise<void> {
   })
 
   setTimeout(async () => {
-    await showLoadingIndicator(true)
+    await showLoadingIndicator(true, 'Loading the graph. This may take a while...')
     await initializeGraphData(graphComponent)
     initializeFilterPanel(graphComponent, () => filter(graphComponent))
     initializeDescriptionPanel(graphComponent, async () => {
@@ -123,7 +119,6 @@ async function run(): Promise<void> {
   }, 0)
 
   initializeGraph()
-  configureLevelOfDetailRendering(graphComponent)
   configureHighlighting(graphComponent)
 
   configureContentMenu(graphComponent)
@@ -150,6 +145,8 @@ async function initializeGraphData(graphComponent: GraphComponent): Promise<void
     (node) => getNodeTag(node).visible ?? true,
     (edge) => getEdgeTag(edge).visible ?? true
   )
+  // Add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 
   // Show the number of nodes and edges in the UI
   updateGraphInformation(graphComponent.graph)
@@ -365,7 +362,7 @@ function updateGraphStyles(): void {
     graph.addLabel({
       owner: node,
       text: getNodeTag(node).label,
-      layoutParameter: new ExteriorNodeLabelModel({ margins: 20 }).createParameter(
+      layoutParameter: new ExteriorNodeLabelModel({ margins: 10 }).createParameter(
         ExteriorNodeLabelModelPosition.BOTTOM
       ),
       style: getTextLabelStyle(node),
@@ -441,14 +438,6 @@ async function applyLayout(
   setUIDisabled(true)
   if (firstLayout) {
     graphComponent.htmlElement.style.opacity = '0'
-  }
-
-  const graph = graphComponent.graph
-  // Switch label visibility so that labels are present during the layout calculation
-  const shouldShowLabels =
-    graphComponent.zoom < edgeLabelThreshold || layoutStyle === 'neighborhood'
-  if (shouldShowLabels) {
-    toggleLabelVisibility(graph, graphComponent.graph.labels, true)
   }
 
   let style = 'organic'

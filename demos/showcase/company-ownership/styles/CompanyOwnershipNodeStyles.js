@@ -39,23 +39,6 @@ import { CustomShapeNodeStyle } from './CustomShapeNodeStyle'
 import { colorSets } from '@yfiles/demo-app/demo-colors'
 import { tableNodeStyle } from './TableNodeStyle'
 
-// maps each node type with an enum value
-const nodeTypeMap = {
-  Corporation: 'corporation',
-  CTB: 'ctb',
-  Partnership: 'partnership',
-  RCTB: 'rctb',
-  Branch: 'branch',
-  Disregarded: 'disregarded',
-  'Dual Resident': 'dual-resident',
-  Multiple: 'multiple',
-  Trust: 'trust',
-  Individual: 'individual',
-  'Third Party': 'third-party',
-  PE_Risk: 'pe-risk',
-  Trapezoid: 'trapezoid'
-}
-
 // maps each node type with a color palette
 export const predefinedColorSets = new Map([
   ['Corporation', 'demo-palette-51'],
@@ -83,7 +66,7 @@ export function getNodeStyle(item, useShapeNodeStyle) {
   const colorSet = colorSets[predefinedColorSets.get(nodeType) || 'demo-palette-51']
   return useShapeNodeStyle
     ? new CustomShapeNodeStyle(
-        nodeTypeMap[nodeType],
+        nodeType,
         Stroke.from(colorSet.fill),
         Fill.from(colorSet.nodeLabelFill)
       )

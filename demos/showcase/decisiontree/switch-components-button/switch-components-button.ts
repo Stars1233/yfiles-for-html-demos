@@ -70,6 +70,7 @@ function showEditorComponent(graphComponent: GraphComponent): void {
   document.getElementById('decision-tree-toolbar')!.classList.add('hidden')
 
   switchComponentsButton.classList.remove('decision-tree')
+  switchComponentsButton.innerText = 'play_arrow'
 
   // ensure the model graph is completely visible
   void graphComponent.fitGraphBounds()
@@ -85,6 +86,7 @@ function showDecisionTreeComponent(graphComponent: GraphComponent): void {
   document.getElementById('decision-tree-toolbar')!.classList.remove('hidden')
 
   switchComponentsButton.classList.add('decision-tree')
+  switchComponentsButton.innerText = 'settings'
 
   showDecisionTree(graphComponent.graph)
 }

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# List Node Demo
+# List Node Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/list-node.webp" alt="demo-thumbnail" height="320"/>
 

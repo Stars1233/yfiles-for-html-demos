@@ -53,8 +53,12 @@ export class PropertiesView {
     heading.classList.add('heading')
     this.element.appendChild(heading)
     // Display the individual properties
+    const tableWrapper = document.createElement('div')
+    tableWrapper.className = 'table-wrapper'
+
     const table = document.createElement('table')
-    this.element.appendChild(table)
+    tableWrapper.appendChild(table)
+    this.element.appendChild(tableWrapper)
 
     let tr = document.createElement('tr')
     table.appendChild(tr)

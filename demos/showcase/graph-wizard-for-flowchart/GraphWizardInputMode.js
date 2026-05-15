@@ -359,7 +359,6 @@ export class GraphWizardInputMode extends MultiplexingInputMode {
    */
   clearLegend(legendDiv, visible) {
     legendDiv.innerHTML = ''
-    legendDiv.parentElement.parentElement.hidden = !visible
   }
 
   /**
@@ -618,7 +617,7 @@ export class GraphWizardInputMode extends MultiplexingInputMode {
         this,
         button.owner,
         button.tag,
-        this.parentInputModeContext.canvasComponent.lastInputEvent
+        this.parentInputModeContext.canvasComponent.lastPointerEvent
       )
       this.resolvePickerSelection(actionSuccessful == undefined || actionSuccessful)
     }
@@ -696,7 +695,7 @@ export class GraphWizardInputMode extends MultiplexingInputMode {
         action,
         button.owner,
         button.tag,
-        this.parentInputModeContext.canvasComponent.lastInputEvent
+        this.parentInputModeContext.canvasComponent.lastPointerEvent
       )
   }
 

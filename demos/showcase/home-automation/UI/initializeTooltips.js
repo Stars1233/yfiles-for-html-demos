@@ -35,9 +35,8 @@ export function initializeTooltips(graphComponent) {
 
   const toolTipInputMode = inputMode.toolTipInputMode
   toolTipInputMode.toolTipLocationOffset = new Point(10, 10)
-  // Increase time it takes for tooltip to appear and the time before it disappears
+  // Shorten the time it takes for a tooltip to appear
   toolTipInputMode.delay = TimeSpan.fromMilliseconds(300)
-  toolTipInputMode.duration = TimeSpan.fromSeconds(20)
 
   inputMode.toolTipItems = GraphItemTypes.NODE
   inputMode.addEventListener('query-item-tool-tip', (eventArgs) => {

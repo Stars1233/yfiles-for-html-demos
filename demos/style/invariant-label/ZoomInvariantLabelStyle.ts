@@ -472,6 +472,10 @@ class DummyContext extends BaseClass(IRenderContext) {
     return this.innerContext.lookup(type)
   }
 
+  setConnectedCallback(callback: () => void): void {
+    this.innerContext.setConnectedCallback(callback)
+  }
+
   /**
    * Multiplies the given matrix with the inverse transform of the invariant label style.
    */

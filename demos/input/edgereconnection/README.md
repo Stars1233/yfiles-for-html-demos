@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Edge Reconnection Port Candidate Provider Demo
+# Edge Reconnection Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/edge-reconnection.webp" alt="demo-thumbnail" height="320"/>
 

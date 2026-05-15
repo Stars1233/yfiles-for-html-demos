@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Position Handler Demo
+# Position Handler Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/position-handler.webp" alt="demo-thumbnail" height="320"/>
 

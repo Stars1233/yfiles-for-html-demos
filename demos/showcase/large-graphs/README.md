@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Large Graphs Demo
+# Large Graphs Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/large-graphs.webp" alt="demo-thumbnail" height="320"/>
 
@@ -43,16 +43,6 @@ With SVG rendering, the nodes show additional information depending on the zoom 
 
 - Zoom in and out of the graph and observe the rendering method switch at the zoom threshold.
 - Keep on zooming in above the zoom threshold and observe the display of additional information in the nodes.
-
-## Graph information
-
-Number of nodes:  
-Number of edges:
-
-## Display information
-
-Rendering technique:  
-Zoom level: **%**
 
 ## Troubleshooting
 

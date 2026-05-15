@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Border-Aligned Label Model
+# Border-Aligned Label Model Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/border-aligned-label-model.webp" alt="demo-thumbnail" height="320"/>
 

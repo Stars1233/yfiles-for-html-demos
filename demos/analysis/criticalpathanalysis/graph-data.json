@@ -1,0 +1,92 @@
+{
+  "nodes": [
+    { "id": 0, "layout": { "x": 0, "y": 0, "width": 30, "height": 30 }, "labels": "START", "tag": { "duration": 1 } },
+    {
+      "id": 1,
+      "layout": { "x": 0, "y": 0, "width": 50, "height": 30 },
+      "labels": "Excavating",
+      "tag": { "duration": 10 }
+    },
+    {
+      "id": 2,
+      "layout": { "x": 0, "y": 0, "width": 90, "height": 30 },
+      "labels": "Foundation",
+      "tag": { "duration": 30 }
+    },
+    {
+      "id": 3,
+      "layout": { "x": 0, "y": 0, "width": 90, "height": 30 },
+      "labels": "Framing",
+      "tag": { "duration": 30 }
+    },
+    {
+      "id": 4,
+      "layout": { "x": 0, "y": 0, "width": 70, "height": 30 },
+      "labels": "Plumbing",
+      "tag": { "duration": 20 }
+    },
+    {
+      "id": 5,
+      "layout": { "x": 0, "y": 0, "width": 60, "height": 30 },
+      "labels": "Brickwork",
+      "tag": { "duration": 15 }
+    },
+    {
+      "id": 6,
+      "layout": { "x": 0, "y": 0, "width": 36, "height": 30 },
+      "labels": "Windows",
+      "tag": { "duration": 3 }
+    },
+    { "id": 7, "layout": { "x": 0, "y": 0, "width": 90, "height": 30 }, "labels": "Roof", "tag": { "duration": 30 } },
+    {
+      "id": 8,
+      "layout": { "x": 0, "y": 0, "width": 70, "height": 30 },
+      "labels": "Flooring",
+      "tag": { "duration": 20 }
+    },
+    {
+      "id": 9,
+      "layout": { "x": 0, "y": 0, "width": 60, "height": 30 },
+      "labels": "Electrical",
+      "tag": { "duration": 15 }
+    },
+    {
+      "id": 10,
+      "layout": { "x": 0, "y": 0, "width": 46, "height": 30 },
+      "labels": "Kitchen/Bathroom",
+      "tag": { "duration": 8 }
+    },
+    {
+      "id": 11,
+      "layout": { "x": 0, "y": 0, "width": 70, "height": 30 },
+      "labels": "Painting",
+      "tag": { "duration": 20 }
+    },
+    {
+      "id": 12,
+      "layout": { "x": 0, "y": 0, "width": 70, "height": 30 },
+      "labels": "Landscape",
+      "tag": { "duration": 20 }
+    },
+    { "id": 13, "layout": { "x": 0, "y": 0, "width": 30, "height": 30 }, "labels": "FINISH", "tag": { "duration": 0 } }
+  ],
+  "edges": [
+    { "source": 0, "target": 1, "labels": "0d", "tag": { "transitionDuration": 0 } },
+    { "source": 1, "target": 2, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 2, "target": 3, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 3, "target": 4, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 3, "target": 5, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 4, "target": 8, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 5, "target": 6, "labels": "1d", "tag": { "transitionDuration": 1 } },
+    { "source": 3, "target": 7, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 7, "target": 8, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 6, "target": 8, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 9, "target": 10, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 7, "target": 9, "labels": "2d", "tag": { "transitionDuration": 1 } },
+    { "source": 7, "target": 12, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 8, "target": 10, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 10, "target": 11, "labels": "2d", "tag": { "transitionDuration": 2 } },
+    { "source": 11, "target": 13, "labels": "5d", "tag": { "transitionDuration": 5 } },
+    { "source": 12, "target": 13, "labels": "6d", "tag": { "transitionDuration": 6 } }
+  ]
+}

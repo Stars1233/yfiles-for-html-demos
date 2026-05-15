@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Graph Drag and Drop Demo
+# Graph Drag and Drop Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-drag-and-drop.webp" alt="demo-thumbnail" height="320"/>
 
@@ -28,10 +28,3 @@ This demo contains a custom implementation of a [DropInputMode](https://docs.ywo
 - Drop a graph over a group node to place it inside the group.
 - Enable **Folders As Parents** and drop a graph over a folder node to place it inside the folder.
 - Switch off the **Preview** or the **Snapping** features.
-
-## Related Demos
-
-- [Drag and Drop Demo](../../input/draganddrop/)
-- [Drag From Component Demo](../../input/drag-from-component/)
-- [Custom Drag and Drop Demo](../../input/custom-drag-and-drop/)
-- [Component Drag and Drop Demo](../../input/componentdraganddrop/)

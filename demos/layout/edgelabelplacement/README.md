@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Edge Label Placement Demo
+# Edge Label Placement Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/edge-label-placement.webp" alt="demo-thumbnail" height="320"/>
 

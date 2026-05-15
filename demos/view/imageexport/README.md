@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Image Export Demo
+# Image Export Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/image-export.webp" alt="demo-thumbnail" height="320"/>
 
@@ -32,4 +32,4 @@ The demo shows an approach that completely runs in the client's browser, as well
 
 The server-side export is a minimal example of how to export the graph using an external service hosted on a server. It shows the export via a Node.js express server using [headless Chrome/Puppeteer](https://developers.google.com/web/tools/puppeteer/).
 
-The server-side export button will be enabled, when the Node.js server is alive on loading time of the demo. To run the server, see the respective readme in [`./node-server/`](node-server/README.html).
+The server-side export button will be enabled, when the Node.js server is alive on loading time of the demo. To run the server, see the respective readme in [`./node-server/`](node-server/README.html). Note that this only works locally from your package, for the online version this functionality is disabled.

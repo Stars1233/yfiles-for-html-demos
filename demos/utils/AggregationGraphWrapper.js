@@ -1994,6 +1994,7 @@ class AggregationBend extends BaseClass(IBend) {
     this.$owner = owner
     this.$location = location
     this.$graph = graph
+    this.$tag = null
   }
 
   lookup(type) {

@@ -28,36 +28,31 @@
  ***************************************************************************/
 .node-container.demo-blue {
   border: 2px solid var(--demo-blue);
-  color: var(--demo-blue-dark);
   box-shadow: 2px 2px 10px 0 rgb(from var(--demo-blue-dark) r g b / 0.3);
 }
 .node-container.ultra-violet {
   border: 2px solid var(--ultra-violet);
-  color: var(--ultra-violet-dark);
   box-shadow: 2px 2px 10px 0 rgb(from var(--ultra-violet-dark) r g b / 0.3);
 }
 .node-container.vista-blue {
   border: 2px solid var(--vista-blue);
-  color: var(--vista-blue-dark);
   box-shadow: 2px 2px 10px 0 rgb(from var(--vista-blue-dark) r g b / 0.3);
 }
 .node-container.baby-blue {
   border: 2px solid var(--baby-blue);
-  color: var(--baby-blue-dark);
   box-shadow: 2px 2px 10px 0 rgb(from var(--baby-blue-dark) r g b / 0.3);
 }
 .node-container.ash-blue {
   border: 2px solid var(--ash-blue);
-  color: var(--ash-blue-dark);
   box-shadow: 2px 2px 10px 0 rgb(from var(--ash-blue-dark) r g b / 0.3);
 }
 .node-container.sage-green {
   border: 2px solid var(--sage-green);
-  color: var(--sage-green-dark);
   box-shadow: 2px 2px 10px 0 rgb(from var(--sage-green-dark) r g b / 0.3);
 }
 
 .node-container {
+  color: var(--text-color);
   box-sizing: border-box;
   border-radius: 7px;
 }
@@ -67,6 +62,7 @@
   width: 100%;
 }
 .node-container .node-header {
+  color: var(--demo-blue-dark);
   border-radius: 5px 5px 0 0;
   margin: -1px;
   display: flex;
@@ -91,7 +87,6 @@
   background-color: var(--sage-green);
 }
 .node-container .node-icon {
-  font-family: 'Material Icons Outlined', sans-serif;
   height: 50px;
   width: 55px;
   padding: 15px 0 0 15px;
@@ -154,6 +149,7 @@
 }
 .node-container .node-properties .node-property-container:hover {
   background-color: var(--saffron-yellow);
+  color: var(--demo-blue-dark);
 }
 .node-container .node-properties .node-property-container:hover .node-button {
   opacity: 1;
@@ -173,7 +169,6 @@
 }
 .node-container .node-button {
   opacity: 0;
-  font-family: 'Material Icons Outlined', sans-serif;
   margin-right: 3px;
   padding: 1px;
   border-radius: 50%;

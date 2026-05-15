@@ -27,10 +27,10 @@
  **
  ***************************************************************************/
 import {
-  AfterViewInit,
+  afterNextRender,
   Component,
   ElementRef,
-  NgZone,
+  OnDestroy,
   ViewChild,
   ViewContainerRef
 } from '@angular/core'
@@ -43,10 +43,8 @@ import {
   IEdge,
   IModelItem,
   INode,
-  Point,
   type QueryItemToolTipEventArgs,
-  Rect,
-  TimeSpan
+  Rect
 } from '@yfiles/yfiles'
 import { TooltipComponent } from '../tooltip/tooltip.component'
 import { Person } from '../person'
@@ -55,10 +53,10 @@ import { ContextMenuComponent } from '../context-menu/context-menu.component'
 @Component({
   selector: 'graph-component',
   templateUrl: './graph-component.component.html',
-  styleUrls: ['./graph-component.component.css'],
+  styleUrl: './graph-component.component.css',
   imports: [ContextMenuComponent]
 })
-export class GraphComponentComponent implements AfterViewInit {
+export class GraphComponentComponent implements OnDestroy {
   @ViewChild('graphComponentRef') graphComponentRef!: ElementRef
 
   contextMenuActions: { title: string; action: () => void }[] = []
@@ -66,19 +64,22 @@ export class GraphComponentComponent implements AfterViewInit {
 
   constructor(
     private graphComponentService: GraphComponentService,
-    private viewContainerRef: ViewContainerRef,
-    private zone: NgZone
-  ) {}
+    private viewContainerRef: ViewContainerRef
+  ) {
+    afterNextRender(() => {
+      // add the GraphComponent to the div of this component
+      this.graphComponent = this.graphComponentService.getGraphComponent()
+      const div = this.graphComponent.htmlElement
+      div.style.height = '100%'
+      this.graphComponentRef.nativeElement.appendChild(div)
 
-  ngAfterViewInit(): void {
-    // add the GraphComponent to the div of this component
-    this.graphComponent = this.graphComponentService.getGraphComponent()
-    const div = this.graphComponent.htmlElement
-    div.style.height = '100%'
-    this.graphComponentRef.nativeElement.appendChild(div)
+      // register tooltips on nodes and edges
+      this.initializeTooltips()
+    })
+  }
 
-    // register tooltips on nodes and edges
-    this.initializeTooltips()
+  ngOnDestroy(): void {
+    this.graphComponent?.cleanUp()
   }
 
   onPopulateContextMenu(item: IModelItem) {
@@ -117,12 +118,6 @@ export class GraphComponentComponent implements AfterViewInit {
     // show tooltips only for nodes and edges
     inputMode.toolTipItems = GraphItemTypes.NODE | GraphItemTypes.EDGE
 
-    // Customize the tooltip's behavior to our liking.
-    const toolTipInputMode = inputMode.toolTipInputMode
-    toolTipInputMode.toolTipLocationOffset = new Point(15, 15)
-    toolTipInputMode.delay = TimeSpan.fromMilliseconds(500)
-    toolTipInputMode.duration = TimeSpan.fromSeconds(5)
-
     // Register a listener for when a tooltip should be shown.
     inputMode.addEventListener('query-item-tool-tip', (evt) => {
       if (evt.handled) {
@@ -157,13 +152,9 @@ export class GraphComponentComponent implements AfterViewInit {
     // Retrieve the factory for TooltipComponents
     const tooltipRef = this.viewContainerRef.createComponent(TooltipComponent)
 
-    // Assign the NodeComponent's item input property
-    this.zone.run(() => {
-      // Run in zone to notify Angular of events in the yFiles component that should trigger Angular functionality.
-      // See https://docs.yworks.com/yfileshtml/#/kb/article/848/Improving_performance_of_large_Angular_applications
-      tooltipRef.instance.title = tooltipTitle
-      tooltipRef.instance.content = tooltipContent
-    })
+    // Assign the tooltip properties
+    tooltipRef.setInput('title', tooltipTitle)
+    tooltipRef.setInput('content', tooltipContent)
 
     return tooltipRef.instance.elementRef
   }

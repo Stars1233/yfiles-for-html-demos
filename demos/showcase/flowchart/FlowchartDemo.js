@@ -44,7 +44,7 @@ import {
 import { FlowchartNodeStyle } from './style/FlowchartStyle'
 import licenseData from '../../../lib/license.json'
 import { configureTwoPointerPanning } from '@yfiles/demo-utils/configure-two-pointer-panning'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import {
   enableUI,
   getLayoutOptions,

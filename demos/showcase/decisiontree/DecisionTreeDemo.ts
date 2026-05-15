@@ -26,9 +26,9 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { GraphComponent, License } from '@yfiles/yfiles'
+import { GraphComponent, Insets, License } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { initializeEditorComponent, readSampleGraph } from './editor-component/editor-component'
 import {
   initializeDecisionTreeComponent,
@@ -42,7 +42,6 @@ async function run(): Promise<void> {
   // initialize the editor graph component
   // this component contains the input graph which is the model for the decision tree
   const graphComponent = new GraphComponent('#graphComponent')
-
   // initialize both components and the button that toggles between them
   initializeSwitchButton(graphComponent)
   initializeEditorComponent(graphComponent)

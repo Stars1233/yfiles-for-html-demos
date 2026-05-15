@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Lasso Selection
+# Lasso Selection Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/lasso-selection.webp" alt="demo-thumbnail" height="320"/>
 

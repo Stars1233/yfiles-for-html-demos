@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Level of Detail Style Demo
+# Level of Detail Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/level-of-detail-style.webp" alt="demo-thumbnail" height="320"/>
 

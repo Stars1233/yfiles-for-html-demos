@@ -41,8 +41,8 @@ import {
 import { StructureView } from './StructureView'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
-import { sampleData } from './resources/structure-view-data'
+import graphData from './resources/structure-view-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 // Ensure that the LayoutExecutor class is not removed by build optimizers
 // It is needed for the 'applyLayoutAnimated' method in this demo.
@@ -59,10 +59,14 @@ async function run(): Promise<void> {
   initDemoStyles(graph, { foldingEnabled: true })
   // ... and create a sample graph
   createGraph(graph)
-  graph.undoEngineEnabled = true
 
   // enable collapsing/expanding group nodes
-  enableFolding(graphComponent, graph)
+  const foldingView = new FoldingManager(graph).createFoldingView()
+  graphComponent.graph = foldingView.graph
+
+  // enable undo/redo functionality
+  graph.undoEngineEnabled = true
+  foldingView.enqueueNavigationalUndoUnits = true
 
   // enable interactive editing
   graphComponent.inputMode = createEditorInputMode()
@@ -74,16 +78,6 @@ async function run(): Promise<void> {
   const structureView = createStructureView(graphComponent)
 
   initializeUI(structureView)
-}
-
-/**
- * Creates a folding view and sets its graph as the graph component's graph.
- */
-function enableFolding(graphComponent: GraphComponent, masterGraph: IGraph): void {
-  const view = new FoldingManager(masterGraph).createFoldingView()
-  view.enqueueNavigationalUndoUnits = true
-
-  graphComponent.graph = view.graph
 }
 
 /**
@@ -116,23 +110,23 @@ function createGraph(graph: IGraph): void {
 
   // create nodes
   graphBuilder.createNodesSource({
-    data: sampleData.nodes.filter((item) => !item.id.startsWith('Group')),
+    data: graphData.nodes.filter((item) => !item.id.startsWith('Group')),
     id: (item) => item.id,
-    parentId: (item) => item.parentId,
+    parentId: (item) => item.parent,
     labels: ['id']
   })
 
   // create group nodes
   graphBuilder.createGroupNodesSource({
-    data: sampleData.nodes.filter((item) => item.id.startsWith('Group')),
+    data: graphData.nodes.filter((item) => item.id.startsWith('Group')),
     id: (item) => item.id,
-    parentId: (item) => item.parentId,
+    parentId: (item) => item.parent,
     labels: ['id']
   })
 
   // create edges
   graphBuilder.createEdgesSource({
-    data: sampleData.edges,
+    data: graphData.edges,
     sourceId: (item) => item.from,
     targetId: (item) => item.to
   })

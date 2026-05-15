@@ -80,6 +80,8 @@ export class DefaultMenu implements Menu {
     label.classList.add('yplay__menu--button', 'yplay__menu--toggle-button', 'option-label')
     label.innerText = title
     input.checked = initialState
+    label.append(input)
+    this.container.append(label)
     this.updateToggleButtonState(label, initialState)
     input.addEventListener('click', () => {
       const checked = input.checked
@@ -87,8 +89,6 @@ export class DefaultMenu implements Menu {
       callback?.(checked)
     })
 
-    label.append(input)
-    this.container.append(label)
     return input
   }
 
@@ -99,17 +99,16 @@ export class DefaultMenu implements Menu {
     initialValue?: T
   ): HTMLSelectElement {
     const id = `select-${idCounter++}`
-    if (title) {
-      const labelElement = document.createElement('label')
-      labelElement.innerText = title
-      labelElement.htmlFor = id
-      labelElement.classList.add('yplay__menu--select-label', 'option-label')
-      this.container.append(labelElement)
-    }
-
     const selectElement = document.createElement('select')
     selectElement.id = id
     selectElement.classList.add('option-element')
+    let optionGroupElement: HTMLOptGroupElement | undefined
+    if (title) {
+      optionGroupElement = document.createElement('optgroup')
+      optionGroupElement.label = title
+      optionGroupElement.classList.add('yplay__menu--select-label', 'option-label')
+      selectElement.append(optionGroupElement)
+    }
     const entries = options.map((option, index) => {
       const optionElement = document.createElement('option')
       let value: T
@@ -121,7 +120,11 @@ export class DefaultMenu implements Menu {
         optionElement.innerText = String(option)
       }
       optionElement.value = String(index)
-      selectElement.append(optionElement)
+      if (optionGroupElement) {
+        optionGroupElement.append(optionElement)
+      } else {
+        selectElement.append(optionElement)
+      }
       if (typeof initialValue !== 'undefined' && initialValue === value) {
         optionElement.selected = true
         selectElement.value = optionElement.value
@@ -161,17 +164,8 @@ export class DefaultMenu implements Menu {
       step = options.step ?? 1
     }
 
-    if (title) {
-      const labelElement = document.createElement('label')
-      labelElement.innerText = title
-      labelElement.htmlFor = id
-      labelElement.classList.add('yplay__menu--select-label', 'option-label')
-      this.container.append(labelElement)
-    }
-
     const sliderContainer = document.createElement('div')
     sliderContainer.classList.add('yplay__menu--slider-container', 'option-element')
-    this.container.append(sliderContainer)
 
     const slider = document.createElement('input')
     slider.id = id
@@ -197,7 +191,24 @@ export class DefaultMenu implements Menu {
       sliderContainer.append(valueLabel)
     }
 
+    if (title) {
+      const labelElement = document.createElement('label')
+      labelElement.innerText = title
+      labelElement.htmlFor = id
+      labelElement.classList.add('yplay__menu--select-label', 'option-label')
+      this.container.append(labelElement)
+      labelElement.append(sliderContainer)
+    } else {
+      this.container.append(sliderContainer)
+    }
+
     return slider
+  }
+  addSeparator(): HTMLSpanElement {
+    const separator = document.createElement('span')
+    separator.classList.add('separator')
+    this.container.append(separator)
+    return separator
   }
 
   private createRipple(el: HTMLElement) {

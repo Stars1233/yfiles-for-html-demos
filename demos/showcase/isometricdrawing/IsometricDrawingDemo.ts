@@ -71,10 +71,10 @@ import IsometricData from './resources/IsometricData'
 import { HeightHandleProvider } from './HeightHandleProvider'
 import licenseData from '../../../lib/license.json'
 import { configureTwoPointerPanning } from '@yfiles/demo-utils/configure-two-pointer-panning'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { openGraphML } from '@yfiles/demo-utils/graphml-support'
 import { IsometricNodeComparator } from './IsometricNodeComparator'
 import { IsometricNodeStyle } from './IsometricNodeStyle'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const MINIMUM_NODE_HEIGHT = 3
 

@@ -54,7 +54,7 @@ export class NodeStyleDecorator extends NodeStyleBase {
   }
 
   /**
-   * Creates a new visual as combination of the base node visualization and the decoration.
+   * Creates a new visual as a combination of the base node visualization and the decoration.
    * @param context The render context.
    * @param node The node to which this style instance is assigned.
    * @returns The created visual.
@@ -78,19 +78,17 @@ export class NodeStyleDecorator extends NodeStyleBase {
 
     // register a native click listener on the SVG element
     button.addEventListener('click', showToast)
-    // pointerdown causes the capturing of subsequent pointer events, thus we need to disable
-    // pointerdown on the current element such that the native click event is triggered furthermore
-    // this causes the input mode to not handle any event on the button where we registered
-    // a native click listener
-    button.addEventListener('pointerdown', (e) => e.preventDefault())
+
+    // Stop the pointerdown event propagation, so yFiles does not start pointer capture.
+    // Otherwise, the click listener above would not be triggered.
+    button.addEventListener('pointerdown', (e) => e.stopPropagation())
 
     const decorationVisual = new SvgVisual(button)
 
     // add both to a group
-    const group = new SvgVisualGroup()
+    const group = SvgVisualGroup.from(layout.center)
     group.add(baseVisual)
     group.add(decorationVisual)
-    group['render-data-cache'] = { cx: layout.center.x, cy: layout.center.y }
 
     return group
   }
@@ -123,14 +121,16 @@ export class NodeStyleDecorator extends NodeStyleBase {
     }
 
     // update the decoration visual
-    const cache = oldVisual['render-data-cache']
+    const cache = oldVisual.tag
     const center = layout.center
-    if (cache.cx !== center.x || cache.cy !== center.y) {
+    if (cache.x !== center.x || cache.y !== center.y) {
       const decorationVisual = children.get(1)
       const button = decorationVisual.svgElement
       button.setAttribute('cx', `${center.x}`)
       button.setAttribute('cy', `${center.y}`)
-      oldVisual['render-data-cache'] = { cx: center.x, cy: center.y }
+
+      // store the button location in the render data cache
+      oldVisual.tag = center
     }
 
     return oldVisual
@@ -163,7 +163,8 @@ export class NodeStyleDecorator extends NodeStyleBase {
   }
 
   /**
-   * Returns whether the base visualization is in the box, we don't want the decoration to be marquee selectable.
+   * Returns whether the base visualization is in the box since we don't want the decoration
+   * to be marquee-selectable.
    * @param context The input mode context.
    * @param rectangle The marquee selection box.
    * @param node The node to which this style instance is assigned.
@@ -192,10 +193,10 @@ export class NodeStyleDecorator extends NodeStyleBase {
   }
 
   /**
-   * Returns whether the provided point is inside of the base visualization.
+   * Specifies whether the provided point is inside the base visualization.
    * @param node The node to which this style instance is assigned.
    * @param location The point to test.
-   * @returns `true` if the provided location is inside of the base visualization.
+   * @returns `true` if the provided location is inside the base visualization.
    * @see {@link NodeStyleBase.isInside}
    */
   isInside(node, location) {
@@ -205,7 +206,7 @@ export class NodeStyleDecorator extends NodeStyleBase {
 
 let hideTimer = null
 function showToast() {
-  // Shows a toast to indicate the successful click, and hides it again.
+  // Shows a toast to indicate the successful click and hides it again.
   clearTimeout(hideTimer)
   const toast = document.querySelector('#toast')
   toast.style.bottom = '40px'

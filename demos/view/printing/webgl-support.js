@@ -49,11 +49,11 @@ import { createCanvasContext, createUrlIcon } from '@yfiles/demo-utils/IconCreat
  * @param addSeparator whether to add a separator span before the button
  */
 export function initializeToggleWebGlRenderingButton(graphComponent, addSeparator = true) {
-  const container = document.querySelector('.demo-page__toolbar')
+  const container = document.querySelector('.toolbar')
 
   if (addSeparator) {
     const separator = document.createElement('span')
-    separator.classList.add('demo-separator')
+    separator.classList.add('separator')
     container.appendChild(separator)
   }
 
@@ -72,13 +72,15 @@ export function initializeToggleWebGlRenderingButton(graphComponent, addSeparato
       graphComponent.focusIndicatorManager = new FocusIndicatorManager()
     }
   })
-  container.appendChild(toggleButton)
+  const holdElements = document.createElement('div')
 
   const toggleButtonLabel = document.createElement('label')
   toggleButtonLabel.htmlFor = 'toggle-webgl-mode'
   toggleButtonLabel.title = 'Toggles WebGL rendering mode'
   toggleButtonLabel.textContent = 'WebGL Rendering'
-  container.appendChild(toggleButtonLabel)
+  holdElements.appendChild(toggleButton)
+  holdElements.appendChild(toggleButtonLabel)
+  container.appendChild(holdElements)
 
   // Start the async ImageData creation. Once finished, this will enable the WebGL mode button.
   void createIconImageData()

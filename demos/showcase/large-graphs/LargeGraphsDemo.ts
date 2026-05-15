@@ -46,13 +46,14 @@ import {
 } from './LargeGraphDemoConfiguration'
 import { OrgChartDemoConfiguration } from './OrgChartDemoConfiguration'
 import licenseData from '../../../lib/license.json'
+import { createBenchmarkingUI } from '@yfiles/demo-app/util/benchmarking'
 import {
   addNavigationButtons,
   addOptions,
   checkWebGL2Support,
-  finishLoading
-} from '@yfiles/demo-app/demo-page'
-import { createBenchmarkingUI } from '@yfiles/demo-app/benchmarking'
+  showLoadingIndicator
+} from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let renderingTypesManager: RenderingTypesManager = null!
 
@@ -81,6 +82,7 @@ async function run(): Promise<void> {
  * the {@link RenderingTypesManager}.
  */
 async function loadGraph(graphComponent: GraphComponent, config: DemoConfiguration) {
+  await showLoadingIndicator(true, 'Loading the graph. This may take a while...')
   const graph = graphComponent.graph
 
   if (renderingTypesManager) {
@@ -121,6 +123,7 @@ async function loadGraph(graphComponent: GraphComponent, config: DemoConfigurati
   }
 
   initRenderingInformationUI(graphComponent)
+  await showLoadingIndicator(false, 'Loading the graph. This may take a while...')
 }
 
 /**
@@ -141,6 +144,8 @@ function configureInteraction(graphComponent: GraphComponent) {
     keepAspectRatio.ratioReshapeRecognizer = EventRecognizers.ALWAYS
     return keepAspectRatio
   })
+  // Add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**
@@ -201,10 +206,8 @@ function updateRenderingInformationUI(graphComponent: GraphComponent) {
   document.querySelector('#renderType')!.textContent = renderingTypesManager.currentRenderingType
 }
 
-function setUIDisabled(disabled: boolean) {
-  const popup = document.querySelector('#loadingPopup')!
-  popup.className = disabled ? 'visible' : ''
-
+async function setUIDisabled(disabled: boolean) {
+  await showLoadingIndicator(disabled, 'Loading the graph. This may take a while...')
   document.querySelector<HTMLSelectElement>('#sampleSelection')!.disabled = disabled
   document.querySelector<HTMLSelectElement>('#svgThreshold')!.disabled = disabled
   return new Promise((resolve) => setTimeout(resolve, 0))
@@ -268,7 +271,7 @@ function initToolbar(graphComponent: GraphComponent): void {
     renderingTypesManager.svgThreshold = newThreshold < 0 ? Number.POSITIVE_INFINITY : newThreshold
     updateRenderingInformationUI(graphComponent)
   })
-  addNavigationButtons(svgThresholdSelect, false)
+  addNavigationButtons(svgThresholdSelect, '', false)
 }
 
 run().then(finishLoading)

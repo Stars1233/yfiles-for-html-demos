@@ -26,8 +26,8 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { AfterViewInit, Component, EventEmitter, Input, Output } from '@angular/core'
-import { GraphComponent, GraphInputMode } from '@yfiles/yfiles'
+import { AfterViewInit, Component, input, output, signal } from '@angular/core'
+import { GraphComponent, GraphInputMode, IModelItem } from '@yfiles/yfiles'
 import { GraphComponentService } from '../services/graph-component.service'
 
 export type ContextMenuAction = { title: string; action: () => void }
@@ -35,17 +35,17 @@ export type ContextMenuAction = { title: string; action: () => void }
 @Component({
   selector: 'app-context-menu',
   templateUrl: './context-menu.component.html',
-  styleUrls: ['./context-menu.component.css']
+  styleUrl: './context-menu.component.css'
 })
 export class ContextMenuComponent implements AfterViewInit {
   private inputMode!: GraphInputMode
 
-  showMenu: boolean = false
-  positionX: number = 0
-  positionY: number = 0
+  showMenu = signal(false)
+  positionX = signal(0)
+  positionY = signal(0)
 
-  @Input() actions: Array<ContextMenuAction> = []
-  @Output() populateContextMenu = new EventEmitter<any>()
+  actions = input<Array<ContextMenuAction>>([])
+  populateContextMenu = output<IModelItem>()
 
   constructor(private graphComponentService: GraphComponentService) {}
 
@@ -75,16 +75,16 @@ export class ContextMenuComponent implements AfterViewInit {
   }
 
   hide(): void {
-    this.showMenu = false
+    this.showMenu.set(false)
     if (this.inputMode) {
       this.inputMode.contextMenuInputMode.closeMenu()
     }
   }
 
   openMenu(location: { x: number; y: number }): void {
-    this.showMenu = true
-    this.positionX = location.x
-    this.positionY = location.y
+    this.showMenu.set(true)
+    this.positionX.set(location.x)
+    this.positionY.set(location.y)
   }
 
   runAction(action: () => void): void {

@@ -27,8 +27,6 @@
  **
  ***************************************************************************/
 import {
-  EdgePathLabelModel,
-  ExteriorNodeLabelModel,
   GraphBuilder,
   GraphComponent,
   GraphItemTypes,
@@ -37,15 +35,14 @@ import {
   ImageNodeStyle,
   INode,
   License,
-  ModifierKeys,
   Point,
-  PolylineEdgeStyle
+  PolylineEdgeStyle,
+  PopoverDescriptor,
+  PopoverBehavior
 } from '@yfiles/yfiles'
-
-import { HTMLPopupSupport } from './HTMLPopupSupport'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './resources/graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Runs the demo.
@@ -54,6 +51,9 @@ async function run() {
   License.value = licenseData
 
   const graphComponent = new GraphComponent('graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
+
   initializeInputMode(graphComponent)
 
   initializePopups(graphComponent)
@@ -62,33 +62,13 @@ async function run() {
 }
 
 /**
- * Creates the pop-ups for nodes and edges and adds the event listeners that show and hide these pop-ups.
+ * Opens a node/edge popup on click. The {@link PopoverManager} in combination with popovers
+ * configured with {@link PopoverBehavior.AUTO} ensures that there is only one popup opened at a time.
  *
- * Since we want to show only one pop-up at any time, we bind it to the current item of the graph component.
+ * This demo watches the {@link GraphComponent.currentItem} so that clicks on items but also
+ * keyboard navigation opens the popup for the currently focused item.
  */
 function initializePopups(graphComponent) {
-  // Creates a label model parameter that is used to position the node pop-up
-  const nodeLabelModel = new ExteriorNodeLabelModel({ margins: 10 })
-
-  // Creates the pop-up for the node pop-up template
-  const nodePopup = new HTMLPopupSupport(
-    graphComponent,
-    getDiv('#nodePopupContent'),
-    nodeLabelModel.createParameter('top')
-  )
-
-  // Creates the edge pop-up for the edge pop-up template with a suitable label model parameter
-  // We use the EdgePathLabelModel for the edge pop-up
-  const edgeLabelModel = new EdgePathLabelModel({ autoRotation: false })
-
-  // Creates the pop-up for the edge pop-up template
-  const edgePopup = new HTMLPopupSupport(
-    graphComponent,
-    getDiv('#edgePopupContent'),
-    edgeLabelModel.createRatioParameter()
-  )
-
-  // The following works with both GraphEditorInputMode and GraphViewerInputMode
   const inputMode = graphComponent.inputMode
 
   // The pop-up is shown for the currentItem thus nodes and edges should be focusable
@@ -98,85 +78,74 @@ function initializePopups(graphComponent) {
   graphComponent.addEventListener('current-item-changed', () => {
     const item = graphComponent.currentItem
     if (item instanceof INode) {
-      // update data in node pop-up
-      updateNodePopupContent(nodePopup, item)
-      // open node pop-up and hide edge pop-up
-      nodePopup.currentItem = item
-      edgePopup.currentItem = null
+      const layout = item.layout
+      void inputMode.popoverManager.open(
+        new PopoverDescriptor({
+          behavior: PopoverBehavior.AUTO,
+          // display the popup above the node
+          ratios: new Point(0.5, 1),
+          offset: new Point(0, -20),
+          anchor: new Point(layout.center.x, layout.y),
+          content: createNodePopup(item)
+        })
+      )
     } else if (item instanceof IEdge) {
-      // update data in edge pop-up
-      updateEdgePopupContent(edgePopup, item)
-      // open edge pop-up and node edge pop-up
-      edgePopup.currentItem = item
-      nodePopup.currentItem = null
-    } else {
-      nodePopup.currentItem = null
-      edgePopup.currentItem = null
+      const bounds = item.style.renderer
+        .getBoundsProvider(item, item.style)
+        .getBounds(graphComponent.canvasContext)
+      void inputMode.popoverManager.open(
+        new PopoverDescriptor({
+          behavior: PopoverBehavior.AUTO,
+          // display the popup in the center of the edge's bounds
+          ratios: new Point(0.5, 0.5),
+          anchor: bounds.center,
+          content: createEdgePopup(item)
+        })
+      )
     }
   })
-
-  // On clicks on empty space, set currentItem to `null` to hide the pop-ups
-  inputMode.addEventListener('canvas-clicked', () => {
-    graphComponent.currentItem = null
-  })
-
-  // On press of the ESCAPE key, set currentItem to `null` to hide the pop-ups
-  inputMode.keyboardInputMode.addKeyBinding('Escape', ModifierKeys.NONE, () => {
-    graphComponent.currentItem = null
-  })
 }
 
 /**
- * Returns the HTMLDivElement with the given ID.
+ * Creates a popup element that shows the business data of the given node.
+ * @param node The node for which to create the popup
  */
-function getDiv(id) {
-  return document.querySelector(id)
-}
-
-/**
- * Updates the node pop-up content with the elements from the node's tag.
- */
-function updateNodePopupContent(nodePopup, node) {
-  // get business data from node tag
+function createNodePopup(node) {
   const data = node.tag
-
-  // get all divs in the pop-up
-  const divs = nodePopup.div.getElementsByTagName('div')
-  for (let i = 0; i < divs.length; i++) {
-    const div = divs.item(i)
-    if (div.hasAttribute('data-id')) {
-      // if div has a 'data-id' attribute, get content from the business data
-      const id = div.getAttribute('data-id') || ''
-      div.textContent = data[id]
-    }
-  }
-  // set image url
-  const img = nodePopup.div.getElementsByTagName('img').item(0)
-  img.setAttribute('src', `resources/${data.icon}.svg`)
+  const popup = document.createElement('div')
+  popup.className = 'popupContent'
+  popup.innerHTML = `
+    <div class="popupContentLeft">
+      <img style="position: relative" src="resources/${data.icon}.svg" />
+    </div>
+    <div class="popupContentRight">
+      <div style="font-size: 14px; font-weight: bold; margin-bottom: 4px">${data.name}</div>
+      <div style="margin-bottom: 4px">${data.position}</div>
+      <div>${data.email}</div>
+      <div>${data.phone}</div>
+    </div>
+  `
+  return popup
 }
 
 /**
- * Updates the edge pop-up content with the elements from the edge's tag.
+ * Creates a popup element that shows the business data of the given edge.
+ * @param edge The edge for which to create the popup
  */
-function updateEdgePopupContent(edgePopup, edge) {
+function createEdgePopup(edge) {
   // get business data from node tags
-  const sourceData = edge.sourcePort.owner.tag
-  const targetData = edge.targetPort.owner.tag
-
-  // get all divs in the pop-up
-  const divs = edgePopup.div.getElementsByTagName('div')
-  for (let i = 0; i < divs.length; i++) {
-    const div = divs.item(i)
-    if (div.hasAttribute('data-id')) {
-      // if div has a 'data-id' attribute, get content from the business data
-      const id = div.getAttribute('data-id')
-      if (id === 'sourceName') {
-        div.textContent = sourceData.name
-      } else if (id === 'targetName') {
-        div.textContent = targetData.name
-      }
-    }
-  }
+  const { name: sourceName } = edge.sourcePort.owner.tag
+  const { name: targetName } = edge.targetPort.owner.tag
+  const popup = document.createElement('div')
+  popup.className = 'popupContent'
+  popup.innerHTML = `
+    <div style="display: inline-block">
+      <div style="font-weight: bold; float: left">${sourceName}</div>
+      <div style="float: left; margin-left: 5px; margin-right: 5px">&#x2192;</div>
+      <div style="font-weight: bold; float: left">${targetName}</div>
+    </div>
+  `
+  return popup
 }
 
 /**

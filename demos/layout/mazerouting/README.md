@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Maze Routing Demo
+# Maze Routing Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/maze-routing.webp" alt="demo-thumbnail" height="320"/>
 

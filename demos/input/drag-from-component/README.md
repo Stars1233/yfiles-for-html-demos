@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Drag From Component
+# Drag From Component Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/drag-from-component.webp" alt="demo-thumbnail" height="320"/>
 
@@ -25,10 +25,3 @@ This demo shows how to use the HTML Drag and Drop support to drag graph items fr
   - Dragging a node will let you drag it from the component.
   - Dragging a selected node while pressing Shift key will move the node on the component.
   - Dragging from a green port candidate with Shift held down will start edge creation.
-
-## Related Demos
-
-- [Drag and Drop Demo](../../input/draganddrop/)
-- [Graph Drag and Drop Demo](../../input/graph-drag-and-drop/)
-- [Custom Drag and Drop Demo](../../input/custom-drag-and-drop/)
-- [Component Drag and Drop Demo](../../input/componentdraganddrop/)

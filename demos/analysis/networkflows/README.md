@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Network Flows Demo
+# Network Flows Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/network-flows.webp" alt="demo-thumbnail" height="320"/>
 

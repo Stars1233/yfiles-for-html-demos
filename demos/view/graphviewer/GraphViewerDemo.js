@@ -56,10 +56,11 @@ import { GraphSearch } from '@yfiles/demo-utils/GraphSearch'
 import FastCanvasStyles from './FastCanvasStyles'
 import { DemoStyleOverviewRenderer } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
 import { openGraphML } from '@yfiles/demo-utils/graphml-support'
 import { registerTemplateStyleSerialization } from '@yfiles/demo-utils/template-styles/MarkupExtensions'
 import { StringTemplateNodeStyle } from '@yfiles/demo-utils/template-styles/StringTemplateNodeStyle'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 
@@ -81,7 +82,7 @@ const graphDescription = document.querySelector('#graph-info-content')
 const nodeInfo = document.querySelector('#node-info-label')
 const nodeInfoDescription = document.querySelector('#node-info-description')
 const nodeInfoUrl = document.querySelector('#node-info-url')
-const searchBox = document.querySelector('#search-box')
+const searchBox = document.querySelector('#searchBox')
 
 async function run() {
   License.value = licenseData
@@ -144,6 +145,8 @@ function initializeGraphComponent() {
 
   // whenever the currentItem property on the graph changes, we want to get notified...
   graphComponent.addEventListener('current-item-changed', onCurrentItemChanged)
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**
@@ -253,7 +256,6 @@ function initializeInputMode() {
   // slightly offset the tooltip so that it does not interfere with the mouse
   graphViewerInputMode.toolTipInputMode.toolTipLocationOffset = new Point(0, 10)
   // we show the tooltip for a very long time...
-  graphViewerInputMode.toolTipInputMode.duration = '10s'
 
   // if we click on an item we want to perform a custom action, so register a callback
   graphViewerInputMode.addEventListener('item-clicked', (evt) => onItemClicked(evt))
@@ -485,7 +487,10 @@ function initializeUI() {
   document.querySelector('#open-file-button').addEventListener('click', async () => {
     await openGraphML(graphComponent)
   })
-  addNavigationButtons(graphChooserBox).addEventListener('change', readSampleGraph)
+  addNavigationButtons(graphChooserBox, 'Sample:', false).addEventListener(
+    'change',
+    readSampleGraph
+  )
 }
 
 /**

@@ -37,9 +37,9 @@ import {
   License
 } from '@yfiles/yfiles'
 import { colorSets, initDemoStyles } from '@yfiles/demo-app/demo-styles'
-import { SampleGraph } from './resources/SampleGraph'
+import GraphData from './resources/graph-data.json'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const basicShape = document.querySelector('#basic-shape')
 const thicknessRange = document.querySelector('#thickness-range')
@@ -87,9 +87,9 @@ async function run() {
  */
 function createSampleGraph(graph) {
   const builder = new GraphBuilder(graph)
-  builder.createNodesSource({ data: SampleGraph.nodeList, id: 'id', layout: 'layout' })
+  builder.createNodesSource({ data: GraphData.nodes, id: 'id', layout: 'layout' })
   builder.createEdgesSource({
-    data: SampleGraph.edgeList,
+    data: GraphData.edges,
     sourceId: 'source',
     targetId: 'target',
     style: (dataItem) =>

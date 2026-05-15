@@ -34,6 +34,9 @@
 .graph-component {
   background-color: #ffffff;
 }
+#graph-overlay {
+  color: var(--color-casper-blue-black);
+}
 
 .details-popup {
   position: absolute;
@@ -46,6 +49,9 @@
 
 .details-popup h3 {
   margin: 5px 0 10px 0;
+}
+.details-popup {
+  z-index: 1;
 }
 
 .task-card {
@@ -72,16 +78,16 @@
 }
 
 .infinite-loop-button {
-  border: 1px solid #343e49 !important;
+  background-color: transparent !important;
+  border: 1px solid var(--color-text) !important;
   width: fit-content !important;
-  margin-left: 20px !important;
   padding: 0 10px !important;
   height: 28px !important;
 }
 
 .infinite-loop-button-enabled {
-  background-color: #343e49 !important;
-  color: white !important;
+  background-color: var(--interaction-alt) !important;
+  color: var(--color-text-reversed) !important;
 }
 
 .hide-thumb::-webkit-slider-thumb {
@@ -93,8 +99,8 @@ input[type='range'] {
   --val: 40; /* default value, JS will update this */
   background: linear-gradient(
     to right,
-    rgb(162, 217, 255) 0%,
-    #0075ff calc(var(--val, 40) * 1%),
+    #7fd6e5 0%,
+    #00adcc calc(var(--val, 40) * 1%),
     #ddd calc(var(--val, 40) * 1%),
     #ddd 100%
   );
@@ -103,4 +109,8 @@ input[type='range'] {
   appearance: none;
   -webkit-appearance: none;
   outline: none;
+}
+
+input[type='range']::-webkit-slider-runnable-track {
+  background: transparent !important;
 }

@@ -210,7 +210,7 @@ export class CustomOrganicLayoutStage extends LayoutStageBase {
       groupNodeLayouts: organicLayout
     })
     // Configure edge label placement
-    const organicLayoutData = organicLayout.createLayoutData(graph)
+    const organicLayoutData = new OrganicLayoutData()
     const edge2ProblemMap = graph.context.getItemData(problemEdgeDataKey)
     organicLayoutData.edgeLabelPreferredPlacements = (label) =>
       new EdgeLabelPreferredPlacement({

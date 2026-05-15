@@ -39,7 +39,7 @@ export const testGraphData = {
       id: 'ne-grain-coop-reims',
       headline: 'Grain Cooperative',
       location: 'Reims, Grand Est',
-      icon: 'grass',
+      icon: 'wheat',
       groupId: 'north-east-grain-belt',
       layer: 2,
       properties: [
@@ -52,7 +52,7 @@ export const testGraphData = {
       id: 'burgundy-grain-producers',
       headline: 'Mixed Grain Producers',
       location: 'Dijon, Bourgogne-Franche-Comté',
-      icon: 'grass',
+      icon: 'wheat',
       groupId: 'north-east-grain-belt',
       layer: 2,
       properties: [
@@ -161,7 +161,7 @@ export const testGraphData = {
       id: 'lille-packaging-plant',
       headline: 'Packaging Plant',
       location: 'Lille, Hauts-de-France',
-      icon: 'inventory_2',
+      icon: 'package_2',
       groupId: 'northern-gateways',
       layer: 4,
       properties: [
@@ -177,7 +177,7 @@ export const testGraphData = {
       id: 'le-havre-export-terminal',
       headline: 'Export Terminal',
       location: 'Le Havre, Normandie',
-      icon: 'ac_unit',
+      icon: 'directions_boat',
       groupId: 'northern-gateways',
       layer: 4,
       properties: [
@@ -202,7 +202,7 @@ export const testGraphData = {
       id: 'paris-flagship-shop',
       headline: 'Bakery Shop',
       location: 'Paris, Île-de-France',
-      icon: 'breakfast_dining',
+      icon: 'store',
       groupId: 'retail-hubs',
       layer: 5,
       properties: [
@@ -256,7 +256,7 @@ export const testGraphData = {
       id: 'marcq-yeast-plant',
       headline: 'Yeast Plant',
       location: 'Marcq-en-Barœul, Hauts-de-France',
-      icon: 'coronavirus',
+      icon: 'microbiology',
       layer: 1,
       properties: [
         { id: 'p1', name: 'yeast', stock: 2 },
@@ -267,7 +267,7 @@ export const testGraphData = {
       id: 'sicily-citrus-import',
       headline: 'Citrus Import',
       location: 'Catania, Sicily, Italy',
-      icon: 'nature',
+      icon: 'nutrition',
       layer: 1,
       properties: [
         { id: 'p1', name: 'candied-orange-peel', stock: 2 },

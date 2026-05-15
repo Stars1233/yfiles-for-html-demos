@@ -79,6 +79,7 @@ import {
   SnapContext,
   SvgVisual,
   SvgVisualGroup,
+  type TaggedSvgVisual,
   type Visual
 } from '@yfiles/yfiles'
 import { OrientedRectangleRendererBase } from '@yfiles/demo-utils/OrientedRectangleRendererBase'
@@ -190,13 +191,16 @@ class RotatableNodeHighlightRenderer extends OrientedRectangleRendererBase<INode
   }
 }
 
+type RenderCache = { angle: number; center: Point; wrapped: INodeStyle }
+type TaggedSvgVisualGroup = SvgVisualGroup & TaggedSvgVisual<SVGGElement, RenderCache>
+
 /**
  * A node style that displays another wrapped style rotated by a specified rotation angle.
  * The angle is stored in this decorator to keep the tag free for user data. Hence, this decorator
  * should not be shared between nodes if they can have different angles.
  */
 export class RotatableNodeStyleDecorator extends BaseClass(
-  NodeStyleBase,
+  NodeStyleBase<TaggedSvgVisualGroup>,
   IMarkupExtensionConverter
 ) {
   rotatedLayout: CachingOrientedRectangle = new CachingOrientedRectangle()
@@ -238,21 +242,21 @@ export class RotatableNodeStyleDecorator extends BaseClass(
   /**
    * Creates a visual which rotates the visualization of the wrapped style.
    */
-  createVisual(context: IRenderContext, node: INode): SvgVisualGroup {
+  createVisual(context: IRenderContext, node: INode): TaggedSvgVisualGroup {
     const wrappedVisual = this.wrapped.renderer
       .getVisualCreator(node, this.wrapped)
       .createVisual(context)
-    const container = new SvgVisualGroup()
     const matrix = new Matrix()
     matrix.rotate(toRadians(this.angle), node.layout.center)
-    container.transform = matrix
-    if (wrappedVisual instanceof SvgVisual) {
-      container.add(wrappedVisual)
-    }
-    ;(container as any)['render-data-cache'] = {
+
+    const container = SvgVisualGroup.from({
       angle: this.angle,
       center: node.layout.center,
       wrapped: this.wrapped
+    })
+    container.transform = matrix
+    if (wrappedVisual instanceof SvgVisual) {
+      container.add(wrappedVisual)
     }
     context.registerForChildrenIfNecessary(container, this.disposeChildren.bind(this))
     return container
@@ -261,8 +265,12 @@ export class RotatableNodeStyleDecorator extends BaseClass(
   /**
    * Updates a visual which rotates the visualization of the wrapped style.
    */
-  updateVisual(context: IRenderContext, oldVisual: SvgVisualGroup, node: INode): SvgVisualGroup {
-    const cache = (oldVisual as any)['render-data-cache']
+  updateVisual(
+    context: IRenderContext,
+    oldVisual: TaggedSvgVisualGroup,
+    node: INode
+  ): TaggedSvgVisualGroup {
+    const cache = oldVisual.tag
 
     const oldWrappedStyle = cache.wrapped
     const newWrappedStyle = this.wrapped
@@ -300,11 +308,7 @@ export class RotatableNodeStyleDecorator extends BaseClass(
       oldVisual.transform = matrix
     }
 
-    ;(oldVisual as any)['render-data-cache'] = {
-      angle: this.angle,
-      center: node.layout.center,
-      wrapped: this.wrapped
-    }
+    oldVisual.tag = { angle: this.angle, center: node.layout.center, wrapped: this.wrapped }
 
     return oldVisual
   }
@@ -533,9 +537,9 @@ export class RotatableNodeStyleDecorator extends BaseClass(
  */
 class RotatedNodeResizeHandle extends BaseClass(IHandle, IPoint) {
   readonly symmetricResize: boolean
-  private reshapeHandler: IReshapeHandler
-  private node: INode
-  private position: HandlePositions
+  private readonly reshapeHandler: IReshapeHandler
+  private readonly node: INode
+  private readonly position: HandlePositions
   private portHandles: List<IHandle> = new List()
   private initialLayout: OrientedRectangle
   private dummyLocation: Point = null!
@@ -845,7 +849,7 @@ class RotatedNodeResizeHandle extends BaseClass(IHandle, IPoint) {
   }
 
   /**
-   * Gets the location that is specified by the given ratios.
+   * Gets the location specified by the given ratios.
    */
   static getLocation(
     rectangle: IOrientedRectangle,
@@ -948,7 +952,7 @@ class RotatedReshapeHandleProvider extends BaseClass(IReshapeHandleProvider) {
 }
 
 /**
- * Provides a rotate handle for a given node.
+ * Provides a rotation handle for a given node.
  */
 class NodeRotateHandleProvider extends BaseClass(IHandleProvider) {
   private readonly node: INode
@@ -1009,8 +1013,8 @@ type SameAngleGroup = { angle: number; nodes: [INode] }
  * label.
  */
 export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
-  private reshapeHandler: IReshapeHandler
-  private node: INode
+  private readonly reshapeHandler: IReshapeHandler
+  private readonly node: INode
   private portHandles: List<IHandle> = new List<IHandle>()
   private rotationCenter: Point = null!
   private initialAngle = 0
@@ -1072,7 +1076,7 @@ export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
   }
 
   /**
-   * Returns the cursor that is shown when using this handle.
+   * Returns the cursor shown when using this handle.
    */
   get cursor(): Cursor {
     return this._cursor
@@ -1180,7 +1184,7 @@ export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
   }
 
   /**
-   * Returns the 'snapped' vector for the given up vector.
+   * Returns the 'snapped' vector for the given up-vector.
    * If the vector is almost horizontal or vertical, this method returns the exact horizontal or
    * vertical up vector instead.
    */
@@ -1200,7 +1204,7 @@ export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
     }
     // Same angle snapping
     if (this.snapToSameAngleDelta > 0 && this.nodeAngles) {
-      // Find the first angle that is sufficiently similar
+      // Find the first angle that is similar enough
       const candidate = this.nodeAngles
         .sort(
           (nodeAngle1: SameAngleGroup, nodeAngle2: SameAngleGroup) =>
@@ -1284,7 +1288,7 @@ export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
     this.portHandles.clear()
 
     // Workaround: if the OrthogonalEdgeEditingContext is used to keep the edges orthogonal, it is not allowed
-    // to change that edges manually. Therefore, we explicitly finish the OrthogonalEdgeEditingContext here and
+    // to change those edges manually. Therefore, we explicitly finish the OrthogonalEdgeEditingContext here and
     // then call the edge router.
     const edgeEditingContext = context.lookup(OrthogonalEdgeEditingContext)!
     if (edgeEditingContext && edgeEditingContext.isInitialized) {
@@ -1351,7 +1355,7 @@ export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
    * Whether the current gesture does not disable snapping.
    */
   shouldSnap(context: IInputModeContext): boolean {
-    const { altKey } = context.canvasComponent!.lastInputEvent
+    const { altKey } = context.canvasComponent!.lastPointerEvent
     const shouldSnap = !altKey
     if (!shouldSnap && this.sameAngleHighlightedNodes) {
       this.clearSameAngleHighlights(context)
@@ -1463,9 +1467,9 @@ class RotatableNodeClipboardHelper extends BaseClass(IClipboardHelper) {
 }
 
 /**
- * An oriented rectangle that specifies the location, size and rotation angle of a rotated node.
+ * An oriented rectangle that specifies the location, size, and rotation angle of a rotated node.
  * This class is used mainly for performance reasons. It provides cached values. In principle, it
- * would be enough to store just the rotation angle but then, we would have to recalculate all the
+ * would be enough to store just the rotation angle, but then, we would have to recalculate all the
  * properties of this class very often.
  */
 export class CachingOrientedRectangle extends BaseClass(IOrientedRectangle) {
@@ -1642,8 +1646,8 @@ class DelegatingContext extends BaseClass(IInputModeContext) {
 }
 
 /**
- * This port handle is used only to trigger the updates of the orthogonal edge editing facility of
- * yFiles. In yFiles, all code related to updates of the orthogonal edge editing facility is
+ * This port handle is used only to trigger the updates of the orthogonal-edge-editing facility of
+ * yFiles. In yFiles, all code related to updates of the orthogonal-edge-editing facility is
  * internal. As a workaround, we explicitly call internal port handles from our custom node
  * handles.
  */

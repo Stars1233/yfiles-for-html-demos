@@ -26,10 +26,10 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { INode, WebGLGraphModelManagerRenderMode } from '@yfiles/yfiles'
+import { WebGLGraphModelManagerRenderMode } from '@yfiles/yfiles'
 import { getEdgeTag, getNodeTag } from './types'
 import { filterApplied, resetFiltering, setFilteringPanelDisabled } from './filter-panel'
-import { showLoadingIndicator } from '@yfiles/demo-app/demo-ui/element-utils'
+import { showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
 
 /** Tracks whether a beacon animation is currently active. */
 let beaconActive = false
@@ -130,9 +130,5 @@ export async function resetBeaconAnimation() {
  */
 export function removeBeaconAnimation(graphComponent, item) {
   const graphModelManager = graphComponent.graphModelManager
-  if (item instanceof INode) {
-    graphModelManager.setAnimations(item, [])
-  } else {
-    graphModelManager.setAnimations(item, [])
-  }
+  graphModelManager.setAnimations(item, [])
 }

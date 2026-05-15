@@ -42,11 +42,9 @@ import {
   LabelStyle,
   LayoutExecutor,
   License,
-  Point,
   type RadialNodeLabelPlacementStringValues,
   Rect,
-  ShapeNodeStyle,
-  TimeSpan
+  ShapeNodeStyle
 } from '@yfiles/yfiles'
 
 import licenseData from '../../../lib/license.json'
@@ -54,7 +52,7 @@ import graphData from './resources/GraphData.json'
 import { NonRibbonEdgeStyle } from './NonRibbonEdgeStyle'
 import type { ColorSetName } from '@yfiles/demo-app/demo-colors'
 import { colorSets } from '@yfiles/demo-app/demo-colors'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { configureHighlight } from './configure-highlight'
 
 const predefinedColorSets = new Map<string, ColorSetName>([
@@ -98,11 +96,6 @@ async function run(): Promise<void> {
 function configureInputMode(graphComponent: GraphComponent) {
   const gvim = new GraphViewerInputMode()
   gvim.itemHoverInputMode.enabled = true
-
-  const toolTipInputMode = gvim.toolTipInputMode
-  toolTipInputMode.toolTipLocationOffset = new Point(15, 15)
-  toolTipInputMode.delay = TimeSpan.fromMilliseconds(500)
-  toolTipInputMode.duration = TimeSpan.fromSeconds(5)
 
   // Register a listener for when a tooltip should be shown.
   gvim.addEventListener('query-item-tool-tip', (evt) => {

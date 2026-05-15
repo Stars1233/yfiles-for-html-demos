@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Non-ribbon Chord Diagram
+# Non-ribbon Chord Diagram Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/chord-diagram-non-ribbon.webp" alt="demo-thumbnail" height="320"/>
 

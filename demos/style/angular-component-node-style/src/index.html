@@ -33,43 +33,39 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Angular Component Node Style Demo [yFiles for HTML]</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
-      rel="stylesheet"
-    />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
   </head>
   <body class="loaded">
     <header class="demo-header">
-      <a href="https://www.yfiles.com" class="demo-header__y-logo"></a>
-      <div class="demo-header__breadcrumb-wrapper">
-        <a href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html">yFiles for HTML</a>
-        <a href="../../../README.html">Demos</a>
-        <span>Angular Component Node Style Demo</span>
-        <a href="../../../README.html" class="demo-header__mobile-back">yFiles Demos</a>
-      </div>
+      <a
+        href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+        class="y-logo"
+        target="_blank"
+      ></a>
+      <span class="material-symbols-outlined">chevron_right</span>
+      <a href="../../README.html" class="breadcrumb-wrapper" target="_blank">Demos</a>
+      <span class="material-symbols-outlined">chevron_right</span>
+      <span id="name" class="breadcrumb-wrapper demo-name">Angular Component Node Style</span>
     </header>
+    <div class="main-container">
+      <app-root class="demo-page__main"></app-root>
+      <div class="demo-page__description">
+        <div class="demo-description__content">
+          <h1>Angular Component Node Style Demo</h1>
 
-    <aside class="demo-page__description">
-      <div class="demo-description__content">
-        <h1>Angular Component Node Style Demo</h1>
+          <p>
+            This demo presents the Angular component node style that uses an
+            <a href="https://angular.dev/" target="_blank">Angular</a>
+            component to visualize nodes.
+          </p>
 
-        <p>
-          This demo presents the Angular component node style that uses an
-          <a href="https://angular.dev/" target="_blank">Angular</a>
-          component to visualize nodes.
-        </p>
-
-        <p>
-          In this demo, the
-          <a href="https://material.angular.dev/">Angular Material library</a>
-          components are used to display graph nodes. You can just as well use any other UI
-          framework, or your own custom Angular components.
-        </p>
+          <p>
+            In this demo, the
+            <a href="https://material.angular.dev/">Angular Material library</a>
+            components are used to display graph nodes. You can just as well use any other UI
+            framework, or your own custom Angular components.
+          </p>
+        </div>
       </div>
-    </aside>
-
-    <app-root class="demo-page__main"></app-root>
+    </div>
   </body>
 </html>

@@ -51,7 +51,6 @@ import {
   License,
   PolylineEdgeStyle,
   type PopulateItemContextMenuEventArgs,
-  Rect,
   ShapeNodeShape,
   ShapePortStyle,
   SmoothingPolicy,
@@ -60,10 +59,10 @@ import {
   type Visual
 } from '@yfiles/yfiles'
 
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import { createDemoNodeStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -133,16 +132,14 @@ function createSampleGraph(): void {
   })
   bridgeManager.addObstacleProvider(new GraphObstacleProvider())
 
-  const defaultNodeSize = graph.nodeDefaults.size
   const builder = new GraphBuilder(graph)
   builder.createNodesSource({
-    data: SampleData.nodes,
+    data: GraphData.nodes,
     id: 'id',
-    layout: (data) =>
-      new Rect(data.location.x, data.location.y, defaultNodeSize.width, defaultNodeSize.height),
+    layout: 'layout',
     tag: (data) => ({ id: data.id })
   })
-  builder.createEdgesSource(SampleData.edges, 'from', 'to', 'id')
+  builder.createEdgesSource(GraphData.edges, 'source', 'target', 'id')
   builder.buildGraph()
 
   graph.edges.forEach((edge) => {

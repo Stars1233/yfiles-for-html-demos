@@ -58,11 +58,12 @@ import {
 import { MultiPageIGraphBuilder } from './MultiPageIGraphBuilder'
 import { PageBoundsVisualCreator } from './PageBoundsVisualCreator'
 import licenseData from '../../../lib/license.json'
-import { finishLoading, showLoadingIndicator } from '@yfiles/demo-app/demo-page'
 import { buildGraph } from '@yfiles/demo-utils/build-graph'
 import { buildAdjacencyGraph } from './build-adjacency-graph'
 import popArtistData from './resources/pop-artist-small.json'
 import layoutNamespacesData from './resources/yfiles-layout-namespaces.json'
+import { showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * This demo demonstrates how the result of a multi-page layout calculation
@@ -263,7 +264,7 @@ function setPageNumber(newPageNumber: number, targetNode: INode | null = null): 
   // place target node under mouse cursor
   if (targetNode !== null && graphComponent.graph.contains(targetNode)) {
     const targetCenter = targetNode.layout.center
-    const mousePosition = graphComponent.lastInputEvent.location
+    const mousePosition = graphComponent.lastPointerEvent.location
     const controlCenter = graphComponent.viewToWorldCoordinates(
       new Point(graphComponent.size.width * 0.5, graphComponent.size.height * 0.5)
     )
@@ -346,8 +347,10 @@ function initializeUI(): void {
   document
     .querySelector<HTMLButtonElement>('#apply-layout')!
     .addEventListener('click', async () => {
-      await showLoadingIndicator(true)
-      runMultiPageLayout()
+      void showLoadingIndicator(true, 'Calculating the layout. This may take a while.')
+      setTimeout(() => {
+        runMultiPageLayout()
+      }, 500)
     })
 }
 
@@ -451,7 +454,7 @@ function onHoveredItemChanged(evt: HoveredItemChangedEventArgs): void {
  */
 async function loadModelGraph(graphId: any) {
   // show a notification because the multi-page layout takes some time
-  await showLoadingIndicator(true)
+  await showLoadingIndicator(true, 'Calculating the layout. This may take a while.')
 
   if (graphId === 'Pop Artists') {
     buildGraph(modelGraphComponent.graph, popArtistData)

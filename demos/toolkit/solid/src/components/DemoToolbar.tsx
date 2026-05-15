@@ -28,6 +28,7 @@
  ***************************************************************************/
 import { Command, GraphComponent } from '@yfiles/yfiles'
 import { onMount } from 'solid-js'
+import './DemoToolbar.css'
 
 type DemoToolbarProps = {
   graphComponent: () => GraphComponent
@@ -53,36 +54,23 @@ export const DemoToolbar = (props: DemoToolbarProps) => {
   })
 
   return (
-    <div class={'demo-page__toolbar'}>
-      <button
-        class={'demo-icon-yIconReload'}
-        title="Reset Data"
-        onClick={() => commandCallbacks.resetData()}
-      />
-      <span class={'demo-separator'} />
-      <button
-        class={'demo-icon-yIconZoomIn'}
-        title="Zoom In"
-        onClick={() => commandCallbacks.zoomIn()}
-      />
-      <button
-        class={'demo-icon-yIconZoomOriginal'}
-        title="Reset Zoom"
-        onClick={() => commandCallbacks.resetZoom()}
-      />
-      <button
-        class={'demo-icon-yIconZoomOut'}
-        title="Zoom Out"
-        onClick={() => commandCallbacks.zoomOut()}
-      />
-      <button
-        class={'demo-icon-yIconZoomFit'}
-        title="Fit Diagram"
-        onClick={() => commandCallbacks.fitContent()}
-      />
+    <div class="demo-page__toolbar">
+      <button title="Zoom In" onClick={() => commandCallbacks.zoomIn()}>
+        <span class="material-symbols-outlined">zoom_in</span>
+      </button>
+      <button title="Zoom Out" onClick={() => commandCallbacks.zoomOut()}>
+        <span class="material-symbols-outlined">zoom_out</span>
+      </button>
+      <button title="Fit Diagram" onClick={() => commandCallbacks.fitContent()}>
+        <span class="material-symbols-outlined">zoom_out_map</span>
+      </button>
       <span class="demo-separator"></span>
-      <button class="demo-icon-yIconLayout labeled" onClick={() => props.layout()}>
-        Layout
+      <button class="labeled" onClick={() => props.layout()}>
+        <span class="material-symbols-outlined">play_arrow</span>Layout
+      </button>
+      <span class="demo-separator"></span>
+      <button title="Reset Graph" onClick={() => commandCallbacks.resetData()}>
+        <span class="material-symbols-outlined">refresh</span>
       </button>
     </div>
   )

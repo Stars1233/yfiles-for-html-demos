@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# CSS Styling Demo
+# CSS Styling Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/css-styling.webp" alt="demo-thumbnail" height="320"/>
 

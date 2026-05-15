@@ -32,11 +32,11 @@
 import {
   BaseClass,
   type GraphComponent,
+  HandleInputMode,
   type IInputModeContext,
   type INode,
   type IRectangle,
   IReshapeHandler,
-  MoveInputMode,
   type Rect,
   WaitInputMode
 } from '@yfiles/yfiles'
@@ -76,7 +76,7 @@ export class NonOverlapReshapeHandler extends BaseClass(IReshapeHandler) {
    * The node is upon to be resized.
    */
   public initializeReshape(context: IInputModeContext): void {
-    if (context.inputMode instanceof MoveInputMode) {
+    if (context.inputMode instanceof HandleInputMode) {
       this.layoutHelper = new LayoutHelper(context.canvasComponent as GraphComponent, this.node)
       this.layoutHelper.initializeLayout()
     } else {

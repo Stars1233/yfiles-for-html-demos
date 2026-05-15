@@ -35,6 +35,8 @@ import {
   GraphBuilder,
   GraphComponent,
   GraphEditorInputMode,
+  HandleInputMode,
+  HandlesRenderer,
   HorizontalTextAlignment,
   LabelStyle,
   License,
@@ -42,27 +44,29 @@ import {
   ShapeNodeStyle
 } from '@yfiles/yfiles'
 import { BezierGraphEditorInputMode } from './BezierGraphEditorInputMode'
-import { InnerControlPointHandle, OuterControlPointHandle } from './BezierHandles'
+import {
+  InnerControlPointHandle,
+  OuterControlPointHandle,
+  SimpleControlPointHandle
+} from './BezierHandles'
 import { BezierBendCreator } from './BezierBendCreator'
-import { BezierEdgeHandleProvider } from './BezierEdgeHandleProvider'
-import { BezierSelectionStyle } from './BezierSelectionStyle'
 import { BezierCreateEdgeInputMode } from './BezierCreateEdgeInputMode'
-import { SampleCircle, SampleLabels } from './resources/SampleGraphs'
+import SampleCircle from './resources/circle-sample-data.json'
+import SampleLabels from './resources/label-sample-data.json'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { BezierHandlesRenderer } from './BezierHandlesRenderer'
+import {
+  BezierBendSelectionHandleProvider,
+  BezierEdgeSelectionHandleProvider
+} from './BezierHandleProvider'
 
 let graphComponent = null
 
 /**
  * Configuration object for managing the demo settings
  */
-const config = {
-  smoothSegments: true,
-  angle: 0,
-  autoRotation: true,
-  autoSnapping: true,
-  enableEditing: true
-}
+const config = { smoothSegments: true, angle: 0, autoRotation: true, autoSnapping: true }
 
 const bezierEdgeSegmentLabelModel = new BezierEdgeSegmentLabelModel({ autoSnapping: true })
 const bezierPathLabelModel = new BezierEdgePathLabelModel({ autoSnapping: true })
@@ -120,60 +124,86 @@ function initializeGraph() {
 
 function registerBezierDecorators() {
   const graph = graphComponent.graph
-  graph.decorator.bends.handle.hide(
-    (b) =>
-      !config.enableEditing &&
-      b.owner.style instanceof BezierEdgeStyle &&
-      b.owner.bends.size % 3 === 2
-  )
 
   graph.decorator.bends.handle.addWrapperFactory(
-    (b) =>
-      config.enableEditing &&
-      config.smoothSegments &&
-      b.owner.style instanceof BezierEdgeStyle &&
-      b.owner.bends.size % 3 === 2,
-    (b, h) => {
-      const index = b.index
-      switch (index % 3) {
-        case 0:
-        case 1:
-          // Handle for the first control point of a triple
-          return new OuterControlPointHandle(h, b)
-        case 2:
-        default:
-          // The "middle" control point controls the previous and next ones
-          return new InnerControlPointHandle(h, b)
+    (b) => b.owner.style instanceof BezierEdgeStyle && b.owner.bends.size % 3 == 2,
+    (bend, handle) => {
+      const index = bend.index
+      if (config.smoothSegments) {
+        // smooth editing -> use custom handles which synchronize the other handles of the triple
+        switch (index % 3) {
+          case 0:
+          case 1:
+            // Handle for the first control point of a triple
+            return new OuterControlPointHandle(handle, bend)
+          case 2:
+          default:
+            // The "middle" control point controls the previous and next ones
+            return new InnerControlPointHandle(handle, bend)
+        }
       }
+      // No smooth editing -> use the same custom handle for inner and outer control points which store their bend.
+      // This information is relevant for the handles renderer which renders lines from outer control points to
+      // inner one.
+      return new SimpleControlPointHandle(handle, bend, index % 3 != 2)
     }
   )
 
   // Override the default for bezier edges
   graph.decorator.edges.bendCreator.addWrapperFactory(
-    (edge) => config.enableEditing && edge.style instanceof BezierEdgeStyle,
+    (edge) => edge.style instanceof BezierEdgeStyle,
     (edge, originalBendCreator) =>
       originalBendCreator != null ? new BezierBendCreator(edge, originalBendCreator) : null
   )
 
-  // And always show bend handles
+  // Always show the outer control point handles of selected bezier edges
   graph.decorator.edges.handleProvider.addWrapperFactory(
-    (edge) => config.enableEditing && edge.style instanceof BezierEdgeStyle,
-    (edge, coreImpl) => new BezierEdgeHandleProvider(edge, coreImpl)
+    (edge) => edge.style instanceof BezierEdgeStyle,
+    (edge, coreImpl) => new BezierEdgeSelectionHandleProvider(edge, coreImpl)
   )
 
-  graph.decorator.edges.selectionRenderer.addWrapperFactory(
-    (e) => e.style instanceof BezierEdgeStyle,
-    (_, coreImpl) => new BezierSelectionStyle(coreImpl)
+  const geim = graphComponent.inputMode
+  const him = new HandleInputMode({
+    // Use a custom handles renderer which connects the outer control point handles with the inner one
+    handlesRenderer: new BezierHandlesRenderer(new HandlesRenderer())
+  })
+
+  // Dragging an unselected bend does not work if there are other handles. For this case we have to temporarily
+  // disable the custom provider which provides all handles.
+  let draggingBend = false
+  geim.createBendInputMode.addEventListener('dragging', () => {
+    draggingBend = true
+  })
+  him.addEventListener('drag-finished', () => {
+    if (draggingBend) {
+      draggingBend = false
+      requeryHandles()
+    }
+  })
+  him.addEventListener('drag-canceled', () => {
+    if (draggingBend) {
+      draggingBend = false
+      requeryHandles()
+    }
+  })
+
+  geim.handleInputMode = him
+
+  // Provide the whole control point triplet if the inner control point bend is selected
+  graph.decorator.bends.handleProvider.addWrapperFactory(
+    (bend) => bend.owner.style instanceof BezierEdgeStyle && !draggingBend,
+    (bend, _) =>
+      new BezierBendSelectionHandleProvider(
+        bend,
+        graphComponent.selection.edges.includes(bend.owner)
+      )
   )
+}
 
-  // since removing bends also affects our handles, we need to let the input mode
-  // requery the handles to get the fresh ones.
-  function requeryHandles() {
-    graphComponent.inputMode.requeryHandles()
-  }
-
-  graph.addEventListener('bend-removed', requeryHandles)
-  graph.addEventListener('bend-added', requeryHandles)
+// since removing bends also affects our handles, we need to let the input mode
+// requery the handles to get the fresh ones.
+function requeryHandles() {
+  graphComponent.inputMode.requeryHandles()
 }
 
 function loadSample(sample) {
@@ -223,21 +253,6 @@ function loadSample(sample) {
 }
 
 function initializeUI() {
-  document.querySelector('#bezier-editing').addEventListener('click', () => {
-    config.enableEditing = !config.enableEditing
-    if (graphComponent) {
-      const geim = graphComponent.inputMode
-      if (geim instanceof GraphEditorInputMode) {
-        // update the handle visualization
-        geim.requeryHandles()
-        const bceim = geim.createEdgeInputMode
-        if (bceim instanceof BezierCreateEdgeInputMode) {
-          bceim.createSmoothSplines = config.enableEditing
-        }
-      }
-    }
-    document.querySelector('#smooth-editing').disabled = !config.enableEditing
-  })
   document.querySelector('#smooth-editing').addEventListener('click', () => {
     config.smoothSegments = !config.smoothSegments
     if (graphComponent) {

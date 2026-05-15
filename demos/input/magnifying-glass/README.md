@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Magnifying Glass Demo
+# Magnifying Glass Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/magnifying-glass.webp" alt="demo-thumbnail" height="320"/>
 

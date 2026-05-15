@@ -123,7 +123,7 @@ export default [
     ]
   },
   {
-    name: '4 - Complex Objects + Edge Labels',
+    name: '4 - Complex Objects',
     nodesSources: [
       {
         name: 'Nodes',

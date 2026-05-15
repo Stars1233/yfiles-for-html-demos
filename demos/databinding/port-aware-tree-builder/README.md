@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Port-aware Tree Builder Demo
+# Port-aware Tree Builder Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/port-aware-tree-builder.webp" alt="demo-thumbnail" height="320"/>
 

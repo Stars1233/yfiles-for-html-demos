@@ -53,6 +53,9 @@ export function showNodeProperties(node, orgChartGraph) {
     createSVGIcon(employee.icon ?? '', 50, 50, '0 0 75 75')
   )
 
+  const tableWrapper = document.createElement('div')
+  tableWrapper.className = 'table-wrapper'
+
   const properties = document.createElement('table')
   properties.append(
     createProperty('Dept.', employee.businessUnit ?? ''),
@@ -81,7 +84,8 @@ export function showNodeProperties(node, orgChartGraph) {
     )
   }
 
-  parentDiv.append(userDetail, properties)
+  tableWrapper.appendChild(properties)
+  parentDiv.append(userDetail, tableWrapper)
 }
 
 /**

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Simple Tree Builder (Array)
+# Simple Tree Builder (Array) Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-tree-builder-array.webp" alt="demo-thumbnail" height="320"/>
 

@@ -29,10 +29,20 @@
 import { type IEdge, type IGraph, INode } from '@yfiles/yfiles'
 import type { TimeEntry } from './timeline/Timeline'
 
+import bankFraudDataUntyped from './resources/bank-fraud-data.json' with { type: 'json' }
+import insuranceFraudDataUntyped from './resources/insurance-fraud-data.json' with { type: 'json' }
+
+export const bankFraudData = bankFraudDataUntyped as BusinessData
+export const insuranceFraudData = insuranceFraudDataUntyped as BusinessData
+
 /**
  * Type describing entities in business data.
  */
-type BaseEntity = { id: number; type: string; info: string | { [key: string]: string } }
+type BaseEntity = {
+  id: number
+  type: string
+  info?: string | { [key: string]: string | undefined }
+}
 
 /**
  * Type for importing business data containing strings as enter- and exit-dates.
@@ -47,12 +57,12 @@ export type Entity = BaseEntity & { enter: Date[]; exit: Date[]; fraud?: boolean
 /**
  * Type describing connections between entities
  */
-export type Connection = { from: number; to: number; type?: string; fraud?: boolean }
+export type Connection = { source: number; target: number; type?: string; fraud?: boolean }
 
 /**
  * Type for a whole set of business data.
  */
-export type BusinessData = { nodesSource: ImportEntity[]; edgesSource: Connection[] }
+export type BusinessData = { nodes: ImportEntity[]; edges: Connection[] }
 
 /**
  * Type-safe getter for entity data stored in the node tag.
@@ -73,7 +83,7 @@ export function setEntityData(node: INode, entity: Entity): void {
  * This is necessary for showing this information in the properties panel
  * and in the tooltip.
  */
-export function getEntityInfo(node: INode): string | { [key: string]: string } {
+export function getEntityInfo(node: INode): BaseEntity['info'] {
   return getEntityData(node).info
 }
 
@@ -86,26 +96,22 @@ export function getEntityInfo(node: INode): string | { [key: string]: string } {
 export function getInfoMap(node: INode): Record<string, string> {
   const entity = getEntityData(node)
   const info = getEntityInfo(node)
-  if (typeof info == 'string') {
-    return { info: info }
-  } else {
-    const records: Record<string, string> = {}
-    Object.keys(info).forEach((key: string) => {
-      let value: string = info[key]
-      if (Array.isArray(value)) {
-        value = value[0] as string
-      }
-      records[key] = value
-    })
-    if (entity.enter.length > 0) {
-      records['Enter Date'] = entity.enter[0].toString()
-    }
-    if (entity.exit.length > 0) {
-      records['Exit Date'] = entity.exit[0].toString()
-    }
-
-    return records
+  if (info == null || typeof info === 'string') {
+    return { info: info ?? '' }
   }
+
+  const records: Record<string, string> = {}
+  Object.keys(info).forEach((key: string) => {
+    records[key] = info[key] ?? ''
+  })
+  if (entity.enter.length > 0) {
+    records['Enter Date'] = entity.enter[0].toString()
+  }
+  if (entity.exit.length > 0) {
+    records['Exit Date'] = entity.exit[0].toString()
+  }
+
+  return records
 }
 
 /**

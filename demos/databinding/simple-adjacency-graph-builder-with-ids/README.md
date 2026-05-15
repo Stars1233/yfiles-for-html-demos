@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Simple Adjacency Graph Builder With Ids
+# Simple Adjacency Graph Builder With Ids Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-adjacency-graph-builder-with-ids.webp" alt="demo-thumbnail" height="320"/>
 

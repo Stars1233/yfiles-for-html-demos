@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Export custom data in GraphML - Application Features
+# Custom Data in GraphML Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/custom-graphml.webp" alt="demo-thumbnail" height="320"/>
 

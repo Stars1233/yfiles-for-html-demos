@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Save and Load GraphML - Application Features
+# Save and Load GraphML Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/input-output.webp" alt="demo-thumbnail" height="320"/>
 

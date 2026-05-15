@@ -61,7 +61,7 @@ import {
 
 import TreeMapData from './resources/TreeMapData'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Maps each node to a preferred size.

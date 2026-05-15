@@ -1,0 +1,317 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+/* Variables & Containers */
+@property --yfiles-biofabric-demo-edge-color-value {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 100%;
+}
+
+@property --yfiles-biofabric-demo-background-color-value {
+  syntax: '<percentage>';
+  inherits: true;
+  initial-value: 0%;
+}
+:root {
+  --fade-opacity: 1;
+  --yfiles-biofabric-demo-background-color: #29323c;
+  --yfiles-biofabric-demo-edge-color: #dfdee3;
+  --yfiles-biofabric-demo-node-color: #89919c;
+  --yfiles-biofabric-demo-highlight-color: #d9bb7d;
+  --yfiles-biofabric-demo-adjacency-highlight-color: #dfdee3;
+  --yfiles-biofabric-demo-edge-color-value: 100%;
+  --yfiles-biofabric-demo-background-color-value: 0%;
+  transition:
+    --yfiles-biofabric-demo-edge-color-value 0.6s ease,
+    --yfiles-biofabric-demo-background-color-value 0.6s ease;
+}
+.graph-panel,
+.example-graph-visualization {
+  &:has(.highlight, .highlight-adjacency) {
+    --fade-opacity: 0.1;
+    --yfiles-biofabric-demo-edge-color: #89919c;
+    --yfiles-biofabric-demo-edge-color-value: 10%;
+    --yfiles-biofabric-demo-background-color-value: 90%;
+  }
+}
+
+/* Light Theme */
+:root[data-theme='light'] {
+  --yfiles-biofabric-demo-background-color: #ffffff;
+  --yfiles-biofabric-demo-edge-color: #29323c;
+  --yfiles-biofabric-demo-node-color: #bbbfc4;
+  --yfiles-biofabric-demo-highlight-color: #d9bb7d;
+  --yfiles-biofabric-demo-adjacency-highlight-color: #29323c;
+}
+
+.example-graph-visualization {
+  height: 200px;
+  border-radius: 25px;
+  margin: 25px 0;
+}
+
+/* Description Panel */
+#graph-description-container {
+  background-color: #c8dce1;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 0 -8px;
+
+  & :first-child {
+    margin-block-start: 0;
+  }
+  & :last-child {
+    margin-block-end: 0;
+  }
+
+  #data-description :is(ul, ol) {
+    padding: 0 16px;
+  }
+}
+
+/* Animations */
+.highlight-description {
+  animation: highlight-animation 3s forwards;
+}
+
+@keyframes highlight-animation {
+  0%,
+  100% {
+    background-color: #c8dce1;
+  }
+  20% {
+    background-color: #ff9800;
+  }
+}
+
+/* Layout */
+#graph-components {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+#graphComponent-biofabric {
+  width: 100%;
+  height: 60%;
+  border-bottom-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+#graphComponent-circular {
+  width: 100%;
+  height: 40%;
+  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+}
+.yfiles-canvascomponent {
+  background-color: var(--yfiles-biofabric-demo-background-color);
+}
+
+/* Global Highlight States */
+.highlight {
+  fill: var(--yfiles-biofabric-demo-highlight-color);
+  stroke: var(--yfiles-biofabric-demo-highlight-color);
+  opacity: 1 !important;
+}
+.highlight-adjacency {
+  stroke-width: 0;
+  opacity: 1 !important;
+}
+.highlight-adjacency text {
+  fill: var(--yfiles-biofabric-demo-background-color) !important;
+  stroke-width: 0;
+}
+
+/* Common Transition for Graph Elements */
+:is(.biofabric-node, .node-link-node, .group-rectangle, .group-circle, .group-text, .group-path) {
+  transition: opacity 0.6s;
+}
+
+/* Nodes & Edges */
+.biofabric-node {
+  stroke: var(--yfiles-biofabric-demo-node-color);
+  fill: var(--yfiles-biofabric-demo-node-color);
+  stroke-width: 1px;
+  opacity: var(--fade-opacity);
+
+  &.highlight-adjacency {
+    stroke: var(--yfiles-biofabric-demo-adjacency-highlight-color);
+    fill: var(--yfiles-biofabric-demo-adjacency-highlight-color);
+  }
+  &.highlight {
+    stroke: var(--yfiles-biofabric-demo-highlight-color);
+    fill: var(--yfiles-biofabric-demo-highlight-color);
+  }
+}
+
+.node-link-node {
+  stroke: var(--yfiles-biofabric-demo-background-color);
+  stroke-width: 4px;
+  fill-opacity: var(--fade-opacity);
+  transition: fill-opacity 0.6s ease;
+  &[fill='none'] {
+    fill: #89919c;
+  }
+  &.highlight-adjacency {
+    fill: var(--yfiles-biofabric-demo-adjacency-highlight-color);
+    fill-opacity: 1 !important;
+  }
+  &.highlight {
+    fill: var(--yfiles-biofabric-demo-highlight-color);
+    fill-opacity: 1 !important;
+  }
+}
+
+g:has(> .biofabric-edge:not(.highlight)) {
+  transition: opacity 0.5s ease-in-out;
+  opacity: var(--fade-opacity);
+}
+
+.biofabric-edge {
+  &.highlight {
+    & circle {
+      fill: var(--yfiles-biofabric-demo-highlight-color) !important;
+    }
+    & :is(path, line, rect) {
+      stroke: var(--yfiles-biofabric-demo-highlight-color) !important;
+    }
+  }
+}
+
+.node-link-edge {
+  stroke: var(--yfiles-biofabric-demo-edge-color);
+  fill: var(--yfiles-biofabric-demo-edge-color);
+  stroke-width: 2px;
+  stroke-linecap: round;
+  transition: stroke 0.6s ease;
+
+  &.highlight :is(path, line) {
+    stroke: var(--yfiles-biofabric-demo-highlight-color) !important;
+    fill: none !important;
+  }
+}
+
+/* Labels */
+.node-edge-label {
+  &.collapsed {
+    opacity: 0 !important;
+    transition: opacity 0.6s linear;
+  }
+
+  & text,
+  & rect {
+    paint-order: stroke;
+    stroke-width: 0;
+    transition: opacity 0.6s;
+    opacity: var(--fade-opacity);
+  }
+
+  & text {
+    fill: var(--yfiles-biofabric-demo-edge-color);
+  }
+  & rect {
+    fill: var(--yfiles-biofabric-demo-background-color);
+  }
+
+  &.highlight {
+    & text {
+      fill: var(--yfiles-biofabric-demo-background-color);
+      opacity: 1 !important;
+    }
+    & rect {
+      fill: var(--yfiles-biofabric-demo-highlight-color);
+      opacity: 1 !important;
+    }
+  }
+
+  &.highlight-adjacency {
+    & > text {
+      fill: var(--yfiles-biofabric-demo-background-color) !important;
+      opacity: 1 !important;
+    }
+    & > rect {
+      fill: var(--yfiles-biofabric-demo-adjacency-highlight-color) !important;
+      opacity: 1 !important;
+    }
+  }
+}
+
+/* Groups */
+.group-rectangle,
+.group-path,
+.group-circle {
+  stroke: var(--yfiles-biofabric-demo-edge-color);
+  opacity: var(--fade-opacity);
+}
+
+.group-rectangle {
+  fill: var(--yfiles-biofabric-demo-edge-color);
+  stroke-width: 1px;
+}
+.group-circle {
+  fill: var(--yfiles-biofabric-demo-background-color);
+  &.collapsed {
+    fill: var(--yfiles-biofabric-demo-edge-color);
+  }
+}
+.group-text {
+  fill: var(--yfiles-biofabric-demo-edge-color);
+  paint-order: stroke;
+  opacity: var(--fade-opacity);
+}
+.group-padding {
+  fill: var(--yfiles-biofabric-demo-background-color);
+  stroke-width: 0;
+}
+
+/* Group Highlights */
+.highlight {
+  & text.group-text {
+    fill: var(--yfiles-biofabric-demo-highlight-color) !important;
+    opacity: 1 !important;
+  }
+  & .group-path {
+    stroke: var(--yfiles-biofabric-demo-highlight-color) !important;
+    opacity: 1 !important;
+  }
+  &:not(.collapsed) .group-rectangle,
+  & .group-circle {
+    stroke: var(--yfiles-biofabric-demo-highlight-color) !important;
+    fill: var(--yfiles-biofabric-demo-highlight-color) !important;
+    opacity: 1 !important;
+  }
+}
+
+select {
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
+.demo-properties__settings {
+  margin-bottom: 15px;
+}

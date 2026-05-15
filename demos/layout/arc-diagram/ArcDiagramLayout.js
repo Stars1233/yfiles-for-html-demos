@@ -29,6 +29,7 @@
 import {
   BaseClass,
   HierarchicalLayout,
+  HierarchicalLayoutData,
   ILayoutAlgorithm,
   LayoutGraphAlgorithms,
   Point
@@ -162,7 +163,7 @@ function calculateNodeOrder(graph, nodeOrderPolicy) {
       return nodes.map((node) => topologicalNodeOrder.indexOf(node))
     default:
       // the order in which they were created in the graph
-      return nodes.map((node, index) => index)
+      return nodes.map((_node, index) => index)
   }
 }
 
@@ -180,7 +181,7 @@ function minimizeCrossings(graph) {
     fromScratchLayeringStrategy: 'user-defined',
     core: { stopAfterSequencing: false }
   })
-  const hierarchicalLayoutData = hierarchicalLayout.createLayoutData(graph)
+  const hierarchicalLayoutData = new HierarchicalLayoutData()
   hierarchicalLayoutData.givenLayersIndices = () => 0
   graph.applyLayout(hierarchicalLayout, hierarchicalLayoutData)
 

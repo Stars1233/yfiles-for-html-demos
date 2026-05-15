@@ -28,7 +28,7 @@
  ***************************************************************************/
 import { GraphComponent, GraphItemTypes, License } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { CustomPortStyle } from './CustomPortStyle'
 import { CustomPortStyle as OldCustomPortStyle } from '../03-render-performance/CustomPortStyle'
 import {

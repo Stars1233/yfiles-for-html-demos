@@ -31,7 +31,7 @@ import type { IEdge, ILabel, INode } from '@yfiles/yfiles'
 /**
  * Type of label displayed on graph items.
  *
- * - `icon`: Material Icons symbol
+ * - `icon`: Material Symbols icon
  * - `text`: Node or edge label text
  * - `error`: Error indicator icon
  */
@@ -91,7 +91,7 @@ export type EdgeData = {
  * - `type`: Label type (icon, text, or error)
  * - `visible`: Whether label is currently visible
  */
-export type LabelData = { type: LabelType; visible: boolean }
+export type LabelData = { type: LabelType }
 
 /**
  * The data associated with this demo.

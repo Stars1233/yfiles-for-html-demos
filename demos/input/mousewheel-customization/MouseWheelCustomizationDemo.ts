@@ -27,6 +27,7 @@
  **
  ***************************************************************************/
 import {
+  type EventArgs,
   EventRecognizers,
   GraphComponent,
   GraphEditorInputMode,
@@ -37,14 +38,21 @@ import {
   Rect
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
+
+let mouseWheelZoomEventRecognizer: (evt: EventArgs, eventSource: unknown) => boolean
+let defaultHorizontalScrollEventRecognizer: (evt: EventArgs, eventSource: unknown) => boolean
 
 async function run(): Promise<void> {
   License.value = licenseData
 
   // initialize the graph component
   const graphComponent = new GraphComponent('graphComponent')
+
+  // store defaults to easily reset it if needed
+  mouseWheelZoomEventRecognizer = graphComponent.mouseWheelZoomEventRecognizer
+  defaultHorizontalScrollEventRecognizer = graphComponent.horizontalScrollEventRecognizer
 
   // Set custom style defaults that will be used for newly created graph items
   initDemoStyles(graphComponent.graph)
@@ -55,8 +63,6 @@ async function run(): Promise<void> {
   // initialize the input mode
   graphComponent.inputMode = new GraphEditorInputMode()
 
-  updateMouseWheelBehavior('custom', graphComponent)
-
   graphComponent.selection.add(graphComponent.graph.nodes.first()!)
 
   // center the graph
@@ -66,8 +72,8 @@ async function run(): Promise<void> {
 function updateModifiers(value: string, graphComponent: GraphComponent) {
   switch (value) {
     case 'default':
-      graphComponent.mouseWheelZoomEventRecognizer = EventRecognizers.CTRL_IS_DOWN
-      graphComponent.horizontalScrollEventRecognizer = EventRecognizers.SHIFT_IS_DOWN
+      graphComponent.mouseWheelZoomEventRecognizer = mouseWheelZoomEventRecognizer
+      graphComponent.horizontalScrollEventRecognizer = defaultHorizontalScrollEventRecognizer
       break
     case 'alt':
       graphComponent.mouseWheelZoomEventRecognizer = EventRecognizers.ALT_IS_DOWN
@@ -137,7 +143,7 @@ function createSampleGraph(graph: IGraph): void {
 }
 
 /**
- * Wires up the toolbar UI elements.
+ * Wires up the toolbar UI elements and syncs the graphComponent with initial values.
  */
 function initializeUI(graphComponent: GraphComponent): void {
   const modifiersSelect = document.querySelector('#modifiers-select') as HTMLSelectElement
@@ -149,13 +155,23 @@ function initializeUI(graphComponent: GraphComponent): void {
     updateMouseWheelBehavior(wheelBehaviorSelect.value, graphComponent)
   })
   const scrollFactorInput = document.querySelector('#scroll-factor-input') as HTMLInputElement
+  const scrollFactorValueLabel = document.querySelector('#scroll-factor-value')!
   scrollFactorInput.addEventListener('change', () => {
     graphComponent.mouseWheelScrollFactor = Number.parseFloat(scrollFactorInput.value)
+    scrollFactorValueLabel.innerHTML = scrollFactorInput.value
   })
   const zoomFactorInput = document.querySelector('#zoom-factor-input') as HTMLInputElement
+  const zoomFactorValueLabel = document.querySelector('#zoom-factor-value')!
   zoomFactorInput.addEventListener('change', () => {
     graphComponent.mouseWheelZoomFactor = Number.parseFloat(zoomFactorInput.value)
+    zoomFactorValueLabel.innerHTML = zoomFactorInput.value
   })
+
+  // Sync graphComponent with the initial UI element values
+  updateModifiers(modifiersSelect.value, graphComponent)
+  updateMouseWheelBehavior(wheelBehaviorSelect.value, graphComponent)
+  graphComponent.mouseWheelScrollFactor = Number.parseFloat(scrollFactorInput.value)
+  graphComponent.mouseWheelZoomFactor = Number.parseFloat(zoomFactorInput.value)
 }
 
 run().then(finishLoading)

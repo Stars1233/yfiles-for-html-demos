@@ -58,7 +58,7 @@ export class CustomShapeNodeStyle extends NodeStyleBase {
     this.type = type
     this.stroke = stroke
     this.fill = fill
-    this.type = type ?? 'corporation'
+    this.type = type ?? 'Corporation'
     this.stroke = Stroke.from(stroke ?? 'black')
     this.fill = Fill.from(fill ?? 'white')
 
@@ -68,41 +68,41 @@ export class CustomShapeNodeStyle extends NodeStyleBase {
     this.gpNodeStyle.fill = this.fill
 
     switch (type) {
-      case 'corporation':
+      case 'Corporation':
         gp = createCorporationPath()
         break
-      case 'ctb':
+      case 'CTB':
         gp = createCtbPath()
         break
-      case 'partnership':
+      case 'Partnership':
         gp = createPartnershipPath()
         break
-      case 'rctb':
+      case 'RCTB':
         gp = createRctbPath()
         break
-      case 'branch':
-      case 'individual':
+      case 'Branch':
+      case 'Individual':
         gp = createBranchPath()
         break
-      case 'disregarded':
+      case 'Disregarded':
         gp = createDisregardedPath()
         break
-      case 'dual-resident':
+      case 'Dual Resident':
         gp = createDualResidentPath()
         break
-      case 'multiple':
+      case 'Multiple':
         gp = createMultiplePath()
         break
-      case 'trust':
+      case 'Trust':
         gp = createTrustPath()
         break
-      case 'third-party':
+      case 'Third Party':
         gp = createThirdPartyPath()
         break
-      case 'trapezoid':
+      case 'Trapezoid':
         gp = createTrapezoidPath()
         break
-      case 'pe-risk':
+      case 'PE_Risk':
         this.gpNodeStyle.stroke = new Stroke({
           fill: this.stroke.fill ?? 'black',
           dashStyle: DashStyle.DASH,
@@ -149,13 +149,13 @@ export class CustomShapeNodeStyle extends NodeStyleBase {
    */
   getOutline(node: INode): GeneralPath | null {
     switch (this.type) {
-      case 'partnership':
-      case 'branch':
-      case 'multiple':
-      case 'trust':
-      case 'individual':
-      case 'third-party':
-      case 'pe-risk':
+      case 'Partnership':
+      case 'Branch':
+      case 'Multiple':
+      case 'Trust':
+      case 'Individual':
+      case 'Third Party':
+      case 'PE_Risk':
         return this.gpNodeStyle.renderer.getShapeGeometry(node, this.gpNodeStyle).getOutline()
       default:
         return null
@@ -164,7 +164,7 @@ export class CustomShapeNodeStyle extends NodeStyleBase {
 }
 
 /**
- * Creates the path for nodes of type "partnership".
+ * Creates the path for nodes of type "Partnership".
  * @returns The general path that describes this style
  */
 function createPartnershipPath(): GeneralPath {
@@ -238,7 +238,7 @@ function createDisregardedPath(): GeneralPath {
 }
 
 /**
- * Creates the path for nodes of type "Dual_Resident".
+ * Creates the path for nodes of type "Dual Resident".
  * @returns The general path that describes this style
  */
 function createDualResidentPath(): GeneralPath {
@@ -254,7 +254,7 @@ function createDualResidentPath(): GeneralPath {
 }
 
 /**
- * Creates the path for nodes of type "Multiple_Path".
+ * Creates the path for nodes of type "Multiple".
  * @returns The general path that describes this style
  */
 function createMultiplePath(): GeneralPath {
@@ -299,7 +299,7 @@ function createPeRiskPath(): GeneralPath {
 }
 
 /**
- * Creates the path for nodes of type "Third_Party".
+ * Creates the path for nodes of type "Third Party".
  * @returns The general path that describes this style
  */
 function createThirdPartyPath(): GeneralPath {

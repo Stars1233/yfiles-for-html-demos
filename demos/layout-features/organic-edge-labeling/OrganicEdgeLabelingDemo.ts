@@ -41,8 +41,7 @@ import {
   LabelEdgeSides,
   LabelSideReferences,
   OrganicLayout,
-  OrganicLayoutData,
-  ParallelEdgeRouterData
+  OrganicLayoutData
 } from '@yfiles/yfiles'
 import graphData from './sample.json'
 
@@ -117,16 +116,10 @@ const layout = new GenericLabeling({
   deterministic: true
 })
 
-// Specify that GenericLabeling should only arrange labels on self-loops or parallel edges
+// Specify that GenericLabeling should only arrange labels on self-loops,
+// all other labels are placed by the layout algorithm
 const labelingData = new GenericLabelingData({
-  scope: {
-    edgeLabels: (label: ILabel): boolean => {
-      const owner = label.owner as IEdge
-      const isParallelEdge = new ParallelEdgeRouterData().routedMultiEdgesResult!.includes(owner)
-      const isSelfLoopEdge = owner.isSelfLoop
-      return isSelfLoopEdge || isParallelEdge
-    }
-  }
+  scope: { edgeLabels: (label: ILabel): boolean => (label.owner as IEdge).isSelfLoop }
 })
 
 // Prevent labels overlap with edge arrows by reserving space above nodes
@@ -137,9 +130,7 @@ graphComponent.graph.edgeDefaults.labels.layoutParameter =
   new FreeEdgeLabelModel().createParameter()
 
 // Combine all layout data to pass all info to the algorithm
-const layoutData = organicLayoutData
-  .combineWith(new ParallelEdgeRouterData())
-  .combineWith(labelingData)
+const layoutData = organicLayoutData.combineWith(labelingData)
 
 // Build the graph from JSON data
 demoApp.buildGraphFromJson(graphData)

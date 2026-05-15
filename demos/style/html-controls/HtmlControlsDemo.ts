@@ -40,7 +40,7 @@ import {
   Size,
   SvgExport
 } from '@yfiles/yfiles'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import licenseData from '../../../lib/license.json'
 import { HtmlEditableNodeStyle } from './HtmlEditableNodeStyle'
 import { updateTagView } from './util'
@@ -114,6 +114,8 @@ function initTagView(graphComponent: GraphComponent): void {
   graphComponent.selection.addEventListener('item-removed', (_, graphComponent) => {
     updateTagView(null)
   })
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 function createInputMode(): GraphEditorInputMode {
@@ -137,7 +139,7 @@ function createInputMode(): GraphEditorInputMode {
 function initLayout(graphComponent: GraphComponent): void {
   const layout = new HierarchicalLayout()
   graphComponent.graph.applyLayout(layout)
-  void graphComponent.fitGraphBounds(20)
+  void graphComponent.fitGraphBounds()
   document.querySelector('#layout-btn')!.addEventListener('click', async () => {
     await graphComponent.applyLayoutAnimated(layout)
   })

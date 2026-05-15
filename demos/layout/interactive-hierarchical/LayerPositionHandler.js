@@ -62,7 +62,7 @@ export class LayerPositionHandler extends ConstrainedPositionHandler {
       inputModeContext.canvasComponent.renderTree.backgroundGroup,
       visual
     )
-    this.updateTargetBounds(inputModeContext.canvasComponent.lastEventLocation)
+    this.updateTargetBounds(inputModeContext.canvasComponent.lastPointerEvent.location)
   }
 
   /**
@@ -84,7 +84,9 @@ export class LayerPositionHandler extends ConstrainedPositionHandler {
   onFinished(inputModeContext, originalLocation, newLocation) {
     super.onFinished(inputModeContext, originalLocation, newLocation)
     // calculate the target layer
-    const newLayer = this.updateTargetBounds(inputModeContext.canvasComponent.lastEventLocation)
+    const newLayer = this.updateTargetBounds(
+      inputModeContext.canvasComponent.lastPointerEvent.location
+    )
     // clean up
     inputModeContext.canvasComponent?.renderTree.remove(this.renderTreeElement)
     this.newLayerMapper.set(this.node, newLayer)
@@ -97,7 +99,7 @@ export class LayerPositionHandler extends ConstrainedPositionHandler {
   onMoved(inputModeContext, originalLocation, newLocation) {
     super.onMoved(inputModeContext, originalLocation, newLocation)
     // update the bounds to highlight
-    this.updateTargetBounds(inputModeContext.canvasComponent.lastEventLocation)
+    this.updateTargetBounds(inputModeContext.canvasComponent.lastPointerEvent.location)
   }
 
   /**

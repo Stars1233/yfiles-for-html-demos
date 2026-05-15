@@ -54,16 +54,18 @@ export function initGraphStyles(viewGraph) {
   viewGraph.decorator.ports.edgePathCropper.addConstant(new EdgePathCropper({ extraCropLength: 2 }))
 
   viewGraph.groupNodeDefaults.style = new GroupNodeStyle({
-    cssClass: 'demo-group-style',
+    cssClass: 'group-style',
     groupIcon: 'minus',
     folderIcon: 'plus',
     tabHeight: 30,
     tabWidth: 0,
-    tabFill: getColor('--white'),
     tabPadding: 5,
-    tabBackgroundFill: getColor('--demo-blue-dark'),
+    tabFill: 'currentColor',
+    tabBackgroundFill: 'currentColor',
+    stroke: '1px solid currentColor',
+    contentAreaFill: 'currentColor',
+    iconBackgroundFill: 'currentColor',
     tabPosition: 'top-trailing',
-    stroke: `1px solid ${getColor('--demo-blue-dark')}`,
     iconSize: 20,
     contentAreaPadding: 20,
     cornerRadius: 7,
@@ -71,10 +73,11 @@ export function initGraphStyles(viewGraph) {
   })
 
   viewGraph.groupNodeDefaults.labels.style = new LabelStyle({
+    cssClass: 'group-label-style',
     verticalTextAlignment: 'center',
     horizontalTextAlignment: 'left',
     wrapping: 'wrap-character-ellipsis',
-    textFill: getColor('--white'),
+    textFill: 'currentColor',
     textSize: 16,
     padding: [0, 0, 0, 5]
   })

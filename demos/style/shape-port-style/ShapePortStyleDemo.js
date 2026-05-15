@@ -31,6 +31,7 @@ import {
   GraphComponent,
   GraphEditorInputMode,
   InteriorNodeLabelModel,
+  LabelStyle,
   License,
   List,
   PolylineEdgeStyle,
@@ -39,12 +40,16 @@ import {
   ShapeNodeStyle,
   ShapePortStyle,
   Size,
-  Stroke
+  Stroke,
+  WebGLGraphModelManager,
+  WebGLLabelStyle,
+  WebGLLabelStyleDecorator
 } from '@yfiles/yfiles'
 
 import { colorSets, createDemoEdgeLabelStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { initializeSvgWebGlSwitchButton } from './svg-webgl-switch'
 
 /**
  * Runs the demo.
@@ -52,6 +57,7 @@ import { finishLoading } from '@yfiles/demo-app/demo-page'
 async function run() {
   License.value = licenseData
   const graphComponent = new GraphComponent('#graphComponent')
+  graphComponent.graphModelManager = new WebGLGraphModelManager({ renderMode: 'svg' })
 
   // Create and configure ports using shape port style
   initializeGraph(graphComponent.graph)
@@ -59,6 +65,8 @@ async function run() {
   initializeInteraction(graphComponent)
 
   await graphComponent.fitGraphBounds()
+
+  initializeSvgWebGlSwitchButton('#styleTypeChooser', graphComponent)
 }
 
 /**
@@ -103,7 +111,8 @@ function initializeGraph(graph) {
     'octagon-standing',
     'rectangle',
     'pentagon',
-    'ellipse'
+    'ellipse',
+    'squircle'
   ]
 
   const colorSetNames = [
@@ -152,6 +161,24 @@ function initializeGraph(graph) {
       createDemoEdgeLabelStyle(colorSet)
     )
 
+    if (
+      portShape === 'star5' ||
+      portShape === 'star6' ||
+      portShape === 'star8' ||
+      portShape === 'pentagon' ||
+      portShape === 'octagon-standing'
+    ) {
+      graph.addLabel(
+        currNode,
+        'Not supported in WebGL',
+        InteriorNodeLabelModel.BOTTOM,
+        new WebGLLabelStyleDecorator(
+          new LabelStyle({ textFill: 'transparent' }),
+          new WebGLLabelStyle({ textColor: 'gray' })
+        )
+      )
+    }
+
     // display 4 nodes in every row
     if (i % 4 === 0) {
       x = 0
@@ -177,6 +204,8 @@ function initializeInteraction(graphComponent) {
   graphComponent.graph.decorator.nodes.portCandidateProvider.addFactory(
     (node) => new CustomPortCandidateProvider(node)
   )
+
+  graphComponent.graph.decorator.ports.handleProvider.hide()
 }
 
 /**

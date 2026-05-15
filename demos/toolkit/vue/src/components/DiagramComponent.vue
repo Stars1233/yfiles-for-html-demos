@@ -1,13 +1,13 @@
 <template>
-  <demo-toolbar
-    class="toolbar"
-    @reload-graph="defaultGraph.create()"
-    @toggle-editable="toggleEditable"
-    @layout="layout()"
-    @export-svg="exportSvg"
-    @search-query-change="graphSearch.onSearchQueryChange"
-  ></demo-toolbar>
   <div class="graph-component-container" ref="GraphComponentElement">
+    <demo-toolbar
+      class="toolbar"
+      @reload-graph="defaultGraph.create()"
+      @toggle-editable="toggleEditable"
+      @layout="layout()"
+      @export-svg="exportSvg"
+      @search-query-change="graphSearch.onSearchQueryChange"
+    ></demo-toolbar>
     <context-menu @hide-context-menu="contextMenu.hide()" v-bind="contextMenu.data" />
   </div>
 </template>
@@ -115,31 +115,31 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.graph-component-container {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  height: 100%;
+  background-color: white;
+  border-radius: 16px;
+}
+
 .toolbar {
   position: absolute;
-  top: 60px;
-  left: 0;
-  right: 0;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 999px;
   height: 40px;
-  line-height: 40px;
-  padding: 0 5px;
+  width: fit-content;
+  padding: 0 12px;
   box-sizing: border-box;
   user-select: none;
-  background-color: #f7f7f7;
+  background-color: #f2f5f8;
   z-index: 10;
-}
-
-.graph-component-container {
-  position: absolute;
-  top: 100px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-@media screen and (max-height: 500px) {
-  .graph-component-container {
-    top: 60px;
-  }
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.1),
+    0 3px 10px rgba(0, 0, 0, 0.1),
+    0 1px 5px rgba(0, 0, 0, 0.15);
 }
 </style>

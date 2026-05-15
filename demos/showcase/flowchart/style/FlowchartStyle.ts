@@ -270,7 +270,7 @@ export class FlowchartNodeStyle extends NodeStyleBase<FlowchartNodeStyleVisual> 
   /**
    * Returns the bounds of the shape's outline according to the type.
    */
-  getBounds(context: ICanvasContext, node: INode): Rect {
+  getBounds(_context: ICanvasContext, node: INode): Rect {
     return getPath(this.type, node).getBounds()
   }
 

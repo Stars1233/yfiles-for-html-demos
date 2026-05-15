@@ -34,9 +34,9 @@ import {
   License
 } from '@yfiles/yfiles'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { EdgePositionHandler } from './EdgePositionHandler'
 
 /**
@@ -72,17 +72,21 @@ async function run() {
 function createSampleGraph(graph) {
   const builder = new GraphBuilder(graph)
   builder.createNodesSource({
-    data: SampleData.nodes,
+    data: GraphData.nodes.filter((node) => !node.isGroup),
     id: 'id',
     parentId: 'parent',
-    layout: 'bounds'
+    layout: 'layout'
   })
-  builder.createGroupNodesSource({ data: SampleData.groups, id: 'id', layout: 'bounds' })
-  builder.createEdgesSource({
-    data: SampleData.edges,
+  builder.createGroupNodesSource({
+    data: GraphData.nodes.filter((node) => node.isGroup),
     id: 'id',
-    sourceId: 'src',
-    targetId: 'tgt',
+    layout: 'layout'
+  })
+  builder.createEdgesSource({
+    data: GraphData.edges,
+    id: 'id',
+    sourceId: 'source',
+    targetId: 'target',
     bends: 'bends'
   })
 

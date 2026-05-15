@@ -39,7 +39,8 @@ import {
 import { SchemaComponent } from './SchemaComponent'
 import samples from './samples'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 
 const samplesComboBox = document.querySelector('#samples-combo-box')
 
@@ -100,7 +101,7 @@ function initializeUI() {
     await buildGraphFromData(true)
     samplesComboBox.disabled = false
   })
-  addNavigationButtons(samplesComboBox).addEventListener('change', async () => {
+  addNavigationButtons(samplesComboBox, 'Sample:', false).addEventListener('change', async () => {
     const i = samplesComboBox.selectedIndex
     if (samples && samples[i]) {
       samplesComboBox.disabled = true

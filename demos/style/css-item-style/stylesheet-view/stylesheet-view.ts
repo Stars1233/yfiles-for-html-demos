@@ -27,6 +27,9 @@
  **
  ***************************************************************************/
 import { createCodemirrorEditor, type EditorView } from '@yfiles/demo-app/codemirror-editor'
+import './stylesheet-view.css'
+
+import graphItemStyles from '../graph-item-styles.css?raw'
 
 let editor: EditorView
 
@@ -43,29 +46,11 @@ export async function createStylesheetView(selector: string): Promise<void> {
   dataContainer.setAttribute('class', 'data-container')
 
   editor = createCodemirrorEditor('css', dataContainer)
-  let stylesheet = await fetchStylesheet()
 
   // remove the @license doc comment from the css file
-  stylesheet = stylesheet.replace(/\/\*{2,}.*@license.*\*{2,}\/(\n|\r\n)/s, '')
+  const stylesheet = graphItemStyles.replace(/\/\*{2,}.*@license.*\*{2,}\/(\n|\r\n)/s, '')
 
   editor.dispatch({ changes: { from: 0, to: editor.state.doc.length, insert: stylesheet } })
-}
-
-/**
- * Fetches the raw stylesheet data to display it in the demo.
- */
-async function fetchStylesheet(): Promise<string> {
-  const stylesheetUrl = './graph-item-styles.css'
-  try {
-    const response = await fetch(stylesheetUrl, { headers: { Accept: 'text/css' } })
-    if (response.ok) {
-      return response.text()
-    } else {
-      return Promise.resolve(`Could not fetch ${stylesheetUrl}`)
-    }
-  } catch (e) {
-    return Promise.resolve(`Could not fetch ${stylesheetUrl}.\n${e}`)
-  }
 }
 
 /**

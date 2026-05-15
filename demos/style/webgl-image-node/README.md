@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# WebGL Image Node Demo
+# WebGL Image Node Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/webgl-icon-node.webp" alt="demo-thumbnail" height="320"/>
 

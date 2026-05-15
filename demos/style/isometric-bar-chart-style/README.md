@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Isometric Bar Chart Node Style
+# Isometric Bar Chart Node Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/isometric-bar-chart-style.webp" alt="demo-thumbnail" height="320"/>
 

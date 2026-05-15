@@ -1,22 +1,22 @@
 {
   "name": "@yfiles/demo-app",
-  "version": "30.0.0",
+  "version": "31.0.0",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
       "name": "@yfiles/demo-app",
-      "version": "30.0.0",
+      "version": "31.0.0",
       "license": "https://www.yworks.com/products/yfiles-for-html/sla",
       "dependencies": {
         "@codemirror/legacy-modes": "^6.5.0",
         "@codemirror/lang-css": "^6.3.0",
+        "@codemirror/lang-vue": "^0.1.3",
         "@codemirror/lang-javascript": "^6.2.0",
         "@codemirror/lang-json": "^6.0.0",
         "@codemirror/lang-xml": "^6.1.0",
-        "@fontsource/material-icons-outlined": "^5.2.0",
         "@fontsource/poppins": "^5.2.0",
-        "@yfiles/yfiles": "^30.0.5+dev",
+        "@yfiles/yfiles": "^31.0.0+dev",
         "codemirror": "^6.0.2",
         "fast-xml-parser": "^5.2.0",
         "postcss": "^8.5.0"
@@ -59,6 +59,23 @@
         "@lezer/css": "^1.1.7"
       }
     },
+    "node_modules/@codemirror/lang-html": {
+      "version": "6.4.11",
+      "resolved": "https://registry.npmjs.org/@codemirror/lang-html/-/lang-html-6.4.11.tgz",
+      "integrity": "sha512-9NsXp7Nwp891pQchI7gPdTwBuSuT3K65NGTHWHNJ55HjYcHLllr0rbIZNdOzas9ztc1EUVBlHou85FFZS4BNnw==",
+      "license": "MIT",
+      "dependencies": {
+        "@codemirror/autocomplete": "^6.0.0",
+        "@codemirror/lang-css": "^6.0.0",
+        "@codemirror/lang-javascript": "^6.0.0",
+        "@codemirror/language": "^6.4.0",
+        "@codemirror/state": "^6.0.0",
+        "@codemirror/view": "^6.17.0",
+        "@lezer/common": "^1.0.0",
+        "@lezer/css": "^1.1.0",
+        "@lezer/html": "^1.3.12"
+      }
+    },
     "node_modules/@codemirror/lang-javascript": {
       "version": "6.2.4",
       "resolved": "https://registry.npmjs.org/@codemirror/lang-javascript/-/lang-javascript-6.2.4.tgz",
@@ -82,6 +99,20 @@
       "dependencies": {
         "@codemirror/language": "^6.0.0",
         "@lezer/json": "^1.0.0"
+      }
+    },
+    "node_modules/@codemirror/lang-vue": {
+      "version": "0.1.3",
+      "resolved": "https://registry.npmjs.org/@codemirror/lang-vue/-/lang-vue-0.1.3.tgz",
+      "integrity": "sha512-QSKdtYTDRhEHCfo5zOShzxCmqKJvgGrZwDQSdbvCRJ5pRLWBS7pD/8e/tH44aVQT6FKm0t6RVNoSUWHOI5vNug==",
+      "license": "MIT",
+      "dependencies": {
+        "@codemirror/lang-html": "^6.0.0",
+        "@codemirror/lang-javascript": "^6.1.2",
+        "@codemirror/language": "^6.0.0",
+        "@lezer/common": "^1.2.0",
+        "@lezer/highlight": "^1.0.0",
+        "@lezer/lr": "^1.3.1"
       }
     },
     "node_modules/@codemirror/lang-xml": {
@@ -164,15 +195,6 @@
         "w3c-keyname": "^2.2.4"
       }
     },
-    "node_modules/@fontsource/material-icons-outlined": {
-      "version": "5.2.6",
-      "resolved": "https://registry.npmjs.org/@fontsource/material-icons-outlined/-/material-icons-outlined-5.2.6.tgz",
-      "integrity": "sha512-99XKAkwnCg0s0/ywax+o3m01HSNM5gGzSBw+WnlWG2+WY3wOjcN+wXMfm4zP37Yme7Yze2DvKxF78tHWOrlwFw==",
-      "license": "OFL-1.1",
-      "funding": {
-        "url": "https://github.com/sponsors/ayuhito"
-      }
-    },
     "node_modules/@fontsource/poppins": {
       "version": "5.2.7",
       "resolved": "https://registry.npmjs.org/@fontsource/poppins/-/poppins-5.2.7.tgz",
@@ -206,6 +228,17 @@
       "license": "MIT",
       "dependencies": {
         "@lezer/common": "^1.3.0"
+      }
+    },
+    "node_modules/@lezer/html": {
+      "version": "1.3.13",
+      "resolved": "https://registry.npmjs.org/@lezer/html/-/html-1.3.13.tgz",
+      "integrity": "sha512-oI7n6NJml729m7pjm9lvLvmXbdoMoi2f+1pwSDJkl9d68zGr7a9Btz8NdHTGQZtW2DA25ybeuv/SyDb9D5tseg==",
+      "license": "MIT",
+      "dependencies": {
+        "@lezer/common": "^1.2.0",
+        "@lezer/highlight": "^1.0.0",
+        "@lezer/lr": "^1.0.0"
       }
     },
     "node_modules/@lezer/javascript": {
@@ -277,10 +310,10 @@
       "integrity": "sha512-VQ2MBenTq1fWZUH9DJNGti7kKv6EeAuYr3cLwxUWhIu1baTaXh4Ib5W2CqHVqib4/MqbYGJqiL3Zb8GJZr3l4g==",
       "license": "MIT"
     },
-    "node_modules/fast-xml-parser": {
-      "version": "5.3.5",
-      "resolved": "https://registry.npmjs.org/fast-xml-parser/-/fast-xml-parser-5.3.5.tgz",
-      "integrity": "sha512-JeaA2Vm9ffQKp9VjvfzObuMCjUYAp5WDYhRYL5LrBPY/jUDlUtOvDfot0vKSkB9tuX885BDHjtw4fZadD95wnA==",
+    "node_modules/fast-xml-builder": {
+      "version": "1.1.4",
+      "resolved": "https://npm.yworks.home/fast-xml-builder/-/fast-xml-builder-1.1.4.tgz",
+      "integrity": "sha512-f2jhpN4Eccy0/Uz9csxh3Nu6q4ErKxf0XIsasomfOihuSUa3/xw6w8dnOtCDgEItQFJG8KyXPzQXzcODDrrbOg==",
       "funding": [
         {
           "type": "github",
@@ -289,7 +322,24 @@
       ],
       "license": "MIT",
       "dependencies": {
-        "strnum": "^2.1.2"
+        "path-expression-matcher": "^1.1.3"
+      }
+    },
+    "node_modules/fast-xml-parser": {
+      "version": "5.5.9",
+      "resolved": "https://npm.yworks.home/fast-xml-parser/-/fast-xml-parser-5.5.9.tgz",
+      "integrity": "sha512-jldvxr1MC6rtiZKgrFnDSvT8xuH+eJqxqOBThUVjYrxssYTo1avZLGql5l0a0BAERR01CadYzZ83kVEkbyDg+g==",
+      "funding": [
+        {
+          "type": "github",
+          "url": "https://github.com/sponsors/NaturalIntelligence"
+        }
+      ],
+      "license": "MIT",
+      "dependencies": {
+        "fast-xml-builder": "^1.1.4",
+        "path-expression-matcher": "^1.2.0",
+        "strnum": "^2.2.2"
       },
       "bin": {
         "fxparser": "src/cli/cli.js"
@@ -311,6 +361,21 @@
       },
       "engines": {
         "node": "^10 || ^12 || ^13.7 || ^14 || >=15.0.1"
+      }
+    },
+    "node_modules/path-expression-matcher": {
+      "version": "1.2.0",
+      "resolved": "https://npm.yworks.home/path-expression-matcher/-/path-expression-matcher-1.2.0.tgz",
+      "integrity": "sha512-DwmPWeFn+tq7TiyJ2CxezCAirXjFxvaiD03npak3cRjlP9+OjTmSy1EpIrEbh+l6JgUundniloMLDQ/6VTdhLQ==",
+      "funding": [
+        {
+          "type": "github",
+          "url": "https://github.com/sponsors/NaturalIntelligence"
+        }
+      ],
+      "license": "MIT",
+      "engines": {
+        "node": ">=14.0.0"
       }
     },
     "node_modules/picocolors": {
@@ -357,9 +422,9 @@
       }
     },
     "node_modules/strnum": {
-      "version": "2.1.2",
-      "resolved": "https://registry.npmjs.org/strnum/-/strnum-2.1.2.tgz",
-      "integrity": "sha512-l63NF9y/cLROq/yqKXSLtcMeeyOfnSQlfMSlzFt/K73oIaD8DGaQWd7Z34X9GPiKqP5rbSh84Hl4bOlLcjiSrQ==",
+      "version": "2.2.2",
+      "resolved": "https://npm.yworks.home/strnum/-/strnum-2.2.2.tgz",
+      "integrity": "sha512-DnR90I+jtXNSTXWdwrEy9FakW7UX+qUZg28gj5fk2vxxl7uS/3bpI4fjFYVmdK9etptYBPNkpahuQnEwhwECqA==",
       "funding": [
         {
           "type": "github",
@@ -381,9 +446,9 @@
       "license": "MIT"
     },
     "node_modules/@yfiles/yfiles": {
-      "version": "30.0.5+dev",
-      "integrity": "sha512-DmFWoAJsDTbOt7MOxAsI0mnWbIxh58l4nzkC7nSTSFTq6qDgP3wGS94N4uIEXfieFuJVdRI4l4/qI2npMunbyw==",
-      "resolved": "file:../../lib-dev/yfiles-30.0.5+dev.tgz"
+      "version": "31.0.0+dev",
+      "integrity": "sha512-QcHKo/VTzQRKcGDBGrtqTM/kce3rqTnQqTLLvZDth1EOtT2zHkJzWAF2z9O6ATqGGo7KxS4n2O6M0zWiipv/NQ==",
+      "resolved": "file:../../lib-dev/yfiles-31.0.0+dev.tgz"
     }
   }
 }

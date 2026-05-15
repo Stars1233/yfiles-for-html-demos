@@ -74,7 +74,8 @@ import { NodeTypePanel } from '@yfiles/demo-utils/NodeTypePanel'
 import type { ColorSetName } from '@yfiles/demo-app/demo-styles'
 import { colorSets, createDemoEdgeStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Type describing a sample graph and the according layout algorithm to run on it.
@@ -404,6 +405,8 @@ function configureGraphComponent(): void {
   graphComponent.graph.nodeDefaults.style = createDemoNodeStyle()
 
   graphComponent.graph.undoEngineEnabled = true
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**
@@ -471,7 +474,7 @@ function initializeUI(): void {
 
   const sampleComboBox = document.querySelector<HTMLSelectElement>('#sample-combo-box')!
   sampleComboBox.addEventListener('change', () => loadSample(true))
-  addNavigationButtons(sampleComboBox)
+  addNavigationButtons(sampleComboBox, 'Sample:', false)
 }
 
 /**

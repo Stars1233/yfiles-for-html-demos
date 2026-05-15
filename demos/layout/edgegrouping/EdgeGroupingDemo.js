@@ -54,10 +54,10 @@ import {
   SvgVisualGroup
 } from '@yfiles/yfiles'
 
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import { createDemoNodeStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent = null
 
@@ -77,11 +77,7 @@ async function run() {
  */
 async function runLayout(fromSketch) {
   setUIDisabled(true)
-  const layout = new HierarchicalLayout({
-    minimumLayerDistance: 70,
-    fromSketchMode: fromSketch,
-    coordinateAssigner: { bendReduction: false }
-  })
+  const layout = new HierarchicalLayout({ minimumLayerDistance: 70, fromSketchMode: fromSketch })
 
   const layoutData = new HierarchicalLayoutData({
     edgeThickness: 3,
@@ -134,8 +130,8 @@ function createSampleGraph() {
   bridgeManager.addObstacleProvider(new GraphObstacleProvider())
 
   const builder = new GraphBuilder(graph)
-  builder.createNodesSource(SampleData.nodes, 'id')
-  builder.createEdgesSource(SampleData.edges, 'from', 'to', 'id')
+  builder.createNodesSource(GraphData.nodes, 'id')
+  builder.createEdgesSource(GraphData.edges, 'source', 'target', 'id')
   builder.buildGraph()
 
   graph.edges.forEach((edge) => {

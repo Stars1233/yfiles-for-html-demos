@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# d3 Chart Nodes Demo
+# d3 Chart Nodes Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/d3-chart-nodes.webp" alt="demo-thumbnail" height="320"/>
 

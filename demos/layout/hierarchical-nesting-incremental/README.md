@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Nesting (Incremental) Demo
+# Hierarchical Nesting (Incremental) Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/hierarchical-nesting-incremental.webp" alt="demo-thumbnail" height="320"/>
 

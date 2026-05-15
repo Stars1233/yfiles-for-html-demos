@@ -55,14 +55,11 @@ import { Sample2NodeStyle, Sample2NodeStyleExtension } from './Sample2NodeStyle'
 import { Sample2Arrow, Sample2ArrowExtension } from './Sample2Arrow'
 import { applyDefaultStyles } from './style-utils'
 import licenseData from '../../../lib/license.json'
-import {
-  addNavigationButtons,
-  addOptions,
-  BrowserDetection,
-  finishLoading
-} from '@yfiles/demo-app/demo-page'
 import { saveGraphML } from '@yfiles/demo-utils/graphml-support'
 import { Sample1CollapsibleNodeStyleDecorator } from './Sample1CollapsibleNodeStyleDecorator'
+import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
+import { addNavigationButtons, addOptions } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run() {
   License.value = licenseData
@@ -304,46 +301,37 @@ function initializeUI(graphComponent) {
   )
   saveButton.disabled = true
 
-  const sampleSelectElements = ['#sample-select--sidebar', '#sample-select--toolbar'].map(
-    (selector) => document.querySelector(selector)
-  )
-  for (const selectElement of sampleSelectElements) {
-    addOptions(selectElement, 'Sample 1', 'Sample 2')
-    addNavigationButtons(selectElement, true, false)
+  const selectElement = document.querySelector('#sample-select--toolbar')
+  addOptions(selectElement, 'Sample 1', 'Sample 2')
+  addNavigationButtons(selectElement, '', true)
 
-    selectElement.addEventListener('change', () => {
-      const sampleName = selectElement.value
-      switch (sampleName) {
-        case 'Sample 1':
-        default:
-          // Set up the styles of the first sample
-          applySample1(graphComponent.graph)
+  selectElement.addEventListener('change', () => {
+    const sampleName = selectElement.value
+    switch (sampleName) {
+      case 'Sample 1':
+      default:
+        // Set up the styles of the first sample
+        applySample1(graphComponent.graph)
 
-          // Update UI accordingly
-          updateDescriptionText('sample-1-description', 'sample-2-description')
-          modifyColors.disabled = false
-          saveButton.disabled = true
-          break
-        case 'Sample 2':
-          // Set up the styles of the second sample
-          applySample2(graphComponent.graph)
+        // Update UI accordingly
+        updateDescriptionText('sample-1-description', 'sample-2-description')
+        modifyColors.disabled = false
+        saveButton.disabled = true
+        break
+      case 'Sample 2':
+        // Set up the styles of the second sample
+        applySample2(graphComponent.graph)
 
-          // Update UI accordingly
-          updateDescriptionText('sample-2-description', 'sample-1-description')
-          modifyColors.disabled = true
-          saveButton.disabled = false
-          break
-      }
+        // Update UI accordingly
+        updateDescriptionText('sample-2-description', 'sample-1-description')
+        modifyColors.disabled = true
+        saveButton.disabled = false
+        break
+    }
 
-      // Apply the new default styles
-      applyDefaultStyles(graphComponent.graph)
-
-      // Updates all other select elements
-      for (const selectElement of sampleSelectElements) {
-        selectElement.value = sampleName
-      }
-    })
-  }
+    // Apply the new default styles
+    applyDefaultStyles(graphComponent.graph)
+  })
 }
 
 /**

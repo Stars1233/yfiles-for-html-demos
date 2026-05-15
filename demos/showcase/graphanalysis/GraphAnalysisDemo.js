@@ -38,7 +38,6 @@ import {
   ShapeNodeStyle
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { initializeToolbar, switchSample, useUniformEdgeWeights } from './ui/ui-utils'
 import { runLayout } from './layout/layout'
 import { TagColoredPolylineEdgeStyle, TagColoredShapeNodeStyle } from './styles'
@@ -46,6 +45,7 @@ import { ComponentSwitchingInputMode } from './ui/ComponentSwitchingInputMode'
 import { applyAlgorithm } from './algorithms/algorithms'
 import { initializeGraphInformation } from './ui/graph-structure-information'
 import { initializeContextMenu } from './ui/context-menu'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Precompiled Regex matcher used to allow only weight labels with positive numbers as text.

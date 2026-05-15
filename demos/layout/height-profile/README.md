@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Height Profile Demo
+# Height Profile Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/height-profile.webp" alt="demo-thumbnail" height="320"/>
 

@@ -40,6 +40,7 @@ import {
   type WebGLAnimationEasingStringValues,
   type WebGLAnimationTiming,
   type WebGLBeaconAnimationTypeStringValues,
+  WebGLBeaconEdgeIndicatorStyle,
   WebGLBeaconNodeIndicatorStyle,
   WebGLEdgeIndicatorStyle,
   type WebGLIndicatorTypeStringValues,
@@ -145,19 +146,35 @@ function createNodeIndicatorStyle(
 }
 
 /**
- * Creates an edge indicator style from the given style properties.
+ * Creates an edge indicator style from the given style properties. This can either be an
+ * edge indicator style or a beacon edge indicator style.
  */
-function createEdgeIndicatorStyle(style: SelectionStyle): WebGLEdgeIndicatorStyle {
-  return new WebGLEdgeIndicatorStyle({
-    type: isNodeOnlyStyle(style.stylePattern) ? 'solid' : style.stylePattern,
-    primaryColor: getColor(style.primaryColor, style.primaryTransparency),
-    secondaryColor: getColor(style.secondaryColor, style.secondaryTransparency),
-    zoomPolicy: style.zoomPolicy,
-    enterTransition: style.transition,
-    leaveTransition: style.transition,
-    dashStrokeAnimation: style.animationTiming,
-    thickness: style.thickness
-  })
+function createEdgeIndicatorStyle(
+  style: SelectionStyle
+): WebGLEdgeIndicatorStyle | WebGLBeaconEdgeIndicatorStyle {
+  if (isBeaconStyle(style.stylePattern)) {
+    return new WebGLBeaconEdgeIndicatorStyle({
+      type: style.stylePattern,
+      color: getColor(style.primaryColor, style.primaryTransparency),
+      pulseCount: 1,
+      pulseWidth: style.thickness,
+      zoomPolicy: style.zoomPolicy,
+      enterTransition: style.transition,
+      leaveTransition: style.transition,
+      timing: style.animationTiming
+    })
+  } else {
+    return new WebGLEdgeIndicatorStyle({
+      type: isHaloStyle(style.stylePattern) ? 'solid' : style.stylePattern,
+      primaryColor: getColor(style.primaryColor, style.primaryTransparency),
+      secondaryColor: getColor(style.secondaryColor, style.secondaryTransparency),
+      zoomPolicy: style.zoomPolicy,
+      enterTransition: style.transition,
+      leaveTransition: style.transition,
+      dashStrokeAnimation: style.animationTiming,
+      thickness: style.thickness
+    })
+  }
 }
 
 /**
@@ -165,7 +182,10 @@ function createEdgeIndicatorStyle(style: SelectionStyle): WebGLEdgeIndicatorStyl
  */
 function createLabelIndicatorStyle(style: SelectionStyle): WebGLLabelIndicatorStyle {
   return new WebGLLabelIndicatorStyle({
-    type: isNodeOnlyStyle(style.stylePattern) ? 'solid' : style.stylePattern,
+    type:
+      isBeaconStyle(style.stylePattern) || isHaloStyle(style.stylePattern)
+        ? 'solid'
+        : style.stylePattern,
     primaryColor: getColor(style.primaryColor, style.primaryTransparency),
     secondaryColor: getColor(style.secondaryColor, style.secondaryTransparency),
     zoomPolicy: style.zoomPolicy,
@@ -197,6 +217,15 @@ function isBeaconStyle(styleString: string): styleString is WebGLBeaconAnimation
 }
 
 /**
+ *  Determines if the given style string is a halo style.
+ */
+function isHaloStyle(
+  styleString: string
+): styleString is WebGLBeaconAnimationTypeStringValues | WebGLIndicatorTypeStringValues {
+  return styleString === 'halo'
+}
+
+/**
  * Creates a Color from a css color string and a provided transparency
  */
 function getColor(color: string, transparency: number): Color {
@@ -204,11 +233,4 @@ function getColor(color: string, transparency: number): Color {
   const g = parseInt(color.substring(3, 5), 16)
   const b = parseInt(color.substring(5, 7), 16)
   return Color.fromRGBA(r, g, b, 1 - transparency)
-}
-
-/**
- *  Determines if the style pattern is only available for nodes which is true for beacon and halo styles.
- */
-function isNodeOnlyStyle(styleString: string): styleString is WebGLBeaconAnimationTypeStringValues {
-  return isBeaconStyle(styleString) || styleString === 'halo'
 }

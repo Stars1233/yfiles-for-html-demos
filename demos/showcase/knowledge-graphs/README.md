@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Interactive Knowledge Graph Demo
+# Interactive Knowledge Graph Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/knowledge-graphs.webp" alt="demo-thumbnail" height="320"/>
 

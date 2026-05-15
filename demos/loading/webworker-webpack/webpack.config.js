@@ -28,7 +28,6 @@
  ***************************************************************************/
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const { merge } = require('webpack-merge')
 const devConfig = require('./webpack.dev')
@@ -51,12 +50,7 @@ const baseConfig = {
     // don't split chunks for web worker
     splitChunks: { chunks: 'all', minSize: 100000 }
   },
-  plugins: [
-    new MiniCssExtractPlugin({ filename: '[name].css', chunkFilename: '[id].css' }),
-    new CopyWebpackPlugin({
-      patterns: [{ from: '../../demo-app/icons/favicon.ico', noErrorOnMissing: true }]
-    })
-  ],
+  plugins: [new MiniCssExtractPlugin({ filename: '[name].css', chunkFilename: '[id].css' })],
   output: { clean: true, filename: '[name].js', path: path.resolve(__dirname, 'dist') }
 }
 

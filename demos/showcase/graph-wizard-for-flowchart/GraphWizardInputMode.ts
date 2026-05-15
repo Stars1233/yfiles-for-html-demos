@@ -61,7 +61,6 @@ import {
   PointerEventArgs,
   PointerEventType,
   PortCandidate,
-  type PropertyChangedEventArgs,
   ShowPortCandidates,
   Size,
   type SvgVisual,
@@ -111,10 +110,7 @@ export class GraphWizardInputMode extends MultiplexingInputMode {
 
   private readonly _pointerHandler: (evt: PointerEventArgs, sender: CanvasComponent) => void
   private readonly _keyHandler: (evt: KeyEventArgs, sender: CanvasComponent) => void
-  private readonly _itemChangedHandler: (
-    evt: PropertyChangedEventArgs,
-    sender: GraphComponent
-  ) => void
+  private readonly _itemChangedHandler: (evt: EventArgs, sender: GraphComponent) => void
 
   private readonly _legendDiv: HTMLDivElement | null = null
   private readonly _buttonMode: ButtonInputMode
@@ -390,7 +386,6 @@ export class GraphWizardInputMode extends MultiplexingInputMode {
    */
   private clearLegend(legendDiv: HTMLDivElement, visible: boolean): void {
     legendDiv.innerHTML = ''
-    legendDiv.parentElement!.parentElement!.hidden = !visible
   }
 
   /**
@@ -649,7 +644,7 @@ export class GraphWizardInputMode extends MultiplexingInputMode {
         this,
         button.owner,
         button.tag,
-        this.parentInputModeContext!.canvasComponent!.lastInputEvent
+        this.parentInputModeContext!.canvasComponent!.lastPointerEvent
       )
       this.resolvePickerSelection(actionSuccessful == undefined || actionSuccessful)
     }
@@ -727,7 +722,7 @@ export class GraphWizardInputMode extends MultiplexingInputMode {
         action,
         button.owner,
         button.tag,
-        this.parentInputModeContext!.canvasComponent!.lastInputEvent
+        this.parentInputModeContext!.canvasComponent!.lastPointerEvent
       )
   }
 

@@ -28,6 +28,12 @@
  ***************************************************************************/
 import { INode } from '@yfiles/yfiles'
 
+import bankFraudDataUntyped from './resources/bank-fraud-data.json' with { type: 'json' }
+import insuranceFraudDataUntyped from './resources/insurance-fraud-data.json' with { type: 'json' }
+
+export const bankFraudData = bankFraudDataUntyped
+export const insuranceFraudData = insuranceFraudDataUntyped
+
 /**
  * Type-safe getter for entity data stored in the node tag.
  */
@@ -60,26 +66,22 @@ export function getEntityInfo(node) {
 export function getInfoMap(node) {
   const entity = getEntityData(node)
   const info = getEntityInfo(node)
-  if (typeof info == 'string') {
-    return { info: info }
-  } else {
-    const records = {}
-    Object.keys(info).forEach((key) => {
-      let value = info[key]
-      if (Array.isArray(value)) {
-        value = value[0]
-      }
-      records[key] = value
-    })
-    if (entity.enter.length > 0) {
-      records['Enter Date'] = entity.enter[0].toString()
-    }
-    if (entity.exit.length > 0) {
-      records['Exit Date'] = entity.exit[0].toString()
-    }
-
-    return records
+  if (info == null || typeof info === 'string') {
+    return { info: info ?? '' }
   }
+
+  const records = {}
+  Object.keys(info).forEach((key) => {
+    records[key] = info[key] ?? ''
+  })
+  if (entity.enter.length > 0) {
+    records['Enter Date'] = entity.enter[0].toString()
+  }
+  if (entity.exit.length > 0) {
+    records['Exit Date'] = entity.exit[0].toString()
+  }
+
+  return records
 }
 
 /**

@@ -1,0 +1,113 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+.demo-page__toolbar {
+  position: absolute;
+  top: 16px;
+  z-index: 3;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 3px;
+  font-size: 0.9rem;
+  color: #2a3e50;
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  background: #f2f5f8;
+  padding: 4px 8px;
+  border-radius: 999px;
+  user-select: none;
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.1),
+    0 3px 10px rgba(0, 0, 0, 0.1),
+    0 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.demo-page__toolbar button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  height: 2.25rem;
+  width: 2.25rem;
+  box-sizing: border-box;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.demo-page__toolbar .material-symbols-outlined {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #2a3e50;
+}
+
+.demo-page__toolbar button.labeled {
+  font-size: 0.8rem;
+  width: fit-content;
+  height: 1.75rem;
+  border: none;
+  border-radius: 16px;
+  background-color: #aec3d5;
+  color: inherit;
+  padding: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  cursor: pointer;
+  background-position: 50% 50%;
+
+  &:hover {
+    background-color: #0000000f;
+  }
+
+  &:active {
+    background-color: #0000001f;
+  }
+}
+
+.demo-page__toolbar button:hover {
+  background-color: #dedede;
+}
+
+.demo-page__toolbar button:active {
+  background-color: #b2b2b2;
+}
+
+.demo-separator {
+  height: 20px;
+  width: 1px;
+  background: #999;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 2px;
+}

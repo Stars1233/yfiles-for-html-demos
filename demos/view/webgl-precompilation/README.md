@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# WebGL Precompilation Demo
+# WebGL Precompilation Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/webgl-precompilation.webp" alt="demo-thumbnail" height="320"/>
 

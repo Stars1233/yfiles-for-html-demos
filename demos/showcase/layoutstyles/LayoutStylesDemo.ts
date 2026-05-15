@@ -72,6 +72,7 @@ import { SeriesParallelLayoutConfig } from './SeriesParallelLayoutConfig'
 import { PolylineEdgeRouterConfig } from './PolylineEdgeRouterConfig'
 import { OrganicEdgeRouterConfig } from './OrganicEdgeRouterConfig'
 import { ParallelEdgeRouterConfig } from './ParallelEdgeRouterConfig'
+import { BundledEdgeRouterConfig } from './BundledEdgeRouterConfig'
 import { LabelingConfig } from './LabelingConfig'
 import { ComponentLayoutConfig } from './ComponentLayoutConfig'
 import { TabularLayoutConfig } from './TabularLayoutConfig'
@@ -92,9 +93,11 @@ import {
   initDemoStyles
 } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, BrowserDetection, finishLoading } from '@yfiles/demo-app/demo-page'
 import { configureTwoPointerPanning } from '@yfiles/demo-utils/configure-two-pointer-panning'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The GraphComponent
@@ -120,7 +123,7 @@ const comboBoxSeparatorItem = '-----------'
 
 // get hold of some UI elements
 const layoutComboBox = document.querySelector<HTMLSelectElement>(`#layout-select-box`)!
-addNavigationButtons(layoutComboBox, true, false, 'sidebar-button')
+addNavigationButtons(layoutComboBox, '', true)
 const sampleComboBox = document.querySelector<HTMLSelectElement>(`#sample-select-box`)!
 const layoutButton = document.querySelector<HTMLButtonElement>(`#apply-layout-button`)!
 
@@ -132,6 +135,8 @@ async function run(): Promise<void> {
   License.value = licenseData
   // initialize the GraphComponent
   graphComponent = new GraphComponent('graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
   // initialize the GraphOverviewComponent
   overviewComponent = new GraphOverviewComponent('overviewComponent', graphComponent)
 
@@ -239,6 +244,8 @@ function createLayoutConfig(normalizedName: string): LayoutConfigurationType {
       return new OrganicLayoutConfig()
     case 'organic-edge-router':
       return new OrganicEdgeRouterConfig()
+    case 'bundled-edge-router':
+      return new BundledEdgeRouterConfig()
     case 'orthogonal':
       return new OrthogonalLayoutConfig()
     case 'series-parallel':

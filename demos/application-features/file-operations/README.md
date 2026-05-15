@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# File Operations Demo
+# File Operations Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/file-operations.webp" alt="demo-thumbnail" height="320"/>
 

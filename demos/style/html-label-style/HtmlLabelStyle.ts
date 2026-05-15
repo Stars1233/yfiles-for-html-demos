@@ -42,7 +42,7 @@ export class HtmlLabelStyle extends LabelStyleBase<TypedHtmlVisual<CachingHtmlEl
    * A (shared) event listener that just stops event propagation.
    */
   private static readonly stopPropagationAlwaysListener = (evt: Event): void => {
-    evt.stopImmediatePropagation()
+    evt.stopPropagation()
   }
 
   /**
@@ -69,8 +69,6 @@ export class HtmlLabelStyle extends LabelStyleBase<TypedHtmlVisual<CachingHtmlEl
       layout: new OrientedRectangle(layout)
     })
 
-    const stopPropagationOptions = { capture: true, passive: true }
-
     // Prevent event propagation for the mousewheel event.
     // Otherwise, it will be captured by the graph component, which calls preventDefault on it.
     for (const eventName of ['mousewheel', 'wheel']) {
@@ -78,7 +76,7 @@ export class HtmlLabelStyle extends LabelStyleBase<TypedHtmlVisual<CachingHtmlEl
       if (firstElementChild) {
         const listenerForScrolling =
           HtmlLabelStyle.createStopPropagationListenerForScrolling(firstElementChild)
-        htmlElement.addEventListener(eventName, listenerForScrolling, stopPropagationOptions)
+        htmlElement.addEventListener(eventName, listenerForScrolling, { passive: true })
       }
     }
 
@@ -86,11 +84,7 @@ export class HtmlLabelStyle extends LabelStyleBase<TypedHtmlVisual<CachingHtmlEl
     // Otherwise, it will be captured by the graph component, which calls preventDefault on it.
     htmlElement.querySelectorAll<HTMLElement>('a').forEach((element) => {
       for (const eventName of ['click', 'pointerdown']) {
-        element.addEventListener(
-          eventName,
-          HtmlLabelStyle.stopPropagationAlwaysListener,
-          stopPropagationOptions
-        )
+        element.addEventListener(eventName, HtmlLabelStyle.stopPropagationAlwaysListener)
       }
     })
 
@@ -194,7 +188,7 @@ export class HtmlLabelStyle extends LabelStyleBase<TypedHtmlVisual<CachingHtmlEl
   private static createStopPropagationListenerForScrolling(element: Element): (evt: Event) => void {
     return (evt: Event) => {
       if (HtmlLabelStyle.needsScrollbar(element)) {
-        evt.stopImmediatePropagation()
+        evt.stopPropagation()
       }
     }
   }

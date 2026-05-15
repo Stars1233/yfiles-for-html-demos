@@ -39,9 +39,7 @@ export class DemoConfiguration {
     const graph = graphComponent.graph
     graph.undoEngineEnabled = false
 
-    const response = await fetch(this.graphResourcePath)
-    const graphData = await response.json()
-    this.createGraph(graph, graphData)
+    this.createGraph(graph, this.graphData)
 
     graph.undoEngineEnabled = true
   }

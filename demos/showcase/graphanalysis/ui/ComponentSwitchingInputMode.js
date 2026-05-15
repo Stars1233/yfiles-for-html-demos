@@ -117,7 +117,7 @@ export class ComponentSwitchingInputMode extends InputModeBase {
    * and then proceeds accordingly, depending on what has been hit.
    */
   onMouseMoved(evt, sender) {
-    const hitTest = this.hitTest(this.createInputModeContext(), sender.lastEventLocation)
+    const hitTest = this.hitTest(this.createInputModeContext(), sender.lastPointerEvent.location)
     switch (hitTest.result) {
       case 'nothing':
         this.highlightComponent(null)

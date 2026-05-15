@@ -1,8 +1,8 @@
 {
   "nodeList": [
-    { "id": 0, "tag": "rectangle", "parentId": 5 },
-    { "id": 1, "tag": "triangle", "parentId": 5 },
-    { "id": 2, "tag": "rectangle", "parentId": 5 },
+    { "id": 0, "tag": "rectangle", "parent": 5 },
+    { "id": 1, "tag": "triangle", "parent": 5 },
+    { "id": 2, "tag": "rectangle", "parent": 5 },
     { "id": 3, "tag": "ellipse" },
     { "id": 4, "tag": "ellipse" },
     { "id": 5, "label": "Group 1", "isGroup": true }

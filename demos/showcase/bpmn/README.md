@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# BPMN Graph Editor
+# BPMN Editor Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/bpmn-editor.webp" alt="demo-thumbnail" height="320"/>
 

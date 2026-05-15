@@ -44,7 +44,7 @@ import {
 import { LabelHandleProvider } from './LabelHandleProvider'
 import { createDemoNodeLabelStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { InteriorNodeLabelModel } from '@yfiles/yfiles/yfiles'
 import { RotatableLabelSelectionStyle } from './RotatableLabelSelectionStyle'
 

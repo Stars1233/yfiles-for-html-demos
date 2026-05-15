@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Bus Routing Demo
+# Bus Routing Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/bus-routing.webp" alt="demo-thumbnail" height="320"/>
 

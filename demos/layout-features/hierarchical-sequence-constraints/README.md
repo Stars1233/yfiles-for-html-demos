@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Sequence Constraints
+# Hierarchical Layout with Sequence Constraints Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-sequence-constraints.webp" alt="demo-thumbnail" height="320"/>
 

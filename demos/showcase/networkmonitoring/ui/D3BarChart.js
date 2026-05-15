@@ -40,15 +40,22 @@ export class D3BarChart {
   chartWidth
   chartHeight
   chart
+  container
+  tooltip
 
-  constructor() {
+  constructor(container) {
+    this.container = container
     this.chartWidth = 250 - this.chartMargin.left - this.chartMargin.right
     this.chartHeight = 75 - this.chartMargin.top - this.chartMargin.bottom
 
     this.chart = d3
-      .select('.chart')
+      .select(container)
+      .append('svg')
       .attr('width', this.chartWidth + this.chartMargin.left + this.chartMargin.right)
       .attr('height', this.chartHeight + this.chartMargin.top + this.chartMargin.bottom)
+
+    // Create tooltip once (re-used on updates)
+    this.tooltip = d3.select(this.container).append('div').attr('class', 'd3-tooltip')
 
     const y = d3.scaleLinear().domain([0, 1]).range([this.chartHeight, 5])
 
@@ -104,8 +111,9 @@ export class D3BarChart {
       .attr('y', (d) => y(d))
       .attr('height', (d) => this.chartHeight - y(d))
 
-    const tooltip = d3.select('.d3-loadTooltip')
-    this.addTooltip(groups, tooltip)
+    // attach tooltip handlers to enter and update
+    const allGroups = newGroups.merge(groups)
+    this.addTooltip(allGroups, this.tooltip)
 
     // Remove bars which are no longer bound to data in the current data set
     groups.exit().remove()
@@ -146,7 +154,9 @@ export class D3BarChart {
       .attr('y', (d) => y(d))
       .attr('height', (d) => this.chartHeight - y(d))
 
-    this.addTooltip(currentGroup, tooltip)
+    // attach tooltip handlers to enter and update
+    const allCurrentGroups = newCurrentGroup.merge(currentGroup)
+    this.addTooltip(allCurrentGroups, this.tooltip)
 
     // Remove old data
     currentGroup.exit().remove()
@@ -172,7 +182,8 @@ export class D3BarChart {
       })
       .on('mousemove', (event) => {
         const currentTarget = event.currentTarget
-        const [x, y] = d3.pointer(event, currentTarget.closest('svg'))
+        const svg = currentTarget.closest('svg')
+        const [x, y] = d3.pointer(event, svg)
         tooltip.style('left', `${x + 10}px`).style('top', `${y + 10}px`)
       })
       .on('mouseleave', () => tooltip.style('visibility', 'hidden'))

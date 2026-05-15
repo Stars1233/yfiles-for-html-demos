@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Simple Highlight Decorator
+# Simple Highlight Decorator Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-highlight.webp" alt="demo-thumbnail" height="320"/>
 

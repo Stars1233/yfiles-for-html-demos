@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Port-aware Graph Builder Demo
+# Port-aware Graph Builder Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/port-aware-graph-builder.webp" alt="demo-thumbnail" height="320"/>
 

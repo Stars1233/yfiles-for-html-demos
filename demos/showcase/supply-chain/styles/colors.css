@@ -36,6 +36,7 @@
   --demo-blue-dark: #29323c;
   --demo-blue-dark-80: #495968;
   --demo-blue-dark-70: #5e738aff;
+  --demo-blue-dark-60: #7e97b3;
 
   --lavender-pink-light: #ffeef6;
   --lavender-pink: #f7accf;
@@ -44,6 +45,7 @@
   /* highlighting colors */
   --saffron-yellow-light: #fffcec;
   --saffron-yellow: #f0c808;
+  --saffron-yellow-semi-dark: #b59000;
   --saffron-yellow-dark: #3a320e;
 
   --magenta-pink-light: #fff0f6;
@@ -75,4 +77,20 @@
   --ultra-violet-light: #f3f2ff;
   --ultra-violet: #666495;
   --ultra-violet-dark: #2c2a52;
+}
+
+[data-theme='light']:root {
+  --background-color: var(--white);
+  --text-color: var(--demo-blue-dark);
+  --edge-color: var(--demo-blue);
+  --group-node-color: var(--demo-blue-dark);
+  --main-highlight-color: var(--saffron-yellow);
+}
+
+[data-theme='dark']:root {
+  --background-color: var(--demo-blue-dark);
+  --text-color: var(--white);
+  --edge-color: var(--demo-blue-dark-70);
+  --group-node-color: var(--demo-blue-dark-60);
+  --main-highlight-color: var(--saffron-yellow-semi-dark);
 }

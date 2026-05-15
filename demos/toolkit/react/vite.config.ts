@@ -28,26 +28,7 @@
  ***************************************************************************/
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import optimizer from '@yworks/optimizer/rollup-plugin'
 
-export default defineConfig(({ mode }) => {
-  return {
-    base: './',
-    plugins: [
-      react(),
-      mode === 'production'
-        ? optimizer({
-            logLevel: 'info',
-            shouldOptimize({ id }) {
-              // Make sure not to exclude the demo-app and demo-utils directories which are
-              // installed as dependencies but use yFiles API.
-              return (
-                id.includes('demo-app') || id.includes('demo-utils') || !id.includes('node_modules')
-              )
-            }
-          })
-        : undefined
-    ],
-    resolve: { preserveSymlinks: true }
-  }
+export default defineConfig(({}) => {
+  return { base: './', plugins: [react()], resolve: { preserveSymlinks: true } }
 })

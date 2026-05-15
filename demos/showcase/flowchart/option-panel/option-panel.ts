@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { addNavigationButtons } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 import { BranchDirection } from '../layout/FlowchartLayout'
 import type { InEdgeGrouping } from '../layout/FlowchartLayoutData'
 import type { LayoutOptions } from '../layout/layout-flowchart'
@@ -73,7 +73,7 @@ const allowFlatwiseEdges = document.querySelector<HTMLInputElement>('#allow-flat
 const layoutButton = document.querySelector<HTMLButtonElement>('#layout-button')!
 
 export function initializeOptionPanel(sampleChanged: () => void, layoutPressed: () => void): void {
-  addNavigationButtons(sample, true, false, 'select-button')
+  addNavigationButtons(sample, '', true, false, 'select-button')
 
   sample.addEventListener('change', () => {
     const options = initialOptions[sample.value as Sample]

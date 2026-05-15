@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Native Listeners - Application Features
+# Native Listeners Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/native-listeners.webp" alt="demo-thumbnail" height="320"/>
 

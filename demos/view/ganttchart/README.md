@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Gantt Chart Demo
+# Gantt Chart Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/gantt-chart.webp" alt="demo-thumbnail" height="320"/>
 

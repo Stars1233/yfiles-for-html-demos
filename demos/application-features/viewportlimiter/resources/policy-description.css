@@ -26,40 +26,24 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-.demo-page__description #policy-description-container {
-  background-color: #c8dce1;
+.description-panel #policy-description-container {
   border-radius: 8px;
   padding: 10px 0 20px 0;
   margin: 0 -8px;
 }
 
-.demo-page__description #policy-description-container h2,
-.demo-page__description #policy-description-container h3,
-.demo-page__description #policy-description-container h4,
-.demo-page__description #policy-description-container #policy-description p {
+.description-panel #policy-description-container h2,
+.description-panel #policy-description-container h3,
+.description-panel #policy-description-container h4,
+.description-panel #policy-description-container #policy-description p {
   padding: 0 16px;
 }
 
-.demo-page__description #policy-description-container #policy-description ul,
-.demo-page__description #policy-description-container #policy-description ol {
+.description-panel #policy-description-container #policy-description ul,
+.description-panel #policy-description-container #policy-description ol {
   padding: 0 30px;
 }
 
-.highlight-description {
-  animation-name: highlight-animation;
-  animation-duration: 3s;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-}
-
-@keyframes highlight-animation {
-  0% {
-    background-color: #c8dce1;
-  }
-  20% {
-    background-color: #ff9800;
-  }
-  100% {
-    background-color: #c8dce1;
-  }
+.main-container .interaction-panel .navigate-select {
+  justify-content: center;
 }

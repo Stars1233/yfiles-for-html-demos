@@ -118,6 +118,7 @@ function showEntityProperties(node, parentContainer) {
 
   const tableContainer = document.createElement('div')
   tableContainer.classList.add('table-container')
+  tableContainer.classList.add('scrollbar')
   propertiesContainer.appendChild(tableContainer)
 
   const table = document.createElement('table')

@@ -27,7 +27,7 @@
  **
  ***************************************************************************/
 import { demoApp, graphComponent } from '@yfiles/demo-app/init'
-import { GraphEditorInputMode, HierarchicalLayout } from '@yfiles/yfiles'
+import { GraphEditorInputMode, HierarchicalLayout, Size } from '@yfiles/yfiles'
 import { CustomContextMenuIcons } from './CustomContextMenuIcons'
 import graphData from './graph-data.json'
 
@@ -70,6 +70,7 @@ inputMode.addEventListener('populate-item-context-menu', (evt) => {
   }
 })
 
+graphComponent.graph.nodeDefaults.size = new Size(50, 50)
 demoApp.buildGraphFromJson(graphData)
 
 await graphComponent.applyLayoutAnimated(new HierarchicalLayout(), '0s')

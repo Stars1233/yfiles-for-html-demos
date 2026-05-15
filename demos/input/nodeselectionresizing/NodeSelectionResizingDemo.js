@@ -34,14 +34,13 @@ import {
   Insets,
   License,
   NodeSizeConstraintProvider,
-  Rect,
   Size
 } from '@yfiles/yfiles'
 import { NodeSelectionResizingInputMode } from './NodeSelectionResizingInputMode'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent = null
 
@@ -88,20 +87,19 @@ function initializeInputMode() {
 function loadSampleGraph() {
   initDemoStyles(graphComponent.graph, { orthogonalEditing: true })
 
-  const defaultNodeSize = graphComponent.graph.nodeDefaults.size
   const builder = new GraphBuilder(graphComponent.graph)
   builder.createNodesSource({
-    data: SampleData.nodes.filter((node) => !node.isGroup),
+    data: GraphData.nodes.filter((node) => !node.isGroup),
     id: 'id',
     parentId: 'parent',
-    layout: (data) => new Rect(data.x, data.y, defaultNodeSize.width, defaultNodeSize.height)
+    layout: 'layout'
   })
   builder.createGroupNodesSource({
-    data: SampleData.nodes.filter((node) => node.isGroup),
+    data: GraphData.nodes.filter((node) => node.isGroup),
     id: 'id',
-    layout: (data) => data // the data object itself has x, y, width, height properties
+    layout: 'layout'
   })
-  builder.createEdgesSource(SampleData.edges, 'source', 'target', 'id')
+  builder.createEdgesSource(GraphData.edges, 'source', 'target', 'id')
 
   builder.buildGraph()
   graphComponent.graph.edges.forEach((edge) => {
@@ -113,6 +111,7 @@ function loadSampleGraph() {
     }
   })
   graphComponent.fitContent()
+  graphComponent.fitGraphBounds()
   graphComponent.graph.undoEngine.clear()
 }
 

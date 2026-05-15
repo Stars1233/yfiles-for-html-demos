@@ -26,10 +26,11 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import '@yfiles/demo-app/demo.css'
+import '@fontsource/material-symbols-outlined/index.css'
+import './App.css'
 import App from './App.svelte'
 import { mount } from 'svelte'
 
-const app = mount(App, { target: document.body })
+const app = mount(App, { target: document.getElementById('app')! })
 
 export default app

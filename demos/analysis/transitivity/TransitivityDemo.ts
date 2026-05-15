@@ -72,12 +72,13 @@ import {
   VerticalTextAlignment
 } from '@yfiles/yfiles'
 
-import GraphData from './resources/yfiles-modules-data'
+import GraphData from './resources/yfiles-modules-data.json'
 import { createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
 
 import packageIconUrl from './resources/package.svg?url'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The {@link GraphComponent} which contains the {@link IGraph}.
@@ -202,7 +203,7 @@ async function run(): Promise<void> {
   License.value = licenseData
   graphComponent = new GraphComponent('graphComponent')
   algorithmComboBox = document.querySelector<HTMLSelectElement>('#algorithms')!
-  addNavigationButtons(algorithmComboBox)
+  addNavigationButtons(algorithmComboBox, 'Algorithm:')
 
   // use a filtered graph to have control over which nodes and edges are visible at any time
   filteredGraph = new FilteredGraphWrapper(graphComponent.graph, nodePredicate, edgePredicate)
@@ -442,7 +443,7 @@ async function loadGraph(): Promise<void> {
   resetGraph()
 
   const builder = new GraphBuilder(graphComponent.graph)
-  builder.createNodesSource({ data: GraphData.nodes, id: 'id', labels: ['label'] })
+  builder.createNodesSource({ data: GraphData.nodes, id: 'id', labels: ['labels'] })
   builder.createEdgesSource(GraphData.edges, 'from', 'to')
 
   const graph = builder.buildGraph()
@@ -490,17 +491,14 @@ function getInitialPackage(packageName: string): INode | null {
  * Invokes the selected algorithms when another algorithm is chosen in the combo box.
  */
 async function onAlgorithmChanged(): Promise<void> {
-  const transitiveEdgesLabel = document.querySelector<HTMLLabelElement>(
-    '#show-transitive-edges-label'
-  )
-  if (algorithmComboBox == null || transitiveEdgesLabel == null) {
+  const showTransitiveEdgesToggle = document.getElementById('show-transitive-edges-toggle')
+  if (algorithmComboBox == null || showTransitiveEdgesToggle == null) {
     return
   }
 
   // only show button to toggle transitive edges when 'Transitive Reduction' is selected
-  transitiveEdgesLabel.style.display =
-    algorithmComboBox.selectedIndex === 2 ? 'inline-block' : 'none'
-
+  showTransitiveEdgesToggle.style.display =
+    algorithmComboBox.selectedIndex === 2 ? 'inline-flex' : 'none'
   if (incrementalNodes != null) {
     incrementalNodes = []
   }

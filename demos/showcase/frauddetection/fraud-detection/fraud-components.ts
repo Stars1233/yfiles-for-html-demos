@@ -43,7 +43,6 @@ import {
 import { getEntityData, isFraud } from '../entity-data'
 import { FraudHighlightManager } from './FraudHighlightManager'
 import { openFraudDetectionView } from './inspection-view'
-import { forceToolbarOverflowUpdate } from '@yfiles/demo-app/demo-page'
 
 /**
  * The main graph component that displays the graph.
@@ -137,8 +136,6 @@ function createFraudWarning(componentIdx: number): void {
     addFraudComponentHighlight(parseInt((event.currentTarget as HTMLElement).id))
   )
   warningButton.addEventListener('mouseleave', () => removeFraudComponentHighlight())
-
-  forceToolbarOverflowUpdate()
 }
 
 function removeFraudWarning(componentIdx: number): void {
@@ -147,7 +144,6 @@ function removeFraudWarning(componentIdx: number): void {
   if (warningButton && warningButton.parentNode) {
     warningButton.parentNode.removeChild(warningButton)
   }
-  forceToolbarOverflowUpdate()
 }
 
 /**

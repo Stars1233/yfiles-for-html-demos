@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Selection Styling Demo
+# Selection Styling Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/selection-styling.webp" alt="demo-thumbnail" height="320"/>
 

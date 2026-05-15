@@ -33,10 +33,22 @@
   height: 100%;
   flex-direction: column;
 }
+.graph-panel {
+  display: flex;
+}
 
-#graphComponent {
-  flex: 1;
-  --yfiles-theme-handle-offset: 0;
+.main-container {
+  .graph-panel {
+    z-index: 0;
+    background-color: var(--graphcomponent-bg);
+    .graph-component-container {
+      #graphComponent {
+        flex: 1;
+        z-index: 0;
+        --yfiles-theme-handle-offset: 0;
+      }
+    }
+  }
 }
 
 #timeline-component {
@@ -46,6 +58,7 @@
 #timeline-component canvas {
   height: 100%;
   width: 100%;
+  border-top-right-radius: var(--border-radius);
 }
 
 #task-component {
@@ -92,6 +105,7 @@
   padding: 15px;
   background-color: white;
   border-radius: 8px;
+  color: var(--color-casper-blue-black);
 }
 
 .node-info__name {
@@ -118,4 +132,8 @@
 
 .node-info__cell:last-child {
   padding-left: 1rem;
+}
+
+.hidden {
+  display: none;
 }

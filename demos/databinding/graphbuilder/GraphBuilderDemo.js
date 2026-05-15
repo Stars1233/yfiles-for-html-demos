@@ -46,7 +46,8 @@ import { EdgesSourceDialog, NodesSourceDialog } from './EditSourceDialog'
 import { SourcesListBox } from './SourcesListBox'
 import { SourcesFactory } from './ModelClasses'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 const samplesComboBox = document.querySelector('#samples-combobox')
 
 const samples = SamplesData
@@ -121,7 +122,7 @@ function initializeUI() {
     }
   })
 
-  addNavigationButtons(samplesComboBox)
+  addNavigationButtons(samplesComboBox, 'Sample:', false)
 }
 
 /**

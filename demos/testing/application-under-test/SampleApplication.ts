@@ -27,7 +27,7 @@
  **
  ***************************************************************************/
 import { Command, GraphComponent, GraphEditorInputMode, License, Rect } from '@yfiles/yfiles'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import licenseData from '../../../lib/license.json'
 
 async function run() {
@@ -49,13 +49,6 @@ async function run() {
   document
     .querySelector('#create-edge')!
     .addEventListener('click', () => graph.createEdge(graph.nodes.first()!, graph.nodes.last()!))
-
-  document
-    .querySelector('#zoom-in')!
-    .addEventListener('click', () => graphComponent.executeCommand(Command.INCREASE_ZOOM))
-  document
-    .querySelector('#zoom-out')!
-    .addEventListener('click', () => graphComponent.executeCommand(Command.DECREASE_ZOOM))
 }
 
 run().then(finishLoading)

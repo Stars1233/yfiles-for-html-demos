@@ -43,7 +43,7 @@ import { createNewRandomUserData, type UserData } from './UserDataFactory'
 import { DataTableLabelStyle } from './DataTableLabelStyle'
 import { DataTableNodeStyle } from './DataTableNodeStyle'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { DataTableRenderSupport } from './DataTableRenderSupport'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
 

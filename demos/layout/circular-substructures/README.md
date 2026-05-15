@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Circular Substructures Demo
+# Circular Substructures Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/circular-substructures.webp" alt="demo-thumbnail" height="320"/>
 

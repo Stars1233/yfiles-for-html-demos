@@ -9,17 +9,18 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# WebGL Label Fading
+# WebGL Label Fading Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/webgl-label-fading.webp" alt="demo-thumbnail" height="320"/>
 
 [You can also run this demo online](https://www.yfiles.com/demos/view/webgl-label-fading/).
 
-This demo shows how to achieve a simple _level of detail (LOD)_ display in [WebGL](https://docs.yworks.com/yfileshtml/dguide/webgl2) rendering by fading out labels on zoom levels smaller than a chosen threshold.
+This demo shows how to achieve a simple _level of detail (LOD)_ display in [WebGL](https://docs.yworks.com/yfileshtml/dguide/webgl2) rendering by fading out labels, nodes, and edges at certain zoom levels.
 
 ## Things to try
 
-- Zoom into the graph and observe as labels are faded in at 50% zoom.
-- Choose a label fade-out threshold from the dropdown in the toolbar and zoom in and out of the graph to observe the label fading at different zoom levels.
+- Zoom into the graph and observe as labels are faded in, along with additional layers in the tree.
+- Note that labels also do not visually scale at certain zoom levels so that they are more legible.
+- Opposed to nodes and edges, labels will hide again when zoomed in too close.
 
 See the sources for details.

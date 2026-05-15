@@ -97,3 +97,15 @@
 .example-node-container.disable-hover {
   pointer-events: none;
 }
+.description-panel {
+  & .node-properties {
+    color: var(--color-text);
+  }
+}
+.main-container {
+  .description-panel {
+    & .node-headline {
+      color: var(--color-casper-blue-black);
+    }
+  }
+}

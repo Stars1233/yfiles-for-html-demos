@@ -38,12 +38,12 @@ import {
 } from '@yfiles/yfiles'
 
 import { DeepZoomGroupNodeStyle } from './DeepZoomGroupNodeStyle'
-import { fitContent, initializeDeepZoom, zoomToOriginal } from './deep-zoom-update'
+import { fitContent, initializeDeepZoom } from './deep-zoom-update'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { loadSampleGraph } from './model/load-sample-graph'
 import { applyDeepZoomLayout } from './deep-zoom-layout'
 import { createDemoShapeNodeStyle } from '@yfiles/demo-app/demo-styles'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 // Ensure that the LayoutExecutor class is not removed by build optimizers
 // It is needed for the 'applyLayoutAnimated' method in this demo.
@@ -114,13 +114,7 @@ function initializeUI(graphComponent) {
   // Since setting the zoom to 1 or calling fitContent doesn't suffice in this scenario,
   // register custom event listeners to the "zoom to original" and "fit content" buttons.
   document
-    .querySelector('.demo-icon-yIconZoomOriginal')
-    .addEventListener('click', () => zoomToOriginal(graphComponent))
-  document
-    .querySelector('#description-button-zoom-original')
-    .addEventListener('click', () => zoomToOriginal(graphComponent))
-  document
-    .querySelector('.demo-icon-yIconZoomFit')
+    .querySelector("button[data-command='FIT_GRAPH_BOUNDS']")
     .addEventListener('click', () => fitContent(graphComponent))
   document
     .querySelector('#description-button-fit-content')

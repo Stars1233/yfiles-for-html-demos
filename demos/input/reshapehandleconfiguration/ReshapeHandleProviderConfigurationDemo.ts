@@ -49,7 +49,7 @@ import {
 import type { ColorSetName } from '@yfiles/demo-app/demo-styles'
 import { createDemoNodeLabelStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Registers a callback function as a decorator that provides a customized
@@ -148,14 +148,14 @@ async function run(): Promise<void> {
 
   registerReshapeHandleProvider(graph, boundaryRectangle.toRect())
 
-  createSampleGraph(graph)
+  createSampleGraph(graphComponent)
 }
 
 /**
  * Creates the sample graph of this demo.
- * @param graph The input graph
  */
-function createSampleGraph(graph: IGraph): void {
+function createSampleGraph(graphComponent: GraphComponent): void {
+  const graph = graphComponent.graph
   createNode(graph, 80, 100, 140, 30, 'demo-red', 'red', 'Fixed size')
   createNode(graph, 300, 100, 140, 30, 'demo-green', 'green', 'Keep aspect ratio')
   createNode(graph, 80, 200, 140, 50, 'demo-blue', 'darkblue', 'Keep center')
@@ -181,6 +181,8 @@ function createSampleGraph(graph: IGraph): void {
     'gold',
     'Keep aspect ratio\ndepending on state:\n keep'
   )
+  //center graph
+  graphComponent.fitGraphBounds()
 
   // clear undo after initial graph loading
   graph.undoEngine!.clear()

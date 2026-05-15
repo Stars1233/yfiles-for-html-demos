@@ -45,10 +45,11 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
 import { RectangleVisualCreator } from './RectangleVisualCreator'
 import { ProjectionAnimation } from './ProjectionAnimation'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 
 const policySelect = document.querySelector('#policy-select')
 const strictBoundsContainmentCheckbox = document.querySelector(
@@ -79,6 +80,8 @@ async function run() {
   License.value = licenseData
 
   graphComponent = new GraphComponent('#graphComponent')
+  // Add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 
   // Enable navigation
   graphComponent.inputMode = new GraphViewerInputMode()
@@ -332,7 +335,7 @@ function initializeUI(graphComponent) {
   icometricViewButton.addEventListener('click', () => {
     toggleProjection()
   })
-  addNavigationButtons(policySelect, true, true)
+  addNavigationButtons(policySelect)
   policySelect.addEventListener('change', () => {
     updateViewportLimiterSettings(graphComponent)
     updateDescriptionText()

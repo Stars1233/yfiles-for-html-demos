@@ -87,7 +87,7 @@
 				</x:List>
 			</data>
 			<data key="d2">
-				<y:RectD X="354.437088665155" Y="0" Width="70" Height="40"/>
+				<y:RectD X="354.437088665155" Y="0" Width="50" Height="50"/>
 			</data>
 			<data key="d4">
 				<yjs:ImageNodeStyle href="./resources/scanner.svg" backgroundShape="RECTANGLE"/>
@@ -221,7 +221,7 @@
 				</x:List>
 			</data>
 			<data key="d2">
-				<y:RectD X="532.061722092516" Y="245.306869090935" Width="70" Height="40"/>
+				<y:RectD X="532.061722092516" Y="245.306869090935" Width="50" Height="50"/>
 			</data>
 			<data key="d4">
 				<yjs:ImageNodeStyle href="./resources/scanner.svg" backgroundShape="RECTANGLE"/>
@@ -235,7 +235,7 @@
 				</x:List>
 			</data>
 			<data key="d2">
-				<y:RectD X="666.168010270713" Y="356.723285496665" Width="71" Height="20"/>
+				<y:RectD X="666.168010270713" Y="356.723285496665" Width="50" Height="50"/>
 			</data>
 			<data key="d4">
 				<yjs:ImageNodeStyle href="./resources/switch.svg" backgroundShape="RECTANGLE"/>

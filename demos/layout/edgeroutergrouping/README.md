@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# EdgeRouter Grouping Demo
+# EdgeRouter Grouping Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/edge-router-grouping.webp" alt="demo-thumbnail" height="320"/>
 

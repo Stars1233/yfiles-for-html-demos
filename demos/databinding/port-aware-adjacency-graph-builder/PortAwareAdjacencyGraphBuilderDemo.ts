@@ -48,7 +48,7 @@ import { createPortAwareAdjacencyGraphBuilder, setBuilderData } from './Adjacenc
 import GraphData from './graph-builder-data'
 import licenseData from '../../../lib/license.json'
 import { hideNodesAndRelatedItems, showNodesAndRelatedItems } from './GraphItemsHider'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * This demo shows how to automatically build a graph from business data using

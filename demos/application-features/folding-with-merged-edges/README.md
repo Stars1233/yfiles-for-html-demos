@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Folding - Application Features
+# Folding With Merged Edges Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/folding-with-merged-edges.webp" alt="demo-thumbnail" height="320"/>
 

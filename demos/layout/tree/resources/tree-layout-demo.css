@@ -49,10 +49,6 @@
   pointer-events: none;
 }
 
-.icon-mirror {
-  background-image: url('mirror-16.svg');
-}
-
 .mirrored {
   transform: scaleX(-1);
 }
@@ -66,7 +62,7 @@
 }
 
 .option-element {
-  width: 55%;
+  width: 100%;
 }
 
 #layer-section {
@@ -83,7 +79,7 @@
   width: 60px;
   height: 60px;
   margin: 0;
-  background-size: 40px;
+  font-size: 40px;
 }
 
 #layer-label {
@@ -97,7 +93,8 @@
 }
 
 #select-subtree-placer {
-  width: 75%;
+  width: 100%;
+  min-width: 270px;
 }
 
 #select-subtree-placer-label {
@@ -108,4 +105,18 @@
   height: 25%;
   background-color: white;
   margin-top: 20px;
+}
+.demo-properties__settings {
+  margin: 10px 0 10px 0;
+}
+.center {
+  display: flex;
+  align-items: center;
+}
+.main-container .interaction-panel {
+  flex: 0 1 370px;
+}
+.number-label {
+  width: 3ch;
+  text-align: right;
 }

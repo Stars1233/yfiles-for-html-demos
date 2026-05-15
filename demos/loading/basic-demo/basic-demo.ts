@@ -57,10 +57,10 @@ function createSampleGraph(graph: IGraph) {
  */
 function addUIElements(graphComponent: GraphComponent) {
   const fitButton = document.createElement('button')
+  fitButton.classList.add('interaction-button')
   fitButton.innerText = 'Fit content'
   fitButton.addEventListener('click', async () => {
     await graphComponent.fitGraphBounds()
   })
-
-  document.querySelector('#actionsArea')!.append(fitButton)
+  document.querySelector('#actions-area')!.append(fitButton)
 }

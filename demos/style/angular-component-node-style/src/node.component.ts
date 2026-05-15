@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { Component, Input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, input } from '@angular/core'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatCardModule } from '@angular/material/card'
 import { MatButtonModule } from '@angular/material/button'
@@ -35,13 +35,15 @@ import { MatIconModule } from '@angular/material/icon'
 @Component({
   imports: [MatSlideToggleModule, MatCardModule, MatButtonModule, MatIconModule],
   templateUrl: './node.component.html',
-  styleUrls: ['./node.component.css']
+  styleUrl: './node.component.css',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NodeComponent {
-  @Input() zoom!: number
-  @Input() name!: string
-  @Input() color!: string
-  @Input() content!: string
-  @Input() image!: string
-  @Input() moreUrl!: string
+  zoom = input.required<number>()
+  name = input.required<string>()
+  color = input.required<string>()
+  content = input.required<string>()
+  image = input<string>()
+  moreUrl = input<string>()
 }

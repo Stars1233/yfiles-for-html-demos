@@ -197,23 +197,21 @@ function bindCommand(
  * toolbar buttons, during the creation of this application.
  */
 function initializeUI() {
-  bindCommand("button[data-command='ZoomIn']", Command.INCREASE_ZOOM, graphComponent)
-  bindCommand("button[data-command='ZoomOut']", Command.DECREASE_ZOOM, graphComponent)
+  bindCommand("button[data-command='INCREASE_ZOOM']", Command.INCREASE_ZOOM, graphComponent)
+  bindCommand("button[data-command='DECREASE_ZOOM']", Command.DECREASE_ZOOM, graphComponent)
   document
-    .querySelector("button[data-command='FitContent']")!
+    .querySelector("button[data-command='FIT_GRAPH_BOUNDS']")!
     .addEventListener('click', async () => {
       await graphComponent.fitGraphBounds()
     })
-  bindCommand("button[data-command='ZoomOriginal']", Command.ZOOM, graphComponent, 1.0)
   const undoEngine = graphComponent.graph.undoEngine
-  // todo enable/disable undo/redo
-  document.querySelector("button[data-command='Undo']")!.addEventListener('click', () => {
+  document.querySelector("button[data-command='UNDO']")!.addEventListener('click', () => {
     if (undoEngine?.canUndo()) {
       undoEngine?.undo()
     }
   })
 
-  document.querySelector("button[data-command='Redo']")!.addEventListener('click', () => {
+  document.querySelector("button[data-command='REDO']")!.addEventListener('click', () => {
     if (undoEngine?.canRedo()) {
       undoEngine?.redo()
     }

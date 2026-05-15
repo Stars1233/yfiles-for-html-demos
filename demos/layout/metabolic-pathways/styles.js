@@ -73,10 +73,10 @@ const predefinedColorSets = new Map([
  */
 const markupLabelStyle = new MarkupLabelStyle({
   shape: 'round-rectangle',
-  padding: 2,
+  padding: 1,
   verticalTextAlignment: VerticalTextAlignment.CENTER,
   horizontalTextAlignment: HorizontalTextAlignment.CENTER,
-  font: new Font({ fontSize: 14, fontWeight: 'bold', fontFamily: 'Tahoma,sans-serif' }),
+  font: new Font({ fontSize: 14, fontWeight: 'bold', fontFamily: 'sans-serif' }),
   wrapping: 'none'
 })
 

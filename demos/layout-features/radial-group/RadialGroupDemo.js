@@ -73,6 +73,8 @@ graphComponent.graph.edgeDefaults.style = new BezierEdgeStyle({ stroke: `1.5px #
 
 // Use FreeNodeLabelModel for maximum layout flexibility
 graphComponent.graph.nodeDefaults.labels.layoutParameter = FreeNodeLabelModel.CENTER
+// Add some padding to prevent overlaps with the demo toolbar
+graphComponent.contentMargins = [80, 10, 10, 10]
 
 // Build the graph from JSON data
 demoApp.buildGraphFromJson(graphData)

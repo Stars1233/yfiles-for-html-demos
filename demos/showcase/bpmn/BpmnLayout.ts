@@ -219,7 +219,7 @@ export class BpmnLayout extends BaseClass(ILayoutAlgorithm) {
         portCandidateSelector: new BalancingPortSelection(new PortCandidateSelector())
       },
       componentLayout: { enabled: false },
-      coordinateAssigner: { straightenEdges: true },
+      coordinateAssigner: { maximumPortDeviation: 50 },
       edgeLabelPlacement: EdgeLabelPlacement.IGNORE,
       nodeLabelPlacement: NodeLabelPlacement.IGNORE
     })

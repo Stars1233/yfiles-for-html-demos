@@ -51,7 +51,7 @@ export function initializeGrid(graphComponent: GraphComponent): GridRenderer {
 
   const gInputMode = graphComponent.inputMode as GraphEditorInputMode
   const graphSnapContext = gInputMode.snapContext as GraphSnapContext
-  graphSnapContext.nodeGridConstraintProvider = new GridConstraintProvider<INode>(gridInfo)
+  graphSnapContext.nodeGridConstraintProvider = new GridConstraintProvider(gridInfo)
   graphSnapContext.gridSnapType = GridSnapTypes.LINES
 
   return grid

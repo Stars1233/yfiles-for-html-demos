@@ -76,16 +76,13 @@ function layout(layoutOrientation = LayoutOrientation.TOP_TO_BOTTOM) {
  * Binds the various commands available in yFiles for HTML to the buttons in the tutorial's toolbar.
  */
 function registerCommands() {
-  document.getElementById('zoom-in-btn')!.addEventListener('click', () => {
+  document.getElementById('zoom-in-button')!.addEventListener('click', () => {
     graphComponent.executeCommand(Command.INCREASE_ZOOM)
   })
-  document.getElementById('zoom-out-btn')!.addEventListener('click', () => {
+  document.getElementById('zoom-out-button')!.addEventListener('click', () => {
     graphComponent.executeCommand(Command.DECREASE_ZOOM)
   })
-  document.getElementById('reset-zoom-btn')!.addEventListener('click', () => {
-    graphComponent.executeCommand(Command.ZOOM, 1)
-  })
-  document.getElementById('fit-zoom-btn')!.addEventListener('click', async () => {
+  document.getElementById('fit-graph-button')!.addEventListener('click', async () => {
     await graphComponent.fitGraphBounds()
   })
   document.getElementById('apply-layout-btn')!.addEventListener('click', async () => {

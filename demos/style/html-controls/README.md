@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# HTML Controls Demo
+# HTML Controls Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/html-controls.webp" alt="demo-thumbnail" height="320"/>
 
@@ -35,11 +35,3 @@ For rich components and data binding support, you can consider using a framework
 ```
 Select a node to display the associated data.
 ```
-
-## Related Demos
-
-- [React Component Node Style Demo](../../../demos-ts/style/react-component-node-style/README.html)
-- [Vue Component Node Style Demo](../../../demos-ts/style/vue-component-node-style/README.html)
-- [Angular Component Node Style Demo](../../../demos-ts/style/angular-component-node-style/README.html)
-- [HTML Label Style Demo](../../style/html-label-style/)
-- [Data Table Demo](../../style/datatable/)

@@ -32,7 +32,9 @@ import {
   FoldingManager,
   GraphBuilder,
   GraphComponent,
+  GraphItemTypes,
   GraphViewerInputMode,
+  ILabel,
   INode,
   ItemHoverInputMode,
   List,
@@ -41,7 +43,6 @@ import {
   Point,
   PointerButtons,
   Rect,
-  ScrollBarVisibility,
   ShapeNodeStyle,
   Size,
   ViewportLimitingPolicy
@@ -49,7 +50,7 @@ import {
 import { TimeframeRectangle } from './TimeframeRectangle'
 import { defaultStyling, Styling } from './Styling'
 import { AggregationFolderNodeConverter } from './AggregationFolderNodeConverter'
-import { days, intervalsIntersect, months, timeframeEquals, weeks, years } from './Utilities'
+import { days, intervalsIntersect, months, timeframeEquals, weeks, years } from './utils'
 import { TimeframeAnimation } from './TimeframeAnimation'
 import './timeline.css'
 import { aggregateBuckets, getBucket, getItemsFromBucket } from './bucket-aggregation'
@@ -75,6 +76,8 @@ export class Timeline {
   selector
   graphComponent
   _items = []
+  allowZoom = true
+  updateTimeframeBySelect = false
 
   // [minZoom, maxZoom)
   minZoom = 1
@@ -104,6 +107,8 @@ export class Timeline {
   styling
   timeframeAnimation = null
 
+  toolbarContainer = null
+
   /**
    * Instantiates a new timeline.
    * @param selector The selector of an existing div-element to which the timeline is added
@@ -111,20 +116,31 @@ export class Timeline {
    * @param style The default timeline style
    * @param showTimeframeRectangle Whether to show timeframe rectangle to focus on parts of the timeline
    * @param showPlayButton Whether to display a button to start/stop the timeframe animation
+   * @param allowZoom Whether zooming is allowed. If false, replaces zoom buttons with timeframe enlarge/reduce buttons.
+   * @param updateTimeframeBySelect Whether to extend timeframe rectangle to a selected a week, month or year bar.
+   *        If showTimeframeRectangle is false, this has no effect.
    */
   constructor(
     selector,
     getTimeEntry,
     style = {},
     showTimeframeRectangle = true,
-    showPlayButton = true
+    showPlayButton = true,
+    allowZoom = true,
+    updateTimeframeBySelect = false
   ) {
     this.selector = selector
     this.getTimeEntry = getTimeEntry
     this.showTimeframeRectangle = showTimeframeRectangle
     this.showPlayButton = showPlayButton
+    this.allowZoom = allowZoom
+    this.updateTimeframeBySelect = updateTimeframeBySelect
     this.graphComponent = new GraphComponent(selector)
     this.graphComponent.htmlElement.classList.add('timeline-component')
+    const container = document.createElement('div')
+    container.classList.add('timeline-toolbar')
+    this.graphComponent.htmlElement.appendChild(container)
+    this.toolbarContainer = container
     this.initializeUserInteraction()
     this.initializeFolding()
     this.initializeGraphBuilder(this.graphComponent.graph.foldingView.manager.masterGraph)
@@ -154,11 +170,11 @@ export class Timeline {
       }
     })
 
-    this.addZoomButtons()
-
     if (showPlayButton && showTimeframeRectangle) {
       this.addPlayButton()
     }
+
+    this.addZoomButtons()
   }
 
   /**
@@ -267,6 +283,12 @@ export class Timeline {
 
     // the timeline graph cannot be edited interactively
     const inputMode = new GraphViewerInputMode()
+    // disable click selection of group nodes
+    inputMode.clickSelectableItems = GraphItemTypes.LABEL
+    inputMode.clickHitTestOrder = [GraphItemTypes.LABEL, GraphItemTypes.NODE]
+
+    // disable navigating the bars since that currently does not trigger any graph updates
+    inputMode.navigationInputMode.selectableItems = GraphItemTypes.NONE
 
     // limit the viewport of the timeline to the visible content, such that users cannot pan the content out of view.
     const viewportLimiter = this.graphComponent.viewportLimiter
@@ -276,33 +298,37 @@ export class Timeline {
 
     // this component overwrites the mouse-wheel handling entirely by collapsing / expanding the folded timeline graph
     graphComponent.mouseWheelBehavior = MouseWheelBehaviors.NONE
-    graphComponent.horizontalScrollBarPolicy = ScrollBarVisibility.VISIBLE
     // use a smaller hit-test radius to make the hit-testing with touch input more precise
     graphComponent.hitTestRadius = 1
 
     // wire up a custom mousewheel behavior
     graphComponent.addEventListener('wheel', (evt) => {
       evt.originalEvent?.preventDefault()
-      if (evt.wheelDeltaY !== 0) {
-        const direction = evt.wheelDeltaY < 0 ? 'zoom-in' : 'zoom-out'
-        this.updateZoom(direction, evt.location)
+      if (evt.wheelDeltaY < 0) {
+        if (this.allowZoom) {
+          this.updateZoom('zoom-in', evt.location)
+        } else if (this.showTimeframeRectangle) {
+          this.scaleTimeframe(1.25)
+        }
+      } else if (evt.wheelDeltaY > 0) {
+        if (this.allowZoom) {
+          this.updateZoom('zoom-out', evt.location)
+        } else if (this.showTimeframeRectangle) {
+          this.scaleTimeframe(0.8)
+        }
       }
     })
 
     // install a tooltip on the timeline items that reports the content of the possibly aggregated entry
-    initializeToolTips(
-      inputMode,
-      (item) => {
-        if (item instanceof INode) {
-          const bucket = getBucket(item)
-          if (bucket.label !== undefined) {
-            return this.createTooltipContent(bucket)
-          }
+    initializeToolTips(inputMode, (item) => {
+      if (item instanceof INode) {
+        const bucket = getBucket(item)
+        if (bucket.label !== undefined) {
+          return this.createTooltipContent(bucket)
         }
-        return null
-      },
-      this.graphComponent.htmlElement
-    )
+      }
+      return null
+    })
 
     // installs the event handlers
     this.initializeEvents(inputMode)
@@ -323,17 +349,29 @@ export class Timeline {
       }
 
       const clickedItem = evt.item
+      if (clickedItem instanceof INode && this.graphComponent.graph.isGroupNode(clickedItem)) {
+        // don't react to group node clicks
+        return
+      }
+
+      // select the group node if its label is clicked
+      const selectedItem = clickedItem instanceof ILabel ? clickedItem.owner : clickedItem
 
       src.clearSelection()
-      src.setSelected(clickedItem, true)
+      src.setSelected(selectedItem, true)
 
-      if (clickedItem instanceof INode) {
+      if (selectedItem instanceof INode) {
+        if (this.showTimeframeRectangle && this.updateTimeframeBySelect) {
+          this.updateTimeframeBySelectedItem(selectedItem)
+        }
+
         if (this.barSelectListener) {
           evt.handled = true
-          this.barSelectListener(getItemsFromBucket(clickedItem))
+          this.barSelectListener(getItemsFromBucket(selectedItem))
         }
       }
     })
+
     inputMode.addEventListener('canvas-clicked', () => {
       this.barSelectListener?.([])
     })
@@ -695,7 +733,6 @@ export class Timeline {
     this.graphComponent.graph.decorator.nodes.highlightRenderer.addConstant(
       new NodeStyleIndicatorRenderer({
         nodeStyle: new ShapeNodeStyle({
-          shape: 'rectangle',
           stroke: `2px solid ${style.barHover?.stroke ?? defaultStyling.barHover?.stroke}`,
           fill: style.barHover?.fill ?? defaultStyling.barHover?.fill
         }),
@@ -895,8 +932,7 @@ export class Timeline {
 
     const playButton = document.querySelector(`#${this.selector}-video-button`)
     playButton.title = 'Stop Animation'
-    playButton.classList.add('stop')
-    playButton.classList.remove('play')
+    playButton.textContent = 'stop'
   }
 
   /**
@@ -907,8 +943,7 @@ export class Timeline {
 
     const playButton = document.querySelector(`#${this.selector}-video-button`)
     playButton.title = 'Start Animation'
-    playButton.classList.remove('stop')
-    playButton.classList.add('play')
+    playButton.textContent = 'play_arrow'
   }
 
   /**
@@ -916,7 +951,7 @@ export class Timeline {
    * The button has the CSS class 'video-button' and is styled in timeline.css.
    */
   addPlayButton() {
-    this.addTimelineButton('video-button', 'Start Animation', () => {
+    this.addTimelineButton('video-button', 'Start Animation', 'play_arrow', () => {
       const animation = this.getTimeframeAnimation()
       if (!animation.animating) {
         this.play()
@@ -931,28 +966,114 @@ export class Timeline {
    * The buttons have the CSS classes 'zoom-in-button' and 'zoom-out-button' and are styled in timeline.css.
    */
   addZoomButtons() {
-    this.addTimelineButton('zoom-in-button', 'Zoom In', () => {
-      this.updateZoom('zoom-in')
-    })
-    this.addTimelineButton('zoom-out-button', 'Zoom Out', () => {
-      this.updateZoom('zoom-out')
-    })
+    if (this.allowZoom) {
+      this.addTimelineButton('zoom-in-button', 'Zoom In', 'zoom_in', () => {
+        this.updateZoom('zoom-in')
+      })
+      this.addTimelineButton('zoom-out-button', 'Zoom Out', 'zoom_out', () => {
+        this.updateZoom('zoom-out')
+      })
+    } else if (this.showTimeframeRectangle) {
+      this.addTimelineButton('zoom-in-button', 'Enlarge Timeframe', 'zoom_in', () => {
+        this.scaleTimeframe(1.25)
+      })
+      this.addTimelineButton('zoom-out-button', 'Reduce Timeframe', 'zoom_out', () => {
+        this.scaleTimeframe(0.8)
+      })
+      this.addTimelineButton(
+        'fit-timeframe-button',
+        'Fit timeframe to all',
+        'fit_page_width',
+        () => {
+          const fullInterval = this.getTimeframeFromBounds(this.graphComponent.contentBounds)
+          this.resizeTimeframe(fullInterval[0], fullInterval[1])
+        }
+      )
+    }
+  }
+
+  /**
+   * Resizes the timeframe rectangle to the given time interval.
+   * This method computes the bounds that correspond to the provided TimeInterval
+   * and applies them to the timeframe rectangle.
+   */
+  resizeTimeframe(startDate, endDate) {
+    if (!this.showTimeframeRectangle) {
+      return
+    }
+
+    if (!startDate) {
+      startDate = this.timeframe[0]
+    }
+
+    if (!endDate) {
+      endDate = this.timeframe[1]
+    }
+
+    const newRect = this.getBoundsFromTimeframe([startDate, endDate])
+
+    this.timeframeRect.setBounds(newRect)
+  }
+
+  /**
+   * fit the timeframe to the currently selected node
+   */
+  updateTimeframeBySelectedItem(selectedNode) {
+    const bucket = getBucket(selectedNode)
+    // layer mapping: 1 = day, 2 = week, 3 = month, 4 = year
+    if (bucket.layer < 3) {
+      if (bucket.start < this.timeframe[0]) {
+        this.resizeTimeframe(bucket.start, null)
+      }
+      if (bucket.end > this.timeframe[1]) {
+        this.resizeTimeframe(null, bucket.end)
+      }
+    } else {
+      this.resizeTimeframe(bucket.start, bucket.end)
+    }
+  }
+
+  /**
+   * Scales the timeframe rectangle by the given factor, keeping its center position.
+   */
+  scaleTimeframe(factor) {
+    if (!this.showTimeframeRectangle) {
+      return
+    }
+    const limits = this.timeframeRect.limits
+    const current = this.timeframeRect.bounds
+
+    const centerX = current.centerX
+    const minWidth = 1 / this.graphComponent.zoom // minimal visible width
+    const maxWidth = Math.max(minWidth, limits.width)
+
+    let newWidth = current.width * factor
+    newWidth = Math.min(Math.max(newWidth, minWidth), maxWidth)
+
+    let newX = centerX - newWidth * 0.5
+    newX = Math.max(limits.x, Math.min(newX, limits.maxX - newWidth))
+
+    const newRect = new Rect(newX, current.y, newWidth, current.height)
+    this.timeframeRect.setBounds(newRect)
   }
 
   /**
    * Creates a timeline control button.
    * The button has the CSS class 'timeline-button' and is styled in timeline.css.
    */
-  addTimelineButton(buttonId, title, onClick) {
+  addTimelineButton(buttonId, title, textContent, onClick) {
     const button = document.createElement('button')
     button.id = `${this.selector}-${buttonId}`
     button.title = title
-    button.classList.add('timeline-button', buttonId)
+    button.textContent = textContent
+    button.classList.add('timeline-button', 'play', buttonId)
     button.addEventListener('mousedown', (evt) => {
       // prevent events to trigger a selection in the timeline
       evt.stopPropagation()
     })
     button.addEventListener('click', onClick, true)
-    this.graphComponent.htmlElement.appendChild(button)
+    if (this.toolbarContainer) {
+      this.toolbarContainer.appendChild(button)
+    }
   }
 }

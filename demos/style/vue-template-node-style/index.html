@@ -32,199 +32,53 @@
      ////////////////////////////////////////////////////////////////////////-->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <link rel="shortcut icon" href="../../demo-app/icons/favicon.ico" type="image/x-icon" />
-
     <title>Vue Template Node Style Demo [yFiles for HTML]</title>
-
-    <style>
-      #graphComponent {
-        background-color: #f7f7f7;
-      }
-
-      .editorText {
-        font-family: 'Consolas', 'Courier New', Courier, mono, serif;
-        font-size: 13px;
-      }
-
-      .heading-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      #templateEditorContainer {
-        flex: 2;
-        min-height: 0;
-      }
-
-      #tagEditorContainer {
-        flex: 1;
-        min-height: 0;
-      }
-
-      .cm-editor {
-        height: 100% !important;
-        background-color: #fff;
-      }
-
-      .error {
-        display: none;
-        color: #ffffff;
-        font-size: 16px;
-        font-weight: bold;
-        vertical-align: baseline;
-        text-align: center;
-        height: 0;
-        box-sizing: border-box;
-        margin-left: 1ex;
-        transition:
-          height 0.3s ease,
-          display 0.3s ease allow-discrete;
-        &.open-error {
-          display: flex;
-          height: 1.5em;
-          background-color: #f44336;
-          padding: 2px 4px;
-        }
-      }
-      @starting-style {
-        .error.open-error {
-          height: 0;
-        }
-      }
-
-      #template-text-area-error {
-        bottom: 250px;
-      }
-
-      #tag-text-area-error {
-        bottom: 15px;
-      }
-
-      .apply-button {
-        margin: 1ex 0 1ex 0;
-        padding: 5px 9px 5px 9px;
-        background-color: #1871bd;
-        color: #f7f7f7;
-        border: none;
-        cursor: pointer;
-      }
-
-      .apply-button:hover {
-        background-color: #328ad5;
-      }
-
-      .apply-button:disabled {
-        background-color: #a0a0a0;
-      }
-    </style>
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body>
     <header class="demo-header">
-      <a href="https://www.yfiles.com" class="demo-header__y-logo"></a>
-      <div class="demo-header__breadcrumb-wrapper">
-        <a href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html">yFiles for HTML</a>
-        <a href="../../../README.html">Demos</a>
-        <span>Vue Template Node Style Demo</span>
-        <a href="../../../README.html" class="demo-header__mobile-back">yFiles Demos</a>
-      </div>
+      <a
+        href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+        class="y-logo"
+        target="_blank"
+      ></a>
+      <span class="material-symbols-outlined">chevron_right</span>
+      <a href="../../README.html" class="breadcrumb-wrapper" target="_blank">Demos</a>
+      <span class="material-symbols-outlined">chevron_right</span>
+      <span id="name" class="breadcrumb-wrapper demo-name">Vue Template Node Style</span>
     </header>
-    <div class="demo-page__toolbar">
-      <button
-        id="open-file-button"
-        title="Open a GraphML file"
-        class="demo-icon-yIconOpen"
-      ></button>
-      <button id="save-button" title="Save a GraphML file" class="demo-icon-yIconSave"></button>
-
-      <div class="demo-separator"></div>
-      <button data-command="INCREASE_ZOOM"></button>
-      <button data-command="ZOOM_ORIGINAL"></button>
-      <button data-command="DECREASE_ZOOM"></button>
-      <button data-command="FIT_GRAPH_BOUNDS"></button>
-      <span class="demo-separator"></span>
-      <button id="reload" title="Reload" class="demo-icon-yIconReload"></button>
-    </div>
-    <aside class="demo-page__description">
-      <div class="demo-description__content">
-        <h1>Vue Template Node Style Demo</h1>
-
-        <p>
-          This demo presents the Vue template node style that leverages the powerful data binding
-          and conditional rendering features of the
-          <a href="https://vuejs.org/" target="_blank">Vue framework</a>.
-        </p>
-        <p>
-          With this style, node visualizations are defined by SVG templates, similar to the template
-          styles that are included in the library. However, since the templates of this style can
-          use the powerful data binding of Vue, complex requirements are easier to realize.
-        </p>
-        <p>
-          Note that the implementation used here employs a runtime Vue compiler for the purpose of
-          the demo and interactivity. Real applications define the template in vue files and the
-          compiler tool-chain performs the compilation at build time.
-        </p>
-
-        <p>
-          Please ensure that the applied template is consistent with the
-          <a href="https://vuejs.org/guide/essentials/template-syntax.html" target="_blank"
-            >Vue 3</a
-          >
-          guidelines. Template styles created with older versions of Vue might not work in this
-          demo.
-        </p>
-
-        <h2>Things to Try</h2>
-
-        <p>
-          Change the template of one or more nodes. Bind colors or text to properties in the tag.
-          Then, apply the new template by pressing the button. Or modify the tag and see how the
-          style changes.
-        </p>
-
-        <h2>Related Documentation</h2>
-        <ul>
-          <li>
-            <a data-dguide="custom-styles_data-binding-in-styles">
-              Using Data Binding in Node Styles
-            </a>
-          </li>
-        </ul>
-
-        <h2>Related Demos</h2>
-        <ul>
-          <li>
-            <a data-demo>vue-component-node-style</a>
-          </li>
-          <li>
-            <a data-demo>react-component-node-style</a>
-          </li>
-          <li>
-            <a data-demo>react-template-node-style</a>
-          </li>
-          <li>
-            <a data-demo>lit-template-node-style</a>
-          </li>
-        </ul>
-
-        <h2>Additional Tools</h2>
-        <p>
-          Graphs containing template node style are compatible with
-          <a href="https://www.yworks.com/yed-live/" target="_blank">yEd Live</a>.
-        </p>
+    <div class="main-container">
+      <div class="demo-page__main">
+        <div class="demo-main__graph-component">
+          <div class="demo-page__toolbar">
+            <button data-command="DECREASE_ZOOM" class="material-symbols-outlined">zoom_out</button>
+            <button data-command="INCREASE_ZOOM" class="material-symbols-outlined">zoom_in</button>
+            <button data-command="FIT_GRAPH_BOUNDS" class="material-symbols-outlined">
+              zoom_out_map
+            </button>
+            <span class="separator"></span>
+            <button
+              id="open-file-button"
+              title="Open a GraphML file"
+              class="material-symbols-outlined"
+            >
+              file_open
+            </button>
+            <button id="save-button" title="Save a GraphML file" class="material-symbols-outlined">
+              save
+            </button>
+            <div class="separator"></div>
+            <button id="reload" title="Reload" class="material-symbols-outlined">refresh</button>
+          </div>
+          <div id="graphComponent"></div>
+        </div>
       </div>
-    </aside>
-    <div class="demo-page__main">
-      <div class="demo-main__graph-component">
-        <div id="graphComponent"></div>
-      </div>
-
-      <aside
+      <div
         data-title="Template Editor"
         class="demo-main__sidebar"
         style="--sidebar-width: max(50%, min(100%, 450px))"
       >
-        <div class="demo-sidebar__content">
+        <div class="demo-sidebar__content editor-panel">
           <div class="heading-row">
             <h2>Template String</h2>
             <button
@@ -251,8 +105,79 @@
           <div id="tag-text-area-error" class="error">Could not parse tag object!</div>
           <div id="tagEditorContainer" class="editorText"></div>
         </div>
-      </aside>
+      </div>
+      <div class="demo-page__description">
+        <div class="demo-description__content">
+          <h1>Vue Template Node Style Demo</h1>
+
+          <p>
+            This demo presents the Vue template node style that leverages the powerful data binding
+            and conditional rendering features of the
+            <a href="https://vuejs.org/" target="_blank">Vue framework</a>.
+          </p>
+          <p>
+            With this style, node visualizations are defined by SVG templates, similar to the
+            template styles that are included in the library. However, since the templates of this
+            style can use the powerful data binding of Vue, complex requirements are easier to
+            realize.
+          </p>
+          <p>
+            Note that the implementation used here employs a runtime Vue compiler for the purpose of
+            the demo and interactivity. Real applications define the template in vue files and the
+            compiler tool-chain performs the compilation at build time.
+          </p>
+
+          <p>
+            Please ensure that the applied template is consistent with the
+            <a href="https://vuejs.org/guide/essentials/template-syntax.html" target="_blank"
+              >Vue 3</a
+            >
+            guidelines. Template styles created with older versions of Vue might not work in this
+            demo.
+          </p>
+
+          <h2>Things to Try</h2>
+
+          <p>
+            Change the template of one or more nodes. Bind colors or text to properties in the tag.
+            Then, apply the new template by pressing the button. Or modify the tag and see how the
+            style changes.
+          </p>
+
+          <h2>Related Documentation</h2>
+          <ul>
+            <li>
+              <a data-dguide="custom-styles_data-binding-in-styles">
+                Using Data Binding in Node Styles
+              </a>
+            </li>
+          </ul>
+
+          <h2>Related Demos</h2>
+          <ul>
+            <li>
+              <a data-demo>vue-component-node-style</a>
+            </li>
+            <li>
+              <a data-demo>react-component-node-style</a>
+            </li>
+            <li>
+              <a data-demo>react-template-node-style</a>
+            </li>
+            <li>
+              <a data-demo>lit-template-node-style</a>
+            </li>
+          </ul>
+
+          <h2>Additional Tools</h2>
+          <p>
+            Graphs containing template node style are compatible with
+            <a href="https://www.yworks.com/yed-live/" target="_blank">yEd Live</a>.
+          </p>
+        </div>
+      </div>
     </div>
+
     <script
       type="module"
       crossorigin="anonymous"

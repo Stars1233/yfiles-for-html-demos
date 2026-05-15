@@ -42,7 +42,7 @@ import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
 import { TaperedArrow, TaperedArrowExtension } from './TaperedArrow'
 import { colorSets } from '@yfiles/demo-app/demo-colors'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
 
 /**

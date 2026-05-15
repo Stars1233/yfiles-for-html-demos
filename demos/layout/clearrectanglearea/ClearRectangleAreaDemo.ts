@@ -63,8 +63,9 @@ import { RectanglePositionHandler } from './RectanglePositionHandler'
 import SampleData from './resources/SampleData'
 import { createDemoGroupStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
 import { RectangleRenderer } from '@yfiles/demo-utils/RectangleRenderer'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 // UI components
 const samplesComboBox = document.querySelector<HTMLSelectElement>('#sample-graph-combobox')!
@@ -117,6 +118,8 @@ let graphComponent: GraphComponent
 async function run(): Promise<void> {
   License.value = licenseData
   graphComponent = new GraphComponent('graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
   initializeUI()
 
   initializeInputModes()
@@ -133,13 +136,14 @@ function initializeUI(): void {
   clearingStrategyComboBox.selectedIndex = options.clearAreaStrategy.valueOf()
   componentAssignmentStrategyComboBox.selectedIndex = options.componentAssignmentStrategy.valueOf()
 
-  addNavigationButtons(samplesComboBox).addEventListener('change', () => {
+  addNavigationButtons(samplesComboBox, 'Sample:', false).addEventListener('change', () => {
     loadGraph(samplesComboBox.options[samplesComboBox.selectedIndex].value)
   })
 
-  document
-    .querySelector<HTMLSelectElement>('#clearing-strategy-combobox')!
-    .addEventListener('change', onClearingStrategyChanged)
+  addNavigationButtons(
+    document.querySelector<HTMLSelectElement>('#clearing-strategy-combobox')!,
+    'Strategy:'
+  ).addEventListener('change', onClearingStrategyChanged)
   document
     .querySelector<HTMLSelectElement>('#component-assignment-strategy-combobox')!
     .addEventListener('change', onComponentAssignmentStrategyChanged)
@@ -324,7 +328,7 @@ function getHitGroupNode(context: IInputModeContext): INode | null {
   }
   const hits = nodeHitTester.enumerateHits(
     context,
-    context.canvasComponent!.lastEventLocation,
+    context.canvasComponent!.lastPointerEvent.location,
     GraphItemTypes.NODE
   ) as IEnumerable<INode>
   return hits.find((n) => graphComponent.graph.isGroupNode(n))
@@ -334,7 +338,7 @@ function getHitGroupNode(context: IInputModeContext): INode | null {
  * Determines whether {@link ModifierKeys} SHIFT is currently is pressed.
  */
 function isShiftPressed(e: InputModeEventArgs): boolean {
-  return e.context.canvasComponent!.lastInputEvent.shiftKey
+  return e.context.canvasComponent!.lastPointerEvent.shiftKey
 }
 
 /**
@@ -342,7 +346,7 @@ function isShiftPressed(e: InputModeEventArgs): boolean {
  */
 function isShiftChanged(e: InputModeEventArgs): boolean {
   return (
-    (e.context.canvasComponent!.lastInputEvent.changedModifiers & ModifierKeys.SHIFT) ===
+    (e.context.canvasComponent!.lastPointerEvent.changedModifiers & ModifierKeys.SHIFT) ===
     ModifierKeys.SHIFT
   )
 }

@@ -93,8 +93,14 @@ export class PropertiesPanelUI {
    */
   setCurrentItemVisibility(visible: boolean): void {
     this.itemPropertiesPanel.style.display = visible ? 'block' : 'none'
+    const descriptionPanel = document.querySelector<HTMLElement>('.description-panel')
+    if (!descriptionPanel) {
+      return
+    }
+    requestAnimationFrame(() => {
+      descriptionPanel.scrollTo({ top: descriptionPanel.scrollHeight, behavior: 'smooth' })
+    })
   }
-
   /**
    * Creates a child element that represents an item/graph property.
    * @returns the UI element

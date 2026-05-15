@@ -129,6 +129,8 @@ graphComponent.graph.decorator.nodes.highlightRenderer.addConstant(
 demoApp.buildGraphFromJson(graphData)
 await graphComponent.applyLayoutAnimated(new HierarchicalLayout(), 0)
 
+//Add separator
+demoApp.toolbar.addSeparator()
 // Add dropdown menu
 demoApp.toolbar.addSelect(
   'Flow Direction: ',

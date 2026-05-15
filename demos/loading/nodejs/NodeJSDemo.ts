@@ -41,7 +41,7 @@ import {
   initializeBasicDemoStyles,
   initializeFolding
 } from '@yfiles/demo-utils/sample-graph'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -95,12 +95,17 @@ async function runNodeJSLayout() {
     await remoteExecutor.start()
   } catch (e) {
     if (e instanceof TypeError) {
-      alert(
-        `Layout request failed with message "${e.message}".
+      const errorDialog = document.getElementById('layoutError')
+      if (errorDialog) {
+        errorDialog.style.setProperty('display', 'unset')
+      } else {
+        alert(
+          `Layout request failed with message "${e.message}".
 
-Is the layout server running? If not, start the layout server and reload the demo.
+This demo requires the layout server located in ./layout-server/. If the layout server is not running, start the layout server and reload the demo.
 `
-      )
+        )
+      }
     } else {
       throw e
     }

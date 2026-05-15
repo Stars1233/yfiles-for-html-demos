@@ -3731,7 +3731,6 @@ export class MultiLabelFolderNodeConverter extends FolderNodeConverter {
     viewNode: INode,
     masterNode: INode
   ): void {
-    // TODO - implement and write back labels!
     if (state.labels.size === viewNode.labels.size) {
       for (let i = 0; i < state.labels.size; i++) {
         foldingView.graph.setLabelText(viewNode.labels.at(i)!, state.labels.at(i)!.text)

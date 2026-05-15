@@ -28,12 +28,12 @@
  ***************************************************************************/
 import { FilteredGraphWrapper, GraphBuilder, INode, License, Point } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { flightData } from './resources/flight-data'
 import { initializeDefaultMapStyles } from './map-styles'
 import { createMap } from './leaflet-graph-layer'
 import { initializeShortestPaths } from './shortest-paths'
 import { getAirportData } from './data-types'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run() {
   License.value = licenseData
@@ -46,24 +46,15 @@ async function run() {
   // obtain the graph that is displayed
   createGraph(graphComponent, mapData.map)
 
+  //add Eventlistener to update size of map if panels collapse
+  initializeMapSizeChangeDetection(mapData)
+
   // add tooltips when hovering an airport
   initializeTooltips(graphComponent)
 
   // initialize the shortest-path-gesture
   // which highlights the shortest path between the last two clicked nodes
   initializeShortestPaths(graphComponent, mapData.map)
-
-  // update map size when sidebar is toggled
-  document.querySelector('.demo-description__toggle-button').addEventListener('click', () => {
-    setTimeout(() => {
-      mapData.map.invalidateSize()
-    }, 400)
-  })
-  document.querySelector('.demo-description__play-button').addEventListener('click', () => {
-    setTimeout(() => {
-      mapData.map.invalidateSize()
-    }, 400)
-  })
 }
 
 /**
@@ -109,7 +100,6 @@ function initializeTooltips(graphComponent) {
   const inputMode = graphComponent.inputMode
   // initialize tooltips
   inputMode.toolTipInputMode.delay = '200ms'
-  inputMode.toolTipInputMode.duration = '1000ms'
   inputMode.toolTipInputMode.toolTipLocationOffset = new Point(10, 10)
   inputMode.addEventListener('query-item-tool-tip', (evt) => {
     const item = evt.item
@@ -145,6 +135,19 @@ function zoomChanged(graphComponent, zoom) {
     // show the airport's IATA-code when the zoom value is low
     graph.setLabelText(node.labels.at(0), zoom >= 4 ? airportData.name : airportData.iata)
   })
+}
+
+function initializeMapSizeChangeDetection(mapdata) {
+  // Fit map after sidebar toggles
+  for (const toggle of [
+    ...document.querySelectorAll('.collapse.icon'),
+    document.querySelector('.expand-description-panel.plain'),
+    document.querySelector('.expand-interaction-panel.plain')
+  ]) {
+    toggle?.addEventListener('click', async () => {
+      mapdata.map.invalidateSize()
+    })
+  }
 }
 
 void run().then(finishLoading)

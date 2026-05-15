@@ -29,7 +29,7 @@
 import { DecisionTree } from './DecisionTree'
 import { getRootNode, readSampleGraph, setAsRootNode } from '../editor-component/editor-component'
 import { Command } from '@yfiles/yfiles'
-import { addNavigationButtons } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 import './decision-tree.css'
 
 let decisionTree
@@ -43,8 +43,8 @@ export function initializeDecisionTreeComponent(graphComponent) {
   document.querySelector('#restart').addEventListener('click', () => {
     showDecisionTree(graphComponent.graph)
   })
-  bindCommand('INCREASE_ZOOM_DECISION_TREE', Command.INCREASE_ZOOM)
-  bindCommand('DECREASE_ZOOM_DECISION_TREE', Command.DECREASE_ZOOM)
+  bindCommand('DECISION_TREE_INCREASE_ZOOM', Command.INCREASE_ZOOM)
+  bindCommand('DECISION_TREE_DECREASE_ZOOM', Command.DECREASE_ZOOM)
 
   document
     .querySelector("button[data-command='FIT_GRAPH_BOUNDS']")
@@ -52,7 +52,7 @@ export function initializeDecisionTreeComponent(graphComponent) {
       await graphComponent.fitGraphBounds()
     })
 
-  bindCommand('ZOOM_ORIGINAL_DECISION_TREE', Command.ZOOM, 1)
+  bindCommand('DECISION_TREE_FIT_GRAPH_BOUNDS', Command.ZOOM, 1)
 
   // add the sample graphs
   const samples = document.querySelector('#samples')
@@ -62,7 +62,7 @@ export function initializeDecisionTreeComponent(graphComponent) {
     option.value = graph
     samples.add(option)
   })
-  addNavigationButtons(samples).addEventListener('change', async () => {
+  addNavigationButtons(samples, 'Sample:', false).addEventListener('change', async () => {
     setAsRootNode(graphComponent, undefined)
     await readSampleGraph(graphComponent)
     showDecisionTree(graphComponent.graph)
@@ -119,11 +119,9 @@ function setLayoutRunning(running, graphComponent) {
  * given <code>data-command</code> name in the decision tree's toolbar.
  */
 function bindCommand(name, command, parameter = null) {
-  document
-    .querySelector(`#decision-tree-toolbar button[data-command='${name}']`)
-    .addEventListener('click', () => {
-      if (decisionTree) {
-        decisionTree.graphComponent.executeCommand(command, parameter)
-      }
-    })
+  document.querySelector(`button[data-command='${name}']`).addEventListener('click', () => {
+    if (decisionTree) {
+      decisionTree.graphComponent.executeCommand(command, parameter)
+    }
+  })
 }

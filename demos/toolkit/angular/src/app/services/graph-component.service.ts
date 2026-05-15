@@ -26,23 +26,21 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { Injectable, NgZone } from '@angular/core'
+import { Injectable } from '@angular/core'
 import { GraphComponent, GraphViewerInputMode } from '@yfiles/yfiles'
 
 @Injectable({ providedIn: 'root' })
 export class GraphComponentService {
   private graphComponent!: GraphComponent
 
-  constructor(private zone: NgZone) {}
-
   getGraphComponent() {
     if (!this.graphComponent) {
-      // Instantiate a new GraphComponent outside Angular To disable change detection.
+      // Note: in a Zone.js app, this must be wrapped in NgZone.runOutsideAngular()
+      // to prevent yFiles' internal events and render loop from triggering
+      // Angular change detection.
       // See https://docs.yworks.com/yfileshtml/#/kb/article/848/Improving_performance_of_large_Angular_applications
-      this.zone.runOutsideAngular(() => {
-        this.graphComponent = new GraphComponent()
-        this.graphComponent.inputMode = new GraphViewerInputMode()
-      })
+      this.graphComponent = new GraphComponent()
+      this.graphComponent.inputMode = new GraphViewerInputMode()
     }
     return this.graphComponent
   }

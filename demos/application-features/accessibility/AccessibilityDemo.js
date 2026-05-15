@@ -44,14 +44,13 @@ import {
   LabelStyle,
   LayoutExecutor,
   License,
-  Point,
   Size
 } from '@yfiles/yfiles'
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent = null
 
@@ -100,7 +99,7 @@ function buildGraph(graph, graphData) {
     .createNodesSource({
       data: graphData.nodeList.filter((item) => !item.isGroup),
       id: (item) => item.id,
-      parentId: (item) => item.parentId
+      parentId: (item) => item.parent
     })
     .nodeCreator.createLabelBinding((item) => item.label)
 
@@ -133,12 +132,6 @@ function buildGraph(graph, graphData) {
  */
 function initializeTooltips() {
   const inputMode = graphComponent.inputMode
-
-  // Customize the tooltip's behavior to our liking.
-  const toolTipInputMode = inputMode.toolTipInputMode
-  toolTipInputMode.toolTipLocationOffset = new Point(15, 15)
-  toolTipInputMode.delay = '500ms'
-  toolTipInputMode.duration = '5s'
 
   // Register a listener for when a tooltip should be shown.
   inputMode.addEventListener('query-item-tool-tip', (eventArgs) => {

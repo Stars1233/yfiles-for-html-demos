@@ -53,8 +53,8 @@ export function createHierarchicalLayoutConfiguration() {
   layout.nodeDistance = 30
   // try to reduce the number of bends in edges that connect nodes in subsequent layers
   // this produces more readable results in this demo scenario
-  layout.coordinateAssigner.straightenEdges = true
-  // disable symmetric placement for the straightenEdges option to take effect
+  layout.coordinateAssigner.maximumPortDeviation = 50
+  // disable symmetric placement
   layout.coordinateAssigner.symmetryOptimizationStrategy = 'none'
   // reflects our standard spacing so that nodes end up aligned with the snap grid
   layout.gridSpacing = 15

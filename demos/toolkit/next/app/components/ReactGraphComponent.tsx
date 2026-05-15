@@ -26,19 +26,18 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-'use client'
 import './ReactGraphComponent.css'
 import { ContextMenuComponent } from './ContextMenuComponent'
 import { ReactGraphOverviewComponent } from './GraphOverviewComponent'
 import { GraphData } from '@/app/page'
-import React, { useMemo, useState } from 'react'
+import React, { RefObject, useMemo, useRef, useState } from 'react'
 import { Command } from '@yfiles/yfiles'
 import DemoToolbar from './DemoToolbar'
 import { LayoutSupport } from '@/app/utils/LayoutSupport'
 import { useTooltips } from '@/app/utils/use-tooltips'
 import { useGraphSearch } from '@/app/utils/use-graph-search'
 import { useGraphBuilder } from '@/app/utils/use-graph-builder'
-import { useGraphComponent } from '@/app/utils/use-graph-component'
+import { useAddGraphComponent, useGraphComponent } from './GraphComponentContext'
 
 export interface ReactGraphComponentProps {
   graphData: GraphData
@@ -46,8 +45,11 @@ export interface ReactGraphComponentProps {
 }
 
 export function ReactGraphComponent({ graphData, onResetData }: ReactGraphComponentProps) {
-  // get hold of the GraphComponent
-  const { graphComponent, graphComponentContainer } = useGraphComponent()
+  const graphComponent = useGraphComponent()
+  const graphComponentContainer = useRef<HTMLDivElement>(null)
+
+  // add the GraphComponent to the container
+  useAddGraphComponent(graphComponentContainer as RefObject<HTMLDivElement>, graphComponent)
 
   // register tooltips on graph items
   useTooltips(graphComponent)
@@ -62,27 +64,26 @@ export function ReactGraphComponent({ graphData, onResetData }: ReactGraphCompon
 
   return (
     <>
-      <div className="toolbar">
-        <DemoToolbar
-          resetData={onResetData}
-          zoomIn={() => graphComponent.executeCommand(Command.INCREASE_ZOOM)}
-          zoomOut={() => graphComponent.executeCommand(Command.DECREASE_ZOOM)}
-          resetZoom={() => graphComponent.executeCommand(Command.ZOOM, 1)}
-          fitContent={() => void graphComponent.fitGraphBounds()}
-          searchChange={(evt) => setSearchQuery(evt.target.value)}
-        />
-      </div>
-      <div className="main">
-        <div
-          className="graph-component-container"
-          style={{ width: '100%', height: '100%' }}
-          ref={graphComponentContainer}
-        />
-        <ContextMenuComponent graphComponent={graphComponent} />
+      <div
+        className="graph-component-container"
+        style={{ width: '100%', height: '100%' }}
+        ref={graphComponentContainer}
+      >
+        <div className="toolbar">
+          <DemoToolbar
+            resetData={onResetData}
+            zoomIn={() => graphComponent.executeCommand(Command.INCREASE_ZOOM)}
+            zoomOut={() => graphComponent.executeCommand(Command.DECREASE_ZOOM)}
+            resetZoom={() => graphComponent.executeCommand(Command.ZOOM, 1)}
+            fitContent={() => graphComponent.executeCommand(Command.FIT_CONTENT)}
+            searchChange={(evt) => setSearchQuery(evt.target.value)}
+          />
+        </div>
         <div style={{ position: 'absolute', left: '20px', top: '20px' }}>
-          <ReactGraphOverviewComponent graphComponent={graphComponent} />
+          <ReactGraphOverviewComponent />
         </div>
       </div>
+      <ContextMenuComponent />
     </>
   )
 }

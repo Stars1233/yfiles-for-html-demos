@@ -57,7 +57,7 @@ import {
   orgchartNodeTemplate,
   orgchartPortTemplate
 } from './style-templates'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { StringTemplateNodeStyle } from '@yfiles/demo-utils/template-styles/StringTemplateNodeStyle'
 import { StringTemplateLabelStyle } from '@yfiles/demo-utils/template-styles/StringTemplateLabelStyle'
 import { StringTemplatePortStyle } from '@yfiles/demo-utils/template-styles/StringTemplatePortStyle'
@@ -190,6 +190,8 @@ function initConverters() {
 function initialize(graphComponent) {
   // initialize the graph
   initializeGraph(graphComponent)
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 
   // create the graph items
   createGraph(graphComponent.graph)

@@ -207,17 +207,17 @@ export class RotatableNodeStyleDecorator extends BaseClass(
     const wrappedVisual = this.wrapped.renderer
       .getVisualCreator(node, this.wrapped)
       .createVisual(context)
-    const container = new SvgVisualGroup()
     const matrix = new Matrix()
     matrix.rotate(toRadians(this.angle), node.layout.center)
-    container.transform = matrix
-    if (wrappedVisual instanceof SvgVisual) {
-      container.add(wrappedVisual)
-    }
-    container['render-data-cache'] = {
+
+    const container = SvgVisualGroup.from({
       angle: this.angle,
       center: node.layout.center,
       wrapped: this.wrapped
+    })
+    container.transform = matrix
+    if (wrappedVisual instanceof SvgVisual) {
+      container.add(wrappedVisual)
     }
     context.registerForChildrenIfNecessary(container, this.disposeChildren.bind(this))
     return container
@@ -227,7 +227,7 @@ export class RotatableNodeStyleDecorator extends BaseClass(
    * Updates a visual which rotates the visualization of the wrapped style.
    */
   updateVisual(context, oldVisual, node) {
-    const cache = oldVisual['render-data-cache']
+    const cache = oldVisual.tag
 
     const oldWrappedStyle = cache.wrapped
     const newWrappedStyle = this.wrapped
@@ -265,11 +265,7 @@ export class RotatableNodeStyleDecorator extends BaseClass(
       oldVisual.transform = matrix
     }
 
-    oldVisual['render-data-cache'] = {
-      angle: this.angle,
-      center: node.layout.center,
-      wrapped: this.wrapped
-    }
+    oldVisual.tag = { angle: this.angle, center: node.layout.center, wrapped: this.wrapped }
 
     return oldVisual
   }
@@ -793,7 +789,7 @@ class RotatedNodeResizeHandle extends BaseClass(IHandle, IPoint) {
   }
 
   /**
-   * Gets the location that is specified by the given ratios.
+   * Gets the location specified by the given ratios.
    */
   static getLocation(rectangle, ratioWidth, ratioHeight) {
     const x1 = rectangle.anchorX
@@ -892,7 +888,7 @@ class RotatedReshapeHandleProvider extends BaseClass(IReshapeHandleProvider) {
 }
 
 /**
- * Provides a rotate handle for a given node.
+ * Provides a rotation handle for a given node.
  */
 class NodeRotateHandleProvider extends BaseClass(IHandleProvider) {
   node
@@ -1014,7 +1010,7 @@ export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
   }
 
   /**
-   * Returns the cursor that is shown when using this handle.
+   * Returns the cursor shown when using this handle.
    */
   get cursor() {
     return this._cursor
@@ -1118,7 +1114,7 @@ export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
   }
 
   /**
-   * Returns the 'snapped' vector for the given up vector.
+   * Returns the 'snapped' vector for the given up-vector.
    * If the vector is almost horizontal or vertical, this method returns the exact horizontal or
    * vertical up vector instead.
    */
@@ -1138,7 +1134,7 @@ export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
     }
     // Same angle snapping
     if (this.snapToSameAngleDelta > 0 && this.nodeAngles) {
-      // Find the first angle that is sufficiently similar
+      // Find the first angle that is similar enough
       const candidate = this.nodeAngles
         .sort((nodeAngle1, nodeAngle2) => nodeAngle2.angle - nodeAngle1.angle)
         .find(
@@ -1219,7 +1215,7 @@ export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
     this.portHandles.clear()
 
     // Workaround: if the OrthogonalEdgeEditingContext is used to keep the edges orthogonal, it is not allowed
-    // to change that edges manually. Therefore, we explicitly finish the OrthogonalEdgeEditingContext here and
+    // to change those edges manually. Therefore, we explicitly finish the OrthogonalEdgeEditingContext here and
     // then call the edge router.
     const edgeEditingContext = context.lookup(OrthogonalEdgeEditingContext)
     if (edgeEditingContext && edgeEditingContext.isInitialized) {
@@ -1286,7 +1282,7 @@ export class NodeRotateHandle extends BaseClass(IHandle, IPoint) {
    * Whether the current gesture does not disable snapping.
    */
   shouldSnap(context) {
-    const { altKey } = context.canvasComponent.lastInputEvent
+    const { altKey } = context.canvasComponent.lastPointerEvent
     const shouldSnap = !altKey
     if (!shouldSnap && this.sameAngleHighlightedNodes) {
       this.clearSameAngleHighlights(context)
@@ -1394,9 +1390,9 @@ class RotatableNodeClipboardHelper extends BaseClass(IClipboardHelper) {
 }
 
 /**
- * An oriented rectangle that specifies the location, size and rotation angle of a rotated node.
+ * An oriented rectangle that specifies the location, size, and rotation angle of a rotated node.
  * This class is used mainly for performance reasons. It provides cached values. In principle, it
- * would be enough to store just the rotation angle but then, we would have to recalculate all the
+ * would be enough to store just the rotation angle, but then, we would have to recalculate all the
  * properties of this class very often.
  */
 export class CachingOrientedRectangle extends BaseClass(IOrientedRectangle) {
@@ -1573,8 +1569,8 @@ class DelegatingContext extends BaseClass(IInputModeContext) {
 }
 
 /**
- * This port handle is used only to trigger the updates of the orthogonal edge editing facility of
- * yFiles. In yFiles, all code related to updates of the orthogonal edge editing facility is
+ * This port handle is used only to trigger the updates of the orthogonal-edge-editing facility of
+ * yFiles. In yFiles, all code related to updates of the orthogonal-edge-editing facility is
  * internal. As a workaround, we explicitly call internal port handles from our custom node
  * handles.
  */

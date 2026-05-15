@@ -29,7 +29,7 @@
 /* @refresh reload */
 import { render } from 'solid-js/web'
 import { App } from './App'
-import '@yfiles/demo-app/demo.css'
 import './styles.css'
+import '@fontsource/material-symbols-outlined'
 
 render(() => <App />, document.getElementById('app')!)

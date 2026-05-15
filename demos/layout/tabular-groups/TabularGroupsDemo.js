@@ -44,13 +44,24 @@ import {
 } from './HierarchicalLayoutTabularGroups'
 import { colorSets, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+
+import databaseSample from './resources/database.json'
+import simpleSample from './resources/simple.json'
+import umlSample from './resources/uml.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { addNavigationButtons, addOptions } from '@yfiles/demo-app/modern/element-utils'
 
 const sortingToggle = document.querySelector('#sorting-toggle')
 const tabularGroupsToggle = document.querySelector('#tabular-groups-toggle')
 const distanceSlider = document.querySelector('#child-distance-slider')
 const sampleComboBox = document.querySelector('#sample-combo-box')
 const distanceLabel = document.querySelector('#childDistanceLabel')
+
+const samples = {
+  simple: { text: 'Simple Table', data: simpleSample },
+  database: { text: 'Database', data: databaseSample },
+  uml: { text: 'UML Diagram', data: umlSample }
+}
 
 /**
  * The graph component holding the graph and shown in this demo.
@@ -68,7 +79,7 @@ async function run() {
   graphComponent.inputMode = new GraphViewerInputMode()
 
   // load the sample graph and run the layout
-  await loadSampleGraph()
+  await loadSampleGraph(samples.simple.data)
   await runHierarchicalLayoutWithTabularGroups()
 
   // bind actions to the buttons in the toolbar
@@ -97,7 +108,7 @@ async function runHierarchicalLayoutWithTabularGroups() {
  * Loads the sample currently selected in the combo box and populates the graph.
  * @yjs:keep = nodeList,edgeList
  */
-async function loadSampleGraph() {
+async function loadSampleGraph(sampleData) {
   const graph = graphComponent.graph
   graph.clear()
 
@@ -110,7 +121,6 @@ async function loadSampleGraph() {
     distanceLabel.textContent = '5'
   }
 
-  const data = await loadSampleData(`resources/${sampleName}.json`)
   const isSimple = sampleComboBox.value === 'simple'
 
   // initialize the style of the graph
@@ -121,13 +131,13 @@ async function loadSampleGraph() {
 
   // define source and creation options for nodes and group nodes
   const nodesSource = builder.createNodesSource({
-    data: data.nodeList.filter((node) => !node.isGroup),
+    data: sampleData.nodeList.filter((node) => !node.isGroup),
     id: 'id',
     layout: 'layout',
     parentId: 'parent'
   })
   const groupSource = builder.createGroupNodesSource({
-    data: data.nodeList.filter((node) => node.isGroup),
+    data: sampleData.nodeList.filter((node) => node.isGroup),
     id: 'id',
     layout: 'layout',
     parentId: 'parent'
@@ -168,7 +178,7 @@ async function loadSampleGraph() {
 
   // define source for creation of edges
   builder.createEdgesSource({
-    data: data.edgeList,
+    data: sampleData.edgeList,
     id: 'id',
     sourceId: 'source',
     targetId: 'target',
@@ -177,15 +187,6 @@ async function loadSampleGraph() {
 
   // build the graph
   builder.buildGraph()
-}
-
-/**
- * Loads sample data from the file identified by the given sample path.
- * @param samplePath the path to the sample data file.
- */
-async function loadSampleData(samplePath) {
-  const response = await fetch(samplePath)
-  return await response.json()
 }
 
 /**
@@ -261,30 +262,33 @@ function initializeUI() {
     .querySelector('#sorting-toggle')
     .addEventListener('click', runHierarchicalLayoutWithTabularGroups)
 
-  addNavigationButtons(document.querySelector('#sample-combo-box')).addEventListener(
-    'change',
-    async () => {
-      // reset and disable the toolbar ui elements
-      sortingToggle.disabled = true
-      tabularGroupsToggle.disabled = true
-      distanceSlider.disabled = true
-      sortingToggle.checked = false
-      tabularGroupsToggle.checked = true
-      distanceSlider.value = '0'
-      distanceLabel.textContent = '0'
-      sampleComboBox.disabled = true
-
-      // load new sample and arrange with tabular groups feature
-      await loadSampleGraph()
-      await runHierarchicalLayoutWithTabularGroups()
-
-      // enable toolbar ui elements
-      sortingToggle.disabled = false
-      tabularGroupsToggle.disabled = false
-      distanceSlider.disabled = false
-      sampleComboBox.disabled = false
-    }
+  addOptions(
+    sampleComboBox,
+    ...Object.entries(samples).map(([key, value]) => ({ value: key, text: value.text }))
   )
+
+  addNavigationButtons(sampleComboBox, '', false).addEventListener('change', async (event) => {
+    // reset and disable the toolbar ui elements
+    sortingToggle.disabled = true
+    tabularGroupsToggle.disabled = true
+    distanceSlider.disabled = true
+    sortingToggle.checked = false
+    tabularGroupsToggle.checked = true
+    distanceSlider.value = '0'
+    distanceLabel.textContent = '0'
+    sampleComboBox.disabled = true
+
+    // load new sample and arrange with tabular groups feature
+    const selectedValue = event.target.value
+    await loadSampleGraph(samples[selectedValue].data)
+    await runHierarchicalLayoutWithTabularGroups()
+
+    // enable toolbar ui elements
+    sortingToggle.disabled = false
+    tabularGroupsToggle.disabled = false
+    distanceSlider.disabled = false
+    sampleComboBox.disabled = false
+  })
 
   document.querySelector('#child-distance-slider').addEventListener('change', async (evt) => {
     distanceLabel.textContent = evt.target.value

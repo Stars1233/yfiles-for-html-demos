@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Critical Path Analysis (CPA) Demo
+# Critical Path Analysis (CPA) Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/critical-path-analysis.webp" alt="demo-thumbnail" height="320"/>
 

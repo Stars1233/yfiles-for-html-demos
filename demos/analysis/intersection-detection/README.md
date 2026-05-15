@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Intersection Detection Demo
+# Intersection Detection Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/intersection-detection.webp" alt="demo-thumbnail" height="320"/>
 

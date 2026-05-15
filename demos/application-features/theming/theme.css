@@ -30,15 +30,22 @@
   Define the theme, consisting of a general variant, a scale and the colors
   (see the documentation for more details).
  */
-.demo-page__main .yfiles-canvascomponent {
-  --yfiles-theme-primary: #fcfdfe;
+.main-container .yfiles-canvascomponent {
+  --yfiles-theme-primary: #030201;
   --yfiles-theme-secondary: #f69454;
   --yfiles-theme-background: #ee693f;
   --yfiles-theme-variant: round;
   --yfiles-theme-scale: 2;
   &.dark {
-    --yfiles-theme-primary: #030201;
+    --yfiles-theme-primary: #fcfdfe;
     --yfiles-theme-secondary: #1c9dff;
     --yfiles-theme-background: #17c9ff;
   }
+}
+
+/* ensure that demo-framework style does not interfere */
+.yfiles-handle-template.yfiles-handle-resize-template {
+  fill: var(--yfiles-theme-background);
+  stroke: var(--yfiles-theme-primary);
+  stroke-width: initial !important;
 }

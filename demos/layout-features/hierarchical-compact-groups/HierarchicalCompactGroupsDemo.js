@@ -42,9 +42,7 @@ async function applyHierarchicalLayoutWithGroupCompaction() {
     layoutOrientation: 'left-to-right',
     coordinateAssigner: {
       // Compact groups vertically (reduces group height)
-      groupCompaction: true,
-      // Prioritize compactness over reducing edge bends
-      bendReduction: false
+      groupCompaction: true
     }
   })
 

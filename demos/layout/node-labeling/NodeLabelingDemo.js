@@ -42,17 +42,17 @@ import {
   LayoutExecutor,
   License,
   NodeLabelCandidates,
-  Rect,
   ShapeNodeShape,
   Size
 } from '@yfiles/yfiles'
 
-import SampleData from './resources/sample'
+import GraphData from './resources/graph-data.json'
 import { MapVisualCreator } from './MapVisualCreator'
 import { CityLabelStyle } from './CityLabelStyle'
 import { createDemoNodeLabelStyle, createDemoShapeNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The graph component.
@@ -284,10 +284,10 @@ function initializeUI() {
   document.querySelector('#place-labels').addEventListener('click', placeLabels)
   document.querySelector('#unpin-labels').addEventListener('click', unpinLabels)
   document.querySelector('#label-font-size').addEventListener('change', changeFontSize)
-  addNavigationButtons(document.querySelector('#label-candidates')).addEventListener(
-    'change',
-    placeLabels
-  )
+  addNavigationButtons(
+    document.querySelector('#label-candidates'),
+    'Label Candidates:'
+  ).addEventListener('change', placeLabels)
 }
 
 /**
@@ -295,12 +295,11 @@ function initializeUI() {
  */
 async function createSampleGraph() {
   const builder = new GraphBuilder(graphComponent.graph)
-  const defaultNodeSize = graphComponent.graph.nodeDefaults.size
   builder.createNodesSource({
-    data: SampleData.nodes,
+    data: GraphData.nodes,
     id: 'id',
-    layout: (data) => new Rect(data.x, data.y, defaultNodeSize.width, defaultNodeSize.height),
-    labels: ['label']
+    layout: 'layout',
+    labels: ['labels']
   })
   builder.buildGraph()
 

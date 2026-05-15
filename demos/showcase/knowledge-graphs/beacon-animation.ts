@@ -29,14 +29,14 @@
 import {
   type GraphComponent,
   type IEdge,
-  INode,
+  type INode,
   type WebGLAnimation,
   type WebGLGraphModelManager,
   WebGLGraphModelManagerRenderMode
 } from '@yfiles/yfiles'
 import { getEdgeTag, getNodeTag } from './types'
 import { filterApplied, resetFiltering, setFilteringPanelDisabled } from './filter-panel'
-import { showLoadingIndicator } from '@yfiles/demo-app/demo-ui/element-utils'
+import { showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
 
 /** Tracks whether a beacon animation is currently active. */
 let beaconActive = false
@@ -141,9 +141,5 @@ export async function resetBeaconAnimation(): Promise<void> {
  */
 export function removeBeaconAnimation(graphComponent: GraphComponent, item: INode | IEdge): void {
   const graphModelManager = graphComponent.graphModelManager as WebGLGraphModelManager
-  if (item instanceof INode) {
-    graphModelManager.setAnimations(item, [])
-  } else {
-    graphModelManager.setAnimations(item, [])
-  }
+  graphModelManager.setAnimations(item, [])
 }

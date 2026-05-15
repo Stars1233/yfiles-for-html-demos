@@ -66,12 +66,12 @@ export class DataTableNodeStyle extends NodeStyleBase {
 
     // Prevent event propagation for the mousewheel event, otherwise it will be captured by the graph
     // component, which calls preventDefault on it.
-    const stopPropagationOptions = { capture: true, passive: true }
+
     for (const eventName of ['mousewheel', 'wheel']) {
       div.addEventListener(
         eventName,
         DataTableNodeStyle.createStopPropagationListenerForScrolling(div),
-        stopPropagationOptions
+        { passive: true }
       )
     }
 
@@ -115,7 +115,7 @@ export class DataTableNodeStyle extends NodeStyleBase {
   static createStopPropagationListenerForScrolling(element) {
     return (evt) => {
       if (DataTableNodeStyle.needsScrollbar(element)) {
-        evt.stopImmediatePropagation()
+        evt.stopPropagation()
       }
     }
   }

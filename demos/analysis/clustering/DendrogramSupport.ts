@@ -40,6 +40,7 @@ import {
   GraphItemTypes,
   type HierarchicalClusteringResult,
   HierarchicalLayout,
+  HierarchicalLayoutData,
   HierarchicalLayoutEdgeDescriptor,
   HierarchicalLayoutLayeringStrategy,
   type IEdge,
@@ -54,8 +55,12 @@ import {
   IPositionHandler,
   type IRenderTreeElement,
   LabelStyle,
+  type LayoutEdge,
+  type LayoutEdgeLabel,
   type LayoutGraph,
+  type LayoutGraphItem,
   type LayoutNode,
+  type LayoutNodeLabel,
   Mapper,
   MutablePoint,
   MutableRectangle,
@@ -553,7 +558,13 @@ class DendrogramLayout extends BaseClass(ILayoutAlgorithm) {
       fromScratchLayeringStrategy: HierarchicalLayoutLayeringStrategy.USER_DEFINED
     })
 
-    const hierarchicalLayoutData = hierarchicalLayout.createLayoutData(graph)
+    const hierarchicalLayoutData = new HierarchicalLayoutData<
+      LayoutNode,
+      LayoutEdge,
+      LayoutGraphItem,
+      LayoutNodeLabel,
+      LayoutEdgeLabel
+    >()
     // edges at source node should use either the left or the right side
     hierarchicalLayoutData.ports.sourcePortCandidates = () => {
       return new EdgePortCandidates()
@@ -682,7 +693,7 @@ export class CutOffPositionHandler extends BaseClass(IPositionHandler) {
    * @param context The context to retrieve information
    */
   initializeDrag(context: IInputModeContext): void {
-    this.offset.y = this.location.y - context.canvasComponent!.lastInputEvent.location.y
+    this.offset.y = this.location.y - context.canvasComponent!.lastPointerEvent.location.y
   }
 
   /**

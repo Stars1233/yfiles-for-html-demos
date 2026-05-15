@@ -26,39 +26,46 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-#loadingPopup,
 #renderingInfoPopup {
   position: absolute;
   bottom: 10%;
   left: 0;
   right: 0;
-  height: 80px;
   margin-top: -50px;
   box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
-  padding-top: 10px;
+  padding: 20px;
   text-align: center;
   font-size: 36pt;
   opacity: 0;
   transition: opacity 1s ease-in-out;
+  z-index: 2;
 }
-#loadingPopup.visible,
+
 #renderingInfoPopup.visible {
   opacity: 100;
 }
-
-.demo-sidebar-content label {
-  margin-inline-end: 1ex;
+#loading-indicator {
+  pointer-events: none;
 }
-
-.demo-sidebar-content button[class^='demo-icon'] {
-  outline: none;
-  border: none;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-color: transparent;
-  width: 24px;
-  padding: 0;
-  cursor: pointer;
+#loadingPopup.visible {
+  display: block;
+}
+#loadingPopup {
+  display: none;
+}
+.main-container {
+  .interaction-panel {
+    flex: 0 0 350px;
+    .navigate-select {
+      justify-self: center;
+    }
+    & .animations-grid {
+      border-radius: 16px;
+      span {
+        text-align: center;
+      }
+    }
+  }
 }

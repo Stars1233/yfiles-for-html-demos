@@ -27,11 +27,11 @@
  **
  ***************************************************************************/
 import { Page } from './page.js'
-import type { GraphComponent } from '@yfiles/yfiles'
+import type { GraphComponent, PointConvertible } from '@yfiles/yfiles'
 
 class WdioDemoPage extends Page {
   get zoomInButton() {
-    return $('#zoom-in')
+    return $('#zoom-in-button')
   }
 
   get graphComponentElement() {
@@ -44,7 +44,7 @@ class WdioDemoPage extends Page {
     )
   }
 
-  async nodeCountAt(location) {
+  async nodeCountAt(location: PointConvertible) {
     return browser.execute((location) => {
       const graphComponent = (window as any).graphComponent as GraphComponent
       const worldLocation = graphComponent.pageToWorldCoordinates(location)
@@ -52,7 +52,7 @@ class WdioDemoPage extends Page {
     }, location)
   }
 
-  async bendCountAt(location) {
+  async bendCountAt(location: PointConvertible) {
     return browser.execute(async (location) => {
       const graphComponent = (window as any).graphComponent as GraphComponent
       const worldLocation = graphComponent.pageToWorldCoordinates(location)

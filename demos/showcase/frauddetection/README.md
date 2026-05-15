@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Fraud Detection Demo
+# Fraud Detection Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/fraud-detection.webp" alt="demo-thumbnail" height="320"/>
 
@@ -34,6 +34,6 @@ This demo shows how _yFiles for HTML_ can be used for detecting _fraud cases_ in
 
 ## Inspection View Component
 
-- Opens an inspection view of a fraud ring when _double-clicking_ on fraud ring elements or the according ![fraud warning](resources/icons/fraud-warning.svg)\-symbol in the toolbar. Also, hover on a ![fraud warning](resources/icons/fraud-warning.svg)\-symbol animates the viewport to the corresponding fraud component.
+- Opens an inspection view of a fraud ring when _double-clicking_ on fraud ring elements or the according symbol in the toolbar. Also, hovering over a fraud ring symbol animates the viewport to the corresponding fraud component.
 - Shows a single graph component that contains fraud rings along with its own timeline.
 - Updates the layout when _clicking_ the Layout-button in the toolbar.

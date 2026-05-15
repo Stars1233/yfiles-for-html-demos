@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Interactive Aggregation Demo
+# Interactive Aggregation Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/interactive-aggregation.webp" alt="demo-thumbnail" height="320"/>
 

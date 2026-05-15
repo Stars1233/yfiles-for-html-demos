@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Incremental Organic Layout
+# Incremental Organic Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-organic-incremental.webp" alt="demo-thumbnail" height="320"/>
 
@@ -20,7 +20,7 @@ This demo shows how to run the [OrganicLayout](https://docs.yworks.com/yfileshtm
 To achieve this, two setup steps are necessary:
 
 - The algorithm has to know which set of nodes to work on. Class [OrganicLayoutData](https://docs.yworks.com/yfileshtml/api/OrganicLayoutData) offers the property [scope](https://docs.yworks.com/yfileshtml/api/OrganicLayoutData#scope), in which the set of [nodes](https://docs.yworks.com/yfileshtml/api/OrganicScopeData#nodes) can be specified.
-- The layout algorithm has to be told whether a node and its surrounding nodes could possibly be laid out. To do so, the [scopeModes](https://docs.yworks.com/yfileshtml/api/OrganicScopeData#scopeModes) property can be set to the following scope modes: [AFFECTED](https://docs.yworks.com/yfileshtml/api/OrganicScope#AFFECTED), [FIXED](https://docs.yworks.com/yfileshtml/api/OrganicScope#FIXED), [INCLUDE_CLOSE_NODES](https://docs.yworks.com/yfileshtml/api/OrganicScope#INCLUDE_CLOSE_NODES) or [INCLUDE_EXTENDED_NEIGHBORHOOD](https://docs.yworks.com/yfileshtml/api/OrganicScope#INCLUDE_EXTENDED_NEIGHBORHOOD).
+- The layout algorithm has to be told whether a node and its surrounding nodes could possibly be laid out. To do so, the [scopeModes](https://docs.yworks.com/yfileshtml/api/OrganicScopeData#scopeModes) property can be set to the following scope modes: [AFFECTED](https://docs.yworks.com/yfileshtml/api/OrganicScope#AFFECTED), [FIXED](https://docs.yworks.com/yfileshtml/api/OrganicScope#FIXED), [INCLUDE_CLOSE_NODES](https://docs.yworks.com/yfileshtml/api/OrganicScope#INCLUDE_CLOSE_NODES) or [INCLUDE_EXTENDED_NEIGHBORHOOD](https://docs.yworks.com/yfileshtml/api/OrganicScope#INCLUDE_EXTENDED_NEIGHBORHOOD). Note, that using the property [scopeModes](https://docs.yworks.com/yfileshtml/api/OrganicScopeData#scopeModes) overrides the assignments of property [nodes](https://docs.yworks.com/yfileshtml/api/OrganicScopeData#nodes)
 
 In this demo, the layout algorithm is only applied to the **orange nodes** — for which there is no predefined layout information in the JSON sample data — and their surrounding nodes.
 

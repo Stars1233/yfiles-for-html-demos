@@ -39,10 +39,9 @@ import {
   Size
 } from '@yfiles/yfiles'
 import { ColorDropInputMode } from './ColorDropInputMode'
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
-
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 const PALETTE_SIZE = 15
 
 async function run(): Promise<void> {
@@ -97,9 +96,9 @@ function initializeStyles(graph: IGraph): void {
  */
 function createSampleGraph(graph: IGraph): void {
   const builder = new GraphBuilder(graph)
-  builder.createNodesSource({ data: SampleData.nodes, id: 'id', layout: 'layout' })
+  builder.createNodesSource({ data: GraphData.nodes, id: 'id', layout: 'layout' })
   builder.createEdgesSource({
-    data: SampleData.edges,
+    data: GraphData.edges,
     id: 'id',
     sourceId: 'source',
     targetId: 'target'
@@ -115,7 +114,10 @@ function initializePalette(): void {
   const palette = document.getElementById('palette')!
   generateColors(PALETTE_SIZE, 100, 50)
     .map((color) => createPaletteEntry(color))
-    .forEach((entry) => palette.appendChild(entry))
+    .forEach((entry) => {
+      entry.setAttribute('class', 'demo-dnd-panel__item')
+      palette.appendChild(entry)
+    })
 }
 
 /**
@@ -143,25 +145,22 @@ function createPaletteEntry(color: string): HTMLElement {
   // create a div element that holds the image of the color
   const paletteEntry = document.createElement('div')
   paletteEntry.className = 'palette-entry'
-  paletteEntry.draggable = true
   paletteEntry.appendChild(paletteImage)
 
   const startDrag = () => {
-    const dragPreview = document.createElement('div')
-    dragPreview.appendChild(paletteImage.cloneNode(true))
+    const dragPreview = paletteImage.cloneNode(true) as HTMLElement
 
     ColorDropInputMode.startDrag(paletteEntry, color, DragDropEffects.ALL, true, dragPreview)
   }
 
   // start the drop input mode when a drag from the palette begins
-  paletteEntry.addEventListener(
-    'dragstart',
-    (event) => {
-      event.preventDefault()
-      startDrag()
-    },
-    false
-  )
+  paletteEntry.addEventListener('pointerdown', (evt) => {
+    if (evt.button !== 0) {
+      return
+    }
+    startDrag()
+    evt.preventDefault()
+  })
 
   return paletteEntry
 }

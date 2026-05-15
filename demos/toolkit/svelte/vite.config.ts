@@ -28,35 +28,7 @@
  ***************************************************************************/
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-import preprocess from 'svelte-preprocess'
-import optimizer from '@yworks/optimizer/rollup-plugin'
 
-export default defineConfig(({ mode }) => {
-  return {
-    base: './',
-    server: {
-      fs: {
-        // Allow serving files from one level up to the project root
-        allow: ['../../../']
-      }
-    },
-    resolve: { preserveSymlinks: true },
-    plugins: [
-      svelte({ preprocess: preprocess() }),
-      mode === 'production'
-        ? optimizer({
-            logLevel: 'info',
-            // blacklist svelte framework api
-            blacklist: ['empty', 'dirty', 'update'],
-            shouldOptimize({ id }) {
-              // Make sure not to exclude the demo-app and demo-utils directories which are
-              // installed as dependencies but use yFiles API.
-              return (
-                id.includes('demo-app') || id.includes('demo-utils') || !id.includes('node_modules')
-              )
-            }
-          })
-        : undefined
-    ]
-  }
+export default defineConfig(() => {
+  return { base: './', resolve: { preserveSymlinks: true }, plugins: [svelte()] }
 })

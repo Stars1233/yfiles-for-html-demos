@@ -9,50 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-#
-
-      03 Adding a Background Shape - Tutorial: Label Style Implementation
+# 03 Adding a Background Shape Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/tutorial-style-implementation-label-add-background-shape.webp" alt="demo-thumbnail" height="320"/>
 
 [You can also run this demo online](https://www.yfiles.com/demos/tutorial-style-implementation-label/03-add-background-shape/).
-
-In many cases, it’s required to add a background to the label text. This is useful to improve contrast, add a meaningful shape or color, or simply to make the style look nicer.
-
-In this tutorial step, we will add a simple "speech balloon" shape to the style.
-
-```
-const backgroundPathElement = document.createElementNS(
-  'http://www.w3.org/2000/svg',
-  'path'
-)
-backgroundPathElement.setAttribute(
-  'd',
-  this.createBackgroundShapeData(labelSize)
-)
-backgroundPathElement.setAttribute('stroke', '#aaa')
-backgroundPathElement.setAttribute('fill', '#fffecd')
-```
-
-The path data is assembled in a separate function.
-
-```
-private createBackgroundShapeData(labelSize: Size): string {
-  const { width: w, height: h } = labelSize
-  return `M 0 0 h ${w} v ${h} h -${w * 0.5 - 5} l -5 5 v -5 h -${w * 0.5} z`
-}
-```
-
-We add the path to the `<g>` element before the `<text>`.
-
-```
-const gElement = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-gElement.appendChild(backgroundPathElement)
-gElement.appendChild(textElement)
-```
-
-Note
-
-The "tail" of the speech balloon is rendered outside the label bounds. We’ll deal with this later in this tutorial.
-
-[04 Preferred Label Size](../../tutorial-style-implementation-label/04-preferred-size/)

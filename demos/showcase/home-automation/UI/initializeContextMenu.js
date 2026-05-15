@@ -27,15 +27,7 @@
  **
  ***************************************************************************/
 import { GraphItemTypes, INode } from '@yfiles/yfiles'
-import DeleteIcon from '../../../demo-app/icons/delete3-16.svg'
-import CopyIcon from '../../../demo-app/icons/copy-16.svg'
-import PasteIcon from '../../../demo-app/icons/paste-16.svg'
-import CutIcon from '../../../demo-app/icons/cut2-16.svg'
-import UndoIcon from '../../../demo-app/icons/undo-16.svg'
-import RedoIcon from '../../../demo-app/icons/redo-16.svg'
-import FitContentIcon from '../../../demo-app/icons/fit-16.svg'
 import { runAutoLayout } from '../utils/customTriggers'
-import LayoutIcon from '../../../demo-app/icons/play2-16.svg'
 
 export function initializeContextMenu(graphComponent) {
   const graphEditorInputMode = graphComponent.inputMode
@@ -74,13 +66,13 @@ function getMenuComponent(graphComponent, node, queryLocation) {
         'Delete Node',
         () => graphComponent.graph.remove(node),
         false,
-        DeleteIcon
+        'delete'
       )
     )
 
     menuDiv.appendChild(createSeparator())
     menuDiv.appendChild(
-      createMenuItem(contextMenuInputMode, 'Copy', () => inputMode.copy(), false, CopyIcon)
+      createMenuItem(contextMenuInputMode, 'Copy', () => inputMode.copy(), false, 'content_copy')
     )
     menuDiv.appendChild(
       createMenuItem(
@@ -88,11 +80,11 @@ function getMenuComponent(graphComponent, node, queryLocation) {
         'Paste',
         () => inputMode.pasteAtLocation(queryLocation),
         graphComponent.clipboard.isEmpty,
-        PasteIcon
+        'content_paste'
       )
     )
     menuDiv.appendChild(
-      createMenuItem(contextMenuInputMode, 'Cut', () => inputMode.cut(), false, CutIcon)
+      createMenuItem(contextMenuInputMode, 'Cut', () => inputMode.cut(), false, 'content_cut')
     )
   } else {
     // no node has been hit
@@ -102,7 +94,7 @@ function getMenuComponent(graphComponent, node, queryLocation) {
         'Paste',
         () => inputMode.pasteAtLocation(queryLocation),
         graphComponent.clipboard.isEmpty,
-        PasteIcon
+        'content_paste'
       )
     )
   }
@@ -115,7 +107,7 @@ function getMenuComponent(graphComponent, node, queryLocation) {
       'Undo',
       () => undoEngine?.undo(),
       !undoEngine?.canUndo(),
-      UndoIcon
+      'undo'
     )
   )
   menuDiv.appendChild(
@@ -124,7 +116,7 @@ function getMenuComponent(graphComponent, node, queryLocation) {
       'Redo',
       () => undoEngine?.redo(),
       !undoEngine?.canRedo(),
-      RedoIcon
+      'redo'
     )
   )
   menuDiv.appendChild(createSeparator())
@@ -134,7 +126,7 @@ function getMenuComponent(graphComponent, node, queryLocation) {
       'Fit Content',
       () => graphComponent.fitContent(),
       false,
-      FitContentIcon
+      'zoom_out_map'
     )
   )
   menuDiv.appendChild(
@@ -143,7 +135,7 @@ function getMenuComponent(graphComponent, node, queryLocation) {
       'Auto Layout',
       () => runAutoLayout(graphComponent),
       undefined,
-      LayoutIcon
+      'play_arrow'
     )
   )
 
@@ -157,10 +149,15 @@ function createSeparator() {
 }
 
 function createMenuItem(contextMenuInputMode, label, clickListener, disabled, icon) {
+  const menuDiv = document.createElement('div')
   const menuButton = document.createElement('button')
-  menuButton.classList.add('flow-context-menu__item')
+  const classes = ['flow-context-menu__item', 'material-symbols-outlined']
+  menuButton.classList.add(...classes)
   if (disabled) {
     menuButton.classList.add('flow-context-menu__item-disabled')
+  }
+  if (icon) {
+    menuButton.innerHTML = icon
   }
 
   if (clickListener !== null) {
@@ -173,16 +170,18 @@ function createMenuItem(contextMenuInputMode, label, clickListener, disabled, ic
       false
     )
   }
+  menuDiv.appendChild(menuButton)
 
-  const iconItem = document.createElement('div')
-  iconItem.classList.add('flow-context-menu__item-icon')
-  if (icon) {
-    iconItem.style.backgroundImage = `url("${icon}")`
-  }
-  menuButton.appendChild(iconItem)
+  // const iconItem = document.createElement('div')
+  // iconItem.classList.add('flow-context-menu__item-icon')
+  // if (icon) {
+  //   iconItem.style.backgroundImage = `url("${icon}")`
+  // }
+  // menuButton.appendChild(iconItem)
 
   const buttonText = document.createElement('span')
   buttonText.innerHTML = label
+  buttonText.classList.add('flow-context-menu__item-label')
   menuButton.appendChild(buttonText)
 
   return menuButton

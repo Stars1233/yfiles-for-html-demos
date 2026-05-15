@@ -46,14 +46,15 @@ import {
   Stroke
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { colorSets } from '@yfiles/demo-app/demo-colors'
 import data from './resources/sample.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 let layoutRunning = false
 const togglePortAlignment = document.querySelector('#toggle-port-alignment')
 const toggleMinimumDistance = document.querySelector('#minimum-port-distance')
+const portDistanceLabel = document.querySelector('#port-distance-label')
 
 async function run() {
   License.value = licenseData
@@ -138,6 +139,7 @@ function initializeUI() {
     await runLayout()
   })
   toggleMinimumDistance.addEventListener('change', async () => {
+    portDistanceLabel.textContent = toggleMinimumDistance.value
     await runLayout()
   })
 }

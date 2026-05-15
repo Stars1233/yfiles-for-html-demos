@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Rotatable Nodes
+# Rotatable Nodes Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/rotatable-nodes.webp" alt="demo-thumbnail" height="320"/>
 

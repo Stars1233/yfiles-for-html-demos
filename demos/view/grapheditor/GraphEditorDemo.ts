@@ -50,13 +50,14 @@ import {
   TextBoxPlacementPolicy
 } from '@yfiles/yfiles'
 
-import { DemoStyleOverviewRenderer, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
 import { configureTwoPointerPanning } from '@yfiles/demo-utils/configure-two-pointer-panning'
-import { BrowserDetection, finishLoading } from '@yfiles/demo-app/demo-page'
 import type { JSONGraph } from '@yfiles/demo-utils/json-model'
 import graphData from './graph-data.json'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
+import { DemoStyleOverviewRenderer, initDemoStyles } from '@yfiles/demo-app/demo-styles'
+import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -76,7 +77,6 @@ async function run(): Promise<void> {
   // Configure and enable folding
   const foldingManager = new FoldingManager()
   const foldingView = foldingManager.createFoldingView()
-  foldingView.enqueueNavigationalUndoUnits = true
   const graph = foldingView.graph
   graphComponent.graph = graph
 
@@ -102,6 +102,8 @@ async function run(): Promise<void> {
 
   // Enable the undo engine on the master graph
   foldingManager.masterGraph.undoEngineEnabled = true
+  // Also enable undo for folding operations
+  foldingView.enqueueNavigationalUndoUnits = true
 
   // Register functionality for the buttons in this demo
   initializeUI(graphComponent)
@@ -116,14 +118,14 @@ function buildGraph(graph: IGraph, graphData: JSONGraph): void {
   graphBuilder.createNodesSource({
     data: graphData.nodeList.filter((item) => !item.isGroup),
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
 
   graphBuilder
     .createGroupNodesSource({
       data: graphData.nodeList.filter((item) => item.isGroup),
       id: (item) => item.id,
-      parentId: (item) => item.parentId
+      parentId: (item) => item.parent
     })
     .nodeCreator.createLabelBinding((item) => item.label)
 

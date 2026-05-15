@@ -51,7 +51,8 @@ import SampleData from './resources/SampleData'
 import { ClearAreaLayoutHelper } from './ClearAreaLayoutHelper'
 import { createDemoGroupStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent = null
 
@@ -81,6 +82,8 @@ async function run() {
 function initializeInputModes() {
   // enable undo/redo support
   graphComponent.graph.undoEngineEnabled = true
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 
   // create an input mode to edit graphs
   const editMode = new GraphEditorInputMode()
@@ -149,7 +152,10 @@ class ClearRectangleRenderer extends ObjectRendererBase {
  * The marquee rectangle is upon to be dragged.
  */
 function onDragStarting(e) {
-  const hitGroupNode = getHitGroupNode(e.context, e.context.canvasComponent.lastEventLocation)
+  const hitGroupNode = getHitGroupNode(
+    e.context,
+    e.context.canvasComponent.lastPointerEvent.location
+  )
   layoutHelper = new ClearAreaLayoutHelper(
     graphComponent,
     e.rectangle,
@@ -249,7 +255,7 @@ function loadGraph(sampleName) {
  */
 function initializeUI() {
   const sampleGraphs = document.querySelector('#sample-graphs')
-  addNavigationButtons(sampleGraphs).addEventListener('change', () => {
+  addNavigationButtons(sampleGraphs, 'Sample:', false).addEventListener('change', () => {
     const selectedIndex = sampleGraphs.selectedIndex
     const selectedOption = sampleGraphs.options[selectedIndex]
     loadGraph(selectedOption.value)
@@ -271,7 +277,10 @@ function initializeUI() {
     }
   })
 
-  const clearAreaStrategies = document.querySelector('#clear-area-strategies')
+  const clearAreaStrategies = addNavigationButtons(
+    document.querySelector('#clear-area-strategies'),
+    'Strategy:'
+  )
   clearAreaStrategies.addEventListener('change', () => {
     const selectedOption = clearAreaStrategies.options[clearAreaStrategies.selectedIndex]
     switch (selectedOption.value) {

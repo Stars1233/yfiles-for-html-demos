@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Reshape Handle Provider Demo
+# Reshape Handle Provider Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/reshape-handle-provider.webp" alt="demo-thumbnail" height="320"/>
 

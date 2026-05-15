@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Composite Node Style Demo
+# Composite Node Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/composite-node-style.webp" alt="demo-thumbnail" height="320"/>
 

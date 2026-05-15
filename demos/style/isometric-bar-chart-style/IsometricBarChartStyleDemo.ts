@@ -37,8 +37,9 @@ import {
   type ShapeNodeStyle
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, checkWebGL2Support, finishLoading } from '@yfiles/demo-app/demo-page'
 import { hideBars, initializeAugmentations, showBars, toggleLabelVisibility } from './bar-rendering'
+import { addNavigationButtons, checkWebGL2Support } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -58,7 +59,7 @@ async function run(): Promise<void> {
 
   License.value = licenseData
   barDataComboBox = document.querySelector<HTMLSelectElement>('#bar-data')!
-  addNavigationButtons(barDataComboBox)
+  addNavigationButtons(barDataComboBox, 'Augmented Information:')
 
   // initialize the GraphComponent and place it in the div with CSS selector #graphComponent
   graphComponent = new GraphComponent('#graphComponent')

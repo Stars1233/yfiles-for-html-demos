@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { BaseClass, IPositionHandler, MutablePoint, Point } from '@yfiles/yfiles'
+import { BaseClass, IPositionHandler, Point } from '@yfiles/yfiles'
 
 /**
  * A position handler that moves a given rectangle.
@@ -38,7 +38,6 @@ export class PositionHandler extends BaseClass(IPositionHandler) {
   constructor(rectangle) {
     super()
     this.rectangle = rectangle
-    this.offset = new MutablePoint()
   }
 
   get location() {
@@ -47,24 +46,18 @@ export class PositionHandler extends BaseClass(IPositionHandler) {
 
   initializeDrag(context) {
     const canvasComponent = context.canvasComponent
-    const x = this.rectangle.x - canvasComponent.lastEventLocation.x
-    const y = this.rectangle.y - canvasComponent.lastEventLocation.y
-    this.offset.setLocation(x, y)
+    this.offset = this.rectangle.topLeft.subtract(canvasComponent.lastPointerEvent.location)
   }
 
-  handleMove(context, originalLocation, newLocation) {
-    const newX = newLocation.x + this.offset.x
-    const newY = newLocation.y + this.offset.y
-    this.rectangle.setLocation(new Point(newX, newY))
+  handleMove(_context, _originalLocation, newLocation) {
+    this.rectangle.setLocation(newLocation.add(this.offset))
   }
 
-  cancelDrag(context, originalLocation) {
+  cancelDrag(_context, originalLocation) {
     this.rectangle.setLocation(originalLocation)
   }
 
-  dragFinished(context, originalLocation, newLocation) {
-    const newX = newLocation.x + this.offset.x
-    const newY = newLocation.y + this.offset.y
-    this.rectangle.setLocation(new Point(newX, newY))
+  dragFinished(_context, _originalLocation, newLocation) {
+    this.rectangle.setLocation(newLocation.add(this.offset))
   }
 }

@@ -37,7 +37,7 @@ export class HtmlLabelStyle extends LabelStyleBase {
    * A (shared) event listener that just stops event propagation.
    */
   static stopPropagationAlwaysListener = (evt) => {
-    evt.stopImmediatePropagation()
+    evt.stopPropagation()
   }
 
   /**
@@ -64,8 +64,6 @@ export class HtmlLabelStyle extends LabelStyleBase {
       layout: new OrientedRectangle(layout)
     })
 
-    const stopPropagationOptions = { capture: true, passive: true }
-
     // Prevent event propagation for the mousewheel event.
     // Otherwise, it will be captured by the graph component, which calls preventDefault on it.
     for (const eventName of ['mousewheel', 'wheel']) {
@@ -73,7 +71,7 @@ export class HtmlLabelStyle extends LabelStyleBase {
       if (firstElementChild) {
         const listenerForScrolling =
           HtmlLabelStyle.createStopPropagationListenerForScrolling(firstElementChild)
-        htmlElement.addEventListener(eventName, listenerForScrolling, stopPropagationOptions)
+        htmlElement.addEventListener(eventName, listenerForScrolling, { passive: true })
       }
     }
 
@@ -81,11 +79,7 @@ export class HtmlLabelStyle extends LabelStyleBase {
     // Otherwise, it will be captured by the graph component, which calls preventDefault on it.
     htmlElement.querySelectorAll('a').forEach((element) => {
       for (const eventName of ['click', 'pointerdown']) {
-        element.addEventListener(
-          eventName,
-          HtmlLabelStyle.stopPropagationAlwaysListener,
-          stopPropagationOptions
-        )
+        element.addEventListener(eventName, HtmlLabelStyle.stopPropagationAlwaysListener)
       }
     })
 
@@ -189,7 +183,7 @@ export class HtmlLabelStyle extends LabelStyleBase {
   static createStopPropagationListenerForScrolling(element) {
     return (evt) => {
       if (HtmlLabelStyle.needsScrollbar(element)) {
-        evt.stopImmediatePropagation()
+        evt.stopPropagation()
       }
     }
   }

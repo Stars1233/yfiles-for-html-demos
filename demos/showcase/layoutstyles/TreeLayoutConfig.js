@@ -182,6 +182,14 @@ export const TreeLayoutConfig = Class('TreeLayoutConfig', {
       new OptionGroupAttribute('GeneralGroup', 10),
       new TypeAttribute(Boolean)
     ],
+    fromSketchModeItem: [
+      new LabelAttribute(
+        'Use Drawing as Sketch',
+        '#/api/TreeLayout/#TreeLayout-property-fromSketchMode'
+      ),
+      new OptionGroupAttribute('GeneralGroup', 20),
+      new TypeAttribute(Boolean)
+    ],
     nodeLabelingItem: [
       new OptionGroupAttribute('NodePropertiesGroup', 10),
       new LabelAttribute(
@@ -397,6 +405,7 @@ export const TreeLayoutConfig = Class('TreeLayoutConfig', {
     this.routingStyleForNonTreeEdgesItem = 'orthogonal'
     this.edgeBundlingStrengthItem = 0.95
     this.actOnSelectionOnlyItem = false
+    this.fromSketchMode = false
 
     this.defaultLayoutOrientationItem = LayoutOrientation.TOP_TO_BOTTOM
 
@@ -431,6 +440,7 @@ export const TreeLayoutConfig = Class('TreeLayoutConfig', {
 
     layout.parallelEdgeRouter.enabled = false
     layout.componentLayout.style = ComponentArrangementStyle.MULTI_ROWS
+    layout.fromSketchMode = this.fromSketchModeItem
 
     const subgraphLayout = layout.layoutStages.get(SubgraphLayoutStage)
     subgraphLayout.enabled = this.actOnSelectionOnlyItem
@@ -841,6 +851,9 @@ export const TreeLayoutConfig = Class('TreeLayoutConfig', {
 
   /** @type {boolean} */
   actOnSelectionOnlyItem: false,
+
+  /** @type {boolean} */
+  fromSketchModeItem: false,
 
   /** @type {NodeLabelPlacement} */
   nodeLabelingItem: null,

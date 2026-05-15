@@ -51,8 +51,9 @@ import {
 import { CollapseAndExpandNodes } from './CollapseAndExpandNodes'
 import licenseData from '../../../lib/license.json'
 import { createDemoEdgeStyle } from '@yfiles/demo-app/demo-styles'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
 import { initializeStyles } from './style-templates'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Utilities for collapsing and expanding nodes.
@@ -299,7 +300,8 @@ function addChildren(graph: IGraph, root: INode, childrenCount: number, levelCou
  */
 function initializeUI(): void {
   addNavigationButtons(
-    document.querySelector<HTMLSelectElement>('#layout-combo-box')!
+    document.querySelector<HTMLSelectElement>('#layout-combo-box')!,
+    'Layout:'
   ).addEventListener('change', () => {
     void runLayout(null, false)
   })

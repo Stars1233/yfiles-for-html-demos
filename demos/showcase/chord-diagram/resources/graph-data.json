@@ -1,0 +1,29 @@
+{
+  "nodes": [
+    { "id": 0, "labels": ["a"], "layout": { "x": 0, "y": 0 , "width": 30, "height": 30 }, "color": "#363020" },
+    { "id": 1, "labels": ["b"], "layout": { "x": 0, "y": 100 , "width": 30, "height": 30 }, "color": "#605C4E" },
+    { "id": 2, "labels": ["c"], "layout": { "x": 0, "y": 200 , "width": 30, "height": 30 }, "color": "#A49966" },
+    { "id": 3, "labels": ["d"], "layout": { "x": 0, "y": 300 , "width": 30, "height": 30 }, "color": "#C7C7A6" },
+    { "id": 4, "labels": ["e"], "layout": { "x": 0, "y": 300 , "width": 30, "height": 30 }, "color": "#EAFFDA" },
+    { "id": 5, "labels": ["f"], "layout": { "x": 0, "y": 300 , "width": 30, "height": 30 }, "color": "#A4778B" },
+    { "id": 6, "labels": ["g"], "layout": { "x": 0, "y": 300 , "width": 30, "height": 30 }, "color": "#AA4586" },
+    { "id": 7, "labels": ["h"], "layout": { "x": 0, "y": 300 , "width": 30, "height": 30 }, "color": "#177E89" },
+    { "id": 8, "labels": ["i"], "layout": { "x": 0, "y": 300 , "width": 30, "height": 30 }, "color": "#8c0202" },
+    { "id": 9, "labels": ["j"], "layout": { "x": 0, "y": 300 , "width": 30, "height": 30 }, "color": "#ff5400" }
+  ],
+
+  "edges": [
+    { "source": 0, "target": 1, "thickness": 30 },
+    { "source": 0, "target": 2, "thickness": 20 },
+    { "source": 0, "target": 3, "thickness": 10 },
+    { "source": 1, "target": 2, "thickness": 15 },
+    { "source": 1, "target": 3, "thickness": 25 },
+    { "source": 2, "target": 3, "thickness": 12 },
+    { "source": 3, "target": 4, "thickness": 12 },
+    { "source": 3, "target": 6, "thickness": 12 },
+    { "source": 6, "target": 7, "thickness": 12 },
+    { "source": 1, "target": 5, "thickness": 12 },
+    { "source": 3, "target": 8, "thickness": 19 },
+    { "source": 3, "target": 9, "thickness": 17 }
+  ]
+}

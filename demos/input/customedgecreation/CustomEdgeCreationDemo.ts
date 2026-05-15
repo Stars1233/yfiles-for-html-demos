@@ -52,7 +52,7 @@ import { RoutingCreateEdgeInputMode, type RoutingStrategy } from './RoutingCreat
 import { PortCandidateRenderer } from './PortCandidateRenderer'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const defaultColor = '#F0EBE6'
 const nodeColors = ['#D4B483', '#C1666B', '#48A9A6', '#4357AD']

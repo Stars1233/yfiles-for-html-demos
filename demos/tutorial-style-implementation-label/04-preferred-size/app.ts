@@ -39,7 +39,7 @@ import {
 import { CustomLabelStyle } from './CustomLabelStyle'
 import { CustomLabelStyle as OldCustomLabelStyle } from '../03-add-background-shape/CustomLabelStyle'
 
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { initializeInlineGraphComponent } from '../../tutorial-style-implementation-node/common'
 
 License.value = licenseData

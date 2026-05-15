@@ -44,8 +44,8 @@ import {
 
 import { createDemoEdgeStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './resources/sample.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The collection of subcomponents contains all currently assigned subcomponents.
@@ -172,6 +172,8 @@ function configureUserInteraction(graphComponent) {
   graphComponent.inputMode = new GraphEditorInputMode({
     marqueeSelectableItems: GraphItemTypes.NODE
   })
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**

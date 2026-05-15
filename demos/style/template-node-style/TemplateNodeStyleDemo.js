@@ -44,7 +44,7 @@ import { StringTemplateNodeStyle } from '@yfiles/demo-utils/template-styles/Stri
 import SampleData from './resources/SampleData'
 
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
 import { registerTemplateStyleSerialization } from '@yfiles/demo-utils/template-styles/MarkupExtensions'
 import {

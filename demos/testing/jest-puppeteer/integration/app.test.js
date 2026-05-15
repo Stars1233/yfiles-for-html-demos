@@ -61,6 +61,7 @@ describe('app', () => {
       process.env.TEST_SERVER_URL || 'http://localhost:4241/demos-ts/'
     ).href
     console.log(`Navigating to ${url}`)
+    await page.setViewport({ width: 1920, height: 1080 })
     await page.goto(url)
     await page.waitForSelector('.yfiles-canvascomponent')
   })
@@ -74,7 +75,7 @@ describe('app', () => {
   it('should zoom', async function () {
     let zoom = await getZoom()
     expect(zoom).toBe(1.0)
-    await expect(page).toClick('#zoom-in')
+    await expect(page).toClick('#zoom-in-button')
 
     // zooming is animated, thus wait a second before checking the value
     const checkZoomPromise = new Promise((resolve) => {

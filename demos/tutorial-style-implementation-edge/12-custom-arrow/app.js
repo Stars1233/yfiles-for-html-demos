@@ -30,7 +30,7 @@ import { GraphComponent, License } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
 import { enableGraphEditing, initializeTutorialDefaults, zoomToContent } from '../common'
 
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { createEdges } from './create-edges'
 
 License.value = licenseData

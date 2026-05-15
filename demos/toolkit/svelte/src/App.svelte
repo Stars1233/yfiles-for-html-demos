@@ -3,126 +3,136 @@
   import PropertiesView from './PropertiesView.svelte'
   import type { Person } from './types'
   import OrgChart from './OrgChart.svelte'
+  import DemoDescription from './DemoDescription.svelte'
 
-  let graphData = { nodes: NODE_DATA, edges: EDGE_DATA }
-  let graphComponentMethods: {
-    zoomIn: () => void
-    zoomOut: () => void
-    setZoom: (zoom: number) => void
-    fitContent: () => void
-  }
+  const graphData = { nodes: NODE_DATA, edges: EDGE_DATA }
+  let orgChartComponent: OrgChart
   let search: string = ''
-  let selectedEmployee: Person | null
+  let selectedEmployee: Person | null = null
+  function onSelectedEmployeeChanged(value: Person | null): void {
+    selectedEmployee = value
+  }
 </script>
-
-<aside class='demo-page__description'>
-  <div class='demo-description__header'>
-    <a href='https://www.yfiles.com/' class='demo-description__logo'></a>
-  </div>
-  <div class='demo-description__content'>
-    <h1>Svelte Integration Demo</h1>
-    <p>
-      This demo shows how to integrate yFiles for HTML with the <a
-      href='https://svelte.dev/'
-      rel='noopener'
-      target='_blank'>Svelte</a
-    > framework, using Vite for development and deployment.
-    </p>
-    <p>The main features shown here are:</p>
-    <ul>
-      <li>
-        A component wrapper around GraphComponent that represents an organization chart and gets its data passed in. All
-        handling of the graph and the yFiles GraphComponent is contained within.
-      </li>
-      <li>
-        A custom SVG-based node style with the help of a <a
-        href='https://svelte.dev/docs#component-format'
-        rel='noopener'
-        target='_blank'>Svelte single file component</a
-      > that supports hot-reloading during development.
-      </li>
-      <li>
-        A layout algorithm in a Web Worker without blocking the UI is loaded using <a
-        href='https://vitejs.dev/guide/features.html#web-workers'
-        rel='noopener'
-        target='_blank'>Vite's support for Web Workers</a
-      >. Vite's development build relies on native browser support for <a href='https://web.dev/module-workers/'
-                                                                          target='_blank'>module workers</a> and
-        therefore currently only works in some browsers (e.g. Chrome). For
-        unsupported browsers, client-sided layout calculation is used as fallback.
-      </li>
-    </ul>
-    <h2>Things to try</h2>
-    <p>
-      Zoom into the chart to see more details. Level-of-detail rendering ensures that even at low zoom levels important
-      information remains readable.
-    </p>
-    <p>
-      Select employees in the chart and change their details in the panel on the right side. Those changes are
-      immediately reflected in the visualization.
-    </p>
-    <p>See the sources for details.</p>
-  </div>
-</aside>
-
-<div class='demo-page-header'>
-  <div class='demo-header'>
-    <a href='https://www.yfiles.com/' target='_blank'> <img src='ylogo.svg'
-                                                            class='demo-header__y-logo' /> </a>
-    <div class='demo-header__breadcrumb-wrapper'>
-      <a href='https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html'
-         class='demo-header__breadcrumb demo-header__breadcrumb--link'
-         target='_blank'>yFiles for HTML</a>
-
-      <a href='https://www.yfiles.com/demos'
-         style='cursor: pointer;' target='_blank'
-         class='demo-header__breadcrumb demo-header__breadcrumb--link'>Demos</a> <span class='demo-header__breadcrumb'>Svelte Integration Demo [yFiles for HTML]</span>
+<div class='demo-header'>
+  <a
+    href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+    class="y-logo"
+    target="_blank"
+    aria-label="yfiles for html"
+  ></a>
+  <span class="material-symbols-outlined demo-overview">chevron_right</span>
+  <a href='../../../README.html'
+     style='cursor: pointer;' target='_blank'
+     class='demo-title'>Demos</a>
+  <span class="material-symbols-outlined demo-overview">chevron_right</span>
+  <span class='demo-title'>Svelte Integration Demo</span>
+</div>
+<div class="main">
+  <div class="graph-component-container" style="width: 100%; height: 100%">
+    <div class="toolbar">
+      <div class="demo-toolbar">
+        <button
+          title="Zoom in"
+          onclick={() => orgChartComponent.zoomIn()}>
+          <span class="material-symbols-outlined">zoom_in</span>
+        </button>
+        <button
+          title="Zoom out"
+          onclick={() => orgChartComponent.zoomOut()}>
+          <span class="material-symbols-outlined">zoom_out</span>
+        </button>
+        <button
+          title="Fit content"
+          class="demo-icon-yIconZoomFit"
+          onclick={() => orgChartComponent.fitContent()}>
+          <span class="material-symbols-outlined">zoom_out_map</span>
+        </button>
+        <span class="demo-separator"></span>
+        <input class="search" bind:value={search} placeholder="Search names" />
+      </div>
     </div>
-  </div>
-</div>
-
-<div class="demo-page__toolbar">
-  <button
-    title="Zoom in"
-    class="demo-icon-yIconZoomIn"
-    on:click={graphComponentMethods.zoomIn}></button>
-  <button
-    title="Zoom to original size"
-    class="demo-icon-yIconZoomOriginal"
-    on:click={() => graphComponentMethods.setZoom(1)}></button>
-  <button
-    title="Zoom out"
-    class="demo-icon-yIconZoomOut"
-    on:click={graphComponentMethods.zoomOut}></button>
-  <button
-    title="Fit content"
-    class="demo-icon-yIconZoomFit"
-    on:click={graphComponentMethods.fitContent}></button>
-  <span class="demo-separator"></span>
-  <input class="search" bind:value={search} placeholder="Search names" />
-</div>
-
-<div class="demo-page__main">
-  <div class="demo-main__graph-component">
     <OrgChart
       data={graphData}
-      bind:methods={graphComponentMethods}
+      bind:this={orgChartComponent}
       {search}
-      bind:selectedEmployee
+      onSelectedEmployeeChanged={onSelectedEmployeeChanged}
     />
   </div>
-  <aside class="demo-main__sidebar">
+  <aside class="demo-sidebar interaction">
     <PropertiesView person={selectedEmployee} />
   </aside>
+  <aside class='demo-sidebar'>
+    <DemoDescription/>
+  </aside>
 </div>
-
 <style>
-  :global(body) {
-    font-family: Tahoma, Verdana, sans-serif;
+  .toolbar {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    border-radius: 50px;
+    height: 40px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    user-select: none;
+    background-color: #e7edf2;
+    box-shadow:
+      0 5px 20px rgba(0, 0, 0, 0.1),
+      0 3px 10px rgba(0, 0, 0, 0.1),
+      0 1px 5px rgba(0, 0, 0, 0.15);
+  }
+  .demo-toolbar {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 4px;
+  }
+  .demo-toolbar button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    height: 24px;
+    width: 24px;
+    box-sizing: border-box;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  .demo-toolbar .material-symbols-outlined {
+    font-size: 18px;
+    color: #444;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+  }
+  .demo-toolbar button:hover{
+    background-color: #dedede;
   }
 
-  .demo-page-header {
-    grid-area: header;
-    background: linear-gradient(to right, #29323c 0%, #38434f 100%);
+  .demo-separator {
+    height: 20px;
+    width: 1px;
+    background: #999;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 2px;
   }
+
+  .search {
+    margin-left: auto;
+    line-height: 20px;
+    padding: 4px 8px;
+    font-size: 15px;
+    letter-spacing: normal;
+    width: 250px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+  }
+  .search:focus {
+    outline: none;
+  }
+
 </style>

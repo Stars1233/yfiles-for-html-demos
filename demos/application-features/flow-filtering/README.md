@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Flow Filtering
+# Flow Filtering Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/flow-filtering.webp" alt="demo-thumbnail" height="320"/>
 
@@ -25,15 +25,6 @@ It uses the [Neighborhood](https://docs.yworks.com/yfileshtml/api/Neighborhood) 
 - Select a node to hide its neighbors in the selected flow direction.
 - Deselect the node by clicking on the empty canvas to show its neighbors again.
 - Use the dropdown menu in the toolbar to set the direction for flow highlighting and filtering.
-
-## Demos
-
-- [Filtering Demo](../../application-features/filtering/)
-- [Simple Highlight Decorator Demo](../../application-features/simple-highlight-decorator/)
-- [Collapsible Trees Demo](../../view/collapse/)
-- [Company Ownership Chart Demo](../../showcase/company-ownership/)
-- [Neighborhood View Demo](../../showcase/neighborhood/)
-- [Neighborhood Circles Demo](../../showcase/neighborhood-circles/)
 
 ## Documentation
 

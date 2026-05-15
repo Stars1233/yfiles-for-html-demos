@@ -28,9 +28,9 @@
  ***************************************************************************/
 import {
   type ApplicationRef,
+  type ComponentRef,
   createComponent,
-  type EnvironmentInjector,
-  type NgZone
+  type EnvironmentInjector
 } from '@angular/core'
 import { NodeComponent } from './node.component'
 import {
@@ -43,12 +43,23 @@ import {
 import { type Person } from '../person'
 
 export class NodeComponentStyle extends NodeStyleBase {
+  private activeCompRefs = new Set<ComponentRef<NodeComponent>>()
+
   constructor(
     private appRef: ApplicationRef,
-    private envInj: EnvironmentInjector,
-    private zone: NgZone
+    private envInj: EnvironmentInjector
   ) {
     super()
+  }
+
+  /**
+   * Runs change detection on all active node components so that
+   * mutated tag data is reflected in the visuals.
+   */
+  detectChanges() {
+    for (const compRef of this.activeCompRefs) {
+      compRef.changeDetectorRef.detectChanges()
+    }
   }
 
   createVisual(renderContext: IRenderContext, node: INode) {
@@ -61,16 +72,14 @@ export class NodeComponentStyle extends NodeStyleBase {
       environmentInjector: this.envInj
     })
 
-    // Assign the NodeComponent's item input property
-    this.zone.run(() => {
-      // Run inside the zone so Angular will update the NodeComponent.
-      // See https://docs.yworks.com/yfileshtml/#/kb/article/848/Improving_performance_of_large_Angular_applications
-      compRef.instance.item = node.tag as Person
-      compRef.instance.zoom = renderContext.zoom
-    })
+    // Use setInput to assign properties - this triggers change detection
+    // correctly with zoneless change detection.
+    compRef.setInput('item', node.tag as Person)
+    compRef.setInput('zoom', renderContext.zoom)
 
     // Attach the component to the Angular component tree so that change detection will work
     this.appRef.attachView(compRef.hostView)
+    this.activeCompRefs.add(compRef)
     ;(g as any)['data-compRef'] = compRef
 
     const svgVisual = new SvgVisual(g)
@@ -79,6 +88,7 @@ export class NodeComponentStyle extends NodeStyleBase {
       (_context: IRenderContext, _visual: Visual, _dispose: boolean) => {
         // need to clean up after the visual is actually removed
         this.appRef.detachView(compRef.hostView)
+        this.activeCompRefs.delete(compRef)
         compRef.destroy()
         return null
       }
@@ -90,11 +100,14 @@ export class NodeComponentStyle extends NodeStyleBase {
     if (oldVisual && oldVisual.svgElement) {
       const g = oldVisual.svgElement
       g.setAttribute('transform', 'translate(' + node.layout.x + ' ' + node.layout.y + ')')
-      this.zone.run(() => {
-        // Run inside the zone so Angular will update the NodeComponent.
-        // See https://docs.yworks.com/yfileshtml/#/kb/article/848/Improving_performance_of_large_Angular_applications
-        ;(g as any)['data-compRef'].instance.zoom = renderContext.zoom
-      })
+      // Use setInput to update properties - this triggers change detection
+      // correctly with zoneless change detection.
+      const compRef = (g as any)['data-compRef']
+      compRef.setInput('item', node.tag as Person)
+      compRef.setInput('zoom', renderContext.zoom)
+      // Since the Person object reference might be the same, but its properties changed,
+      // we need to trigger change detection for this component manually in zoneless mode.
+      compRef.changeDetectorRef.detectChanges()
       return oldVisual
     }
     return this.createVisual(renderContext, node)

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Interactive Hierarchical Layout Demo
+# Interactive Hierarchical Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/interactive-hierarchical-layout.webp" alt="demo-thumbnail" height="320"/>
 
@@ -26,3 +26,4 @@ The layers of the layout are visualized in the background of the graph.
 - Create new nodes and observe how they are inserted into the drawing near the place they have been created.
 - Drag the first and last bend (or create one) of an edge to interactively assign or reset port candidates.
 - Use the context menu to reroute selected edges or optimize selected node locations.
+- Change the node hint that defines how fixed (non-incremental) nodes are treated by the hierarchical layout via the dropdown in the toolbar. See API [IncrementalNodeHint](https://docs.yworks.com/yfileshtml/api/IncrementalNodeHint).

@@ -45,6 +45,7 @@ import {
   HierarchicalLayoutPortAssignmentMode,
   HierarchicalLayoutRoutingStyle,
   HierarchicalLayoutSubcomponentDescriptor,
+  IncrementalNodeHint,
   ITable,
   LayoutOrientation,
   LeftRightSubtreePlacer,
@@ -158,20 +159,33 @@ export const HierarchicalLayoutConfig = Class('HierarchicalLayoutConfig', {
       new ComponentAttribute('html-block'),
       new TypeAttribute(String)
     ],
-    selectedElementsIncrementallyItem: [
-      new LabelAttribute(
-        'Selected Elements Incrementally',
-        '#/api/HierarchicalLayout#HierarchicalLayout-property-fromSketchMode'
-      ),
-      new OptionGroupAttribute('IncrementalGroup', 10),
-      new TypeAttribute(Boolean)
-    ],
     useDrawingAsSketchItem: [
       new LabelAttribute(
         'Use Drawing as Sketch',
         '#/api/HierarchicalLayout#HierarchicalLayout-property-fromSketchMode'
       ),
+      new OptionGroupAttribute('IncrementalGroup', 10),
+      new TypeAttribute(Boolean)
+    ],
+    incrementalNodeHintItem: [
+      new LabelAttribute(
+        'Node Hint',
+        '#api/HierarchicalLayoutData/#HierarchicalLayoutData-property-incrementalNodeHint'
+      ),
       new OptionGroupAttribute('IncrementalGroup', 20),
+      new EnumValuesAttribute([
+        ['From Sketch', IncrementalNodeHint.FROM_SKETCH],
+        ['Keep Relative Order', IncrementalNodeHint.KEEP_RELATIVE_ORDER],
+        ['Exact Coordinates', IncrementalNodeHint.EXACT_COORDINATES]
+      ]),
+      new TypeAttribute(IncrementalNodeHint)
+    ],
+    selectedElementsIncrementallyItem: [
+      new LabelAttribute(
+        'Selected Elements Incrementally',
+        '#/api/HierarchicalLayout#HierarchicalLayout-property-fromSketchMode'
+      ),
+      new OptionGroupAttribute('IncrementalGroup', 30),
       new TypeAttribute(Boolean)
     ],
     orientationItem: [
@@ -198,7 +212,7 @@ export const HierarchicalLayoutConfig = Class('HierarchicalLayoutConfig', {
     ],
     symmetricPlacementItem: [
       new LabelAttribute(
-        'Symmetric Optimization',
+        'Symmetry Optimization',
         '#/api/CoordinateAssigner#CoordinateAssigner-property-symmetryOptimizationStrategy'
       ),
       new OptionGroupAttribute('GeneralGroup', 40),
@@ -371,14 +385,6 @@ export const HierarchicalLayoutConfig = Class('HierarchicalLayoutConfig', {
       ),
       new TypeAttribute(Boolean)
     ],
-    straightenEdgesItem: [
-      new LabelAttribute(
-        'Straighten Edges',
-        '#/api/CoordinateAssigner#CoordinateAssigner-property-straightenEdges'
-      ),
-      new OptionGroupAttribute('EdgeSettingsGroup', 140),
-      new TypeAttribute(Boolean)
-    ],
     recursiveEdgeStyleItem: [
       new LabelAttribute(
         'Recursive Edge Routing Policy',
@@ -391,6 +397,16 @@ export const HierarchicalLayoutConfig = Class('HierarchicalLayoutConfig', {
         ['Undirected', RecursiveEdgePolicy.UNDIRECTED]
       ]),
       new TypeAttribute(RecursiveEdgePolicy)
+    ],
+    maximumPortDeviationItem: [
+      new LabelAttribute(
+        'Maximum Port Deviation',
+        '#/api/CoordinateAssigner#CoordinateAssigner-property-maximumPortDeviation'
+      ),
+      new OptionGroupAttribute('EdgeSettingsGroup', 140),
+      new MinMaxAttribute(0, 50, 1),
+      new ComponentAttribute('slider'),
+      new TypeAttribute(Number)
     ],
     curveUTurnSymmetryItem: [
       new LabelAttribute(
@@ -727,6 +743,7 @@ export const HierarchicalLayoutConfig = Class('HierarchicalLayoutConfig', {
     this.title = 'Hierarchical Layout'
     this.subComponentsItem = false
     this.highlightCriticalPath = false
+    this.incrementalNodeHintItem = IncrementalNodeHint.FROM_SKETCH
   },
 
   /**
@@ -746,7 +763,9 @@ export const HierarchicalLayoutConfig = Class('HierarchicalLayoutConfig', {
 
     if (incrementalLayout && selectedElements) {
       layout.fromSketchMode = true
-    } else layout.fromSketchMode = !!fromSketch
+    } else {
+      layout.fromSketchMode = !!fromSketch
+    }
 
     layout.coordinateAssigner.symmetryOptimizationStrategy = this.symmetricPlacementItem
 
@@ -793,7 +812,7 @@ export const HierarchicalLayoutConfig = Class('HierarchicalLayoutConfig', {
     layout.fromScratchLayeringStrategy = this.rankingPolicyItem
     layout.componentArrangementPolicy = this.componentArrangementPolicyItem
     layout.coordinateAssigner.nodeCompaction = this.nodeCompactionItem
-    layout.coordinateAssigner.straightenEdges = this.straightenEdgesItem
+    layout.coordinateAssigner.maximumPortDeviation = this.maximumPortDeviationItem
 
     // configure FromSketchLayerer
     const layerer = layout.fromSketchMode
@@ -846,10 +865,13 @@ export const HierarchicalLayoutConfig = Class('HierarchicalLayoutConfig', {
     const selectedElements =
       graphComponent.selection.edges.size !== 0 || graphComponent.selection.nodes.size !== 0
 
-    if (incrementalLayout && selectedElements) {
+    if (this.useDrawingAsSketchItem || (incrementalLayout && selectedElements)) {
       // configure the mode
       // mark the selected nodes and edges as incremental
-      layoutData.incrementalNodes = graphComponent.selection.nodes
+      layoutData.incrementalNodeHints = (node) =>
+        incrementalLayout && graphComponent.selection.nodes.includes(node)
+          ? IncrementalNodeHint.INCREMENTAL
+          : this.incrementalNodeHintItem
       layoutData.incrementalEdges = graphComponent.selection.edges
     }
 
@@ -1121,11 +1143,21 @@ export const HierarchicalLayoutConfig = Class('HierarchicalLayoutConfig', {
     }
   },
 
+  /** @type {IncrementalNodeHint} */
+  incrementalNodeHintItem: null,
+
   /** @type {boolean} */
-  selectedElementsIncrementallyItem: false,
+  shouldDisableIncrementalNodeHintItem: {
+    get: function () {
+      return !this.useDrawingAsSketchItem
+    }
+  },
 
   /** @type {boolean} */
   useDrawingAsSketchItem: false,
+
+  /** @type {boolean} */
+  selectedElementsIncrementallyItem: false,
 
   /** @type {LayoutOrientation} */
   orientationItem: null,
@@ -1197,15 +1229,8 @@ export const HierarchicalLayoutConfig = Class('HierarchicalLayoutConfig', {
   /** @type {boolean} */
   edgeThicknessItem: false,
 
-  /** @type {boolean} */
-  straightenEdgesItem: false,
-
-  /** @type {boolean} */
-  shouldDisableStraightenEdgesItem: {
-    get: function () {
-      return this.symmetricPlacementItem !== SymmetryOptimizationStrategy.NONE
-    }
-  },
+  /** @type {number} */
+  maximumPortDeviationItem: 3,
 
   /** @type {RecursiveEdgePolicy} */
   recursiveEdgeStyleItem: null,

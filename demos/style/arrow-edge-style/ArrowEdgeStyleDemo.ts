@@ -40,9 +40,21 @@ import {
 } from '@yfiles/yfiles'
 import type { ColorSetName } from '@yfiles/demo-app/demo-styles'
 import { colorSets, initDemoStyles } from '@yfiles/demo-app/demo-styles'
-import { SampleGraph } from './resources/SampleGraph'
+import GraphData from './resources/graph-data.json'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+
+type EdgeData = {
+  source: number
+  target: number
+  style?: {
+    shape: 'arrow' | 'double-arrow' | 'notched-arrow' | 'trapezoid' | 'parallelogram'
+    thickness: number
+    angle: number
+    shaftRatio: number
+    color: ColorSetName
+  }
+}
 
 const basicShape = document.querySelector<HTMLSelectElement>('#basic-shape')!
 const thicknessRange = document.querySelector<HTMLInputElement>('#thickness-range')!
@@ -90,9 +102,9 @@ async function run(): Promise<void> {
  */
 function createSampleGraph(graph: IGraph): void {
   const builder = new GraphBuilder(graph)
-  builder.createNodesSource({ data: SampleGraph.nodeList, id: 'id', layout: 'layout' })
+  builder.createNodesSource({ data: GraphData.nodes, id: 'id', layout: 'layout' })
   builder.createEdgesSource({
-    data: SampleGraph.edgeList,
+    data: GraphData.edges as EdgeData[],
     sourceId: 'source',
     targetId: 'target',
     style: (dataItem) =>

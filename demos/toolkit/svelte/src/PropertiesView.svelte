@@ -6,7 +6,7 @@
   }: { person: Person | null } = $props()
 </script>
 
-<div class="demo-sidebar__content">
+<div class="demo-sidebar-content">
   <h2>Properties</h2>
   {#if person}
     <div>

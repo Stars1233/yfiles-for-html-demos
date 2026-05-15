@@ -27,14 +27,14 @@
  **
  ***************************************************************************/
 .edge-highlighted {
-  color: var(--saffron-yellow);
+  color: var(--main-highlight-color);
 }
 .edge-highlighted > * {
   stroke-width: 5px;
 }
 
 .highlight-node-property {
-  background-color: var(--saffron-yellow);
+  background-color: var(--main-highlight-color);
 }
 
 .alert-node-property {
@@ -51,7 +51,7 @@
 
 @keyframes flash-background {
   0% {
-    background: var(--saffron-yellow);
+    background: var(--main-highlight-color);
   }
   30% {
     transform: scale(1.05);

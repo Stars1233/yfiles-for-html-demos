@@ -1,0 +1,2788 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+.material-symbols-outlined {
+  font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+:root[data-theme='dark'] .material-symbols-outlined {
+  font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+button.icon,
+button .icon,
+a .icon,
+.icon-inline,
+button[data-command] {
+  font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+:root[data-theme='dark'] button.icon,
+:root[data-theme='dark'] button .icon,
+:root[data-theme='dark'] a .icon,
+:root[data-theme='dark'] .icon-inline,
+:root[data-theme='dark'] button[data-command] {
+  font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+.icon-inline {
+  font-size: inherit;
+  display: inline;
+  vertical-align: text-bottom;
+  line-height: unset;
+}
+button.icon-only {
+  font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  border: none;
+  border-radius: 99px;
+  padding: 8px;
+  color: inherit;
+  background-color: transparent;
+}
+:root[data-theme='dark'] button.icon-only {
+  font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+button.icon-only:hover {
+  background-color: #0000000f;
+}
+button.icon-only:active {
+  background-color: #0000001f;
+}
+.button-icon-only {
+  font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  border: none;
+  border-radius: 99px;
+  padding: 8px;
+  color: inherit;
+  background-color: transparent;
+}
+:root[data-theme='dark'] .button-icon-only {
+  font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+.button-icon-only:hover {
+  background-color: #0000000f;
+}
+.button-icon-only:active {
+  background-color: #0000001f;
+}
+button.plain {
+  border: none;
+  border-radius: 99px;
+  padding: 8px;
+  color: inherit;
+  background-color: transparent;
+}
+button.plain:hover {
+  background-color: #0000000f;
+}
+button.plain:active {
+  background-color: #0000001f;
+}
+.button-plain {
+  border: none;
+  border-radius: 99px;
+  padding: 8px;
+  color: inherit;
+  background-color: transparent;
+}
+.button-plain:hover {
+  background-color: #0000000f;
+}
+.button-plain:active {
+  background-color: #0000001f;
+}
+.loading-indicator-message {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 150%;
+  color: var(--loading-indicator-message-color);
+}
+select:disabled,
+button:disabled,
+label:disabled,
+input:disabled {
+  opacity: 0.5;
+  background-color: transparent;
+  pointer-events: none;
+}
+.dnd-panel {
+  flex: 0 1 12rem;
+}
+.demo-dnd-panel__item {
+  width: fit-content;
+  margin: 0 auto 20px;
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  touch-action: none;
+  cursor: grab;
+}
+.demo-dnd-panel__item:hover {
+  background-color: var(--interaction-button-hover);
+  cursor: grab;
+}
+.demo-dnd-panel__item:hover svg,
+.demo-dnd-panel__item:hover img {
+  transform: scale(1.03);
+}
+.hidden {
+  display: none !important;
+}
+.center-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.inline-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+.input-select-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.input-select-checkbox::after {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  display: inline-grid;
+  place-content: center;
+  border: none;
+  color: var(--color-text);
+}
+.text-content {
+  font-size: var(--body-font-size);
+}
+.text-content > :first-child {
+  margin-top: 0 !important;
+}
+.text-content > :last-child {
+  margin-bottom: 0 !important;
+}
+.text-content h1 {
+  font-size: xx-large;
+  margin: 1.2rem 0;
+}
+.text-content h2 {
+  font-size: x-large;
+}
+.text-content h3 {
+  font-size: large;
+}
+.text-content h2,
+.text-content h3,
+.text-content h4 {
+  margin: 1.5rem 0 1rem;
+}
+.text-content .text-medium {
+  font-size: 130%;
+}
+.text-content ul,
+.text-content ol {
+  padding-left: 1.3em;
+}
+.text-content p,
+.text-content dl,
+.text-content ul,
+.text-content ul.paragraph-style li {
+  margin: 1rem 0;
+}
+.text-content li {
+  margin: 0.5rem 0;
+}
+.text-content .compact li {
+  margin: 0.25rem 0;
+}
+.text-content .tutorial-about {
+  font-size: 130%;
+  line-height: 140%;
+}
+.text-content code,
+.text-content pre,
+.text-content kbd,
+.text-content a.api {
+  background: var(--inline-code-background);
+  color: var(--inline-code-color);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'Consolas', monospace;
+}
+.text-content pre {
+  padding: 8px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+.text-content kbd {
+  border: 1px solid #c1c1c1;
+  box-shadow: var(--shadow-cripsy-gray);
+  font-size: 80%;
+  padding: 0.2em 0.5em 0.1em 0.5em;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.text-content a.unknown {
+  color: firebrick;
+}
+.text-content a.unknown::before {
+  content: '\2297';
+  padding-right: 2px;
+}
+.text-content p a,
+.text-content dl a,
+.text-content ul a,
+.text-content .note a,
+.text-content p a:visited,
+.text-content dl a:visited,
+.text-content ul a:visited,
+.text-content .note a:visited {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 0.5px solid;
+}
+.text-content p a:hover,
+.text-content dl a:hover,
+.text-content ul a:hover,
+.text-content .note a:hover {
+  border-bottom: 2px solid;
+}
+.text-content dt {
+  font-weight: bold;
+  color: var(--color-text);
+  margin-top: 4px;
+}
+.text-content dd {
+  margin-left: 10px;
+}
+.text-content fieldset {
+  border: 0 none;
+  background: unset;
+  padding: 0 0 1.5ex;
+  margin: 0;
+}
+.text-content fieldset legend {
+  font-weight: bold;
+  padding: 0 0 0.5ex;
+}
+.demo-properties__settings > h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  grid-column: 1/-1;
+}
+.panel-bar button {
+  animation: panel-bar-button-animation 1.5s ease-out;
+}
+.panel-bar button:hover {
+  background-color: var(--toolbar-bg-hover);
+  cursor: pointer;
+}
+@keyframes panel-bar-button-animation {
+  50% {
+    background-color: var(--panel-bar-button-blink);
+  }
+}
+.interaction-panel select,
+.demo-popup select {
+  padding-inline: 10px;
+  border: none;
+  border-radius: var(--border-radius);
+  color: var(--toolbar-button-text);
+  background-color: var(--toolbar-button);
+  background-size: 1.5rem;
+  cursor: pointer;
+  width: stretch;
+}
+@supports (appearance: base-select) {
+  .interaction-panel select,
+  .demo-popup select {
+    padding: 6px 14px;
+    appearance: base-select;
+    border: none;
+    border-radius: var(--border-radius);
+    align-items: center;
+  }
+  .interaction-panel select::picker(select),
+  .demo-popup select::picker(select) {
+    appearance: base-select;
+    border: 1px solid var(--toolbar-select-border);
+    border-radius: var(--border-radius);
+  }
+  .interaction-panel select::picker-icon,
+  .demo-popup select::picker-icon {
+    content: 'expand_more';
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-size: 1.5rem;
+  }
+  .interaction-panel select:open::picker-icon,
+  .demo-popup select:open::picker-icon {
+    rotate: 180deg;
+  }
+}
+@supports not (appearance: base-select) {
+  .interaction-panel select,
+  .demo-popup select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 6px 36px 6px 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-image: var(--toolbar-select-arrow);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    align-items: center;
+  }
+}
+.interaction-panel select:hover,
+.demo-popup select:hover {
+  color: var(--color-text);
+  background-color: var(--interaction-button-hover);
+}
+.interaction-panel select:focus-visible,
+.demo-popup select:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--interaction-button-hover);
+}
+.interaction-panel select optgroup,
+.demo-popup select optgroup {
+  padding: 5px;
+  font-size: 0.75rem;
+  font-weight: 100;
+  font-style: normal;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: var(--toolbar-bg);
+}
+.interaction-panel select option,
+.demo-popup select option {
+  font-size: 1rem;
+  text-transform: none;
+  padding: 10px;
+  cursor: pointer;
+  font-family: var(--font-family), sans-serif;
+  color: var(--color-text);
+  background-color: var(--toolbar-bg);
+  line-height: 1.4;
+}
+.interaction-panel select option:checked,
+.demo-popup select option:checked {
+  font-weight: bold;
+}
+.interaction-panel select option:hover,
+.demo-popup select option:hover {
+  background-color: var(--interaction-button-hover);
+}
+.interaction-panel .navigate-select-labeled,
+.demo-popup .navigate-select-labeled {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.interaction-panel .navigate-select,
+.demo-popup .navigate-select {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  gap: 2px;
+  margin-bottom: 8px;
+  align-items: stretch;
+  width: 100%;
+}
+.interaction-panel .navigate-select:hover,
+.demo-popup .navigate-select:hover {
+  background-color: transparent;
+}
+.interaction-panel .navigate-select:has(button) select,
+.demo-popup .navigate-select:has(button) select {
+  border-radius: var(--small-border-radius);
+}
+.interaction-panel .navigate-select button,
+.demo-popup .navigate-select button {
+  font-size: 1.5rem;
+  display: flex;
+  width: 32px;
+  height: stretch;
+  border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
+  background-color: var(--toolbar-button);
+}
+.interaction-panel .navigate-select button:hover,
+.demo-popup .navigate-select button:hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.interaction-panel .navigate-select button:first-of-type,
+.demo-popup .navigate-select button:first-of-type {
+  border-radius: 20px var(--small-border-radius) var(--small-border-radius) 20px;
+}
+.interaction-panel .navigate-select select,
+.demo-popup .navigate-select select {
+  border: none;
+  border-radius: 999px;
+  color: var(--color-text);
+  margin: 0;
+  outline: none;
+  width: stretch;
+  height: auto;
+}
+.interaction-panel .navigate-select select:hover,
+.demo-popup .navigate-select select:hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.interaction-panel .navigation-button,
+.demo-popup .navigation-button {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.interaction-panel .navigation-button:hover,
+.demo-popup .navigation-button:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.interaction-panel .navigation-button.labeled,
+.demo-popup .navigation-button.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.interaction-panel .navigation-button.labeled:hover,
+.demo-popup .navigation-button.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.interaction-panel .navigation-button:hover,
+.demo-popup .navigation-button:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.interaction-panel .navigation-button.labeled,
+.demo-popup .navigation-button.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.interaction-panel .navigation-button.labeled:hover,
+.demo-popup .navigation-button.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.interaction-panel .navigation-button:hover,
+.demo-popup .navigation-button:hover {
+  background-color: var(--interaction-button-hover);
+  color: var(--color-text);
+}
+.description-panel .highlight-description {
+  animation-name: highlight-animation;
+  animation-duration: 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  border-radius: var(--border-radius);
+}
+@keyframes highlight-animation {
+  0% {
+    background-color: var(--description-bg);
+  }
+  20% {
+    background-color: #ff9800;
+  }
+  100% {
+    background-color: var(--description-bg-highlight);
+  }
+}
+.description-panel img {
+  display: inline;
+}
+.toolbar {
+  font-family: var(--font-family), sans-serif;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  /* keep items on a single line */
+  white-space: nowrap;
+  /* prevent the text button from wrapping */
+  background: var(--toolbar-bg);
+  backdrop-filter: blur(var(--overlay-blur));
+  padding: 4px 8px;
+  gap: 4px;
+  box-shadow: var(--shadow-crispy-gray);
+  border-radius: 999px;
+  user-select: none;
+}
+.toolbar button {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.toolbar button:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.toolbar button.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.toolbar button.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar button:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.toolbar button.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.toolbar button.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar select {
+  padding-inline: 10px;
+  border: none;
+  border-radius: var(--border-radius);
+  color: var(--toolbar-button-text);
+  background-color: var(--toolbar-button);
+  background-size: 1.5rem;
+  cursor: pointer;
+}
+@supports (appearance: base-select) {
+  .toolbar select {
+    padding: 6px 14px;
+    appearance: base-select;
+    border: none;
+    border-radius: var(--border-radius);
+    align-items: center;
+  }
+  .toolbar select::picker(select) {
+    appearance: base-select;
+    border: 1px solid var(--toolbar-select-border);
+    border-radius: var(--border-radius);
+  }
+  .toolbar select::picker-icon {
+    content: 'expand_more';
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-size: 1.5rem;
+  }
+  .toolbar select:open::picker-icon {
+    rotate: 180deg;
+  }
+}
+@supports not (appearance: base-select) {
+  .toolbar select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 6px 36px 6px 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-image: var(--toolbar-select-arrow);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    align-items: center;
+  }
+}
+.toolbar select:hover {
+  color: var(--color-text);
+  background-color: var(--interaction-button-hover);
+}
+.toolbar select:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--interaction-button-hover);
+}
+.toolbar select optgroup {
+  padding: 5px;
+  font-size: 0.75rem;
+  font-weight: 100;
+  font-style: normal;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: var(--toolbar-bg);
+}
+.toolbar select option {
+  font-size: 1rem;
+  text-transform: none;
+  padding: 10px;
+  cursor: pointer;
+  font-family: var(--font-family), sans-serif;
+  color: var(--color-text);
+  background-color: var(--toolbar-bg);
+  line-height: 1.4;
+}
+.toolbar select option:checked {
+  font-weight: bold;
+}
+.toolbar select option:hover {
+  background-color: var(--interaction-button-hover);
+}
+.toolbar label:has(> select),
+.toolbar label:has(> input),
+.toolbar label:has(> button),
+.toolbar label:has(.yplay__menu--slider-container),
+.toolbar div:has(> label):has(> input),
+.toolbar div:has(> label):has(> select),
+.toolbar div:has(> label):has(> button) {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 4px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+.toolbar label:has(> select) > label,
+.toolbar label:has(> input) > label,
+.toolbar label:has(> button) > label,
+.toolbar label:has(.yplay__menu--slider-container) > label,
+.toolbar div:has(> label):has(> input) > label,
+.toolbar div:has(> label):has(> select) > label,
+.toolbar div:has(> label):has(> button) > label,
+.toolbar label:has(> select) > input,
+.toolbar label:has(> input) > input,
+.toolbar label:has(> button) > input,
+.toolbar label:has(.yplay__menu--slider-container) > input,
+.toolbar div:has(> label):has(> input) > input,
+.toolbar div:has(> label):has(> select) > input,
+.toolbar div:has(> label):has(> button) > input,
+.toolbar label:has(> select) > select,
+.toolbar label:has(> input) > select,
+.toolbar label:has(> button) > select,
+.toolbar label:has(.yplay__menu--slider-container) > select,
+.toolbar div:has(> label):has(> input) > select,
+.toolbar div:has(> label):has(> select) > select,
+.toolbar div:has(> label):has(> button) > select,
+.toolbar label:has(> select) > button,
+.toolbar label:has(> input) > button,
+.toolbar label:has(> button) > button,
+.toolbar label:has(.yplay__menu--slider-container) > button,
+.toolbar div:has(> label):has(> input) > button,
+.toolbar div:has(> label):has(> select) > button,
+.toolbar div:has(> label):has(> button) > button {
+  cursor: pointer;
+}
+.toolbar label:has(> select),
+.toolbar label:has(> input),
+.toolbar label:has(> button) {
+  gap: 8px;
+  padding: 0 4px;
+}
+.toolbar div:has(> label):has(> input) > label,
+.toolbar div:has(> label):has(> select) > label,
+.toolbar div:has(> label):has(> button) > label,
+.toolbar div:has(> label):has(> input) > input,
+.toolbar div:has(> label):has(> select) > input,
+.toolbar div:has(> label):has(> button) > input,
+.toolbar div:has(> label):has(> input) > select,
+.toolbar div:has(> label):has(> select) > select,
+.toolbar div:has(> label):has(> button) > select,
+.toolbar div:has(> label):has(> input) > button,
+.toolbar div:has(> label):has(> select) > button,
+.toolbar div:has(> label):has(> button) > button {
+  padding: 0 4px;
+}
+.toolbar div:has(> label):has(> input):hover,
+.toolbar div:has(> label):has(> select):hover,
+.toolbar div:has(> label):has(> button):hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+}
+.toolbar label:has(> select) {
+  padding: 6px 2.25rem 6px 14px;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  position: relative;
+}
+.toolbar label:has(> select) > select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.toolbar label:has(> select)::after {
+  content: 'keyboard_arrow_down';
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: 1.5rem;
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+}
+.toolbar label:has(> select):hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar input[type='range'] {
+  width: 100px;
+  min-width: 7rem;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+.toolbar input[type='range'] ::before {
+  content: '';
+  display: inline-flex;
+}
+.toolbar input[type='range']::-webkit-slider-runnable-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.toolbar input[type='range']::-moz-range-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.toolbar input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.toolbar input[type='range']::-moz-range-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.toolbar input[type='range']:hover {
+  cursor: pointer;
+}
+.toolbar label:has(> input[type='checkbox']),
+.toolbar div:has(> label):has(> input[type='checkbox']) {
+  background-color: var(--toolbar-bg);
+  color: var(--color-text);
+  font-family: var(--font-family), sans-serif;
+  user-select: none;
+}
+.toolbar label:has(> input[type='checkbox']):hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button),
+.toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button),
+.toolbar label:has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button),
+.toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button),
+.toolbar label:has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button),
+.toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button) {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
+.toolbar label:has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button)::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button)::after,
+.toolbar label:has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button)::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button)::after {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  display: inline-grid;
+  place-content: center;
+  border: none;
+  color: var(--color-text);
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
+.toolbar label:has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button)::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button)::after,
+.toolbar label:has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button)::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button)::after {
+  content: 'check_box_outline_blank';
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button):checked::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button):checked::after,
+.toolbar label:has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button):checked::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button):checked::after,
+.toolbar label:has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button):checked::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button):checked::after {
+  content: 'check_box';
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button,
+.toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button,
+.toolbar label:has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button,
+.toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button,
+.toolbar label:has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button,
+.toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button::after,
+.toolbar label:has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button::after,
+.toolbar label:has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button::after {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  display: inline-grid;
+  place-content: center;
+  border: none;
+  color: var(--color-text);
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button::after,
+.toolbar label:has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button::after,
+.toolbar label:has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button::after {
+  content: 'toggle_off';
+  font-size: 2.75rem;
+  font-weight: 100;
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button:checked::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button:checked::after,
+.toolbar label:has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button:checked::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button:checked::after,
+.toolbar label:has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button:checked::after,
+.toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button:checked::after {
+  content: 'toggle_on';
+  font-variation-settings: 'FILL' 1;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) {
+  background-color: transparent;
+  padding: 0;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon):hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon):hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined):hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined):hover {
+  background-color: transparent;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox'],
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox'],
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox'],
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox'] {
+  display: none;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox']:checked + label.yIcon,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox']:checked + label.yIcon,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox']:checked + label.yIcon,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox']:checked + label.yIcon,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox']:checked + label.material-symbols-outlined,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox']:checked + label.material-symbols-outlined,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox']:checked + label.material-symbols-outlined,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox']:checked + label.material-symbols-outlined {
+  background-color: var(--toolbar-bg-hover);
+  font-variation-settings: 'FILL' 1;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:hover,
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:hover,
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar input[type='number'] {
+  border: 1px solid var(--color-text);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
+  width: 40px;
+}
+.toolbar input[type='number']:focus {
+  outline: none;
+  box-shadow: none;
+}
+.toolbar label:has(> input[type='checkbox']) {
+  background-color: var(--toolbar-bg);
+  color: var(--color-text);
+  font-family: var(--font-family), sans-serif;
+  user-select: none;
+}
+.toolbar label:has(> input[type='checkbox']):hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox']::after {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  display: inline-grid;
+  place-content: center;
+  border: none;
+  color: var(--color-text);
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox']::after {
+  content: 'check_box_outline_blank';
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:checked::after {
+  content: 'check_box';
+}
+.toolbar input[type='number'] {
+  border: 1px solid var(--color-text);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
+  width: 40px;
+}
+.toolbar input[type='number']:focus {
+  outline: none;
+  box-shadow: none;
+}
+.toolbar #searchBox {
+  border: 1px solid var(--color-text-transparent);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin: 0 5px;
+  background-color: transparent;
+}
+.toolbar #searchBox:focus {
+  outline: none;
+  box-shadow: none;
+}
+.toolbar .navigate-select-labeled {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.toolbar .navigate-select {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+  border-radius: 999px;
+  gap: 2px;
+  margin-bottom: 8px;
+  align-items: stretch;
+  margin-bottom: 0;
+}
+.toolbar .navigate-select:hover {
+  background-color: transparent;
+}
+.toolbar .navigate-select:has(button) select {
+  border-radius: var(--small-border-radius);
+}
+.toolbar .navigate-select button {
+  font-size: 1.5rem;
+  display: flex;
+  width: 32px;
+  height: stretch;
+  border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
+  background-color: var(--toolbar-button);
+}
+.toolbar .navigate-select button:hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar .navigate-select button:first-of-type {
+  border-radius: 20px var(--small-border-radius) var(--small-border-radius) 20px;
+}
+.toolbar .navigate-select select {
+  border: none;
+  border-radius: 999px;
+  color: var(--color-text);
+  margin: 0;
+  outline: none;
+  width: stretch;
+  height: auto;
+}
+.toolbar .navigate-select select:hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar .separator {
+  width: 1px;
+  margin: 0 1px 0 2px;
+  color: var(--color-text);
+  height: 1.5rem;
+  background: currentColor;
+  display: inline-block;
+  vertical-align: middle;
+}
+.toolbar .toolbar-overflow-button {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 270;
+  order: 999;
+  position: relative;
+  margin-left: 12px;
+}
+.toolbar .toolbar-overflow-button::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.5px;
+  height: 24px;
+  background-color: currentColor;
+  display: inline-block;
+  pointer-events: none;
+}
+.toolbar:has( > :nth-child(2)):not(:has( > :nth-child(3))) .toolbar-overflow-button {
+  margin-left: 0;
+}
+.toolbar:has( > :nth-child(2)):not(:has( > :nth-child(3))) .toolbar-overflow-button::before {
+  display: none;
+}
+.toolbar .toolbar-overflow-container {
+  max-width: max(calc(100vw - 70px), 100%);
+  left: 0;
+  top: calc(100% + 8px);
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: var(--toolbar-bg);
+  box-shadow: var(--shadow-crispy-gray);
+  z-index: 3;
+  padding: 14px;
+  box-sizing: border-box;
+  overflow: auto;
+  white-space: normal;
+}
+@supports not selector(::-webkit-scrollbar) {
+  .toolbar .toolbar-overflow-container {
+    scrollbar-width: thin;
+  }
+}
+.toolbar .toolbar-overflow-container::-webkit-scrollbar {
+  width: 6px;
+}
+@media (pointer: coarse) {
+  .toolbar .toolbar-overflow-container::-webkit-scrollbar {
+    width: 3px;
+  }
+}
+.toolbar .toolbar-overflow-container::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.toolbar .toolbar-overflow-container::-webkit-scrollbar-thumb {
+  background-color: rgb(from var(--scrollbar-bg) r g b / 0.6);
+  border-radius: 6px;
+}
+.toolbar .toolbar-overflow-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-bg);
+}
+@media (min-width: 40rem) {
+  .toolbar .toolbar-overflow-container {
+    max-width: 100%;
+    left: unset;
+    right: 0;
+  }
+}
+.toolbar .toolbar-overflow-container[data-open] {
+  display: inline-flex;
+}
+.toolbar .toolbar-overflow-container .separator {
+  display: none;
+}
+.toolbar .toolbar-overflow-container > button:not(.toolbar-overflow-button):not(.labeled) {
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--color-text);
+  font-family: var(--font-family), sans-serif;
+  font-size: 0;
+}
+.toolbar .toolbar-overflow-container > button:not(.toolbar-overflow-button):not(.labeled):hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar .toolbar-overflow-container > button:not(.toolbar-overflow-button):not(.labeled):not(.yIcon)::before {
+  font-family: 'Material Symbols Outlined', sans-serif;
+}
+.toolbar .toolbar-overflow-container > button:not(.toolbar-overflow-button):not(.labeled)::before {
+  content: attr(data-icon);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.toolbar .toolbar-overflow-container > button:not(.toolbar-overflow-button):not(.labeled)::after {
+  content: attr(title);
+  font-family: var(--font-family), sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.toolbar .toolbar-overflow-container label:has(> input[type='checkbox']) {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.toolbar .toolbar-overflow-container div:has(> label):has(> input[type='checkbox']):hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar .toolbar-overflow-container div:has(> label):has(> input[type='checkbox']) > label.yIcon,
+.toolbar .toolbar-overflow-container div:has(> label):has(> input[type='checkbox']) > label.material-symbols-outlined {
+  width: fit-content !important;
+  padding: 0 10px;
+}
+.toolbar .toolbar-overflow-container div:has(> label):has(> input[type='checkbox']) > label.yIcon::after,
+.toolbar .toolbar-overflow-container div:has(> label):has(> input[type='checkbox']) > label.material-symbols-outlined::after {
+  content: attr(title);
+  font-family: var(--font-family), sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+.toolbar .toolbar-radio-group {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--toolbar-group);
+  border-radius: 999px;
+  user-select: none;
+}
+.toolbar .toolbar-radio-group.icon label:has(> input[type='radio']) {
+  padding: 0 5px;
+}
+.toolbar .toolbar-radio-group.icon label:has(> input[type='radio']) > input[type='radio'] {
+  width: 2rem;
+  height: 2rem;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  background-color: var(--toolbar-tab-color);
+  color: var(--toolbar-button-text);
+}
+.toolbar .toolbar-radio-group.icon label:has(> input[type='radio']) > input[type='radio']::after {
+  content: attr(data-icon);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: 1.25rem;
+  display: inline-grid;
+  place-content: center;
+  border: none;
+  color: var(--toolbar-button-text);
+}
+.toolbar .toolbar-radio-group.labeled label:has(> input[type='radio']) {
+  padding: 5px 15px;
+  font-family: var(--font-family), sans-serif;
+  font-size: 0.9rem;
+  color: var(--toolbar-button-text);
+  cursor: pointer;
+}
+.toolbar .toolbar-radio-group.labeled label:has(> input[type='radio']) > input[type='radio'] {
+  display: none;
+}
+.toolbar .toolbar-radio-group label:has(> input[type='radio']) {
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+}
+.toolbar .toolbar-radio-group label:has(> input[type='radio']):hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.toolbar .toolbar-radio-group label:has(> input[type='radio']) > input[type='radio'] {
+  appearance: none;
+  -webkit-appearance: none;
+}
+.toolbar .toolbar-radio-group label:has(input[type='radio']:checked) {
+  background-color: var(--toolbar-button);
+}
+.toolbar > .separator:last-child {
+  display: none;
+}
+.toolbar:has(.toolbar-overflow-container[data-open]) .toolbar-overflow-button,
+.toolbar:has(.toolbar-overflow-container[data-open]) .toolbar-overflow-button:hover {
+  background-color: var(--toolbar-button);
+}
+:root[data-theme='light'] {
+  --hljs-background: #ffffff;
+  --hljs-text: #000000;
+  --hljs-comment: #808080;
+  --hljs-keyword: #2332c0;
+  --hljs-string: #008000;
+  --hljs-subst: #000000;
+  --hljs-regexp: #0000ff;
+  --hljs-title: #000000;
+  --hljs-section: #2332c0;
+  --hljs-tag: #2332c0;
+  --hljs-tag-background: #efefef;
+  --hljs-name: #2332c0;
+  --hljs-symbol: #000000;
+  --hljs-bullet: #000000;
+  --hljs-number: #0000ff;
+  --hljs-params: #000000;
+  --hljs-variable: #660e7a;
+  --hljs-template-variable: #660e7a;
+  --hljs-attribute: #0000ff;
+  --hljs-attr: #8200b3;
+  --hljs-meta: #808000;
+  --hljs-formula: #000000;
+  --hljs-formula-background: #d0eded;
+  --hljs-addition: #000000;
+  --hljs-addition-background: #baeeba;
+  --hljs-deletion: #000000;
+  --hljs-deletion-background: #ffc8bd;
+  --hljs-selector-class: #2332c0;
+  --hljs-selector-id: #2332c0;
+  --hljs-literal: #2332c0;
+  --hljs-doctag: #000000;
+  --hljs-type: #2332c0;
+  --hljs-link: #0000ff;
+}
+:root[data-theme='dark'] {
+  --hljs-background: #000;
+  --hljs-text: #f8f8f8;
+  --hljs-comment: #aeaeae;
+  --hljs-keyword: #e28964;
+  --hljs-string: #65b042;
+  --hljs-subst: #daefa3;
+  --hljs-regexp: #e9c062;
+  --hljs-title: #89bdff;
+  --hljs-section: #89bdff;
+  --hljs-tag: #89bdff;
+  --hljs-tag-background: transparent;
+  --hljs-name: #89bdff;
+  --hljs-symbol: #3387cc;
+  --hljs-bullet: #3387cc;
+  --hljs-number: #3387cc;
+  --hljs-params: #3e87e3;
+  --hljs-variable: #3e87e3;
+  --hljs-template-variable: #3e87e3;
+  --hljs-attribute: #cda869;
+  --hljs-attr: #cda869;
+  --hljs-meta: #8996a8;
+  --hljs-formula: #f8f8f8;
+  --hljs-formula-background: #0e2231;
+  --hljs-addition: #f8f8f8;
+  --hljs-addition-background: #253b22;
+  --hljs-deletion: #f8f8f8;
+  --hljs-deletion-background: #420e09;
+  --hljs-selector-class: #9b703f;
+  --hljs-selector-id: #8b98ab;
+  --hljs-literal: #e28964;
+  --hljs-doctag: #89bdff;
+  --hljs-type: #e28964;
+  --hljs-link: #e9c062;
+}
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: var(--hljs-background);
+  color: var(--hljs-text);
+}
+.hljs-comment,
+.hljs-quote {
+  color: var(--hljs-comment);
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-type,
+.hljs-literal,
+.hljs-section {
+  color: var(--hljs-keyword);
+}
+[data-theme='light'] .hljs-keyword,
+[data-theme='light'] .hljs-selector-tag,
+[data-theme='light'] .hljs-type,
+[data-theme='light'] .hljs-literal,
+[data-theme='light'] .hljs-section {
+  font-weight: bold;
+}
+.hljs-string {
+  color: var(--hljs-string);
+}
+[data-theme='light'] .hljs-string {
+  font-weight: bold;
+}
+.hljs-subst {
+  color: var(--hljs-subst);
+}
+[data-theme='light'] .hljs-subst {
+  font-weight: normal;
+}
+.hljs-regexp,
+.hljs-link {
+  color: var(--hljs-regexp);
+}
+[data-theme='light'] .hljs-regexp,
+[data-theme='light'] .hljs-link {
+  font-weight: normal;
+}
+.hljs-title,
+.hljs-name {
+  color: var(--hljs-title);
+}
+[data-theme='light'] .hljs-title,
+[data-theme='light'] .hljs-name {
+  font-weight: normal;
+}
+.hljs-tag {
+  color: var(--hljs-tag);
+  background: var(--hljs-tag-background);
+}
+.hljs-symbol,
+.hljs-bullet {
+  color: var(--hljs-symbol);
+}
+.hljs-number {
+  color: var(--hljs-number);
+}
+.hljs-params,
+.hljs-variable,
+.hljs-template-variable {
+  color: var(--hljs-variable);
+}
+.hljs-attribute {
+  color: var(--hljs-attribute);
+}
+[data-theme='light'] .hljs-attribute {
+  font-weight: bold;
+}
+.hljs-attr {
+  color: var(--hljs-attr);
+}
+.hljs-meta {
+  color: var(--hljs-meta);
+}
+.hljs-formula {
+  background-color: var(--hljs-formula-background);
+  color: var(--hljs-formula);
+  font-style: italic;
+}
+.hljs-addition {
+  background-color: var(--hljs-addition-background);
+  color: var(--hljs-addition);
+}
+.hljs-deletion {
+  background-color: var(--hljs-deletion-background);
+  color: var(--hljs-deletion);
+}
+.hljs-selector-class {
+  color: var(--hljs-selector-class);
+}
+[data-theme='light'] .hljs-selector-class {
+  font-weight: bold;
+}
+.hljs-selector-id {
+  color: var(--hljs-selector-id);
+}
+[data-theme='light'] .hljs-selector-id {
+  font-weight: bold;
+}
+.hljs-doctag {
+  text-decoration: underline;
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: bold;
+}
+body.demo-tutorial {
+  overflow: hidden;
+  --description-width: 40vw;
+  --description-min-width: 25rem;
+  --description-max-width: min(100ch, 80vw);
+  --description-max-content-width: 115ch;
+  --description-color: none;
+  display: grid;
+  grid-template-columns: clamp(var(--description-min-width), var(--description-width), var(--description-max-width)) minmax(18.75rem, 1fr);
+  grid-template-areas: 'header header' 'toolbar toolbar' 'description content';
+  grid-template-rows: 3.75rem auto 1fr;
+}
+@media screen and (max-width: 60rem ) {
+  body.demo-tutorial {
+    grid-template-columns: 1fr;
+    grid-template-rows: 3.75rem auto 1fr var(--description-drag-height, 1fr);
+    grid-template-areas: 'header' 'toolbar' 'content' 'description';
+  }
+  body.demo-tutorial.small-header {
+    grid-template-rows: 1.875rem auto 1fr var(--description-drag-height, 1fr);
+  }
+}
+@media screen and (max-width: 40rem ) {
+  body.demo-tutorial {
+    grid-template-rows: 0 auto 1fr var(--description-drag-height, 1fr);
+  }
+}
+.demo-tutorial .header {
+  padding-inline-start: 0.25rem;
+}
+.demo-tutorial .header .burger-menu-button {
+  display: none;
+}
+@media screen and (max-width: 60rem ) {
+  .demo-tutorial .header .demo-overview {
+    display: none;
+  }
+}
+.tutorial-toolbar {
+  font-family: var(--font-family), sans-serif;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  display: inline-flex;
+  flex-wrap: nowrap;
+  /* keep items on a single line */
+  white-space: nowrap;
+  /* prevent the text button from wrapping */
+  background: var(--toolbar-bg);
+  backdrop-filter: blur(var(--overlay-blur));
+  flex: 1;
+  position: relative;
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  grid-area: toolbar;
+  height: auto;
+  min-height: 2.5rem;
+  width: 100%;
+  user-select: none;
+  background-color: var(--toolbar-bg);
+  border-left: none;
+  color: var(--toolbar-color);
+  padding: 0 1rem;
+  overflow: visible;
+}
+.tutorial-toolbar button {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.tutorial-toolbar button:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.tutorial-toolbar button.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.tutorial-toolbar button.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.tutorial-toolbar button:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.tutorial-toolbar button.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.tutorial-toolbar button.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.tutorial-toolbar select {
+  padding-inline: 10px;
+  border: none;
+  border-radius: var(--border-radius);
+  color: var(--toolbar-button-text);
+  background-color: var(--toolbar-button);
+  background-size: 1.5rem;
+  cursor: pointer;
+}
+@supports (appearance: base-select) {
+  .tutorial-toolbar select {
+    padding: 6px 14px;
+    appearance: base-select;
+    border: none;
+    border-radius: var(--border-radius);
+    align-items: center;
+  }
+  .tutorial-toolbar select::picker(select) {
+    appearance: base-select;
+    border: 1px solid var(--toolbar-select-border);
+    border-radius: var(--border-radius);
+  }
+  .tutorial-toolbar select::picker-icon {
+    content: 'expand_more';
+    font-family: 'Material Symbols Outlined', sans-serif;
+    font-size: 1.5rem;
+  }
+  .tutorial-toolbar select:open::picker-icon {
+    rotate: 180deg;
+  }
+}
+@supports not (appearance: base-select) {
+  .tutorial-toolbar select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 6px 36px 6px 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-image: var(--toolbar-select-arrow);
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    align-items: center;
+  }
+}
+.tutorial-toolbar select:hover {
+  color: var(--color-text);
+  background-color: var(--interaction-button-hover);
+}
+.tutorial-toolbar select:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--interaction-button-hover);
+}
+.tutorial-toolbar select optgroup {
+  padding: 5px;
+  font-size: 0.75rem;
+  font-weight: 100;
+  font-style: normal;
+  text-transform: uppercase;
+  color: var(--color-text);
+  background: var(--toolbar-bg);
+}
+.tutorial-toolbar select option {
+  font-size: 1rem;
+  text-transform: none;
+  padding: 10px;
+  cursor: pointer;
+  font-family: var(--font-family), sans-serif;
+  color: var(--color-text);
+  background-color: var(--toolbar-bg);
+  line-height: 1.4;
+}
+.tutorial-toolbar select option:checked {
+  font-weight: bold;
+}
+.tutorial-toolbar select option:hover {
+  background-color: var(--interaction-button-hover);
+}
+.tutorial-toolbar label:has(> select),
+.tutorial-toolbar label:has(> input),
+.tutorial-toolbar label:has(> button),
+.tutorial-toolbar label:has(.yplay__menu--slider-container),
+.tutorial-toolbar div:has(> label):has(> input),
+.tutorial-toolbar div:has(> label):has(> select),
+.tutorial-toolbar div:has(> label):has(> button) {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 4px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+}
+.tutorial-toolbar label:has(> select) > label,
+.tutorial-toolbar label:has(> input) > label,
+.tutorial-toolbar label:has(> button) > label,
+.tutorial-toolbar label:has(.yplay__menu--slider-container) > label,
+.tutorial-toolbar div:has(> label):has(> input) > label,
+.tutorial-toolbar div:has(> label):has(> select) > label,
+.tutorial-toolbar div:has(> label):has(> button) > label,
+.tutorial-toolbar label:has(> select) > input,
+.tutorial-toolbar label:has(> input) > input,
+.tutorial-toolbar label:has(> button) > input,
+.tutorial-toolbar label:has(.yplay__menu--slider-container) > input,
+.tutorial-toolbar div:has(> label):has(> input) > input,
+.tutorial-toolbar div:has(> label):has(> select) > input,
+.tutorial-toolbar div:has(> label):has(> button) > input,
+.tutorial-toolbar label:has(> select) > select,
+.tutorial-toolbar label:has(> input) > select,
+.tutorial-toolbar label:has(> button) > select,
+.tutorial-toolbar label:has(.yplay__menu--slider-container) > select,
+.tutorial-toolbar div:has(> label):has(> input) > select,
+.tutorial-toolbar div:has(> label):has(> select) > select,
+.tutorial-toolbar div:has(> label):has(> button) > select,
+.tutorial-toolbar label:has(> select) > button,
+.tutorial-toolbar label:has(> input) > button,
+.tutorial-toolbar label:has(> button) > button,
+.tutorial-toolbar label:has(.yplay__menu--slider-container) > button,
+.tutorial-toolbar div:has(> label):has(> input) > button,
+.tutorial-toolbar div:has(> label):has(> select) > button,
+.tutorial-toolbar div:has(> label):has(> button) > button {
+  cursor: pointer;
+}
+.tutorial-toolbar label:has(> select),
+.tutorial-toolbar label:has(> input),
+.tutorial-toolbar label:has(> button) {
+  gap: 8px;
+  padding: 0 4px;
+}
+.tutorial-toolbar div:has(> label):has(> input) > label,
+.tutorial-toolbar div:has(> label):has(> select) > label,
+.tutorial-toolbar div:has(> label):has(> button) > label,
+.tutorial-toolbar div:has(> label):has(> input) > input,
+.tutorial-toolbar div:has(> label):has(> select) > input,
+.tutorial-toolbar div:has(> label):has(> button) > input,
+.tutorial-toolbar div:has(> label):has(> input) > select,
+.tutorial-toolbar div:has(> label):has(> select) > select,
+.tutorial-toolbar div:has(> label):has(> button) > select,
+.tutorial-toolbar div:has(> label):has(> input) > button,
+.tutorial-toolbar div:has(> label):has(> select) > button,
+.tutorial-toolbar div:has(> label):has(> button) > button {
+  padding: 0 4px;
+}
+.tutorial-toolbar div:has(> label):has(> input):hover,
+.tutorial-toolbar div:has(> label):has(> select):hover,
+.tutorial-toolbar div:has(> label):has(> button):hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+}
+.tutorial-toolbar label:has(> select) {
+  padding: 6px 2.25rem 6px 14px;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  position: relative;
+}
+.tutorial-toolbar label:has(> select) > select {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+.tutorial-toolbar label:has(> select)::after {
+  content: 'keyboard_arrow_down';
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: 1.5rem;
+  position: absolute;
+  right: 10px;
+  pointer-events: none;
+}
+.tutorial-toolbar label:has(> select):hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.tutorial-toolbar input[type='range'] {
+  width: 100px;
+  min-width: 7rem;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+.tutorial-toolbar input[type='range'] ::before {
+  content: '';
+  display: inline-flex;
+}
+.tutorial-toolbar input[type='range']::-webkit-slider-runnable-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.tutorial-toolbar input[type='range']::-moz-range-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.tutorial-toolbar input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.tutorial-toolbar input[type='range']::-moz-range-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.tutorial-toolbar input[type='range']:hover {
+  cursor: pointer;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) {
+  background-color: var(--toolbar-bg);
+  color: var(--color-text);
+  font-family: var(--font-family), sans-serif;
+  user-select: none;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button),
+.tutorial-toolbar label:has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button),
+.tutorial-toolbar label:has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button) {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button)::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button)::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button)::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button)::after {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  display: inline-grid;
+  place-content: center;
+  border: none;
+  color: var(--color-text);
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button)::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button)::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button)::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button)::after {
+  content: 'check_box_outline_blank';
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button):checked::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button):checked::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button):checked::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox']:not(.demo-toggle-button):checked::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button):checked::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox']:not(.demo-toggle-button):checked::after {
+  content: 'check_box';
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button,
+.tutorial-toolbar label:has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button,
+.tutorial-toolbar label:has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button::after {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  display: inline-grid;
+  place-content: center;
+  border: none;
+  color: var(--color-text);
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button::after {
+  content: 'toggle_off';
+  font-size: 2.75rem;
+  font-weight: 100;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button:checked::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox'].demo-toggle-button:checked::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button:checked::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) + input[type='checkbox'].demo-toggle-button:checked::after,
+.tutorial-toolbar label:has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button:checked::after,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']) label > input[type='checkbox'].demo-toggle-button:checked::after {
+  content: 'toggle_on';
+  font-variation-settings: 'FILL' 1;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) {
+  background-color: transparent;
+  padding: 0;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon):hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon):hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined):hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined):hover {
+  background-color: transparent;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox'],
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox'],
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox'],
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox'] {
+  display: none;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox']:checked + label.yIcon,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox']:checked + label.yIcon,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox']:checked + label.yIcon,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox']:checked + label.yIcon,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox']:checked + label.material-symbols-outlined,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > input[type='checkbox']:checked + label.material-symbols-outlined,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox']:checked + label.material-symbols-outlined,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > input[type='checkbox']:checked + label.material-symbols-outlined {
+  background-color: var(--toolbar-bg-hover);
+  font-variation-settings: 'FILL' 1;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:hover,
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:hover,
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+.tutorial-toolbar input[type='number'] {
+  border: 1px solid var(--color-text);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
+  width: 40px;
+}
+.tutorial-toolbar input[type='number']:focus {
+  outline: none;
+  box-shadow: none;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) {
+  background-color: var(--toolbar-bg);
+  color: var(--color-text);
+  font-family: var(--font-family), sans-serif;
+  user-select: none;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):hover {
+  background-color: var(--toolbar-bg-hover);
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox']::after {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  display: inline-grid;
+  place-content: center;
+  border: none;
+  color: var(--color-text);
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox']::after {
+  content: 'check_box_outline_blank';
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:checked::after {
+  content: 'check_box';
+}
+.tutorial-toolbar input[type='number'] {
+  border: 1px solid var(--color-text);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: transparent;
+  width: 40px;
+}
+.tutorial-toolbar input[type='number']:focus {
+  outline: none;
+  box-shadow: none;
+}
+.tutorial-toolbar #searchBox {
+  border: 1px solid var(--color-text-transparent);
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  margin: 0 5px;
+  background-color: transparent;
+}
+.tutorial-toolbar #searchBox:focus {
+  outline: none;
+  box-shadow: none;
+}
+.tutorial-toolbar:after {
+  display: none;
+}
+.tutorial-toolbar select {
+  padding: 0 0.75rem;
+  height: 2rem;
+}
+.tutorial-toolbar-left,
+.tutorial-toolbar-right {
+  flex: 1;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.tutorial-toolbar-right {
+  justify-content: flex-end;
+}
+.toolbar-button {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--color-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.toolbar-button:hover {
+  background-color: var(--toolbar-bg-hover);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.toolbar-button.labeled {
+  width: fit-content;
+  height: fit-content;
+  background-color: var(--toolbar-button);
+  color: var(--toolbar-button-text);
+  border: none;
+  padding: 6px 10px;
+}
+.toolbar-button.labeled:hover {
+  color: var(--color-text);
+  background-color: var(--toolbar-bg-hover);
+}
+@media screen and (max-width: 40rem ) {
+  .toolbar-button-back,
+  .toolbar-button-forward {
+    display: none;
+  }
+}
+.toolbar-button-back:before,
+.toolbar-button-forward:before,
+.toolbar-button-back:after,
+.toolbar-button-forward:after {
+  font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+:root[data-theme='dark'] .toolbar-button-back:before,
+:root[data-theme='dark'] .toolbar-button-forward:before,
+:root[data-theme='dark'] .toolbar-button-back:after,
+:root[data-theme='dark'] .toolbar-button-forward:after {
+  font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+.toolbar-button-back:before {
+  content: 'keyboard_arrow_left';
+}
+.toolbar-button-forward:after {
+  content: 'keyboard_arrow_right';
+}
+.demo-tutorial .main-container {
+  grid-area: content;
+  min-height: 0;
+  padding: 0;
+}
+.demo-tutorial .main-container #graphComponent,
+.demo-tutorial .main-container .full-size-graph-component {
+  border-radius: 0;
+}
+.tutorial-description-panel {
+  font-size: var(--body-font-size);
+  color: var(--description-text);
+  --panel-bg: var(--description-bg);
+  --collapse-hover-bg: var(--interaction-button-hover);
+  overflow-x: hidden;
+  padding: var(--dialog-padding);
+  z-index: 3;
+  grid-area: description;
+  z-index: 4;
+  background-color: var(--description-bg);
+  color: var(--description-text-color);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+@supports not selector(::-webkit-scrollbar) {
+  .tutorial-description-panel {
+    scrollbar-width: thin;
+  }
+}
+.tutorial-description-panel::-webkit-scrollbar {
+  width: 6px;
+}
+@media (pointer: coarse) {
+  .tutorial-description-panel::-webkit-scrollbar {
+    width: 3px;
+  }
+}
+.tutorial-description-panel::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.tutorial-description-panel::-webkit-scrollbar-thumb {
+  background-color: rgb(from var(--scrollbar-bg) r g b / 0.6);
+  border-radius: 6px;
+}
+.tutorial-description-panel::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-bg);
+}
+.tutorial-description-panel > :first-child {
+  margin-top: 0 !important;
+}
+.tutorial-description-panel > :last-child {
+  margin-bottom: 0 !important;
+}
+.tutorial-description-panel h1 {
+  font-size: xx-large;
+  margin: 1.2rem 0;
+}
+.tutorial-description-panel h2 {
+  font-size: x-large;
+}
+.tutorial-description-panel h3 {
+  font-size: large;
+}
+.tutorial-description-panel h2,
+.tutorial-description-panel h3,
+.tutorial-description-panel h4 {
+  margin: 1.5rem 0 1rem;
+}
+.tutorial-description-panel .text-medium {
+  font-size: 130%;
+}
+.tutorial-description-panel ul,
+.tutorial-description-panel ol {
+  padding-left: 1.3em;
+}
+.tutorial-description-panel p,
+.tutorial-description-panel dl,
+.tutorial-description-panel ul,
+.tutorial-description-panel ul.paragraph-style li {
+  margin: 1rem 0;
+}
+.tutorial-description-panel li {
+  margin: 0.5rem 0;
+}
+.tutorial-description-panel .compact li {
+  margin: 0.25rem 0;
+}
+.tutorial-description-panel .tutorial-about {
+  font-size: 130%;
+  line-height: 140%;
+}
+.tutorial-description-panel code,
+.tutorial-description-panel pre,
+.tutorial-description-panel kbd,
+.tutorial-description-panel a.api {
+  background: var(--inline-code-background);
+  color: var(--inline-code-color);
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'Consolas', monospace;
+}
+.tutorial-description-panel pre {
+  padding: 8px;
+  overflow-x: auto;
+  max-width: 100%;
+}
+.tutorial-description-panel kbd {
+  border: 1px solid #c1c1c1;
+  box-shadow: var(--shadow-cripsy-gray);
+  font-size: 80%;
+  padding: 0.2em 0.5em 0.1em 0.5em;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.tutorial-description-panel a.unknown {
+  color: firebrick;
+}
+.tutorial-description-panel a.unknown::before {
+  content: '\2297';
+  padding-right: 2px;
+}
+.tutorial-description-panel p a,
+.tutorial-description-panel dl a,
+.tutorial-description-panel ul a,
+.tutorial-description-panel .note a,
+.tutorial-description-panel p a:visited,
+.tutorial-description-panel dl a:visited,
+.tutorial-description-panel ul a:visited,
+.tutorial-description-panel .note a:visited {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 0.5px solid;
+}
+.tutorial-description-panel p a:hover,
+.tutorial-description-panel dl a:hover,
+.tutorial-description-panel ul a:hover,
+.tutorial-description-panel .note a:hover {
+  border-bottom: 2px solid;
+}
+.tutorial-description-panel dt {
+  font-weight: bold;
+  color: var(--color-text);
+  margin-top: 4px;
+}
+.tutorial-description-panel dd {
+  margin-left: 10px;
+}
+.tutorial-description-panel fieldset {
+  border: 0 none;
+  background: unset;
+  padding: 0 0 1.5ex;
+  margin: 0;
+}
+.tutorial-description-panel fieldset legend {
+  font-weight: bold;
+  padding: 0 0 0.5ex;
+}
+.tutorial-description-panel button.collapse {
+  font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  border: none;
+  border-radius: 99px;
+  position: relative;
+  top: -10px;
+  right: -10px;
+  padding: 8px;
+  color: inherit;
+  background-color: var(--panel-bg);
+}
+:root[data-theme='dark'] .tutorial-description-panel button.collapse {
+  font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+.tutorial-description-panel button.collapse:hover {
+  background-color: var(--collapse-hover-bg);
+}
+.tutorial-description-panel .collapse-panel {
+  top: 0px;
+  position: sticky;
+  float: right;
+  z-index: 1;
+}
+.tutorial-description-panel .collapse-panel:hover {
+  cursor: pointer;
+}
+.tutorial-description-panel button {
+  background-color: var(--toolbar-button);
+  border: none;
+  border-radius: 99px;
+  padding: 8px;
+  color: var(--color-text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.tutorial-description-panel button:hover {
+  color: var(--color-text);
+  background-color: var(--interaction-button-hover);
+}
+.tutorial-description-panel button:hover {
+  color: var(--color-text);
+  background-color: var(--interaction-button-hover);
+}
+.tutorial-description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox) {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.tutorial-description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox)::after {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  display: inline-grid;
+  place-content: center;
+  border: none;
+  color: var(--color-text);
+}
+.tutorial-description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox)::after {
+  content: 'check_box_outline_blank';
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+.tutorial-description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):checked::after {
+  content: 'check_box';
+}
+.tutorial-description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox) {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  position: relative;
+  border-radius: var(--border-radius);
+  width: 2.25rem;
+  height: 2.25rem;
+}
+.tutorial-description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox)::after {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  display: inline-grid;
+  place-content: center;
+  border: none;
+  color: var(--color-text);
+}
+.tutorial-description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox)::after {
+  content: 'toggle_off';
+  font-size: 2.75rem;
+  font-weight: 100;
+}
+.tutorial-description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox):checked::after {
+  content: 'toggle_on';
+  font-variation-settings: 'FILL' 1;
+}
+.tutorial-description-panel input[type='checkbox']:hover {
+  background-color: var(--interaction-button-hover);
+  cursor: pointer;
+}
+.tutorial-description-panel h1 {
+  color: var(--description-heading1);
+  margin-top: 0;
+}
+.tutorial-description-panel h2 {
+  color: var(--description-heading);
+}
+.description-content {
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+}
+@supports not selector(::-webkit-scrollbar) {
+  .description-content {
+    scrollbar-width: thin;
+  }
+}
+.description-content::-webkit-scrollbar {
+  width: 6px;
+}
+@media (pointer: coarse) {
+  .description-content::-webkit-scrollbar {
+    width: 3px;
+  }
+}
+.description-content::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.description-content::-webkit-scrollbar-thumb {
+  background-color: rgb(from var(--scrollbar-bg) r g b / 0.6);
+  border-radius: 6px;
+}
+.description-content::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-bg);
+}
+.demo-description {
+  border-radius: 0;
+}
+.demo-description__drag-area {
+  position: absolute;
+  z-index: 5;
+  background-color: var(--toolbar-bg);
+  transition: background-color 0.3s ease;
+}
+.demo-description__drag-area:hover,
+body.demo-resizing-vertical .demo-description__drag-area--vertical,
+body.demo-resizing-horizontal .demo-description__drag-area--horizontal {
+  background-color: var(--interaction-button-hover);
+}
+.demo-description__drag-area:after {
+  position: absolute;
+  font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+:root[data-theme='dark'] .demo-description__drag-area:after {
+  font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+.demo-description__drag-area--vertical {
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.8125rem;
+  cursor: col-resize;
+}
+.demo-description__drag-area--vertical:after {
+  content: 'drag_indicator';
+  left: -5px;
+  top: 50%;
+}
+@media screen and (max-width: 60rem ) {
+  .demo-description__drag-area--vertical {
+    display: none;
+  }
+}
+.demo-description__drag-area--horizontal {
+  display: none;
+  top: 0;
+  height: 0.8125rem;
+  width: 100%;
+  left: 0;
+  right: 0;
+  cursor: row-resize;
+}
+.demo-description__drag-area--horizontal:after {
+  content: 'drag_indicator';
+  transform: rotate(90deg);
+  transform-origin: center;
+  top: 0;
+  left: 50%;
+  line-height: 0.8125rem;
+}
+@media screen and (max-width: 60rem ) {
+  .demo-description__drag-area--horizontal {
+    display: block;
+  }
+}
+body.demo-resizing-vertical,
+body.demo-resizing-vertical * {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+body.demo-resizing-horizontal,
+body.demo-resizing-horizontal * {
+  cursor: row-resize !important;
+  user-select: none !important;
+}
+.description-width-limit {
+  margin: 0 1rem;
+  overflow: hidden;
+}
+.description-button {
+  background-color: var(--toolbar-button);
+  border: none;
+  border-radius: 99px;
+  padding: 8px;
+  color: var(--color-text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.description-button:hover {
+  color: var(--color-text);
+  background-color: var(--interaction-button-hover);
+}
+.description-button-next {
+  text-decoration: none;
+}
+.description-button-next:after {
+  content: 'keyboard_arrow_right';
+  font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}
+:root[data-theme='dark'] .description-button-next:after {
+  font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+.description-button-next:hover {
+  background-color: var(--interaction-button-hover);
+}
+.next-tutorial-button {
+  text-align: right;
+  margin-top: 1rem;
+}
+.inline-graph-component {
+  width: 100%;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 18.75rem;
+  border-radius: 6px;
+  background-color: white;
+}
+.note {
+  background-color: var(--description-note);
+  border-left: 0.5rem solid var(--color-gold-dark);
+  padding: 0.8rem 0 0.8rem 0.8rem;
+  border-radius: 4px;
+  margin: 1rem 0;
+}
+.note .icon {
+  display: none;
+}
+@supports not selector(::-webkit-scrollbar) {
+  pre {
+    scrollbar-width: thin;
+  }
+}
+pre::-webkit-scrollbar {
+  width: 6px;
+}
+@media (pointer: coarse) {
+  pre::-webkit-scrollbar {
+    width: 3px;
+  }
+}
+pre::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+pre::-webkit-scrollbar-thumb {
+  background-color: rgb(from var(--scrollbar-bg) r g b / 0.6);
+  border-radius: 6px;
+}
+pre::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-bg);
+}

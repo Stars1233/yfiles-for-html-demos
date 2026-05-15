@@ -74,20 +74,16 @@ export class ColorDropInputMode extends DropInputMode {
    * Sets the drop target.
    */
   set dropTarget(value) {
-    if (this._dropTarget !== value) {
-      const highlightManager = this.parentInputModeContext?.lookup(HighlightIndicatorManager)
-
-      if (highlightManager) {
-        const selectionModel = highlightManager.items
-        if (this._dropTarget) {
-          selectionModel?.remove(this._dropTarget)
-        }
-        if (value) {
-          selectionModel?.add(value)
-        }
-      }
-      this._dropTarget = value
+    if (this._dropTarget === value) {
+      return
     }
+    if (this._dropTarget) {
+      // Remove the old highlight, if present
+      this.parentInputModeContext
+        ?.lookup(HighlightIndicatorManager)
+        ?.items?.remove(this._dropTarget)
+    }
+    this._dropTarget = value
   }
 
   onDraggedOver(_evt) {
@@ -97,7 +93,7 @@ export class ColorDropInputMode extends DropInputMode {
 
   onDragLeft(_evt) {
     super.onDragLeft(this.createInputModeEventArgs())
-    this.cleanup()
+    this.dropTarget = null
   }
 
   onDragDropped(evt) {
@@ -105,33 +101,24 @@ export class ColorDropInputMode extends DropInputMode {
     if (this.dropTarget && this.draggedColor) {
       this.applyColor(evt.context.graph, this.dropTarget, this.draggedColor)
     }
-    this.cleanup()
+    this.dropTarget = null
   }
 
   /**
    * Updates the {@link dropTarget} at the given location.
    */
   updateDropTarget(dragLocation) {
-    this.dropTarget = this.getDropTarget(dragLocation)
-  }
-
-  /**
-   * Return an {@link INode} or an {@link IEdge} at the given location, when its color can be changed.
-   * If there is no such item, `null` will be returned.
-   */
-  getDropTarget(dragLocation) {
-    const validDrag =
-      !this.lastDragEventArgs || this.lastDragEventArgs.dropEffect !== DragDropEffects.NONE
     const context = this.parentInputModeContext
     const color = this.draggedColor
 
-    if (validDrag && context && color) {
+    if (context && color) {
       const item = this.findEdgeOrNode(context, dragLocation)
       if (item && this.accept(item, color)) {
-        return item
+        this.dropTarget = item
+        return
       }
     }
-    return null
+    this.dropTarget = null
   }
 
   /**
@@ -219,21 +206,15 @@ export class ColorDropInputMode extends DropInputMode {
    * operation. This allows for updating the mouse cursor using CSS classes.
    */
   adjustEffect(evt) {
-    if (super.adjustEffect(evt)) {
-      const target = this.getDropTarget(this.pointerPosition.toPoint())
-      evt.dropEffect = target ? DragDropEffects.COPY : DragDropEffects.NONE
-      return true
+    super.adjustEffect(evt)
+
+    const dropAllowed = evt.dropEffect !== DragDropEffects.NONE && this.dropTarget != null
+    evt.dropEffect = dropAllowed ? DragDropEffects.COPY : DragDropEffects.NONE
+    // Highlight the target item if dropping is allowed
+    if (dropAllowed) {
+      this.parentInputModeContext?.lookup(HighlightIndicatorManager)?.items?.add(this.dropTarget)
     }
-    return false
   }
-
-  /**
-   * Resets the {@link dropTarget}.
-   */
-  cleanup() {
-    this.dropTarget = null
-  }
-
   /**
    * Starts a drag operation from the given HTML element.
    * The given color string constitutes the transfer data of the drag operation.
@@ -246,7 +227,12 @@ export class ColorDropInputMode extends DropInputMode {
     dragPreview = null
   ) {
     const source = new DragSource(dragSource)
-    source.startDrag(new DragDropItem('color', color), dragDropEffects, useCssCursors, dragPreview)
+    void source.startDrag(
+      new DragDropItem('color', color),
+      dragDropEffects,
+      useCssCursors,
+      dragPreview
+    )
     return source
   }
 }

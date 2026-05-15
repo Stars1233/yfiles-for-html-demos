@@ -55,7 +55,7 @@ import {
 import { EdgeDropInputMode } from '@yfiles/demo-utils/EdgeDropInputMode'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import graphData from './resources/graph-data.json'
 import { initializeDnDPanel } from './drag-and-drop'
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Mind Map Demo
+# Mindmap Editor Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/mindmap-editor.webp" alt="demo-thumbnail" height="320"/>
 

@@ -52,13 +52,16 @@ import { NonOverlapReshapeHandler } from './NonOverlapReshapeHandler'
 import { LayoutHelper } from './LayoutHelper'
 import { enableSingleSelection } from './SingleSelectionHelper'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
 async function run(): Promise<void> {
   License.value = licenseData
   graphComponent = new GraphComponent('#graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
   initializeInputModes()
   initializeGraph()
 
@@ -238,7 +241,7 @@ function loadGraph(sampleName: string): void {
  */
 function initializeUI(): void {
   const sampleGraphs = document.querySelector<HTMLSelectElement>('#sample-graphs')!
-  addNavigationButtons(sampleGraphs).addEventListener('change', () => {
+  addNavigationButtons(sampleGraphs, 'Sample:', false).addEventListener('change', () => {
     const selectedIndex = sampleGraphs.selectedIndex
     const selectedOption = sampleGraphs.options[selectedIndex]
     loadGraph(selectedOption.value)

@@ -46,7 +46,8 @@ import {
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import SampleData from './resources/SampleData'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent = null
 
@@ -63,6 +64,8 @@ let componentAssignmentStrategy = ComponentAssignmentStrategy.SINGLE
 async function run() {
   License.value = licenseData
   graphComponent = new GraphComponent('#graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
   initializeInputModes()
 
   initDemoStyles(graphComponent.graph, { orthogonalEditing: true })
@@ -186,13 +189,16 @@ function loadGraph(sampleName) {
 function initializeUI() {
   const sampleGraphs = document.querySelector('#sample-graphs')
 
-  addNavigationButtons(sampleGraphs).addEventListener('change', () => {
+  addNavigationButtons(sampleGraphs, 'Sample:', false).addEventListener('change', () => {
     const selectedIndex = sampleGraphs.selectedIndex
     const selectedOption = sampleGraphs.options[selectedIndex]
     loadGraph(selectedOption.value)
   })
 
-  const assignmentStrategies = document.querySelector('#component-assignment-strategies')
+  const assignmentStrategies = addNavigationButtons(
+    document.querySelector('#component-assignment-strategies'),
+    'Strategy:'
+  )
   assignmentStrategies.addEventListener('change', () => {
     const selectedOption = assignmentStrategies.options[assignmentStrategies.selectedIndex]
     switch (selectedOption.value) {

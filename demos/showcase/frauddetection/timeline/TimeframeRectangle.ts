@@ -94,6 +94,7 @@ export class TimeframeRectangle {
     // add the listeners of dragging events
     this.handleInputMode.addEventListener('drag-finished', onBoundsChanged)
     this.handleInputMode.addEventListener('dragging', onBoundsChanged)
+    this.handleInputMode.addEventListener('drag-canceled', onBoundsChanged)
 
     // creates the move input mode that manages the movement of the rectangle
     this.positionHandler = new RectanglePositionHandler(rectangle)
@@ -106,6 +107,7 @@ export class TimeframeRectangle {
     })
     this.moveInputMode.addEventListener('drag-finished', onBoundsChanged)
     this.moveInputMode.addEventListener('dragging', onBoundsChanged)
+    this.moveInputMode.addEventListener('drag-canceled', onBoundsChanged)
 
     this.arm()
   }
@@ -270,7 +272,7 @@ class RectanglePositionHandler extends BaseClass(IPositionHandler) {
   }
 
   cancelDrag(context: IInputModeContext, originalLocation: Point): void {
-    this.rectangle.setLocation(originalLocation)
+    this.rectangle.setLocation(this.initialPosition)
   }
 
   private updatePosition(originalLocation: Point, newLocation: Point): void {

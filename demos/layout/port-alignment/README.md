@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Port Alignment Demo
+# Port Alignment Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/port-alignment.webp" alt="demo-thumbnail" height="320"/>
 

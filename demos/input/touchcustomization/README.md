@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Touch Interaction
+# Touch Interaction Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/touch-interaction.webp" alt="demo-thumbnail" height="320"/>
 

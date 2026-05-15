@@ -108,17 +108,13 @@ export class HtmlEditableNodeStyle extends NodeStyleBase {
       avatar.classList.toggle('editable-node-style__avatar-selecting')
     }
 
-    avatarImage.addEventListener('click', toggleAvatarSelecting, { capture: true })
+    avatarImage.addEventListener('click', toggleAvatarSelecting)
     for (const selectImg of avatarSelectImages) {
-      selectImg.addEventListener(
-        'click',
-        function () {
-          avatarImage.src = this.src
-          submit.disabled = false
-          toggleAvatarSelecting()
-        },
-        { capture: true }
-      )
+      selectImg.addEventListener('click', function () {
+        avatarImage.src = this.src
+        submit.disabled = false
+        toggleAvatarSelecting()
+      })
     }
 
     for (const input of [...inputs, avatarImage, ...avatarSelectImages]) {
@@ -168,18 +164,7 @@ function stopPropagation(e) {
 }
 
 function preventPropagation(element) {
-  for (const eventName of [
-    'click',
-    'mousedown',
-    'mouseup',
-    'mousemove',
-    'keydown',
-    'contextmenu',
-    'touchstart',
-    'pointerdown',
-    'pointermove',
-    'pointerup'
-  ]) {
+  for (const eventName of ['click', 'keydown', 'contextmenu', 'pointerdown', 'pointerup']) {
     element.addEventListener(eventName, stopPropagation)
   }
 }

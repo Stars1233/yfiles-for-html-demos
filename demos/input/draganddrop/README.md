@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Drag and Drop Demo
+# Drag and Drop Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/drag-and-drop.webp" alt="demo-thumbnail" height="320"/>
 
@@ -32,10 +32,3 @@ For dragging and dropping edges, the demo uses the custom class `EdgeDropInputMo
 - Drag an edge from the palette onto the empty canvas to create a new node with an edge creation in progress.
 - Drag an edge from the palette onto another edge to just apply the style of the dragged edge.
 - Toggle the preview snapping in the toolbar.
-
-## Related Demos
-
-- [Graph Drag and Drop Demo](../../input/graph-drag-and-drop/)
-- [Drag From Component Demo](../../input/drag-from-component/)
-- [Custom Drag and Drop Demo](../../input/custom-drag-and-drop/)
-- [Component Drag and Drop Demo](../../input/componentdraganddrop/)

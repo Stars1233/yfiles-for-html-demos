@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Metabolic Pathways Demo
+# Metabolic Pathways Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/metabolic-pathways.webp" alt="demo-thumbnail" height="320"/>
 

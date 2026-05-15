@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Arrow Edge Style Demo
+# Arrow Edge Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/arrow-edge-style.webp" alt="demo-thumbnail" height="320"/>
 

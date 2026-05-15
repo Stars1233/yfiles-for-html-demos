@@ -45,8 +45,8 @@ import {
 
 import { ContextualToolbar } from './ContextualToolbar'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 let contextualToolbar
@@ -54,15 +54,13 @@ let contextualToolbar
 async function run() {
   License.value = licenseData
   graphComponent = new GraphComponent('graphComponent')
+  graphComponent.contentMargins = { top: 100, bottom: 10, left: 10, right: 10 }
   graphComponent.graph.undoEngineEnabled = true
 
   initializeInputMode()
 
   // initialize the contextual toolbar
-  contextualToolbar = new ContextualToolbar(
-    graphComponent,
-    document.getElementById('contextualToolbar')
-  )
+  contextualToolbar = new ContextualToolbar(graphComponent)
 
   initializeDefaultStyles(graphComponent.graph)
 

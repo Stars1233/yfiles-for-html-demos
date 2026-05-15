@@ -42,11 +42,11 @@ import {
   ShapeNodeStyle
 } from '@yfiles/yfiles'
 
-import MazeData from './resources/maze'
+import MazeData from './resources/maze.json'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { MazeVisual } from './MazeVisual'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The graph component that displays the demo's graph.
@@ -249,11 +249,11 @@ function createSampleGraph(graph) {
   builder.createNodesSource({
     data: MazeData.nodes,
     id: 'id',
-    layout: (data) => data,
+    layout: 'layout',
     style: (data) => (data.maze ? mazeNodeStyle : graph.nodeDefaults.style),
     tag: (data) => ({ maze: data.maze })
   })
-  builder.createEdgesSource(MazeData.edges, 'from', 'to')
+  builder.createEdgesSource(MazeData.edges, 'source', 'target')
   builder.buildGraph()
 }
 

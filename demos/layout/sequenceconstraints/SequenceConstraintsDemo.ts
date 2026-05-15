@@ -44,8 +44,8 @@ import {
 
 import { RandomGraphGenerator } from '@yfiles/demo-utils/RandomGraphGenerator'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { constraintNodeStyle } from './style-templates'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 type SequenceConstraintsData = { value: number; constraints: boolean }
 

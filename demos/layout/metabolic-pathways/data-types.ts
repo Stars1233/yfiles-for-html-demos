@@ -43,7 +43,7 @@ export type MetabolicPathwayData = {
  */
 export type InputNodeData = {
   id: number
-  label?: string
+  labels?: string
   tag: {
     /**
      * The type of the node as string

@@ -47,8 +47,8 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 // Ensure that the LayoutExecutor class is not removed by build optimizers
 // It is needed for the 'applyLayoutAnimated' method in this demo.
@@ -93,7 +93,7 @@ function buildGraph(graph, graphData) {
     .createNodesSource({
       data: graphData.nodeList.filter((item) => !item.isGroup),
       id: (item) => item.id,
-      parentId: (item) => item.parentId,
+      parentId: (item) => item.parent,
       tag: (item) => item.tag
     })
     .nodeCreator.styleBindings.addBinding('shape', (item) => item.tag)

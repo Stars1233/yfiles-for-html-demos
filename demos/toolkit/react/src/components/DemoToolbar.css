@@ -27,53 +27,47 @@
  **
  ***************************************************************************/
 .demo-toolbar {
-  display: flex;
-  height: 100%;
+  font-size: 0.9rem;
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
+  flex-wrap: nowrap; /* keep items on a single line */
+  white-space: nowrap; /* prevent the text button from wrapping */
+  color: #2a3e50;
+  background: #f2f5f8;
+  padding: 4px 6px;
+  gap: 2px;
+  z-index: 2;
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.1),
+    0 3px 10px rgba(0, 0, 0, 0.1),
+    0 1px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 999px;
+  user-select: none;
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .demo-toolbar button {
-  line-height: normal;
-  height: 24px;
-}
-.demo-toolbar button,
-.demo-toolbar > label {
-  display: inline-block;
+  font-size: 1.5rem;
+  font-weight: 270;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   outline: none;
   border: none;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
   background-color: transparent;
-  height: 24px;
-  width: 24px;
-  line-height: 24px;
   box-sizing: border-box;
   padding: 0;
   cursor: pointer;
+  border-radius: 16px;
+  color: #2a3e50;
+  gap: 3px;
 }
-.demo-toolbar button:hover,
-.demo-toolbar > label:hover {
-  background-color: #dedede;
-}
-.demo-toggle-button {
-  display: none !important;
-}
-.demo-toggle-button:checked + label {
-  background-color: #dedede;
-}
-.demo-toggle-button:checked:hover + label {
-  background-color: #b2b2b2;
-}
-.demo-toggle-button:disabled + label {
-  opacity: 0.5;
-  cursor: default;
-  background-color: transparent;
-}
-.demo-toggle-button.labeled + label {
-  background-position-x: left;
-  width: inherit;
-  padding: 0 2px;
-  line-height: 24px;
+.demo-toolbar button:hover {
+  background-color: #aec3d5;
 }
 .demo-toolbar button:active,
 .demo-toolbar > label:active,
@@ -94,31 +88,15 @@
   vertical-align: middle;
   margin: 0 2px;
 }
-.demo-icon-yIconReload {
-  background-image: url('@yfiles/demo-app/icons/reload-16.svg');
-}
-.demo-icon-yIconZoomOriginal {
-  background-image: url('@yfiles/demo-app/icons/zoom-original3-16.svg');
-}
-.demo-icon-yIconZoomIn {
-  background-image: url('@yfiles/demo-app/icons/magnify-16.svg');
-}
-.demo-icon-yIconZoomOut {
-  background-image: url('@yfiles/demo-app/icons/demagnify-16.svg');
-}
-.demo-icon-yIconZoomFit {
-  background-image: url('@yfiles/demo-app/icons/fit-16.svg');
-}
-.demo-icon-yIconExportImage {
-  background-image: url('@yfiles/demo-app/icons/export-image-16.svg');
-}
 .search {
   margin-left: auto;
   line-height: 20px;
   padding: 4px 8px;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: normal;
-  width: 295px;
+  width: 250px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
 }
 
 .search:focus {

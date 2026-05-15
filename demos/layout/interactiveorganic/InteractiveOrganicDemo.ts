@@ -36,11 +36,11 @@ import {
   OrganicLayout
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import type { JSONGraph } from '@yfiles/demo-utils/json-model'
 import graphData from './graph-data.json'
 import { InteractiveOrganicFastEdgeStyle, InteractiveOrganicFastNodeStyle } from './DemoStyles'
 import { initializeWorkerLayout } from './initializeWorkerLayout'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The GraphComponent.

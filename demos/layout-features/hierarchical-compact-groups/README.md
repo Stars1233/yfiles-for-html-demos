@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Compact Groups
+# Hierarchical Layout with Compact Groups Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-hierarchical-compact-groups.webp" alt="demo-thumbnail" height="320"/>
 
@@ -25,10 +25,7 @@ In this demo, you can observe the effect on 'Group 3', which shares its first la
 
 ## Vertical (Orthogonal) Compaction
 
-To further compact groups in the direction orthogonal to the main layout flow (i.e., height for left-to-right layouts), adjust these properties:
-
-- Enable [groupCompaction](https://docs.yworks.com/yfileshtml/api/CoordinateAssigner#groupCompaction).
-- Disable [bendReduction](https://docs.yworks.com/yfileshtml/api/CoordinateAssigner#bendReduction) to prioritize compaction over reducing bends.
+To further compact groups in the direction orthogonal to the main layout flow (i.e., height for left-to-right layouts), enable [groupCompaction](https://docs.yworks.com/yfileshtml/api/CoordinateAssigner#groupCompaction).
 
 ## Things to Try
 

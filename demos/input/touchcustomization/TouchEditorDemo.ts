@@ -81,7 +81,7 @@ import {
   initDemoStyles
 } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { PortCandidateRenderer } from './PortCandidateRenderer'
 
 let graphComponent: GraphComponent

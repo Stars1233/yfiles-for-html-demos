@@ -54,7 +54,6 @@ import {
   getX
 } from './gantt-utils'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { ActivityNodeLabelModel } from './activity-node/ActivityNodeLabelModel'
 import { TaskComponent } from './components/TaskComponent'
 import { hideActivityInfo } from './info-panel'
@@ -70,6 +69,7 @@ import { ActivityNodeStyle } from './activity-node/ActivityNodeStyle'
 import { GridVisual } from './GridVisual'
 import { RoutingEdgeStyle } from './RoutingEdgeStyle'
 import { ActivityNodePositionHandler } from './activity-node/ActivityNodePositionHandler'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The main graph component displaying activities and their dependencies.
@@ -200,7 +200,6 @@ async function onGraphModified(): Promise<void> {
   updateScrollArea()
 
   // trigger a background refresh
-  graphComponent.renderTree.backgroundGroup.dirty = true
   graphComponent.invalidate()
 }
 

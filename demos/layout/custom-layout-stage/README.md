@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Custom Layout Stage Demo
+# Custom Layout Stage Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/custom-layout-stage.webp" alt="demo-thumbnail" height="320"/>
 
@@ -21,15 +21,15 @@ yFiles for HTML ships with a large variety of layout stages, all sharing the int
 
 This demo application shows three simple custom layout stages, which demonstrate different problems and possible solutions with a custom layout stage.
 
-`MoveNodesAsideStage`
+play_arrow MoveNodesAsideStage
 
 Temporarily removes the blue nodes, runs its core layout, and re-inserts the blues nodes as a vertical stack on the right side.
 
-`AlignmentStage`
+play_arrow AlignmentStage
 
 Inserts temporary edges, along with certain constraints to help the core [HierarchicalLayout](https://docs.yworks.com/yfileshtml/api/HierarchicalLayout) align the green nodes. The nodes are selected via an [IMapper](https://docs.yworks.com/yfileshtml/api/IMapper) registered with the graph under a certain key.
 
-`ZigZagEdgesStage`
+play_arrow ZigZagEdgesStage
 
 A pure post-processing stage that changes the edge paths produced by the core layout to a zig-zag shape.
 

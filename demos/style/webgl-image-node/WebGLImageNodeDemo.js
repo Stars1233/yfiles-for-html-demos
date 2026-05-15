@@ -52,11 +52,10 @@ import {
 import licenseData from '../../../lib/license.json'
 import {
   addNavigationButtons,
-  addOptions,
   checkWebGL2Support,
-  finishLoading,
   showLoadingIndicator
-} from '@yfiles/demo-app/demo-page'
+} from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 // Some selected colors to colorize the icons
 const iconColors = [
@@ -90,6 +89,8 @@ async function run() {
   License.value = licenseData
 
   const graphComponent = new GraphComponent('#graphComponent')
+  // Add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [90, 10, 40, 10]
 
   initializeFastRendering(graphComponent)
 
@@ -316,17 +317,17 @@ function configureInteraction(graphComponent) {
 /**
  * Binds the various commands available in yFiles for HTML to the buttons in the tutorial's toolbar.
  */
-function initializeUI(graphComponent) {
+async function initializeUI(graphComponent) {
   const sampleSelectElement = document.querySelector('#graph-chooser-box')
-  addNavigationButtons(sampleSelectElement)
+  addNavigationButtons(sampleSelectElement, 'Sample:', false, false)
   sampleSelectElement.addEventListener('change', async () => {
     sampleSelectElement.disabled = true
-    switch (sampleSelectElement.options[sampleSelectElement.selectedIndex].value) {
+    switch (sampleSelectElement.value) {
       default:
-      case 'Different icon types':
+      case 'icon-type':
         await createSmallSampleGraph(graphComponent)
         break
-      case 'Large graph':
+      case 'large-graph':
         await showLoadingIndicator(true, 'Creating 100.000 Font Awesome icons')
         await createLargeSampleGraph(graphComponent)
         await showLoadingIndicator(false)
@@ -335,7 +336,9 @@ function initializeUI(graphComponent) {
     void graphComponent.fitGraphBounds()
     sampleSelectElement.disabled = false
   })
-  addOptions(sampleSelectElement, 'Different icon types', 'Large graph')
+  await createSmallSampleGraph(graphComponent)
+  await graphComponent.fitGraphBounds()
+  await showLoadingIndicator(false)
 }
 
 run().then(finishLoading)

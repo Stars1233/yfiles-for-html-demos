@@ -159,7 +159,7 @@ export function createNodeContainerHTML(
   containerDiv.innerHTML = `
       <div id="${!isExampleNode ? nodeData.id : ''}" class="node-content">
         <div class="node-header ${colorClass}">
-          ${nodeData.icon ? `<div class="node-icon">${nodeData.icon}</div>` : ''}
+          ${nodeData.icon ? `<div class="node-icon material-symbols-outlined">${nodeData.icon}</div>` : ''}
           <div class="node-header-details ${colorClass}">
             <h2 class="node-headline">${nodeData.headline}</h2>
             ${nodeData.location ? `<p class="node-location">${nodeData.location}</p>` : ''}
@@ -187,12 +187,12 @@ export function createNodeContainerHTML(
         <div id="${!isExampleNode ? elementId : ''}" class="node-property-container ${highlightClass} ${flashClass} ${alertClass} ${flashAlertClass}">
           <p class="node-property">${prop.name}</p>
           <div class="node-stock-container">
-            <button class="node-button produce ${colorClass}">
+            <button class="node-button material-symbols-outlined produce ${colorClass}">
               <span>add</span>
             </button>
             ${
               prop.endOfChain
-                ? `<button class="node-button sell ${colorClass}">
+                ? `<button class="node-button material-symbols-outlined sell ${colorClass}">
                      <span>remove</span>
                    </button>`
                 : ''
@@ -205,18 +205,7 @@ export function createNodeContainerHTML(
     const propertyContainer = tempContainer.firstElementChild as HTMLElement
     nodeProperties.appendChild(propertyContainer)
 
-    for (const eventName of [
-      'click',
-      'mousedown',
-      'mouseup',
-      'mousemove',
-      'keydown',
-      'contextmenu',
-      'touchstart',
-      'pointerdown',
-      'pointermove',
-      'pointerup'
-    ]) {
+    for (const eventName of ['click', 'pointerdown', 'pointerup']) {
       propertyContainer.addEventListener(eventName, (e) => e.stopPropagation())
     }
     propertyContainer.addEventListener('click', (e) => onClickCallback(e))

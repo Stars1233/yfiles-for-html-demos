@@ -43,11 +43,12 @@ import {
   Size,
   StretchNodeLabelModel
 } from '@yfiles/yfiles'
-import { colorSets, initDemoStyles } from '@yfiles/demo-app/demo-styles'
+import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import { configureContextMenu } from './context-menu'
 import { GroupNodePortCandidateProvider } from './GroupNodePortCandidateProvider'
 import { updateButtonState } from '../switch-components-button/switch-components-button'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
+import { colorSets } from '@yfiles/demo-app/demo-colors'
 
 let rootNode: INode | undefined
 

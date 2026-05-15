@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Lit Template Node Style Demo
+# Lit Template Node Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/lit-template-node-style.webp" alt="demo-thumbnail" height="320"/>
 
@@ -22,10 +22,3 @@ With this style, node visualizations are defined by SVG snippet rendering functi
 ## Things to Try
 
 Change the render function of one or more nodes. Bind colors or text to properties in the tag. Then, apply the new template by pressing the button. Or modify the tag and see how the visualization changes.
-
-## Related Demos
-
-- [Vue Component Node Style Demo](../../../demos-ts/style/vue-component-node-style/README.html)
-- [Vue Template Node Style Demo](../../../demos-ts/style/vue-template-node-style/README.html)
-- [React Component Node Style Demo](../../../demos-ts/style/react-component-node-style/README.html)
-- [React JSX Component Style Demo](../../../demos-ts/style/react-template-node-style/README.html)

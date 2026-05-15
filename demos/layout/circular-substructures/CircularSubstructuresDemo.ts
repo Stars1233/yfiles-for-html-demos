@@ -37,12 +37,15 @@ import {
 } from '@yfiles/yfiles'
 import { createDemoEdgeStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, addOptions, finishLoading } from '@yfiles/demo-app/demo-page'
 import type { LayoutSettings } from './configure-layout'
 import { runLayoutCore } from './configure-layout'
 import { initializeTypePanel, nodeTypeColors } from './types-popup'
-import type { DataType } from './resources/SampleData'
-import { multipleStars, singleStar } from './resources/SampleData'
+import multipleStarsData from './resources/multiple-stars-data.json'
+import multipleStarsSettings from './resources/multiple-stars-settings.json'
+import singleStarData from './resources/single-star-data.json'
+import singleStarsSettings from './resources/single-star-settings.json'
+import { addNavigationButtons, addOptions } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -63,6 +66,8 @@ async function run(): Promise<void> {
 
   // enable undo/redo
   graphComponent.graph.undoEngineEnabled = true
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 
   // initialize the context menu for changing a node's type
   const typePanel = initializeTypePanel(graphComponent)
@@ -121,7 +126,7 @@ async function loadSample(sample: string): Promise<void> {
   graphComponent.graph.clear()
 
   // load sample data
-  const sampleData: DataType = 'singleStar' === sample ? singleStar : multipleStars
+  const sampleData = 'singleStar' === sample ? singleStarData : multipleStarsData
   const builder = new GraphBuilder({
     graph: graphComponent.graph,
     nodes: [
@@ -138,9 +143,10 @@ async function loadSample(sample: string): Promise<void> {
 
   builder.buildGraph()
 
-  // update the settings UI to match the sample's default layout settings
-  const settings = await loadSampleSettings(`resources/${sample}-settings.json`)
-  updateLayoutSettings(settings)
+  const layoutSettings = (
+    'singleStar' === sample ? singleStarsSettings : multipleStarsSettings
+  ) as LayoutSettings
+  updateLayoutSettings(layoutSettings)
 
   // calculate an initial arrangement for the new sample
   await runLayout(false)
@@ -148,15 +154,6 @@ async function loadSample(sample: string): Promise<void> {
   // clear the undo engine when a new sample is loaded
   graphComponent.graph.undoEngine!.clear()
   disableUI(false)
-}
-
-/**
- * Loads sample settings from the file identified by the given sample path.
- * @param samplePath the path to the sample data file.
- */
-async function loadSampleSettings(samplePath: string): Promise<LayoutSettings> {
-  const response = await fetch(samplePath)
-  return (await response.json()) as LayoutSettings
 }
 
 /**
@@ -247,7 +244,7 @@ function initializeUI(): void {
     { text: 'Single Star', value: 'singleStar' },
     { text: 'Multiple Stars', value: 'multipleStars' }
   )
-  addNavigationButtons(sampleSelect, true, false, 'sidebar-button')
+  addNavigationButtons(sampleSelect, '', false, false, 'sidebar-button')
 
   // changing a value automatically runs a layout
   for (const editor of document.querySelectorAll('.settings-editor')) {

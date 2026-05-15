@@ -33,6 +33,7 @@ import {
   EdgeRouterRoutingStyle,
   GroupSubstructureStyle,
   HierarchicalLayoutRoutingStyle,
+  IncrementalNodeHint,
   OrganicLayoutChainSubstructureStyle,
   OrganicLayoutClusteringPolicy,
   OrganicLayoutCycleSubstructureStyle,
@@ -320,6 +321,11 @@ export const LayoutStyles: (LayoutSample | Separator)[] = [
     presets: ['default'],
     samples: [{ sample: 'edge-router', label: 'Default', defaultPreset: 'default' }]
   },
+  {
+    layout: 'Bundled Edge Router',
+    presets: ['default'],
+    samples: [{ sample: 'bundled-edge-router', label: 'Default', defaultPreset: 'default' }]
+  },
   { separator: true },
   {
     layout: 'Labeling',
@@ -445,7 +451,7 @@ export const Presets: Record<string, Preset> = {
       '<p>Arranges selected elements while keeping relative positions of elements that are not selected.</p>',
     label: 'Incremental',
     settings: {
-      minimumLayerDistanceItem: 30,
+      incrementalNodeHintItem: IncrementalNodeHint.FROM_SKETCH,
       selectedElementsIncrementallyItem: true,
       useDrawingAsSketchItem: true
     }

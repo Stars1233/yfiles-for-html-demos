@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { NodeStyleBase, SvgVisual, SvgVisualGroup } from '@yfiles/yfiles'
+import { NodeStyleBase, SvgVisualGroup } from '@yfiles/yfiles'
 
 /**
  * A wrapper for the demo node style which sets additional CSS classes on its elements.
@@ -44,6 +44,32 @@ export class CssNodeStyleWrapper extends NodeStyleBase {
   }
 
   /**
+   * Creates the visual for a node and sets some additional CSS classes on it.
+   */
+  createVisual(context, node) {
+    const wrappedVisual = this.wrapped.renderer
+      .getVisualCreator(node, this.wrapped)
+      .createVisual(context)
+
+    const svgVisualGroup = new SvgVisualGroup()
+    svgVisualGroup.add(wrappedVisual)
+
+    const svgElement = svgVisualGroup.svgElement
+
+    // the visual should fade-in upon creation, so create it with zero opacity first
+    svgElement.classList.add('node-style', 'hidden')
+
+    context.setConnectedCallback(() => {
+      // trigger force reflow to avoid frame batching and reliably trigger the CSS transition
+      svgElement.getBBox()
+      // trigger the fade-in CSS transition
+      svgVisualGroup.svgElement.classList.remove('hidden')
+    })
+
+    return svgVisualGroup
+  }
+
+  /**
    * Re-renders the node.
    */
   updateVisual(context, oldVisual, node) {
@@ -55,46 +81,5 @@ export class CssNodeStyleWrapper extends NodeStyleBase {
       oldVisual.children.set(0, newWrappedVisual)
     }
     return oldVisual
-  }
-
-  /**
-   * Creates the visual for a node and sets some additional CSS classes on it.
-   */
-  createVisual(context, node) {
-    const wrappedVisual = this.wrapped.renderer
-      .getVisualCreator(node, this.wrapped)
-      .createVisual(context)
-
-    const shine = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-    shine.setAttribute('class', 'node-flash')
-    const { x, y, width, height } = node.layout
-    shine.width.baseVal.value = width
-    shine.height.baseVal.value = height
-    shine.x.baseVal.value = x
-    shine.y.baseVal.value = y
-
-    // set additional CSS class based on the state of the node
-    if (node.tag != null) {
-      const tag = node.tag
-      if (tag.created) {
-        shine.classList.add('node-created')
-        // remove the node-created class after the created animation is finished
-        // to avoid re-triggering it on subsequent redraws
-        for (const event of ['animationend', 'animationcancel']) {
-          shine.addEventListener(event, (e) => {
-            if (e.animationName === 'nodeCreatedAnimation') {
-              shine.classList.remove('node-created')
-            }
-          })
-        }
-        // reset created state to avoid adding the class again when the node is redrawn
-        tag.created = false
-      }
-    }
-
-    const svgVisualGroup = new SvgVisualGroup()
-    svgVisualGroup.add(wrappedVisual)
-    svgVisualGroup.add(new SvgVisual(shine))
-    return svgVisualGroup
   }
 }

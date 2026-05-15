@@ -40,9 +40,10 @@ import {
   Size
 } from '@yfiles/yfiles'
 import { ArcDiagramLayout, type NodeOrder } from './ArcDiagramLayout'
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const chooser = document.querySelector<HTMLSelectElement>('#node-order')!
 
@@ -110,8 +111,13 @@ function configureGraph(graph: IGraph): void {
  */
 function createSampleGraph(graph: IGraph): void {
   const builder = new GraphBuilder(graph)
-  builder.createNodesSource({ data: SampleData.nodes, id: 'id', labels: ['id'] })
-  builder.createEdgesSource({ data: SampleData.edges, id: 'id', sourceId: 'src', targetId: 'tgt' })
+  builder.createNodesSource({ data: GraphData.nodes, id: 'id', labels: ['id'] })
+  builder.createEdgesSource({
+    data: GraphData.edges,
+    id: 'id',
+    sourceId: 'source',
+    targetId: 'target'
+  })
   builder.buildGraph()
 }
 
@@ -153,7 +159,7 @@ function getNodeOrder(): NodeOrder {
  * Binds actions and commands to the demo's UI controls.
  */
 function initializeUI(graphComponent: GraphComponent): void {
-  addNavigationButtons(chooser).addEventListener('change', async () => {
+  addNavigationButtons(chooser, 'Node Order:').addEventListener('change', async () => {
     chooser.disabled = true
     await arrange(graphComponent)
     chooser.disabled = false

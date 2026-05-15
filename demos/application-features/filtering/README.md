@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Filtering
+# Filtering Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/filtering.webp" alt="demo-thumbnail" height="320"/>
 
@@ -22,11 +22,6 @@ This demo shows how to dynamically **hide and show graph items** (nodes and edge
 - **Select Items**: Click on individual nodes or edges, or draw a selection rectangle to select multiple items.
 - **Filter Selection**: Press the `Filter Items` button in the toolbar to hide selected items from the graph.
 - **Reset Filter**: Click the `Reset Filter` button to bring all previously hidden items back into view.
-
-## Demos
-
-- [Filtering With Folding Demo](../../application-features/filtering-with-folding/)
-- [Flow Filtering Demo](../../application-features/flow-filtering/)
 
 ## Documentation
 

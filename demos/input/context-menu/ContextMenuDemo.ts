@@ -31,7 +31,8 @@ import {
   GraphEditorInputMode,
   HierarchicalLayout,
   type IModelItem,
-  type PopulateItemContextMenuEventArgs
+  type PopulateItemContextMenuEventArgs,
+  Size
 } from '@yfiles/yfiles'
 import { CustomContextMenuIcons } from './CustomContextMenuIcons'
 import graphData from './graph-data.json'
@@ -82,6 +83,7 @@ inputMode.addEventListener(
   }
 )
 
+graphComponent.graph.nodeDefaults.size = new Size(50, 50)
 demoApp.buildGraphFromJson(graphData)
 
 await graphComponent.applyLayoutAnimated(new HierarchicalLayout(), '0s')

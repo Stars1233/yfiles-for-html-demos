@@ -42,6 +42,7 @@
   justify-content: flex-start;
   align-items: center;
 }
-.control-button > img {
+.control-button > .material-symbols-outlined {
   margin-bottom: 5px;
+  font-size: 20px;
 }

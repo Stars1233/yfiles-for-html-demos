@@ -26,6 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
+import '@fontsource/material-symbols-outlined/300.css'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'

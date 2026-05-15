@@ -28,7 +28,7 @@
  ***************************************************************************/
 import { GraphComponent, License, Size } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 import { orgChartData } from './adjacency-data'
 import { configureGraphBuilder } from './adjacency-graph-building'

@@ -44,7 +44,7 @@ import {
 import { DraggableGraphComponent, NodeDragInputMode } from './NodeDragInputMode'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import graphData from './graph-data.json'
 
 let graphComponent = null

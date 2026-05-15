@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Clipboard Demo
+# Clipboard Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/clipboard.webp" alt="demo-thumbnail" height="320"/>
 

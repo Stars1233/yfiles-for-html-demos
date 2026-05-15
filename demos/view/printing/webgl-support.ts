@@ -54,11 +54,11 @@ export function initializeToggleWebGlRenderingButton(
   graphComponent: GraphComponent,
   addSeparator = true
 ): void {
-  const container = document.querySelector<HTMLDivElement>('.demo-page__toolbar')!
+  const container = document.querySelector<HTMLDivElement>('.toolbar')!
 
   if (addSeparator) {
     const separator = document.createElement('span')
-    separator.classList.add('demo-separator')
+    separator.classList.add('separator')
     container.appendChild(separator)
   }
 
@@ -77,13 +77,15 @@ export function initializeToggleWebGlRenderingButton(
       graphComponent.focusIndicatorManager = new FocusIndicatorManager()
     }
   })
-  container.appendChild(toggleButton)
+  const holdElements = document.createElement('div')
 
   const toggleButtonLabel = document.createElement('label')
   toggleButtonLabel.htmlFor = 'toggle-webgl-mode'
   toggleButtonLabel.title = 'Toggles WebGL rendering mode'
   toggleButtonLabel.textContent = 'WebGL Rendering'
-  container.appendChild(toggleButtonLabel)
+  holdElements.appendChild(toggleButton)
+  holdElements.appendChild(toggleButtonLabel)
+  container.appendChild(holdElements)
 
   // Start the async ImageData creation. Once finished, this will enable the WebGL mode button.
   void createIconImageData()

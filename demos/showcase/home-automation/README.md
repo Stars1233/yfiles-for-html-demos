@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Home Automation Demo
+# Home Automation Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/home-automation.webp" alt="demo-thumbnail" height="320"/>
 

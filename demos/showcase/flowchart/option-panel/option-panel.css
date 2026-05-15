@@ -28,32 +28,10 @@
  ***************************************************************************/
 .settings-sample {
   display: grid;
-  margin-bottom: 8px;
-  grid-template-columns: [start] 25px [mid] auto [end] 25px;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  column-gap: 10px;
 }
-#select-sample {
-  font-size: 14px;
-  width: auto;
-  margin: 0 4px;
-}
-.select-button {
-  display: inline-block;
-  outline: none;
-  border: none;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-color: transparent;
-  height: 24px;
-  width: 24px;
-  line-height: 24px;
-  box-sizing: border-box;
-  padding: 0;
-  cursor: pointer;
-  border-radius: 100px;
-}
-.select-button:active {
-  background-color: #b2b2b2;
-}
-.select-button:hover {
-  background-color: #dedede;
+#layout-button {
+  grid-column: 1 / -1;
 }

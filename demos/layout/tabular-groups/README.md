@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Tabular Groups Demo
+# Tabular Groups Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/tabular-groups.webp" alt="demo-thumbnail" height="320"/>
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Markup Labels - Application Features
+# Markup Label Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/markup-labels.webp" alt="demo-thumbnail" height="320"/>
 

@@ -29,13 +29,17 @@
 import {
   ContextModificationStage,
   GenericLabeling,
+  GenericLabelingData,
   type ILayoutAlgorithm,
   type IMapper,
   LayoutEdge,
+  type LayoutEdgeLabel,
   type LayoutGraph,
   LayoutGraphGrouping,
   LayoutGraphHider,
   LayoutKeys,
+  type LayoutNode,
+  type LayoutNodeLabel,
   LayoutStageBase,
   Mapper,
   TreeReductionStage
@@ -115,7 +119,12 @@ export class HandleEdgesBetweenGroupsStage extends LayoutStageBase {
         if (this.considerEdgeLabels) {
           // place marked labels
           const labeling = new GenericLabeling({ scope: 'edge-labels' })
-          const labelingData = labeling.createLayoutData(graph)
+          const labelingData = new GenericLabelingData<
+            LayoutNode,
+            LayoutEdge,
+            LayoutNodeLabel,
+            LayoutEdgeLabel
+          >()
           // all labels of hidden edges should be marked
           labelingData.scope.edgeLabels = (edgeLabel) =>
             edgeLabel.owner instanceof LayoutEdge && !!hiddenEdgesMap.get(edgeLabel.owner)

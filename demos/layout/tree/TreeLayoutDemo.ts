@@ -49,8 +49,9 @@ import {
 import * as TreeData from './resources/TreeData'
 import { LayerColors, SubtreePlacerPanel } from './SubtreePlacerPanel'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
 import { initializesInputMode } from './initialize-input-mode'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * The graph component which contains the tree graph.
@@ -154,6 +155,8 @@ function initializeGraphDefaults(): void {
     targetArrow: '#617984 medium triangle',
     stroke: '1.5px solid #617984'
   })
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 type TreeNodeType = {
@@ -229,7 +232,7 @@ function setBusy(isBusy: boolean): void {
   ;(graphComponent.inputMode as GraphEditorInputMode).enabled = !isBusy
   // disable UI elements during the layout
   document
-    .querySelector('.demo-sidebar__content')!
+    .querySelector('.interaction-panel')!
     .querySelectorAll('input, select, button')
     .forEach((element: any) => {
       element.disabled = isBusy
@@ -243,7 +246,8 @@ function setBusy(isBusy: boolean): void {
  */
 function initializeUI(): void {
   addNavigationButtons(
-    document.querySelector<HTMLSelectElement>('#select-sample')!
+    document.querySelector<HTMLSelectElement>('#select-sample')!,
+    'Sample:'
   ).addEventListener('change', loadGraph)
 }
 

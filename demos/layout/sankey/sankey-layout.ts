@@ -111,10 +111,6 @@ function createHierarchicalLayout(fromSketchMode: boolean): HierarchicalLayout {
       // a port border gap ratio of zero means that ports can be placed directly
       // on the corners of the nodes
       borderToPortGapRatio: 1
-    },
-    coordinateAssigner: {
-      // disable further reducing from bends
-      bendReduction: false
     }
   })
 

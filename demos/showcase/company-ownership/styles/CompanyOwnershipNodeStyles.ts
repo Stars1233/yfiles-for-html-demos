@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import type { Company, NodeType } from '../data-types'
+import type { Company } from '../data-types'
 import {
   Fill,
   type INodeStyle,
@@ -41,23 +41,6 @@ import { CustomShapeNodeStyle } from './CustomShapeNodeStyle'
 import type { ColorSetName } from '@yfiles/demo-app/demo-colors'
 import { colorSets } from '@yfiles/demo-app/demo-colors'
 import { tableNodeStyle } from './TableNodeStyle'
-
-// maps each node type with an enum value
-const nodeTypeMap: Record<string, NodeType> = {
-  Corporation: 'corporation',
-  CTB: 'ctb',
-  Partnership: 'partnership',
-  RCTB: 'rctb',
-  Branch: 'branch',
-  Disregarded: 'disregarded',
-  'Dual Resident': 'dual-resident',
-  Multiple: 'multiple',
-  Trust: 'trust',
-  Individual: 'individual',
-  'Third Party': 'third-party',
-  PE_Risk: 'pe-risk',
-  Trapezoid: 'trapezoid'
-}
 
 // maps each node type with a color palette
 export const predefinedColorSets = new Map<string, ColorSetName>([
@@ -86,7 +69,7 @@ export function getNodeStyle(item: Company, useShapeNodeStyle: boolean): INodeSt
   const colorSet = colorSets[predefinedColorSets.get(nodeType) || 'demo-palette-51']
   return useShapeNodeStyle
     ? new CustomShapeNodeStyle(
-        nodeTypeMap[nodeType],
+        nodeType,
         Stroke.from(colorSet.fill),
         Fill.from(colorSet.nodeLabelFill)
       )

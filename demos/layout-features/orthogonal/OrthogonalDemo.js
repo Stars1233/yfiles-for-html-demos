@@ -59,7 +59,7 @@ const orthogonalLayout = new OrthogonalLayout({
 // Create layout data for item-specific settings
 const orthogonalLayoutData = new OrthogonalLayoutData({
   // Define edges tagged 'directed' directed edges: they must flow in the main layout orientation
-  edgeDirectedness: (edge) => (edge.tag === 'directed' ? 1 : 0),
+  edgeOrientation: (edge) => (edge.tag === 'directed' ? 1 : 0),
   // Increase bend cost for directed edges to prefer straight paths (in favor of bending other edges instead)
   edgeBendCosts: (edge) => (edge.tag === 'directed' ? 4 : 1),
   // Add margins around the node with the "Insets" label

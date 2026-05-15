@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Edge Labeling
+# Hierarchical Layout with Edge Labeling Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-hierarchical-edge-labeling.webp" alt="demo-thumbnail" height="320"/>
 

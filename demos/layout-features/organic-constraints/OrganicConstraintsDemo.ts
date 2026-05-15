@@ -50,6 +50,8 @@ async function applyOrganicLayoutWithConstraints(): Promise<void> {
 
   await graphComponent.applyLayoutAnimated(organicLayout, 0, organicLayoutData)
 }
+// add some padding to prevent overlaps with the demo toolbar
+graphComponent.contentMargins = [80, 10, 10, 10]
 
 // Build the graph from JSON data
 demoApp.buildGraphFromJson(graphData)

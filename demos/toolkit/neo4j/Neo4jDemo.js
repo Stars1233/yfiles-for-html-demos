@@ -58,7 +58,8 @@ import { createDemoEdgeStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-
 import { createGraphBuilder } from './Neo4jGraphBuilder'
 import { connectToDB, Neo4jEdge, Neo4jNode } from './Neo4jUtil'
 import licenseData from '../../../lib/license.json'
-import { finishLoading, showLoadingIndicator } from '@yfiles/demo-app/demo-page'
+import { showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { createCodemirrorEditor } from '@yfiles/demo-app/codemirror-editor'
 
 let editor
@@ -90,7 +91,7 @@ async function run() {
   License.value = licenseData
   if (!('WebSocket' in window)) {
     // early exit the application if WebSockets are not supported
-    document.querySelector('#login').hidden = true
+    document.querySelector('#login-form').hidden = true
     document.querySelector('#noWebSocketAPI').hidden = false
     return
   }
@@ -407,6 +408,7 @@ function initializeUI() {
   const hostEl = document.querySelector('#hostInput')
   const passwordEl = document.querySelector('#passwordInput')
   const databaseEl = document.querySelector('#databaseNameInput')
+  const toolbar = document.querySelector('.toolbar')
 
   document.querySelector('#login-form').addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -422,8 +424,11 @@ function initializeUI() {
 
       // hide the login form and show the graph component
       document.querySelector('#login-pane').hidden = true
-      document.querySelector('#graph-pane').hidden = false
       await loadGraph()
+
+      if (toolbar) {
+        toolbar.hidden = false
+      }
     } catch (e) {
       document.querySelector('#connectionError').innerHTML = `An error occurred: ${e}`
       // In some cases (connecting from https to http) an exception is thrown outside the promise
@@ -436,21 +441,13 @@ function initializeUI() {
     }
   })
 
-  numNodesInput.addEventListener(
-    'input',
-    () => {
-      document.querySelector('#numNodesLabel').textContent = numNodesInput.value.toString()
-    },
-    true
-  )
+  numNodesInput.addEventListener('input', () => {
+    document.querySelector('#numNodesLabel').textContent = numNodesInput.value.toString()
+  })
 
-  numLabelsInput.addEventListener(
-    'input',
-    () => {
-      document.querySelector('#numLabelsLabel').textContent = numLabelsInput.value.toString()
-    },
-    true
-  )
+  numLabelsInput.addEventListener('input', () => {
+    document.querySelector('#numLabelsLabel').textContent = numLabelsInput.value.toString()
+  })
 
   // create cypher query editor
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Graph Analysis Demo
+# Graph Analysis Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-analysis.webp" alt="demo-thumbnail" height="320"/>
 

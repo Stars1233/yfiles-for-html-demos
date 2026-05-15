@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Reparent Handler Demo
+# Reparent Handler Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/reparent-handler.webp" alt="demo-thumbnail" height="320"/>
 

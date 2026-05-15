@@ -237,7 +237,7 @@ export class FlowchartNodeStyle extends NodeStyleBase {
   /**
    * Returns the bounds of the shape's outline according to the type.
    */
-  getBounds(context, node) {
+  getBounds(_context, node) {
     return getPath(this.type, node).getBounds()
   }
 

@@ -246,6 +246,7 @@ export class NetworkFlowNodeStyle extends NodeStyleBase {
     text.textContent = adjustedFlow.toString()
     setAttribute(text, 'fill', adjustedFlow > 7 ? 'white' : 'black')
     setAttribute(text, 'y', layout.height - 3)
+    setAttribute(text, 'font-size', 14)
     flowGroup.appendChild(text)
 
     const frame = document.createElementNS(svgNS, 'rect')
@@ -820,6 +821,7 @@ export class MinCutLine extends BaseClass(IVisualCreator) {
         setAttribute(text, 'y', this.bounds.centerY)
         setAttribute(text, 'fill', 'darkorange')
         setAttribute(text, 'writing-mode', 'tb')
+        setAttribute(text, 'font-size', '14')
         container.appendChild(text)
       } else {
         line = container.firstElementChild

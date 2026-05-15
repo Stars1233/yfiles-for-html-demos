@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Structure View Demo
+# Structure View Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/structure-view.webp" alt="demo-thumbnail" height="320"/>
 

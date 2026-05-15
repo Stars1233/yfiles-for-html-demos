@@ -28,6 +28,6 @@
     "puppeteer": "^24.30.0"
   },
   "dependencies": {
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-30.0.5+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.0+dev.tgz"
   }
 }

@@ -26,17 +26,12 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import reloadIcon from '../assets/reload-16.svg'
+import './DemoDescription.css'
 
 export const DemoDescription = (props: Record<string, never>) => {
   return (
-    <div class={'demo-page__description'}>
-      <div class={'demo-description__header'}>
-        <a href="https://www.yfiles.com">
-          <div class={'demo-description__logo'} />
-        </a>
-      </div>
-      <div class={'demo-description__content'}>
+    <div class="demo-page__description">
+      <div class="demo-description__content">
         <h1>Solid.js demo</h1>
         <p>
           This demo shows how to integrate yFiles in a{' '}
@@ -78,8 +73,14 @@ export const DemoDescription = (props: Record<string, never>) => {
             component for the diagram.
           </li>
           <li>
-            After the graph has been changed, click <img src={reloadIcon} alt="reload-icon" /> to
-            reload the initial sample graph.
+            After the graph has been changed, click{' '}
+            <span
+              class="material-symbols-outlined"
+              style={{ 'vertical-align': 'middle', 'font-size': '16px' }}
+            >
+              refresh
+            </span>{' '}
+            to reload the initial sample graph.
           </li>
           <li>
             Vite's development server automatically updates the application upon code changes.

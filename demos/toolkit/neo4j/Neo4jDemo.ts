@@ -61,7 +61,8 @@ import { createGraphBuilder } from './Neo4jGraphBuilder'
 import type { Neo4jRecord, Node, Relationship, Result } from './Neo4jUtil'
 import { connectToDB, Neo4jEdge, Neo4jNode } from './Neo4jUtil'
 import licenseData from '../../../lib/license.json'
-import { finishLoading, showLoadingIndicator } from '@yfiles/demo-app/demo-page'
+import { showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { createCodemirrorEditor, type EditorView } from '@yfiles/demo-app/codemirror-editor'
 
 let editor: EditorView
@@ -80,7 +81,7 @@ let edges: Relationship[] = []
 const labelsContainer = document.querySelector<HTMLParagraphElement>('#labels')!
 const selectedNodeContainer = document.querySelector<HTMLDivElement>('#selected-node-container')!
 const propertyTable = document.querySelector<HTMLTableElement>('.property-table')!
-const propertyTableHeader = propertyTable.firstElementChild as HTMLTableHeaderCellElement
+const propertyTableHeader = propertyTable.firstElementChild as HTMLTableSectionElement
 const numNodesInput = document.querySelector<HTMLInputElement>('#numNodes')!
 const numLabelsInput = document.querySelector<HTMLInputElement>('#numLabels')!
 const showEdgeLabelsCheckbox = document.querySelector<HTMLInputElement>('#showEdgeLabels')!
@@ -93,7 +94,7 @@ async function run(): Promise<void> {
   License.value = licenseData
   if (!('WebSocket' in window)) {
     // early exit the application if WebSockets are not supported
-    document.querySelector<HTMLDivElement>('#login')!.hidden = true
+    document.querySelector<HTMLDivElement>('#login-form')!.hidden = true
     document.querySelector<HTMLDivElement>('#noWebSocketAPI')!.hidden = false
     return
   }
@@ -412,6 +413,7 @@ function initializeUI(): void {
   const hostEl = document.querySelector<HTMLInputElement>('#hostInput')!
   const passwordEl = document.querySelector<HTMLInputElement>('#passwordInput')!
   const databaseEl = document.querySelector<HTMLInputElement>('#databaseNameInput')!
+  const toolbar = document.querySelector<HTMLDivElement>('.toolbar')
 
   document.querySelector<HTMLFormElement>('#login-form')!.addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -427,8 +429,11 @@ function initializeUI(): void {
 
       // hide the login form and show the graph component
       document.querySelector<HTMLDivElement>('#login-pane')!.hidden = true
-      document.querySelector<HTMLElement>('#graph-pane')!.hidden = false
       await loadGraph()
+
+      if (toolbar) {
+        toolbar.hidden = false
+      }
     } catch (e) {
       document.querySelector<HTMLDivElement>('#connectionError')!.innerHTML =
         `An error occurred: ${e}`
@@ -442,23 +447,15 @@ function initializeUI(): void {
     }
   })
 
-  numNodesInput.addEventListener(
-    'input',
-    () => {
-      document.querySelector<HTMLDivElement>('#numNodesLabel')!.textContent =
-        numNodesInput.value.toString()
-    },
-    true
-  )
+  numNodesInput.addEventListener('input', () => {
+    document.querySelector<HTMLDivElement>('#numNodesLabel')!.textContent =
+      numNodesInput.value.toString()
+  })
 
-  numLabelsInput.addEventListener(
-    'input',
-    () => {
-      document.querySelector<HTMLDivElement>('#numLabelsLabel')!.textContent =
-        numLabelsInput.value.toString()
-    },
-    true
-  )
+  numLabelsInput.addEventListener('input', () => {
+    document.querySelector<HTMLDivElement>('#numLabelsLabel')!.textContent =
+      numLabelsInput.value.toString()
+  })
 
   // create cypher query editor
 

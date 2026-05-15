@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Zoom-invariant Label Style
+# Zoom-invariant Label Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/invariant-label-style.webp" alt="demo-thumbnail" height="320"/>
 

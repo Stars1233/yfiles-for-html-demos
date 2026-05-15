@@ -97,7 +97,7 @@ export function initDemoStyles(
     theme?: CssClassNames | ColorSetName
     foldingEnabled?: boolean
     extraCropLength?: number
-    shape?: ShapeNodeShape
+    shape?: ShapeNodeShape | ShapeNodeShapeStringValues
     orthogonalEditing?: boolean
   } = {}
 ): void {

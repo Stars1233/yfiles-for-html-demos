@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Organic Layout
+# Organic Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-organic.webp" alt="demo-thumbnail" height="320"/>
 

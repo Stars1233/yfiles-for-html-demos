@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Company Ownership Chart Demo
+# Company Ownership Chart Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/company-ownership.webp" alt="demo-thumbnail" height="320"/>
 

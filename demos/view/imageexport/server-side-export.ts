@@ -60,6 +60,16 @@ export function initializeServerSideExport(url: string): void {
  * @param timeout The timeout of the check request.
  */
 async function isServerAlive(url: string, timeout = 5000): Promise<Response> {
+  if (
+    window.location.hostname === 'live.yworks.com' ||
+    window.location.hostname === 'www.yfiles.com'
+  ) {
+    return Promise.reject(
+      new Error(
+        'Server export is not available in this online demo, use the package version instead.'
+      )
+    )
+  }
   const initObject: RequestInit = {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -70,7 +80,6 @@ async function isServerAlive(url: string, timeout = 5000): Promise<Response> {
   try {
     const controller = new AbortController()
     const id = setTimeout(() => controller.abort(), timeout)
-
     const response = await fetch(url, { ...initObject, signal: controller.signal })
     clearTimeout(id)
     return Promise.resolve(response)

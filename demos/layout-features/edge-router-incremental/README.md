@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Incremental Edge Router
+# Incremental Edge Router Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-edge-router-incremental.webp" alt="demo-thumbnail" height="320"/>
 

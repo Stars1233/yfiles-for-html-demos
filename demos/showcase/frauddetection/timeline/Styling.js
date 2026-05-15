@@ -34,7 +34,7 @@ import {
   ShapeNodeStyle,
   StretchNodeLabelModel
 } from '@yfiles/yfiles'
-import { intervalsIntersect } from './Utilities'
+import { intervalsIntersect } from './utils'
 
 /**
  * Default style values used when no other styling is defined.

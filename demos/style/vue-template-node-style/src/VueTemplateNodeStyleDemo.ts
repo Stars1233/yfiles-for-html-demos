@@ -42,7 +42,7 @@ import type { SampleDataType } from './assets/sample'
 import SampleData from './assets/sample'
 import { addVueTemplateNodeStyleInformation, VueTemplateNodeStyle } from './VueTemplateNodeStyle'
 import licenseData from './license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
 import {
   createCodemirrorEditor,
@@ -91,7 +91,7 @@ function initializeEditors(): void {
     }
   })
   templateEditor = createCodemirrorEditor(
-    'xml',
+    'vue',
     document.querySelector('#templateEditorContainer')!,
     [templateEditorEditable, EditorView.editable.from(templateEditorEditable)]
   )
@@ -190,9 +190,9 @@ function initializeStyles(): void {
   <g style="font-family: Roboto,sans-serif; fill: #444">
     <text transform="translate(90 25)" style="font-size: 16px; fill: #336699">{{tag.name}}</text>
     <text transform="translate(90 45)" style="font-size: 9px; text-transform: uppercase">{{tag.position}}</text>
-    <text transform="translate(90 72)">{{tag.email}}</text>
-    <text transform="translate(90 88)">{{tag.phone}}</text>
-    <text transform="translate(170 88)">{{tag.fax}}</text>
+    <text transform="translate(90 72)" style="font-size: 10px;">{{tag.email}}</text>
+    <text transform="translate(90 88)" style="font-size: 10px;">{{tag.phone}}</text>
+    <text transform="translate(170 88)" style="font-size: 10px;">{{tag.fax}}</text>
   </g>
 </template>
 <template v-else>

@@ -26,12 +26,14 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component } from '@angular/core'
 import { GraphComponentComponent } from '../graph.component'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  imports: [GraphComponentComponent]
+  standalone: true,
+  imports: [GraphComponentComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {}

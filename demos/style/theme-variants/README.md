@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Theme Variants Demo
+# Theme Variants Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/theme-variants.webp" alt="demo-thumbnail" height="320"/>
 

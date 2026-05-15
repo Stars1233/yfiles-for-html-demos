@@ -26,12 +26,37 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import '@fontsource/material-icons-outlined';
 @import 'example-node.css';
 @import 'snackbar.css';
 @import 'colors.css';
 @import 'highlighting.css';
 @import 'node-container.css';
+
+.main-container .graph-panel #graphComponent {
+  background: var(--background-color);
+}
+
+.group-style {
+  .yfiles-group-node-tab-background {
+    color: var(--group-node-color);
+  }
+  .yfiles-group-node-tab {
+    color: var(--background-color);
+  }
+  .yfiles-group-node-stroke {
+    color: var(--group-node-color);
+  }
+  .yfiles-group-node-content {
+    color: var(--background-color);
+  }
+  .yfiles-group-node-icon {
+    color: var(--background-color);
+  }
+}
+
+.group-label-style {
+  color: var(--white);
+}
 
 .clear-highlights {
   width: fit-content !important;
@@ -49,7 +74,7 @@
 }
 
 .bold-edge {
-  color: var(--demo-blue);
+  color: var(--edge-color);
 }
 .bold-edge > * {
   stroke-width: 3px;

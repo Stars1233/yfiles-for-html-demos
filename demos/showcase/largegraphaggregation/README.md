@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Large Graph Aggregation Demo
+# Large Graph Aggregation Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/large-graph-aggregation.webp" alt="demo-thumbnail" height="320"/>
 

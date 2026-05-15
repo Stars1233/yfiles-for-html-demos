@@ -41,10 +41,10 @@ import {
   ShapeNodeStyle
 } from '@yfiles/yfiles'
 
-import GraphBuilderData from './resources/graph'
+import GraphBuilderData from './resources/graph-data.json'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const graphChooserBox = document.querySelector('#graph-chooser-box')
 
@@ -85,7 +85,7 @@ async function run() {
 function createSampleGraph() {
   const builder = new GraphBuilder({
     graph: graphComponent.graph,
-    nodes: [{ data: GraphBuilderData.nodes, id: 'id', layout: 'layout', labels: ['label'] }],
+    nodes: [{ data: GraphBuilderData.nodes, id: 'id', layout: 'layout', labels: ['labels'] }],
     edges: [{ data: GraphBuilderData.edges, sourceId: 'source', targetId: 'target', id: 'id' }]
   })
 

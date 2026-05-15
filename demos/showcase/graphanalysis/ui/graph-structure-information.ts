@@ -215,16 +215,13 @@ function updateStructureAnalysis(graph: IGraph, container: Element): void {
     name.classList.add(result ? 'applicable' : 'inapplicable')
 
     const infoButton = document.createElement('div')
-    infoButton.className = 'value'
+    infoButton.className = 'value material-symbols-outlined'
     const a = document.createElement('a')
-    const image = document.createElement('div')
-    image.className = 'info-link'
-    image.title = `Definition of ${algorithm.name}`
-    a.appendChild(image)
+    a.textContent = 'help'
+    a.title = `Definition of ${algorithm.name}`
     a.href = algorithm.url ?? ''
     a.target = '_blank'
     infoButton.appendChild(a)
-
     row.appendChild(name)
     row.appendChild(infoButton)
   })

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Edge Grouping Demo
+# Edge Grouping Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/edge-grouping.webp" alt="demo-thumbnail" height="320"/>
 

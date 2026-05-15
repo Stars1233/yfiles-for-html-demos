@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Node Label Placement Demo
+# Automatic Node Labeling Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/node-labeling.webp" alt="demo-thumbnail" height="320"/>
 

@@ -26,16 +26,17 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { Component, Input } from '@angular/core'
+import { Component, input, output } from '@angular/core'
 import { Person } from '../person'
 import { FormsModule } from '@angular/forms'
 
 @Component({
   selector: 'properties-view',
   templateUrl: './properties-view.component.html',
-  styleUrls: ['./properties-view.component.css'],
+  styleUrl: './properties-view.component.css',
   imports: [FormsModule]
 })
 export class PropertiesViewComponent {
-  @Input() person!: Person
+  person = input<Person | undefined>()
+  personChange = output<void>()
 }

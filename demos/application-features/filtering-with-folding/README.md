@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Filtering with Folding - Application Features
+# Filtering With Folding Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/filtering-with-folding.webp" alt="demo-thumbnail" height="320"/>
 

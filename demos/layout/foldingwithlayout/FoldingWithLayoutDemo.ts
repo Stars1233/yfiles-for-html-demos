@@ -39,11 +39,11 @@ import {
   Size
 } from '@yfiles/yfiles'
 
-import GraphData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import { ExpandCollapseNavigationHelper } from './ExpandCollapseNavigationHandler'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent = null!
 
@@ -94,19 +94,19 @@ function initializeGraph(): void {
 function createGraphBuilder(masterGraph: IGraph): GraphBuilder {
   const graphBuilder = new GraphBuilder(masterGraph)
   graphBuilder.createNodesSource({
-    data: GraphData.nodesSource,
+    data: GraphData.nodes.filter((node) => !node.isGroup),
     id: 'id',
-    parentId: 'group',
-    layout: (data) => data.layout
+    parentId: 'parent',
+    layout: 'layout'
   })
   graphBuilder.createGroupNodesSource({
-    data: GraphData.groupsSource,
+    data: GraphData.nodes.filter((node) => node.isGroup),
     id: 'id',
-    layout: (data) => data.layout,
-    labels: ['label'],
-    parentId: 'parentGroup'
+    layout: 'layout',
+    labels: ['labels'],
+    parentId: 'parent'
   })
-  graphBuilder.createEdgesSource(GraphData.edgesSource, 'from', 'to')
+  graphBuilder.createEdgesSource(GraphData.edges, 'source', 'target')
 
   return graphBuilder
 }

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Simple Drag and Drop - Application Features
+# Simple Drag And Drop Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-drag-and-drop.webp" alt="demo-thumbnail" height="320"/>
 
@@ -21,10 +21,3 @@ This demo shows how to use [NodeDropInputMode](https://docs.yworks.com/yfileshtm
 - Drop nodes and group nodes on other group nodes to add them as their children.
 
 See the sources for details.
-
-## Related Demos
-
-- [Drag and Drop Demo](../../input/draganddrop/)
-- [Graph Drag and Drop Demo](../../input/graph-drag-and-drop/)
-- [Custom Drag and Drop Demo](../../input/custom-drag-and-drop/)
-- [Drag From Component Demo](../../input/drag-from-component/)

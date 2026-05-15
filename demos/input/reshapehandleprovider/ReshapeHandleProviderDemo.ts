@@ -41,7 +41,7 @@ import {
 } from '@yfiles/yfiles'
 import { PortReshapeHandleProvider } from './PortReshapeHandlerProvider'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 let graphEditorInputMode: GraphEditorInputMode

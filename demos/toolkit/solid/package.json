@@ -13,15 +13,15 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@yfiles/demo-app": "../../demo-app",
     "solid-js": "^1.9.10",
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-30.0.5+dev.tgz"
+    "@fontsource/material-symbols-outlined": "^5.2.41",
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.0+dev.tgz"
   },
   "devDependencies": {
     "solid-devtools": "^0.34.4",
-    "typescript": "~5.9.3",
+    "typescript": "~6.0.2",
     "vite": "^7.3.0",
     "vite-plugin-solid": "~2.11.10",
-    "@yworks/optimizer": "^1.8.8"
+    "@yworks/optimizer": "^1.8.9"
   }
 }

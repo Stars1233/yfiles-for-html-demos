@@ -481,7 +481,6 @@ export class NeighborhoodView {
    */
   public update(): void {
     this.neighborhoodComponent.graph.clear()
-
     if (
       this.sourceGraph === null ||
       this.selectedNodes.length === 0 ||

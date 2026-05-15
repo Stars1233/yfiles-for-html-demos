@@ -39,7 +39,7 @@ import {
 } from '@yfiles/yfiles'
 import { PreactComponentNodeStyle } from './PreactComponentNodeStyle'
 import NodeTemplate from './NodeTemplate'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 LayoutExecutor.ensure()
 

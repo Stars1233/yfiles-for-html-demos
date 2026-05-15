@@ -1,15 +1,15 @@
 {
   "name": "@yfiles/demo-utils",
-  "version": "30.0.0",
+  "version": "31.0.0",
   "lockfileVersion": 3,
   "requires": true,
   "packages": {
     "": {
       "name": "@yfiles/demo-utils",
-      "version": "30.0.0",
+      "version": "31.0.0",
       "license": "https://www.yworks.com/products/yfiles-for-html/sla",
       "dependencies": {
-        "@yfiles/yfiles": "^30.0.5+dev",
+        "@yfiles/yfiles": "^31.0.0+dev",
         "lit-html": "~3.3.0"
       }
     },
@@ -29,9 +29,9 @@
       }
     },
     "node_modules/@yfiles/yfiles": {
-      "version": "30.0.5+dev",
-      "integrity": "sha512-DmFWoAJsDTbOt7MOxAsI0mnWbIxh58l4nzkC7nSTSFTq6qDgP3wGS94N4uIEXfieFuJVdRI4l4/qI2npMunbyw==",
-      "resolved": "file:../../lib-dev/yfiles-30.0.5+dev.tgz"
+      "version": "31.0.0+dev",
+      "integrity": "sha512-QcHKo/VTzQRKcGDBGrtqTM/kce3rqTnQqTLLvZDth1EOtT2zHkJzWAF2z9O6ATqGGo7KxS4n2O6M0zWiipv/NQ==",
+      "resolved": "file:../../lib-dev/yfiles-31.0.0+dev.tgz"
     }
   }
 }

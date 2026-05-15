@@ -33,9 +33,7 @@ import {
   IEdge,
   IModelItem,
   INode,
-  Point,
-  QueryItemToolTipEventArgs,
-  TimeSpan
+  QueryItemToolTipEventArgs
 } from '@yfiles/yfiles'
 import React, { useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
@@ -76,12 +74,6 @@ export function useTooltips(graphComponent: GraphComponent) {
 
     // show tooltips only for nodes, edges and labels
     inputMode.toolTipItems = GraphItemTypes.NODE | GraphItemTypes.EDGE | GraphItemTypes.LABEL
-
-    // Customize the tooltip's behavior to our liking.
-    const tooltipInputMode = inputMode.toolTipInputMode
-    tooltipInputMode.toolTipLocationOffset = new Point(15, 15)
-    tooltipInputMode.delay = TimeSpan.fromMilliseconds(500)
-    tooltipInputMode.duration = TimeSpan.fromSeconds(5)
 
     // Register a listener for when a tooltip should be shown.
     const queryItemTooltipListener = (evt: QueryItemToolTipEventArgs<IModelItem>) => {

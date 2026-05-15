@@ -33,7 +33,6 @@ import {
   HorizontalTextAlignment,
   ILabel,
   LabelShape,
-  Point,
   TextWrapping,
   TimeSpan,
   VerticalTextAlignment
@@ -44,11 +43,9 @@ import {
  * The tool tips show a description of the corresponding label's configuration.
  */
 export function configureToolTips(inputMode: GraphInputMode): void {
-  // Customize the tool tip's behavior to our liking.
   const toolTipInputMode = inputMode.toolTipInputMode
-  toolTipInputMode.toolTipLocationOffset = new Point(15, 15)
+  // Show the tooltip faster when hovering an item.
   toolTipInputMode.delay = TimeSpan.fromMilliseconds(50)
-  toolTipInputMode.duration = TimeSpan.fromSeconds(10)
 
   // Register a listener for when a tool tip should be shown.
   inputMode.addEventListener('query-item-tool-tip', (evt): void => {

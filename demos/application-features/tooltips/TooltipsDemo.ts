@@ -27,191 +27,174 @@
  **
  ***************************************************************************/
 import {
-  EdgePathLabelModel,
-  EdgeSides,
   ExteriorNodeLabelModel,
-  GraphBuilder,
+  Font,
+  FontStyle,
   GraphComponent,
-  GraphEditorInputMode,
-  type GroupNodeStyle,
-  GroupNodeStyleTabPosition,
-  HierarchicalLayout,
-  IEdge,
+  type GraphInputMode,
+  GraphItemTypes,
+  GraphViewerInputMode,
   type IGraph,
-  ILabel,
-  type IModelItem,
   INode,
-  IPort,
-  LayoutExecutor,
+  InteriorNodeLabelModel,
+  LabelStyle,
   License,
-  Point,
-  Size,
-  TimeSpan
+  Point
 } from '@yfiles/yfiles'
 
-import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
+import { createDemoNodeLabelStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
-import type { JSONGraph } from '@yfiles/demo-utils/json-model'
-import graphData from './graph-data.json'
+import { configureFollowPointerTooltip } from './configure-follow-pointer-tooltip'
+import { configureAboveNodeTooltip } from './configure-fixed-tooltip'
+import { configureViewportBottomCenterTooltip } from './configure-viewport-tooltip'
+import { configureLightDismissablePopover } from './configure-auto-popover'
+import { configureManualPopover } from './configure-manual-popover'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import type { ColorSetName } from '@yfiles/demo-app/demo-colors'
+import { createTooltipContent } from './create-content'
 
-let graphComponent: GraphComponent
-
-/**
- * Bootstraps the demo.
- */
 async function run(): Promise<void> {
   License.value = licenseData
 
   // initialize graph component
-  graphComponent = new GraphComponent('#graphComponent')
-  graphComponent.inputMode = new GraphEditorInputMode()
+  const graphComponent = new GraphComponent('#graphComponent')
 
-  // configures default styles for newly created graph elements
-  initializeGraph(graphComponent.graph)
+  // disable interactive graph editing
+  const inputMode = new GraphViewerInputMode()
+  graphComponent.inputMode = inputMode
 
-  // enable tooltips
-  initializeTooltips()
+  // configure tooltips and popovers
+  initializeTooltips(inputMode)
+  initializePopovers(inputMode)
 
-  // build the graph from the given data set
-  buildGraph(graphComponent.graph, graphData)
-
-  // layout and center the graph
-  LayoutExecutor.ensure()
-  graphComponent.graph.applyLayout(new HierarchicalLayout())
-  await graphComponent.fitGraphBounds()
-
-  // enable undo after the initial graph was populated since we don't want to allow undoing that
-  graphComponent.graph.undoEngineEnabled = true
+  // build a sample graph to demonstrate the different tooltips and popovers
+  buildGraph(graphComponent)
 }
 
 /**
- * Creates nodes and edges according to the given data.
+ * Initializes tooltips that show when hovering an item.
  */
-function buildGraph(graph: IGraph, graphData: JSONGraph): void {
-  const graphBuilder = new GraphBuilder(graph)
+function initializeTooltips(inputMode: GraphInputMode): void {
+  // the demo shows only node tooltips, but it works the same for any graph item
+  inputMode.toolTipItems = GraphItemTypes.NODE
 
-  graphBuilder
-    .createNodesSource({
-      data: graphData.nodeList.filter((item) => !item.isGroup),
-      id: (item) => item.id,
-      parentId: (item) => item.parentId
-    })
-    .nodeCreator.createLabelBinding((item) => item.label)
-
-  graphBuilder
-    .createGroupNodesSource({
-      data: graphData.nodeList.filter((item) => item.isGroup),
-      id: (item) => item.id
-    })
-    .nodeCreator.createLabelBinding((item) => item.label)
-
-  graphBuilder
-    .createEdgesSource({
-      data: graphData.edgeList,
-      sourceId: (item) => item.source,
-      targetId: (item) => item.target
-    })
-    .edgeCreator.createLabelBinding((item) => item.label)
-
-  graphBuilder.buildGraph()
-}
-
-/**
- * Dynamic tooltips are implemented by adding a tooltip provider as an event handler for the 'query-item-tool-tip'
- * event of the {@link GraphEditorInputMode} using the {@link QueryItemToolTipEventArgs} parameter.
- * The {@link QueryItemToolTipEventArgs} parameter provides three relevant properties:
- * handled, queryLocation, and toolTip. The {@link QueryItemToolTipEventArgs.handled} property is a flag which indicates
- * whether the tooltip was already set by one of possibly several tooltip providers. The
- * {@link QueryItemToolTipEventArgs.queryLocation} property contains the mouse position for the query in world coordinates.
- * The {@link QueryItemToolTipEventArgs.toolTip} is set by setting the ToolTip property.
- */
-function initializeTooltips(): void {
-  const inputMode = graphComponent.inputMode as GraphEditorInputMode
-
-  // Customize the tooltip's behavior to our liking.
-  const toolTipInputMode = inputMode.toolTipInputMode
-  toolTipInputMode.toolTipLocationOffset = new Point(15, 15)
-  toolTipInputMode.delay = TimeSpan.fromMilliseconds(500)
-  toolTipInputMode.duration = TimeSpan.fromSeconds(5)
-
-  // Register a listener for when a tooltip should be shown.
-  inputMode.addEventListener('query-item-tool-tip', (evt): void => {
+  // register a listener for when a tooltip should be shown
+  inputMode.addEventListener('query-item-tool-tip', (evt) => {
     if (evt.handled) {
-      // Tooltip content has already been assigned -> nothing to do.
+      // tooltip content has already been assigned -> nothing to do
       return
     }
 
-    // Use a rich HTML element as tooltip content. Alternatively, a plain string would do as well.
-    evt.toolTip = createTooltipContent(evt.item!)
+    // this is a node because of the chosen toolTipItems above
+    const node = evt.item as INode
 
-    // Indicate that the tooltip content has been set.
+    // by default, the tooltip is opened at the pointer and stays open until the element is exited
+    evt.toolTip = createTooltipContent(node)
+
+    // depending on the node, the demo illustrates different tooltip behaviors on different nodes
+    const labelTexts = node.labels.map((l) => l.text)
+    if (labelTexts.includes('Above Node')) {
+      configureAboveNodeTooltip(evt)
+    } else if (labelTexts.includes('Follow Pointer')) {
+      configureFollowPointerTooltip(evt)
+    } else if (labelTexts.includes('Viewport Bottom Center')) {
+      configureViewportBottomCenterTooltip(evt)
+    }
+
+    // indicate that the tooltip content has been set
     evt.handled = true
   })
 }
 
 /**
- * The tooltip may either be a plain string or it can also be a rich HTML element. In this case, we
- * show the latter. We just extract the first label text from the given item and show it as
- * tooltip.
- * Basic tooltip styling can be done using yfiles-tooltip CSS class (see index.html).
+ * Initializes popovers that open on node click.
  */
-function createTooltipContent(item: IModelItem): HTMLElement {
-  const title = document.createElement('h4')
-
-  // depending on the item, show a different title
-  if (item instanceof INode) {
-    title.innerHTML = 'Node Tooltip'
-  } else if (item instanceof IEdge) {
-    title.innerHTML = 'Edge Tooltip'
-  } else if (item instanceof IPort) {
-    title.innerHTML = 'Port Tooltip'
-  } else if (item instanceof ILabel) {
-    title.innerHTML = 'Label Tooltip'
-  }
-
-  // extract the first label from the item
-  let label = ''
-  if (item instanceof INode || item instanceof IEdge || item instanceof IPort) {
-    if (item.labels.size > 0) {
-      label = item.labels.first()!.text
+function initializePopovers(inputMode: GraphInputMode): void {
+  inputMode.addEventListener('item-clicked', (evt, sender) => {
+    if (!(evt.item instanceof INode)) {
+      return
     }
-  } else if (item instanceof ILabel) {
-    label = item.text
-  }
-  const text = document.createElement('p')
-  text.innerHTML = `Label: ${label}`
 
-  // build the tooltip container
-  const tooltip = document.createElement('div')
-  tooltip.classList.add('tooltip')
-  tooltip.appendChild(title)
-  tooltip.appendChild(text)
-  return tooltip
+    // depending on the node, the demo illustrates different popover behaviors
+    const labelTexts = evt.item.labels.map((l) => l.text)
+    if (labelTexts.includes('Light-dismissable Popover')) {
+      configureLightDismissablePopover(evt, sender)
+    } else if (labelTexts.includes('Manual Popover')) {
+      configureManualPopover(evt, sender)
+    }
+  })
 }
 
 /**
- * Initializes the defaults for the styling in this demo.
- *
- * @param graph The graph.
+ * Creates a sample graph.
  */
-function initializeGraph(graph: IGraph): void {
-  // set styles for this demo
-  initDemoStyles(graph)
+function buildGraph(graphComponent: GraphComponent): void {
+  const graph = graphComponent.graph
+  graph.nodeDefaults.size = [100, 100]
+  graph.nodeDefaults.labels.layoutParameter = InteriorNodeLabelModel.CENTER
+  graph.nodeDefaults.labels.style = new LabelStyle({
+    textFill: '#fff',
+    font: new Font({ fontSize: 12, fontStyle: FontStyle.ITALIC })
+  })
 
-  const groupNodeStyle = graph.groupNodeDefaults.style as GroupNodeStyle
-  groupNodeStyle.tabPosition = GroupNodeStyleTabPosition.RIGHT
-  groupNodeStyle.cornerRadius = 8
+  createStyledNode(graph, new Point(0, 0), 'Hover', 'Default Behavior', 'demo-palette-91')
+  createStyledNode(graph, new Point(200, 0), 'Hover', 'Above Node', 'demo-palette-92')
+  createStyledNode(graph, new Point(400, 0), 'Hover', 'Follow Pointer', 'demo-palette-93')
+  createStyledNode(graph, new Point(600, 0), 'Hover', 'Viewport Bottom Center', 'demo-palette-94')
 
-  // set sizes and locations specific for this demo
-  graph.nodeDefaults.size = new Size(40, 40)
-  graph.nodeDefaults.labels.layoutParameter = new ExteriorNodeLabelModel({
-    margins: 5
-  }).createParameter('bottom')
-  graph.edgeDefaults.labels.layoutParameter = new EdgePathLabelModel({
-    distance: 5,
-    autoRotation: true
-  }).createRatioParameter({ sideOfEdge: EdgeSides.BELOW_EDGE })
+  // light-dismissable popovers
+  createStyledNode(
+    graph,
+    new Point(800, -200),
+    'Click',
+    'Light-dismissable Popover',
+    'demo-palette-95'
+  )
+  createStyledNode(
+    graph,
+    new Point(800, 0),
+    'Click',
+    'Light-dismissable Popover',
+    'demo-palette-95'
+  )
+  createStyledNode(
+    graph,
+    new Point(800, 200),
+    'Click',
+    'Light-dismissable Popover',
+    'demo-palette-95'
+  )
+
+  // manual popovers
+  createStyledNode(graph, new Point(1000, -200), 'Click', 'Manual Popover', 'demo-palette-96')
+  createStyledNode(graph, new Point(1000, 0), 'Click', 'Manual Popover', 'demo-palette-96')
+  createStyledNode(graph, new Point(1000, 200), 'Click', 'Manual Popover', 'demo-palette-96')
+
+  void graphComponent.fitGraphBounds()
+}
+
+/**
+ * Creates a styled node with given labels.
+ */
+function createStyledNode(
+  graph: IGraph,
+  location: Point,
+  centerText: string,
+  bottomText: string,
+  colorSetName: ColorSetName
+): void {
+  graph.createNodeAt({
+    location,
+    style: createDemoNodeStyle(colorSetName),
+    labels: [
+      { text: centerText },
+      {
+        text: bottomText,
+        layoutParameter: ExteriorNodeLabelModel.BOTTOM,
+        style: createDemoNodeLabelStyle(colorSetName)
+      }
+    ]
+  })
 }
 
 run().then(finishLoading)

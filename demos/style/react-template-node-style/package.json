@@ -11,18 +11,20 @@
   },
   "dependencies": {
     "@babel/standalone": "^7.28.5",
+    "@fontsource/material-symbols-outlined": "^5.2.1",
+    "@fontsource/poppins": "^5.2.7",
     "@yfiles/demo-app": "../../demo-app",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-30.0.5+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.0+dev.tgz"
   },
   "devDependencies": {
     "@types/babel__standalone": "^7.1.9",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.2",
-    "@yworks/optimizer": "^1.8.8",
-    "typescript": "~5.9.3",
+    "@yworks/optimizer": "^1.8.9",
+    "typescript": "~6.0.2",
     "vite": "^7.3.0"
   }
 }

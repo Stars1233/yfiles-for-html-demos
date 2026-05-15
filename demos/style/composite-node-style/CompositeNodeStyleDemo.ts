@@ -41,9 +41,9 @@ import {
   Size
 } from '@yfiles/yfiles'
 
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { ScalingNodeStyle } from './ScalingNodeStyle'
 
 /**
@@ -107,13 +107,18 @@ function configureGraph(graph: IGraph, styleDefinitions: StyleDefinitions): void
 function createGraph(graph: IGraph, stylesDefinitions: StyleDefinitions) {
   const builder = new GraphBuilder(graph)
   builder.createNodesSource({
-    data: SampleData.nodes,
+    data: GraphData.nodes,
     id: 'id',
-    labels: ['label'],
-    layout: 'bounds',
+    labels: ['labels'],
+    layout: 'layout',
     style: (data) => createCompositeStyle(stylesDefinitions, data.type as keyof StyleDefinitions)
   })
-  builder.createEdgesSource({ data: SampleData.edges, id: 'id', sourceId: 'src', targetId: 'tgt' })
+  builder.createEdgesSource({
+    data: GraphData.edges,
+    id: 'id',
+    sourceId: 'source',
+    targetId: 'target'
+  })
   builder.buildGraph()
 }
 

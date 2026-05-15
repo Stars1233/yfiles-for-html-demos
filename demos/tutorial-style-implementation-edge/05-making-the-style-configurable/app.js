@@ -35,7 +35,7 @@ import {
   initializeTutorialDefaults
 } from '../common'
 
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { CustomEdgeStyle } from './CustomEdgeStyle'
 import { createEdges } from './create-edges'
 

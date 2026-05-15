@@ -48,7 +48,7 @@ import { SocialNetworkNodeStyle } from './SocialNetworkNodeStyle'
 import { PropertiesPanel } from './PropertiesPanel'
 import { copyWithFriends } from './Person'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 LayoutExecutor.ensure()
 

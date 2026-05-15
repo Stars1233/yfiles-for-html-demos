@@ -45,10 +45,11 @@ import { svg } from 'lit-html'
 
 import { createNodeBusinessData, getCommonName } from './BusinessDataHandling'
 import { TaggedNodeClipboardHelper } from './ClipboardHelper'
-import { createDemoEdgeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { bindYFilesCommand, finishLoading } from '@yfiles/demo-app/demo-page'
 import { LitNodeStyle, type LitNodeStyleProps } from '@yfiles/demo-utils/LitNodeStyle'
+import { createDemoEdgeStyle } from '@yfiles/demo-app/demo-styles'
+import { bindYFilesCommand } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 let graphComponent2: GraphComponent
@@ -188,14 +189,14 @@ function initializeUI() {
 
   // Right GraphComponent
   bindYFilesCommand(
-    "button[data-command='ZoomIn2']",
+    "button[data-command='INCREASE_ZOOM2']",
     Command.INCREASE_ZOOM,
     graphComponent2,
     null,
     'Increase zoom'
   )
   bindYFilesCommand(
-    "button[data-command='ZoomOut2']",
+    "button[data-command='DECREASE_ZOOM2']",
     Command.DECREASE_ZOOM,
     graphComponent2,
     null,
@@ -203,8 +204,8 @@ function initializeUI() {
   )
 
   document
-    .querySelector("button[data-command='FitContent2']")!
-    .addEventListener('click', () => graphComponent.fitGraphBounds())
+    .querySelector("button[data-command='FIT_GRAPH_BOUNDS2']")!
+    .addEventListener('click', () => graphComponent2.fitGraphBounds())
 
   bindYFilesCommand(
     "button[data-command='ZoomOriginal2']",
@@ -215,14 +216,14 @@ function initializeUI() {
   )
 
   const undoEngine = graphComponent2.graph.undoEngine!
-  const undo2Button = document.querySelector<HTMLButtonElement>("button[data-command='Undo2']")!
+  const undo2Button = document.querySelector<HTMLButtonElement>("button[data-command='UNDO2']")!
   undo2Button.addEventListener('click', (): void => {
     if (undoEngine.canUndo()) {
       undoEngine.undo()
     }
   })
 
-  const redo2Button = document.querySelector<HTMLButtonElement>("button[data-command='Redo2']")!
+  const redo2Button = document.querySelector<HTMLButtonElement>("button[data-command='REDO2']")!
   redo2Button.addEventListener('click', (): void => {
     if (undoEngine.canRedo()) {
       undoEngine.redo()
@@ -237,16 +238,16 @@ function initializeUI() {
 
   const inputMode = graphComponent2.inputMode as GraphEditorInputMode
   document
-    .querySelector("button[data-command='Cut2']")!
+    .querySelector("button[data-command='CUT2']")!
     .addEventListener('click', (): void => inputMode.cut())
   document
-    .querySelector("button[data-command='Copy2']")!
+    .querySelector("button[data-command='COPY2']")!
     .addEventListener('click', (): void => inputMode.copy())
   document
-    .querySelector("button[data-command='Paste2']")!
+    .querySelector("button[data-command='PASTE2']")!
     .addEventListener('click', (): void => inputMode.paste())
   document
-    .querySelector("button[data-command='Delete2']")!
+    .querySelector("button[data-command='DELETE2']")!
     .addEventListener('click', (): void => inputMode.deleteSelection())
   document
     .querySelector('#paste-special2')!

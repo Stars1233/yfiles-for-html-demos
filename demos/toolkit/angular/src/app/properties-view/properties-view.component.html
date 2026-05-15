@@ -1,30 +1,53 @@
 <div class="demo-sidebar__content">
   <h2>Properties</h2>
-  @if (person) {
+  @if (person(); as p) {
     <div>
       <label>
         Name
-        <input type="text" [(ngModel)]="person.name" />
+        <input
+          type="text"
+          [ngModel]="p.name"
+          (ngModelChange)="p.name = $event; personChange.emit()"
+        />
       </label>
       <label>
         Position
-        <input type="text" [(ngModel)]="person.position" />
+        <input
+          type="text"
+          [ngModel]="p.position"
+          (ngModelChange)="p.position = $event; personChange.emit()"
+        />
       </label>
       <label>
         E-Mail
-        <input type="text" [(ngModel)]="person.email" />
+        <input
+          type="text"
+          [ngModel]="p.email"
+          (ngModelChange)="p.email = $event; personChange.emit()"
+        />
       </label>
       <label>
         Phone
-        <input type="text" [(ngModel)]="person.phone" />
+        <input
+          type="text"
+          [ngModel]="p.phone"
+          (ngModelChange)="p.phone = $event; personChange.emit()"
+        />
       </label>
       <label>
         Fax
-        <input type="text" [(ngModel)]="person.fax" />
+        <input
+          type="text"
+          [ngModel]="p.fax"
+          (ngModelChange)="p.fax = $event; personChange.emit()"
+        />
       </label>
       <label>
         Business Unit
-        <select [(ngModel)]="person.businessUnit">
+        <select
+          [ngModel]="p.businessUnit"
+          (ngModelChange)="p.businessUnit = $event; personChange.emit()"
+        >
           <option>Executive Unit</option>
           <option>Production</option>
           <option>Sales</option>
@@ -33,7 +56,7 @@
       </label>
     </div>
   }
-  @if (!person) {
+  @if (!person()) {
     <div>
       <h4>Please select a node.</h4>
     </div>

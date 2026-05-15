@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Layer Constraints
+# Hierarchical Layout with Layer Constraints Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-layer-constraints.webp" alt="demo-thumbnail" height="320"/>
 

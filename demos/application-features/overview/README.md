@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Overview - Application Features
+# Overview Component Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/overview.webp" alt="demo-thumbnail" height="320"/>
 
@@ -20,7 +20,7 @@ This demo shows how to add an overview component to the application.
 ## Things to Try
 
 - Drag the blue rectangle in the overview to move the viewport of the canvas.
-- Drag the handle at the lower right corner of the blue rectangle to change the zoom level of the canvas.
+- Drag the handle in the lower right corner of the blue rectangle to change the zoom level of the canvas.
 - Use the mouse wheel over both the overview and the canvas to see the effect of zooming in both views.
 
 See the sources for details.

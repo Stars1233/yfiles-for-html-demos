@@ -118,9 +118,9 @@ import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import { EventView } from './EventView'
 import licenseData from '../../../lib/license.json'
 import { configureTwoPointerPanning } from '@yfiles/demo-utils/configure-two-pointer-panning'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import type { JSONGraph } from '@yfiles/demo-utils/json-model'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * This demo shows how to register to the various events provided by the {@link IGraph graph},
@@ -189,7 +189,7 @@ function buildGraph(graph: IGraph, graphData: JSONGraph): void {
     .createNodesSource({
       data: graphData.nodeList.filter((item) => !item.isGroup),
       id: (item) => item.id,
-      parentId: (item) => item.parentId
+      parentId: (item) => item.parent
     })
     .nodeCreator.createLabelBinding((item) => item.label)
 
@@ -2037,7 +2037,7 @@ function clipboardOnItemsDuplicated(_: GraphClipboardEventArgs, sender: GraphCli
 /**
  * Invoked when the currentItem property has changed its value
  */
-function componentOnCurrentItemChanged(_: PropertyChangedEventArgs, sender: GraphComponent): void {
+function componentOnCurrentItemChanged(_: EventArgs, sender: GraphComponent): void {
   log(sender, 'GraphComponent CurrentItemChanged')
 }
 
@@ -2176,7 +2176,7 @@ function componentOnUpdatingVisual(_: EventArgs, sender: GraphComponent): void {
 /**
  * Invoked when the viewport property has been changed.
  */
-function componentOnViewportChanged(_: PropertyChangedEventArgs, sender: GraphComponent): void {
+function componentOnViewportChanged(_: EventArgs, sender: GraphComponent): void {
   log(sender, 'GraphComponent ViewportChanged')
 }
 
@@ -3201,7 +3201,7 @@ function initializeGraph(): void {
 }
 
 function initializeDragAndDropPanel(): void {
-  const panel = document.getElementById('drag-and-drop-panel')!
+  const panel = document.getElementById('dnd-panel')!
   panel.appendChild(createDraggableNode())
   panel.appendChild(createDraggableLabel())
 }
@@ -3216,8 +3216,9 @@ function createDraggableNode(): HTMLElement {
     SvgExport.exportSvgString(svgExport.exportSvg(exportComponent))
   )
   const div = document.createElement('div')
-  div.setAttribute('style', 'width: 30px; height: 30px; margin: 0 10px; touch-action: none;')
+  div.setAttribute('style', 'width: 50px; height: 50px; margin: 0 10px; touch-action: none;')
   div.setAttribute('title', 'Draggable Node')
+  div.classList.add('demo-dnd-panel__item')
   const img = document.createElement('img')
   img.setAttribute('style', 'width: auto; height: auto;')
   img.setAttribute('src', dataUrl)
@@ -3274,8 +3275,9 @@ function createDraggableLabel(): HTMLDivElement {
     SvgExport.exportSvgString(svgExport.exportSvg(exportComponent))
   )
   const div = document.createElement('div')
-  div.setAttribute('style', 'width: 30px; height: 30px; margin: 0 10px; touch-action: none;')
+  div.setAttribute('style', 'width: 50px; height: 50px; margin: 0 10px; touch-action: none;')
   div.setAttribute('title', 'Draggable Label')
+  div.classList.add('demo-dnd-panel__item')
   const img = document.createElement('img')
   img.setAttribute('style', 'width: auto; height: auto;')
   img.setAttribute('src', dataUrl)
@@ -3339,7 +3341,6 @@ function setupContextMenu(): void {
   editorMode.contextMenuItems = GraphItemTypes.NODE
   viewerMode.contextMenuItems = GraphItemTypes.NODE
   const listener = (evt: PopulateItemContextMenuEventArgs<IModelItem>) => {
-    console.log('Menu')
     evt.contextMenu = [
       {
         label: 'Context Menu Action',
@@ -3450,8 +3451,10 @@ function getAffectedItems(sender: MoveInputMode | HandleInputMode): string {
  */
 function initOptionHeadings(): void {
   const optionsHeadings = document.getElementsByClassName('event-options-heading')
+  const optionHeadingIcons = document.getElementsByClassName('expand-collapse-icon')
   for (let i = 0; i < optionsHeadings.length; i++) {
     const heading = optionsHeadings[i]
+    const Icon = optionHeadingIcons[i]
     optionsHeadings[i].addEventListener('click', (e) => {
       e.preventDefault()
       const parentNode = heading.parentNode as Element
@@ -3462,10 +3465,13 @@ function initOptionHeadings(): void {
         const style = optionsElements[0].style
         if (style.display !== 'none') {
           style.display = 'none'
+
           heading.className = heading.className.replace('expanded', 'collapsed')
+          Icon.innerHTML = 'keyboard_arrow_right'
         } else {
           style.display = 'block'
           heading.className = heading.className.replace('collapsed', 'expanded')
+          Icon.innerHTML = 'keyboard_arrow_down'
         }
       }
       return false
@@ -3473,12 +3479,18 @@ function initOptionHeadings(): void {
   }
 
   const headings = document.getElementsByClassName('event-options-heading')
+  const container = document.getElementById('event-options')!
+
   for (let i = 0; i < headings.length; i++) {
     const heading = headings[i]
     heading.addEventListener('click', (evt) => {
       if (evt.target instanceof HTMLDivElement) {
         evt.target.scrollIntoView()
       }
+      container.scrollTop = Math.min(
+        container.scrollTop,
+        container.scrollHeight - container.clientHeight
+      )
     })
   }
 }

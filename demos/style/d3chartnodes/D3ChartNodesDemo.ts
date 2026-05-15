@@ -33,13 +33,12 @@ import {
   GraphEditorInputMode,
   LabelStyle,
   License,
-  PolylineEdgeStyle,
-  Rect
+  PolylineEdgeStyle
 } from '@yfiles/yfiles'
-import SampleData from './D3ChartNodesData'
+import GraphData from './graph-data.json'
 import { D3ChartNodeStyle } from './D3ChartNodeStyle'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -102,17 +101,16 @@ function loadSampleGraph(): void {
 
   graph.edgeDefaults.style = new PolylineEdgeStyle()
 
-  const defaultNodeSize = graphComponent.graph.nodeDefaults.size
   const builder = new GraphBuilder(graphComponent.graph)
   builder.createNodesSource({
-    data: SampleData.nodes,
+    data: GraphData.nodes,
     id: 'id',
-    layout: (data) => new Rect(data.x, data.y, defaultNodeSize.width, defaultNodeSize.height),
-    labels: ['label'],
+    layout: 'layout',
+    labels: ['labels'],
     // put random data in tag of each node
     tag: () => createRandomSparklineData()
   })
-  builder.createEdgesSource(SampleData.edges, 'source', 'target', 'id')
+  builder.createEdgesSource(GraphData.edges, 'source', 'target', 'id')
 
   builder.buildGraph()
 

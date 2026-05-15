@@ -284,7 +284,7 @@ export class FlowchartLayout extends BaseClass(ILayoutAlgorithm) {
         portCandidateSelector: new FlowchartPortCandidateSelector(),
         fromScratchLayerAssigner: layerer
       },
-      coordinateAssigner: { straightenEdges: true }
+      coordinateAssigner: { maximumPortDeviation: 50 }
     })
   }
 

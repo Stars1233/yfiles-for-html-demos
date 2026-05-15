@@ -27,21 +27,15 @@
  **
  ***************************************************************************/
 'use client'
-import styles from './page.module.css'
-import DemoDescription from '@/app/components/DemoDescription'
-import DemoDataPanel from '@/app/components/DemoDataPanel'
 import dynamic from 'next/dynamic'
-
 import React, { useCallback, useState } from 'react'
-import { ReactGraphComponentProps } from '@/app/components/ReactGraphComponent'
+import '@fontsource/material-symbols-outlined/300.css'
 
-const yLogo = '/assets/ylogo.svg'
-
-// render ReactGraphComponent only client side
-const ReactGraphComponent = dynamic<ReactGraphComponentProps>(
-  () => import('@/app/components/ReactGraphComponent').then((mod) => mod.ReactGraphComponent),
-  { ssr: false, loading: () => <div className={'main-loader'}></div> }
-)
+// render the graph component and its provider only client side
+const ClientSideGraph = dynamic(() => import('@/app/components/ClientSideGraph'), {
+  ssr: false,
+  loading: () => <div className={'main-loader'}></div>
+})
 
 export interface NodeData {
   id: number
@@ -111,34 +105,28 @@ export default function Home() {
   }, [setGraphData])
 
   return (
-    <main id="root" className={styles.main}>
+    <main id="root">
       <div className="app">
-        <aside className="demo-sidebar left demo-page__description">
-          <DemoDescription />
-        </aside>
-        <aside className="demo-sidebar right">
-          <DemoDataPanel graphData={graphData} onAddNode={addNode} onRemoveNode={removeNode} />
-        </aside>
-
         <div className="demo-header">
-          <a href="https://www.yfiles.com" target="_blank" rel="noopener noreferrer">
-            <img src={yLogo} className="demo-y-logo" alt="yWorks Logo" />
-          </a>
-          <a href="https://www.yfiles.com" target="_blank" rel="noopener noreferrer">
-            yFiles for HTML
-          </a>
           <a
-            href="../../../README.html"
+            href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+            className="y-logo"
             target="_blank"
-            className={'demo-title'}
-            rel="noopener noreferrer"
-          >
+            title="yFiles Product Page"
+          ></a>
+          <span className="material-symbols-outlined demo-overview">chevron_right</span>
+          <a href="../../../README.html" target="_blank" rel="noopener noreferrer">
             Demos
           </a>
-          <span className="demo-title">Next.js Demo</span>
+          <span className="material-symbols-outlined demo-overview">chevron_right</span>
+          <span>Next.js Demo</span>
         </div>
-
-        <ReactGraphComponent graphData={graphData} onResetData={resetData} />
+        <ClientSideGraph
+          graphData={graphData}
+          onResetData={resetData}
+          addNode={addNode}
+          removeNode={removeNode}
+        />
       </div>
     </main>
   )

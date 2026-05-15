@@ -47,7 +47,8 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 
@@ -304,13 +305,13 @@ function createNestedGroupSample(origin) {
  * Binds the actions to the buttons in the demo's toolbar.
  */
 function initializeUI() {
-  addNavigationButtons(document.querySelector('#select-rendering-order')).addEventListener(
-    'change',
-    (evt) => {
-      const value = evt.target.value
-      selectRenderingOrder(value)
-    }
-  )
+  addNavigationButtons(
+    document.querySelector('#select-rendering-order'),
+    'Rendering Order:'
+  ).addEventListener('change', (evt) => {
+    const value = evt.target.value
+    selectRenderingOrder(value)
+  })
 }
 
 /**

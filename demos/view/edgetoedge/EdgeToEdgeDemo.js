@@ -54,7 +54,7 @@ import {
 import { EdgePathPortCandidateProvider } from './EdgePathPortCandidateProvider'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 
@@ -77,6 +77,7 @@ async function run() {
   License.value = licenseData
 
   graphComponent = new GraphComponent('graphComponent')
+  graphComponent.contentMargins = { top: 100, bottom: 10, left: 10, right: 10 }
   initializeInputMode()
 
   initializeGraph()

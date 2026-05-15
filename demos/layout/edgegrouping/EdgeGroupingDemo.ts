@@ -59,10 +59,10 @@ import {
   type Visual
 } from '@yfiles/yfiles'
 
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import { createDemoNodeStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 type EdgeTag = { sourceGroupId?: string; targetGroupId?: string }
 
@@ -84,11 +84,7 @@ async function run(): Promise<void> {
  */
 async function runLayout(fromSketch: boolean) {
   setUIDisabled(true)
-  const layout = new HierarchicalLayout({
-    minimumLayerDistance: 70,
-    fromSketchMode: fromSketch,
-    coordinateAssigner: { bendReduction: false }
-  })
+  const layout = new HierarchicalLayout({ minimumLayerDistance: 70, fromSketchMode: fromSketch })
 
   const layoutData = new HierarchicalLayoutData({
     edgeThickness: 3,
@@ -141,8 +137,8 @@ function createSampleGraph(): void {
   bridgeManager.addObstacleProvider(new GraphObstacleProvider())
 
   const builder = new GraphBuilder(graph)
-  builder.createNodesSource(SampleData.nodes, 'id')
-  builder.createEdgesSource(SampleData.edges, 'from', 'to', 'id')
+  builder.createNodesSource(GraphData.nodes, 'id')
+  builder.createEdgesSource(GraphData.edges, 'source', 'target', 'id')
   builder.buildGraph()
 
   graph.edges.forEach((edge) => {

@@ -96,16 +96,13 @@ export class DiagramComponent {
       .forEach((button) => button.removeAttribute('disabled'))
 
     // wire up buttons
-    document.getElementById('zoom-in-btn')!.addEventListener('click', () => {
+    document.getElementById('zoom-in-button')!.addEventListener('click', () => {
       this.graphComponent.executeCommand(Command.INCREASE_ZOOM)
     })
-    document.getElementById('zoom-out-btn')!.addEventListener('click', () => {
+    document.getElementById('zoom-out-button')!.addEventListener('click', () => {
       this.graphComponent.executeCommand(Command.DECREASE_ZOOM)
     })
-    document.getElementById('reset-zoom-btn')!.addEventListener('click', () => {
-      this.graphComponent.executeCommand(Command.ZOOM, 1)
-    })
-    document.getElementById('fit-zoom-btn')!.addEventListener('click', async () => {
+    document.getElementById('fit-graph-button')!.addEventListener('click', async () => {
       await this.graphComponent.fitGraphBounds()
     })
     document.getElementById('apply-layout-btn')!.addEventListener('click', async () => {

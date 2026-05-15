@@ -48,7 +48,7 @@ import {
 } from '@yfiles/yfiles'
 import { colorSets, createDemoNodeLabelStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const basicShape = document.querySelector<HTMLSelectElement>('#basic-shape')!
 const shapeDirection = document.querySelector<HTMLSelectElement>('#shape-direction')!
@@ -253,6 +253,8 @@ function initializeUI(graphComponent: GraphComponent): void {
       adjustOptionPanel(graphComponent, evt.item)
     }
   })
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
 }
 
 /**

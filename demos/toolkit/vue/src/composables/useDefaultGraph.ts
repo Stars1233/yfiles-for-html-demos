@@ -53,25 +53,26 @@ export function useDefaultGraph(getGraphComponent: () => GraphComponent) {
 
     // configure the styles of the nodes and their labels
     graph.nodeDefaults.style = new ShapeNodeStyle({
-      fill: '#FF6C00',
-      stroke: '#662F01',
-      shape: 'round-rectangle'
+      fill: '#e56399',
+      stroke: '#490e26',
+      shape: 'squircle'
     })
     graph.nodeDefaults.labels.style = new LabelStyle({
       textSize: 12,
       horizontalTextAlignment: 'center',
       verticalTextAlignment: 'center',
       wrapping: 'wrap-word',
-      textFill: '#662F01',
-      backgroundFill: '#FFC398',
-      padding: 2
+      textFill: '#490e26',
+      backgroundFill: '#ffcfe4',
+      padding: 2,
+      shape: 'pill'
     })
     graph.nodeDefaults.labels.layoutParameter = InteriorNodeLabelModel.CENTER
 
     // configure the style of the edges
     graph.edgeDefaults.style = new PolylineEdgeStyle({
-      stroke: '#662F01',
-      targetArrow: new Arrow({ type: 'triangle', stroke: '#662F01', fill: '#662F01' })
+      stroke: '#490e26',
+      targetArrow: new Arrow({ type: 'triangle', stroke: '#490e26', fill: '#490e26' })
     })
   }
 

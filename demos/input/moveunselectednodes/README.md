@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Move Unselected Nodes Demo
+# Move Unselected Nodes Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/move-unselected-nodes.webp" alt="demo-thumbnail" height="320"/>
 

@@ -71,7 +71,8 @@ import { createCanvasContext, createFontAwesomeIcon } from '@yfiles/demo-utils/I
 import licenseData from '../../../lib/license.json'
 import { configureEditor, getNumber, getStroke, getValue, updateEditor } from './PropertiesEditor'
 import { configureTwoPointerPanning } from '@yfiles/demo-utils/configure-two-pointer-panning'
-import { checkWebGL2Support, finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { checkWebGL2Support } from '@yfiles/demo-app/modern/element-utils'
 
 let fontAwesomeIcons: ImageData[]
 let foldingManager: FoldingManager
@@ -612,7 +613,8 @@ function createGraph(graphComponent: GraphComponent) {
     WebGLShapeNodeShape.HEXAGON_STANDING,
     WebGLShapeNodeShape.OCTAGON,
     WebGLShapeNodeShape.TRIANGLE,
-    WebGLShapeNodeShape.PILL
+    WebGLShapeNodeShape.PILL,
+    WebGLShapeNodeShape.SQUIRCLE
   ]
 
   const effects: WebGLEffect[] = [

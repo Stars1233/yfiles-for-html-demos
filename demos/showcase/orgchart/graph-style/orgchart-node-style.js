@@ -29,7 +29,7 @@
 import { createLitNodeStyleFromSource } from '@yfiles/demo-utils/LitNodeStyle'
 
 /**
- * Creates a new {@link Vue2NodeStyle} with a template that shows more details on higher
+ * Creates a new {@link LitNodeStyle} with a template that shows more details on higher
  * zoom levels and fewer details on lower zoom levels.
  */
 export function createOrgChartNodeStyle(graphComponent, nodeSize) {
@@ -77,9 +77,9 @@ const nodeStyleTemplate = `({ layout, tag, selected, zoom }) => {
     \${zoom >= 1 ? svg\`
       <image href="./resources/\${tag.icon}.svg" x='15' y='10' width='63.75' height='63.75'></image>
       <image href="./resources/\${tag.status}_icon.svg" x='25' y='80' height='15' width='60'></image>
-      <g style='font-size:10px; font-family:Roboto,sans-serif; font-weight: 300; fill: #444'>
+      <g style='font-size:10px; font-family:Poppins,sans-serif; font-weight: 300; fill: #444'>
         <text transform='translate(100 25)' style='font-size:16px; fill:#336699'>\${tag.name}</text>
-        \${formatPosition(tag.position, 30).map((line, i) => svg\`<text x='100' y='\${i*15+45}' font-size='10' font-family='Roboto,sans-serif'>\${line}</text>\`)}
+        \${formatPosition(tag.position, 30).map((line, i) => svg\`<text x='100' y='\${i*15+45}' font-size='10' font-family='Poppins,sans-serif'>\${line}</text>\`)}
         <text transform='translate(100 72)'>\${tag.email}</text>
         <text transform='translate(100 88)'>\${tag.phone}</text>
         <text transform='translate(170 88)'>\${tag.fax}</text>
@@ -87,13 +87,13 @@ const nodeStyleTemplate = `({ layout, tag, selected, zoom }) => {
     \` :  zoom >= 0.5 ? svg\`
       <!-- Intermediate View -->
       <image href="./resources/\${tag.icon}.svg" x='15' y='20' width='56.25' height='56.25'/>
-      <g style='font-size:15px; font-family:Roboto,sans-serif; fill:#444' width='185'>
-        <text transform='translate(75 40)' style='font-size:26px; font-family:Roboto,sans-serif; fill:#336699'>\${tag.name}</text>
-        \${formatPosition(tag.position, 22).map((line, i) => svg\`<text x='75' y='\${i*20+65}' font-size='15' font-family='Roboto,sans-serif'>\${line}</text>\`)}
+      <g style='font-size:15px; font-family:Poppins,sans-serif; fill:#444' width='185'>
+        <text transform='translate(75 40)' style='font-size:26px; font-family:Poppins,sans-serif; fill:#336699'>\${tag.name}</text>
+        \${formatPosition(tag.position, 22).map((line, i) => svg\`<text x='75' y='\${i*20+65}' font-size='15' font-family='Poppins,sans-serif'>\${line}</text>\`)}
       </g>
     \` :  svg\`
       <!-- Overview View -->
-      <text transform='translate(30 50)' style='font-size:40px; font-family:Roboto,sans-serif; fill:#fff; dominant-baseline: central;'>
+      <text transform='translate(30 50)' style='font-size:40px; font-family:Poppins,sans-serif; fill:#fff; dominant-baseline: central;'>
         \${tag.name.replace(/^(.)(\\S*)(.*)/, "$1.$3")}
       </text>
     \`}

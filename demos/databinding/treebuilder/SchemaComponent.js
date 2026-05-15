@@ -146,10 +146,6 @@ export class SchemaComponent {
     inputMode.movableSelectedItems = GraphItemTypes.NONE
     inputMode.allowCreateBend = false
 
-    // configure the tooltips
-    inputMode.toolTipInputMode.delay = '0.5s'
-    inputMode.toolTipInputMode.duration = '5m'
-
     // the pointer cursor should be shown when hovering over certain graph items to indicate their clickable
     inputMode.itemHoverInputMode.enabled = true
     inputMode.itemHoverInputMode.hoverItems =

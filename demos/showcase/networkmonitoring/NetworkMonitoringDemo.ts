@@ -55,17 +55,17 @@ import { ConnectionEdgeStyle } from './ConnectionEdgeStyle'
 import { DeviceNodeStyle } from './DeviceNodeStyle'
 import { networkData } from './model/network-sample'
 import { Network } from './model/Network'
-import { initializeDeviceDetailsPopup, updateBarChart } from './device-popup'
+import { initializeDeviceDetailsPopup, updateBarChart } from './device-details-popup'
 import { initializeToolTips } from './tooltips'
 
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 
 import {
   addFailureHighlight,
   installFailureHighlight,
   removeFailureHighlight
 } from './failure-highlight'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 LayoutExecutor.ensure()
 

@@ -27,12 +27,17 @@
  **
  ***************************************************************************/
 import {
+  Arrow,
+  ArrowType,
+  BezierEdgeStyle,
   Color,
+  DelegatingEdgeStyle,
   EdgeStyleBase,
   GeneralPath,
   GeometryUtilities,
   type GraphComponent,
   type IEdge,
+  type IEdgeStyle,
   type IInputModeContext,
   type INode,
   type IRectangle,
@@ -41,6 +46,7 @@ import {
   NodeStyleBase,
   PathType,
   Point,
+  Stroke,
   SvgVisual,
   type TaggedSvgVisual
 } from '@yfiles/yfiles'
@@ -178,6 +184,7 @@ export class DemoEdgeStyle extends EdgeStyleBase<EdgeStyleVisual> {
           !cache.selected ? gradientColors[colorIndex] : selectionColors[colorIndex]
         )
         path.setAttribute('stroke-width', `${!cache.selected ? cache.pathThickness : 5}`)
+        path.setAttribute('opacity', '0.4')
         container.appendChild(path)
         lastPoint = controlPoints[i + 3]
       }
@@ -201,6 +208,7 @@ export class DemoEdgeStyle extends EdgeStyleBase<EdgeStyleVisual> {
           !cache.selected ? gradientColors[colorIndex] : selectionColors[colorIndex]
         )
         line.setAttribute('stroke-width', `${!cache.selected ? cache.pathThickness : 5}`)
+        line.setAttribute('opacity', '0.4')
         container.appendChild(line)
       }
     }
@@ -267,6 +275,61 @@ export class DemoEdgeStyle extends EdgeStyleBase<EdgeStyleVisual> {
   }
 }
 
+const COLOR_MAP = [
+  '#f4ba26',
+  '#e05d29',
+  '#d62329',
+  '#d90f7d',
+  '#b00d7a',
+  '#7d3199',
+  '#56168c',
+  '#0b58a9',
+  '#0796d4',
+  '#00ccff',
+  '#04bec8',
+  '#05e4d9',
+  '#06dc9f',
+  '#01c432',
+  '#a8cf1c',
+  '#ded000'
+]
+
+const colorHexStrings = COLOR_MAP.map((hex) => `${hex}80`)
+const strokes = colorHexStrings.map((color) => new Stroke(color, 0.5).freeze())
+
+/**
+ * An edge style based on {@link BezierEdgeStyle} that colors the edge based on its direction and
+ * in particular by the angle between its source and target ports.
+ */
+export class ColoredDelegatingEdgeStyle extends DelegatingEdgeStyle {
+  private delegatingStyle = new BezierEdgeStyle({
+    sourceArrow: new Arrow({ cropAtPort: true, type: ArrowType.NONE }),
+    targetArrow: new Arrow({ cropAtPort: true, type: ArrowType.NONE })
+  })
+
+  protected getStyle(edge: IEdge): IEdgeStyle {
+    this.delegatingStyle.stroke = this.getStroke(edge)
+    return this.delegatingStyle
+  }
+
+  getStroke(edge: IEdge): Stroke | null {
+    const source = edge.sourcePort!.location
+    const target = edge.targetPort!.location
+
+    const dx = source.x - target.x
+    const dy = source.y - target.y
+    if (dx === 0 && dy === 0) {
+      return null
+    }
+
+    const angle = Math.atan2(dy, dx) + Math.PI / 2
+    const colorAngle = Math.PI / strokes.length
+    let index = Math.floor(angle / colorAngle)
+    index = Math.max(0, Math.min(strokes.length - 1, index))
+    return strokes[index]
+  }
+}
+
 /**
  * This class draws the nodes in a circular-sector style.
  */
@@ -281,7 +344,7 @@ export class DemoNodeStyle extends NodeStyleBase<NodeStyleVisual> {
    */
   constructor(color?: Color, thickness?: number) {
     super()
-    this.color = color || Color.DARK_ORANGE
+    this.color = color || Color.from('#0b7189')
     this.thickness = thickness || 20
   }
 

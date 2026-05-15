@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Arrow Demo
+# Arrow Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/arrow.webp" alt="demo-thumbnail" height="320"/>
 

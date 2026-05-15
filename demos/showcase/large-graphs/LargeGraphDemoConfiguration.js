@@ -41,6 +41,8 @@ import {
 import { getSVGDataURL } from './SVGDataURLFetch'
 import { DemoConfiguration } from './DemoConfiguration'
 import { createDemoGroupStyle } from '@yfiles/demo-app/demo-styles'
+import HierarchicSample from './resources/hierarchic-10000-11000-circles.json'
+import RadialSample from './resources/radial_tree_10000_9999.json'
 
 class LargeGraphDemoConfiguration extends DemoConfiguration {
   svgThreshold = 0.5
@@ -172,9 +174,9 @@ class LargeGraphDemoConfiguration extends DemoConfiguration {
 }
 
 export class HierarchicalDemoConfiguration extends LargeGraphDemoConfiguration {
-  graphResourcePath = 'resources/hierarchic-10000-11000-circles.json'
+  graphData = HierarchicSample
 }
 
 export class OrganicDemoConfiguration extends LargeGraphDemoConfiguration {
-  graphResourcePath = 'resources/radial_tree_10000_9999.json'
+  graphData = RadialSample
 }

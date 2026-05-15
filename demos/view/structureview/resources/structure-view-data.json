@@ -1,0 +1,40 @@
+{
+  "nodes": [
+    { "id": "N1" },
+    { "id": "N2", "parent": "Group 1" },
+    { "id": "N3", "parent": "Group 1" },
+    { "id": "N4", "parent": "Group 1" },
+    { "id": "N5", "parent": "Group 2" },
+    { "id": "N6", "parent": "Group 2" },
+    { "id": "N7", "parent": "Group 2" },
+    { "id": "N8", "parent": "Group 2" },
+    { "id": "N9", "parent": "Group 1" },
+    { "id": "N10", "parent": "Group 1" },
+    { "id": "N11", "parent": "Group 3" },
+    { "id": "N12", "parent": "Group 3" },
+    { "id": "N13", "parent": "Group 3" },
+    { "id": "N14", "parent": "Group 3" },
+    { "id": "N15", "parent": "Group 3" },
+    { "id": "N16" },
+    { "id": "Group 1" },
+    { "id": "Group 2", "parent": "Group 1" },
+    { "id": "Group 3" }
+  ],
+  "edges": [
+    { "from": "N1", "to": "N2" },
+    { "from": "N2", "to": "N3" },
+    { "from": "N2", "to": "N4" },
+    { "from": "N3", "to": "N5" },
+    { "from": "N3", "to": "N10" },
+    { "from": "N4", "to": "N6" },
+    { "from": "N5", "to": "N7" },
+    { "from": "N6", "to": "N8" },
+    { "from": "N7", "to": "N9" },
+    { "from": "N10", "to": "N11" },
+    { "from": "N10", "to": "N12" },
+    { "from": "N11", "to": "N13" },
+    { "from": "N12", "to": "N14" },
+    { "from": "N12", "to": "N15" },
+    { "from": "N13", "to": "N16" }
+  ]
+}

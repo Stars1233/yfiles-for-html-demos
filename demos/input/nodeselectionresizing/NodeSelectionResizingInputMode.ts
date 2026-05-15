@@ -700,7 +700,7 @@ class ReshapeHandlerBase extends BaseClass(IReshapeHandler) {
   }
 
   private collectSnapResults(evt: CollectSnapResultsEventArgs, context: GraphSnapContext): void {
-    const lastEvent = evt.context.canvasComponent!.lastInputEvent
+    const lastEvent = evt.context.canvasComponent!.lastPointerEvent
     const fixedAspectRatio = this.handle!.ratioReshapeRecognizer(lastEvent, this)
     const centered = this.handle!.centerReshapeRecognizer(lastEvent, this)
 
@@ -860,11 +860,11 @@ class ReshapeHandlerBase extends BaseClass(IReshapeHandler) {
     }
 
     const centerResize = this.handle!.centerReshapeRecognizer(
-      context.canvasComponent!.lastInputEvent,
+      context.canvasComponent!.lastPointerEvent,
       this
     )
     const ratioResize = this.handle!.ratioReshapeRecognizer(
-      context.canvasComponent!.lastInputEvent,
+      context.canvasComponent!.lastPointerEvent,
       this
     )
     const useOrthogonalFactors =

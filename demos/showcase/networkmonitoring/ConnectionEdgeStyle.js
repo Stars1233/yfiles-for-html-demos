@@ -243,14 +243,12 @@ export class ConnectionEdgeStyle extends EdgeStyleBase {
     imageExclamation.setAttribute('class', 'failed')
     imageExclamation.setAttribute('cursor', 'pointer')
 
-    // TODO - add exclamation mark to hit test of edge and get rid of click and touch handling
     const repairEdge = (evt) => {
       const connection = edge.tag
       connection.repair()
-      evt.stopImmediatePropagation()
+      evt.stopPropagation()
     }
-    imageExclamation.addEventListener('mousedown', repairEdge, true)
-    imageExclamation.addEventListener('touchstart', repairEdge, { passive: false })
+    imageExclamation.addEventListener('pointerdown', repairEdge)
 
     g.appendChild(imageExclamation)
   }

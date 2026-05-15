@@ -39,11 +39,13 @@ import {
   Size
 } from '@yfiles/yfiles'
 
-import { graphData, type GroupData } from './sample-graph'
+import graphData from './graph-data.json'
 import { initializeInteractiveHierarchicalNestingLayout } from './interactive-hierarchical-nesting-layout'
 import { DemoStyleOverviewRenderer, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+
+type GroupData = { id: string; label: string; parentGroup?: string; collapsed?: boolean }
 
 let graphComponent: GraphComponent = null!
 
@@ -55,6 +57,8 @@ async function run(): Promise<void> {
 
   // initialize the GraphComponent
   graphComponent = new GraphComponent('graphComponent')
+  // add some padding to prevent overlaps with the demo toolbar
+  graphComponent.contentMargins = [80, 10, 10, 10]
   graphComponent.inputMode = new GraphViewerInputMode({
     focusableItems: 'none',
     selectableItems: 'none'
@@ -138,14 +142,18 @@ function buildGraph(graph: IGraph): void {
   const mainGraph = foldingView.manager.masterGraph
 
   const builder = new GraphBuilder(mainGraph)
-  builder.createNodesSource({ data: graphData.nodesSource, id: 'id', parentId: 'group' })
-  builder.createGroupNodesSource({
-    data: graphData.groupsSource,
+  builder.createNodesSource({
+    data: graphData.nodes.filter((node) => !node.isGroup),
     id: 'id',
-    labels: ['label'],
-    parentId: 'parentGroup'
+    parentId: 'parent'
   })
-  builder.createEdgesSource({ data: graphData.edgesSource, sourceId: 'from', targetId: 'to' })
+  builder.createGroupNodesSource({
+    data: graphData.nodes.filter((node) => node.isGroup),
+    id: 'id',
+    labels: ['labels'],
+    parentId: 'parent'
+  })
+  builder.createEdgesSource({ data: graphData.edges, sourceId: 'source', targetId: 'target' })
 
   builder.buildGraph()
 

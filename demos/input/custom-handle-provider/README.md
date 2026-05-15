@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Custom Handle Provider Demo
+# Custom Handle Provider Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/custom-handle-provider.webp" alt="demo-thumbnail" height="320"/>
 

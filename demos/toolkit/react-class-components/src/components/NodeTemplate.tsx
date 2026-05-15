@@ -38,7 +38,11 @@ export default class NodeTemplate extends Component<
     return (
       <g>
         <rect
-          style={{ fill: selected ? '#F26419' : '#AA4586', stroke: '#66485B', strokeWidth: 1.5 }}
+          style={{
+            fill: selected ? '#5ce7ff' : '#e56399',
+            stroke: 'none',
+            filter: 'drop-shadow(0 3px 2px rgba(0, 0, 0, 0.2))'
+          }}
           x={0}
           y={0}
           rx={10}
@@ -48,12 +52,12 @@ export default class NodeTemplate extends Component<
         />
         <SvgText
           text={tag.name}
-          font="bold 12px sans-serif"
+          font="13px sans-serif"
           maxWidth={width - 4}
           maxHeight={height}
           x={width / 2}
-          y={height / 2 - 9}
-          fill="#DCB4CE"
+          y={height / 2 - 11}
+          fill="#fff"
           style={{ textAnchor: 'middle', dominantBaseline: 'middle' }}
         />
       </g>

@@ -47,7 +47,7 @@ import {
 
 import { colorSets, createDemoEdgeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 
@@ -55,7 +55,7 @@ let moveUnselectedItemsInputMode
 
 const moveModeSelect = document.querySelector('#move-modes')
 const moveEnabledButton = document.querySelector('#toggle-move-enabled')
-const moveEnabledLabel = document.querySelector('label[for="toggle-move-enabled"]')
+const toggleMove = document.querySelector('.toggle-move')
 const edgeCreationModeSelect = document.querySelector('#edge-creation-modes')
 const classicModeButton = document.querySelector('#toggle-classic-mode')
 
@@ -149,8 +149,7 @@ function onMoveModeChanged() {
     geim.createEdgeInputMode.directionalConstraintRecognizer = EventRecognizers.SHIFT_IS_DOWN
   }
   const showMoveEnabledButton = selectedIndex === 3
-  moveEnabledButton.style.display = showMoveEnabledButton ? 'inline-block' : 'none'
-  moveEnabledLabel.style.display = showMoveEnabledButton ? 'inline-block' : 'none'
+  toggleMove.style.display = showMoveEnabledButton ? 'inline-flex' : 'none'
   onEdgeCreationModeChanged()
 }
 

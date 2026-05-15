@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Size Constraint Provider Demo
+# Size Constraint Provider Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/size-constraint-provider.webp" alt="demo-thumbnail" height="320"/>
 

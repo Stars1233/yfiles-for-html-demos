@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Bus-Style Edge Routing (Custom)
+# Bus-Style Edge Routing (Custom) Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-edge-router-buses-custom.webp" alt="demo-thumbnail" height="320"/>
 

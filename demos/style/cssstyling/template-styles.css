@@ -26,10 +26,6 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-/* import the yFiles stylesheet in a layer to make overriding styles easier */
-@import '@yfiles/yfiles/yfiles.css' layer(yfiles);
-
-/* yWorks color theme */
 :root {
   --orange: #ff6c00;
   --orange-60: #f89743;
@@ -81,24 +77,24 @@
   stroke: var(--purple);
   stroke-width: 2px;
 }
-#overviewComponent .yfiles-handle-resize-template {
-  fill: var(--purple-60);
-  stroke: var(--purple);
+#overview-component .yfiles-handle {
+  color: var(--purple);
 }
 
 /* Resize Handles */
-.yfiles-handle-resize-template {
+.yfiles-handle-template.yfiles-handle-resize-template {
   fill: currentColor; /* Use SVG currentColor to allow different colors for individual handles*/
   stroke: currentColor; /* Use SVG currentColor to allow different colors for individual handles*/
 }
+
 .yfiles-handle {
   color: var(--cyan-60);
-}
-.yfiles-handle-top.yfiles-handle-right,
-.yfiles-handle-top.yfiles-handle-left,
-.yfiles-handle-bottom.yfiles-handle-right,
-.yfiles-handle-bottom.yfiles-handle-left {
-  color: var(--purple);
+  &.yfiles-handle-top.yfiles-handle-right,
+  &.yfiles-handle-top.yfiles-handle-left,
+  &.yfiles-handle-bottom.yfiles-handle-right,
+  &.yfiles-handle-bottom.yfiles-handle-left {
+    color: var(--purple);
+  }
 }
 
 /* Port Handle */
@@ -114,32 +110,38 @@
 }
 
 /* Selection */
-.yfiles-node-selection-template,
-.yfiles-edge-selection-template,
-.yfiles-label-selection-template,
-.yfiles-port-selection-template {
-  stroke: var(--cyan-60);
-  stroke-width: 4px;
-  stroke-linejoin: round;
+.yfiles-selection-template {
+  &.yfiles-node-selection-template,
+  &.yfiles-edge-selection-template,
+  &.yfiles-label-selection-template,
+  &.yfiles-port-selection-template {
+    stroke: var(--cyan-60);
+    stroke-width: 4px;
+    stroke-linejoin: round;
+  }
 }
 
 /* Focus */
-.yfiles-node-focus-template,
-.yfiles-edge-focus-template,
-.yfiles-label-focus-template,
-.yfiles-port-focus-template {
-  stroke: var(--purple);
-  stroke-width: 2px;
-  stroke-linejoin: round;
+.yfiles-focus-template {
+  &.yfiles-node-focus-template,
+  &.yfiles-edge-focus-template,
+  &.yfiles-label-focus-template,
+  &.yfiles-port-focus-template {
+    stroke: var(--purple);
+    stroke-width: 2px;
+    stroke-linejoin: round;
+  }
 }
 
 /* Highlights */
-.yfiles-edge-highlight-template,
-.yfiles-node-highlight-template,
-.yfiles-label-highlight-template,
-.yfiles-port-highlight-template {
-  stroke: var(--cyan);
-  stroke-linejoin: round;
+.yfiles-highlight-template {
+  &.yfiles-edge-highlight-template,
+  &.yfiles-node-highlight-template,
+  &.yfiles-label-highlight-template,
+  &.yfiles-port-highlight-template {
+    stroke: var(--cyan);
+    stroke-linejoin: round;
+  }
 }
 
 /* Label Candidates */
@@ -167,31 +169,32 @@
   --yfiles-scrollbar-horizontal-size: 10px;
 }
 
-.yfiles-scrollbar-vertical .yfiles-scrollbar-slider {
-  width: 8px;
-}
-.yfiles-scrollbar-horizontal .yfiles-scrollbar-slider {
-  height: 8px;
-}
-.yfiles-scrollbar .yfiles-scrollbar-slider {
-  background-color: var(--blue);
-}
-.yfiles-scrollbar .yfiles-button {
-  flex-basis: 10px;
-  background-size: contain;
-}
-
-.yfiles-scrollbar .yfiles-button.yfiles-button-left {
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxMCI+PHBhdGggZD0iTTUgNSBMMTAgMSBMMTAgOSBaIi8+PC9zdmc+DQo=);
-}
-.yfiles-scrollbar .yfiles-button.yfiles-button-right {
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxMCI+PHBhdGggZD0iTTUgMSBMMTAgNSBMNSA5IFoiLz48L3N2Zz4NCg==);
-}
-.yfiles-scrollbar .yfiles-button.yfiles-button-down {
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxNSI+PHBhdGggZD0iTTEgNSBMOSA1IEw1IDEwIFoiLz48L3N2Zz4NCg==);
-}
-.yfiles-scrollbar .yfiles-button.yfiles-button-up {
-  background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxNSI+PHBhdGggZD0iTTEgMTAgTDUgNSBMOSAxMCBaIi8+PC9zdmc+DQo=);
+.yfiles-scrollbar {
+  .yfiles-scrollbar-vertical .yfiles-scrollbar-slider {
+    width: 8px;
+  }
+  .yfiles-scrollbar-horizontal .yfiles-scrollbar-slider {
+    height: 8px;
+  }
+  .yfiles-scrollbar-slider {
+    background-color: var(--blue);
+  }
+  .yfiles-button {
+    flex-basis: 10px;
+    background-size: contain;
+  }
+  .yfiles-button.yfiles-button-left {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxMCI+PHBhdGggZD0iTTUgNSBMMTAgMSBMMTAgOSBaIi8+PC9zdmc+DQo=);
+  }
+  .yfiles-button.yfiles-button-right {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNSIgaGVpZ2h0PSIxMCI+PHBhdGggZD0iTTUgMSBMMTAgNSBMNSA5IFoiLz48L3N2Zz4NCg==);
+  }
+  .yfiles-button.yfiles-button-down {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxNSI+PHBhdGggZD0iTTEgNSBMOSA1IEw1IDEwIFoiLz48L3N2Zz4NCg==);
+  }
+  .yfiles-button.yfiles-button-up {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxNSI+PHBhdGggZD0iTTEgMTAgTDUgNSBMOSAxMCBaIi8+PC9zdmc+DQo=);
+  }
 }
 
 /* Tooltips */
@@ -204,34 +207,28 @@
   padding: 5px;
   font-weight: bold;
 }
-.yfiles-tooltip-entering {
-  transition: opacity 0.2s ease-in;
-}
-.yfiles-tooltip-enter {
-  opacity: 0;
-}
-.yfiles-tooltip-enter-to {
-  opacity: 1;
-}
-.yfiles-tooltip-leaving {
-  transition: opacity 0.2s ease-out;
-}
-.yfiles-tooltip-leave {
-  opacity: 1;
-}
-.yfiles-tooltip-leave-to {
-  opacity: 0;
+.yfiles-popover--tooltip[popover] {
+  transition:
+    transform 200ms ease,
+    display 200ms allow-discrete;
+  transform: scale(0);
+  &:popover-open {
+    transform: scale(1);
+    @starting-style {
+      & {
+        transform: scale(0);
+      }
+    }
+  }
 }
 
 /* Label Editor*/
-@keyframes scaleAnimation {
+@keyframes fade-animation {
   from {
     opacity: 0;
-    transform: scale(0);
   }
   to {
     opacity: 1;
-    transform: scale(1);
   }
 }
 .yfiles-labeleditbox-container {
@@ -253,30 +250,15 @@
 }
 
 .yfiles-labeleditbox-container-entering {
-  animation: scaleAnimation 0.3s ease-in;
+  animation: fade-animation 0.3s ease-in;
 }
 .yfiles-labeleditbox-container-leaving {
-  animation: scaleAnimation reverse 0.3s ease-out;
+  animation: fade-animation reverse 0.3s ease-out;
 }
 
-.node-flash {
-  opacity: 0;
-  stroke: none;
-  fill: black;
-}
-
-.node-created.node-flash {
-  animation: 1s ease-out nodeCreatedAnimation;
-}
-
-@keyframes nodeCreatedAnimation {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 70%;
-  }
-  100% {
+.node-style {
+  transition: opacity 1s ease-in;
+  &.hidden {
     opacity: 0;
   }
 }

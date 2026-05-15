@@ -50,7 +50,7 @@ import { Timeline } from '../timeline/Timeline'
 import { clearPropertiesView, initializePropertiesView } from '../properties-view'
 import { enableTooltips } from '../entity-tooltip'
 import { initializeHighlights } from '../initialize-highlights'
-import { useSingleSelection } from '../../mindmap/interaction/single-selection'
+import { useSingleSelection } from './single-selection'
 
 let fraudToolbarInitialized = false
 let fraudDetectionComponent
@@ -315,17 +315,13 @@ function initializeFraudToolbarButtons() {
   if (!fraudToolbarInitialized) {
     fraudToolbarInitialized = true
 
-    document.getElementById('layout-button').addEventListener(
-      'click',
-      () => {
-        void runLayout(false)
-        void fraudDetectionComponent.fitGraphBounds()
-      },
-      true
-    )
+    document.getElementById('layout-button').addEventListener('click', () => {
+      void runLayout(false)
+      void fraudDetectionComponent.fitGraphBounds()
+    })
     document
-      .getElementById('closeFraudDetection')
-      .addEventListener('click', closeFraudDetectionView, true)
+      .getElementById('fraud-detection-view__close')
+      .addEventListener('click', closeFraudDetectionView)
   }
 }
 
@@ -333,7 +329,20 @@ function initializeFraudToolbarButtons() {
  * Toggles the visibility of toolbar buttons that are not available in the fraud ring view.
  */
 function toggleMainViewActionsVisibility(visible) {
-  document.querySelector('.main-view-buttons').style.display = visible ? 'flex' : 'none'
+  const mainViewToolbarItemSelectors = [
+    '#zoom-out-button',
+    '#fit-graph-button',
+    '#zoom-in-button',
+    '.separator',
+    '#samples'
+  ]
+  mainViewToolbarItemSelectors.forEach((selector) => {
+    if (selector === '.separator') {
+      document.querySelector(selector).style.display = visible ? '' : 'none'
+    } else {
+      document.querySelector(selector).style.display = visible ? 'flex' : 'none'
+    }
+  })
 }
 
 /**
@@ -344,6 +353,9 @@ export function openFraudDetectionView(compIndex, graphComponent) {
 
   closeFraudDetectionView()
 
+  //move toolbar lower
+  const toolbar = document.querySelector('.toolbar')
+  toolbar.style.top = '50px'
   componentIndex = compIndex
 
   // create the fraud detection component div
@@ -352,12 +364,14 @@ export function openFraudDetectionView(compIndex, graphComponent) {
   const fraudDetectionTitle = document.querySelector('.fraud-detection-view__title')
   const fraudDetectionTimeline = document.querySelector('#fraud-detection-timeline-component')
   const fraudDetectionLayoutButton = document.querySelector('#layout-button')
+  const LayoutButtonSeparator = document.querySelector('#separate-layout-button')
   fraudDetectionViewDiv.insertBefore(fraudDetectionComponent.htmlElement, fraudDetectionTimeline)
   fraudDetectionComponent.htmlElement.id = 'fraud-detection-component'
 
   // display the component
   fraudDetectionViewDiv.classList.add('fraud-detection-view--visible')
   fraudDetectionLayoutButton.classList.add('visible')
+  LayoutButtonSeparator.classList.add('visible')
   fraudDetectionTitle.innerHTML = `Fraud Ring ${compIndex}`
 
   initializeFraudToolbarButtons()
@@ -386,10 +400,16 @@ export function openInspectionViewForItem(item, graphComponent) {
 
 export function closeFraudDetectionView() {
   if (componentIndex !== -1) {
+    //move toolbar up
+    const toolbar = document.querySelector('.toolbar')
+    toolbar.style.top = '15px'
+
     const fraudDetectionViewDiv = document.querySelector('.fraud-detection-view')
     fraudDetectionViewDiv.classList.remove('fraud-detection-view--visible')
     const fraudDetectionLayoutButton = document.querySelector('#layout-button')
+    const LayoutButtonSeparator = document.querySelector('#separate-layout-button')
     fraudDetectionLayoutButton.classList.remove('visible')
+    LayoutButtonSeparator.classList.remove('visible')
 
     const fraudDetectionComponentDiv = document.getElementById('fraud-detection-component')
     if (fraudDetectionComponentDiv) {

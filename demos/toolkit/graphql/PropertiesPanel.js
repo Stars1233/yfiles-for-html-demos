@@ -62,8 +62,12 @@ export class PropertiesPanel {
     heading.appendChild(createElement('h2', person.name))
 
     // Display the individual properties
+    const tableWrapper = document.createElement('div')
+    tableWrapper.className = 'table-wrapper'
+
     const table = document.createElement('table')
-    this.element.appendChild(table)
+    tableWrapper.appendChild(table)
+    this.element.appendChild(tableWrapper)
 
     // The person's id
     let tr = document.createElement('tr')

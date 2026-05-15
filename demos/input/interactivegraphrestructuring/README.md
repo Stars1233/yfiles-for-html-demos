@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Interactive Graph Restructuring Demo
+# Interactive Graph Restructuring Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/interactive-graph-restructuring.webp" alt="demo-thumbnail" height="320"/>
 

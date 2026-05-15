@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Mouse Wheel Customization Demo
+# Mouse Wheel Customization Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/mouse-wheel-customization.webp" alt="demo-thumbnail" height="320"/>
 

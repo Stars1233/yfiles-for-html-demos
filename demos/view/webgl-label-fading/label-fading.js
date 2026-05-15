@@ -26,96 +26,28 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { WebGLGraphModelManager } from '@yfiles/yfiles'
+import { WebGLLabelStyle, WebGLZoomVisibilityPolicy } from '@yfiles/yfiles'
 
 /**
- * Whether labels are currently faded.
- */
-let labelsFaded = false
-
-/**
- * Whether labels are currently animated.
- */
-let animated = false
-/**
- * Animation used to fade the labels.
- */
-let labelsFadeAnimation
-
-/**
- * Fade labels in/out depending on the configured threshold.
- */
-let toggleLabelVisibility
-
-/**
- * Registers label fading by adding the {@link toggleLabelVisibility} to zoom event of the
- * {@link GraphComponent}.
+ * Registers label fading by setting a {@link WebGLLabelStyle} with the respective {@link WebGLZoomVisibilityPolicy}
+ * to all labels.
  */
 export function registerLabelFading(graphComponent, labelFadeThreshold) {
-  if (toggleLabelVisibility) {
-    graphComponent.removeEventListener('zoom-changed', toggleLabelVisibility)
-  }
-
-  toggleLabelVisibility = () => {
-    const zoom = graphComponent.zoom
-    document.querySelector('#current-zoom').textContent = `${Math.round(zoom * 100)}%`
-    if (zoom <= labelFadeThreshold) {
-      fadeOutLabels(graphComponent)
-    } else if (zoom > labelFadeThreshold) {
-      fadeInLabels(graphComponent)
-    }
-  }
-
-  graphComponent.addEventListener('zoom-changed', toggleLabelVisibility)
-
-  // trigger it once to apply the current state
-  toggleLabelVisibility()
-}
-
-/**
- * Fades out all labels by assigning a fade animation to them and starting it.
- */
-function fadeOutLabels(graphComponent) {
-  if (
-    (!animated && labelsFaded) ||
-    !(graphComponent.graphModelManager instanceof WebGLGraphModelManager)
-  ) {
-    return
-  }
-  const graphModelManager = graphComponent.graphModelManager
-
-  labelsFadeAnimation = graphModelManager.createFadeAnimation({
-    type: 'fade-out',
-    timing: '500ms ease'
+  const labelStyle = new WebGLLabelStyle({
+    shape: 'round-rectangle',
+    backgroundColor: '#ffc499',
+    zoomVisibilityPolicy: new WebGLZoomVisibilityPolicy({
+      lowerThreshold: labelFadeThreshold,
+      transitionDuration: '500ms',
+      transitionEasing: 'ease'
+    })
   })
 
-  animated = true
-  graphComponent.graph.labels.forEach((label) => {
-    graphModelManager.setAnimations(label, [labelsFadeAnimation])
-  })
-  labelsFadeAnimation?.start().then(() => {
-    labelsFaded = true
-    animated = false
-  })
-}
+  const graph = graphComponent.graph
+  graph.nodeDefaults.labels.style = labelStyle
+  graph.edgeDefaults.labels.style = labelStyle
 
-/**
- * Fades in all labels by stopping the fade animation and subsequently removing it from the labels.
- * Note: When stopping a {@link WebGLAnimation} it runs "backward" and stays at the beginning.
- */
-function fadeInLabels(graphComponent) {
-  if (
-    (!animated && !labelsFaded) ||
-    !(graphComponent.graphModelManager instanceof WebGLGraphModelManager)
-  ) {
-    return
+  for (const label of graph.labels) {
+    graph.setStyle(label, labelStyle)
   }
-
-  animated = true
-  labelsFadeAnimation?.stop().then(() => {
-    labelsFaded = false
-    animated = false
-  })
-
-  labelsFadeAnimation = null
 }

@@ -34,7 +34,7 @@ import {
   HierarchicalLayoutData,
   LayoutExecutor
 } from '@yfiles/yfiles'
-import { disableUIElements, enableUIElements } from '@yfiles/demo-app/demo-page'
+import { disableUIElements, enableUIElements } from '@yfiles/demo-app/modern/element-utils'
 
 /**
  * Applies the selected layout algorithm.

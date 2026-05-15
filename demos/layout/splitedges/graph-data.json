@@ -1,15 +1,15 @@
 {
   "nodeList": [
-    { "id": 0, "parentId": 8 },
-    { "id": 1, "parentId": 8 },
-    { "id": 2, "parentId": 9 },
-    { "id": 3, "parentId": 9 },
-    { "id": 4, "parentId": 9 },
+    { "id": 0, "parent": 8 },
+    { "id": 1, "parent": 8 },
+    { "id": 2, "parent": 9 },
+    { "id": 3, "parent": 9 },
+    { "id": 4, "parent": 9 },
     { "id": 5 },
     { "id": 6 },
     { "id": 7 },
     { "id": 8, "isGroup": true },
-    { "id": 9, "isGroup": true, "parentId": 10 },
+    { "id": 9, "isGroup": true, "parent": 10 },
     { "id": 10, "isGroup": true }
   ],
   "edgeList": [

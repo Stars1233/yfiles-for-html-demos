@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Split Edges Demo
+# Split Edges Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/split-edges.webp" alt="demo-thumbnail" height="320"/>
 

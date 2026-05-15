@@ -52,7 +52,6 @@ import { layoutTree } from './mind-map-layout'
 import { initializeCommands } from './interaction/commands'
 
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 
 import { hobbies } from './resources/hobbies'
 import { getNodeData, isCollapsed, isCrossReference } from './data-types'
@@ -64,6 +63,7 @@ import { EditOneLabelHelper } from './interaction/EditOneLabelHelper'
 import { MindMapFocusIndicatorManager } from './MindMapFocusIndicatorManager'
 import { MindMapOverviewRenderer } from './styles/MindMapOverviewRenderer'
 import { downloadFile, getFileExtension, openFile } from '@yfiles/demo-utils/file-support'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 // This demo shows how to implement a mind map viewer and editor.
 //

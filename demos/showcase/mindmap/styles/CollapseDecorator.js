@@ -172,32 +172,15 @@ export class CollapseDecorator extends BaseClass(NodeStyleBase, IMarkupExtension
       }
     }
 
-    // register the click and touch listeners for the collapse/expand operation
-    g.addEventListener(
-      'click',
-      (_) => {
-        if (canExecuteToggleCollapseState(graphComponent, node)) {
-          executeToggleCollapseState(graphComponent, node)
-        }
-      },
-      true
-    )
-    // pointerdown causes the capturing of subsequent pointer events, thus we need to disable
-    // pointerdown on the current element such that the native click event is triggered furthermore
-    // this causes the input mode to not handle any event on the button where we registered
-    // a native click listener
-    g.addEventListener('pointerdown', (e) => e.preventDefault())
-    g.addEventListener(
-      'touchstart',
-      (evt) => {
-        // prevent subsequent firing of a click event
-        evt.preventDefault()
-        if (canExecuteToggleCollapseState(graphComponent, node)) {
-          executeToggleCollapseState(graphComponent, node)
-        }
-      },
-      { passive: false, capture: true }
-    )
+    g.addEventListener('click', () => {
+      if (canExecuteToggleCollapseState(graphComponent, node)) {
+        executeToggleCollapseState(graphComponent, node)
+      }
+    })
+    // Stop the pointerdown event propagation, so yFiles does not start pointer capture.
+    // Otherwise, the click listener above would not be triggered.
+    g.addEventListener('pointerdown', (e) => e.stopPropagation())
+
     return g
   }
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# HTML Label Style Demo
+# HTML Label Style Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/html-label-style.webp" alt="demo-thumbnail" height="320"/>
 
@@ -29,10 +29,3 @@ The custom style uses an embedded HTML element using the [HtmlVisual](https://do
 #### Styling Labels with CSS
 
 The stylesheet for labels _html-label.css_ shows how the label texts are styled.
-
-## Related Demos
-
-- [Label Style Demo](../../style/label-style/)
-- [Markdown Label Demo](../../style/markdownlabel/)
-- [Rich Text Label Demo](../../style/richtextlabel/)
-- [Rendering the Label Text](../../tutorial-style-implementation-label/01-render-label-text/)

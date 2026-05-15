@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# HTML Popup Demo
+# HTML Popup Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/html-popup.webp" alt="demo-thumbnail" height="320"/>
 

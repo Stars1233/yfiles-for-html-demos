@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Metaball Groups Rendering Demo
+# Metaball Groups Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/metaball-groups.webp" alt="demo-thumbnail" height="320"/>
 

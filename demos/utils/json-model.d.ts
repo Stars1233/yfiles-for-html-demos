@@ -76,7 +76,7 @@ export type JSONLabel = {
  */
 export type JSONNode = {
   id: NodeID
-  parentId?: NodeID
+  parent?: NodeID
   isGroup?: boolean
   layout?: JSONRectangle
   center?: JSONPoint

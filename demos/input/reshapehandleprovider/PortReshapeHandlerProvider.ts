@@ -68,7 +68,7 @@ export class PortReshapeHandleProvider extends BaseClass(IReshapeHandleProvider)
    */
   getAvailableHandles(context: IInputModeContext): HandlePositions {
     const canvasComponent = context.canvasComponent!
-    return canvasComponent.focused && canvasComponent.lastInputEvent.shiftKey
+    return canvasComponent.focused && canvasComponent.lastPointerEvent.shiftKey
       ? HandlePositions.BORDER
       : HandlePositions.CORNERS
   }

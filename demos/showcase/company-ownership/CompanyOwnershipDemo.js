@@ -32,7 +32,8 @@ import { CompanyStructureView } from './CompanyStructureView'
 import licenseData from '../../../lib/license.json'
 import { CompanyOwnershipSearch } from './CompanyOwnershipSearch'
 import { PropertiesView } from './PropertiesView'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { companyData } from './resources/company-data'
 
 /**
  * The component for the search in the graph
@@ -122,7 +123,7 @@ async function loadGraph(graphComponent, animate = true) {
   document.querySelector('#searchBox').value = ''
   graphSearch.updateSearch('')
 
-  await companyStructureView.loadGraph('./resources/company-data.json')
+  companyStructureView.buildGraphFromData(companyData)
   await companyStructureView.layout(animate)
   setUIDisabled(false)
 }

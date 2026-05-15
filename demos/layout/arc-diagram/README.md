@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Arc Diagram Demo
+# Arc Diagram Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/arc-diagram.webp" alt="demo-thumbnail" height="320"/>
 

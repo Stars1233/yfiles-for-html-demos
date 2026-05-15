@@ -26,38 +26,36 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import '@yfiles/demo-app/demo.css';
-
-#graphComponent {
-  background-color: #f7f7f7;
-}
-
 .editorText {
   font-family: 'Consolas', 'Courier New', Courier, mono, serif;
   font-size: 13px;
 }
 
-.heading-row {
+.flex-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
 
+.editor-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 #templateEditorContainer {
-  flex: 2;
+  flex: 0 1 70%;
   min-height: 0;
 }
 
 #tagEditorContainer {
-  flex: 1;
+  flex: 0 1 fit-content;
   min-height: 0;
 }
-
 .cm-editor {
   height: 100% !important;
   background-color: #fff;
 }
-
 .error {
   display: none;
   color: #ffffff;
@@ -90,24 +88,9 @@
 #tag-text-area-error {
   bottom: 15px;
 }
-
-.apply-button {
-  margin: 1ex 0 1ex 0;
-  padding: 5px 9px 5px 9px;
-  background-color: #1871bd;
-  color: #f7f7f7;
-  border: none;
-  cursor: pointer;
+#apply-tag-button {
+  margin-right: 20px;
 }
-
-.apply-button:hover {
-  background-color: #328ad5;
-}
-
-.apply-button:disabled {
-  background-color: #a0a0a0;
-}
-
 .switch {
   position: relative;
   display: inline-block;
@@ -156,7 +139,12 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-.demo-sidebar__content {
+.main-container {
   display: flex;
-  flex-direction: column;
+  .graph-panel {
+    flex: 1 1 50vw;
+  }
+  .interaction-panel {
+    flex: 0 1 50vw;
+  }
 }

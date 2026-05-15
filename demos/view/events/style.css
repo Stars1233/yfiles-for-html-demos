@@ -26,116 +26,137 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
+.description-panel {
+  .event-options-heading {
+    display: block;
+    cursor: pointer;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    user-select: none;
+    color: white !important;
+    padding: 5px 5px 5px 15px;
+    box-sizing: border-box;
+    margin-top: 0 !important;
+    margin-bottom: 2px !important;
+    align-items: center;
+    p {
+      float: right;
+      margin: 0;
+      font-size: 27px;
+    }
+  }
+  .event-options-content {
+    padding-bottom: 1px;
+    margin-bottom: 10px;
+  }
+
+  .options-section {
+    border-radius: var(--border-radius);
+    margin-bottom: 10px;
+  }
+
+  & input[type='checkbox'] {
+    &::after {
+      color: var(--color-casper-blue-dark) !important;
+    }
+
+    &:hover {
+      background-color: var(--color-casper-blue) !important;
+    }
+  }
+
+  #event-options {
+    color: var(--color-casper-blue-black);
+  }
+
+  #event-options li {
+    list-style-type: none;
+    position: relative;
+  }
+
+  *[data-tooltip]:after {
+    content: attr(data-tooltip);
+    position: absolute;
+    left: 3em;
+    top: 2em;
+    background: rgba(100, 100, 100, 1);
+    color: rgba(255, 255, 255, 1);
+    border-radius: 3px;
+    max-width: 100%;
+    padding: 10px;
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out 0s;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  *[data-tooltip]:hover:after {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out 0.5s;
+    visibility: visible;
+  }
+
+  #event-options input {
+    position: relative;
+    vertical-align: middle;
+    bottom: 1px;
+  }
+}
+
+.group-events-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+#group_events_label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
 #log {
-  height: calc(100% - 220px);
   padding: 0 5px;
   overflow: auto;
   -webkit-overflow-scrolling: auto !important;
   font-family: 'Consolas', 'Courier New', Courier, mono, serif;
 }
 
-.event-types-headline {
-  font-size: 140%;
-  line-height: 130%;
-  padding-left: 20px;
-  font-weight: bold;
-}
-
-.event-options-heading {
-  display: block;
-  cursor: pointer;
-  width: 100%;
-  background-color: #ddd;
-  user-select: none;
-  color: white !important;
-  padding: 5px;
-  box-sizing: border-box;
-  margin-top: 0 !important;
-  margin-bottom: 2px !important;
-}
-
-.event-options-heading.collapsed {
-  background: url('../../demo-app/icons/arrowheadRightWhite.png') no-repeat right 10px center;
-}
-
-.event-options-heading.expanded {
-  background: url('../../demo-app/icons/arrowheadDownWhite.png') no-repeat right 10px center;
-}
-
-.options-section {
-}
-
-#event-options {
-  height: calc(50% - 60px);
-  overflow-y: auto;
-}
-
-#event-options li {
-  list-style-type: none;
-  position: relative;
-}
-
-*[data-tooltip]:after {
-  content: attr(data-tooltip);
-  position: absolute;
-  left: 3em;
-  top: 2em;
-  background: rgba(100, 100, 100, 1);
-  color: rgba(255, 255, 255, 1);
-  border-radius: 3px;
-  max-width: 100%;
-  padding: 10px;
-  z-index: 100;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out 0s;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-*[data-tooltip]:hover:after {
-  opacity: 1;
-  transition: opacity 0.3s ease-in-out 0.5s;
-  visibility: visible;
-}
-
-#event-options input {
-  position: relative;
-  vertical-align: middle;
-  bottom: 1px;
+#clear-log-button {
+  margin-left: auto;
 }
 
 .logMessage {
   background-color: #eee;
   padding: 3px;
-  width: 100%;
   box-sizing: border-box;
   margin-bottom: 5px;
+  color: var(--color-casper-blue-black);
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .logGroup {
   margin-bottom: 5px;
-  width: 100%;
   box-sizing: border-box;
   padding: 0;
 }
 
 .logGroup-container {
+  display: flex;
   position: relative;
   vertical-align: top;
-  display: table;
   box-sizing: border-box;
   border-spacing: 3px;
-  background-color: white;
-  border: 3px solid #999;
-  height: 100%;
-  width: 100%;
+  border: 2px solid var(--interaction-heading);
+  background-color: var(--interaction-bg);
 }
 .logGroup-container:before,
 .logGroup-container:after {
   left: 20px;
   right: 20px;
   height: 3px;
-  background: white;
+  background: var(--interaction-bg);
   content: '';
   position: absolute;
 }
@@ -152,23 +173,18 @@
 }
 
 .logGroup-messages {
-  width: 85%;
   overflow: hidden;
   box-sizing: border-box;
   display: table-cell;
+  color: var(--color-casper-blue-black);
 }
 
 .logGroup-count {
-  width: 15%;
-  height: 100%;
-  text-align: center;
-  vertical-align: middle;
-  font-size: 30px;
+  align-self: center;
+  font-size: 1.3rem;
+  padding: 3px;
   font-weight: bold;
-  color: #666;
-  background-color: #eee;
-  margin-bottom: 6px;
-  display: table-cell;
+  color: var(--interaction-heading);
 }
 
 .logMessage.category-InputMode {
@@ -217,14 +233,13 @@
   background-color: #eee;
 }
 
-#drag-and-drop-panel {
-  background-color: white;
+#dnd-panel {
   padding: 10px 0;
-  border: 5px solid #f7f7f7;
 }
 
-#drag-and-drop-panel > div {
+#dnd-panel > div {
   display: inline-block;
+  padding: 10px;
 }
 
 .yfiles-cursor-dragdrop-copy {
@@ -259,26 +274,4 @@
 
 .yfiles-drag.hidden {
   opacity: 0;
-}
-
-.event-demo-side-bar {
-  width: 400px;
-  height: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: #ebeef0;
-  line-height: 140%;
-  border-left: 1px solid #d5d7d8;
-}
-.event-demo-side-bar-content-controls {
-  overflow-y: hidden;
-  padding: 10px 10px 20px;
-}
-
-.event-demo-side-bar-content-controls :first-child {
-  margin-block-start: 0;
-}
-.event-demo-side-bar-content-controls :last-child {
-  margin-block-end: 0;
 }

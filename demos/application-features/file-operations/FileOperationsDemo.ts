@@ -36,15 +36,15 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { downloadFile, getFileExtension, openFile } from '@yfiles/demo-utils/file-support'
 import { openInWindow } from '@yfiles/demo-utils/open-in-window'
 import { openStorageItem, saveStorageItem } from './storage-support'
 import { readGraphML, writeGraphML } from '@yfiles/demo-utils/graphml-support'
 import { readJSON, writeJSON } from './json-support'
 import sampleData from './file-operations-sample.json?raw'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
-const storageKey = 'graph-file-operations-demo.graphml'
+const storageKey = 'yfiles-demo-file-operations-graphml'
 
 async function run(): Promise<void> {
   License.value = licenseData
@@ -139,7 +139,7 @@ function initializeUI(graphComponent: GraphComponent): void {
     .addEventListener('click', async () => {
       try {
         const result = await new GraphMLIOHandler().write(graphComponent.graph)
-        await saveStorageItem(storageKey, result)
+        saveStorageItem(storageKey, result)
         document.querySelector<HTMLInputElement>('#open-storage-button')!.disabled = false
       } catch (err) {
         alert(err)

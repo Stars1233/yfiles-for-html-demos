@@ -48,7 +48,7 @@ import {
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import { RichTextEditorInputMode } from './RichTextEditorInputMode'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import graphData from './graph-data.json'
 
 let graphComponent
@@ -66,10 +66,10 @@ async function run() {
 
   // initialize graph component
   graphComponent = new GraphComponent('graphComponent')
-  graphComponent.inputMode = new GraphEditorInputMode({
-    // provide a WYSIWYG editor for the MarkupLabelStyle
-    editLabelInputMode: { textEditorInputMode: new RichTextEditorInputMode() }
-  })
+  const inputMode = new GraphEditorInputMode()
+  // configure a WYSIWYG editor for the MarkupLabelStyle
+  inputMode.editLabelInputMode.textEditorInputMode = new RichTextEditorInputMode(inputMode)
+  graphComponent.inputMode = inputMode
 
   const graph = graphComponent.graph
   // set the defaults for nodes

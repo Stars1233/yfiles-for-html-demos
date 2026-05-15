@@ -53,7 +53,7 @@ import { YellowOrthogonalEdgeHelper } from './YellowOrthogonalEdgeHelper'
 import type { ColorSetName } from '@yfiles/demo-app/demo-styles'
 import { createDemoEdgeStyle, createDemoNodeStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Registers different IOrthogonalEdgeHelpers to demonstrate various custom behaviour.
@@ -154,14 +154,14 @@ async function run(): Promise<void> {
   // Create and register the edge decorations
   registerOrthogonalEdgeHelperDecorators(graph)
 
-  createSampleGraph(graph)
+  createSampleGraph(graph, graphComponent)
+  //center graph
 }
 
 /**
  * Creates the sample graph of this demo.
- * @param graph The input graph
  */
-function createSampleGraph(graph: IGraph): void {
+function createSampleGraph(graph: IGraph, graphComponent: GraphComponent): void {
   createSubgraph(graph, 0, 'demo-red', 'red')
   createSubgraph(graph, 110, 'demo-green', 'green')
   createSubgraph(graph, 220, 'demo-purple', 'purple', true)
@@ -178,6 +178,7 @@ function createSampleGraph(graph: IGraph): void {
   graph.addBend(blueEdge, new Point(300, blueEdge.targetPort.location.y + 30))
   graph.addBend(blueEdge, new Point(380, blueEdge.targetPort.location.y + 30))
 
+  graphComponent.fitGraphBounds()
   // clear undo after initial graph loading
   graph.undoEngine!.clear()
 }

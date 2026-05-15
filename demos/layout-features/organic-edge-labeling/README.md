@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Organic Layout with Edge Labeling
+# Organic Layout with Edge Labeling Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-organic-edge-labeling.webp" alt="demo-thumbnail" height="320"/>
 

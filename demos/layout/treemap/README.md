@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Tree Map Demo
+# Tree Map Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/tree-map.webp" alt="demo-thumbnail" height="320"/>
 

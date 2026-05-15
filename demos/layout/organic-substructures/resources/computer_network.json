@@ -1,18 +1,16 @@
 {
-  "settings": {
-    "cycleSubstructureStyle": "CIRCULAR",
-    "chainSubstructureStyle": "NONE",
-    "starSubstructureStyle": "RADIAL",
-    "parallelSubstructureStyle": "RADIAL",
-    "treeSubstructureStyle": "NONE",
-    "groupSubstructures": "NO_GROUPS",
-    "useEdgeGrouping": true,
-    "considerNodeTypes": true,
-    "parallelSubstructureTypeSeparation": false,
-    "starSubstructureTypeSeparation": false,
-    "allowItemCreation": false,
-    "allowItemModification": true,
-    "allowTypeChanges": false,
-    "overrideStyles": false
-  }
+  "cycleSubstructureStyle": "CIRCULAR",
+  "chainSubstructureStyle": "NONE",
+  "starSubstructureStyle": "RADIAL",
+  "parallelSubstructureStyle": "RADIAL",
+  "treeSubstructureStyle": "NONE",
+  "groupSubstructures": "NO_GROUPS",
+  "useEdgeGrouping": true,
+  "considerNodeTypes": true,
+  "parallelSubstructureTypeSeparation": false,
+  "starSubstructureTypeSeparation": false,
+  "allowItemCreation": false,
+  "allowItemModification": true,
+  "allowTypeChanges": false,
+  "overrideStyles": false
 }

@@ -45,12 +45,12 @@ import {
 import { SimpleOutputHandler } from './SimpleOutputHandler'
 import { SimpleInputHandler } from './SimpleInputHandler'
 import { PropertiesPanel } from './PropertiesPanel'
-import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import { EditorSync } from './EditorSync'
 import licenseData from '../../../lib/license.json'
 import { createConfiguredGraphMLIOHandler } from '@yfiles/demo-utils/FaultTolerantGraphMLIOHandler'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { openGraphML, saveGraphML } from '@yfiles/demo-utils/graphml-support'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 
 let graphComponent
 

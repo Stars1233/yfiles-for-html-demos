@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Organic Substructures Demo
+# Organic Substructures Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/organic-substructures.webp" alt="demo-thumbnail" height="320"/>
 

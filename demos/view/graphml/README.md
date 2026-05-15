@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# GraphML Demo
+# GraphML Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graphml.webp" alt="demo-thumbnail" height="320"/>
 

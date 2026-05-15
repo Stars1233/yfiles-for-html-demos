@@ -351,17 +351,13 @@ export class DragAndDropPanel {
       }
     }
 
-    element.addEventListener(
-      'pointerdown',
-      (evt) => {
-        if (evt.button !== 0) {
-          return
-        }
-        doDragOperation()
-        evt.preventDefault()
-      },
-      true
-    )
+    element.addEventListener('pointerdown', (evt) => {
+      if (evt.button !== 0) {
+        return
+      }
+      doDragOperation()
+      evt.preventDefault()
+    })
   }
 }
 

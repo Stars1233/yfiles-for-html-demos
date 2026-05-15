@@ -50,11 +50,16 @@ import {
 } from '@yfiles/yfiles'
 
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent
 let graphOverviewComponent
+function isMode(value) {
+  return value === 'light' || value === 'dark'
+}
+const stored = document.documentElement.getAttribute('data-theme')
+let mode = isMode(stored) ? stored : 'dark'
 
 /**
  * Bootstraps the demo.
@@ -101,7 +106,7 @@ function buildGraph(graph, graphData) {
     .createNodesSource({
       data: graphData.nodeList.filter((item) => !item.isGroup),
       id: (item) => item.id,
-      parentId: (item) => item.parentId
+      parentId: (item) => item.parent
     })
     .nodeCreator.createLabelBinding((item) => item.label)
 
@@ -126,9 +131,20 @@ function buildGraph(graph, graphData) {
 /**
  * Switches between the light and dark mode of this demo application.
  */
-function enableMode(mode) {
-  const isDarkMode = mode === 'dark'
-  const backgroundColor = isDarkMode ? '#3c4253' : '#fff'
+function toggleMode(first) {
+  //check the current mode
+  let isDarkMode
+  if (first) {
+    isDarkMode = !(mode === 'dark') // for initial load, the mode should not be toggled but should get the initial value
+  } else {
+    isDarkMode = mode === 'dark'
+  }
+
+  //update mode
+  mode = isDarkMode ? 'light' : 'dark'
+
+  //update background-color
+  const backgroundColor = isDarkMode ? '#fff' : '#29323c'
   graphComponent.htmlElement.style.backgroundColor = backgroundColor
 
   // change the content area color of the group nodes
@@ -137,18 +153,18 @@ function enableMode(mode) {
 
   // change the stroke and target arrow color of the edges to a color which is
   // offers good visibility on the background
-  const color = isDarkMode ? '#FCFDFE' : '#605003'
+  const color = isDarkMode ? '#605003' : '#FCFDFE'
   const edgeStyle = graphComponent.graph.edgeDefaults.style
   edgeStyle.stroke = `1.5px ${color}`
   edgeStyle.targetArrow = new Arrow({ fill: color, stroke: color, type: 'triangle' })
 
   // update CSS variables
   if (isDarkMode) {
-    graphComponent.htmlElement.classList.add('dark')
-    graphOverviewComponent.htmlElement.classList.add('dark')
-  } else {
     graphComponent.htmlElement.classList.remove('dark')
     graphOverviewComponent.htmlElement.classList.remove('dark')
+  } else {
+    graphComponent.htmlElement.classList.add('dark')
+    graphOverviewComponent.htmlElement.classList.add('dark')
   }
 
   // indicate that the component needs to be updated
@@ -209,25 +225,17 @@ function initializeGraph(graph) {
   )
   graph.groupNodeDefaults.labels.layoutParameter =
     new GroupNodeLabelModel().createTabBackgroundParameter()
-
-  // initially, enable the light mode styling variant
-  enableMode('light')
 }
 
 /**
  * Sets up event listeners for theme buttons.
  */
 function initializeUI() {
-  const lightBtn = document.querySelector('#light')
-  const darkBtn = document.querySelector('#dark')
-  lightBtn.addEventListener('click', () => switchMode('light'))
-  darkBtn.addEventListener('click', () => switchMode('dark'))
-
-  function switchMode(mode) {
-    enableMode(mode)
-    lightBtn.disabled = mode === 'light'
-    darkBtn.disabled = mode === 'dark'
+  if (mode === 'dark') {
+    toggleMode(true)
   }
+  const themeBtn = document.querySelector('.theme-toggle')
+  themeBtn.addEventListener('click', () => toggleMode(false))
 }
 
 run().then(finishLoading)

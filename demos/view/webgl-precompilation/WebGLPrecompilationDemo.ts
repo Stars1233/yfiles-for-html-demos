@@ -44,7 +44,7 @@ import {
 } from '@yfiles/yfiles'
 
 import licenseData from '../../../lib/license.json'
-import { checkWebGL2Support, finishLoading } from '@yfiles/demo-app/demo-page'
+
 import { preloadWebglStyles } from './preload-webgl-styles'
 import {
   edgeFocusStyle,
@@ -62,6 +62,8 @@ import {
 } from './webgl-styles'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import type { WebGLEdgeStyle, WebGLNodeStyle, WebGLTextStyle } from './webgl-styles-util'
+import { checkWebGL2Support } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const webGLLoadingOverlay = document.querySelector('.webgl-loading')!
 

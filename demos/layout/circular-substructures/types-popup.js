@@ -52,7 +52,7 @@ export function getNodeType(node) {
 
 /**
  * Sets the type for the given node by updating the node's tag and the according style.
- * This function is invoked when the type of node is changed via the type panel.
+ * This function is invoked when the type value of a node is changed via the type panel.
  */
 export function setNodeType(node, type) {
   // set a new tag and style so that this change is easily undo-able

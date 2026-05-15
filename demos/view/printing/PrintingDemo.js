@@ -31,13 +31,13 @@ import { GraphComponent, GraphEditorInputMode, License } from '@yfiles/yfiles'
 import { PrintingSupport } from '@yfiles/demo-utils/PrintingSupport'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { createSampleGraph } from './samples'
 import { initializeExportRectangle } from './export-rectangle/export-rectangle'
 import { initializeOptionPanel } from './option-panel/option-panel'
 import { initializeToggleWebGlRenderingButton } from './webgl-support'
 import { retainAspectRatio } from './aspect-ratio'
 import { DelayedNodeStyle } from './node-styles/delayed-node-style'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run() {
   License.value = licenseData

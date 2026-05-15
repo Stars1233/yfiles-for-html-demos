@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Flowchart Demo
+# Flowchart Editor Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/flowchart-editor.webp" alt="demo-thumbnail" height="320"/>
 

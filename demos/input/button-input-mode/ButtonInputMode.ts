@@ -37,6 +37,7 @@ import {
   Cursor,
   delegate,
   type EdgeEventArgs,
+  EventArgs,
   FreeLabelModel,
   FreeNodePortLocationModel,
   type GraphComponent,
@@ -55,7 +56,6 @@ import {
   type ILabelModelParameter,
   ILabelOwner,
   type ILabelStyle,
-  IListEnumerable,
   type IModelItem,
   INode,
   InputModeBase,
@@ -71,6 +71,7 @@ import {
   type LabelEventArgs,
   LabelStyle,
   LabelStyleBase,
+  ListEnumerable,
   Matrix,
   MatrixOrder,
   type NodeEventArgs,
@@ -81,7 +82,6 @@ import {
   type PointerEventArgs,
   PointerType,
   type PortEventArgs,
-  PropertyChangedEventArgs,
   Rect,
   SimpleBend,
   SimpleEdge,
@@ -187,7 +187,7 @@ export class ButtonInputMode extends InputModeBase {
    * The time an {@link IModelItem} has to be hovered before {@link Button}s are
    * {@link setQueryButtonsListener queried} for it.
    *
-   * This property is only used when {@link buttonTrigger} is {@link ButtonTrigger.HOVER}.
+   * This property is only used when {@link buttonTrigger} is `hover`.
    *
    * The `default` is `750`.
    */
@@ -202,7 +202,7 @@ export class ButtonInputMode extends InputModeBase {
   /**
    * The time before {@link Button}s for a hovered item are hidden again.
    *
-   * This property is only used when {@link buttonTrigger} is {@link ButtonTrigger.HOVER}.
+   * This property is only used when {@link buttonTrigger} is `hover`.
    *
    * The `default` is `2000`.
    */
@@ -232,7 +232,7 @@ export class ButtonInputMode extends InputModeBase {
    * The gesture or state that is used to decide for which {@link IModelItem}
    * {@link Button}s should be displayed.
    *
-   * The `default` ist {@link ButtonTrigger.HOVER}.
+   * The `default` is `hover`.
    */
   get buttonTrigger(): ButtonTrigger {
     return this._buttonTrigger
@@ -245,13 +245,13 @@ export class ButtonInputMode extends InputModeBase {
       case 'hover':
         if (this.graphComponent) {
           this.updateHoveredItem(
-            this.graphComponent.canvasContext.canvasComponent.lastEventLocation
+            this.graphComponent.canvasContext.canvasComponent.lastPointerEvent.location
           )
         }
         break
       case 'current-item':
         if (this.graphComponent) {
-          this.onCurrentItemChanged(new PropertyChangedEventArgs(''), this.graphComponent)
+          this.onCurrentItemChanged(EventArgs.EMPTY, this.graphComponent)
         }
         break
     }
@@ -514,7 +514,7 @@ export class ButtonInputMode extends InputModeBase {
         if (this.hoveredButton.onHoverOut) {
           this.hoveredButton.onHoverOut(this.hoveredButton)
         }
-        this.tooltipMode.hide()
+        this.tooltipMode.close()
         clearTimeout(this._lastTooltipTimeout)
       }
       this.hoveredButton = newButton
@@ -531,7 +531,7 @@ export class ButtonInputMode extends InputModeBase {
           this._lastTooltipTimeout = setTimeout(() => {
             if (this.hoveredButton) {
               const tooltipLocation = this.calculateTooltipLocation(this.hoveredButton)
-              this.tooltipMode.show(tooltipLocation, this.hoveredButton.tooltip)
+              void this.tooltipMode.open(tooltipLocation, this.hoveredButton.tooltip)
             }
           }, this.hoverTooltipTime)
         }
@@ -635,7 +635,7 @@ export class ButtonInputMode extends InputModeBase {
   }
 
   /**
-   * The button that is focused and can be triggered via {@link Key.ENTER} or {@link Key.SPACE}.
+   * The button that is focused and can be triggered via the `Return` or `Space` keys.
    * @param focusedButton The button to focus or `null` if no button shall be focused.
    */
   public set focusedButton(focusedButton: Button | null) {
@@ -734,7 +734,7 @@ export class ButtonInputMode extends InputModeBase {
     }
   }
 
-  private onCurrentItemChanged(evt: PropertyChangedEventArgs, component: GraphComponent) {
+  private onCurrentItemChanged(_: EventArgs, component: GraphComponent) {
     if (this.buttonTrigger === 'current-item') {
       if (component.currentItem === null || !this.isValidItem(component.currentItem)) {
         this.hideButtons()
@@ -1082,7 +1082,7 @@ class ButtonRenderer extends BaseClass(
     })
     this.dummyBends = []
     this.dummyBendsBackup = []
-    this.previewEdge.bends = IListEnumerable.from(this.dummyBends)
+    this.previewEdge.bends = new ListEnumerable(this.dummyBends)
 
     this.focusedButtonStyle = new FocusLabelStyle(Stroke.from('3px #FFCF00'))
   }
@@ -1484,6 +1484,10 @@ class DummyContext extends BaseClass(IRenderContext) {
 
   lookup(type: Constructor<any>): any {
     return this.innerContext.lookup(type)
+  }
+
+  setConnectedCallback(callback: () => void): void {
+    this.innerContext.setConnectedCallback(callback)
   }
 
   /**

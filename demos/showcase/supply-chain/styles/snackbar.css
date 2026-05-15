@@ -37,13 +37,14 @@
   position: fixed;
   left: calc(50% - 125px);
   bottom: 30px;
+  z-index: 1;
 }
 
 #snackbar.show {
   visibility: visible;
   animation:
-    snackbar-fade-in 0.7s,
-    snackbar-fade-out 0.5s 5s;
+    snackbar-fade-in 0.7s forwards,
+    snackbar-fade-out 0.5s 5s forwards;
 }
 
 @keyframes snackbar-fade-in {

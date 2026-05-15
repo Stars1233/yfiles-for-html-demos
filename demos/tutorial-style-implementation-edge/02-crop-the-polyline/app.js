@@ -37,7 +37,7 @@ import {
 } from '../common'
 import { CustomEdgeStyle as OldCustomEdgeStyle } from '../01-create-a-polyline/CustomEdgeStyle'
 
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { CustomEdgeStyle } from './CustomEdgeStyle'
 import { initializeInlineGraphComponent } from '../../tutorial-style-implementation-node/common'
 

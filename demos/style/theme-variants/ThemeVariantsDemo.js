@@ -43,7 +43,7 @@ import {
 } from '@yfiles/yfiles'
 import { colorSets } from '@yfiles/demo-app/demo-colors'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 const graphComponents = []
 
@@ -251,8 +251,8 @@ function selectSampleItems() {
 }
 
 function initColorButtons() {
-  const toolbar = document.querySelector('.demo-page__toolbar')
-  Object.keys(colorPalettes).forEach((paletteName) => {
+  const toolbar = document.querySelector('.toolbar')
+  Object.keys(colorPalettes).forEach((paletteName, index) => {
     const palette = colorPalettes[paletteName]
     const button = document.createElement('button')
     button.style.backgroundColor = palette.secondaryColor
@@ -265,6 +265,11 @@ function initColorButtons() {
       graphComponentsContainer.style.setProperty('--yfiles-theme-secondary', secondaryColor)
       graphComponentsContainer.style.setProperty('--yfiles-theme-background', backgroundColor)
     })
+    if (index === 0) {
+      const separator = document.createElement('div')
+      separator.className = 'separator'
+      toolbar.appendChild(separator)
+    }
     toolbar.appendChild(button)
   })
 }
@@ -273,23 +278,25 @@ function initColorButtons() {
  * Binds actions the buttons in the tutorial's toolbar.
  */
 function initializeUI() {
+  document.querySelector("[data-command='DECREASE_ZOOM']").addEventListener('click', () => {
+    graphComponents[0].executeCommand(Command.DECREASE_ZOOM)
+  })
+  document.querySelector("[data-command='INCREASE_ZOOM']").addEventListener('click', () => {
+    graphComponents[0].executeCommand(Command.INCREASE_ZOOM)
+  })
   document
     .querySelector("[data-command='FIT_GRAPH_BOUNDS']")
     .addEventListener('click', async () => {
       await graphComponents[0].fitGraphBounds()
     })
 
-  document.querySelector("[data-command='ZOOM_ORIGINAL']").addEventListener('click', () => {
-    graphComponents[0].executeCommand(Command.ZOOM)
-  })
-
-  const { defaultHandleOffset, defaultIndicatorOffset } = getThemeDefaults()
+  const { defaultScale, defaultHandleOffset, defaultIndicatorOffset } = getThemeDefaults()
   const sliders = [
     {
       slider: '#scale-slider',
       label: '#scale-label',
       cssClass: '--yfiles-theme-scale',
-      default: '1.5'
+      default: defaultScale
     },
     {
       slider: '#handle-offset-slider',

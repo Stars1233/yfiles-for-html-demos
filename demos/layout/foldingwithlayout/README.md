@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Folding With Layout Demo
+# Folding With Layout Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/folding-with-layout.webp" alt="demo-thumbnail" height="320"/>
 

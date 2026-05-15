@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Label Handle Provider Demo
+# Label Handle Provider Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/label-handle-provider.webp" alt="demo-thumbnail" height="320"/>
 

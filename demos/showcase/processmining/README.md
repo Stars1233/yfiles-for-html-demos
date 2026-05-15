@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Process Mining Visualization Demo
+# Process Mining Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/process-mining.webp" alt="demo-thumbnail" height="320"/>
 

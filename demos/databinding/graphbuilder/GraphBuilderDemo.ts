@@ -52,7 +52,8 @@ import {
   SourcesFactory
 } from './ModelClasses'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 
 interface GraphBuilderSample {
   name: string
@@ -137,7 +138,7 @@ function initializeUI(): void {
     }
   })
 
-  addNavigationButtons(samplesComboBox)
+  addNavigationButtons(samplesComboBox, 'Sample:', false)
 }
 
 /**

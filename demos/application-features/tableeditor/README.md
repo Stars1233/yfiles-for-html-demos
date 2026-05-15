@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Table Editor Demo
+# Table Editor Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/table-editor.webp" alt="demo-thumbnail" height="320"/>
 

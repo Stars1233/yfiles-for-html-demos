@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# UML Editor Demo
+# UML Editor Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/uml-editor.webp" alt="demo-thumbnail" height="320"/>
 

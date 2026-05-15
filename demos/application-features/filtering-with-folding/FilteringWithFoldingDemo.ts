@@ -54,9 +54,9 @@ import {
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import type { JSONGraph } from '@yfiles/demo-utils/json-model'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 let graphComponent: GraphComponent
 
@@ -95,6 +95,8 @@ async function run(): Promise<void> {
 
   // enable undo after the initial graph was populated since we don't want to allow undoing that
   fullGraph.undoEngineEnabled = true
+  // also enable undo for folding operations
+  foldingView.enqueueNavigationalUndoUnits = true
 
   // update the reset filter button depending on the current graph state
   fullGraph.undoEngine!.addEventListener('unit-undone', updateResetButtonState)
@@ -113,7 +115,7 @@ function buildGraph(graph: IGraph, graphData: JSONGraph): void {
   graphBuilder.createNodesSource({
     data: graphData.nodeList.filter((item) => !item.isGroup),
     id: (item) => item.id,
-    parentId: (item) => item.parentId
+    parentId: (item) => item.parent
   })
 
   graphBuilder

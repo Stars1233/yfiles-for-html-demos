@@ -36,7 +36,7 @@ import {
   startAnimation
 } from '../common'
 
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { CustomEdgeStyle } from './CustomEdgeStyle'
 
 License.value = licenseData

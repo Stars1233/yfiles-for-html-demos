@@ -50,9 +50,7 @@ export default defineConfig(({ mode }) => {
             shouldOptimize({ id }) {
               // Make sure not to exclude the demo-app and demo-utils directories which are
               // installed as dependencies but use yFiles API.
-              return (
-                id.includes('demo-app') || id.includes('demo-utils') || !id.includes('node_modules')
-              )
+              return id.includes('demo-utils') || !id.includes('node_modules')
             }
           })
         : undefined

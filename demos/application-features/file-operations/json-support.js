@@ -52,7 +52,7 @@ export function readJSON(graphComponent, text) {
     const nodesSource = graphBuilder.createNodesSource({
       data: data.nodeList.filter((item) => item.isGroup !== true),
       id: (item) => item.id,
-      parentId: (item) => item.parentId,
+      parentId: (item) => item.parent,
       layout: (item) => item.layout
     })
     const nodeLabelSource = nodesSource.nodeCreator.createLabelsSource({
@@ -67,7 +67,7 @@ export function readJSON(graphComponent, text) {
     const groupNodesSource = graphBuilder.createGroupNodesSource({
       data: data.nodeList.filter((item) => item.isGroup === true),
       id: (item) => item.id,
-      parentId: (item) => item.parentId,
+      parentId: (item) => item.parent,
       layout: (item) => item.layout
     })
     const groupNodeLabelSource = groupNodesSource.nodeCreator.createLabelsSource({

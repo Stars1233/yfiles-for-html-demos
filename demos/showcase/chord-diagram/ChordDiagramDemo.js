@@ -36,15 +36,14 @@ import {
   INode,
   LayoutExecutor,
   License,
-  Mapper,
-  Rect
+  Mapper
 } from '@yfiles/yfiles'
 import { ChordDiagramLayout } from './ChordDiagramLayout'
 import { ChordEdgeStyle } from './ChordEdgeStyle'
 import { CircleSegmentNodeStyle } from './CircleSegmentNodeStyle'
-import SampleData from './resources/SampleData'
+import GraphData from './resources/graph-data.json'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 // maps edges to their thickness
 const weightMapping = new Mapper()
@@ -173,14 +172,9 @@ function initStyles(graphComponent) {
  * Creates the sample graph.
  */
 function createSampleGraph(graph) {
-  const defaultNodeSize = graph.nodeDefaults.size
   const builder = new GraphBuilder(graph)
-  builder.createNodesSource({
-    data: SampleData.nodes,
-    id: 'id',
-    layout: (data) => new Rect(data.x, data.y, defaultNodeSize.width, defaultNodeSize.height)
-  })
-  builder.createEdgesSource({ data: SampleData.edges, sourceId: 'from', targetId: 'to' })
+  builder.createNodesSource({ data: GraphData.nodes, id: 'id', layout: 'layout' })
+  builder.createEdgesSource({ data: GraphData.edges, sourceId: 'source', targetId: 'target' })
 
   builder.buildGraph()
 

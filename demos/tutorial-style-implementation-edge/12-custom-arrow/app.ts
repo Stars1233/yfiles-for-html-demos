@@ -34,7 +34,7 @@ import {
   zoomToContent
 } from '../common'
 
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { createEdges } from './create-edges'
 
 License.value = licenseData

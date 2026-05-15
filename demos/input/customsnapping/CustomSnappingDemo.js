@@ -52,8 +52,7 @@ import { ShapeBasedGridNodeSnapResultProvider } from './ShapeBasedGridNodeSnapRe
 import { AdditionalSnapLineMoveInputMode } from './AdditionalSnapLineMoveInputMode'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
-
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 /**
  * Returns a list of the free {@link AdditionalSnapLineVisualCreator}s used in this demo.
  * This property is used by {@link AdditionalSnapLineMoveInputMode} to access the

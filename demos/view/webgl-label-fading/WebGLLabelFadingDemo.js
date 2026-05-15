@@ -27,23 +27,31 @@
  **
  ***************************************************************************/
 import {
+  CircularLayout,
+  ExteriorNodeLabelModel,
+  Font,
   GraphComponent,
   GraphViewerInputMode,
+  IEnumerable,
   License,
-  NinePositionsEdgeLabelModel,
-  Point,
-  Rect,
   WebGLFocusIndicatorManager,
   WebGLGraphModelManager,
   WebGLHighlightIndicatorManager,
-  WebGLSelectionIndicatorManager
+  WebGLLabelShape,
+  WebGLLabelStyle,
+  WebGLPolylineEdgeStyle,
+  WebGLSelectionIndicatorManager,
+  WebGLShapeNodeShape,
+  WebGLShapeNodeStyle,
+  WebGLStroke,
+  WebGLZoomScalingPolicy,
+  WebGLZoomVisibilityPolicy
 } from '@yfiles/yfiles'
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons, checkWebGL2Support, finishLoading } from '@yfiles/demo-app/demo-page'
-import { registerLabelFading } from './label-fading'
-import graphData from './resources/hierarchic_2000_2100.json'
+import { checkWebGL2Support } from '@yfiles/demo-app/modern/element-utils'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run() {
   if (!checkWebGL2Support()) {
@@ -54,20 +62,17 @@ async function run() {
 
   // initialize a GraphComponent with a view-only input mode
   const graphComponent = new GraphComponent('#graphComponent')
+
   graphComponent.inputMode = new GraphViewerInputMode()
   initDemoStyles(graphComponent.graph)
 
   // Render graph in WebGL to utilize its label fading capabilities
   enableWebGLRendering(graphComponent)
 
-  // register label fading at the GraphComponent zoom changes
-  const thresholdSelect = document.querySelector('#label-fadeout-threshold')
-  const fadeThreshold = Number(thresholdSelect.options[thresholdSelect.selectedIndex].value)
-  registerLabelFading(graphComponent, fadeThreshold)
-
   // create an initial sample graph
-  await createGraph(graphComponent.graph)
-  void graphComponent.fitGraphBounds()
+  graphComponent.zoom = 0.01
+  createGraph(graphComponent.graph)
+  await graphComponent.fitGraphBounds()
 
   // set up zoom threshold select
   initializeUI(graphComponent)
@@ -87,62 +92,158 @@ function enableWebGLRendering(graphComponent) {
  * Configures the threshold values dropdown menu.
  */
 function initializeUI(graphComponent) {
-  const labelFadeoutThresholdSelect = document.querySelector('#label-fadeout-threshold')
-  labelFadeoutThresholdSelect.addEventListener('change', (e) => {
-    const selectElement = e.target
-    registerLabelFading(graphComponent, Number(selectElement.value))
+  const zoomLevelSpan = document.querySelector('#current-zoom')
+  graphComponent.addEventListener('zoom-changed', () => {
+    const zoomPercent = Math.round(graphComponent.zoom * 100)
+    zoomLevelSpan.textContent = `${zoomPercent}%`
   })
-  addNavigationButtons(labelFadeoutThresholdSelect, false)
 }
 
 /**
  * Creates an initial sample graph.
- * @yjs:keep = edgeList
  */
-async function createGraph(graph) {
+function createGraph(graph) {
   graph.clear()
+  createTree(graph)
+  graph.applyLayout(new CircularLayout())
+}
 
-  const getRandomInt = (upper) => Math.floor(Math.random() * upper)
-  // create a map to store the nodes for edge creation
-  const nodeMap = new Map()
+function createTree(graph, { maxDepth = 4, minChildren = 6, maxChildren = 2 } = {}) {
+  graph.nodeDefaults.labels.layoutParameter = ExteriorNodeLabelModel.BOTTOM
 
-  // create the nodes
-  for (const nodeData of graphData.nodeList) {
-    const id = nodeData.id
-    const l = nodeData.l
-    const node = graph.createNode({
-      layout: new Rect(l.x, l.y, l.w, l.h),
-      tag: { id, type: getRandomInt(9) }
+  let counter = 1
+
+  // we define some visibility policies for each layer in our tree that we can share
+  // between nodes and edges - labels get their own policy.
+  const layerVisibility = IEnumerable.ofRange(0, maxDepth + 1)
+    .map((layer) => {
+      if (layer === 1) {
+        // keep elements at level 1
+        return undefined
+      }
+      const size = 30 + 30 * (maxDepth - layer)
+      const minEffectiveSize = 10
+      const minZoom = minEffectiveSize / size
+
+      return new WebGLZoomVisibilityPolicy({ lowerThreshold: minZoom })
     })
-    nodeMap.set(id, node)
+    .toArray()
 
-    graph.addLabel(node, `Item \u2116 ${graph.nodes.size}\nType: ${node.tag.type}`)
+  // helper method for the colors used in the demo
+  function colorForLayer(layer) {
+    const t = maxDepth <= 1 ? 0 : (layer - 1) / (maxDepth - 1)
+
+    // blue -> teal -> green-ish
+    const r = Math.round(90 + (120 - 90) * t)
+    const g = Math.round(140 + (200 - 140) * t)
+    const b = Math.round(240 + (140 - 240) * t)
+
+    return `rgb(${r}, ${g}, ${b})`
   }
 
-  for (const edgeData of graphData.edgeList) {
-    // get the source and target node from the mapping
-    const sourceNode = nodeMap.get(edgeData.s)
-    const targetNode = nodeMap.get(edgeData.t)
-    // create the source and target port
-    const sourcePortLocation = edgeData.sp ? Point.from(edgeData.sp) : sourceNode.layout.center
-    const targetPortLocation = edgeData.tp ? Point.from(edgeData.tp) : targetNode.layout.center
-    const sourcePort = graph.addPortAt(sourceNode, sourcePortLocation)
-    const targetPort = graph.addPortAt(targetNode, targetPortLocation)
-    // create the edge
-    const edge = graph.createEdge(sourcePort, targetPort)
-    graph.addLabel(
-      edge,
-      `${sourceNode.tag.id}\u2192${targetNode.tag.id}`,
-      NinePositionsEdgeLabelModel.CENTER_CENTERED
-    )
-    // add the bends
-    if (edgeData.b != null) {
-      const bendData = edgeData.b
-      bendData.forEach((bend) => {
-        graph.addBend(edge, Point.from(bend))
-      })
+  // now we define the label style with the webgl styling and zoom dependent policies
+  function labelStyleForLayer(layer) {
+    // for each layer we determine a size for the font of the label
+    const size = 12 + 12 * (maxDepth - layer)
+    // we define two effective font sizes as thresholds for the visibility
+    const minEffectiveSize = 8
+    const maxEffectiveSize = 64
+    // and this results in zoom levels where we want to hide our labels
+    const minZoom = minEffectiveSize / size
+    const maxZoom = maxEffectiveSize / size
+
+    // we use this to create the policy for the fading/visibility
+    const zoomVisibilityPolicy = new WebGLZoomVisibilityPolicy({
+      lowerThreshold: minZoom,
+      upperThreshold: maxZoom,
+      transitionDuration: '0.2s'
+    })
+
+    // also we determine a zoom policy - i.e. a threshold for a zoom level at which
+    // we want to keep the label at the same size on the screen, independently of the zoom level
+    const lowerThreshold = (minZoom + maxZoom) / 2
+
+    // this defines a function that ...
+    const zoomControlPoints = [
+      [0, 0], // makes sure that when we zoom out, labels actually get small
+      [0.2, lowerThreshold], // but starting from a given threshold we want to keep the size constant
+      [lowerThreshold, lowerThreshold] // after this, the size will start increasing, again
+    ]
+
+    // we create the policy for the style
+    const zoomScalingPolicy = new WebGLZoomScalingPolicy({ controlPoints: zoomControlPoints })
+
+    // now create the style instance with the policies
+    return new WebGLLabelStyle({
+      backgroundColor: colorForLayer(layer),
+      backgroundStroke: `2px solid white`,
+      padding: size / 3, // increase the padding with the font size
+      shape: WebGLLabelShape.SQUIRCLE,
+      font: new Font({ fontSize: size }),
+      zoomVisibilityPolicy: zoomVisibilityPolicy,
+      zoomScalingPolicy: zoomScalingPolicy
+    })
+  }
+
+  // cache the styles for each layer so that the total number of style instances stays small
+  const labelStyles = IEnumerable.ofRange(0, maxDepth + 1)
+    .map(labelStyleForLayer)
+    .toArray()
+
+  // the same for the edges ...
+  function edgeStyleForLayer(layer) {
+    const size = 3 + 3 * (maxDepth - layer)
+    return new WebGLPolylineEdgeStyle({
+      stroke: `${size}px solid ${colorForLayer(layer + 0.5)}`,
+      zoomVisibilityPolicy: layerVisibility[layer]
+    })
+  }
+
+  const edgeStyles = IEnumerable.ofRange(0, maxDepth + 1)
+    .map(edgeStyleForLayer)
+    .toArray()
+
+  // and for nodes...
+  function nodeStyleForLayer(layer) {
+    return new WebGLShapeNodeStyle({
+      shape: WebGLShapeNodeShape.ELLIPSE,
+      fill: colorForLayer(layer),
+      stroke: WebGLStroke.NONE,
+      zoomVisibilityPolicy: layerVisibility[layer]
+    })
+  }
+
+  const nodeStyles = IEnumerable.ofRange(0, maxDepth + 1)
+    .map(nodeStyleForLayer)
+    .toArray()
+
+  // helper for creating the random graph
+  function childCount() {
+    return Math.floor(Math.random() * (maxChildren - minChildren + 1)) + minChildren
+  }
+
+  // a helper method to build a layer connected to a root node in our graph
+  function build(layer, parent) {
+    const size = 30 + 30 * (maxDepth - layer)
+
+    const node = graph.createNode({ style: nodeStyles[layer], layout: [0, 0, size, size] })
+
+    if (parent) {
+      graph.createEdge(parent, node, edgeStyles[layer])
     }
+
+    graph.addLabel({ owner: node, text: `Layer ${layer}: ${counter++}`, style: labelStyles[layer] })
+
+    if (layer < maxDepth) {
+      for (let i = childCount(); i >= 0; i--) {
+        build(layer + 1, node)
+      }
+    }
+
+    return node
   }
+
+  return build(1)
 }
 
 run().then(finishLoading)

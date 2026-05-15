@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Simple Layout Grid Demo
+# Simple Layout Grid Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-layout-grid.webp" alt="demo-thumbnail" height="320"/>
 

@@ -29,9 +29,15 @@
 import {
   BaseClass,
   HierarchicalLayout,
+  HierarchicalLayoutData,
   ILayoutAlgorithm,
+  type LayoutEdge,
+  type LayoutEdgeLabel,
   type LayoutGraph,
   LayoutGraphAlgorithms,
+  type LayoutGraphItem,
+  type LayoutNode,
+  type LayoutNodeLabel,
   Point
 } from '@yfiles/yfiles'
 
@@ -163,7 +169,7 @@ function calculateNodeOrder(graph: LayoutGraph, nodeOrderPolicy: NodeOrder): num
       return nodes.map((node) => topologicalNodeOrder.indexOf(node))
     default:
       // the order in which they were created in the graph
-      return nodes.map((node, index) => index)
+      return nodes.map((_node, index) => index)
   }
 }
 
@@ -181,7 +187,13 @@ function minimizeCrossings(graph: LayoutGraph): number[] {
     fromScratchLayeringStrategy: 'user-defined',
     core: { stopAfterSequencing: false }
   })
-  const hierarchicalLayoutData = hierarchicalLayout.createLayoutData(graph)
+  const hierarchicalLayoutData = new HierarchicalLayoutData<
+    LayoutNode,
+    LayoutEdge,
+    LayoutGraphItem,
+    LayoutNodeLabel,
+    LayoutEdgeLabel
+  >()
   hierarchicalLayoutData.givenLayersIndices = () => 0
   graph.applyLayout(hierarchicalLayout, hierarchicalLayoutData)
 

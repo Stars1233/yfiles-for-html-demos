@@ -43,12 +43,12 @@ export class BezierGraphEditorInputMode extends GraphEditorInputMode {
   }
 
   /**
-   * Overridden to ensure when deleting bezier bends, the correct number is actually removed.
+   * Overridden to ensure, when deleting Bézier bends, the correct number is actually removed.
    * This method does the following:
-   * - for each middle control point of a bezier control triple, it also selects both other control points
-   * - if there are bezier control points selected where the middle control point is NOT selected, they are deselected.
+   * - for each middle control point of a Bézier control triple, it also selects both other control points
+   * - if there are Bézier control points selected where the middle control point is NOT selected, they are deselected.
    * So in effect, either a complete triple is removed (when the middle point is selected), or nothing (when ONLY one of the outer points is selected)
-   * Exception: When only two control points are left, both are deleted together
+   * Exception: When only two control points are left, both are deleted together.
    */
   onDeletingSelection(args) {
     const selectedCurveBends = args.selection
@@ -62,23 +62,28 @@ export class BezierGraphEditorInputMode extends GraphEditorInputMode {
       .toList()
     selectedCurveBends.forEach((selectedCurveBend) => {
       const curveBend = selectedCurveBend
-      args.selection.add(curveBend.owner.bends.get(curveBend.index - 1))
-      args.selection.add(curveBend.owner.bends.get(curveBend.index + 1))
+      const allBends = curveBend.owner.bends
+      args.selection.add(allBends.get(curveBend.index - 1))
+      args.selection.add(allBends.get(curveBend.index + 1))
     })
     // Remove remaining single control points from the list...
     const singularControlPoints = args.selection
-      .filter(
-        (bend) =>
-          bend instanceof IBend &&
+      .filter((bend) => {
+        if (!(bend instanceof IBend)) {
+          return false
+        }
+        const edge = bend.owner
+        const allBends = edge.bends
+        const bendIndex = bend.index
+        return (
           bend.owner.style instanceof BezierEdgeStyle &&
-          bend.owner.bends.size % 3 === 2 &&
-          (bend.index === 0 ||
-            bend.index === bend.owner.bends.size - 1 ||
-            (bend.index % 3 === 1 &&
-              !args.selection.includes(bend.owner.bends.get(bend.index + 1))) ||
-            (bend.index % 3 === 0 &&
-              !args.selection.includes(bend.owner.bends.get(bend.index + -1))))
-      )
+          allBends.size % 3 === 2 &&
+          (bendIndex === 0 ||
+            bendIndex === allBends.size - 1 ||
+            (bendIndex % 3 === 1 && !args.selection.includes(allBends.get(bendIndex + 1))) ||
+            (bendIndex % 3 === 0 && !args.selection.includes(allBends.get(bendIndex + -1))))
+        )
+      })
       .toList()
     singularControlPoints.forEach((singularControlPoint) => {
       const owner = singularControlPoint.owner
@@ -96,16 +101,21 @@ export class BezierGraphEditorInputMode extends GraphEditorInputMode {
 
   onCreateBendInputModeDragSegmentFinished(event, sender) {
     const bend = event.item
-    if (bend) {
-      const edge = bend.owner
-      const mode = sender
-
-      if (
-        mode instanceof BezierCreateBendInputMode &&
-        edge.style instanceof BezierEdgeStyle &&
-        edge.bends.size % 3 === 2 &&
-        bend.index % 3 === 2
-      ) {
+    if (!bend) {
+      return
+    }
+    const edge = bend.owner
+    const mode = sender
+    if (
+      mode instanceof BezierCreateBendInputMode &&
+      edge.style instanceof BezierEdgeStyle &&
+      edge.bends.size % 3 === 2 &&
+      bend.index % 3 === 2
+    ) {
+      if (mode.wasExistingBend) {
+        // we should not remove the bend upon cancel - simply drag the existing bend
+        this.dragBend(bend)
+      } else {
         // we need to remove the bend when the gesture is canceled.
         const handler = new BendCreationHandler(bend, this.graph, mode)
         handler.register(this.handleInputMode)
@@ -114,9 +124,9 @@ export class BezierGraphEditorInputMode extends GraphEditorInputMode {
         } finally {
           handler.dragged()
         }
-      } else {
-        super.onCreateBendInputModeDragSegmentFinished(event, sender)
       }
+    } else {
+      super.onCreateBendInputModeDragSegmentFinished(event, sender)
     }
   }
 }
@@ -127,6 +137,12 @@ export class BezierGraphEditorInputMode extends GraphEditorInputMode {
  */
 class BezierCreateBendInputMode extends CreateBendInputMode {
   $locationMementos
+
+  /**
+   * Remember whether a new bend was created or an existing one is being dragged. Important to know whether to
+   * remove the dragged bend in {@link BezierGraphEditorInputMode.onCreateBendInputModeDragSegmentFinished}.
+   */
+  wasExistingBend = false
 
   get locationMementos() {
     return this.$locationMementos
@@ -142,7 +158,11 @@ class BezierCreateBendInputMode extends CreateBendInputMode {
     edge.bends.forEach((existingBend) => {
       this.locationMementos.set(existingBend, existingBend.location.toPoint())
     })
-    return super.createBend(edge, location)
+    const oldBends = edge.bends.toList()
+    const bend = super.createBend(edge, location)
+    this.wasExistingBend =
+      edge.bends.size == oldBends.size && bend != null && oldBends.includes(bend)
+    return bend
   }
 }
 
@@ -183,45 +203,44 @@ class BendCreationHandler {
 
   inputModeOnDragCanceled() {
     this.unregister()
-    if (this.graph.contains(this.bend)) {
-      const edge = this.bend.owner
-      const bendIndex = this.bend.index
-      let previousBend = null
-      let nextBend = null
-      if (bendIndex > 0) {
-        previousBend = edge.bends.get(bendIndex - 1)
+    if (!this.graph.contains(this.bend)) {
+      return
+    }
+    const edge = this.bend.owner
+    const bendIndex = this.bend.index
+    let previousBend = null
+    let nextBend = null
+    if (bendIndex > 0) {
+      previousBend = edge.bends.get(bendIndex - 1)
+    }
+    let prevPrevBend = null
+    if (bendIndex > 1) {
+      prevPrevBend = edge.bends.get(bendIndex - 2)
+    }
+    if (bendIndex < edge.bends.size - 1) {
+      nextBend = edge.bends.get(bendIndex + 1)
+    }
+    let nextNextBend = null
+    if (bendIndex < edge.bends.size - 2) {
+      nextNextBend = edge.bends.get(bendIndex + 2)
+    }
+    this.graph.remove(this.bend)
+    if (previousBend) {
+      this.graph.remove(previousBend)
+    }
+    if (nextBend) {
+      this.graph.remove(nextBend)
+    }
+    if (prevPrevBend) {
+      const oldLocation = this.bendInputMode.locationMementos.get(prevPrevBend)
+      if (oldLocation) {
+        this.graph.setBendLocation(prevPrevBend, oldLocation)
       }
-      let prevPrevBend = null
-      if (bendIndex > 1) {
-        prevPrevBend = edge.bends.get(bendIndex - 2)
-      }
-      if (bendIndex < edge.bends.size - 1) {
-        nextBend = edge.bends.get(bendIndex + 1)
-      }
-      let nextNextBend = null
-      if (bendIndex < edge.bends.size - 2) {
-        nextNextBend = edge.bends.get(bendIndex + 2)
-      }
-      this.graph.remove(this.bend)
-      // Also remove the additional bends
-      if (previousBend) {
-        this.graph.remove(previousBend)
-      }
-      if (nextBend) {
-        this.graph.remove(nextBend)
-      }
-      // And roll back the position change of the adjacent bends
-      if (prevPrevBend) {
-        const oldLocation = this.bendInputMode.locationMementos.get(prevPrevBend)
-        if (oldLocation) {
-          this.graph.setBendLocation(prevPrevBend, oldLocation)
-        }
-      }
-      if (nextNextBend) {
-        const oldLocation = this.bendInputMode.locationMementos.get(nextNextBend)
-        if (oldLocation) {
-          this.graph.setBendLocation(nextNextBend, oldLocation)
-        }
+    }
+    if (nextNextBend) {
+      const oldLocation = this.bendInputMode.locationMementos.get(nextNextBend)
+      if (oldLocation) {
+        this.graph.setBendLocation(nextNextBend, oldLocation)
       }
     }
   }

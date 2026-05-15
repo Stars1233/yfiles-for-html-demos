@@ -26,12 +26,22 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { LayoutExecutorAsyncWorker, License, OrganicLayout } from '@yfiles/yfiles'
+import {
+  CircularLayout,
+  HierarchicalLayout,
+  LayoutExecutorAsyncWorker,
+  License,
+  OrganicLayout
+} from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
 import { CustomOrganicLayoutStage } from './layout'
 
 // register the yFiles license in the worker as well
 License.value = licenseData
+
+// ensure that all necessary modules are loaded
+HierarchicalLayout.ensure()
+CircularLayout.ensure()
 
 // initialize the helper class that handles the messaging between the main thread and the worker
 LayoutExecutorAsyncWorker.initializeWebWorker((graph, layoutDescriptor) => {

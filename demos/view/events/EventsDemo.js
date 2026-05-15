@@ -67,8 +67,8 @@ import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import { EventView } from './EventView'
 import licenseData from '../../../lib/license.json'
 import { configureTwoPointerPanning } from '@yfiles/demo-utils/configure-two-pointer-panning'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import graphData from './graph-data.json'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * This demo shows how to register to the various events provided by the {@link IGraph graph},
@@ -137,7 +137,7 @@ function buildGraph(graph, graphData) {
     .createNodesSource({
       data: graphData.nodeList.filter((item) => !item.isGroup),
       id: (item) => item.id,
-      parentId: (item) => item.parentId
+      parentId: (item) => item.parent
     })
     .nodeCreator.createLabelBinding((item) => item.label)
 
@@ -2895,7 +2895,7 @@ function initializeGraph() {
 }
 
 function initializeDragAndDropPanel() {
-  const panel = document.getElementById('drag-and-drop-panel')
+  const panel = document.getElementById('dnd-panel')
   panel.appendChild(createDraggableNode())
   panel.appendChild(createDraggableLabel())
 }
@@ -2910,8 +2910,9 @@ function createDraggableNode() {
     SvgExport.exportSvgString(svgExport.exportSvg(exportComponent))
   )
   const div = document.createElement('div')
-  div.setAttribute('style', 'width: 30px; height: 30px; margin: 0 10px; touch-action: none;')
+  div.setAttribute('style', 'width: 50px; height: 50px; margin: 0 10px; touch-action: none;')
   div.setAttribute('title', 'Draggable Node')
+  div.classList.add('demo-dnd-panel__item')
   const img = document.createElement('img')
   img.setAttribute('style', 'width: auto; height: auto;')
   img.setAttribute('src', dataUrl)
@@ -2968,8 +2969,9 @@ function createDraggableLabel() {
     SvgExport.exportSvgString(svgExport.exportSvg(exportComponent))
   )
   const div = document.createElement('div')
-  div.setAttribute('style', 'width: 30px; height: 30px; margin: 0 10px; touch-action: none;')
+  div.setAttribute('style', 'width: 50px; height: 50px; margin: 0 10px; touch-action: none;')
   div.setAttribute('title', 'Draggable Label')
+  div.classList.add('demo-dnd-panel__item')
   const img = document.createElement('img')
   img.setAttribute('style', 'width: auto; height: auto;')
   img.setAttribute('src', dataUrl)
@@ -3033,7 +3035,6 @@ function setupContextMenu() {
   editorMode.contextMenuItems = GraphItemTypes.NODE
   viewerMode.contextMenuItems = GraphItemTypes.NODE
   const listener = (evt) => {
-    console.log('Menu')
     evt.contextMenu = [
       {
         label: 'Context Menu Action',
@@ -3142,8 +3143,10 @@ function getAffectedItems(sender) {
  */
 function initOptionHeadings() {
   const optionsHeadings = document.getElementsByClassName('event-options-heading')
+  const optionHeadingIcons = document.getElementsByClassName('expand-collapse-icon')
   for (let i = 0; i < optionsHeadings.length; i++) {
     const heading = optionsHeadings[i]
+    const Icon = optionHeadingIcons[i]
     optionsHeadings[i].addEventListener('click', (e) => {
       e.preventDefault()
       const parentNode = heading.parentNode
@@ -3152,10 +3155,13 @@ function initOptionHeadings() {
         const style = optionsElements[0].style
         if (style.display !== 'none') {
           style.display = 'none'
+
           heading.className = heading.className.replace('expanded', 'collapsed')
+          Icon.innerHTML = 'keyboard_arrow_right'
         } else {
           style.display = 'block'
           heading.className = heading.className.replace('collapsed', 'expanded')
+          Icon.innerHTML = 'keyboard_arrow_down'
         }
       }
       return false
@@ -3163,12 +3169,18 @@ function initOptionHeadings() {
   }
 
   const headings = document.getElementsByClassName('event-options-heading')
+  const container = document.getElementById('event-options')
+
   for (let i = 0; i < headings.length; i++) {
     const heading = headings[i]
     heading.addEventListener('click', (evt) => {
       if (evt.target instanceof HTMLDivElement) {
         evt.target.scrollIntoView()
       }
+      container.scrollTop = Math.min(
+        container.scrollTop,
+        container.scrollHeight - container.clientHeight
+      )
     })
   }
 }

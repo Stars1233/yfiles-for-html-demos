@@ -64,6 +64,7 @@ import {
   NodeStyleIndicatorRenderer,
   Point,
   RadialGroupLayout,
+  RadialGroupLayoutData,
   RadialTreeLayout,
   RadialTreeLayoutData,
   Rect,
@@ -85,10 +86,10 @@ import {
   AggregationGraphWrapper,
   EdgeReplacementPolicy
 } from '@yfiles/demo-utils/AggregationGraphWrapper'
-import SampleGraph from './resources/SampleGraph'
+import SampleGraph from './resources/graph-data.json'
 
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { LitNodeStyle } from '@yfiles/demo-utils/LitNodeStyle'
 
 // @ts-ignore Import via URL
@@ -362,7 +363,7 @@ function initializeHighlightStyles() {
  */
 async function runAggregation() {
   await setUiDisabled(true)
-
+  graphComponent.highlights.clear()
   graphComponent.graph = new Graph()
   aggregationHelper.aggregateGraph.dispose()
   await runAggregationAndReplaceGraph(originalGraph)
@@ -380,6 +381,7 @@ async function runAggregation() {
 async function switchView() {
   const switchViewButton = document.querySelector('#switch-view')
   await setUiDisabled(true)
+  graphComponent.highlights.clear()
   if (graphComponent.graph instanceof AggregationGraphWrapper) {
     graphComponent.graph = createFilteredView()
     await runCircularLayout()
@@ -623,7 +625,7 @@ class CustomRadialGroupLayoutStage extends LayoutStageBase {
       edgeBundling: { defaultBundleDescriptor: { bundled: true, bezierFitting: true } }
     })
 
-    const radialGroupLayoutData = radialGroup.createLayoutData(graph)
+    const radialGroupLayoutData = new RadialGroupLayoutData()
     // ... configure the parent-child overlap ratio so that they are allowed to overlap a bit
     radialGroupLayoutData.parentOverlapRatios = () => 0.5
 
@@ -810,7 +812,7 @@ function loadGraph(graph) {
   const nodeStyle = new LitNodeStyle(
     ({ layout, tag }) => svg`<ellipse cx='${layout.width * 0.5}' cy='${layout.height * 0.5}'
     rx='${layout.width * 0.5}' ry='${layout.height * 0.5}'
-    stroke='#696969' fill='${tag.c}'/>`
+    stroke='#696969' fill='${tag.color}'/>`
   )
   const outline = new GeneralPath()
   outline.appendEllipse(new Rect(0, 0, 1, 1), false)
@@ -823,8 +825,8 @@ function loadGraph(graph) {
 
   // build the graph from json-data
   const graphBuilder = new GraphBuilder(graph)
-  graphBuilder.createNodesSource({ data: SampleGraph.nodes, id: 'id', labels: ['l'] })
-  graphBuilder.createEdgesSource(SampleGraph.edges, 's', 't', 'id')
+  graphBuilder.createNodesSource({ data: SampleGraph.nodes, id: 'id', labels: ['labels'] })
+  graphBuilder.createEdgesSource(SampleGraph.edges, 'source', 'target', 'id')
 
   return graphBuilder.buildGraph()
 }

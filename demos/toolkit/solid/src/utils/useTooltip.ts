@@ -34,9 +34,7 @@ import {
   IEdge,
   type IModelItem,
   INode,
-  Point,
-  type QueryItemToolTipEventArgs,
-  TimeSpan
+  type QueryItemToolTipEventArgs
 } from '@yfiles/yfiles'
 import { render } from 'solid-js/web'
 import { Tooltip } from '../components/Tooltip'
@@ -46,12 +44,6 @@ export function useTooltips(graphComponent: GraphComponent) {
 
   // show tooltips for nodes and edges
   inputMode.toolTipItems = GraphItemTypes.NODE | GraphItemTypes.EDGE
-
-  // customize the tooltip's behaviour to our liking.
-  const tooltipInputMode = inputMode.toolTipInputMode
-  tooltipInputMode.toolTipLocationOffset = new Point(15, 15)
-  tooltipInputMode.delay = TimeSpan.fromMilliseconds(500)
-  tooltipInputMode.duration = TimeSpan.fromSeconds(5)
 
   // Register a listener for when a tooltip should be shown.
   inputMode.addEventListener(

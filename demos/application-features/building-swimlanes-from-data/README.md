@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Build Swimlanes from Data - Application Features
+# Building Swimlanes From Data Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/building-swimlanes-from-data.webp" alt="demo-thumbnail" height="320"/>
 
@@ -18,7 +18,7 @@
 This demo shows how to build a graph with swimlanes using the data stored in JSON-format.
 
 - Note that some nodes have individual colors or sizes.
-- Nodes are assigned to different swimlanes base on their center position.
+- Nodes are assigned to different swimlanes based on their center position.
 - Move nodes to a different lane and press "Layout" to see how the automatic layout adheres to the manual swimlane assignment.
 - See the edges connecting to normal nodes.
 

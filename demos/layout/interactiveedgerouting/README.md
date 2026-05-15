@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Interactive Edge Routing Demo
+# Interactive Edge Routing Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/interactive-edge-routing.webp" alt="demo-thumbnail" height="320"/>
 

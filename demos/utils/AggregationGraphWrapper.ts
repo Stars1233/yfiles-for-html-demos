@@ -2114,6 +2114,7 @@ class AggregationBend extends BaseClass(IBend) {
     this.$owner = owner
     this.$location = location
     this.$graph = graph
+    this.$tag = null
   }
 
   lookup<T>(type: Constructor<T>): T | null {

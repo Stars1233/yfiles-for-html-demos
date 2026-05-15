@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Custom Styles Demo
+# Custom Styles Demo - yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/custom-styles.webp" alt="demo-thumbnail" height="320"/>
 
@@ -18,8 +18,6 @@
 This demo shows how to create custom styles for nodes, edges, labels, ports, and edge arrows. Styles can use all the powerful visualisation features of Scalable Vector Graphics (SVG).
 
 Two samples are offered, each using a different set of custom style implementations.
-
-## Samples
 
 ## Description
 

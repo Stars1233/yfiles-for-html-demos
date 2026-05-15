@@ -30,7 +30,6 @@ import { GraphComponent, GraphEditorInputMode, License } from '@yfiles/yfiles'
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { finishLoading } from '@yfiles/demo-app/demo-page'
 import { createSampleGraph } from './samples'
 import { initializeToggleWebGlRenderingButton } from './webgl-support'
 import { initializeExportDialog, showExportDialog } from './export-dialog/export-dialog'
@@ -42,17 +41,10 @@ import { exportImageClientSide } from './image-export-client-side'
 import { retainAspectRatio } from './aspect-ratio'
 import { downloadFile } from '@yfiles/demo-utils/file-support'
 import { DelayedNodeStyle } from './node-styles/delayed-node-style'
+import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 async function run() {
   License.value = licenseData
-
-  if (window.location.protocol === 'file:') {
-    alert(
-      'This demo features image export with inlined images. ' +
-        'Due to the browsers security settings, images cannot be inlined if the demo is started from the file system. ' +
-        'Please start the demo from a web server.'
-    )
-  }
 
   // initialize the main graph component
   const graphComponent = new GraphComponent('graphComponent')

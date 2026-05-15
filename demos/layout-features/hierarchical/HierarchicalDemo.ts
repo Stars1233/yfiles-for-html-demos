@@ -65,9 +65,8 @@ const layout = new HierarchicalLayout({
   nodeDistance: 10,
   coordinateAssigner: {
     // Reduce bends for edges spanning layers
-    // See e.g., the edges connecting node 26 to node 6 and node 10 to node 20
-    straightenEdges: true,
-    // Disable barycenter symmetry optimization which conflicts with edge straightening
+    maximumPortDeviation: 50,
+    // Disable barycenter symmetry optimization
     symmetryOptimizationStrategy: 'none'
   }
 })

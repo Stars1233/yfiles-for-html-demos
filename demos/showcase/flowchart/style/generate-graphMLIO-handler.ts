@@ -103,7 +103,7 @@ export class FlowchartNodeStyleExtension extends MarkupExtension {
     this.$cssClass = value
   }
 
-  provideValue(serviceProvider: ILookup | null): FlowchartNodeStyle {
+  provideValue(_serviceProvider: ILookup | null): FlowchartNodeStyle {
     const style = new FlowchartNodeStyle(this.type)
     style.type = this.type
     style.stroke = this.stroke
