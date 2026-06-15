@@ -26,45 +26,53 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-.yfiles-rendertreepanel {
-  background: radial-gradient(#39434f, #1e232b);
+:root[data-theme='light'] {
+  --gc-color-background: radial-gradient(var(--color-bluish-white), var(--color-casper-blue));
+  --gc-title-background: radial-gradient(var(--color-bluish-white), var(--color-casper-blue-light));
 }
-
+:root[data-theme='dark'] {
+  --gc-color-background: radial-gradient(#39434f, #1e232b);
+  --gc-title-background: black;
+}
+.yfiles-rendertreepanel,
 .graph-panel {
-  background: radial-gradient(#39434f, #1e232b);
+  background: var(--gc-color-background);
 }
-
 .graph-overlay {
   padding: 10px;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  border: 2px solid rgb(209, 209, 209);
+  border: 2px solid #d1d1d1;
 }
-
 .graph-overlay h3 {
   margin: 10px 0;
   font-weight: normal;
 }
-
 .graph-overlay .filter-dropdowns {
   margin: 10px 0;
   display: flex;
   flex-direction: column;
 }
-
 .graph-overlay .filter-dropdowns .down-arrow {
   font-size: 18px;
   font-weight: bold;
   margin: 5px 0;
   text-align: center;
 }
-
+.graph-overlay .filter-buttons {
+  align-self: center;
+  margin: 20px 0 5px 0;
+}
+.graph-overlay .filter-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 #subject-combo,
 #predicate-combo,
 #object-combo {
   width: 100%;
-  border: 2px solid rgb(209, 209, 209);
+  border: 2px solid #d1d1d1;
   border-radius: 5px;
   padding: 5px 7px;
   outline: none;
@@ -75,17 +83,6 @@
   background-position: right 3px center;
   background-size: 16px;
 }
-
-.graph-overlay .filter-buttons {
-  align-self: center;
-  margin: 20px 0 5px 0;
-}
-
-.graph-overlay .filter-buttons button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
 .main-interaction-button {
   border: none;
   padding: 5px 10px;
@@ -94,31 +91,44 @@
   cursor: pointer;
   transition: box-shadow 160ms ease;
   margin-left: 5px;
+  margin-bottom: 5px;
 }
-
 .main-interaction-button:hover {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
   opacity: 0.8;
 }
-
 .main-interaction-button[aria-disabled='true'] {
   opacity: 0.4;
   cursor: not-allowed;
 }
-
 .data-problem-container {
-  margin-top: 20px;
+  margin: 20px 0;
   display: flex;
-  margin-bottom: 20px;
-  align-items: start;
+  align-items: flex-start;
   padding: 5px;
 }
-
+.data-problem-container p {
+  margin: 0 !important;
+}
+.data-problem-container button {
+  display: inline;
+  font-size: 11px;
+}
+.data-problem-container .main-interaction-button {
+  margin: 10px 0 0 0;
+}
 .data-problem-container.disabled {
   opacity: 0.3;
   pointer-events: none;
 }
-
+.data-problem-container.selected {
+  animation: highlight-fade 2s ease-in-out forwards;
+  border-radius: 5px;
+}
+#error-beacon-animation.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
 .material-icon {
   font-family: 'Material Symbols Outlined', sans-serif;
   font-size: 2rem;
@@ -129,44 +139,21 @@
   display: inline-block;
   line-height: 1;
 }
-
 .material-icon.small {
   font-size: 20px;
   width: 10px;
   vertical-align: sub;
 }
-
-.data-problem-container {
-  p {
-    margin: 0 !important;
-  }
-  button {
-    display: inline;
-    font-size: 11px;
-  }
-}
-
-.data-problem-container .main-interaction-button {
-  margin: 10px 0 0 0;
-}
-
-.data-problem-container.selected {
-  animation: highlight-fade 2s ease-in-out forwards;
-  border-radius: 5px;
-}
-
 .footnote {
   font-size: 12px;
   opacity: 0.9;
-  &.error {
-    color: #ff4400;
-  }
 }
-
+.footnote.error {
+  color: #ff4400;
+}
 p.footnote {
   margin: 0.3em;
 }
-
 @keyframes highlight-fade {
   0% {
     background-color: rgba(255, 0, 0, 0);
@@ -181,14 +168,12 @@ p.footnote {
     background-color: rgba(255, 0, 0, 0);
   }
 }
-
 .group-separator {
   display: flex;
   align-items: center;
   margin: 12px 0;
   pointer-events: none;
 }
-
 .group-separator::before,
 .group-separator::after {
   content: '';
@@ -196,8 +181,7 @@ p.footnote {
   background: rgba(0, 0, 0, 0.2);
   flex: 1;
 }
-
-#neighborhood-panel {
+#explorer-panel {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -205,29 +189,36 @@ p.footnote {
   height: 80%;
   transform: translate(-50%, -50%);
   z-index: 200000;
-  background: radial-gradient(#39434f, #1e232b);
-  border: none;
+  background: var(--toolbar-bg);
+  border-radius: var(--border-radius);
+  overflow: hidden;
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.2s ease-in;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
 }
-
-#neighborhood-graphComponent {
-  position: absolute;
-  top: 30px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-}
-
-#neighborhood-panel.open {
+#explorer-panel.open {
   visibility: visible;
   opacity: 1;
   transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
-
-#neighborhood-backdrop {
+#explorer-panel #title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 1rem;
+}
+#explorer-panel #explorer-title-text {
+  font-weight: 600;
+  color: var(--toolbar-button-text, #fff);
+}
+#explorer-graphComponent {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+#explorer-backdrop {
   position: fixed;
   inset: 0;
   z-index: 199999;
@@ -235,49 +226,52 @@ p.footnote {
   display: none;
   transition: background 0.3s ease;
 }
-
-#neighborhood-backdrop.open {
+#explorer-backdrop.open {
   display: block;
 }
-
-#neighborhood-close {
+#explorer-close {
   position: absolute;
   top: 5px;
-  right: 20px;
-  width: 20px;
-  height: 20px;
-  background: none;
-  border: none;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
   cursor: pointer;
-  padding: 0;
-  color: #999;
-  font-size: 22px;
-  transition: color 0.2s;
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+  transition: background 0.1s, color 0.2s;
 }
-
-#neighborhood-close:hover {
+#explorer-close:hover {
+  background: var(--toolbar-bg-hover);
   color: #fff;
 }
-
-#neighborhood-close::before {
-  content: '';
+#show-ontology-view {
   position: absolute;
-  width: 20px;
-  height: 2px;
-  background: currentColor;
-  transform: rotate(45deg);
+  right: 15px;
+  bottom: 15px;
+  width: 70px;
+  height: 70px;
+  border-radius: 100px;
+  font-size: 40px;
+  display: flex;
+  background-color: var(--toolbar-bg);
+  color: var(--toolbar-button-text);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  border: var(--toolbar-bg);
+  box-shadow: var(--shadow-crispy-gray);
 }
-
-#neighborhood-close::after {
-  content: '';
-  position: absolute;
-  width: 20px;
-  height: 2px;
-  background: currentColor;
-  transform: rotate(-45deg);
+#show-ontology-view:hover {
+  background-color: var(--toolbar-button-hover);
 }
-
+#show-ontology-view.disabled {
+  background-color: #aaaaaa;
+}
 #toggle_highlighting {
   display: inline-flex;
   align-items: center;

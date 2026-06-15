@@ -26,44 +26,38 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { EdgeStyleBase, GradientStop, LinearGradient, Rect, SvgVisual } from '@yfiles/yfiles'
+import { EdgeStyleBase, Rect, SvgVisual } from '@yfiles/yfiles'
+import { ItemState } from '../EventTimelineTypes'
+import { getOrCreateGradient } from './GradientUtility'
 
 /**
  * The EvenTimelineHyperEdgeStyle extends the EdgeStyleBase to visualize a group of edges with the
  * same timestamp as a singular hyperedge.
  */
 export class EventTimelineHyperEdgeStyle extends EdgeStyleBase {
-  edges
   radius
-  cssClass
+  cssClass = 'event-timeline-hyper-edge'
   nodeToColorMapper
   edgeWidth
   gradients
 
   /**
    * Instantiates a new EventTimelineHyperEdgeStyle
-   * @param edges the edges to be visualized as a singular hyperedge
    * @param radius the radius of the hyperedge's visual termini
    * @param edgeWidth the width of the hyperedge's visual
    * @param nodeToColorMapper maps a given INode to a particular color
    * @param gradientMap the collection of available color gradients in the drawing
-   * @param cssClass the CSS class to be associated with the hyperedge's visual
    */
-  constructor(
-    edges,
-    radius,
-    edgeWidth,
-    nodeToColorMapper,
-    gradientMap = new Map(),
-    cssClass = 'event-timeline-aggregate-edge'
-  ) {
+  constructor(radius, edgeWidth, nodeToColorMapper, gradientMap = new Map()) {
     super()
-    this.edges = edges
     this.radius = radius
     this.edgeWidth = edgeWidth
     this.nodeToColorMapper = nodeToColorMapper
     this.gradients = gradientMap
-    this.cssClass = cssClass
+  }
+
+  getEdges(edge) {
+    return edge.lookup(ItemState)?.representedGroup?.edges ?? []
   }
 
   /**
@@ -71,10 +65,11 @@ export class EventTimelineHyperEdgeStyle extends EdgeStyleBase {
    * @private
    * @returns the EdgeBins of the hyperedge
    */
-  getPortDimensions() {
+  getPortDimensions(edge) {
     const sortedByY = new Map()
-    for (const edge of this.edges) {
-      const pts = [edge.sourcePort.location, edge.targetPort.location]
+
+    for (const currentEdge of this.getEdges(edge)) {
+      const pts = [currentEdge.sourcePort.location, currentEdge.targetPort.location]
       pts.forEach((loc, idx) => {
         let group = sortedByY.get(loc.y)
         if (!group) {
@@ -83,14 +78,17 @@ export class EventTimelineHyperEdgeStyle extends EdgeStyleBase {
         }
         group.push({
           pos: loc,
-          color: this.nodeToColorMapper(idx === 0 ? edge.sourceNode : edge.targetNode)
+          color: this.nodeToColorMapper(idx === 0 ? currentEdge.sourceNode : currentEdge.targetNode)
         })
       })
     }
-    return Array.from(sortedByY.entries()).map(([y, points]) => {
-      const xCoords = points.map((p) => p.pos.x)
-      return { xMin: Math.min(...xCoords), xMax: Math.max(...xCoords), y, color: points[0].color }
-    })
+
+    return Array.from(sortedByY.entries())
+      .sort(([y1], [y2]) => y1 - y2)
+      .map(([y, points]) => {
+        const xCoords = points.map((p) => p.pos.x)
+        return { xMin: Math.min(...xCoords), xMax: Math.max(...xCoords), y, color: points[0].color }
+      })
   }
 
   /**
@@ -102,56 +100,56 @@ export class EventTimelineHyperEdgeStyle extends EdgeStyleBase {
    */
   createVisual(context, edge) {
     const hyperEdgeGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+    const state = edge.lookup(ItemState)
 
-    // 2. Create Edge elements
     const edgeGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-    const edges = this.edges.map((edge) => {
+    const edges = this.getEdges(edge).map((currentEdge) => {
       const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-      const sourcePosition = edge.sourcePort.location
-      const targetPosition = edge.targetPort.location
-      const sourceColor = this.nodeToColorMapper(edge.sourceNode)
-      const targetColor = this.nodeToColorMapper(edge.targetNode)
+      rect.classList.add('band')
+
+      const sourcePosition = currentEdge.sourcePort.location
+      const targetPosition = currentEdge.targetPort.location
+      const sourceColor = this.nodeToColorMapper(currentEdge.sourceNode)
+      const targetColor = this.nodeToColorMapper(currentEdge.targetNode)
+
       if (sourceColor !== targetColor) {
-        let linearGradient = this.gradients.get(
-          sourcePosition.y < targetPosition.y
-            ? sourceColor + targetColor
-            : targetColor + sourceColor
+        const linearGradient = getOrCreateGradient(
+          this.gradients,
+          sourceColor,
+          targetColor,
+          sourcePosition.y,
+          targetPosition.y
         )
-        if (!linearGradient) {
-          linearGradient = new LinearGradient({
-            startPoint: [0, sourcePosition.y < targetPosition.y ? 0 : 1],
-            endPoint: [0, sourcePosition.y < targetPosition.y ? 1 : 0],
-            gradientStops: [
-              new GradientStop({ offset: 0, color: sourceColor }),
-              new GradientStop({ offset: 1, color: targetColor })
-            ]
-          })
-          this.gradients.set(
-            sourcePosition.y < targetPosition.y
-              ? sourceColor + targetColor
-              : targetColor + sourceColor,
-            linearGradient
-          )
-        }
         linearGradient.applyTo(rect, context)
       } else {
-        rect.style.fill = sourceColor
+        rect.setAttribute('fill', sourceColor || 'var(--yfiles-event-timeline-edge-color, #dfdee3)')
       }
-      rect.classList = this.cssClass + ' band'
+
+      rect.setAttribute('stroke', 'none')
       edgeGroup.appendChild(rect)
       return rect
     })
+
     hyperEdgeGroup.appendChild(edgeGroup)
-    // 3. Create Port elements
-    const portDimensions = this.getPortDimensions()
+
+    const portDimensions = this.getPortDimensions(edge)
     const ports = portDimensions.map(() => {
       const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-      rect.classList = this.cssClass + ' terminus'
+      rect.classList.add(this.cssClass, 'terminus')
+      if (state?.highlighted) {
+        rect.classList.add('highlight')
+      }
       hyperEdgeGroup.appendChild(rect)
       return rect
     })
 
-    const visual = SvgVisual.from(hyperEdgeGroup, { ports, edges })
+    const visual = SvgVisual.from(hyperEdgeGroup, {
+      ports,
+      edges,
+      portAttrCache: ports.map(() => ({})),
+      edgeAttrCache: edges.map(() => ({})),
+      svgClass: undefined
+    })
 
     return this.updateVisual(context, visual, edge)
   }
@@ -166,41 +164,48 @@ export class EventTimelineHyperEdgeStyle extends EdgeStyleBase {
    */
   updateVisual(context, oldVisual, edge) {
     const cache = oldVisual.tag
-    const portDimensions = this.getPortDimensions()
+    const portDimensions = this.getPortDimensions(edge)
+    const edges = this.getEdges(edge)
+    const state = edge.lookup(ItemState)
 
-    //
-    if (cache.ports.length !== portDimensions.length || cache.edges.length !== this.edges.length) {
+    if (cache.ports.length !== portDimensions.length || cache.edges.length !== edges.length) {
       return this.createVisual(context, edge)
     }
-    if (this.cssClass) {
-      oldVisual.svgElement.classList = this.cssClass
+
+    const newClass = this.cssClass + (state?.highlighted ? ' highlight' : '')
+    if (cache.svgClass !== newClass) {
+      oldVisual.svgElement.setAttribute('class', newClass)
+      cache.svgClass = newClass
     }
 
     portDimensions.forEach(({ xMin, xMax, y, color }, i) => {
       const rect = cache.ports[i]
+      const rectCache = cache.portAttrCache[i]
       const width = Math.max(2 * this.radius, xMax - xMin + 2 * this.radius)
-      rect.setAttribute('x', `${xMin - this.radius}`)
-      rect.setAttribute('y', `${y - this.radius}`)
-      rect.setAttribute('width', `${width}`)
-      rect.setAttribute('height', `${width}`)
-      rect.setAttribute('rx', `5`)
-      rect.setAttribute('ry', `5`)
-      rect.setAttribute('transform', `rotate(45 ${xMin} ${y})`)
-      rect.style.stroke = color
+
+      this.setAttrIfChanged(rect, rectCache, 'x', `${xMin - this.radius}`)
+      this.setAttrIfChanged(rect, rectCache, 'y', `${y - this.radius}`)
+      this.setAttrIfChanged(rect, rectCache, 'width', `${width}`)
+      this.setAttrIfChanged(rect, rectCache, 'height', `${width}`)
+      this.setAttrIfChanged(rect, rectCache, 'rx', `5`)
+      this.setAttrIfChanged(rect, rectCache, 'ry', `5`)
+      this.setAttrIfChanged(rect, rectCache, 'transform', `rotate(45 ${xMin} ${y})`)
+      this.setAttrIfChanged(rect, rectCache, 'stroke', color)
     })
 
-    //
-    this.edges.forEach((e, i) => {
+    edges.forEach((e, i) => {
+      const rect = cache.edges[i]
+      const rectCache = cache.edgeAttrCache[i]
+
       const sourcePosition = e.sourcePort.location
       const targetPosition = e.targetPort.location
       const yMin = Math.min(sourcePosition.y, targetPosition.y)
       const yMax = Math.max(sourcePosition.y, targetPosition.y)
-      const rect = cache.edges[i]
 
-      rect.setAttribute('x', `${sourcePosition.x - this.edgeWidth / 2}`)
-      rect.setAttribute('y', `${yMin}`)
-      rect.setAttribute('width', `${this.edgeWidth}`)
-      rect.setAttribute('height', `${yMax - yMin}`)
+      this.setAttrIfChanged(rect, rectCache, 'x', `${sourcePosition.x - this.edgeWidth / 2}`)
+      this.setAttrIfChanged(rect, rectCache, 'y', `${yMin}`)
+      this.setAttrIfChanged(rect, rectCache, 'width', `${this.edgeWidth}`)
+      this.setAttrIfChanged(rect, rectCache, 'height', `${yMax - yMin}`)
     })
 
     return oldVisual
@@ -208,13 +213,14 @@ export class EventTimelineHyperEdgeStyle extends EdgeStyleBase {
 
   /**
    * Gets the bounds of a given IEdge object's visual
-   * @param context the visual's ICanvasContext
+   * @param _context the visual's ICanvasContext
    * @param edge the IEdge object whose bounds are to be determined
    * @returns the bounds of the given IEdge
    */
-  getBounds(context, edge) {
+  getBounds(_context, edge) {
     let combinedBounds = Rect.EMPTY
-    for (const e of this.edges) {
+
+    for (const e of this.getEdges(edge)) {
       const s = e.sourcePort.location
       const t = e.targetPort.location
       const yMin = Math.min(s.y, t.y)
@@ -224,6 +230,7 @@ export class EventTimelineHyperEdgeStyle extends EdgeStyleBase {
         new Rect(s.x - this.edgeWidth / 2, yMin, this.edgeWidth, yMax - yMin)
       )
     }
+
     return combinedBounds
   }
 
@@ -251,5 +258,12 @@ export class EventTimelineHyperEdgeStyle extends EdgeStyleBase {
    */
   isVisible(context, rectangle, edge) {
     return rectangle.intersects(this.getBounds(context, edge).getEnlarged(this.radius))
+  }
+
+  setAttrIfChanged(element, cache, name, value) {
+    if (cache[name] !== value) {
+      element.setAttribute(name, value)
+      cache[name] = value
+    }
   }
 }

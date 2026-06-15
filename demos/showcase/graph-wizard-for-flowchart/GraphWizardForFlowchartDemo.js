@@ -60,8 +60,6 @@ async function run() {
 
   // setup a new flowchart diagram
   setUpNewDiagram()
-
-  graphComponent.focus()
 }
 
 function setUpNewDiagram() {
@@ -90,6 +88,7 @@ function initializeUI() {
 
     observer.observe(el, { attributes: true, attributeFilter: ['class'] })
   }
+  document.querySelector('#new-button').addEventListener('click', setUpNewDiagram)
   document.querySelector('#layout-button').addEventListener('click', async () => {
     await configuration.runFromScratchLayout(graphComponent)
   })

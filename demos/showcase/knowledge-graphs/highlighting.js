@@ -35,6 +35,8 @@ import {
   LabelStyleIndicatorRenderer,
   NodeStyleIndicatorRenderer,
   Stroke,
+  TextWrapping,
+  WebGLLabelStyle,
   WebGLShapeNodeStyle
 } from '@yfiles/yfiles'
 import { getEdgeTag, getLabelTag, getNodeTag } from './types'
@@ -73,7 +75,10 @@ export function configureHighlighting(graphComponent) {
   graph.decorator.labels.highlightRenderer.addFactory((label) => {
     if (isTextualLabel(label)) {
       const style = label.style
-      return new LabelStyleIndicatorRenderer({ labelStyle: style, zoomPolicy: 'world-coordinates' })
+      return new LabelStyleIndicatorRenderer({
+        labelStyle: cloneWebGLLabelStyle(style, { wrapping: TextWrapping.NONE }),
+        zoomPolicy: 'world-coordinates'
+      })
     }
     return null
   })
@@ -116,6 +121,37 @@ export function configureHighlighting(graphComponent) {
       }
     }
   })
+}
+
+/**
+ * Creates a new {@link WebGLLabelStyle} with the same properties as the given style but adjusted by
+ * the passed options.
+ * @param labelStyle - The reference style.
+ * @param properties - The properties that should be adjusted.
+ */
+function cloneWebGLLabelStyle(labelStyle, properties) {
+  const newStyleProperties = Object.assign(
+    {
+      font: labelStyle.font,
+      textColor: labelStyle.textColor,
+      backgroundColor: labelStyle.backgroundColor,
+      backgroundStroke: labelStyle.backgroundStroke,
+      horizontalTextAlignment: labelStyle.horizontalTextAlignment,
+      padding: labelStyle.padding,
+      shape: labelStyle.shape,
+      effect: labelStyle.effect,
+      samplingRate: labelStyle.samplingRate,
+      textureRendering: labelStyle.textureRendering,
+      wrapping: labelStyle.wrapping,
+      textWrappingShape: labelStyle.textWrappingShape,
+      textWrappingPadding: labelStyle.textWrappingPadding,
+      verticalTextAlignment: labelStyle.verticalTextAlignment,
+      zoomVisibilityPolicy: labelStyle.zoomVisibilityPolicy,
+      zoomScalingPolicy: labelStyle.zoomScalingPolicy
+    },
+    properties
+  )
+  return new WebGLLabelStyle(newStyleProperties)
 }
 
 /**

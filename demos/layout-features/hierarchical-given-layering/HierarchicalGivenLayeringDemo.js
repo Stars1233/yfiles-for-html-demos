@@ -40,7 +40,7 @@ import graphData from './sample.json'
 async function applyHierarchicalLayoutWithLayering(graphComponent) {
   const layoutData = new HierarchicalLayoutData({
     // Specify a layer index (stored in node tags) for each node
-    givenLayersIndices: (node) => node.tag
+    givenLayersIndices: (node) => node.tag.layer
   })
 
   const layout = new HierarchicalLayout({

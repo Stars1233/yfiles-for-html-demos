@@ -79,17 +79,15 @@ import {
 } from './filter-panel'
 import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
 import { GraphSearch } from '@yfiles/demo-utils/GraphSearch'
-import {
-  createNeighborhoodView,
-  showNeighborhood,
-  toggleNeighborhoodPanel
-} from './neighborhood-panel'
+import { showNeighborhood } from './neighborhood-panel'
 import { resetBeaconAnimation } from './beacon-animation'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
+import { createExplorerComponent, toggleComponentPanel } from './explorer-component'
+import { createOntologyGraph, showOntologyGraph } from './ontology-panel'
 
 let graphComponent
-let neighborhoodComponent
+let explorerComponent
 let graphSearch
 let layoutRunning = false
 
@@ -98,6 +96,7 @@ const worker = new Worker(new URL('./WorkerLayout', import.meta.url), { type: 'm
 const searchBox = document.querySelector('#searchBox')
 const spotlightErrorsElement = document.querySelector('#error-beacon-animation')
 const teamsLayoutButton = document.querySelector('#teams-view')
+const showOntologyViewButton = document.querySelector('#show-ontology-view')
 
 async function run() {
   License.value = licenseData
@@ -110,11 +109,15 @@ async function run() {
 
   setTimeout(async () => {
     await showLoadingIndicator(true, 'Loading the graph. This may take a while...')
+    setUIDisabled(true)
     await initializeGraphData(graphComponent)
     initializeFilterPanel(graphComponent, () => filter(graphComponent))
     initializeDescriptionPanel(graphComponent, async () => {
       await applyLayout(graphComponent)
     })
+    explorerComponent = createExplorerComponent()
+    // Creates the graph that shows the ontology triplets
+    createOntologyGraph(graphComponent.graph)
     await showLoadingIndicator(false)
   }, 0)
 
@@ -122,9 +125,7 @@ async function run() {
   configureHighlighting(graphComponent)
 
   configureContentMenu(graphComponent)
-  initializeToolbar(graphComponent)
-
-  neighborhoodComponent = createNeighborhoodView()
+  initializeUI(graphComponent)
 }
 
 /**
@@ -146,7 +147,7 @@ async function initializeGraphData(graphComponent) {
     (edge) => getEdgeTag(edge).visible ?? true
   )
   // Add some padding to prevent overlaps with the demo toolbar
-  graphComponent.contentMargins = [80, 10, 10, 10]
+  graphComponent.contentMargins = [80, 10, 50, 10]
 
   // Show the number of nodes and edges in the UI
   updateGraphInformation(graphComponent.graph)
@@ -188,8 +189,8 @@ function initializeGraph() {
   inputMode.addEventListener('item-double-clicked', async (evt) => {
     if (evt.item instanceof INode) {
       graphComponent.selection.clear()
-      await showNeighborhood(graphComponent, neighborhoodComponent, evt.item)
-      await applyLayout(neighborhoodComponent, 'neighborhood')
+      await showNeighborhood(graphComponent, explorerComponent, evt.item)
+      await applyLayout(explorerComponent, 'neighborhood')
     }
     evt.handled = true
   })
@@ -431,12 +432,14 @@ async function applyLayout(graphComponent, layoutStyle = 'organic', firstLayout 
   if (layoutRunning) {
     return Promise.resolve()
   }
-  setUIDisabled(true)
+  layoutRunning = true
+
   if (firstLayout) {
     graphComponent.htmlElement.style.opacity = '0'
   }
+  setUIDisabled(true)
 
-  let style = 'organic'
+  let style = layoutStyle
   if (layoutStyle === 'organic') {
     style = teamsLayoutButton.checked ? 'teams' : 'organic'
   }
@@ -446,6 +449,7 @@ async function applyLayout(graphComponent, layoutStyle = 'organic', firstLayout 
     graphComponent.htmlElement.style.opacity = '1'
   }
   setUIDisabled(false)
+  layoutRunning = false
 }
 
 /**
@@ -453,7 +457,7 @@ async function applyLayout(graphComponent, layoutStyle = 'organic', firstLayout 
  *
  * @param graphComponent - The graph component
  */
-function initializeToolbar(graphComponent) {
+function initializeUI(graphComponent) {
   teamsLayoutButton.addEventListener('click', async () => {
     resetUI()
     await showLoadingIndicator(true, 'Calculating the layout. This might take a while...')
@@ -470,6 +474,10 @@ function initializeToolbar(graphComponent) {
     margins: 3
   })
   GraphSearch.registerEventListener(searchBox, graphSearch)
+
+  showOntologyViewButton.addEventListener('click', async () => {
+    showOntologyGraph(explorerComponent)
+  })
 }
 
 /**
@@ -478,9 +486,11 @@ function initializeToolbar(graphComponent) {
  * @param disabled - Whether to disable UI controls
  */
 function setUIDisabled(disabled) {
-  layoutRunning = disabled
   setFilteringPanelDisabled(disabled)
   spotlightErrorsElement.disabled = disabled
+  showOntologyViewButton.disabled = disabled
+  teamsLayoutButton.disabled = disabled
+  searchBox.disabled = disabled
   graphComponent.inputMode.waitInputMode.enabled = !disabled
 }
 
@@ -488,7 +498,7 @@ function setUIDisabled(disabled) {
  * Resets UI elements related to filtering, animations, and search to their default state.
  */
 function resetUI() {
-  toggleNeighborhoodPanel(false)
+  toggleComponentPanel(false)
   searchBox.value = ''
   graphSearch.updateSearch('')
   void resetBeaconAnimation()

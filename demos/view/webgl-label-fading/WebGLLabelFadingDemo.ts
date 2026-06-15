@@ -97,9 +97,10 @@ function enableWebGLRendering(graphComponent: GraphComponent) {
  */
 function initializeUI(graphComponent: GraphComponent) {
   const zoomLevelSpan = document.querySelector<HTMLSpanElement>('#current-zoom')!
+  zoomLevelSpan.textContent = getZoom(graphComponent)
+
   graphComponent.addEventListener('zoom-changed', () => {
-    const zoomPercent = Math.round(graphComponent.zoom * 100)
-    zoomLevelSpan.textContent = `${zoomPercent}%`
+    zoomLevelSpan.textContent = getZoom(graphComponent)
   })
 }
 
@@ -256,6 +257,11 @@ function createTree(
   }
 
   return build(1)
+}
+
+// a helper method to get the current graphComponent's zoom as percentage
+function getZoom(graphComponent: GraphComponent): string {
+  return Math.round(graphComponent.zoom * 100) + '%'
 }
 
 run().then(finishLoading)

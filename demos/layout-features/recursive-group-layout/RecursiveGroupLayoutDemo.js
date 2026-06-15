@@ -46,7 +46,7 @@ const recursiveGroupLayout = new RecursiveGroupLayout({
 const recursiveGroupLayoutData = new RecursiveGroupLayoutData({
   groupNodeLayouts: (groupNode) => {
     // Assign a layout algorithm to each group node
-    switch (groupNode.tag) {
+    switch (groupNode.tag.group) {
       case 'Group 1':
         return new HierarchicalLayout()
       case 'Group 2':

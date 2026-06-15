@@ -83,19 +83,19 @@ const octilinearEdgeDescriptor = new HierarchicalLayoutEdgeDescriptor({
 })
 // Assign octilinear descriptor to edges tagged 'octilinear', otherwise use default (orthogonal)
 layoutData.edgeDescriptors = (edge) =>
-  edge.tag === 'octilinear' ? octilinearEdgeDescriptor : layout.defaultEdgeDescriptor
+  edge.tag.type === 'octilinear' ? octilinearEdgeDescriptor : layout.defaultEdgeDescriptor
 
 // Prioritize edges tagged 'criticalPath' for straighter routing
 // See the edges connecting nodes 19, 0, 1, and 2
-layoutData.criticalEdgePriorities = (edge) => (edge.tag === 'criticalPath' ? 10 : 0)
+layoutData.criticalEdgePriorities = (edge) => (edge.tag.type === 'criticalPath' ? 10 : 0)
 
 // Force the edge from node 20 to node 21 to exit its source node from the RIGHT side
 layoutData.ports.sourcePortCandidates = (edge) =>
-  edge.tag === 'rightOut' ? new EdgePortCandidates().addFreeCandidate(PortSides.RIGHT) : null
+  edge.tag.type === 'rightOut' ? new EdgePortCandidates().addFreeCandidate(PortSides.RIGHT) : null
 
 // Force the edge from node 9 to node 7 to enter its target node from the RIGHT side
 layoutData.ports.targetPortCandidates = (edge) =>
-  edge.tag === 'rightIn' ? new EdgePortCandidates().addFreeCandidate(PortSides.RIGHT) : null
+  edge.tag.type === 'rightIn' ? new EdgePortCandidates().addFreeCandidate(PortSides.RIGHT) : null
 
 // Build the graph from JSON data
 demoApp.buildGraphFromJson(graphData)

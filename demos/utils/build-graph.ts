@@ -101,7 +101,7 @@ export function buildGraph(graph: IGraph, graphData: GraphData): void {
     data: (data.nodes ?? data.nodeList ?? []).filter((item: NodeData) => !item.isGroup),
     id: 'id',
     parentId: 'parent',
-    tag: 'tag',
+    tag: (dataItem) => dataItem,
     style: (dataItem) => {
       if (dataItem?.cssClass == null) {
         return undefined
@@ -149,7 +149,7 @@ export function buildGraph(graph: IGraph, graphData: GraphData): void {
     data: (data.nodes ?? data.nodeList ?? []).filter((item: NodeData) => item.isGroup),
     id: 'id',
     parentId: 'parent',
-    tag: 'tag',
+    tag: (dataItem) => dataItem,
     layout: 'layout',
     style: (dataItem) => {
       if (dataItem?.cssClass == null) {
@@ -203,7 +203,7 @@ export function buildGraph(graph: IGraph, graphData: GraphData): void {
     tag: (dataItem) => dataItem,
     style: (dataItem) => {
       if (dataItem?.cssClass == null && !dataItem.undirected) {
-        return undefined // Use default edge style
+        return undefined // Use the default edge style (with arrows)
       }
       if (dataItem?.cssClass && (graph.edgeDefaults.style as any)['cssClass'] != null) {
         const style = graph.edgeDefaults.style.clone() as PolylineEdgeStyle
@@ -265,7 +265,7 @@ export function buildGraph(graph: IGraph, graphData: GraphData): void {
     if (edge.tag?.targetPort) {
       graph.setPortLocation(edge.targetPort, Point.from(edge.tag?.targetPort))
     }
-    edge.tag = edge.tag?.tag ?? null
+    edge.tag = edge.tag?.tag ?? edge.tag
   })
 
   // set the label positions

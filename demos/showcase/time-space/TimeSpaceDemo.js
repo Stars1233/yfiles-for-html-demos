@@ -181,7 +181,9 @@ function initializeUI(graphComponent, graphLayer, map) {
   ]
   sidePanelToggleButtons.forEach((toggle) => {
     toggle?.addEventListener('click', async () => {
-      await invalidateMapSize(map, graphLayer)
+      setTimeout(async () => {
+        await invalidateMapSize(map, graphLayer)
+      }, 100)
     })
   })
 }

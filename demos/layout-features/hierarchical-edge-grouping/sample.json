@@ -2,17 +2,17 @@
   "nodes": [
     {
       "id": 0,
-      "tag": 0,
+      "type": 0,
       "labels": [{ "text": "0", "cssClass": "highlight" }],
       "cssClass": "highlight"
     },
-    { "id": 1, "tag": 1, "labels": "1" },
-    { "id": 2, "tag": 2, "labels": "2" },
-    { "id": 3, "tag": 3, "labels": "3" },
-    { "id": 4, "tag": 4, "labels": "4" },
+    { "id": 1, "type": 1, "labels": "1" },
+    { "id": 2, "type": 2, "labels": "2" },
+    { "id": 3, "type": 3, "labels": "3" },
+    { "id": 4, "type": 4, "labels": "4" },
     {
       "id": 5,
-      "tag": 5,
+      "type": 5,
       "labels": [{ "text": "5", "cssClass": "highlight" }],
       "cssClass": "highlight"
     }

@@ -62,6 +62,7 @@ import {
 import TreeMapData from './resources/TreeMapData'
 import licenseData from '../../../lib/license.json'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import {} from '@yfiles/demo-app/util/NavigationComponent'
 
 /**
  * Maps each node to a preferred size.
@@ -86,6 +87,22 @@ async function run() {
   License.value = licenseData
 
   graphComponent = new GraphComponent('graphComponent')
+
+  const navigationComponent = document.querySelector('#navigation')
+  navigationComponent.addEventListener('item-selected', (evt) => {
+    const label = evt.detail
+    if (label === 'yFiles-for-HTML') {
+      updateGraph()
+    } else {
+      const node = masterGraph.nodes.find(
+        (n) => masterGraph.isGroupNode(n) && n.tag.label === label
+      )
+      if (node) {
+        updateGraph(node)
+      }
+    }
+  })
+
   initializeInputModes()
   await initializeGraph()
   initializeUI()
@@ -362,21 +379,16 @@ async function updateGraph(root, clickedNode, isDrillDown = false) {
     }
   }
 
-  // update the label in the toolbar
-  let pathString = ''
+  // update the navigation
+  const navigationComponent = document.querySelector('#navigation')
   if (root) {
-    for (const node of masterGraph.groupingSupport.getAncestors(root)) {
-      if (node) {
-        if (pathString) {
-          pathString = `${node.tag.label} > ${pathString}`
-        } else {
-          pathString = node.tag.label
-        }
-      }
-    }
+    const ancestors = masterGraph.groupingSupport.getAncestors(root).toArray().reverse()
+    navigationComponent.items = ancestors.map((a) => a.tag.label)
+    navigationComponent.selectedItem = root.tag.label
+  } else {
+    navigationComponent.items = ['yFiles-for-HTML']
+    navigationComponent.selectedItem = 'yFiles-for-HTML'
   }
-  const path = document.querySelector(`#path`)
-  path.innerHTML = pathString || 'yFiles-for-HTML'
 
   // register a highlight
   graph.decorator.nodes.highlightRenderer.addConstant(
@@ -625,36 +637,21 @@ function compare(node1, node2) {
   }
 
   const sortingCriterion = document.querySelector(`#select-sorting-criterion`).value
-  const fileDirectoryOrder = document.querySelector(`#select-file-directory-order`).value
-  const ascending = sortingCriterion.indexOf('ascending') !== -1
-  const useNameAsCriterion = sortingCriterion.indexOf('name') === 0
-  const considerLeafState = fileDirectoryOrder.indexOf('files') === 0
-  const leavesTrailing = fileDirectoryOrder.indexOf('after') !== -1
+  const sortingOrder = document.querySelector(`#select-sorting-order`).value
+  const ascending = sortingOrder === 'ascending'
+  const useNameAsCriterion = sortingCriterion === 'name'
 
-  if (considerLeafState) {
-    // leaves should either come last (trailing) or first (leading)
-    const degree1 = graphComponent.graph.outDegree(node1)
-    const degree2 = graphComponent.graph.outDegree(node2)
-    if (degree1 === 0 && degree2 > 0) {
-      // only first node is a leaf
-      return leavesTrailing ? 1 : -1
-    }
-    if (degree1 > 0 && degree2 === 0) {
-      // only second node is a leaf
-      return leavesTrailing ? -1 : 1
-    }
-  } // else: leaves are handled the same way as non-leaves
-
-  // both are non-leaves or leaves, or leaf state is ignored
-  // a) compare by name
+  let result = 0
   if (useNameAsCriterion && node1.labels.size > 0 && node2.labels.size > 0) {
+    // a) compare by name
     const name1 = node1.labels.first().text
     const name2 = node2.labels.first().text
-    const result = name1.localeCompare(name2)
-    return ascending ? result : -result
+    result = name1.localeCompare(name2)
+  } else {
+    // b) compare by size
+    result = node1.tag.size - node2.tag.size
   }
-  // b) compare by weight
-  const result = node1.tag.size - node2.tag.size > 0 ? 1 : -1
+
   return ascending ? result : -result
 }
 

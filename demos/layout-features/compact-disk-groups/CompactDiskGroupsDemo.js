@@ -48,7 +48,9 @@ const compactDiskLayout = new CompactDiskLayout({
 })
 
 // Configure layout data to use node tags as types
-const compactDiskLayoutData = new CompactDiskLayoutData({ nodeTypes: (node) => node.tag ?? null })
+const compactDiskLayoutData = new CompactDiskLayoutData({
+  nodeTypes: (node) => node.tag.type ?? null
+})
 
 // Setup recursive layout to apply compact disk layout separately in each group
 const recursiveGroupLayout = new RecursiveGroupLayout({

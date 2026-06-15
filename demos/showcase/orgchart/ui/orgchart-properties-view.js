@@ -146,7 +146,7 @@ function createLinkEntry(employee, orgChartGraph) {
 }
 
 /**
- * Creates a list of links to the given employees by using {@see createLinkEntry} but also adds a ","
+ * Creates a list of links to the given employees by using {@link createLinkEntry} but also adds a ","
  * separator as text node between every link.
  */
 function createLinkEntryList(employees, orgChartGraph) {

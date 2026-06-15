@@ -38,16 +38,18 @@ import {
   type TaggedSvgVisual
 } from '@yfiles/yfiles'
 
-import type { EdgeTag } from '../EventTimelineTypes'
+import type { EventTimelineEdgeTag } from '../EventTimelineTypes'
 
-/**
- * The SVG elements that make up an event timeline edge, i.e., a line and two circles (one for source and one for target)
- */
-type EventTimelineEdgeCache = { sourceCircle: SVGCircleElement; targetCircle: SVGCircleElement }
+type ElementAttrCache = { cx?: string; cy?: string; r?: string; fill?: string; class?: string }
 
-/**
- * The SVG visual that makes up an event timeline Edge
- */
+type EventTimelineEdgeCache = {
+  sourceCircle: SVGCircleElement
+  targetCircle: SVGCircleElement
+  sourceCircleCache: ElementAttrCache
+  targetCircleCache: ElementAttrCache
+  svgClass?: string
+}
+
 type EventTimelineEdgeVisual = TaggedSvgVisual<SVGGElement, EventTimelineEdgeCache>
 
 /**
@@ -56,10 +58,7 @@ type EventTimelineEdgeVisual = TaggedSvgVisual<SVGGElement, EventTimelineEdgeCac
 export class EventTimelineEdgeEndsStyle extends EdgeStyleBase {
   readonly thickness: number
   readonly markerRadius: number
-  readonly colorA: string | undefined
-  readonly colorB: string | undefined
-  cssClass: string
-  private readonly cssVarPrefix?: string = 'yfiles-event-timeline'
+  private readonly cssClass: string = 'event-timeline-edge'
   private readonly nodeToColorMapper: (node: INode) => string | undefined
 
   /**
@@ -67,22 +66,16 @@ export class EventTimelineEdgeEndsStyle extends EdgeStyleBase {
    * @param thickness the thickness of the edge.
    * @param markerRadius the radius of the circles attached to the end of the edge.
    * @param nodeToColorMapper a function mapping an INode to a corresponding color.
-   * @param cssVarPrefix a prefix for the CSS variables used by this instance.
-   * @param cssClass the CSS class to be assigned to the edge.
    */
   constructor(
     thickness: number,
     markerRadius: number,
-    nodeToColorMapper: (node: INode) => string | undefined = (node: INode) => undefined,
-    cssVarPrefix?: string,
-    cssClass: string = 'event-timeline-edge'
+    nodeToColorMapper: (node: INode) => string | undefined = (_node: INode) => undefined
   ) {
     super()
     this.thickness = thickness
     this.markerRadius = markerRadius
     this.nodeToColorMapper = nodeToColorMapper
-    this.cssVarPrefix = cssVarPrefix
-    this.cssClass = cssClass
   }
 
   /**
@@ -93,77 +86,78 @@ export class EventTimelineEdgeEndsStyle extends EdgeStyleBase {
    * @protected
    */
   protected createVisual(context: IRenderContext, edge: IEdge): EventTimelineEdgeVisual | null {
-    // Create SVG Group within which to store all subsequently created SVG visuals
     const svgGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-    svgGroup.id = `edge-${(edge.tag as EdgeTag).id}`
+    svgGroup.id = `edge-${(edge.tag as EventTimelineEdgeTag).id}`
+
     const colorA = this.nodeToColorMapper(edge.sourceNode!)
     const colorB = this.nodeToColorMapper(edge.targetNode!)
-    // Create Circle at Source Node Location
+
     const sourceCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     sourceCircle.classList.add('event-timeline-edge-circle')
     svgGroup.appendChild(sourceCircle)
-    if (colorA) {
-      sourceCircle.style.fill = `color-mix(in oklab, ${colorA} var(--${this.cssVarPrefix}-edge-color-value, 100%), var(--${this.cssVarPrefix}-background-color, #ffffff) var(--${this.cssVarPrefix}-background-color-value, 0%)`
-    } else {
-      sourceCircle.style.fill = `color-mix(in oklab, var(--${this.cssVarPrefix}-edge-color, #aaaaaa) var(--${this.cssVarPrefix}-edge-color-value, 100%), var(--${this.cssVarPrefix}-background-color, #ffffff) var(--${this.cssVarPrefix}-background-color-value, 0%)`
-    }
 
-    // Create Circle at Target Node Location
+    const sourceFill = this.getFillColor(colorA)
+    sourceCircle.setAttribute('fill', sourceFill)
+
     const targetCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
     targetCircle.classList.add('event-timeline-edge-circle')
     svgGroup.appendChild(targetCircle)
-    if (colorA && !colorB) {
-      targetCircle.style.fill = `color-mix(in oklab, ${colorA} var(--${this.cssVarPrefix}-edge-color-value, 100%), var(--${this.cssVarPrefix}-background-color, #ffffff) var(--${this.cssVarPrefix}-background-color-value, 0%)`
-    } else if (colorB) {
-      targetCircle.style.fill = `color-mix(in oklab, ${colorB} var(--${this.cssVarPrefix}-edge-color-value, 100%), var(--${this.cssVarPrefix}-background-color, #ffffff) var(--${this.cssVarPrefix}-background-color-value, 0%)`
-    } else {
-      targetCircle.style.fill = `color-mix(in oklab, var(--${this.cssVarPrefix}-edge-color, #aaaaaa) var(--${this.cssVarPrefix}-edge-color-value, 100%), var(--${this.cssVarPrefix}-background-color, #ffffff) var(--${this.cssVarPrefix}-background-color-value, 0%)`
-    }
 
-    // Create SVG Visual from Group
+    const targetFill = this.getFillColor(colorB ?? colorA)
+    targetCircle.setAttribute('fill', targetFill)
+
     const svgVisual = SvgVisual.from(svgGroup, {
-      sourceCircle: sourceCircle,
-      targetCircle: targetCircle
-    })
+      sourceCircle,
+      targetCircle,
+      sourceCircleCache: {},
+      targetCircleCache: {},
+      svgClass: undefined
+    }) as EventTimelineEdgeVisual
 
-    // Return the updated visual
     return this.updateVisual(context, svgVisual, edge)
   }
 
   /**
    * Updates the created EventTimelineEdgeStyle visual
-   * @param context the IRender context
+   * @param _context the IRender context
    * @param oldVisual the old SVG visual
    * @param edge the IEdge object whose visual is to be updated
    * @returns the (updated) old EventTimelineEdgeVisual visual
    * @protected
    */
   protected updateVisual(
-    context: IRenderContext,
+    _context: IRenderContext,
     oldVisual: EventTimelineEdgeVisual,
     edge: IEdge
   ): EventTimelineEdgeVisual | null {
-    // Specify target and source points of the edge
     const source: Point = edge.sourcePort.location
     const target: Point = edge.targetPort.location
-
-    // Extract the SVG elements that make up the edge
     const { sourceCircle, targetCircle } = oldVisual.tag
 
-    // Copy the CSS Class
-    oldVisual.svgElement.classList = this.cssClass
+    const newClass = this.cssClass
+    if (oldVisual.tag.svgClass !== newClass) {
+      oldVisual.svgElement.setAttribute('class', newClass)
+      oldVisual.tag.svgClass = newClass
+    }
 
-    // Update the source circle's x and y positions
-    sourceCircle.cy.baseVal.value = source.y
-    sourceCircle.cx.baseVal.value = source.x
-    sourceCircle.r.baseVal.value = this.markerRadius
+    this.setAttrIfChanged(sourceCircle, oldVisual.tag.sourceCircleCache, 'cx', `${source.x}`)
+    this.setAttrIfChanged(sourceCircle, oldVisual.tag.sourceCircleCache, 'cy', `${source.y}`)
+    this.setAttrIfChanged(
+      sourceCircle,
+      oldVisual.tag.sourceCircleCache,
+      'r',
+      `${this.markerRadius}`
+    )
 
-    // Update the target circle's x and y positions
-    targetCircle.cy.baseVal.value = target.y
-    targetCircle.cx.baseVal.value = target.x
-    targetCircle.r.baseVal.value = this.markerRadius
+    this.setAttrIfChanged(targetCircle, oldVisual.tag.targetCircleCache, 'cx', `${target.x}`)
+    this.setAttrIfChanged(targetCircle, oldVisual.tag.targetCircleCache, 'cy', `${target.y}`)
+    this.setAttrIfChanged(
+      targetCircle,
+      oldVisual.tag.targetCircleCache,
+      'r',
+      `${this.markerRadius}`
+    )
 
-    // return the (updated) old visual
     return oldVisual
   }
 
@@ -176,5 +170,25 @@ export class EventTimelineEdgeEndsStyle extends EdgeStyleBase {
    */
   protected getBounds(context: ICanvasContext, edge: IEdge): Rect {
     return super.getBounds(context, edge).getEnlarged(Math.max(this.thickness, this.markerRadius))
+  }
+
+  private getFillColor(color?: string): string {
+    if (color) {
+      return `color-mix(in oklab, ${color} var(--yfiles-event-timeline-edge-color-value, 100%), var(--yfiles-event-timeline-background-color, #ffffff) var(--yfiles-event-timeline-background-color-value, 0%))`
+    }
+
+    return `color-mix(in oklab, var(--yfiles-event-timeline-edge-color, #dfdee3) var(--yfiles-event-timeline-edge-color-value, 100%), var(--yfiles-event-timeline-background-color, #ffffff) var(--yfiles-event-timeline-background-color-value, 0%))`
+  }
+
+  private setAttrIfChanged(
+    element: SVGElement,
+    cache: ElementAttrCache,
+    name: keyof ElementAttrCache,
+    value: string
+  ): void {
+    if (cache[name] !== value) {
+      element.setAttribute(name, value)
+      cache[name] = value
+    }
   }
 }

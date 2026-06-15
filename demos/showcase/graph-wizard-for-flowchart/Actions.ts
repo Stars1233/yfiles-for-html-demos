@@ -68,7 +68,7 @@ import type { ColorSet } from './ColorThemes'
 import { type GraphWizardInputMode, WizardEventArgs } from './GraphWizardInputMode'
 
 /**
- * Creates a {@link WizardAction} that navigates to the next {@INode node} in the direction of
+ * Creates a {@link WizardAction} that navigates to the next node in the direction of
  * the pressed arrow key.
  */
 export function createSmartNavigate(): WizardAction {

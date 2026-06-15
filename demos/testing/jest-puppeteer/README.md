@@ -18,7 +18,7 @@ To start the demo and run the integration tests:
 1.  Go to the demo's directory `demos-js/testing/jest-puppeteer`.
 2.  Run `npm install`.
 3.  Run the integration tests: `npm run test:integration`.
-4.  Run the integration tests in watch mode: `npm run test:integrationWithWatch`.
+4.  Run the integration tests in watch mode: `npm run test:integration:watch`.
 
 The integration tests check yFiles functionality by simulating node, edge and port creation gestures and verifying that the graph instance actually contains the newly created graph items.
 
@@ -26,4 +26,4 @@ The tests run in a [puppeteer environment](https://github.com/smooth-code/jest-p
 
 With puppeteer, the tests can run in a full Chrome headless environment instead.
 
-The application under test is the [Simple Testable App](../application-under-test/index.html). To access yFiles via Jest / Puppeteer, the GraphComponent is set as a global variable in that application.
+The application under test is the [Simple Testable App](../application-under-test/index.html). The GraphComponent instance is accessed from its parent element through the `[data-this]` attribute.

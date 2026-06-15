@@ -38,7 +38,7 @@ async function applyHierarchicalLayoutWithSequenceConstraints(graphComponent: Gr
 
   // Assign constraints to place nodes with a certain tag at the start of the sequence
   graphComponent.graph.nodes.forEach((node) => {
-    if (node.tag && node.tag === 'leading') {
+    if (node.tag?.position === 'leading') {
       layoutData.sequenceConstraints.placeNodeAtHead(node)
     }
   })

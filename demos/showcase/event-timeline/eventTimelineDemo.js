@@ -26,80 +26,59 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { GraphBuilder, GraphComponent, License } from '@yfiles/yfiles'
+import { GraphComponent, License } from '@yfiles/yfiles'
 
 import licenseData from '../../../lib/license.json'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import data from './resources/traffic-data.json'
 import example from './resources/example.json'
 import { EventTimeline } from './eventTimeline/EventTimeline'
+import { EventTimelineSubgraph } from './eventTimeline/components/EventTimelineSubgraph'
 
+const demoAccessors = {
+  nodeGroupAccessor: (node) => {
+    return node.tag.group
+  },
+  edgeTypeAccessor: (edge) => {
+    return edge.tag.type
+  },
+  timeAccessorFunction: (edge) => {
+    return new Date(edge.tag.time)
+  }
+}
 /**
  * Runs the demo in its totality.
  */
 async function run() {
   License.value = licenseData
 
-  const exampleGraphComponent = new GraphComponent('#exampleGraphComponent')
-  const exampleSubGraphComponent = new GraphComponent('#exampleSubGraphComponent')
-
-  buildGraph(example, exampleGraphComponent.graph)
-  const exampleEventTimeline = new EventTimeline(
-    exampleGraphComponent,
-    exampleSubGraphComponent,
-    document.querySelector('#demo-example__subgraph-component'),
-    (edge) => {
-      return new Date(edge.tag.time)
-    },
-    'demo-example__timescale',
-    100
-  )
-  void exampleEventTimeline.resetZoom('0s').then(() => exampleEventTimeline.resetZoom('0s'))
-
-  const graphComponent = new GraphComponent('#graphComponent')
-  const subGraphComponent = new GraphComponent('#subGraphComponent')
-
-  buildGraph(data, graphComponent.graph)
-  const eventTimeline = new EventTimeline(
-    graphComponent,
-    subGraphComponent,
-    document.querySelector('#demo-main__subgraph-component'),
-    (edge) => {
-      return new Date(edge.tag.time)
-    },
-    'demo-main__timescale',
-    100
-  )
-  initializeUI(eventTimeline)
-}
-
-/**
- * Builds a new graph from the specified data source
- * @param data the data (of type Data) to be loaded
- * @param graph the IGraph object into which to load the specified data
- */
-function buildGraph(data, graph) {
-  // Clear the graph
-  graph.clear()
-
-  // Create a new graph builder
-  const graphBuilder = new GraphBuilder(graph)
-
-  // Create a new node (label) source
-  const nodesSource = graphBuilder.createNodesSource({ data: data.nodes, id: (node) => node.id })
-  nodesSource.nodeCreator.createLabelBinding((node) => node.label)
-
-  // Create a new edge (label) source
-  const edgesSource = graphBuilder.createEdgesSource({
-    data: data.edges,
-    sourceId: (edge) => edge.source,
-    targetId: (edge) => edge.target,
-    id: (edge) => edge.id
+  const exampleEventTimeline = new EventTimeline({
+    selector: '#exampleGraphComponent',
+    accessors: demoAccessors,
+    config: { unitHeight: 100 }
   })
-  edgesSource.edgeCreator.createLabelBinding((edge) => edge.label)
+  await exampleEventTimeline.setData(example, true)
 
-  // Build the graph
-  graphBuilder.buildGraph()
+  const eventTimeline = new EventTimeline({
+    selector: '#graphComponent',
+    accessors: demoAccessors,
+    config: { unitHeight: 100 },
+    callbacks: {
+      onHyperEdgeClicked: async (bundle) => {
+        await subGraph.show(bundle)
+      }
+    }
+  })
+
+  const subGraphDialog = document.createElement('dialog')
+  const subGraphComponent = new GraphComponent()
+  subGraphDialog.append(subGraphComponent.htmlElement)
+  eventTimeline.graphComponent.htmlElement.parentElement?.appendChild(subGraphDialog)
+
+  const subGraph = new EventTimelineSubgraph(eventTimeline, subGraphComponent, subGraphDialog)
+
+  await eventTimeline.setData(data, true)
+  initializeUI(eventTimeline)
 }
 
 /**
@@ -111,16 +90,16 @@ function initializeUI(eventTimeline) {
     .addEventListener('click', () => eventTimeline.resetZoom())
   document
     .getElementById('horizontal-increase-stretch-button')
-    .addEventListener('click', () => eventTimeline.changeResolution1D(-20, 'horizontal'))
+    .addEventListener('click', () => eventTimeline.zoomHorizontal(-20))
   document
     .getElementById('horizontal-decrease-stretch-button')
-    .addEventListener('click', () => eventTimeline.changeResolution1D(20, 'horizontal'))
+    .addEventListener('click', () => eventTimeline.zoomHorizontal(20))
   document
     .getElementById('vertical-increase-stretch-button')
-    .addEventListener('click', () => eventTimeline.changeResolution1D(-20, 'vertical'))
+    .addEventListener('click', () => eventTimeline.zoomVertical(-20))
   document
     .getElementById('vertical-decrease-stretch-button')
-    .addEventListener('click', () => eventTimeline.changeResolution1D(20, 'vertical'))
+    .addEventListener('click', () => eventTimeline.zoomVertical(20))
 }
 
 // Run the Demo

@@ -26,4 +26,20 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-export {}
+/**
+ * The ItemState class describes the transient visual state of a graph item.
+ */
+export class ItemState {
+  visible
+  aggregated
+  hyper
+  representative
+  representedGroup
+  highlightedAdjacent
+  highlighted
+  labelHidden
+  nodeColor
+  edgeColorA
+  edgeColorB
+  edgeKind
+}

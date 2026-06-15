@@ -45,8 +45,7 @@ async function applyOrganicLayoutWithConstraints() {
   const organicLayoutData = new OrganicLayoutData()
 
   // Force nodes with "placeOnCircle" tags to lie on a circle
-  organicLayoutData.constraints.addEllipse(false, 1.0).predicate = (node) =>
-    node.tag === 'placeOnCircle'
+  organicLayoutData.constraints.addEllipse(false, 1.0).predicate = (node) => node.tag?.placeOnCircle
 
   await graphComponent.applyLayoutAnimated(organicLayout, 0, organicLayoutData)
 }

@@ -27,6 +27,41 @@
  **
  ***************************************************************************/
 import type { IEdge, INode, LayoutNode } from '@yfiles/yfiles'
+import type { EventTimelineConfig } from './EventTimelineConfig'
+
+export type SubgraphTag = { subgraph: boolean }
+export type EventTimelineAccessors = {
+  timeAccessorFunction: (edge: IEdge) => Date
+  nodeLabelAccessor?: (node: INode) => string
+  edgeLabelAccessor?: (edge: IEdge) => string
+  nodeIdAccessor?: (nodeData: unknown) => string | number
+  edgeIdAccessor?: (edgeData: unknown) => string | number
+  edgeSourceIdAccessor?: (edgeData: unknown) => string | number
+  edgeTargetIdAccessor?: (edgeData: unknown) => string | number
+  nodeGroupAccessor?: (node: INode) => string
+  edgeTypeAccessor?: (edge: IEdge) => string
+}
+
+export type EventTimelineCallbacks = {
+  onHyperEdgeClicked?: (bundle: AggregatedEdgeGroup) => void | Promise<void>
+}
+
+/**
+ * The configuration options for the {@link EventTimeline}.
+ */
+export interface EventTimelineOptions {
+  /**
+   * A CSS selector string to spawn the graph component in
+   */
+  selector: string
+  /**
+   * A function with which to access an edge's (event's) timestamp; must return a {@link Date} object.
+   */
+  accessors: EventTimelineAccessors
+  startTimeFrame?: [Date, Date]
+  config?: Partial<EventTimelineConfig>
+  callbacks?: EventTimelineCallbacks
+}
 
 /**
  * The various edge color modes that exist, i.e., the different ways in which edges can be colored.
@@ -67,60 +102,49 @@ export type NodeGroups<T extends INode | LayoutNode> = Partial<Record<string, No
 export type AggregatedEdgeGroup = { edges: Array<IEdge>; edgeRange: [start: IEdge, end: IEdge] }
 
 /**
+ * The tag shape used for event timeline edges.
+ */
+export type EventTimelineEdgeTag = { id: string | number }
+
+/**
  * The ChangeDirection type describes the two direction in which a user can zoom into/out of the
  * event timeline visualization, i.e., horizontally or vertically.
  */
 export type ChangeDirection = 'horizontal' | 'vertical'
 
 /**
- * The CoordinateMapping type describes the various numerical aspects that underlie the event
- * timeline layout algorithm
+ * The ItemState class describes the transient visual state of a graph item.
  */
-export type CoordinateMapping = {
-  t0Ms: number
-  yUnits: number
-  stretchX: number
-  stretchY: number
-  timeUnitMs: number
-  unitHeight: number
-  xToTime: (x: number, stretch?: number) => Date
-  timeToX: (t: Date, stretch?: number) => number
-}
-/**
- * The EdgeTag type describes the various an edge's tag's various fields and their types.
- */
-export type EdgeTag = {
-  id: string
-  source: string
-  target: string
-  type: string
-  label: string
-  weight: number
-  time: string
+export class ItemState {
+  visible?: boolean
   aggregated?: boolean
   hyper?: boolean
-  visible?: boolean
-}
-/**
- The NodeTag type describes the various a node's tag's various fields and their types.
- */
-export type NodeTag = {
-  id: string
-  label: string
-  group: string
-  visible?: boolean
+  representative?: boolean
+  representedGroup?: AggregatedEdgeGroup
   highlightedAdjacent?: boolean
+  highlighted?: boolean
+  labelHidden?: boolean
+  nodeColor?: string
+  edgeColorA?: string
+  edgeColorB?: string
+  edgeKind?: 'simple' | 'aggregate' | 'hyper' | 'hidden'
 }
-/**
- * The Data type describes the expected structure of data loaded into the event timeline demo.
- */
-export type Data = { nodes: Array<NodeTag>; edges: Array<EdgeTag> }
 
 /**
- * A representative edge tag is a union type of the EdgeTag type plus two additional fields, which
- * describe the edges that said edge represents.
+ * The Data type describes the data loaded into the event timeline.
+ * Each entry in the `nodes` and `edges` arrays can be any object shape; the
+ * accessor functions on {@link EventTimelineOptions} determine how fields are read.
  */
-export type RepresentativeEdgeTag = EdgeTag & {
-  representedGroup: AggregatedEdgeGroup
-  representative: boolean
+export type Data = { nodes: Array<unknown>; edges: Array<unknown> }
+
+/**
+ * Accessor functions used when building tooltip content.  All fields are required
+ * by the time they reach {@link TooltipHelper} – defaults are resolved in
+ * {@link EventTimeline}.
+ */
+export type TooltipAccessors = {
+  nodeLabelAccessor: (node: INode) => string
+  nodeGroupAccessor: (node: INode) => string
+  edgeTypeAccessor: (edge: IEdge) => string
+  timeAccessorFunction: (edge: IEdge) => Date
 }

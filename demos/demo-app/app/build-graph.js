@@ -62,7 +62,7 @@ export function buildGraph(graph, graphData) {
     data: (data.nodes ?? data.nodeList ?? []).filter((item) => !item.isGroup),
     id: 'id',
     parentId: 'parent',
-    tag: 'tag',
+    tag: (dataItem) => dataItem,
     style: (dataItem) => {
       if (dataItem?.cssClass == null) {
         return undefined
@@ -110,7 +110,7 @@ export function buildGraph(graph, graphData) {
     data: (data.nodes ?? data.nodeList ?? []).filter((item) => item.isGroup),
     id: 'id',
     parentId: 'parent',
-    tag: 'tag',
+    tag: (dataItem) => dataItem,
     layout: 'layout',
     style: (dataItem) => {
       if (dataItem?.cssClass == null) {
@@ -164,7 +164,7 @@ export function buildGraph(graph, graphData) {
     tag: (dataItem) => dataItem,
     style: (dataItem) => {
       if (dataItem?.cssClass == null && !dataItem.undirected) {
-        return undefined // Use default edge style
+        return undefined // Use the default edge style (with arrows)
       }
       if (dataItem?.cssClass && graph.edgeDefaults.style['cssClass'] != null) {
         const style = graph.edgeDefaults.style.clone()
@@ -226,7 +226,7 @@ export function buildGraph(graph, graphData) {
     if (edge.tag?.targetPort) {
       graph.setPortLocation(edge.targetPort, Point.from(edge.tag?.targetPort))
     }
-    edge.tag = edge.tag?.tag ?? null
+    edge.tag = edge.tag?.tag ?? edge.tag
   })
 
   // set the label positions

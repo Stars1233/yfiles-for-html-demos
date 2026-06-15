@@ -26,17 +26,14 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { DelegatingEdgeStyle, GradientStop, LinearGradient, SvgVisual } from '@yfiles/yfiles'
+import { DelegatingEdgeStyle, SvgVisual } from '@yfiles/yfiles'
+import { ItemState } from '../EventTimelineTypes'
+import { getOrCreateGradient } from './GradientUtility'
 
-/**
- * The SimpleGradientDelegatingEdgeStyle extends the DelegatingEdgeStyle to visualize an edge
- * with a color gradient.
- */
 export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
   wrappedStyle
   nodeToColorMapper
-  cssClass
-  cssVarPrefix = 'yfiles-gdes'
+  useItemStateColors
   gradients
 
   /**
@@ -44,19 +41,14 @@ export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
    * @param wrappedStyle the IEdgeStyle around which the SimpleGradientDelegatingEdgeStyle wraps
    * @param nodeToColorMapper maps a particular INode to a particular color
    * @param gradientMap the general map of gradients in the drawing
-   * @param cssVarPrefix the prefix of the CSS variables in the visualization
+   * @param useItemStateColors whether to prefer colors stored in ItemState over the mapper
    */
-  constructor(wrappedStyle, nodeToColorMapper, gradientMap = new Map(), cssVarPrefix) {
+  constructor(wrappedStyle, nodeToColorMapper, gradientMap = new Map(), useItemStateColors = true) {
     super()
     this.wrappedStyle = wrappedStyle
     this.nodeToColorMapper = nodeToColorMapper
-    this.cssClass = cssVarPrefix
-    // get the cssClass from the wrappedStyle
-    if ('cssClass' in this.wrappedStyle) {
-      this.cssClass = this.wrappedStyle.cssClass
-    }
     this.gradients = gradientMap
-    this.cssVarPrefix = cssVarPrefix
+    this.useItemStateColors = useItemStateColors
   }
 
   /**
@@ -71,64 +63,77 @@ export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
     const target = edge.targetPort.location
 
     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+    const state = edge.lookup(ItemState)
 
-    const sourceColor = this.nodeToColorMapper(edge.sourceNode)
-    const targetColor = this.nodeToColorMapper(edge.targetNode)
+    const sourceColor =
+      this.useItemStateColors && state?.edgeColorA
+        ? state.edgeColorA
+        : this.nodeToColorMapper(edge.sourceNode)
+    const targetColor =
+      this.useItemStateColors && state?.edgeColorB
+        ? state.edgeColorB
+        : this.nodeToColorMapper(edge.targetNode)
+
     if (sourceColor !== targetColor) {
-      let linearGradient = this.gradients.get(
-        source.y < target.y ? sourceColor + targetColor : targetColor + sourceColor
+      const linearGradient = getOrCreateGradient(
+        this.gradients,
+        sourceColor,
+        targetColor,
+        source.y,
+        target.y
       )
-      if (!linearGradient) {
-        linearGradient = new LinearGradient({
-          startPoint: [0, source.y < target.y ? 0 : 1],
-          endPoint: [0, source.y < target.y ? 1 : 0],
-          gradientStops: [
-            new GradientStop({ offset: 0, color: sourceColor }),
-            new GradientStop({ offset: 1, color: targetColor })
-          ]
-        })
-        this.gradients.set(
-          source.y < target.y ? sourceColor + targetColor : targetColor + sourceColor,
-          linearGradient
-        )
-      }
       linearGradient.applyTo(rect, context)
     } else {
-      rect.style.fill = sourceColor
+      rect.setAttribute('fill', sourceColor || 'var(--yfiles-event-timeline-edge-color, #dfdee3)')
     }
 
-    return this.updateVisual(context, SvgVisual.from(rect), edge)
+    rect.setAttribute('stroke', 'none')
+
+    const visual = SvgVisual.from(rect, { rect, rectCache: {} })
+
+    return this.updateVisual(context, visual, edge)
   }
 
   /**
    * Updates a given SVGVisual
-   * @param context the IRenderContext of the given SVGVisual
+   * @param _context the IRenderContext of the given SVGVisual
    * @param oldVisual the SVGVisual to be updated
    * @param edge the associated IEdge object
    * @protected
    * @returns an updated SVGVisual
    */
-  updateVisual(context, oldVisual, edge) {
+  updateVisual(_context, oldVisual, edge) {
     const source = edge.sourcePort.location
     const target = edge.targetPort.location
     const rect = oldVisual.svgElement
+    const tag = oldVisual.tag
+
     const upperPort = source.y < target.y ? source : target
     const lowerPort = source.y < target.y ? target : source
     const width = this.wrappedStyle.stroke?.thickness ?? 10
-    rect.setAttribute('x', `${upperPort.x - width / 2}`)
-    rect.setAttribute('y', `${upperPort.y}`)
-    rect.setAttribute('width', `${width}`)
-    rect.setAttribute('height', `${lowerPort.y - upperPort.y}`)
+
+    this.setAttrIfChanged(rect, tag.rectCache, 'x', `${upperPort.x - width / 2}`)
+    this.setAttrIfChanged(rect, tag.rectCache, 'y', `${upperPort.y}`)
+    this.setAttrIfChanged(rect, tag.rectCache, 'width', `${width}`)
+    this.setAttrIfChanged(rect, tag.rectCache, 'height', `${lowerPort.y - upperPort.y}`)
+
     return oldVisual
   }
 
   /**
    * Gets the style of a given IEdge object
-   * @param edge the given IEdge object
+   * @param _edge the given IEdge object
    * @protected
    * @returns the style around which the SimpleGradientDelegatingEdgeStyle is wrapped
    */
-  getStyle(edge) {
+  getStyle(_edge) {
     return this.wrappedStyle
+  }
+
+  setAttrIfChanged(element, cache, name, value) {
+    if (cache[name] !== value) {
+      element.setAttribute(name, value)
+      cache[name] = value
+    }
   }
 }

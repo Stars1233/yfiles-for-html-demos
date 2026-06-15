@@ -26,21 +26,51 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { afterAll, beforeAll, test } from 'vitest'
+import { afterAll, beforeAll, describe, test } from 'vitest'
 import type { PreviewServer } from 'vite'
 import { preview } from 'vite'
 import type { Browser, Page } from 'playwright'
 import { chromium } from 'playwright'
-import { expect } from '@playwright/test'
+import { expect, selectors } from '@playwright/test'
+
+import { mouseAction } from '../util/mouse-action'
+import { createGraphElementLocatorEngine } from '../util/graph-selectors'
+import {
+  getBendLocations,
+  getEdge,
+  getGraphComponent,
+  getGraphStats,
+  getLayout,
+  getNode,
+  getViewport
+} from '../util/graph-util'
+import { enableTestIds } from '../util/enable-test-ids'
 
 let server: PreviewServer
 let browser: Browser
 let page: Page
 
 beforeAll(async () => {
+  // make sure we can use custom graph element locators
+  try {
+    await selectors.register('graph_item', createGraphElementLocatorEngine)
+  } catch (e) {
+    // when running in parallel, ignore re-register errors
+    if (!(e instanceof Error) || !e.message.includes('has been already registered')) {
+      throw e
+    }
+  }
+
   server = await preview({ preview: { port: 3000 } })
   browser = await chromium.launch()
   page = await browser.newPage()
+
+  const url = new URL(
+    'testing/application-under-test/index.html',
+    process.env.TEST_SERVER_URL || 'http://localhost:4242/demos-ts/'
+  ).href
+
+  await page.goto(url)
 })
 
 afterAll(async () => {
@@ -50,54 +80,309 @@ afterAll(async () => {
   })
 })
 
-test('Edge count should change when button is clicked.', async () => {
-  const url = new URL(
-    'testing/application-under-test/index.html',
-    process.env.TEST_SERVER_URL || 'http://localhost:4241/demos-ts/'
-  ).href
+describe('Interactive GraphComponent Tests', () => {
+  describe('Graph initialization and node creation', () => {
+    test('should initialize with correct counts and create nodes', async () => {
+      const graphComponent = page.locator('#graphComponent')
+      const graphComponentHandle = await getGraphComponent(graphComponent)
 
-  await page.goto(url)
+      expect(graphComponentHandle).toBeTruthy()
 
-  const graphComponentHandle = await page.evaluateHandle(() => (window as any).graphComponent)
-  await expect(graphComponentHandle).toBeTruthy()
+      // Verify initial state
+      const { nodeCount, edgeCount, bendCount } = await getGraphStats(graphComponentHandle)
+      expect(nodeCount).toBe(2)
+      expect(bendCount).toBe(0)
+      expect(edgeCount).toBe(0)
 
-  // get a handle for the graph structure
-  const graphHandle = await graphComponentHandle.getProperty('graph')
-  await expect(graphHandle).toBeTruthy()
+      // Clear the graph
+      const clearGraphButton = page.locator('#clear-graph')
+      await clearGraphButton.click()
 
-  // get a handle for the graph's nodes
-  const nodesHandle = await graphHandle.getProperty('nodes')
-  await expect(nodesHandle).toBeTruthy()
+      // Create first node at 300,300
+      await mouseAction().click({ x: 300, y: 300 }).perform(page, graphComponent)
 
-  // check the initial node count
-  const nodesSizeHandle = await nodesHandle.getProperty('size')
-  await expect(nodesSizeHandle).toBeTruthy()
+      // Create second node at 500,500
+      await mouseAction().click({ x: 500, y: 500 }).perform(page, graphComponent)
 
-  const nodesSizeValue = await nodesSizeHandle.jsonValue()
-  await expect(nodesSizeValue).toBe(2)
+      // Verify nodes were created
+      expect((await getGraphStats(graphComponentHandle)).nodeCount).toBe(2)
+    }, 30_000)
+  })
 
-  // get a handle for the graph's edges
-  const edgesHandle = await graphHandle.getProperty('edges')
-  await expect(edgesHandle).toBeTruthy()
+  describe('Edge creation and bend manipulation', () => {
+    test('should create edge with bend and move it to new location', async () => {
+      const graphComponent = page.locator('#graphComponent')
+      const graphComponentHandle = await getGraphComponent(graphComponent)
 
-  // check the initial edge count
-  const edgesSizeBeforeHandle = await edgesHandle.getProperty('size')
-  await expect(edgesSizeBeforeHandle).toBeTruthy()
+      // Setup: Clear and create two nodes
+      await page.locator('#clear-graph').click()
+      await mouseAction().click({ x: 300, y: 300 }).perform(page, graphComponent)
+      await mouseAction().click({ x: 500, y: 500 }).perform(page, graphComponent)
 
-  const edgesSizeBeforeValue = await edgesSizeBeforeHandle.jsonValue()
-  await expect(edgesSizeBeforeValue).toBe(0)
+      // Get handles to the created nodes
+      const node0 = await getNode(graphComponentHandle, 0)
+      const node1 = await getNode(graphComponentHandle, 1)
 
-  // get "create edge" button
-  const createEdgeLocator = await page.locator('#create-edge')
-  await expect(createEdgeLocator).toHaveCount(1)
+      // Create edge by dragging from node1, adding a bend, then to node2
+      await mouseAction()
+        .drag(node0, { x: 500, y: 300 })
+        .drag({ x: 500, y: 300 }, node1)
+        .perform(page, graphComponent)
 
-  // click "create edge" button to create an edge in the graph
-  await createEdgeLocator.click()
+      // Verify edge and bend were created
+      const edge = await getEdge(graphComponentHandle, 0)
+      const bends = await getBendLocations(edge)
+      expect(bends.length).toBe(1)
 
-  // check the graph's edge count after button click
-  const edgesSizeAfterHandle = await edgesHandle.getProperty('size')
-  await expect(edgesSizeAfterHandle).toBeTruthy()
+      const { edgeCount } = await getGraphStats(graphComponentHandle)
+      expect(edgeCount).toBe(1)
 
-  const edgesSizeAfterValue = await edgesSizeAfterHandle.jsonValue()
-  await expect(edgesSizeAfterValue).toBe(1)
-}, 60_000)
+      // Move the bend to a new location
+      await mouseAction().drag(bends[0], { x: 450, y: 250 }).perform(page, graphComponent)
+
+      // Verify bend moved to new location
+      const newBends = await getBendLocations(edge)
+      expect(newBends.length).toBe(1)
+      expect(newBends[0]).toStrictEqual({ x: 450, y: 250 })
+    }, 30_000)
+  })
+
+  describe('Node selection and UI interactions', () => {
+    test('should handle selection, tooltips, and context menus', async () => {
+      const graphComponent = page.locator('#graphComponent')
+      const graphComponentHandle = await getGraphComponent(graphComponent)
+
+      // Setup: Clear and create two nodes
+      await page.locator('#clear-graph').click()
+      await mouseAction().click({ x: 300, y: 300 }).perform(page, graphComponent)
+      await mouseAction().click({ x: 500, y: 500 }).perform(page, graphComponent)
+
+      // Test single node selection
+      await graphComponent.locator('graph_item=node_0').click({ timeout: 1000 })
+      expect(await graphComponentHandle.evaluate((gc) => gc.selection.nodes.size)).toBe(1)
+
+      // Test multi-selection with Ctrl+click
+      await graphComponent
+        .locator('graph_item=node_1')
+        .click({ timeout: 1000, modifiers: ['Control'] })
+      expect(await graphComponentHandle.evaluate((gc) => gc.selection.nodes.size)).toBe(2)
+
+      // Test tooltip display on hover
+      await graphComponent.locator('graph_item=node_0').hover({ force: true })
+      await expect(page.locator('.test-tooltip').textContent()).resolves.toBe('NODE')
+
+      // Clear selection
+      await graphComponent.click({ timeout: 1000 })
+
+      // Test context menu on right-click
+      await graphComponent.locator('graph_item=node_0').click({ timeout: 1000, button: 'right' })
+      await expect(page.locator('.clear-graph-menu-item')).toContainText('Clear')
+
+      // Click the component to close the menu and remove item from the selection
+      await graphComponent.click({ timeout: 1000 })
+      expect(await graphComponentHandle.evaluate((gc) => gc.selection.nodes.size)).toBe(0)
+      await expect(page.locator('.clear-graph-menu-item')).toHaveCount(0)
+    }, 30_000)
+  })
+
+  describe('Node movement and resizing', () => {
+    test('should move and resize nodes correctly', async () => {
+      const graphComponent = page.locator('#graphComponent')
+      const graphComponentHandle = await getGraphComponent(graphComponent)
+
+      // Setup: Clear and create two nodes
+      await page.locator('#clear-graph').click()
+      await mouseAction().click({ x: 300, y: 300 }).perform(page, graphComponent)
+      await mouseAction().click({ x: 500, y: 500 }).perform(page, graphComponent)
+
+      const node1 = await getNode(graphComponentHandle, 1)
+      const oldNode1Layout = await getLayout(node1)
+
+      // Move node to new location
+      await mouseAction().drag(oldNode1Layout, { x: 150, y: 150 }).perform(page, graphComponent)
+
+      // Verify node moved correctly
+      const movedLayout = await getLayout(node1)
+      expect(movedLayout).toStrictEqual({
+        x: 150,
+        y: 150,
+        width: oldNode1Layout.width,
+        height: oldNode1Layout.height
+      })
+
+      // Resize node by selecting and dragging the handles that appear around it
+      await mouseAction()
+        .click(movedLayout)
+        .drag(movedLayout, { x: 100, y: 100 }, 0, { x: -5, y: -5 })
+        .perform(page, graphComponent)
+
+      // Verify node resized correctly
+      const resizedLayout = await getLayout(node1)
+      expect(resizedLayout).toStrictEqual({
+        x: 100,
+        y: 100,
+        width: oldNode1Layout.width + 50,
+        height: oldNode1Layout.height + 50
+      })
+    }, 30_000)
+  })
+
+  describe('Node deletion', () => {
+    test('should delete selected node and verify final graph state', async () => {
+      const graphComponent = page.locator('#graphComponent')
+      const graphComponentHandle = await getGraphComponent(graphComponent)
+
+      // Setup: Clear, create two nodes, and create an edge with a bend
+      await page.locator('#clear-graph').click()
+      await mouseAction().click({ x: 300, y: 300 }).perform(page, graphComponent)
+      await mouseAction().click({ x: 500, y: 500 }).perform(page, graphComponent)
+
+      const node0 = await getNode(graphComponentHandle, 0)
+      const node1 = await getNode(graphComponentHandle, 1)
+
+      // Create an edge
+      await mouseAction()
+        .drag(node0, { x: 500, y: 300 })
+        .drag({ x: 500, y: 300 }, node1)
+        .perform(page, graphComponent)
+
+      // Verify state before deletion
+      const statsBefore = await getGraphStats(graphComponentHandle)
+      expect(statsBefore.nodeCount).toBe(2)
+      expect(statsBefore.edgeCount).toBe(1)
+      expect(statsBefore.bendCount).toBe(1)
+
+      // Select and delete a node
+      await graphComponent.locator('graph_item=node_0').click()
+      await page.keyboard.press('Delete')
+
+      // Verify final state after deletion
+      expect(await graphComponentHandle.evaluate((gc) => gc.graph.nodes.size)).toBe(1)
+
+      // Removing the node also removes its adjacent edge and its bends
+      const statsAfter = await getGraphStats(graphComponentHandle)
+      expect(statsAfter.nodeCount).toBe(1)
+      expect(statsAfter.edgeCount).toBe(0)
+      expect(statsAfter.bendCount).toBe(0)
+    }, 30_000)
+  })
+
+  describe('Viewport interaction', () => {
+    test('should change viewport with mouse wheel', async () => {
+      const graphComponent = page.locator('#graphComponent')
+      const graphComponentHandle = await getGraphComponent(graphComponent)
+
+      // Setup: Clear and create a node
+      await page.locator('#clear-graph').click()
+      await mouseAction().click({ x: 300, y: 300 }).perform(page, graphComponent)
+
+      const node0 = await getNode(graphComponentHandle, 0)
+      const nodeLayout = await getLayout(node0)
+
+      // Verify initial zoom value
+      expect(await graphComponentHandle.evaluate((gc) => gc.zoom)).toBe(1)
+
+      // Disable viewport animations for easier testing
+      await graphComponentHandle.evaluate((gc) => (gc.animatedViewportChanges = 'none'))
+
+      // Increase zoom by a tick to the node location
+      const { zoom } = await getViewport(graphComponentHandle)
+      await mouseAction()
+        .mouseWheel(0, -100, { x: nodeLayout.x, y: nodeLayout.y })
+        .perform(page, graphComponent)
+
+      // Verify the increased zoom value
+      expect(await graphComponentHandle.evaluate((gc) => gc.zoom)).toBeGreaterThan(zoom)
+
+      // Pan viewport horizontally with mousewheel while pressing shift modifier
+      const initialViewport = await getViewport(graphComponentHandle)
+      await mouseAction()
+        .mouseWheel(0, 100, undefined, undefined, 'Shift')
+        .perform(page, graphComponent)
+
+      // Verify that the viewport moved horizontally
+      expect(await graphComponentHandle.evaluate((gc) => gc.viewport.x)).toBeGreaterThan(
+        initialViewport.x
+      )
+      expect(await graphComponentHandle.evaluate((gc) => gc.viewport.y)).toBe(initialViewport.y)
+      expect(await graphComponentHandle.evaluate((gc) => gc.zoom)).toBe(initialViewport.zoom)
+    }, 30_000)
+  })
+
+  describe('Using Test-Ids on Graph Items', () => {
+    test('should assign test-ids to each graph element', async () => {
+      const graphComponent = page.locator('#graphComponent')
+      const graphComponentHandle = await getGraphComponent(graphComponent)
+
+      // Setup: Clear, create two nodes, and create an edge with a bend
+      await page.locator('#clear-graph').click()
+      await mouseAction().click({ x: 300, y: 300 }).perform(page, graphComponent)
+      await mouseAction().click({ x: 500, y: 500 }).perform(page, graphComponent)
+
+      // Get handles to the created nodes
+      const node0 = await getNode(graphComponentHandle, 0)
+      const node1 = await getNode(graphComponentHandle, 1)
+
+      // Create edge by dragging from node1, adding a bend, then to node2
+      await mouseAction()
+        .drag(node0, { x: 500, y: 300 })
+        .drag({ x: 500, y: 300 }, node1)
+        .perform(page, graphComponent)
+
+      // Assigns each graph item a distinct test-id
+      await enableTestIds(graphComponentHandle)
+
+      // Verify that there is an HTML element with the assigned test id
+      await expect(page.locator('[data-testid=node-index-0]')).toHaveCount(1)
+      await expect(page.locator('[data-testid=node-index-1]')).toHaveCount(1)
+
+      // Verify that there is an HTML element with the assigned test id
+      await expect(page.locator('[data-testid=edge-index-0]')).toHaveCount(1)
+    }, 30_000)
+  })
+})
+
+describe('Test UI elements', () => {
+  test('test toolbar buttons', async () => {
+    const graphComponent = page.locator('#graphComponent')
+    const graphComponentHandle = await getGraphComponent(graphComponent)
+
+    // Setup: Start with a graph that has two nodes
+    await graphComponentHandle.evaluate((gc) => gc.graph.clear())
+    await mouseAction().click({ x: 300, y: 300 }).perform(page, graphComponent)
+    await mouseAction().click({ x: 500, y: 500 }).perform(page, graphComponent)
+
+    // Verify initial state
+    const initialStats = await getGraphStats(graphComponentHandle)
+    expect(initialStats.nodeCount).toBe(2)
+    expect(initialStats.edgeCount).toBe(0)
+    expect(initialStats.bendCount).toBe(0)
+
+    // Disable viewport animations for easier testing
+    await graphComponentHandle.evaluate((gc) => (gc.animatedViewportChanges = 'none'))
+
+    // Verify that the "Zoom in" button works
+    const zoomBeforeIn = (await getViewport(graphComponentHandle)).zoom
+    await page.locator('#zoom-in-button').click()
+    expect(await graphComponentHandle.evaluate((gc) => gc.zoom)).toBeGreaterThan(zoomBeforeIn)
+
+    // Verify that the "Zoom out" button works
+    const zoomBeforeOut = (await getViewport(graphComponentHandle)).zoom
+    await page.locator('#zoom-out-button').click()
+    expect(await graphComponentHandle.evaluate((gc) => gc.zoom)).toBeLessThan(zoomBeforeOut)
+
+    // Verify that the "Create Edge" button works
+    await page.locator('#create-edge').click()
+    const intermediateStats = await getGraphStats(graphComponentHandle)
+    expect(intermediateStats.nodeCount).toBe(2)
+    expect(intermediateStats.edgeCount).toBe(1)
+    expect(intermediateStats.bendCount).toBe(0)
+
+    // Verify that "Clear Graph" button works
+    await page.locator('#clear-graph').click()
+    const clearedStats = await getGraphStats(graphComponentHandle)
+    expect(clearedStats.nodeCount).toBe(0)
+    expect(clearedStats.edgeCount).toBe(0)
+    expect(clearedStats.bendCount).toBe(0)
+  })
+})

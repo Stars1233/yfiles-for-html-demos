@@ -9,7 +9,7 @@
       "version": "31.0.0",
       "license": "https://www.yworks.com/products/yfiles-for-html/sla",
       "dependencies": {
-        "@yfiles/yfiles": "^31.0.0+dev",
+        "@yfiles/yfiles": "^31.0.1+dev",
         "lit-html": "~3.3.0"
       }
     },
@@ -29,9 +29,9 @@
       }
     },
     "node_modules/@yfiles/yfiles": {
-      "version": "31.0.0+dev",
-      "integrity": "sha512-QcHKo/VTzQRKcGDBGrtqTM/kce3rqTnQqTLLvZDth1EOtT2zHkJzWAF2z9O6ATqGGo7KxS4n2O6M0zWiipv/NQ==",
-      "resolved": "file:../../lib-dev/yfiles-31.0.0+dev.tgz"
+      "version": "31.0.1+dev",
+      "integrity": "sha512-RhgPKlVDpjUU6eGNO1jNJQb7lK8EszILDcUJYu8fBJKaodJAy1Q9/kJc+wcibe/xofcEk7lFlPk9udd6yfXY2Q==",
+      "resolved": "file:../../lib-dev/yfiles-31.0.1+dev.tgz"
     }
   }
 }

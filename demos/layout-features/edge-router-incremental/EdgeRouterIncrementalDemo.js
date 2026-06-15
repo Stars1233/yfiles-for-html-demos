@@ -36,8 +36,8 @@ import graphData from './sample.json'
 async function applyIncrementalEdgeRouting() {
   const edgeRouterData = new EdgeRouterData({
     scope: {
-      // Configure edge router to only route edges with the 'incremental' tag
-      edges: (edge) => edge.tag === 'incremental'
+      // Configure edge router to only route edges marked as 'incremental' in the tag
+      edges: (edge) => edge.tag.incremental
     }
   })
 

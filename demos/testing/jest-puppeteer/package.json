@@ -4,30 +4,18 @@
   "author": "yWorks GmbH <yfileshtml@yworks.com>",
   "license": "https://www.yworks.com/products/yfiles-for-html/sla",
   "private": true,
-  "homepage": ".",
   "scripts": {
     "test:integration": "jest -c integration/jest.config.js",
-    "test:integrationWithWatch": "jest -c integration/jest.config.js --watch"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "test:integration:watch": "jest -c integration/jest.config.js --watch"
   },
   "devDependencies": {
-    "cross-env": "^10.1.0",
-    "jest": "^30.2.0",
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
     "jest-puppeteer": "^11.0.0",
-    "puppeteer": "^24.30.0"
+    "puppeteer": "^25.1.0",
+    "ts-jest": "^29.4.11"
   },
   "dependencies": {
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.0+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.1+dev.tgz"
   }
 }

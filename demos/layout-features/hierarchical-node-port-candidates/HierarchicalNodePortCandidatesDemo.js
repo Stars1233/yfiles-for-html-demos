@@ -48,10 +48,7 @@ async function applyHierarchicalLayoutWithPortCandidates(graphComponent) {
 
   // Only use the candidate set for the terminal node
   const layoutData = new HierarchicalLayoutData({
-    ports: {
-      nodePortCandidates: (node) =>
-        node.tag && node.tag === 'terminal' ? nodePortCandidates : null
-    }
+    ports: { nodePortCandidates: (node) => (node.tag?.terminal ? nodePortCandidates : null) }
   })
 
   await graphComponent.applyLayoutAnimated(new HierarchicalLayout(), '0s', layoutData)

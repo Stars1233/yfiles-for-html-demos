@@ -1,0 +1,31 @@
+{
+  "name": "@yfiles/yfiles-for-html",
+  "description": "yFiles for HTML demos",
+  "version": "31.0.1",
+  "author": "yWorks GmbH <yfileshtml@yworks.com>",
+  "license": "https://www.yworks.com/products/yfiles-for-html/sla",
+  "private": true,
+  "yFilesDevSuiteCompatibility": "5.0.0",
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "kolorist": "~1.8.0",
+    "less": "^4.2.0",
+    "prettier": "3.8.1",
+    "source-map": "~0.7.4",
+    "tsx": "^4.19.0",
+    "typescript": "~6.0.2",
+    "vite": "^7.1.0"
+  },
+  "workspaces": [
+    "demos"
+  ],
+  "engineStrict": true,
+  "engines": {
+    "node": ">= 24",
+    "npm": ">= 11.8"
+  },
+  "type": "module",
+  "dependencies": {
+    "acorn": "^8.15.0"
+  }
+}

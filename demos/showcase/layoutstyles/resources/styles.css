@@ -92,6 +92,7 @@
     overflow-x: hidden;
     padding-bottom: 0;
     flex-direction: column;
+    flex: 0 1 300px;
     width: 300px;
     & .option-ui-button {
       background: var(--toolbar-button) !important;
@@ -103,9 +104,6 @@
       padding-left: 3px;
     }
   }
-}
-.interaction-panel > *:not(#data-editor-button-container):not(.collapse-interaction-panel) {
-  flex: 1 0 auto;
 }
 #reset-layout-button:hover {
   box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.1) inset;

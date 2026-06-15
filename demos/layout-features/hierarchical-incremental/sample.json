@@ -62,7 +62,7 @@
         "width": 30,
         "height": 30
       },
-      "tag": "includeInLayout",
+      "includeInLayout": true,
       "cssClass": "highlight"
     },
     {
@@ -73,7 +73,7 @@
         "width": 30,
         "height": 30
       },
-      "tag": "includeInLayout",
+      "includeInLayout": true,
       "cssClass": "highlight"
     },
     {
@@ -84,7 +84,7 @@
         "width": 30,
         "height": 30
       },
-      "tag": "includeInLayout",
+      "includeInLayout": true,
       "cssClass": "highlight"
     },
     {
@@ -95,7 +95,7 @@
         "width": 30,
         "height": 30
       },
-      "tag": "includeInLayout",
+      "includeInLayout": true,
       "cssClass": "highlight"
     }
   ],

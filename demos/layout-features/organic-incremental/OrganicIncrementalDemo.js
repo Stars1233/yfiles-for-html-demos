@@ -34,9 +34,7 @@ const organicLayoutData = new OrganicLayoutData({
   scope: {
     // Also arrange nodes that are close to the included nodes
     scopeModes: (node) =>
-      node.tag && node.tag === 'includeInLayout'
-        ? OrganicScope.INCLUDE_CLOSE_NODES
-        : OrganicScope.FIXED
+      node.tag?.includeInLayout ? OrganicScope.INCLUDE_CLOSE_NODES : OrganicScope.FIXED
   }
 })
 

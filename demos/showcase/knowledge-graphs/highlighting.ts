@@ -36,10 +36,11 @@ import {
   type IEdge,
   type ILabel,
   INode,
-  type LabelStyle,
   LabelStyleIndicatorRenderer,
   NodeStyleIndicatorRenderer,
   Stroke,
+  TextWrapping,
+  WebGLLabelStyle,
   WebGLShapeNodeStyle
 } from '@yfiles/yfiles'
 import { getEdgeTag, getLabelTag, getNodeTag } from './types'
@@ -77,8 +78,11 @@ export function configureHighlighting(graphComponent: GraphComponent): void {
 
   graph.decorator.labels.highlightRenderer.addFactory((label) => {
     if (isTextualLabel(label)) {
-      const style = label.style as LabelStyle
-      return new LabelStyleIndicatorRenderer({ labelStyle: style, zoomPolicy: 'world-coordinates' })
+      const style = label.style as WebGLLabelStyle
+      return new LabelStyleIndicatorRenderer({
+        labelStyle: cloneWebGLLabelStyle(style, { wrapping: TextWrapping.NONE }),
+        zoomPolicy: 'world-coordinates'
+      })
     }
     return null
   })
@@ -121,6 +125,40 @@ export function configureHighlighting(graphComponent: GraphComponent): void {
       }
     }
   })
+}
+
+/**
+ * Creates a new {@link WebGLLabelStyle} with the same properties as the given style but adjusted by
+ * the passed options.
+ * @param labelStyle - The reference style.
+ * @param properties - The properties that should be adjusted.
+ */
+function cloneWebGLLabelStyle(
+  labelStyle: WebGLLabelStyle,
+  properties: ConstructorParameters<typeof WebGLLabelStyle>[0]
+): WebGLLabelStyle {
+  const newStyleProperties = Object.assign(
+    {
+      font: labelStyle.font,
+      textColor: labelStyle.textColor,
+      backgroundColor: labelStyle.backgroundColor,
+      backgroundStroke: labelStyle.backgroundStroke,
+      horizontalTextAlignment: labelStyle.horizontalTextAlignment,
+      padding: labelStyle.padding,
+      shape: labelStyle.shape,
+      effect: labelStyle.effect,
+      samplingRate: labelStyle.samplingRate,
+      textureRendering: labelStyle.textureRendering,
+      wrapping: labelStyle.wrapping,
+      textWrappingShape: labelStyle.textWrappingShape,
+      textWrappingPadding: labelStyle.textWrappingPadding,
+      verticalTextAlignment: labelStyle.verticalTextAlignment,
+      zoomVisibilityPolicy: labelStyle.zoomVisibilityPolicy,
+      zoomScalingPolicy: labelStyle.zoomScalingPolicy
+    },
+    properties
+  )
+  return new WebGLLabelStyle(newStyleProperties)
 }
 
 /**

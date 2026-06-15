@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { Command, GraphComponent, GraphEditorInputMode, License, Rect } from '@yfiles/yfiles'
+import { GraphComponent, GraphEditorInputMode, GraphItemTypes, License, Rect } from '@yfiles/yfiles'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import licenseData from '../../../lib/license.json'
 
@@ -34,10 +34,32 @@ async function run() {
   License.value = licenseData
 
   const graphComponent = new GraphComponent('#graphComponent')
-  graphComponent.inputMode = new GraphEditorInputMode()
+  const graphEditorInputMode = new GraphEditorInputMode()
 
-  // expose the yFiles graph component for testing purposes
-  ;(window as any).graphComponent = graphComponent
+  // enable simple tooltips
+  graphEditorInputMode.addEventListener('query-item-tool-tip', (evt) => {
+    const div = document.createElement('div')
+    div.classList.add('test-tooltip')
+    div.innerText = String(GraphItemTypes[GraphItemTypes.getItemType(evt.item)])
+    evt.toolTip = div
+  })
+  graphEditorInputMode.toolTipItems = GraphItemTypes.NODE
+
+  // enable a context menu
+  graphEditorInputMode.addEventListener('populate-item-context-menu', (evt) => {
+    evt.contextMenu = [
+      {
+        label: 'Clear the graph',
+        cssClass: 'clear-graph-menu-item',
+        action: () => {
+          graph.clear()
+        }
+      }
+    ]
+  })
+
+  // register the input-mode for interactive editing
+  graphComponent.inputMode = graphEditorInputMode
 
   // create a sample graph
   const graph = graphComponent.graph
@@ -45,10 +67,12 @@ async function run() {
   graph.createNode(new Rect(100, 100, 30, 30))
   graph.createNode(new Rect(200, 200, 30, 30))
 
-  // bind the createEdge function to the demo's single button
+  // bind UI elements
   document
     .querySelector('#create-edge')!
     .addEventListener('click', () => graph.createEdge(graph.nodes.first()!, graph.nodes.last()!))
+
+  document.querySelector('#clear-graph')!.addEventListener('click', () => graph.clear())
 }
 
 run().then(finishLoading)

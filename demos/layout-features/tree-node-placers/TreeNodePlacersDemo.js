@@ -40,7 +40,7 @@ import graphData from './sample.json'
 const treeLayoutData = new TreeLayoutData({
   // Assign a subtree placer depending on the number stored in the node's tag
   subtreePlacers: (node) => {
-    switch (node.tag) {
+    switch (node.tag.id) {
       case 1:
         // Place child nodes with the same depth in the tree in the same horizontal layer
         return new LevelAlignedSubtreePlacer()

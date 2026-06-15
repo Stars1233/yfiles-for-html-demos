@@ -8,7 +8,7 @@
     {
       "id": 5,
       "labels": [{ "text": "5", "cssClass": "highlight" }],
-      "tag": "terminal",
+      "terminal": true,
       "cssClass": "highlight"
     }
   ],

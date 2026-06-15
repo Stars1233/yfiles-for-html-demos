@@ -28,13 +28,13 @@
  ***************************************************************************/
 import {
   DelegatingLabelStyle,
-  IEdge,
+  ILabelStyle,
   INode,
   LabelStyle,
   LabelStyleBase,
   SvgVisual
 } from '@yfiles/yfiles'
-import { TIMELINE_CONSTANTS } from '../EventTimeline'
+import { ItemState } from '../EventTimelineTypes'
 
 /**
  * The LevelOfDetailLabelStyle class extends the DelegatingLabelStyle to visualize edge and node
@@ -46,47 +46,46 @@ export class LevelOfDetailLabelStyle extends DelegatingLabelStyle {
   lineLabelStyle
   textLabelStyle
   orientation
-  cssPrefix
+  hideLowDetail
+  cssPrefix = 'event-timeline'
 
   /**
    * Instantiates a new LevelOfDetailLabelStyle object.
    * @param orientation the orientation (horizontal or vertical) of the label
-   * @param cssPrefix the CSS prefix of the CSS variables used by the LevelOfDetailLabelStyle
-   * @param cssClass the CSS class of the to-be-visualized object
-   * @param nodeColor an optional argument indicating the color of the node associated with the
-   * given label
+   * @param config the EventTimeline config
    */
-  constructor(orientation, cssPrefix, cssClass, nodeColor) {
+  constructor(orientation, config) {
     super()
-    this.cssPrefix = cssPrefix
     this.orientation = orientation
-
+    this.hideLowDetail = config.hideLowDetailLabel
     this.textLabelStyle =
       orientation === 'vertical'
         ? new LabelStyle({
-            maximumSize: [Infinity, TIMELINE_CONSTANTS.EDGE_LABEL_HEIGHT],
+            maximumSize: [Infinity, config.edgeLabelHeight + 6],
             verticalTextAlignment: 'center',
             horizontalTextAlignment: 'center',
-            textSize: TIMELINE_CONSTANTS.EDGE_LABEL_SIZE,
-            backgroundFill: '#202739',
+            textSize: config.edgeLabelHeight,
+            textFill: 'var(--yfiles-event-timeline-edge-label-text-color, #ffffff)',
+            backgroundFill: 'var(--yfiles-event-timeline-edge-label-background-color, #202739)',
             shape: 'pill',
-            padding: 1,
-            cssClass: `${this.cssPrefix}${cssClass ? ' ' + cssClass : ''}`
+            padding: 2,
+            cssClass: `${this.cssPrefix}-edge-label`
           })
         : new LabelStyle({
-            maximumSize: [Infinity, TIMELINE_CONSTANTS.NODE_LABEL_HEIGHT],
-            textSize: TIMELINE_CONSTANTS.NODE_LABEL_SIZE,
+            maximumSize: [Infinity, config.nodeLabelHeight + 6],
+            textSize: config.nodeLabelHeight,
+            textFill: 'var(--yfiles-event-timeline-node-label-text-color, #ffffff)',
             shape: 'pill',
-            backgroundFill: nodeColor ? nodeColor : '#000',
-            padding: 5,
+            backgroundFill: 'var(--yfiles-event-timeline-node-label-background-color, #000)',
+            padding: 2,
             verticalTextAlignment: 'center',
             horizontalTextAlignment: 'center',
-            cssClass: `${this.cssPrefix}${cssClass ? ' ' + cssClass : ''}`
+            cssClass: `${this.cssPrefix}-node-label`
           })
 
     this.lineLabelStyle = new LineLabelStyle(
-      `${cssPrefix}-collapsed${cssClass ? ' ' + cssClass : ''}`,
-      nodeColor
+      `${this.cssPrefix}-${orientation === 'vertical' ? 'edge-label' : 'node-label'}-collapsed`,
+      config
     )
   }
 
@@ -97,13 +96,17 @@ export class LevelOfDetailLabelStyle extends DelegatingLabelStyle {
    * @returns either the label's TextLabelStyle (uncollapsed) or LineLabelStyle (collapsed)
    */
   getStyle(label) {
-    if (this.orientation === 'vertical') {
-      const visible = label.owner.tag.visible ?? true
-      return visible ? this.textLabelStyle : this.lineLabelStyle
-    } else {
-      const visible = label.owner.tag.visible ?? true
-      return visible ? this.textLabelStyle : this.lineLabelStyle
+    const state = label.owner.lookup(ItemState)
+    const visible = state?.visible ?? true
+    const color = state?.nodeColor ?? state?.edgeColorA ?? '#000'
+    if (this.orientation === 'horizontal') {
+      this.textLabelStyle.backgroundFill = color
     }
+    return visible
+      ? this.textLabelStyle
+      : this.hideLowDetail
+        ? ILabelStyle.VOID_LABEL_STYLE
+        : this.lineLabelStyle
   }
 
   /**
@@ -125,12 +128,7 @@ export class LevelOfDetailLabelStyle extends DelegatingLabelStyle {
    */
   createVisual(context, label) {
     const visual = super.createVisual(context, label)
-    if (label.owner instanceof INode) {
-      visual.svgElement.id = `node-label-${label.owner.tag.id}`
-    } else if (label.owner instanceof IEdge) {
-      visual.svgElement.id = `edge-label-${label.owner.tag.id}`
-    }
-    return this.updateVisual(context, visual, label)
+    return visual !== null ? this.updateVisual(context, visual, label) : null
   }
 
   /**
@@ -144,7 +142,7 @@ export class LevelOfDetailLabelStyle extends DelegatingLabelStyle {
   updateVisual(context, oldVisual, label) {
     const visual = super.updateVisual(context, oldVisual, label)
     if (label.owner instanceof INode) {
-      if (label.owner.tag.highlightedAdjacent) {
+      if (label.owner.lookup(ItemState)?.highlightedAdjacent) {
         visual.svgElement.classList.add('highlighted-adjacent')
       } else {
         visual.svgElement.classList.remove('highlighted-adjacent')
@@ -184,17 +182,17 @@ function isLineLabelVisual(visual) {
  */
 class LineLabelStyle extends LabelStyleBase {
   cssClass
-  nodeColor
+  config
 
   /**
    * Instantiates a new LineLabelStyle.
    * @param cssClass the CSS class to be attached to the SVG element
-   * @param nodeColor an optional string specifying the label's associated node's color
+   * @param config the constants that govern the aesthetics of the timeline
    */
-  constructor(cssClass, nodeColor) {
+  constructor(cssClass, config) {
     super()
     this.cssClass = cssClass
-    this.nodeColor = nodeColor
+    this.config = config
   }
 
   /**
@@ -207,20 +205,23 @@ class LineLabelStyle extends LabelStyleBase {
   createVisual(context, label) {
     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
     const { width, height } = label.layout
-    rect.y.baseVal.value = height / 2 - TIMELINE_CONSTANTS.COLLAPSED_EDGE_LABEL_HEIGHT / 2
+    const state = label.lookup(ItemState) ?? label.owner.lookup(ItemState)
+
+    rect.y.baseVal.value = height / 2 - this.config.collapsedLabelHeight / 2
     rect.width.baseVal.value = width
-    rect.height.baseVal.value = TIMELINE_CONSTANTS.COLLAPSED_EDGE_LABEL_HEIGHT
-    rect.rx.baseVal.value = TIMELINE_CONSTANTS.COLLAPSED_EDGE_LABEL_HEIGHT
-    rect.ry.baseVal.value = TIMELINE_CONSTANTS.COLLAPSED_EDGE_LABEL_HEIGHT
-    if (this.nodeColor) {
-      rect.style.fill = this.nodeColor
-    }
+    rect.height.baseVal.value = this.config.collapsedLabelHeight
+    rect.rx.baseVal.value = this.config.collapsedLabelHeight
+    rect.ry.baseVal.value = this.config.collapsedLabelHeight
+    rect.setAttribute(
+      'fill',
+      state?.nodeColor || state?.edgeColorA || 'var(--yfiles-event-timeline-edge-color, #dfdee3)'
+    )
 
     const group = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-    group.classList = this.cssClass
+    this.applyCssClasses(group, this.cssClass)
     group.appendChild(rect)
 
-    const visual = SvgVisual.from(group, { rect: rect })
+    const visual = SvgVisual.from(group, { rect: rect, layout: label.layout })
     return this.updateVisual(context, visual, label)
   }
 
@@ -234,10 +235,12 @@ class LineLabelStyle extends LabelStyleBase {
    */
   updateVisual(context, oldVisual, label) {
     let visual
+    //check if old visual is from the other style, as delegated by the DelegatingLabelStyle
     if (isLineLabelVisual(oldVisual)) {
       LabelStyleBase.createLayoutTransform(context, label.layout, true).applyTo(
         oldVisual.svgElement
       )
+      this.applyCssClasses(oldVisual.svgElement, this.cssClass)
       visual = oldVisual
     } else {
       visual = this.createVisual(context, label)
@@ -248,10 +251,24 @@ class LineLabelStyle extends LabelStyleBase {
 
   /**
    * Gets the preferred size of a given label (should never be called)
-   * @param label the given ILabel object
+   * @param _label the given ILabel object
    * @protected
    */
-  getPreferredSize(label) {
+  getPreferredSize(_label) {
     throw new Error('Method should not be called.')
+  }
+
+  /**
+   * Utility function to apply one or more CSS class names to an element.
+   * Handles space-separated class strings and filters out empty tokens.
+   *
+   * @param element The DOM element to apply classes to
+   * @param classNames A space-separated string of CSS class names
+   */
+  applyCssClasses(element, classNames) {
+    classNames
+      .split(/\s+/)
+      .filter(Boolean)
+      .forEach((className) => element.classList.add(className))
   }
 }

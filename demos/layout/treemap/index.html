@@ -147,9 +147,14 @@
     </script>
 
     <style>
-      #path {
-        float: right;
+      .main-container .interaction-panel {
+        flex: 0 1 340px;
+        width: 340px;
+      }
+      #navigation {
+        flex: 1;
         margin: 0 5px;
+        overflow: hidden;
       }
 
       /* a hidden container to measure text sizes */
@@ -371,7 +376,7 @@
 
           <span class="separator"></span>
 
-          <label>Current Location: <span id="path"></span></label>
+          <navigation-component id="navigation"></navigation-component>
         </div>
         <div id="graphComponent"></div>
       </div>
@@ -399,23 +404,13 @@
         <div class="demo-properties__settings">
           <label for="select-sorting-criterion" class="option-label">Sorting Criterion</label>
           <select id="select-sorting-criterion" class="option-element">
-            <option value="size-descending">Size of File/Directory (descending)</option>
-            <option value="size-ascending">Size of File/Directory (ascending)</option>
-            <option value="name-descending">Name of File/Directory (descending)</option>
-            <option value="name-ascending">Name of File/Directory (ascending)</option>
+            <option value="size">Size</option>
+            <option value="name">Name</option>
           </select>
-        </div>
-        <div
-          class="demo-properties__settings"
-          style="grid-template-columns: 40% auto; margin: 10px 0 10px 0"
-        >
-          <label for="select-file-directory-order" class="option-label">
-            File-Directory Order
-          </label>
-          <select id="select-file-directory-order" class="option-element">
-            <option value="files-after-directories">Files after Directories</option>
-            <option value="files-before-directories">Files before Directories</option>
-            <option value="mix-files-and-directories">Mix Files and Directories</option>
+          <label for="select-sorting-order" class="option-label">Sorting Order</label>
+          <select id="select-sorting-order" class="option-element">
+            <option value="descending">Descending</option>
+            <option value="ascending">Ascending</option>
           </select>
         </div>
         <div class="demo-properties__settings">

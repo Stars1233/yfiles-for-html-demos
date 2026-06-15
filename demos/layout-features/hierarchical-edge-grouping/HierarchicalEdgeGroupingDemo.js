@@ -37,9 +37,9 @@ async function applyHierarchicalLayoutWithEdgeGrouping(graphComponent) {
   // Use LayoutData to configure edge grouping
   const layoutData = new HierarchicalLayoutData({
     // Group edges at their source side if they start from node 0
-    sourceGroupIds: (edge) => (edge.sourceNode.tag === 0 ? 'edgesFromNode0' : null),
+    sourceGroupIds: (edge) => (edge.sourceNode.tag.type === 0 ? 'edgesFromNode0' : null),
     // Group edges at their target side if they end at node 5
-    targetGroupIds: (edge) => (edge.targetNode.tag === 5 ? 'edgesToNode5' : null)
+    targetGroupIds: (edge) => (edge.targetNode.tag.type === 5 ? 'edgesToNode5' : null)
   })
 
   await graphComponent.applyLayoutAnimated(new HierarchicalLayout(), 0, layoutData)

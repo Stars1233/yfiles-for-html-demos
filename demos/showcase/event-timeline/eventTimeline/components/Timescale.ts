@@ -26,27 +26,28 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
+import type { GraphComponent } from '@yfiles/yfiles'
+import { TimescaleGridlineVisual, TimescaleVisual } from './TimescaleVisual'
+import type { EventTimelineConfig } from '../EventTimelineConfig'
+
 interface TimeScaleOptions {
-  containerId: string
   visibleRange: [Date, Date]
   edgeTickDates: Date[]
   onEdgeTickHover?: (date: Date) => void
   onEdgeTickUnhover?: () => void
-  onRangeSelect?: (start: Date, end: Date) => void
-  timescaleHeight?: number
+  graphComponent: GraphComponent
+  coordinateMapping: { timeToX(time: Date): number; xToTime(x: number): Date }
+  config: EventTimelineConfig
 }
 
 type HighlightEdgeTick = { time: Date; yStart: number }
 
 type TickResolution = 'second' | 'minute' | 'hour' | 'day' | 'month' | 'year'
-type TickType = 'higher' | 'lower' | 'highlight'
 
 /**
  * The TimeScale object responsible for the timeline visualized atop the event timeline.
  */
 export class TimeScale {
-  private timescaleHeight: number = 100
-
   static readonly SECOND = 1000
   static readonly MINUTE = 60 * TimeScale.SECOND
   static readonly HOUR = 60 * TimeScale.MINUTE
@@ -81,429 +82,72 @@ export class TimeScale {
     180 * TimeScale.DAY
   ]
 
-  private container: HTMLElement
-  readonly svg: SVGSVGElement
-  readonly markerGroup: SVGGElement
-  private visibleRange: [Date, Date]
+  private graphComponent: GraphComponent
+  private coordinateMapping: { timeToX(time: Date): number; xToTime(x: number): Date }
+  visibleRange: [Date, Date]
   private animationSourceRange: [Date, Date] | null = null
 
   readonly edgeTickDates: Date[] = []
   readonly onEdgeTickHover?: (date: Date) => void
   readonly onEdgeTickUnhover?: () => void
-  readonly onRangeSelect?: (start: Date, end: Date) => void
-  private isDragging = false
-  private dragStartX: number = 0
-  private selectionRect: SVGRectElement | null = null
+  readonly config: EventTimelineConfig
+  isDragging = false
+  dragStartX: number = 0
   highlightEdgeTicks: HighlightEdgeTick[] = []
 
-  private tickInterval: number
-  private normalTick: TickResolution = 'hour'
+  tickInterval: number
   private higherOrderTick: TickResolution = 'day'
 
   // Animation properties
   targetRange: [Date, Date] | null = null
 
-  private tickSlots: SVGGElement[] = []
-  private tickSignature: string | null = null
-
-  // Edge ticks can remain data-driven (timestamp identity)
-  private edgeCirclesByMs = new Map<number, SVGCircleElement>()
-  private edgeHighlightCirclesByMs = new Map<
-    number,
-    [circle: SVGCircleElement, tickGroup: SVGGElement | undefined]
-  >()
-
-  // Separator exists once
-  private separatorLine: SVGLineElement | null = null
-
-  /**
-   * Instantiates a new TimeScale object.
-   * @param options A TimeScaleOptions object.
-   */
   constructor(options: TimeScaleOptions) {
-    const container = document.getElementById(options.containerId)
-    if (!container) throw new Error(`Container ${options.containerId} not found`)
-
-    this.container = container
+    this.graphComponent = options.graphComponent
+    this.coordinateMapping = options.coordinateMapping
     this.visibleRange = [...options.visibleRange] as [Date, Date]
     this.edgeTickDates = options.edgeTickDates
     this.tickInterval = this.calculateTickInterval(20)
     this.onEdgeTickHover = options.onEdgeTickHover
     this.onEdgeTickUnhover = options.onEdgeTickUnhover
-    this.onRangeSelect = options.onRangeSelect
+    this.config = options.config
 
-    // 1. Container Styles
-    this.container.style.overflow = 'hidden'
-    this.container.style.position = 'absolute'
-    this.container.style.width = '100%'
-    this.container.style.height = '100%'
-
-    // 2. Initialize SVG
-    this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-    this.svg.classList.add('time-scale-content')
-    this.svg.setAttribute('width', '100%')
-    this.svg.setAttribute('height', '100%')
-    this.svg.setAttribute('cursor', 'crosshair')
-    this.svg.style.display = 'block'
-
-    this.markerGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-    this.svg.appendChild(this.markerGroup)
-    this.container.appendChild(this.svg)
-
-    this.initDragEvents()
-    this.renderMarkers()
+    this.graphComponent.renderTree.createElement(
+      this.graphComponent.renderTree.backgroundGroup,
+      new TimescaleGridlineVisual(this)
+    )
+    this.graphComponent.renderTree.createElement(
+      this.graphComponent.renderTree.foregroundGroup,
+      new TimescaleVisual(this)
+    )
+    this.graphComponent.addEventListener('viewport-changed', () => {
+      this.renderMarkers()
+    })
   }
 
   /**
    * Method with which to map a date to pixels.
    * @param date The Date object to be mapped to be pixels.
-   * @private
    * @returns The pixel value of the provided Date object.
    */
-  private dateToPixels(date: Date): number {
-    const startMs = this.visibleRange[0].getTime()
-    const endMs = this.visibleRange[1].getTime()
-    const totalVisibleDuration = endMs - startMs
-    const elapsed = date.getTime() - startMs
-    return (elapsed / totalVisibleDuration) * this.container.clientWidth
+  dateToPixels(date: Date): number {
+    return this.coordinateMapping.timeToX(date)
   }
 
   /**
    * Method with which to map a pixel value to a Date.
    * @param x The pixel value to be mapped to a date.
-   * @private
    * @returns The Date corresponding to the provided pixel value.
    */
-  private pixelsToDate(x: number): Date {
-    const startMs = this.visibleRange[0].getTime()
-    const endMs = this.visibleRange[1].getTime()
-    const totalVisibleDuration = endMs - startMs
-    const percentage = x / this.container.clientWidth
-    return new Date(startMs + percentage * totalVisibleDuration)
+  pixelsToDate(x: number): Date {
+    return this.coordinateMapping.xToTime(x)
   }
-
-  /**
-   * Initializes a mouse click-and-drag event.
-   * @private
-   */
-  private initDragEvents(): void {
-    this.svg.addEventListener('mousedown', (e: MouseEvent) => {
-      if (e.button !== 0) return
-      e.preventDefault()
-
-      const rect = this.svg.getBoundingClientRect()
-      this.isDragging = true
-      this.dragStartX = e.clientX - rect.left
-
-      if (!this.selectionRect) {
-        this.selectionRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-        this.selectionRect.classList.add('time-selection')
-        this.selectionRect.setAttribute('pointer-events', 'none')
-        this.markerGroup.appendChild(this.selectionRect)
-      }
-
-      this.selectionRect.setAttribute('x', this.dragStartX.toString())
-      this.selectionRect.setAttribute('y', '0')
-      this.selectionRect.setAttribute('width', '0')
-      this.selectionRect.setAttribute('height', this.container.clientHeight.toString())
-      this.selectionRect.style.display = 'block'
-    })
-
-    window.addEventListener('mousemove', (e: MouseEvent) => {
-      if (!this.isDragging || !this.selectionRect) return
-      const rect = this.svg.getBoundingClientRect()
-      const currentX = Math.max(0, Math.min(e.clientX - rect.left, this.container.clientWidth))
-
-      const x = Math.min(this.dragStartX, currentX)
-      const width = Math.abs(currentX - this.dragStartX)
-
-      this.selectionRect.setAttribute('x', x.toString())
-      this.selectionRect.setAttribute('width', width.toString())
-    })
-
-    window.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (!this.isDragging) return
-      if (e.key === 'Escape') {
-        this.isDragging = false
-        if (this.selectionRect) this.selectionRect.style.display = 'none'
-      }
-    })
-
-    window.addEventListener('mouseup', (e: MouseEvent) => {
-      if (!this.isDragging) return
-      this.isDragging = false
-
-      if (this.selectionRect) {
-        const x = parseFloat(this.selectionRect.getAttribute('x') || '0')
-        const width = parseFloat(this.selectionRect.getAttribute('width') || '0')
-
-        this.selectionRect.style.display = 'none'
-        if (width > 2 && this.onRangeSelect) {
-          const startDate = this.pixelsToDate(x)
-          const endDate = this.pixelsToDate(x + width)
-          this.onRangeSelect(startDate, endDate)
-        }
-      }
-    })
-  }
-
-  /**
-   * Method with which create a tick group.
-   * @private
-   * @returns A tick group.
-   */
-  private createTickGroup(): SVGGElement {
-    const g = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-    //const shortId = 'path-' + crypto.randomUUID().split('-')[0]
-    const shortId = 'path-' + Math.round(100000 * Math.random())
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-    path.setAttribute('id', shortId)
-    g.appendChild(path)
-
-    const textPath = document.createElementNS('http://www.w3.org/2000/svg', 'textPath')
-    textPath.setAttribute('href', `#${shortId}`)
-    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text')
-    text.setAttribute('dy', '-5px')
-    text.appendChild(textPath)
-
-    g.appendChild(text)
-
-    this.markerGroup.appendChild(g)
-    return g
-  }
-
-  /**
-   * Update the SVGPathElement describing a tick.
-   * @param svgPath The original SVGPathElement.
-   * @param xPos The tick's x position.
-   * @param startY The tick's y coordinate (start point).
-   * @param endY The tick's y coordinate (end point).
-   * @param label The tick's label string.
-   * @param flip A boolean flag indicating whether to render the tick to the right or left.
-   * @private
-   */
-  private updateTickPath(
-    svgPath: SVGPathElement,
-    xPos: number,
-    startY: number,
-    endY: number,
-    label: string,
-    flip: boolean = false
-  ): void {
-    const flagWidth = label.length * 5
-    const flagHeight = label.length * -5
-    const tipY = startY + flagHeight
-
-    let pathD: string
-
-    if (!flip) {
-      const tipX = xPos + flagWidth
-      pathD = `M ${xPos} ${endY} L ${xPos} ${startY} L ${tipX} ${tipY}`
-    } else {
-      const tipX = xPos - flagWidth
-      pathD = `M ${tipX} ${tipY} L ${xPos} ${startY} L ${xPos} ${endY}`
-    }
-
-    svgPath.setAttribute('d', pathD)
-  }
-
-  /**
-   * Method with which to update a tick group's SVGGElement.
-   * @param g The SVGGElement to be updated.
-   * @param xPos The group's x position.
-   * @param startY The group's y coordinate (start point).
-   * @param endY The group's y coordinate (end point).
-   * @param label The group's label string.
-   * @param tickClass The group's tick class.
-   * @param flip A boolean flag indicating whether to render the tick left or right facing.
-   * @private
-   */
-  private updateTickGroup(
-    g: SVGGElement,
-    xPos: number,
-    startY: number,
-    endY: number,
-    label: string,
-    tickClass: string,
-    flip: boolean = false
-  ): void {
-    const path = g.querySelector<SVGPathElement>('path')
-    const text = g.querySelector<SVGTextPathElement>('textPath')
-    if (!path || !text) return
-
-    this.updateTickPath(path, xPos, startY, endY, label, flip)
-    path.setAttribute('class', tickClass)
-
-    // Label
-    text.textContent = label
-    text.setAttribute('class', tickClass + '-label')
-    text.setAttribute('text-anchor', 'end')
-    text.setAttribute('startOffset', '100%')
-    if (flip) {
-      text.setAttribute('text-anchor', 'start')
-      text.setAttribute('startOffset', '0%')
-    }
-  }
-
-  private readonly circleMarkerRadius = 6
 
   /**
    * Method with which to render the timescale's markers.
    */
   renderMarkers(): void {
-    const viewStart = this.visibleRange[0].getTime()
-    const viewEnd = this.visibleRange[1].getTime()
-
-    if (this.selectionRect) {
-      this.selectionRect.setAttribute('height', this.container.clientHeight.toString())
-    }
-
-    // Recompute tick types for this interval
-    this.normalTick = this.determineTickType(this.tickInterval)
-    this.higherOrderTick = this.determineTickType(this.tickInterval, true)
-
-    // Identity regime: only changes when tick types change
-    const nextSignature = `${this.normalTick}|${this.higherOrderTick}`
-    if (this.tickSignature !== nextSignature) {
-      for (const g of this.tickSlots) g.remove()
-      this.tickSlots = []
-      this.tickSignature = nextSignature
-    }
-
-    // Separator line: create once and just update its geometry
-    if (!this.separatorLine) {
-      this.separatorLine = document.createElementNS('http://www.w3.org/2000/svg', 'line')
-      this.separatorLine.classList.add('separator-line')
-      this.markerGroup.appendChild(this.separatorLine)
-    }
-    this.separatorLine.x1.baseVal.value = 0
-    this.separatorLine.y1.baseVal.value = this.timescaleHeight - this.circleMarkerRadius
-    this.separatorLine.x2.baseVal.value = this.container.clientWidth
-    this.separatorLine.y2.baseVal.value = this.timescaleHeight - this.circleMarkerRadius
-
-    // Compute the tick sequence for current viewport
-    // Note: firstTick can be < viewStart; that's fine (it will render slightly off-screen if needed),
-    // but neededCount is computed from aligned ticks within viewport extents.
-    const firstTick = Math.floor(viewStart / this.tickInterval) * this.tickInterval
-    const lastTick = Math.floor(viewEnd / this.tickInterval) * this.tickInterval
-    const neededCount = Math.max(0, Math.floor((lastTick - firstTick) / this.tickInterval) + 1)
-
-    // Ensure we have exactly the amount of tick DOM groups we need
-    while (this.tickSlots.length < neededCount) {
-      this.tickSlots.push(this.createTickGroup())
-    }
-    while (this.tickSlots.length > neededCount) {
-      const g = this.tickSlots.pop()
-      if (g) g.remove()
-    }
-
-    // Update existing slot DOM nodes in place
-    for (let i = 0; i < neededCount; i++) {
-      const tickMs = firstTick + i * this.tickInterval
-      const currentDate = new Date(tickMs)
-      const xPos = this.dateToPixels(currentDate)
-
-      const currentHigherOrder = this.getHigherOrderValue(currentDate)
-      const lastHigherOrder = this.getHigherOrderValue(new Date(tickMs - this.tickInterval))
-
-      let startY: number
-      let endY: number
-      let label: string
-      let tickClass: string
-
-      if (currentHigherOrder !== lastHigherOrder) {
-        startY = this.timescaleHeight * 0.7
-        endY = this.container.clientHeight
-        label = this.formatByScale(currentDate, this.higherOrderTick)
-        tickClass = 'higher-order-tick'
-      } else {
-        startY = this.timescaleHeight * 0.9
-        endY = this.timescaleHeight
-        label = this.formatByScale(currentDate, this.normalTick)
-        tickClass = 'normal-tick'
-      }
-
-      this.updateTickGroup(this.tickSlots[i], xPos, startY, endY, label, tickClass)
-    }
-
-    // Edge ticks: reconcile (add/update/remove) based on viewport
-    const seenEdgeTime = new Set<number>()
-    for (const date of this.edgeTickDates) {
-      const time = date.getTime()
-      if (time < viewStart || time > viewEnd) continue
-
-      const xPos = this.dateToPixels(date)
-      let circle = this.edgeCirclesByMs.get(time)
-      if (!circle) {
-        circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
-        circle.classList.add('edge-tick-circle')
-        circle.r.baseVal.value = this.circleMarkerRadius
-        circle.cy.baseVal.value = this.timescaleHeight - this.circleMarkerRadius
-        circle.addEventListener('mouseover', () => {
-          this.onEdgeTickHover?.(date)
-        })
-        circle.addEventListener('mouseout', () => this.onEdgeTickUnhover?.())
-        this.markerGroup.appendChild(circle)
-        this.edgeCirclesByMs.set(time, circle)
-      }
-      circle.cx.baseVal.value = xPos
-      seenEdgeTime.add(time)
-    }
-
-    for (const [ms, circle] of this.edgeCirclesByMs) {
-      if (!seenEdgeTime.has(ms)) {
-        circle.remove()
-        this.edgeCirclesByMs.delete(ms)
-      }
-    }
-
-    // Edge ticks: reconcile (add/update/remove) based on viewport
-    const seenHighlightedEdgeTime = new Set<number>()
-    this.highlightEdgeTicks.forEach(({ time: date, yStart }, index) => {
-      const time = date.getTime()
-      if (!(time < viewStart) && !(time > viewEnd)) {
-        const xPos = this.dateToPixels(date)
-        const svgElements = this.edgeHighlightCirclesByMs.get(time)
-        let circle, tickGroup
-        if (!svgElements) {
-          circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
-          circle.classList.add('edge-tick-circle-highlight')
-          circle.r.baseVal.value = this.circleMarkerRadius
-          circle.cy.baseVal.value = this.timescaleHeight - this.circleMarkerRadius
-          this.markerGroup.appendChild(circle)
-
-          if (index === 0 || index === this.highlightEdgeTicks.length - 1) {
-            tickGroup = this.createTickGroup()
-          }
-          this.edgeHighlightCirclesByMs.set(time, [circle, tickGroup])
-        } else {
-          circle = svgElements[0]
-          tickGroup = svgElements[1]
-        }
-        circle.cx.baseVal.value = xPos
-        if (tickGroup) {
-          this.updateTickGroup(
-            tickGroup,
-            xPos,
-            this.timescaleHeight * 0.7,
-            this.timescaleHeight,
-            this.formatByScale(date, this.normalTick),
-            'edge-tick-highlight',
-            index === 0 && this.highlightEdgeTicks.length > 1
-          )
-        }
-
-        seenHighlightedEdgeTime.add(time)
-      }
-    })
-
-    for (const [ms, [circle, tickGroup]] of this.edgeHighlightCirclesByMs) {
-      if (!seenHighlightedEdgeTime.has(ms)) {
-        circle.remove()
-        tickGroup?.remove()
-        this.edgeHighlightCirclesByMs.delete(ms)
-      }
-    }
+    this.tickInterval = this.calculateTickInterval(20)
+    this.graphComponent.invalidate()
   }
 
   /**
@@ -511,7 +155,7 @@ export class TimeScale {
    * @param interval The tick's interval.
    * @param higherOrder The higher order tick type.
    */
-  determineTickType(interval: number, higherOrder: boolean = false): TickResolution {
+  static determineTickType(interval: number, higherOrder: boolean = false): TickResolution {
     if (!higherOrder) {
       if (interval <= TimeScale.MINUTE) return 'second'
       else if (interval <= TimeScale.HOUR) return 'minute'
@@ -531,9 +175,11 @@ export class TimeScale {
   /**
    * Method with which to get the higher order tick type.
    * @param date The Date to be rendered as a higher order tick.
+   * @param higherOrderTick Resolution of the higher order tick.
    */
-  private getHigherOrderValue = (date: Date): number => {
-    switch (this.higherOrderTick) {
+  getHigherOrderValue = (date: Date, higherOrderTick?: TickResolution): number => {
+    const type = higherOrderTick || this.higherOrderTick
+    switch (type) {
       case 'year':
         return date.getFullYear()
       case 'month':
@@ -552,21 +198,54 @@ export class TimeScale {
    * Method with which to format a given date as a function of the tick resolution.
    * @param date The Date object to be formated.
    * @param type The type of tick.
-   * @private
    * @returns The formated date.
    */
-  private formatByScale(date: Date, type: TickResolution): string {
+  formatByScale(date: Date, type: TickResolution): string {
     const options: Record<TickResolution, Intl.DateTimeFormatOptions> = {
-      second: { timeZone: 'UTC', second: '2-digit' },
-      minute: { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' },
-      hour: { timeZone: 'UTC', hour: '2-digit', minute: '2-digit' },
-      day: { timeZone: 'UTC', day: '2-digit', month: '2-digit', year: 'numeric' },
-      month: { timeZone: 'UTC', day: '2-digit', month: '2-digit', year: 'numeric' },
-      year: { timeZone: 'UTC', year: 'numeric' }
+      second: { ...this.config.dateTimeFormatOptions, second: '2-digit' },
+      minute: { ...this.config.dateTimeFormatOptions, hour: '2-digit', minute: '2-digit' },
+      hour: { ...this.config.dateTimeFormatOptions, hour: '2-digit', minute: '2-digit' },
+      day: {
+        ...this.config.dateTimeFormatOptions,
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      },
+      month: {
+        ...this.config.dateTimeFormatOptions,
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      },
+      year: { ...this.config.dateTimeFormatOptions, year: 'numeric' }
     }
 
     const formatter = new Intl.DateTimeFormat('en-GB', options[type])
     return formatter.format(date)
+  }
+
+  /**
+   * Method with which to format a given date in a compact form as a function of the tick
+   * resolution. Used when horizontal space is too tight for the full label.
+   * @param date The Date object to be formatted.
+   * @param type The type of tick.
+   * @returns The abbreviated formatted date.
+   */
+  formatByScaleShort(date: Date, type: TickResolution): string {
+    switch (type) {
+      case 'second':
+        return `${String(date.getUTCSeconds()).padStart(2, '0')}s`
+      case 'minute':
+        return `${String(date.getUTCHours()).padStart(2, '0')}:${String(date.getUTCMinutes()).padStart(2, '0')}`
+      case 'hour':
+        return `${date.getUTCHours()}h`
+      case 'day':
+        return `${String(date.getUTCDate()).padStart(2, '0')}/${String(date.getUTCMonth() + 1).padStart(2, '0')}`
+      case 'month':
+        return new Intl.DateTimeFormat('en-GB', { timeZone: 'UTC', month: 'short' }).format(date)
+      case 'year':
+        return `'${String(date.getUTCFullYear()).slice(-2)}`
+    }
   }
 
   /**
@@ -575,7 +254,12 @@ export class TimeScale {
    * @returns The tick interval.
    */
   private calculateTickInterval = (desiredTickNumber: number): number => {
-    const visibleRangeMs = this.visibleRange[1].getTime() - this.visibleRange[0].getTime()
+    const startMs = this.visibleRange[0].getTime()
+    const endMs = this.visibleRange[1].getTime()
+    const visibleRangeMs = endMs - startMs
+    if (visibleRangeMs === 0) {
+      return TimeScale.DAY
+    }
     const rawStep = visibleRangeMs / desiredTickNumber
 
     let actualStepSize = TimeScale.DESIRED_TIMESTEPS.find((step) => step >= rawStep)

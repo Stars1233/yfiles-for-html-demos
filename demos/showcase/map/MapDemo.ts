@@ -56,7 +56,7 @@ async function run(): Promise<void> {
   createGraph(graphComponent, mapData.map)
 
   //add Eventlistener to update size of map if panels collapse
-  initializeMapSizeChangeDetection(mapData)
+  initializeMapSizeChangeDetection(mapData.map)
 
   // add tooltips when hovering an airport
   initializeTooltips(graphComponent)
@@ -146,15 +146,17 @@ function zoomChanged(graphComponent: GraphComponent, zoom: number): void {
   })
 }
 
-function initializeMapSizeChangeDetection(mapdata: MapData): void {
+function initializeMapSizeChangeDetection(map: LeafletMap): void {
   // Fit map after sidebar toggles
   for (const toggle of [
     ...document.querySelectorAll('.collapse.icon'),
     document.querySelector('.expand-description-panel.plain'),
     document.querySelector('.expand-interaction-panel.plain')
   ]) {
-    toggle?.addEventListener('click', async () => {
-      mapdata.map.invalidateSize()
+    toggle?.addEventListener('click', () => {
+      setTimeout(async () => {
+        map.invalidateSize()
+      }, 100)
     })
   }
 }

@@ -7,12 +7,12 @@
     "test-ui": "vitest --ui"
   },
   "devDependencies": {
-    "@playwright/test": "^1.59.1",
-    "@vitest/ui": "^4.1.4",
-    "playwright": "^1.59.1",
-    "vitest": "^4.1.4"
+    "@playwright/test": "^1.60.0",
+    "@vitest/ui": "^4.1.7",
+    "playwright": "^1.60.0",
+    "vitest": "^4.1.7"
   },
   "dependencies": {
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.0+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.1+dev.tgz"
   }
 }

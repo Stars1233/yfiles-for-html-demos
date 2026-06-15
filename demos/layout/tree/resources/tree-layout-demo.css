@@ -114,7 +114,8 @@
   align-items: center;
 }
 .main-container .interaction-panel {
-  flex: 0 1 370px;
+  flex: 0 1 382px;
+  width: 382px;
 }
 .number-label {
   width: 3ch;

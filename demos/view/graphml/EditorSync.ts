@@ -142,7 +142,7 @@ export class EditorSync {
     item: IModelItem,
     cssClass = '',
     scrollToView = false
-  ): Marker {
+  ): Marker | undefined {
     const effects: StateEffect<unknown>[] = [
       this.addMarker!.of({ from: from, to: to, className: cssClass, id: id })
     ]
@@ -151,9 +151,11 @@ export class EditorSync {
     }
     this.editor.dispatch({ effects: effects })
 
-    const newMarker = this.editor.state.field(this.markerField!).markers.get(id)!
-    this.itemToMarkerMap.set(item, newMarker)
-    this.markerToItemMap.set(newMarker, item)
+    const newMarker = this.editor.state.field(this.markerField!).markers.get(id)
+    if (newMarker) {
+      this.itemToMarkerMap.set(item, newMarker)
+      this.markerToItemMap.set(newMarker, item)
+    }
 
     return newMarker
   }
@@ -366,7 +368,7 @@ export class EditorSync {
   /**
    * Update a marker with the provided options (e.g. CSS class)
    */
-  private replaceMarker(masterItem: IModelItem, options: any): Marker | null {
+  private replaceMarker(masterItem: IModelItem, options: any): Marker | undefined {
     if (masterItem !== null && this.itemToMarkerMap.has(masterItem)) {
       const oldMarker = this.itemToMarkerMap.get(masterItem)!
       if (typeof oldMarker !== 'undefined') {
@@ -382,7 +384,7 @@ export class EditorSync {
         )
       }
     }
-    return null
+    return undefined
   }
 
   private get editor() {

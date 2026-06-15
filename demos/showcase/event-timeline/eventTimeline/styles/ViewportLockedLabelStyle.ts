@@ -29,20 +29,24 @@
 import {
   DelegatingLabelStyle,
   FreeLabelModel,
+  type GraphComponent,
   type ICanvasContext,
   IEdge,
   IEdgeStyle,
+  type IInputModeContext,
   type ILabel,
   type ILabelStyle,
   INode,
   Insets,
   type IRenderContext,
   OrientedRectangle,
+  type Point,
   PolylineEdgeStyle,
   type Rect,
   SimpleLabel,
   type Visual
 } from '@yfiles/yfiles'
+import type { SubgraphTag } from '../EventTimelineTypes'
 
 type LockingOrientation = 'horizontal' | 'vertical'
 
@@ -57,7 +61,7 @@ type LockingOrientation = 'horizontal' | 'vertical'
 export class ViewportLockedLabelStyle extends DelegatingLabelStyle {
   readonly wrappedStyle: ILabelStyle
   readonly direction: LockingOrientation
-  private padding: Insets = new Insets(10)
+  private readonly padding: Insets
   private readonly standInLabel: SimpleLabel
   private readonly dynamicLayout: OrientedRectangle
 
@@ -65,14 +69,20 @@ export class ViewportLockedLabelStyle extends DelegatingLabelStyle {
    * Creates a new label style instance
    * @param wrappedStyle the base style to be kept in the viewport
    * @param direction a string describing whether the label is 'horizontal' or 'vertical'
+   * @param padding the padding insets around the viewport to place the labels at
    */
-  constructor(wrappedStyle: ILabelStyle, direction: LockingOrientation) {
+  constructor(
+    wrappedStyle: ILabelStyle,
+    direction: LockingOrientation,
+    padding: Insets = new Insets(10)
+  ) {
     super()
     const dynamicLayout = new OrientedRectangle()
     this.dynamicLayout = dynamicLayout
     this.standInLabel = new SimpleLabel(null, '', new FreeLabelModel().createDynamic(dynamicLayout))
     this.direction = direction
     this.wrappedStyle = wrappedStyle
+    this.padding = padding
   }
 
   /**
@@ -94,8 +104,7 @@ export class ViewportLockedLabelStyle extends DelegatingLabelStyle {
   protected override getLabel(label: ILabel): ILabel {
     this.standInLabel.style = label.style
     this.standInLabel.text = label.text
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    this.standInLabel.tag = label.tag
+    this.standInLabel.tag = label.tag as unknown
     this.standInLabel.owner = label.owner
     return this.standInLabel
   }
@@ -135,7 +144,10 @@ export class ViewportLockedLabelStyle extends DelegatingLabelStyle {
    * @param label the graph model-level label object
    */
   private updateOffset(context: ICanvasContext, label: ILabel): void {
-    const viewport = context.canvasComponent.viewport.getReduced(this.padding)
+    const graph = (context.canvasComponent as GraphComponent).graph
+    const isSubgraph = !!graph.tag && (graph.tag as SubgraphTag).subgraph
+    const padding = isSubgraph ? new Insets(10) : this.padding
+    const viewport = context.canvasComponent.viewport.getReduced(padding)
     const wrappedStyle = this.getStyle(label)
     const labelBounds = wrappedStyle.renderer
       .getBoundsProvider(label, wrappedStyle)
@@ -168,8 +180,21 @@ export class ViewportLockedLabelStyle extends DelegatingLabelStyle {
    * @returns the bounds of the given label.
    */
   protected getBounds(context: ICanvasContext, label: ILabel): Rect {
-    this.dynamicLayout.setShape(label.layout)
+    this.updateOffset(context, label)
     return super.getBounds(context, label)
+  }
+
+  /**
+   * Uses the same viewport-adjusted layout for hit testing as for rendering.
+   * @param context the input mode context of the hit test
+   * @param location the world coordinate to test
+   * @param label the graph model-level label object
+   * @protected
+   * @returns whether the label visual is hit at the given location
+   */
+  protected isHit(context: IInputModeContext, location: Point, label: ILabel): boolean {
+    this.updateOffset(context, label)
+    return super.isHit(context, location, label)
   }
 
   /**

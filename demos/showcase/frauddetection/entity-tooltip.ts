@@ -55,7 +55,7 @@ export function enableTooltips(graphComponent: GraphComponent): void {
       const nodeInfo = getEntityInfo(item)
       // show the first entry of the info element stored in the business data
       if (nodeInfo != null) {
-        evt.toolTip = typeof nodeInfo === 'string' ? nodeInfo : nodeInfo[Object.keys(nodeInfo)[0]]
+        evt.toolTip = typeof nodeInfo === 'string' ? nodeInfo : nodeInfo[Object.keys(nodeInfo)[0]]!
       }
     } else if (item instanceof IEdge) {
       const connectionData = getConnectionData(item)

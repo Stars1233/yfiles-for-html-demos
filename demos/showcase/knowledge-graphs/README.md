@@ -24,6 +24,7 @@ Use the right panel to locate detected problems and apply fixes directly. Altern
 ## Things to try
 
 - Open the right sidebar to see a list of detected problems. For each problem, you can either zoom to the affected node(s) or apply an automatic fix.
+- Press 'Show Ontology View' button to show the ontology structure triplets.
 - Enable 'Spotlight all issues' to mark all problematic elements using a beacon animation (available only if the browser supports WebGL).
 - Merge duplicated nodes (copy_all) to consolidate identical entities into a single node.
 - Remove isolated nodes (error) that are not connected to the rest of the graph.

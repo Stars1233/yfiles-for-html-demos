@@ -31,6 +31,7 @@ import {
   type IRenderContext,
   type MarqueeRenderTag,
   ObjectRendererBase,
+  Rect,
   SvgVisual
 } from '@yfiles/yfiles'
 
@@ -38,29 +39,36 @@ import {
  * A marquee selection rectangle object
  */
 export class MarqueeRectangleRenderer extends ObjectRendererBase<MarqueeRenderTag, SvgVisual> {
-  readonly cssClass: string | undefined
-  constructor(cssClass?: string) {
+  readonly cssClass = 'marquee-rectangle'
+  isTimescaleDrag: boolean
+
+  constructor() {
     super()
-    this.cssClass = cssClass
+    this.isTimescaleDrag = false
   }
 
   /**
    * Instantiates a new MarqueeRectangleRenderer
-   * @param context An unused IRenderContext
+   * @param context The render context
    * @param renderTag The MarqueeRenderTag
    * @protected
    * @returns a new rectangular SVG Visual
    */
   protected createVisual(context: IRenderContext, renderTag: MarqueeRenderTag): SvgVisual {
     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-    rect.classList.add(this.cssClass ?? 'marquee-rectangle')
-    MarqueeRectangleRenderer.setBounds(rect, renderTag.selectionRectangle)
+    rect.classList.add(this.cssClass)
+    rect.setAttribute('fill', 'var(--yfiles-event-timeline-marquee-fill-color, #d9bb7d)')
+    rect.setAttribute('fill-opacity', '0.2')
+    rect.setAttribute('stroke', 'var(--yfiles-event-timeline-marquee-stroke-color, #d9bb7d)')
+    rect.setAttribute('stroke-width', '1')
+
+    this.updateBounds(rect, context, renderTag)
     return new SvgVisual(rect)
   }
 
   /**
    * Update the existing visual.
-   * @param context An unused IRenderContext.
+   * @param context The render context.
    * @param oldVisual The old SVGVisual to be updated.
    * @param renderTag The MarqueeRenderTag.
    * @protected
@@ -71,8 +79,24 @@ export class MarqueeRectangleRenderer extends ObjectRendererBase<MarqueeRenderTa
     oldVisual: SvgVisual,
     renderTag: MarqueeRenderTag
   ): SvgVisual {
-    MarqueeRectangleRenderer.setBounds(oldVisual.svgElement, renderTag.selectionRectangle)
+    this.updateBounds(oldVisual.svgElement, context, renderTag)
     return oldVisual
+  }
+
+  /**
+   * Updates the bounds of the SVG rectangle.
+   */
+  private updateBounds(
+    rect: SVGElement,
+    context: IRenderContext,
+    renderTag: MarqueeRenderTag
+  ): void {
+    let bounds = renderTag.selectionRectangle
+    if (this.isTimescaleDrag) {
+      const viewport = context.canvasComponent!.viewport
+      bounds = new Rect(bounds.x, viewport.y - 10, bounds.width, viewport.height + 10)
+    }
+    MarqueeRectangleRenderer.setBounds(rect, bounds)
   }
 
   /**

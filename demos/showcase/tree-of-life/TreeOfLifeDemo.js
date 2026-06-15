@@ -68,6 +68,7 @@ import graphData from './resources/TreeOfLifeData.json'
 import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
 import { addNavigationButtons, showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import {} from '@yfiles/demo-app/util/NavigationComponent'
 
 const palettes = [
   {
@@ -132,8 +133,20 @@ async function run() {
 
   void loadAndFilterGraph()
 
-  // Make the breadcrumbs visible
-  document.getElementById('breadcrumbs').style.display = 'block'
+  // Make the navigation visible
+  const navigationComponent = document.querySelector('#navigation')
+  navigationComponent.items = ['Life on Earth']
+  navigationComponent.selectedItem = 'Life on Earth'
+  navigationComponent.style.display = 'block'
+  navigationComponent.addEventListener('item-selected', async (evt) => {
+    const label = evt.detail
+    if (!subtreeUpdateRunning) {
+      subtreeUpdateRunning = true
+      const subtreeRoot = mainGraph().nodes.find((node) => node.tag.name === label)
+      await showSubtreeForSelectedRoot(subtreeRoot)
+      subtreeUpdateRunning = false
+    }
+  })
 }
 
 /**
@@ -301,7 +314,7 @@ async function loadAndFilterGraph() {
   // show and layout the first subtree
   subtreeUpdateRunning = true
   const root = graph.nodes.find((node) => node.tag.name === 'Life on Earth')
-  await showSubtree(root)
+  await showSubtreeForSelectedRoot(root)
   subtreeUpdateRunning = false
 
   setUIDisabled(graphComponent, false)
@@ -585,7 +598,7 @@ function getAncestors(node) {
  */
 function updateNavigationMenuAndCombobox(selectedRoot) {
   // get the ancestors of the selected node including the node itself
-  let ancestors = getAncestors(selectedRoot)
+  const ancestors = getAncestors(selectedRoot)
 
   // update sample in combo box based on the subtree in which the node belongs
   const selectSubtreeCombo = document.querySelector('#sample-subtrees')
@@ -597,61 +610,10 @@ function updateNavigationMenuAndCombobox(selectedRoot) {
     }
   }
 
-  // update the breadcrumb menu
-  const itemsElement = document.querySelector('#breadcrumbs .breadcrumbs-items')
-  // remove previous elements from the div
-  while (itemsElement.lastChild) {
-    itemsElement.removeChild(itemsElement.lastChild)
-  }
-
-  ancestors = ancestors.reverse()
-  // hide some ancestors if they are more than 10
-  const hasManyAncestors = ancestors.length > 10
-
-  let copy = [...ancestors]
-  if (hasManyAncestors) {
-    copy = copy.slice(ancestors.length - 10, ancestors.length)
-    copy.unshift(ancestors[0])
-  }
-
-  copy.forEach((ancestor, index) => {
-    const ancestorDiv = document.createElement('button')
-    const ancestorLabel = ancestor.tag.name
-    ancestorDiv.innerHTML = ancestorLabel
-    ancestorDiv.classList.add('breadcrumbs-item')
-    if (ancestorLabel === selectedRoot.tag.name) {
-      ancestorDiv.classList.add('selected')
-    }
-    ancestorDiv.addEventListener('click', async (evt) => {
-      if (!subtreeUpdateRunning) {
-        const subtreeRoot = mainGraph().nodes.find((node) => node.tag.name === evt.target.innerText)
-        await showSubtreeForSelectedRoot(subtreeRoot)
-      }
-      subtreeUpdateRunning = false
-    })
-    itemsElement.appendChild(ancestorDiv)
-
-    if (index != copy.length - 1) {
-      itemsElement.appendChild(createArrow())
-    }
-
-    if (index == 0 && hasManyAncestors) {
-      const dots = document.createElement('span')
-      dots.innerHTML = '...'
-      itemsElement.appendChild(dots)
-      itemsElement.appendChild(createArrow())
-    }
-  })
-}
-
-/**
- * Creates an arrow for the navigation menu.
- */
-function createArrow() {
-  const arrowElement = document.createElement('div')
-  arrowElement.classList.add('breadcrumbs-arrow')
-  arrowElement.innerHTML = '>'
-  return arrowElement
+  // update the navigation menu
+  const navigationComponent = document.querySelector('#navigation')
+  navigationComponent.items = ancestors.map((a) => a.tag.name).reverse()
+  navigationComponent.selectedItem = selectedRoot.tag.name
 }
 
 /**
@@ -687,7 +649,7 @@ function setUIDisabled(graphComponent, disabled) {
   document.querySelector('#sample-subtrees').disabled = disabled
   document.querySelector('#demo-toggle-extinct-button').disabled = disabled
   document.querySelector('#searchBox').disabled = disabled
-  document.querySelector('#breadcrumbs .breadcrumbs-items').disabled = disabled
+  document.querySelector('#navigation').disabled = disabled
 }
 
 run().then(finishLoading)

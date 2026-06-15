@@ -37,23 +37,34 @@ export function createPanelFor(
   toggleButton.popoverTargetElement = popover
   toggleButton.popoverTargetAction = 'toggle'
 
-  popover.addEventListener('beforetoggle', (evt) => {
+  popover.addEventListener('toggle', (evt) => {
     // We need to cast since the event has only been typed as a ToggleEvent since TS 5.9.
     // However, the popover API is part of Baseline 2024, see
     // https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/popover
     const toggleEvt = evt as ToggleEvent
-    if (toggleEvt.newState === 'open') {
-      const top = toggleButton.offsetTop - 10 //subtract half the top offset of the triangle
-      popover.style.top = `${top}px`
-    }
-  })
 
-  popover.addEventListener('toggle', (evt) => {
-    const toggleEvt = evt as ToggleEvent
-    if (toggleEvt.newState === 'closed') {
-      toggleButton.classList.remove('active')
-    } else {
+    if (toggleEvt.newState === 'open') {
+      const GAP = 10 // space from the viewport edge
+      const ARROW_HEIGHT = 16 // height of the popover arrow
+
+      const buttonRect = toggleButton.getBoundingClientRect()
+      const popoverRect = popover.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
+      const buttonCenterY = buttonRect.top + buttonRect.height / 2
+
+      let popoverTop = buttonCenterY - popoverRect.height / 2
+      popoverTop = Math.max(
+        GAP, // Not to go off the top
+        Math.min(popoverTop, viewportHeight - popoverRect.height - GAP) // Not to go off the bottom
+      )
+      popover.style.top = `${popoverTop}px`
+
+      const arrowTop = buttonCenterY - popoverTop - ARROW_HEIGHT / 2
+      popover.style.setProperty('--popover-arrow-top', `${arrowTop}px`)
+
       toggleButton.classList.add('active')
+    } else {
+      toggleButton.classList.remove('active')
     }
   })
 

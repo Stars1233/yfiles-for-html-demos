@@ -28,68 +28,19 @@
  ***************************************************************************/
 import {
   CloneTypes,
-  Color,
+  FreeNodeLabelModel,
   Graph,
-  GraphComponent,
   GraphCopier,
   IBend,
   IEdge,
   ILabel,
   INode,
   IPort,
-  NodeStyleIndicatorRenderer,
-  Rect,
-  ShapeNodeStyle,
-  Stroke,
-  WebGLGraphModelManager
+  Rect
 } from '@yfiles/yfiles'
 import { getLabelStyle } from './styles/graph-styles'
-import { getNodeTag } from './types'
-
-/**
- * Creates and configures a GraphComponent to display a neighborhood view.
- */
-export function createNeighborhoodView() {
-  const neighborhoodComponent = new GraphComponent('#neighborhood-graphComponent')
-  neighborhoodComponent.graphModelManager = new WebGLGraphModelManager()
-  neighborhoodComponent.minimumZoom = 0.01
-  neighborhoodComponent.maximumZoom = 4
-
-  // Initialize selection style
-  neighborhoodComponent.graph.decorator.nodes.selectionRenderer.addFactory((node) => {
-    const strokeColor = getNodeTag(node).problem ? '#ff4400' : Color.from(node.style.stroke.color)
-    return new NodeStyleIndicatorRenderer({
-      nodeStyle: new ShapeNodeStyle({
-        shape: 'rectangle',
-        fill: 'none',
-        stroke: new Stroke(strokeColor, 4)
-      }),
-      margins: 6,
-      zoomPolicy: 'mixed'
-    })
-  })
-
-  document.addEventListener('keydown', (e) => {
-    const component = document.querySelector('#neighborhood-graphComponent')
-    if (e.key === 'Escape' && component.classList.contains('open')) {
-      toggleNeighborhoodPanel(false)
-    }
-  })
-
-  document.querySelector('#neighborhood-close')?.addEventListener('click', () => {
-    toggleNeighborhoodPanel(false)
-  })
-
-  document.querySelector('.toolbar').addEventListener('click', () => {
-    toggleNeighborhoodPanel(false)
-  })
-
-  document
-    .querySelector('#neighborhood-backdrop')
-    .addEventListener('click', () => toggleNeighborhoodPanel(false))
-
-  return neighborhoodComponent
-}
+import { toggleComponentPanel } from './explorer-component'
+import { getLabelTag } from './types'
 
 /**
  * Shows the neighborhood of the given node from the sourceComponent inside the targetComponent.
@@ -99,30 +50,23 @@ export function createNeighborhoodView() {
  * @param node - The node whose neighborhood should be shown.
  */
 export async function showNeighborhood(sourceComponent, targetComponent, node) {
+  toggleComponentPanel(true)
+  document.querySelector('#explorer-title-text').innerText = 'Neighborhood View'
+
   const srcGraph = sourceComponent.graph
-  const tgtGraph = targetComponent.graph
-
-  // replace the graph in the target component to copy the srcGraph to the target graph without GraphComponent
-  // keeping its configuration
-  // this is important because the GraphCopier copies the WebGLZoomVisibilityPolicy in the label styles which
-  // cannot be used in multiple GraphComponents
-  targetComponent.graph = new Graph()
-
-  toggleNeighborhoodPanel(true)
-
+  // Replace the graph that will be placed in the target component to copy the srcGraph to the target graph without GraphComponent
+  // keeping its configuration.
+  // This is important because the GraphCopier copies the WebGLZoomVisibilityPolicy in the label styles which
+  // cannot be used in multiple GraphComponents.
+  const tgtGraph = new Graph()
   const nodesToCopy = new Set([node, ...srcGraph.neighbors(node)])
-
-  // Filter edges that connect only nodes in our set
-  const edgesToCopy = srcGraph.edges
-    .filter((edge) => nodesToCopy.has(edge.sourceNode) && nodesToCopy.has(edge.targetNode))
-    .toArray()
+  const edgesToCopy = srcGraph.edgesAt(node)
 
   // Merge nodes and edges into one collection
   const itemsToCopy = new Set([...nodesToCopy, ...edgesToCopy])
 
   // Copy with predicate
   const graphCopier = new GraphCopier({ cloneTypes: CloneTypes.ALL })
-  let selectedNode
   graphCopier.copy({
     sourceGraph: srcGraph,
     targetGraph: tgtGraph,
@@ -131,6 +75,14 @@ export async function showNeighborhood(sourceComponent, targetComponent, node) {
       if (copy instanceof ILabel) {
         // Apply a label style suitable for the neighborhood view
         tgtGraph.setStyle(copy, getLabelStyle(original, true))
+        // Set a free node label model that supports rotation during layout
+        if (
+          original.owner !== node &&
+          copy.owner instanceof INode &&
+          getLabelTag(copy).type === 'text'
+        ) {
+          tgtGraph.setLabelLayoutParameter(copy, FreeNodeLabelModel.CENTER)
+        }
       } else if (copy instanceof INode) {
         // Position copied node at the center of the target component for a nicer layout animation
         tgtGraph.setNodeLayout(
@@ -142,16 +94,11 @@ export async function showNeighborhood(sourceComponent, targetComponent, node) {
             original.layout.height
           ])
         )
-        if (original === node) {
-          // Select the corresponding node of the targetComponent
-          selectedNode = copy
-        }
       }
     }
   })
-  targetComponent.selection.add(selectedNode)
 
-  // assign the copied graph to the target component
+  // Assign the copied graph to the target component
   targetComponent.graph = tgtGraph
 }
 
@@ -169,20 +116,4 @@ function shouldCopyItem(item, itemsToCopy) {
     return itemsToCopy.has(item.owner)
   }
   return true
-}
-
-/**
- * Show or hide the neighborhood panel UI.
- * @param visible - True to open the panel, false to close it.
- */
-export function toggleNeighborhoodPanel(visible) {
-  const neighborhoodPanel = document.querySelector('#neighborhood-panel')
-  const backdrop = document.querySelector('#neighborhood-backdrop')
-  if (visible) {
-    neighborhoodPanel.classList.add('open')
-    backdrop.style.display = 'block'
-  } else {
-    neighborhoodPanel.classList.remove('open')
-    backdrop.style.display = 'none'
-  }
 }

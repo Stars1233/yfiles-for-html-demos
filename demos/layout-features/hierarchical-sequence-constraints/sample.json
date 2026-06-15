@@ -5,7 +5,7 @@
     {
       "id": 2,
       "labels": [{ "text": "2", "cssClass": "highlight" }],
-      "tag": "leading",
+     "position": "leading",
       "cssClass": "highlight"
     },
     { "id": 3, "labels": "3" },
@@ -14,7 +14,7 @@
     {
       "id": 6,
       "labels": [{ "text": "6", "cssClass": "highlight" }],
-      "tag": "leading",
+     "position": "leading",
       "cssClass": "highlight"
     },
     { "id": 7, "labels": "7" },
@@ -24,7 +24,7 @@
     {
       "id": 11,
       "labels": [{ "text": "11", "cssClass": "highlight" }],
-      "tag": "leading",
+     "position": "leading",
       "cssClass": "highlight"
     }
   ],

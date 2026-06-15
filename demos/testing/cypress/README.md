@@ -22,6 +22,6 @@ To run the test:
 3.  Run `npm install`.
 4.  Run the test with `npm run test` or Cypress' test UI with `npm run test-ui`.
 
-After the test has completed, you can find a video in `cypress/videos`
+In contrast to the other testing demos, this test suite does not perform interactive graph editing with emulated mouse events due to limited capabilities of Cypress.
 
 Please note, that this demo assumes that the yFiles demo server is running. You can also change the url in `cypress/e2e/yfiles.cy.ts` to a running application.

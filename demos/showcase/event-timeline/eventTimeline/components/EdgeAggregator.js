@@ -26,10 +26,14 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { TIMELINE_CONSTANTS } from '../EventTimeline'
+import { ItemState } from '../EventTimelineTypes'
 
 /**
- *
+ * Responsible for grouping visually overlapping edges into aggregate or hyper-edge
+ * representatives. Edges that are horizontally close (within EDGE_AGGREGATION_DELTA) are first
+ * grouped, then split by connected components; those with identical timestamps become hyper-edges,
+ * while the rest become aggregate-edges. A synthetic representative IEdge is created for each
+ * group and stored in {@link representativeAggregateEdges} or {@link representativeHyperEdges}.
  */
 export class EdgeAggregator {
   // Representative edges
@@ -39,6 +43,7 @@ export class EdgeAggregator {
   graph
   getEdgeDate
   doEdgesShareNodeTermini
+  config
 
   /**
    * Instantiates a new EdgeAggregator object
@@ -46,11 +51,13 @@ export class EdgeAggregator {
    * @param getEdgeDate An accessor function with which to get an edge's timestamp as a Date object.
    * @param doEdgesShareNodeTermini A function with which to determine whether two edges share a
    * source or target node.
+   * @param config The configuration that governs the aesthetics and behavior of the timeline.
    */
-  constructor(graph, getEdgeDate, doEdgesShareNodeTermini) {
+  constructor(graph, getEdgeDate, doEdgesShareNodeTermini, config) {
     this.graph = graph
     this.getEdgeDate = getEdgeDate
     this.doEdgesShareNodeTermini = doEdgesShareNodeTermini
+    this.config = config
   }
 
   /**
@@ -63,26 +70,20 @@ export class EdgeAggregator {
    */
   aggregateEdges(sortedEdges) {
     // Remove previously created representative edges (avoid duplicates on re-run)
-    this.representativeAggregateEdges.forEach((e) => {
-      if (this.graph.contains(e)) {
-        this.graph.remove(e)
-      }
-    })
+    this.removeRepresentativeEdges(this.representativeAggregateEdges)
     this.representativeAggregateEdges = []
 
-    this.representativeHyperEdges.forEach((e) => {
-      if (this.graph.contains(e)) {
-        this.graph.remove(e)
-      }
-    })
+    this.removeRepresentativeEdges(this.representativeHyperEdges)
     this.representativeHyperEdges = []
 
     const horizontallyAggregatedEdgeGroups = this.getHorizontalAggregatedEdgeGroups(sortedEdges)
 
     horizontallyAggregatedEdgeGroups.forEach((edgeGroup) => {
       // --- Hyperedges: DO NOT split by connected components ---
-      const firstTime = edgeGroup[0].tag.time
-      const groupIsHyperEdge = edgeGroup.every((edge) => edge.tag.time === firstTime)
+      const firstTime = this.getEdgeDate(edgeGroup[0]).getTime()
+      const groupIsHyperEdge = edgeGroup.every(
+        (edge) => this.getEdgeDate(edge).getTime() === firstTime
+      )
 
       if (groupIsHyperEdge) {
         const edges = [...edgeGroup].sort(
@@ -117,8 +118,10 @@ export class EdgeAggregator {
       const hyperEdgeIndices = []
       connectedComponents.forEach((edgeSet, index) => {
         const edgeArray = Array.from(edgeSet)
-        const firstDate = edgeArray[0].tag.time
-        const datesAreSame = edgeArray.every((edge) => edge.tag.time === firstDate)
+        const firstDate = this.getEdgeDate(edgeArray[0]).getTime()
+        const datesAreSame = edgeArray.every(
+          (edge) => this.getEdgeDate(edge).getTime() === firstDate
+        )
         if (datesAreSame) {
           hyperEdgeIndices.push(index)
         }
@@ -156,20 +159,30 @@ export class EdgeAggregator {
    * @returns The representative edge.
    */
   createRepresentativeEdge(group) {
-    const rep = this.graph.createEdge(group.edges.at(0).sourceNode, group.edges.at(0).targetNode)
+    const rep = this.graph.createEdge(group.edges[0].sourceNode, group.edges[0].targetNode)
 
-    // Carry over a sensible base tag (from first edge) and mark as representative
-    const firstTag = group.edges[0].tag
-    rep.tag = {
-      ...firstTag,
-      representative: true,
-      representedGroup: group,
-      aggregated: false,
-      hyper: false,
-      visible: false
+    const state = rep.lookup(ItemState)
+    if (state) {
+      state.representative = true
+      state.representedGroup = group
+      state.aggregated = false
+      state.hyper = false
+      state.visible = false
     }
 
     return rep
+  }
+
+  /**
+   * Helper method to remove representative edges from the graph.
+   * @param edges The edges to be removed.
+   */
+  removeRepresentativeEdges(edges) {
+    edges.forEach((e) => {
+      if (this.graph.contains(e)) {
+        this.graph.remove(e)
+      }
+    })
   }
 
   /**
@@ -188,7 +201,7 @@ export class EdgeAggregator {
       const currentX = edge.sourcePort.location.x
       if (
         previousX !== undefined &&
-        Math.abs(currentX - previousX) <= TIMELINE_CONSTANTS.EDGE_AGGREGATION_DELTA
+        Math.abs(currentX - previousX) <= this.config.edgeAggregationDelta
       ) {
         currentGroup.push(edge)
       } else {
@@ -229,34 +242,21 @@ export class EdgeAggregator {
 
   updateEdgeMapping(sortedEdges) {
     const aggregatedEdges = new Set(
-      this.representativeAggregateEdges.flatMap((edge) => edge.tag.representedGroup.edges)
+      this.representativeAggregateEdges.flatMap(
+        (edge) => edge.lookup(ItemState).representedGroup.edges
+      )
     )
     const hyperEdges = new Set(
-      this.representativeHyperEdges.flatMap((edge) => edge.tag.representedGroup.edges)
+      this.representativeHyperEdges.flatMap((edge) => edge.lookup(ItemState).representedGroup.edges)
     )
 
-    let prevEdge = null
     sortedEdges.forEach((currEdge) => {
-      currEdge.tag = {
-        ...currEdge.tag,
-        aggregated: aggregatedEdges.has(currEdge),
-        hyper: hyperEdges.has(currEdge),
-        visible: true
+      const state = currEdge.lookup(ItemState)
+      if (state) {
+        state.aggregated = aggregatedEdges.has(currEdge)
+        state.hyper = hyperEdges.has(currEdge)
+        state.visible = true
       }
-      if (prevEdge) {
-        const prevLabel = prevEdge.labels.at(0)
-        const currLabel = currEdge.labels.at(0)
-        if (
-          prevLabel &&
-          currLabel &&
-          currLabel.layout.center.x - prevLabel.layout.center.x <
-            TIMELINE_CONSTANTS.EDGE_LABEL_HEIGHT
-        ) {
-          currEdge.tag = { ...currEdge.tag, visible: false }
-          prevEdge.tag = { ...prevEdge.tag, visible: false }
-        }
-      }
-      prevEdge = currEdge
     })
   }
 }

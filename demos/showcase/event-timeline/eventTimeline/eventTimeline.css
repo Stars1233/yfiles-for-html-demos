@@ -1,0 +1,341 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+/* Nodes & Edges */
+.event-timeline-node {
+  transition: opacity 0.5s ease-in-out;
+  stroke: var(--yfiles-event-timeline-node-color, #89919c);
+  fill: var(--yfiles-event-timeline-node-color, #89919c);
+  stroke-width: 2px;
+  opacity: var(--yfiles-event-timeline-non-highlighted-opacity, 1);
+  & .ancillary-node {
+    stroke-width: 1px;
+    opacity: 0.33;
+  }
+}
+
+g:has(> .event-timeline-edge:not(.highlight)) {
+  transition: opacity 0.5s ease-in-out;
+  opacity: var(--yfiles-event-timeline-non-highlighted-opacity, 1);
+}
+
+.event-timeline-node.highlight {
+  opacity: 1 !important;
+
+  & > rect {
+    stroke: var(--yfiles-event-timeline-node-highlight-color, #d9bb7d);
+    fill: var(--yfiles-event-timeline-node-highlight-color, #d9bb7d);
+    stroke-width: 6px;
+  }
+
+  & .ancillary-node {
+    stroke-width: 3px;
+    opacity: 0.33;
+  }
+}
+.highlighted-adjacent {
+  stroke: var(--yfiles-event-timeline-edge-color, #89919c) !important;
+  fill: var(--yfiles-event-timeline-edge-color, #89919c) !important;
+  & > rect {
+    stroke: var(--yfiles-event-timeline-edge-color, #89919c) !important;
+    fill: var(--yfiles-event-timeline-edge-color, #89919c) !important;
+  }
+  & > text {
+    fill: var(--event-timeline-background-color) !important;
+  }
+}
+
+.hidden {
+  opacity: 0;
+}
+
+#graphComponent {
+  background: transparent !important;
+  width: 100%;
+  height: calc(100%) !important;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.time-scale-content {
+  background: var(--event-timeline-background-color);
+
+  & .time-scale-label {
+    color: var(--yfiles-event-timeline-edge-color, #89919c);
+  }
+}
+.marquee-rectangle,
+.timescale-marquee {
+  fill: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d);
+  fill-opacity: 0.2;
+  stroke: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d);
+  stroke-width: 1px;
+}
+.event-timeline-node-label {
+  transition: opacity 0.5s ease-in-out;
+  opacity: var(--yfiles-event-timeline-non-highlighted-opacity, 1);
+  & text,
+  & rect {
+    paint-order: stroke;
+    stroke-width: 0;
+  }
+  & text {
+    fill: var(--event-timeline-background-color);
+  }
+}
+
+.event-timeline-edge-label {
+  transition: opacity 0.5s ease-in-out;
+  opacity: var(--yfiles-event-timeline-non-highlighted-opacity, 1);
+  & text,
+  & rect {
+    paint-order: stroke;
+    stroke-width: 5px;
+  }
+  & text {
+    fill: var(--yfiles-event-timeline-edge-color, #89919c);
+  }
+  & rect {
+    fill: var(--event-timeline-background-color);
+    stroke: var(--yfiles-event-timeline-edge-color, #89919c);
+  }
+}
+
+.event-timeline-edge-label-collapsed {
+  transition: opacity 0.5s ease-in-out;
+  opacity: var(--yfiles-event-timeline-non-highlighted-opacity, 1);
+  & text,
+  & rect {
+    stroke-width: 0;
+  }
+  & rect {
+    fill: var(--yfiles-event-timeline-edge-color, #89919c);
+  }
+}
+
+.event-timeline-edge-label.highlight,
+.event-timeline-edge-label-collapsed.highlight {
+  opacity: 1 !important;
+  & text,
+  & rect {
+    paint-order: stroke;
+  }
+  & text {
+    fill: var(--event-timeline-background-color);
+  }
+  & rect {
+    stroke-width: 4px;
+    fill: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d);
+    stroke: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d);
+  }
+}
+
+.event-timeline-node-label.highlight,
+.event-timeline-node-label-collapsed.highlight {
+  opacity: 1 !important;
+  & text,
+  & rect {
+    paint-order: stroke;
+    stroke-width: 0;
+  }
+  & text {
+    fill: var(--event-timeline-background-color);
+  }
+  & rect {
+    fill: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d);
+  }
+}
+
+/* Horizontal tick lines - higher-order ticks are thicker */
+.tick-line.higher-order-tick {
+  stroke: var(--yfiles-event-timeline-tick-color, #89919c);
+  stroke-width: 3px;
+  stroke-linecap: round;
+}
+
+.tick-line.normal-tick {
+  stroke: var(--yfiles-event-timeline-tick-color, #89919c);
+  stroke-width: 2px;
+  stroke-linecap: round;
+}
+
+/* Horizontal label text for ticks - higher-order labels are bolder/larger */
+.tick-label.higher-order-tick-label {
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  fill: var(--yfiles-event-timeline-time-color, #89919c);
+}
+
+.tick-label.normal-tick-label {
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  fill: color-mix(
+    in lab,
+    var(--yfiles-event-timeline-time-color, #89919c) 80%,
+    var(--event-timeline-background-color) 20%
+  );
+}
+
+/* Highlight label text - positioned above gold circles */
+.edge-tick-highlight-label {
+  font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  fill: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d);
+}
+
+.edge-tick {
+  stroke: var(--yfiles-event-timeline-time-color, #89919c);
+  stroke-width: 2px;
+}
+
+.edge-tick-circle {
+  stroke: var(--yfiles-event-timeline-time-color, #89919c);
+  fill: var(--yfiles-event-timeline-time-color, #89919c);
+  stroke-width: 1.5px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.edge-tick-circle-highlight {
+  stroke: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d);
+  fill: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d);
+  stroke-width: 4px;
+  cursor: pointer;
+  z-index: 11;
+}
+
+.separator-line {
+  stroke: var(--yfiles-event-timeline-tick-color, #89919c);
+  stroke-width: 2px;
+  stroke-linecap: round;
+}
+
+.event-timeline-aggregate-edge {
+  & > rect {
+    opacity: var(--yfiles-event-timeline-non-highlighted-opacity, 1);
+  }
+  & > g {
+    opacity: var(--yfiles-event-timeline-aggregate-hyper-edge-opacity, 0.4);
+  }
+  & > .background {
+    fill-opacity: var(--yfiles-event-timeline-background-non-highlighted-opacity, 0.4);
+  }
+}
+.event-timeline-aggregate-edge.highlight {
+  & > rect {
+    opacity: 1 !important;
+  }
+  & > g {
+    opacity: 0.4 !important;
+  }
+  & > .background {
+    stroke-opacity: 1 !important;
+    fill-opacity: 0.4 !important;
+    stroke: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d);
+    stroke-width: 2px;
+  }
+}
+.event-timeline-aggregate-edge path {
+  stroke: none;
+}
+
+.event-timeline-hyper-edge {
+  & > g {
+    opacity: var(--yfiles-event-timeline-aggregate-hyper-edge-opacity, 0.4);
+  }
+  > .terminus {
+    fill: var(--event-timeline-background-color);
+    stroke-opacity: var(--yfiles-event-timeline-non-highlighted-opacity, 1);
+    fill-opacity: var(--yfiles-event-timeline-non-highlighted-opacity, 1);
+  }
+  stroke-width: 4px;
+}
+
+.event-timeline-hyper-edge.highlight {
+  stroke-width: 4px;
+  stroke-opacity: 1 !important;
+  & > g {
+    opacity: 0.4 !important;
+  }
+  & .band {
+    fill: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d) !important;
+  }
+  > .terminus {
+    stroke: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d) !important;
+    fill: var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d) !important;
+    stroke-opacity: 1 !important;
+    fill-opacity: 1 !important;
+  }
+}
+
+/* Tooltips */
+.yfiles-tooltip {
+  border-radius: var(--border-radius);
+  border: none;
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.2),
+    0 3px 10px rgba(0, 0, 0, 0.2),
+    0 1px 5px rgba(0, 0, 0, 0.3);
+  background-color: var(--yfiles-event-timeline-tooltip-background-color, rgba(41, 50, 60, 0.8));
+  color: white;
+  padding: 15px;
+
+  .title {
+    margin: 0 0 20px 0;
+  }
+
+  .row {
+    display: flex;
+    margin: 10px 0;
+  }
+
+  .row-title {
+    width: 75px;
+    margin: 0 10px 0 0;
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+  }
+
+  .row-content {
+    max-width: 150px;
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+    margin: 0;
+  }
+
+  .separator {
+    height: 1px;
+    background-color: var(--yfiles-event-timeline-edge-color, #89919c);
+    margin: 15px 0;
+  }
+
+  .row-header {
+    margin: 0 0 0 0;
+  }
+}

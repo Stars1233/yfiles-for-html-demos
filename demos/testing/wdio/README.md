@@ -20,7 +20,7 @@ To run the integration tests:
 3.  Run `npm install`.
 4.  Run the integration tests with `npm run test`.
 
-The application under test is the [Simple Testable App](../application-under-test/index.html). To access yFiles via WebdriverIO, the GraphComponent is set as a global variable in that application.
+The application under test is the [Simple Testable App](../application-under-test/index.html). The GraphComponent instance is accessed from its parent element through the `[data-this]` attribute.
 
 The application starts with a graph with two nodes, but graph items can be created interactively. The integration tests check this functionality by simulating node, edge and port creation gestures and verifying that the graph instance actually contains the newly created graph items.
 

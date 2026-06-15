@@ -35,10 +35,10 @@ import graphData from './sample.json'
  */
 async function applyHierarchicalLayoutWithLayerConstraints(graphComponent: GraphComponent) {
   // Get the nodes for which we want to define layer constraints
-  const node0 = graphComponent.graph.nodes.find((node) => node.tag === 0)!
-  const node2 = graphComponent.graph.nodes.find((node) => node.tag === 2)!
-  const node7 = graphComponent.graph.nodes.find((node) => node.tag === 7)!
-  const node9 = graphComponent.graph.nodes.find((node) => node.tag === 9)!
+  const node0 = graphComponent.graph.nodes.find((node) => node.tag.layer === 0)!
+  const node2 = graphComponent.graph.nodes.find((node) => node.tag.layer === 2)!
+  const node7 = graphComponent.graph.nodes.find((node) => node.tag.layer === 7)!
+  const node9 = graphComponent.graph.nodes.find((node) => node.tag.layer === 9)!
 
   const layoutData = new HierarchicalLayoutData()
   // Place node9 in the topmost layer

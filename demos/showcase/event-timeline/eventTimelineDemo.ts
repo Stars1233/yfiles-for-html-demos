@@ -26,84 +26,60 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { GraphBuilder, GraphComponent, type IEdge, type IGraph, License } from '@yfiles/yfiles'
+import { GraphComponent, type IEdge, type INode, License } from '@yfiles/yfiles'
 
 import licenseData from '../../../lib/license.json'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import data from './resources/traffic-data.json'
 import example from './resources/example.json'
 import { EventTimeline } from './eventTimeline/EventTimeline'
-import type { Data, EdgeTag } from './eventTimeline/EventTimelineTypes'
+import { EventTimelineSubgraph } from './eventTimeline/components/EventTimelineSubgraph'
+import type { AggregatedEdgeGroup } from './eventTimeline/EventTimelineTypes'
 
+const demoAccessors = {
+  nodeGroupAccessor: (node: INode): string => {
+    return (node.tag as DemoNodeTag).group
+  },
+  edgeTypeAccessor: (edge: IEdge): string => {
+    return (edge.tag as DemoEdgeTag).type
+  },
+  timeAccessorFunction: (edge: IEdge): Date => {
+    return new Date((edge.tag as DemoEdgeTag).time)
+  }
+}
 /**
  * Runs the demo in its totality.
  */
 async function run(): Promise<void> {
   License.value = licenseData
 
-  const exampleGraphComponent = new GraphComponent('#exampleGraphComponent')
-  const exampleSubGraphComponent = new GraphComponent('#exampleSubGraphComponent')
+  const exampleEventTimeline: EventTimeline = new EventTimeline({
+    selector: '#exampleGraphComponent',
+    accessors: demoAccessors,
+    config: { unitHeight: 100 }
+  })
+  await exampleEventTimeline.setData(example, true)
 
-  buildGraph(example, exampleGraphComponent.graph)
-  const exampleEventTimeline: EventTimeline = new EventTimeline(
-    exampleGraphComponent,
-    exampleSubGraphComponent,
-    document.querySelector('#demo-example__subgraph-component')!,
-    (edge: IEdge): Date => {
-      return new Date((edge.tag as EdgeTag).time)
-    },
-    'demo-example__timescale',
-    100
-  )
-  void exampleEventTimeline.resetZoom('0s').then(() => exampleEventTimeline.resetZoom('0s'))
+  const eventTimeline: EventTimeline = new EventTimeline({
+    selector: '#graphComponent',
+    accessors: demoAccessors,
+    config: { unitHeight: 100 },
+    callbacks: {
+      onHyperEdgeClicked: async (bundle: AggregatedEdgeGroup) => {
+        await subGraph.show(bundle)
+      }
+    }
+  })
 
-  const graphComponent = new GraphComponent('#graphComponent')
-  const subGraphComponent = new GraphComponent('#subGraphComponent')
+  const subGraphDialog = document.createElement('dialog')
+  const subGraphComponent = new GraphComponent()
+  subGraphDialog.append(subGraphComponent.htmlElement)
+  eventTimeline.graphComponent.htmlElement.parentElement?.appendChild(subGraphDialog)
 
-  buildGraph(data, graphComponent.graph)
-  const eventTimeline: EventTimeline = new EventTimeline(
-    graphComponent,
-    subGraphComponent,
-    document.querySelector('#demo-main__subgraph-component')!,
-    (edge: IEdge): Date => {
-      return new Date((edge.tag as EdgeTag).time)
-    },
-    'demo-main__timescale',
-    100
-  )
+  const subGraph = new EventTimelineSubgraph(eventTimeline, subGraphComponent, subGraphDialog)
+
+  await eventTimeline.setData(data, true)
   initializeUI(eventTimeline)
-}
-
-/**
- * Builds a new graph from the specified data source
- * @param data the data (of type Data) to be loaded
- * @param graph the IGraph object into which to load the specified data
- */
-function buildGraph(data: Data, graph: IGraph): void {
-  // Clear the graph
-  graph.clear()
-
-  // Create a new graph builder
-  const graphBuilder: GraphBuilder = new GraphBuilder(graph)
-
-  // Create a new node (label) source
-  const nodesSource = graphBuilder.createNodesSource({
-    data: data.nodes,
-    id: (node): string => node.id
-  })
-  nodesSource.nodeCreator.createLabelBinding((node): string => node.label)
-
-  // Create a new edge (label) source
-  const edgesSource = graphBuilder.createEdgesSource({
-    data: data.edges,
-    sourceId: (edge): string => edge.source,
-    targetId: (edge): string => edge.target,
-    id: (edge): string => edge.id
-  })
-  edgesSource.edgeCreator.createLabelBinding((edge): string => edge.label)
-
-  // Build the graph
-  graphBuilder.buildGraph()
 }
 
 /**
@@ -115,17 +91,33 @@ function initializeUI(eventTimeline: EventTimeline): void {
     .addEventListener('click', () => eventTimeline.resetZoom())
   document
     .getElementById('horizontal-increase-stretch-button')!
-    .addEventListener('click', () => eventTimeline.changeResolution1D(-20, 'horizontal'))
+    .addEventListener('click', () => eventTimeline.zoomHorizontal(-20))
   document
     .getElementById('horizontal-decrease-stretch-button')!
-    .addEventListener('click', () => eventTimeline.changeResolution1D(20, 'horizontal'))
+    .addEventListener('click', () => eventTimeline.zoomHorizontal(20))
   document
     .getElementById('vertical-increase-stretch-button')!
-    .addEventListener('click', () => eventTimeline.changeResolution1D(-20, 'vertical'))
+    .addEventListener('click', () => eventTimeline.zoomVertical(-20))
   document
     .getElementById('vertical-decrease-stretch-button')!
-    .addEventListener('click', () => eventTimeline.changeResolution1D(20, 'vertical'))
+    .addEventListener('click', () => eventTimeline.zoomVertical(20))
 }
 
 // Run the Demo
 await run().then(finishLoading)
+
+/**
+ * The EdgeTag type describes the demo structure of an edge's tag.
+ */
+type DemoEdgeTag = {
+  id: string
+  source: string
+  target: string
+  type: string
+  label: string
+  time: string
+}
+/**
+ The NodeTag type describes the demo structure of a node's tag.
+ */
+type DemoNodeTag = { id: string; label: string; group: string }

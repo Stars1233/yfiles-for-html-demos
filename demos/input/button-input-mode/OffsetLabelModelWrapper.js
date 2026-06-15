@@ -38,11 +38,11 @@ import {
 } from '@yfiles/yfiles'
 
 /**
- * An {@see ILabelModel} that moves the layout of a label provided by a wrapped label model
+ * An {@link ILabelModel} that moves the layout of a label provided by a wrapped label model
  * by a fixed offset.
  *
- * For the label as well as for the wrapped label reference points can be described that shall differ
- * by this offset. The reference points are described as ratio of the labels width and height
+ * For the label as well as for the wrapped label, reference points can be described that shall differ
+ * by this offset. The reference points are described as a ratio of the label's width and height
  * relative to the upper-left corner. A value of (0,0) describes the upper-left corner, while (1,1)
  * is the lower-right corner.
  *
@@ -137,7 +137,7 @@ export class OffsetLabelModelWrapper extends BaseClass(ILabelModel) {
     )
   }
 
-  lookup(type) {
+  lookup(_type) {
     return null
   }
 }

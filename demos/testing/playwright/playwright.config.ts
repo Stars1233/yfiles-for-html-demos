@@ -47,7 +47,7 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    baseURL: process.env.TEST_SERVER_URL || 'http://localhost:4241/demos-ts/',
+    baseURL: process.env.TEST_SERVER_URL || 'http://localhost:4242/demos-ts/',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry'

@@ -148,7 +148,7 @@
   vertical-align: top;
   box-sizing: border-box;
   border-spacing: 3px;
-  border: 2px solid var(--interaction-heading);
+  border: 2px solid var(--description-heading);
   background-color: var(--interaction-bg);
 }
 .logGroup-container:before,
@@ -184,7 +184,7 @@
   font-size: 1.3rem;
   padding: 3px;
   font-weight: bold;
-  color: var(--interaction-heading);
+  color: var(--description-heading);
 }
 
 .logMessage.category-InputMode {

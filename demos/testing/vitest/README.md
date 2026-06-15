@@ -22,4 +22,4 @@ To run the test:
 
 The test is run in Chromium in headless mode.
 
-The application under test is the [Simple Testable App](../application-under-test/index.html). To access yFiles in Vitest, the GraphComponent is set as a global variable in that application.
+The application under test is the [Simple Testable App](../application-under-test/index.html). The GraphComponent instance is accessed from its parent element through the `[data-this]` attribute.

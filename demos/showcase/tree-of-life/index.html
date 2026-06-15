@@ -146,8 +146,12 @@
       import '@yfiles/demo-app/initialize-ui'
     </script>
 
-    <style>
-      #breadcrumbs {
+    <style lang="less">
+      #navigation {
+        --navigation-bg: rgb(255 255 255 / 0.7);
+        --navigation-text: black;
+        --navigation-wrap: wrap;
+
         position: absolute;
         left: 0;
         right: 0;
@@ -156,50 +160,8 @@
         white-space: nowrap;
         display: none;
         z-index: 2;
-        margin-top: 90px;
+        margin-top: 70px;
         text-align: center;
-      }
-
-      #breadcrumbs > * {
-        display: inline-block;
-        background-color: #fff9;
-        padding: 4px;
-      }
-
-      .breadcrumbs-label {
-        font-weight: bold;
-        color: var(--color-casper-blue-black);
-      }
-
-      .breadcrumbs-items > * {
-        display: inline-block;
-      }
-
-      .breadcrumbs-arrow {
-        font-weight: bold;
-        color: var(--color-casper-blue-black);
-      }
-
-      .breadcrumbs-items .breadcrumbs-item {
-        width: auto;
-        height: 30px;
-        font-size: 14px;
-        color: #333;
-        background: #ddd;
-        border-radius: 8px;
-        text-align: center;
-        margin: 0 2px;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        cursor: pointer;
-        border: none;
-      }
-
-      .breadcrumbs-items .breadcrumbs-item.selected,
-      .breadcrumbs-items .breadcrumbs-item.selected:hover,
-      .breadcrumbs-items .breadcrumbs-item:hover {
-        background: #4caf50;
-        color: white;
       }
     </style>
   </head>
@@ -477,12 +439,7 @@
             </form>
           </label>
         </div>
-        <div id="breadcrumbs">
-          <span class="breadcrumbs-label">You are here:</span>
-          <span class="breadcrumbs-items">
-            <button class="breadcrumbs-item selected">Life on Earth</button>
-          </span>
-        </div>
+        <navigation-component id="navigation"></navigation-component>
         <div id="graphComponent"></div>
       </div>
       <div class="description-panel">

@@ -71,7 +71,7 @@ export class OctilinearSelectionRenderer extends BaseClass(ISelectionRenderer) {
 }
 
 /**
- * A {@IVisualCreator} that creates the visual representation of the edge selection by using the original
+ * An {@link IVisualCreator} that creates the visual representation of the edge selection by using the original
  * selection renderer for the edge's path and additional bend indicators in the center of the octilinear segments.
  */
 class OctilinearSelectionVisualCreator extends BaseClass(IVisualCreator) {
@@ -113,7 +113,7 @@ class OctilinearSelectionVisualCreator extends BaseClass(IVisualCreator) {
     return group
   }
 
-  updateVisual(context, oldVisual) {
+  updateVisual(context, _oldVisual) {
     return this.createVisual(context)
   }
 }

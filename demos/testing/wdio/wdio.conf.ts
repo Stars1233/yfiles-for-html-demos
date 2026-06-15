@@ -72,6 +72,7 @@ export const config: WebdriverIO.Config = {
   capabilities: [
     {
       browserName: 'firefox',
+      browserVersion: 'latest',
       'moz:firefoxOptions': {
         // flag to activate Firefox headless mode (see
         // https://github.com/mozilla/geckodriver/blob/master/README.md#firefox-capabilities
@@ -79,7 +80,11 @@ export const config: WebdriverIO.Config = {
         args: ['-headless']
       }
     },
-    { browserName: 'chrome', 'goog:chromeOptions': { args: ['--headless'] } }
+    {
+      browserName: 'chrome',
+      browserVersion: 'latest',
+      'goog:chromeOptions': { args: ['--headless'] }
+    }
   ],
   //
   // ===================
@@ -112,7 +117,7 @@ export const config: WebdriverIO.Config = {
   // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
   // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
   // gets prepended directly.
-  baseUrl: process.env.TEST_SERVER_URL || 'http://localhost:4241/demos-ts/',
+  baseUrl: process.env.TEST_SERVER_URL || 'http://localhost:4242/demos-ts/',
   //
   // Default timeout for all waitFor* commands.
   waitforTimeout: 10000,

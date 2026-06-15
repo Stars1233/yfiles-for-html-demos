@@ -60,7 +60,7 @@
             <li>Run the integration tests: <code>npm run test:integration</code>.</li>
             <li>
               Run the integration tests in watch mode:
-              <code>npm run test:integrationWithWatch</code>.
+              <code>npm run test:integration:watch</code>.
             </li>
           </ol>
 
@@ -85,9 +85,9 @@
 
           <p>
             The application under test is the
-            <a href="../application-under-test/index.html">Simple Testable App</a>. To access yFiles
-            via Jest / Puppeteer, the <a data-api>GraphComponent</a> is set as a global variable in
-            that application.
+            <a href="../application-under-test/index.html">Simple Testable App</a>. The
+            <a data-api>GraphComponent</a> instance is accessed from its parent element through the
+            <code>[data-this]</code> attribute.
           </p>
         </div>
         <!-- populated by readme-style.js -->

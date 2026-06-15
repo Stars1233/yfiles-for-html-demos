@@ -34,9 +34,9 @@ import graphData from './sample.json'
  * Demonstrates how to run a {@link HierarchicalLayout} on a predefined subset of nodes and edges.
  */
 async function applyIncrementalHierarchicalLayout(graphComponent) {
-  // Configure the layout data to only include nodes with the 'includeInLayout' tag
+  // Configure the layout data to only include nodes marked as 'includeInLayout' in the tag
   const hierarchicalLayoutData = new HierarchicalLayoutData({
-    incrementalNodes: (node) => node.tag && node.tag === 'includeInLayout'
+    incrementalNodes: (node) => node.tag?.includeInLayout
   })
 
   // Create a hierarchical layout with fromSketchMode enabled

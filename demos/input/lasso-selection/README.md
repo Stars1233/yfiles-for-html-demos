@@ -19,14 +19,14 @@ This demo shows how to use [LassoSelectionInputMode](https://docs.yworks.com/yfi
 
 ## Things to Try
 
-- **Selection Styles:** Choose between different selection styles:
-  - **Free-hand Selection:** Draw a free-form shape around elements by dragging the mouse.
-  - **Polyline Selection:** Create a polygon by clicking to add points. Double-click to complete the selection.
-  - **Marquee Selection:** Use the traditional rectangular selection by dragging the mouse.
+- Choose between different **Selection Styles** using the toolbar dropdown:
+  - **Free-hand:** Draw a free-form shape around elements by dragging the mouse.
+  - **Polyline:** Create a polygon by clicking to add points. Double-click to complete the selection.
+  - **Marquee:** Use the traditional rectangular selection by dragging the mouse.
 
-- **Select Nodes:** Choose how nodes are considered selected by the lasso tool:
-  - **Nodes Complete:** Nodes are selected only if fully contained within the lasso path.
-  - **Nodes Intersected:** Nodes are selected if they intersect or are fully contained within the lasso path.
-  - **Nodes Center:** Nodes are selected only if their center point is contained within the lasso path.
+- Determine how nodes are considered **selected** by the lasso tool using the toolbar dropdown:
+  - **Fully Contained:** Nodes are selected only if fully contained within the lasso path.
+  - **Intersected:** Nodes are selected if they intersect the lasso path.
+  - **Center Contained:** Nodes are selected only if their center point is contained within the lasso path.
 
 - **Finish Radius:** Adjust the radius around the starting point where the lasso can be closed. When dragging the lasso near the starting point, a circle with the corresponding radius is highlighted.

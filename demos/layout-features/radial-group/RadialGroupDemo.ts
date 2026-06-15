@@ -60,7 +60,7 @@ const radialGroupLayout = new RadialGroupLayout({
 // Configure radial group layout data
 const radialGroupLayoutData = new RadialGroupLayoutData({
   // Allow more overlap with parent nodes (except those tagged "avoidParentOverlap") for compact drawings
-  parentOverlapRatios: (node) => (node.tag === 'avoidParentOverlap' ? 0 : 0.5)
+  parentOverlapRatios: (node) => (node.tag?.avoidParentOverlap ? 0 : 0.5)
 })
 
 // Use round nodes that are typical for radial layout

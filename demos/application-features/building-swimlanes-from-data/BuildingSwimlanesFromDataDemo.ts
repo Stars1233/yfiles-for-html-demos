@@ -145,11 +145,11 @@ function configureTableEditing(graphComponent: GraphComponent): void {
  *
  * @param graph The graph.
  * @param graphData The graph data that was loaded from the JSON file.
- * @yjs:keep = nodesSource,edgesSource
+ * @yjs:keep = nodesSource, edgesSource
  */
 function buildGraph(graph: IGraph, graphData: any): void {
   // Store lanes and nodes references.
-  // It will be easier to assign lanes or connect them with edges afterwards.
+  // It will be easier to assign lanes or connect them with edges afterward.
   const nodes: { [id: string]: INode } = {}
   const lanes: { [id: string]: number } = {}
 

@@ -340,6 +340,7 @@
 
           <span class="separator"></span>
           <button id="create-edge" class="labeled">Create Edge</button>
+          <button id="clear-graph" class="labeled">Clear Graph</button>
         </div>
         <div id="graphComponent"></div>
       </div>
@@ -348,19 +349,18 @@
         <p>This demo is a simple app used as the test candidate in the following testing demos:</p>
         <ul>
           <li><a href="../../../demos-ts/testing/cypress/README.html" class="demo">Cypress Demo</a></li>
-          <li><a href="../../../demos-js/testing/jest-puppeteer/README.html" class="demo">Jest Puppeteer Demo</a></li>
-          <li><a href="../../../demos-ts/testing/playwright/README.html" class="demo">Playwright Demo</a></li>
-          <li><a href="../../../demos-js/testing/jest-puppeteer/README.html" class="demo">Jest Puppeteer Demo</a></li>
-          <li><a href="../../../demos-ts/testing/selenium-webdriver/README.html" class="demo">Selenium WebDriver Demo</a></li>
           <li><a href="../../../demos-ts/testing/vitest/README.html" class="demo">Vitest Demo</a></li>
+          <li><a href="../../../demos-ts/testing/playwright/README.html" class="demo">Playwright Demo</a></li>
           <li><a href="../../../demos-ts/testing/wdio/README.html" class="demo">WebdriverIO Demo</a></li>
+          <li><a href="../../../demos-ts/testing/selenium-webdriver/README.html" class="demo">Selenium WebDriver Demo</a></li>
+          <li><a href="../../../demos-js/testing/jest-puppeteer/README.html" class="demo">Jest Puppeteer Demo</a></li>
         </ul>
         <p>Please refer to the README files in these demos for further guidance.</p>
         <p>
           A simple way to make a yFiles App testable is making the
-          <a href="https://docs.yworks.com/yfileshtml/api/GraphComponent" class="api" target="_blank">GraphComponent</a> available to the testing framework. In this app, this is
-          achieved by setting the instantiated <a href="https://docs.yworks.com/yfileshtml/api/GraphComponent" class="api" target="_blank">GraphComponent</a> as a property of the
-          <code>Window</code> object.
+          <a href="https://docs.yworks.com/yfileshtml/api/GraphComponent" class="api" target="_blank">GraphComponent</a> available to the testing framework. The
+          <a href="https://docs.yworks.com/yfileshtml/api/GraphComponent" class="api" target="_blank">GraphComponent</a> instance is accessed from its parent element through the
+          <code>[data-this]</code> attribute.
         </p>
       </div>
       <div class="panel-bar"></div>

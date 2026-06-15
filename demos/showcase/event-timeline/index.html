@@ -146,7 +146,8 @@
       import '@yfiles/demo-app/initialize-ui'
     </script>
 
-    <link rel="stylesheet" href="eventTimeline.css" />
+    <link rel="stylesheet" href="./eventTimeline/eventTimeline.css" />
+    <link rel="stylesheet" href="eventTimelineDemo.css" />
     <style>
       select {
         font-size: 12px;
@@ -407,9 +408,6 @@
         <div class="event_timeline_container">
           <div id="demo-main__timescale"></div>
           <div id="graphComponent"></div>
-          <dialog id="demo-main__subgraph-component">
-            <div id="subGraphComponent"></div>
-          </dialog>
         </div>
       </div>
       <div class="description-panel">
@@ -433,13 +431,7 @@
         <!-- Example Graph -->
         <div style="display: flex">
           <div class="example_event_timeline_container">
-            <div id="demo-example__timescale"></div>
-
             <div id="exampleGraphComponent"></div>
-
-            <dialog id="demo-example__subgraph-component" class="demo-example__subgraph-component">
-              <div id="exampleSubGraphComponent"></div>
-            </dialog>
           </div>
         </div>
 

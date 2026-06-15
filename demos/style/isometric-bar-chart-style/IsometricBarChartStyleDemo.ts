@@ -47,10 +47,10 @@ let barDataComboBox: HTMLSelectElement
 
 /**
  * Demo that shows how to augment a graph with additional information by displaying
- * isometric bars. The sample graph, which is loaded from a GraphML file consists of
+ * isometric bars. The sample graph, which is loaded from a GraphML file, consists of
  * multiple, already styled nodes which are associated with precomputed centrality values.
  * These values are then used in two additional NodeStyles to display a bar and a label each
- * and added as additional visualization via a custom @link{GraphModelManager}.
+ * and added as additional visualization via a custom {@link GraphModelManager}.
  */
 async function run(): Promise<void> {
   if (!checkWebGL2Support()) {
@@ -63,11 +63,11 @@ async function run(): Promise<void> {
 
   // initialize the GraphComponent and place it in the div with CSS selector #graphComponent
   graphComponent = new GraphComponent('#graphComponent')
-  // use an isometric projection and allow fitContent to use a zoom > 1
+  // use an isometric projection and allow fitContent to use a zoom value > 1
   graphComponent.projection = Matrix.ISOMETRIC
   graphComponent.limitFitContentZoom = false
 
-  // setup the additional GraphModelManagers to add the isometric bar augmentation to the GraphComponent
+  // initialize the additional GraphModelManagers to add the isometric bar augmentation to the GraphComponent
   initializeAugmentations(graphComponent, getTagData)
 
   // configure interaction
@@ -85,8 +85,8 @@ async function run(): Promise<void> {
 
 /**
  * Provides the data to be visualized by the bar chart.
- * @yjs:keep = degreeCentrality,graphCentrality,pageRank
  * @param node The node to provide the bar chart data for.
+ * @yjs:keep = degreeCentrality, graphCentrality, pageRank
  */
 function getTagData(node: INode): any {
   // extract the color used by the style of the node so it can be used as base color for the bar

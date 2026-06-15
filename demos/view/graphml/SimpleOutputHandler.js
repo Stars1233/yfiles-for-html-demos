@@ -54,7 +54,7 @@ export class SimpleOutputHandler extends OutputHandlerBase {
    * @see Overrides {@link OutputHandlerBase.writeValueCore}
    */
   writeValueCore(context, data) {
-    if (data !== null) {
+    if (data != null) {
       switch (this.property.type) {
         case KeyType.INT:
           context.writer.writeString((data | 0).toString())
@@ -63,10 +63,8 @@ export class SimpleOutputHandler extends OutputHandlerBase {
           context.writer.writeString((data | 0).toString())
           break
         case KeyType.FLOAT:
-          context.writer.writeString(data)
-          break
         case KeyType.DOUBLE:
-          context.writer.writeString(data)
+          context.writer.writeString(parseFloat(data).toString())
           break
         case KeyType.STRING:
           context.writer.writeCData(data)

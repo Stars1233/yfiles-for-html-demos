@@ -124,8 +124,10 @@ export class EditorSync {
     this.editor.dispatch({ effects: effects })
 
     const newMarker = this.editor.state.field(this.markerField).markers.get(id)
-    this.itemToMarkerMap.set(item, newMarker)
-    this.markerToItemMap.set(newMarker, item)
+    if (newMarker) {
+      this.itemToMarkerMap.set(item, newMarker)
+      this.markerToItemMap.set(newMarker, item)
+    }
 
     return newMarker
   }
@@ -354,7 +356,7 @@ export class EditorSync {
         )
       }
     }
-    return null
+    return undefined
   }
 
   get editor() {

@@ -31,10 +31,11 @@ import {
   HierarchicalLayout,
   LayoutExecutorAsyncWorker,
   License,
-  OrganicLayout
+  OrganicLayout,
+  RadialLayout
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
-import { CustomOrganicLayoutStage } from './layout'
+import { CustomOrganicLayoutStage, LabelRemovalStage } from './layout'
 
 // register the yFiles license in the worker as well
 License.value = licenseData
@@ -48,6 +49,11 @@ LayoutExecutorAsyncWorker.initializeWebWorker((graph, layoutDescriptor) => {
   if (layoutDescriptor.name === 'OrganicLayout') {
     // create and apply a new hierarchical layout using the given layout properties
     const layout = new OrganicLayout(layoutDescriptor.properties)
+    layout.applyLayout(graph)
+  } else if (layoutDescriptor.name === 'RadialLayout') {
+    const radialLayout = new RadialLayout(layoutDescriptor.properties)
+    radialLayout.parallelEdgeRouter.edgeDistance = 30
+    const layout = new LabelRemovalStage(radialLayout)
     layout.applyLayout(graph)
   } else if (layoutDescriptor.name === 'UserDefined') {
     const layout = new CustomOrganicLayoutStage()

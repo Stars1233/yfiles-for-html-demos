@@ -12,7 +12,7 @@
     {
       "id": 5,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -20,7 +20,7 @@
     {
       "id": 6,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -28,7 +28,7 @@
     {
       "id": 7,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -36,7 +36,7 @@
     {
       "id": 8,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -44,7 +44,7 @@
     {
       "id": 9,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -52,7 +52,7 @@
     {
       "id": 10,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -60,7 +60,7 @@
     {
       "id": 11,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -68,7 +68,7 @@
     {
       "id": 12,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -76,7 +76,7 @@
     {
       "id": 13,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -84,7 +84,7 @@
     {
       "id": 14,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -92,7 +92,7 @@
     {
       "id": 15,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -100,7 +100,7 @@
     {
       "id": 16,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -108,7 +108,7 @@
     {
       "id": 17,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -116,7 +116,7 @@
     {
       "id": 18,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -124,7 +124,7 @@
     {
       "id": 19,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -132,7 +132,7 @@
     {
       "id": 20,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -140,7 +140,7 @@
     {
       "id": 21,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -148,7 +148,7 @@
     {
       "id": 22,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -156,7 +156,7 @@
     {
       "id": 23,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -164,7 +164,7 @@
     {
       "id": 24,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -172,7 +172,7 @@
     {
       "id": 25,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -180,7 +180,7 @@
     {
       "id": 26,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -188,7 +188,7 @@
     {
       "id": 27,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -196,7 +196,7 @@
     {
       "id": 28,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -204,7 +204,7 @@
     {
       "id": 29,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -212,7 +212,7 @@
     {
       "id": 30,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -220,7 +220,7 @@
     {
       "id": 31,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -228,7 +228,7 @@
     {
       "id": 32,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -236,7 +236,7 @@
     {
       "id": 33,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -244,7 +244,7 @@
     {
       "id": 34,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -252,7 +252,7 @@
     {
       "id": 35,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 4
@@ -260,7 +260,7 @@
     {
       "id": 36,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "C",
+      "type": "C",
       "labels": [{ "text": "C", "cssClass": "purple" }],
       "cssClass": "purple",
       "parent": 4
@@ -268,7 +268,7 @@
     {
       "id": 37,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "C",
+      "type": "C",
       "labels": [{ "text": "C", "cssClass": "purple" }],
       "cssClass": "purple",
       "parent": 4
@@ -276,7 +276,7 @@
     {
       "id": 38,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "C",
+      "type": "C",
       "labels": [{ "text": "C", "cssClass": "purple" }],
       "cssClass": "purple",
       "parent": 4
@@ -284,7 +284,7 @@
     {
       "id": 39,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "C",
+      "type": "C",
       "labels": [{ "text": "C", "cssClass": "purple" }],
       "cssClass": "purple",
       "parent": 4
@@ -292,7 +292,7 @@
     {
       "id": 40,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "C",
+      "type": "C",
       "labels": [{ "text": "C", "cssClass": "purple" }],
       "cssClass": "purple",
       "parent": 4
@@ -300,7 +300,7 @@
     {
       "id": 41,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "C",
+      "type": "C",
       "labels": [{ "text": "C", "cssClass": "purple" }],
       "cssClass": "purple",
       "parent": 4
@@ -308,7 +308,7 @@
     {
       "id": 42,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -316,7 +316,7 @@
     {
       "id": 43,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -324,7 +324,7 @@
     {
       "id": 44,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -332,7 +332,7 @@
     {
       "id": 45,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -340,7 +340,7 @@
     {
       "id": 46,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -348,7 +348,7 @@
     {
       "id": 47,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 4
@@ -361,7 +361,7 @@
     {
       "id": 49,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 48
@@ -369,7 +369,7 @@
     {
       "id": 50,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 48
@@ -377,7 +377,7 @@
     {
       "id": 51,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 48
@@ -385,7 +385,7 @@
     {
       "id": 52,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 48
@@ -393,7 +393,7 @@
     {
       "id": 53,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 48
@@ -401,7 +401,7 @@
     {
       "id": 54,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 48
@@ -409,7 +409,7 @@
     {
       "id": 55,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 48
@@ -417,7 +417,7 @@
     {
       "id": 56,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 48
@@ -425,7 +425,7 @@
     {
       "id": 57,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 48
@@ -433,7 +433,7 @@
     {
       "id": 58,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 48
@@ -441,7 +441,7 @@
     {
       "id": 59,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "B",
+      "type": "B",
       "labels": [{ "text": "B", "cssClass": "green" }],
       "cssClass": "green",
       "parent": 48
@@ -454,7 +454,7 @@
     {
       "id": 61,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "C",
+      "type": "C",
       "labels": [{ "text": "C", "cssClass": "purple" }],
       "cssClass": "purple",
       "parent": 60
@@ -462,7 +462,7 @@
     {
       "id": 62,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 60
@@ -470,7 +470,7 @@
     {
       "id": 63,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "C",
+      "type": "C",
       "labels": [{ "text": "C", "cssClass": "purple" }],
       "cssClass": "purple",
       "parent": 60
@@ -478,7 +478,7 @@
     {
       "id": 64,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "C",
+      "type": "C",
       "labels": [{ "text": "C", "cssClass": "purple" }],
       "cssClass": "purple",
       "parent": 60
@@ -486,7 +486,7 @@
     {
       "id": 65,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 60
@@ -494,7 +494,7 @@
     {
       "id": 66,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 60
@@ -502,7 +502,7 @@
     {
       "id": 67,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 60
@@ -510,7 +510,7 @@
     {
       "id": 68,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 60
@@ -518,7 +518,7 @@
     {
       "id": 69,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 60
@@ -526,7 +526,7 @@
     {
       "id": 70,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 60
@@ -534,7 +534,7 @@
     {
       "id": 71,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "C",
+      "type": "C",
       "labels": [{ "text": "C", "cssClass": "purple" }],
       "cssClass": "purple",
       "parent": 60
@@ -547,7 +547,7 @@
     {
       "id": 73,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 72
@@ -555,7 +555,7 @@
     {
       "id": 74,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 72
@@ -563,7 +563,7 @@
     {
       "id": 75,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 72
@@ -571,7 +571,7 @@
     {
       "id": 76,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 72
@@ -579,7 +579,7 @@
     {
       "id": 77,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 50 },
-      "tag": "A",
+      "type": "A",
       "labels": [{ "text": "A", "cssClass": "blue" }],
       "cssClass": "blue",
       "parent": 72

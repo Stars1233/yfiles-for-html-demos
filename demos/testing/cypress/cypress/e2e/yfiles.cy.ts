@@ -41,29 +41,36 @@ describe('yfiles spec', () => {
      * If not, please start it with the appropriate script or change
      * the URL below to an application you would like to test.
      */
-    cy.visit(
-      new URL(
-        'testing/application-under-test/index.html',
-        Cypress.env('testingUrl') || 'http://localhost:4241/demos-ts/'
-      ).href
-    )
-
-    cy.get('.loaded').should('exist')
-
-    cy.window().then((win) => {
-      const graphComponent = (win as Cypress.AUTWindow & { graphComponent: GraphComponent })
-        .graphComponent
-
-      expect(graphComponent, 'graphComponent').to.exist
-
-      const startEdges = graphComponent.graph.edges.size
-
-      cy.get('#create-edge').click()
-
-      cy.then(() => {
-        const endEdges = graphComponent.graph.edges.size
-        expect(endEdges).to.equal(startEdges + 1)
+    cy.env(['testingUrl'])
+      .then(({ testingUrl }) => {
+        cy.visit(
+          new URL(
+            'testing/application-under-test/index.html',
+            testingUrl || 'http://localhost:4242/demos-ts/'
+          ).href
+        )
       })
-    })
+      .then(() => {
+        cy.get('.loaded').should('exist')
+        cy.window().then((win) => {
+          // win is the remote window
+          const graphComponent = (win.document.getElementById('graphComponent') as any)[
+            'data-this'
+          ] as GraphComponent | undefined
+          if (!graphComponent) {
+            throw new Error('graphComponent is undefined')
+          }
+          const startEdges = graphComponent.graph.edges.size
+
+          cy.get('button[id="create-edge"]')
+            .click()
+            .then(() => {
+              const endEdges = graphComponent.graph.edges.size
+              if (endEdges !== startEdges + 1) {
+                throw new Error(`number of edges after creating a new one is wrong: ${endEdges}.`)
+              }
+            })
+        })
+      })
   })
 })

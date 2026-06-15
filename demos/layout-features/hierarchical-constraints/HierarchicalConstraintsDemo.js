@@ -35,8 +35,8 @@ import graphData from './sample.json'
  */
 async function applyHierarchicalLayoutWithConstraints(graphComponent) {
   // Get the nodes for which we want to define constraints
-  const node4 = graphComponent.graph.nodes.find((node) => node.tag === 4)
-  const node5 = graphComponent.graph.nodes.find((node) => node.tag === 5)
+  const node4 = graphComponent.graph.nodes.find((node) => node.tag.type === 4)
+  const node5 = graphComponent.graph.nodes.find((node) => node.tag.type === 5)
 
   // Initialize a layout data object to define constraints
   const hierarchicalLayoutData = new HierarchicalLayoutData()

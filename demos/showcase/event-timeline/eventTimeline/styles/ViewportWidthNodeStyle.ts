@@ -33,22 +33,28 @@ import {
   SvgVisual,
   type TaggedSvgVisual
 } from '@yfiles/yfiles'
+import { ItemState } from '../EventTimelineTypes'
 
-import type { NodeTag } from '../EventTimelineTypes'
+type ElementAttrCache = {
+  x?: string
+  y?: string
+  width?: string
+  height?: string
+  rx?: string
+  ry?: string
+  strokeWidth?: string
+}
 
-/**
- * The ViewportWidthNodeStyleCache contains the three SVG elements that make up the
- * ViewportWidthNodeStyleVisual, i.e., three rectangles.
- */
 type ViewportWidthNodeStyleCache = {
   mainRect: SVGRectElement
   leftRect: SVGRectElement
   rightRect: SVGRectElement
+  mainRectCache: ElementAttrCache
+  leftRectCache: ElementAttrCache
+  rightRectCache: ElementAttrCache
+  highlightedAdjacent?: boolean
 }
 
-/**
- * The ViewportWidthNodeStyleVisual stores the ViewportWidthNodeStyleCache as a TaggedSvgVisual.
- */
 type ViewportWidthNodeStyleVisual = TaggedSvgVisual<SVGGElement, ViewportWidthNodeStyleCache>
 
 /**
@@ -60,17 +66,45 @@ type ViewportWidthNodeStyleVisual = TaggedSvgVisual<SVGGElement, ViewportWidthNo
  * - rightRect: extends from the right of the mainRect to the edge of the viewport
  */
 export class ViewportWidthNodeStyle extends NodeStyleBase {
-  cssClass: string = 'viewport-width-node-style'
+  private highlight: boolean
+  constructor(highlight: boolean = false) {
+    super()
+    this.highlight = highlight
+  }
 
   /**
-   * Instantiates a new ViewportWidthNodeStyle object.
-   * @param cssClass The CSS class to be assigned to node object.
+   * Creates a new ViewportWidthNodeStyleVisual
+   * @param context The IRenderContext of the SVGVisual
+   * @param node the INode to be associated with the ViewportWidthNodeStyleVisual.
    */
-  constructor(cssClass?: string) {
-    super()
-    if (cssClass) {
-      this.cssClass = cssClass
+  createVisual(context: IRenderContext, node: INode): ViewportWidthNodeStyleVisual | null {
+    const group = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+    group.classList.add('event-timeline-node')
+    if (this.highlight) {
+      group.classList.add('highlight')
     }
+
+    const mainRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+    const leftRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+    leftRect.classList.add('ancillary-node')
+    const rightRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+    rightRect.classList.add('ancillary-node')
+
+    group.appendChild(mainRect)
+    group.appendChild(leftRect)
+    group.appendChild(rightRect)
+
+    const visual = SvgVisual.from(group, {
+      mainRect,
+      leftRect,
+      rightRect,
+      mainRectCache: {},
+      leftRectCache: {},
+      rightRectCache: {},
+      highlightedAdjacent: undefined
+    }) as ViewportWidthNodeStyleVisual
+
+    return this.updateVisual(context, visual, node)
   }
 
   /**
@@ -84,64 +118,69 @@ export class ViewportWidthNodeStyle extends NodeStyleBase {
     oldVisual: ViewportWidthNodeStyleVisual,
     node: INode
   ): ViewportWidthNodeStyleVisual {
+    const cache = oldVisual.tag
     const viewportXmin = context.canvasComponent.viewport.x
     const viewportXmax = viewportXmin + context.canvasComponent.viewport.width
-    const { mainRect, leftRect, rightRect } = oldVisual.tag
+    const { mainRect, leftRect, rightRect } = cache
     const radius = node.layout.height * 0.5
-    leftRect.x.baseVal.value = viewportXmin - 10
-    leftRect.width.baseVal.value = node.layout.x - viewportXmin
-    leftRect.height.baseVal.value = node.layout.height
-    leftRect.y.baseVal.value = node.layout.y
-    leftRect.rx.baseVal.value = radius
-    leftRect.ry.baseVal.value = radius
 
-    rightRect.x.baseVal.value = node.layout.x + node.layout.width
-    rightRect.width.baseVal.value = viewportXmax - (node.layout.x + node.layout.width)
-    rightRect.height.baseVal.value = node.layout.height
-    rightRect.y.baseVal.value = node.layout.y
-    rightRect.rx.baseVal.value = radius
-    rightRect.ry.baseVal.value = radius
+    const leftX = `${viewportXmin - 10}`
+    const leftWidth = `${Math.max(0, node.layout.x - viewportXmin)}`
+    const height = `${node.layout.height}`
+    const y = `${node.layout.y}`
+    const rx = `${radius}`
+    const ry = `${radius}`
 
-    mainRect.x.baseVal.value = node.layout.x
-    mainRect.width.baseVal.value = node.layout.width
-    mainRect.height.baseVal.value = node.layout.height
-    mainRect.y.baseVal.value = node.layout.y
-    mainRect.rx.baseVal.value = radius
-    mainRect.ry.baseVal.value = radius
+    const rightX = `${node.layout.x + node.layout.width}`
+    const rightWidth = `${Math.max(0, viewportXmax - (node.layout.x + node.layout.width))}`
 
-    if ((node.tag as NodeTag).highlightedAdjacent) {
-      mainRect.classList.add('highlighted-adjacent')
-    } else {
-      mainRect.classList.remove('highlighted-adjacent')
+    const mainX = `${node.layout.x}`
+    const mainWidth = `${node.layout.width}`
+
+    this.setAttrIfChanged(leftRect, cache.leftRectCache, 'x', leftX)
+    this.setAttrIfChanged(leftRect, cache.leftRectCache, 'width', leftWidth)
+    this.setAttrIfChanged(leftRect, cache.leftRectCache, 'height', height)
+    this.setAttrIfChanged(leftRect, cache.leftRectCache, 'y', y)
+    this.setAttrIfChanged(leftRect, cache.leftRectCache, 'rx', rx)
+    this.setAttrIfChanged(leftRect, cache.leftRectCache, 'ry', ry)
+
+    this.setAttrIfChanged(rightRect, cache.rightRectCache, 'x', rightX)
+    this.setAttrIfChanged(rightRect, cache.rightRectCache, 'width', rightWidth)
+    this.setAttrIfChanged(rightRect, cache.rightRectCache, 'height', height)
+    this.setAttrIfChanged(rightRect, cache.rightRectCache, 'y', y)
+    this.setAttrIfChanged(rightRect, cache.rightRectCache, 'rx', rx)
+    this.setAttrIfChanged(rightRect, cache.rightRectCache, 'ry', ry)
+
+    this.setAttrIfChanged(mainRect, cache.mainRectCache, 'x', mainX)
+    this.setAttrIfChanged(mainRect, cache.mainRectCache, 'width', mainWidth)
+    this.setAttrIfChanged(mainRect, cache.mainRectCache, 'height', height)
+    this.setAttrIfChanged(mainRect, cache.mainRectCache, 'y', y)
+    this.setAttrIfChanged(mainRect, cache.mainRectCache, 'rx', rx)
+    this.setAttrIfChanged(mainRect, cache.mainRectCache, 'ry', ry)
+    this.setAttrIfChanged(mainRect, cache.mainRectCache, 'strokeWidth', '1')
+
+    const highlightedAdjacent = node.lookup(ItemState)?.highlightedAdjacent ?? false
+    if (cache.highlightedAdjacent !== highlightedAdjacent) {
+      if (highlightedAdjacent) {
+        mainRect.classList.add('highlighted-adjacent')
+      } else {
+        mainRect.classList.remove('highlighted-adjacent')
+      }
+      cache.highlightedAdjacent = highlightedAdjacent
     }
 
     return oldVisual
   }
 
-  /**
-   * Creates a new ViewportWidthNodeStyleVisual
-   * @param context The IRenderContext of the SVGVisual
-   * @param node the INode to be associated with the ViewportWidthNodeStyleVisual.
-   */
-  createVisual(context: IRenderContext, node: INode): ViewportWidthNodeStyleVisual | null {
-    // we create a circular Element
-    const group = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-    group.classList = this.cssClass
-    const mainRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-
-    const leftRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-
-    leftRect.classList.add('ancillary-node')
-    const rightRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-
-    rightRect.classList.add('ancillary-node')
-
-    group.appendChild(mainRect)
-    group.appendChild(leftRect)
-    group.appendChild(rightRect)
-
-    const visual = SvgVisual.from(group, { mainRect, leftRect, rightRect })
-
-    return this.updateVisual(context, visual, node)
+  private setAttrIfChanged(
+    element: SVGElement,
+    cache: ElementAttrCache,
+    name: keyof ElementAttrCache,
+    value: string
+  ): void {
+    if (cache[name] !== value) {
+      element.setAttribute(name, value)
+      cache[name] = value
+    }
   }
 }

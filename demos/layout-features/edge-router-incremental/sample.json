@@ -20,8 +20,8 @@
     },
     { "id": 1, "source": 5, "target": 4 },
     { "id": 2, "source": 6, "target": 4 },
-    { "id": 3, "source": 4, "target": 1, "tag": "incremental", "cssClass": "highlight" },
-    { "id": 4, "source": 4, "target": 3, "tag": "incremental", "cssClass": "highlight" },
-    { "id": 5, "source": 4, "target": 2, "tag": "incremental", "cssClass": "highlight" }
+    { "id": 3, "source": 4, "target": 1, "incremental": "true", "cssClass": "highlight" },
+    { "id": 4, "source": 4, "target": 3, "incremental": "true", "cssClass": "highlight" },
+    { "id": 5, "source": 4, "target": 2, "incremental": "true", "cssClass": "highlight" }
   ]
 }

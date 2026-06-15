@@ -28,26 +28,42 @@
  ***************************************************************************/
 import {
   EdgeStyleBase,
-  GradientStop,
+  type GraphComponent,
   type ICanvasContext,
   type IEdge,
+  type IGraph,
   type IInputModeContext,
   type INode,
   type IRenderContext,
-  LinearGradient,
+  type LinearGradient,
   type Point,
   Rect,
   SvgVisual,
   type TaggedSvgVisual
 } from '@yfiles/yfiles'
+import { ItemState } from '../EventTimelineTypes'
+import { getOrCreateGradient } from './GradientUtility'
 
-/**
- * The EventTimelineAggregateEdgeCache
- */
+type ElementAttrCache = {
+  x?: string
+  y?: string
+  width?: string
+  height?: string
+  rx?: string
+  ry?: string
+  fill?: string
+  stroke?: string
+  display?: string
+}
+
 type EventTimelineAggregateEdgeCache = {
   ports: SVGRectElement[]
   edges: SVGRectElement[]
   bounds: SVGRectElement
+  portAttrCache: ElementAttrCache[]
+  edgeAttrCache: ElementAttrCache[]
+  boundsAttrCache: ElementAttrCache
+  svgClass?: string
 }
 
 /**
@@ -72,37 +88,34 @@ type EdgeBins = { xMin: number; xMax: number; y: number; color: string }
  * grouped edge visual.
  */
 export class EventTimelineAggregatedEdgesStyle extends EdgeStyleBase {
-  readonly edges: IEdge[]
   readonly radius: number
-  cssClass: string
+  private cssClass: string = 'event-timeline-aggregate-edge'
   private readonly nodeToColorMapper: (node: INode) => string
   private readonly edgeWidth: number
   private gradients: Map<string, LinearGradient>
 
   /**
    * Instantiates a new EventTimelineAggregatedEdgesStyle
-   * @param edges the edges to form an EventTimelineAggregatedEdgesStyle
    * @param radius the radius of the EventTimelineAggregatedEdgesStyle's termini
    * @param edgeWidth the width of the EventTimelineAggregatedEdgesStyle's visual
    * @param nodeToColorMapper maps a given INode to a particular color
    * @param gradientMap a collection of all color gradients in the drawing
-   * @param cssClass the CSS class to be associated with the edge visual
    */
   constructor(
-    edges: IEdge[],
     radius: number,
     edgeWidth: number,
     nodeToColorMapper: (node: INode) => string,
-    gradientMap: Map<string, LinearGradient> = new Map(),
-    cssClass: string = 'event-timeline-aggregate-edge'
+    gradientMap: Map<string, LinearGradient> = new Map()
   ) {
     super()
-    this.edges = edges
     this.radius = radius
     this.edgeWidth = edgeWidth
     this.nodeToColorMapper = nodeToColorMapper
     this.gradients = gradientMap
-    this.cssClass = cssClass
+  }
+
+  private getEdges(edge: IEdge): IEdge[] {
+    return edge.lookup(ItemState)?.representedGroup?.edges ?? []
   }
 
   /**
@@ -110,31 +123,42 @@ export class EventTimelineAggregatedEdgesStyle extends EdgeStyleBase {
    * @private
    * @returns the EdgeBins of the aggregated edge
    */
-  private getPortDimensions(): EdgeBins[] {
+  private getPortDimensions(edge: IEdge, graph?: IGraph): EdgeBins[] {
     const sortedByY = new Map<number, { pos: Point; color: string }[]>()
-    for (const edge of this.edges) {
-      const pts = [edge.sourcePort!.location, edge.targetPort!.location]
+
+    for (const currentEdge of this.getEdges(edge)) {
+      if (graph && !graph.contains(currentEdge)) {
+        continue
+      }
+
+      const pts = [currentEdge.sourcePort!.location, currentEdge.targetPort!.location]
       pts.forEach((loc, idx) => {
         let group = sortedByY.get(loc.y)
         if (!group) {
           group = []
           sortedByY.set(loc.y, group)
         }
+
         group.push({
           pos: loc,
-          color: this.nodeToColorMapper(idx === 0 ? edge.sourceNode! : edge.targetNode!)
+          color: this.nodeToColorMapper(
+            idx === 0 ? currentEdge.sourceNode! : currentEdge.targetNode!
+          )
         })
       })
     }
-    return Array.from(sortedByY.entries()).map(([y, points]) => {
-      const xCoords = points.map((p) => p.pos.x)
-      return {
-        xMin: Math.min(...xCoords) - this.edgeWidth / 2,
-        xMax: Math.max(...xCoords) + this.edgeWidth / 2,
-        y,
-        color: points[0].color
-      }
-    })
+
+    return Array.from(sortedByY.entries())
+      .sort(([y1], [y2]) => y1 - y2)
+      .map(([y, points]) => {
+        const xCoords = points.map((p) => p.pos.x)
+        return {
+          xMin: Math.min(...xCoords) - this.edgeWidth / 2,
+          xMax: Math.max(...xCoords) + this.edgeWidth / 2,
+          y,
+          color: points[0].color
+        }
+      })
   }
 
   /**
@@ -146,56 +170,61 @@ export class EventTimelineAggregatedEdgesStyle extends EdgeStyleBase {
    */
   protected createVisual(context: IRenderContext, edge: IEdge): EventTimelineAggregateEdgeVisual {
     const aggregateGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+    const state = edge.lookup(ItemState)
 
-    // 1. Create Background
+    // 1. Background / bounds overlay
     const bounds = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-    Object.assign(bounds.style, { fill: 'grey' })
-    bounds.classList = this.cssClass + ' background'
-    bounds.rx.baseVal.value = 10
-    bounds.ry.baseVal.value = 10
+    bounds.setAttribute('fill', 'var(--yfiles-event-timeline-aggregate-background-color, #808080)')
+    bounds.setAttribute('opacity', '0.4')
+    bounds.setAttribute('rx', '10')
+    bounds.setAttribute('ry', '10')
+    bounds.classList.add(this.cssClass, 'background')
+    if (state?.highlighted) {
+      bounds.classList.add('highlight')
+    }
     aggregateGroup.appendChild(bounds)
 
-    // 2. Create Edge elements
+    // 2. Edge elements
     const edgeGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g')
-    const edges = this.edges.map((edge) => {
+    const graph = (context.canvasComponent as GraphComponent).graph
+
+    const edges = this.getEdges(edge).map((currentEdge) => {
       const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
-      const sourcePosition = edge.sourcePort!.location
-      const targetPosition = edge.targetPort!.location
-      const sourceColor = this.nodeToColorMapper(edge.sourceNode!)
-      const targetColor = this.nodeToColorMapper(edge.targetNode!)
+      rect.classList.add('band')
+
+      if (!graph.contains(currentEdge)) {
+        rect.setAttribute('display', 'none')
+        edgeGroup.appendChild(rect)
+        return rect
+      }
+
+      const sourcePosition = currentEdge.sourcePort!.location
+      const targetPosition = currentEdge.targetPort!.location
+      const sourceColor = this.nodeToColorMapper(currentEdge.sourceNode!)
+      const targetColor = this.nodeToColorMapper(currentEdge.targetNode!)
+
       if (sourceColor !== targetColor) {
-        let linearGradient = this.gradients.get(
-          sourcePosition.y < targetPosition.y
-            ? sourceColor + targetColor
-            : targetColor + sourceColor
+        const linearGradient = getOrCreateGradient(
+          this.gradients,
+          sourceColor,
+          targetColor,
+          sourcePosition.y,
+          targetPosition.y
         )
-        if (!linearGradient) {
-          linearGradient = new LinearGradient({
-            startPoint: [0, sourcePosition.y < targetPosition.y ? 0 : 1],
-            endPoint: [0, sourcePosition.y < targetPosition.y ? 1 : 0],
-            gradientStops: [
-              new GradientStop({ offset: 0, color: sourceColor }),
-              new GradientStop({ offset: 1, color: targetColor })
-            ]
-          })
-          this.gradients.set(
-            sourcePosition.y < targetPosition.y
-              ? sourceColor + targetColor
-              : targetColor + sourceColor,
-            linearGradient
-          )
-        }
         linearGradient.applyTo(rect, context)
       } else {
-        rect.style.fill = sourceColor
+        rect.setAttribute('fill', sourceColor || 'var(--yfiles-event-timeline-edge-color, #dfdee3)')
       }
+
+      rect.setAttribute('stroke', 'none')
       edgeGroup.appendChild(rect)
       return rect
     })
+
     aggregateGroup.appendChild(edgeGroup)
 
-    // 3. Create Port elements
-    const portDimensions = this.getPortDimensions()
+    // 3. Port elements
+    const portDimensions = this.getPortDimensions(edge, graph)
     const ports = portDimensions.map(() => {
       const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
       aggregateGroup.appendChild(rect)
@@ -205,7 +234,11 @@ export class EventTimelineAggregatedEdgesStyle extends EdgeStyleBase {
     const visual = SvgVisual.from(aggregateGroup, {
       ports,
       edges,
-      bounds
+      bounds,
+      portAttrCache: ports.map(() => ({})),
+      edgeAttrCache: edges.map(() => ({})),
+      boundsAttrCache: {},
+      svgClass: undefined
     }) as EventTimelineAggregateEdgeVisual
 
     return this.updateVisual(context, visual, edge)
@@ -225,47 +258,65 @@ export class EventTimelineAggregatedEdgesStyle extends EdgeStyleBase {
     edge: IEdge
   ): EventTimelineAggregateEdgeVisual {
     const cache = oldVisual.tag
-    const portDimensions = this.getPortDimensions()
+    const graph = (context.canvasComponent as GraphComponent).graph
+    const portDimensions = this.getPortDimensions(edge, graph)
+    const edges = this.getEdges(edge)
+    const state = edge.lookup(ItemState)
 
-    // Structural synchronization check
-    if (cache.ports.length !== portDimensions.length || cache.edges.length !== this.edges.length) {
+    if (cache.ports.length !== portDimensions.length || cache.edges.length !== edges.length) {
       return this.createVisual(context, edge)
     }
-    if (this.cssClass) {
-      oldVisual.svgElement.classList = this.cssClass
-    } // 1. Update Horizontal Port Bars
+
+    const newClass = this.cssClass + (state?.highlighted ? ' highlight' : '')
+    if (cache.svgClass !== newClass) {
+      oldVisual.svgElement.setAttribute('class', newClass)
+      cache.svgClass = newClass
+    }
+
     portDimensions.forEach(({ xMin, xMax, y, color }, i) => {
       const rect = cache.ports[i]
+      const rectCache = cache.portAttrCache[i]
       const width = Math.max(2 * this.radius, xMax - xMin)
-      rect.setAttribute('x', `${xMin}`)
-      rect.setAttribute('y', `${y - this.radius}`)
-      rect.setAttribute('width', `${width}`)
-      rect.setAttribute('height', `${this.radius * 2}`)
-      rect.setAttribute('rx', `${this.radius}`)
-      rect.setAttribute('ry', `${this.radius}`)
-      rect.style.fill = color
+
+      this.setAttrIfChanged(rect, rectCache, 'x', `${xMin}`)
+      this.setAttrIfChanged(rect, rectCache, 'y', `${y - this.radius}`)
+      this.setAttrIfChanged(rect, rectCache, 'width', `${width}`)
+      this.setAttrIfChanged(rect, rectCache, 'height', `${this.radius * 2}`)
+      this.setAttrIfChanged(rect, rectCache, 'rx', `${this.radius}`)
+      this.setAttrIfChanged(rect, rectCache, 'ry', `${this.radius}`)
+      this.setAttrIfChanged(rect, rectCache, 'fill', color)
     })
 
-    // 2. Update Vertical Edge Lines
-    this.edges.forEach((e, i) => {
+    edges.forEach((e, i) => {
+      const rect = cache.edges[i]
+      const rectCache = cache.edgeAttrCache[i]
+
+      if (!graph.contains(e)) {
+        this.setAttrIfChanged(rect, rectCache, 'display', 'none')
+        return
+      }
+
+      if (rectCache.display !== undefined) {
+        rect.removeAttribute('display')
+        delete rectCache.display
+      }
+
       const sourcePosition = e.sourcePort!.location
       const targetPosition = e.targetPort!.location
       const yMin = Math.min(sourcePosition.y, targetPosition.y)
       const yMax = Math.max(sourcePosition.y, targetPosition.y)
-      const rect = cache.edges[i]
 
-      rect.setAttribute('x', `${sourcePosition.x - this.edgeWidth / 2}`)
-      rect.setAttribute('y', `${yMin}`)
-      rect.setAttribute('width', `${this.edgeWidth}`)
-      rect.setAttribute('height', `${yMax - yMin}`)
+      this.setAttrIfChanged(rect, rectCache, 'x', `${sourcePosition.x - this.edgeWidth / 2}`)
+      this.setAttrIfChanged(rect, rectCache, 'y', `${yMin}`)
+      this.setAttrIfChanged(rect, rectCache, 'width', `${this.edgeWidth}`)
+      this.setAttrIfChanged(rect, rectCache, 'height', `${yMax - yMin}`)
     })
 
-    // 3. Update Bounds Overlay
     const b = this.getBounds(context, edge)
-    cache.bounds.setAttribute('x', `${b.x}`)
-    cache.bounds.setAttribute('y', `${b.y}`)
-    cache.bounds.setAttribute('width', `${b.width}`)
-    cache.bounds.setAttribute('height', `${b.height}`)
+    this.setAttrIfChanged(cache.bounds, cache.boundsAttrCache, 'x', `${b.x}`)
+    this.setAttrIfChanged(cache.bounds, cache.boundsAttrCache, 'y', `${b.y}`)
+    this.setAttrIfChanged(cache.bounds, cache.boundsAttrCache, 'width', `${b.width}`)
+    this.setAttrIfChanged(cache.bounds, cache.boundsAttrCache, 'height', `${b.height}`)
 
     return oldVisual
   }
@@ -278,17 +329,25 @@ export class EventTimelineAggregatedEdgesStyle extends EdgeStyleBase {
    */
   getBounds(context: ICanvasContext, edge: IEdge): Rect {
     let combinedBounds = Rect.EMPTY
-    for (const e of this.edges) {
-      const s = e.sourcePort!.location
-      const t = e.targetPort!.location
+    const graph = (context.canvasComponent as GraphComponent).graph
+
+    for (const e of this.getEdges(edge)) {
+      if (!graph.contains(e)) {
+        continue
+      }
+
+      const s = e.sourcePort.location
+      const t = e.targetPort.location
       const yMin = Math.min(s.y, t.y)
       const yMax = Math.max(s.y, t.y)
+
       combinedBounds = Rect.add(
         combinedBounds,
         new Rect(s.x - this.edgeWidth / 2, yMin, this.edgeWidth, yMax - yMin)
       )
     }
-    return combinedBounds.getEnlarged(this.radius * 2)
+
+    return combinedBounds.isEmpty ? Rect.EMPTY : combinedBounds.getEnlarged(this.radius * 2)
   }
 
   /**
@@ -314,5 +373,17 @@ export class EventTimelineAggregatedEdgesStyle extends EdgeStyleBase {
    */
   protected isVisible(context: ICanvasContext, rectangle: Rect, edge: IEdge): boolean {
     return rectangle.intersects(this.getBounds(context, edge))
+  }
+
+  private setAttrIfChanged(
+    element: SVGElement,
+    cache: ElementAttrCache,
+    name: keyof ElementAttrCache,
+    value: string
+  ): void {
+    if (cache[name] !== value) {
+      element.setAttribute(name, value)
+      cache[name] = value
+    }
   }
 }

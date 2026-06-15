@@ -60,7 +60,7 @@ const edgeRouter = new EdgeRouter({
 const edgeRouterData = new EdgeRouterData({
   scope: {
     // Do not route edges with "skipEdgeRouting" tag
-    edges: (edge) => edge.tag !== 'skipEdgeRouting'
+    edges: (edge) => edge.tag.type !== 'skipEdgeRouting'
   }
 })
 
@@ -74,19 +74,19 @@ octilinearDescriptor.routingStyle = 'octilinear'
 
 // Use octilinear routing for edges tagged 'octilinear', and default for the rest
 edgeRouterData.edgeDescriptors = (edge) =>
-  edge.tag === 'octilinear' ? octilinearDescriptor : defaultDescriptor
+  edge.tag.type === 'octilinear' ? octilinearDescriptor : defaultDescriptor
 
 // Group edges tagged 'groupAtTarget' by giving them the same target group ID
 const groupId = 'goldenGroup'
-edgeRouterData.targetGroupIds = (edge) => (edge.tag === 'groupAtTarget' ? groupId : null)
+edgeRouterData.targetGroupIds = (edge) => (edge.tag.type === 'groupAtTarget' ? groupId : null)
 
 // Define ports candidates for edges at node 5 and 7 (on the left or right side)
 edgeRouterData.ports.sourcePortCandidates = (edge) =>
-  edge.sourceNode.tag === 5 || edge.sourceNode.tag === 7
+  edge.sourceNode.tag.type === 5 || edge.sourceNode.tag.type === 7
     ? new EdgePortCandidates().addFreeCandidate(PortSides.RIGHT).addFreeCandidate(PortSides.LEFT)
     : null
 edgeRouterData.ports.targetPortCandidates = (edge) =>
-  edge.targetNode.tag === 5 || edge.targetNode.tag === 7
+  edge.targetNode.tag.type === 5 || edge.targetNode.tag.type === 7
     ? new EdgePortCandidates().addFreeCandidate(PortSides.RIGHT).addFreeCandidate(PortSides.LEFT)
     : null
 

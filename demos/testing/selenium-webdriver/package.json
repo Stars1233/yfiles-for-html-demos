@@ -2,14 +2,18 @@
   "name": "@yfiles/selenium-demo-for-yfiles-for-html",
   "version": "1.0.0",
   "scripts": {
-    "test": "mocha tests/yfiles.test.js"
+    "test": "mocha --import=tsx tests/yfiles.test.ts"
   },
   "author": "yWorks GmbH <yfileshtml@yworks.com>",
   "license": "https://www.yworks.com/products/yfiles-for-html/sla",
   "devDependencies": {
+    "@types/chai": "^5.2.3",
+    "@types/mocha": "^10.0.10",
+    "@types/selenium-webdriver": "^4.35.5",
     "chai": "^6.2.2",
-    "mocha": "^11.7.5",
-    "selenium-webdriver": "^4.40.0"
+    "mocha": "^11.7.6",
+    "selenium-webdriver": "^4.44.0",
+    "tsx": "^4.22.3"
   },
   "type": "module"
 }

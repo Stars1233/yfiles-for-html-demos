@@ -27,11 +27,6 @@
  **
  ***************************************************************************/
 module.exports = {
-  launch: {
-    dumpio: true,
-    headless: 'new',
-    // https://github.com/puppeteer/puppeteer/issues/12857
-    args: ['--enable-features=NetworkServiceInProcess2']
-  },
+  launch: { dumpio: true, headless: 'new', defaultViewport: { width: 1400, height: 900 } },
   browserContext: 'default'
 }

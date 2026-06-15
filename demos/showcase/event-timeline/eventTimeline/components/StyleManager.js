@@ -28,33 +28,41 @@
  ***************************************************************************/
 import {
   CompositeEdgeStyle,
-  CssFill,
   ExteriorNodeLabelModel,
   IEdgeStyle,
+  Insets,
   PolylineEdgeStyle,
   Stroke
 } from '@yfiles/yfiles'
-import { SimpleGradientDelegatingEdgeStyle } from '../styles/SimpleGradientDelegatingEdgeStyle'
-import { representativeFilter, TIMELINE_CONSTANTS } from '../EventTimeline'
-import { EventTimelineEdgeEndsStyle } from '../styles/EventTimelineEdgeEndsStyle'
+import { ItemState } from '../EventTimelineTypes'
 import { ViewportWidthNodeStyle } from '../styles/ViewportWidthNodeStyle'
 import { ViewportLockedLabelStyle } from '../styles/ViewportLockedLabelStyle'
-import { EventTimelineHyperEdgeStyle } from '../styles/EventTimelineHyperEdgeStyle'
-import { EventTimelineAggregatedEdgesStyle } from '../styles/EventTimelineAggregatedEdgesStyle'
+import { SimpleGradientDelegatingEdgeStyle } from '../styles/SimpleGradientDelegatingEdgeStyle'
 import { LevelOfDetailLabelStyle } from '../styles/LevelOfDetailLabelStyle'
+import { representativeFilter } from '../EventTimelineUtils'
+import { EventTimelineEdgeEndsStyle } from '../styles/EventTimelineEdgeEndsStyle'
+import { EventTimelineAggregatedEdgesStyle } from '../styles/EventTimelineAggregatedEdgesStyle'
+import { EventTimelineHyperEdgeStyle } from '../styles/EventTimelineHyperEdgeStyle'
+import { TopEdgeLabelModel } from '../layout/TopEdgeLabelModel'
 
 /**
  * The StyleManager object, responsible for managing the styles of edges and (different types of)
  * edges.
  */
 export class StyleManager {
-  simpleGradientStyle
   gradients = new Map()
   graph
   edgeColorMap
   getNodeGroupName
   getEdgeGroupName
   edgeColorMode
+  config
+  sharedNodeStyle
+  sharedNodeLabelStyle
+  sharedEdgeLabelStyle
+  sharedSimpleEdgeStyle
+  sharedAggregatedEdgeStyle
+  sharedHyperEdgeStyle
 
   /**
    * Instantiates a new StyleManager object.
@@ -62,61 +70,78 @@ export class StyleManager {
    * @param edgeColorMap A map describing which groups are to be colored using what color.
    * @param getNodeGroupName An accessor function to extract a node's group name from its tag.
    * @param getEdgeGroupName An accessor function to extract an edge's group name from its tag.
-   * @param edgeColorMode Determines how edges are colored (according to their own group
-   * membership, the group membership of their termini, or none).
+   * @param config The configuration that governs the aesthetics and behavior of the timeline.
    */
-  constructor(graph, edgeColorMap, getNodeGroupName, getEdgeGroupName, edgeColorMode) {
+  constructor(graph, edgeColorMap, getNodeGroupName, getEdgeGroupName, config) {
     this.graph = graph
     this.edgeColorMap = edgeColorMap
     this.getNodeGroupName = getNodeGroupName
     this.getEdgeGroupName = getEdgeGroupName
-    this.edgeColorMode = edgeColorMode
-  }
-
-  /**
-   * Method to generate a new composite edge style.
-   */
-  generateStyles() {
-    this.simpleGradientStyle = new CompositeEdgeStyle(
+    this.config = config
+    this.edgeColorMode = config.edgeColorMode
+    this.sharedNodeStyle = new ViewportWidthNodeStyle()
+    this.sharedNodeLabelStyle = new ViewportLockedLabelStyle(
+      new LevelOfDetailLabelStyle('horizontal', this.config),
+      'horizontal'
+    )
+    this.sharedEdgeLabelStyle = new ViewportLockedLabelStyle(
+      new LevelOfDetailLabelStyle('vertical', this.config),
+      'vertical',
+      new Insets(this.config.timescaleHeight + 10, 10, 10, 10)
+    )
+    this.sharedSimpleEdgeStyle = new CompositeEdgeStyle(
       new SimpleGradientDelegatingEdgeStyle(
         new PolylineEdgeStyle({
-          stroke: new Stroke({ thickness: TIMELINE_CONSTANTS.EDGE_THICKNESS }),
+          stroke: new Stroke({ thickness: this.config.edgeThickness }),
           cssClass: 'event-timeline-edge'
         }),
         this.generateNodeToColorMap(),
-        this.gradients,
-        TIMELINE_CONSTANTS.CSS_VAR_PREFIX
+        this.gradients
       ),
       new EventTimelineEdgeEndsStyle(
-        TIMELINE_CONSTANTS.EDGE_THICKNESS,
-        TIMELINE_CONSTANTS.EDGE_RADIUS,
-        this.generateNodeToColorMap(),
-        TIMELINE_CONSTANTS.CSS_VAR_PREFIX
+        this.config.edgeThickness,
+        this.config.edgeRadius,
+        this.generateNodeToColorMap()
       )
+    )
+    this.sharedAggregatedEdgeStyle = new EventTimelineAggregatedEdgesStyle(
+      this.config.edgeRadius + 3,
+      this.config.edgeAggregationDelta,
+      this.generateNodeToColorMap(),
+      this.gradients
+    )
+    this.sharedHyperEdgeStyle = new EventTimelineHyperEdgeStyle(
+      this.config.edgeRadius,
+      this.config.edgeAggregationDelta,
+      this.generateNodeToColorMap(),
+      this.gradients
     )
   }
 
   /**
-   * Method to set the node style.
-   * @param nodeGroups An unused NodeGroups object.
+   * Applies the node and node label styles to all nodes in the graph.
    */
-  setNodeStyle(nodeGroups) {
-    const lineNodeStyle = new ViewportWidthNodeStyle('event-timeline-node')
+  setNodeStyle() {
     this.graph.nodes.forEach((node) => {
       const nodeGroup = this.getNodeGroupName(node)
       const nodeColor = nodeGroup
-        ? this.edgeColorMap.get(nodeGroup)
-        : TIMELINE_CONSTANTS.DEFAULT_NODE_COLOR
-      this.graph.setStyle(node, lineNodeStyle.clone())
+        ? (this.edgeColorMap.get(nodeGroup) ?? this.config.defaultColors[0])
+        : this.config.defaultColors[0]
+      const state = node.lookup(ItemState)
+      if (state) {
+        state.nodeColor = nodeColor
+      }
+
+      this.graph.setStyle(node, this.sharedNodeStyle)
+
       node.labels.forEach((label) => {
         this.graph.setLabelLayoutParameter(label, ExteriorNodeLabelModel.LEFT)
-        this.graph.setStyle(
-          label,
-          new ViewportLockedLabelStyle(
-            new LevelOfDetailLabelStyle('horizontal', 'event-timeline-node-label', '', nodeColor),
-            'horizontal'
-          )
-        )
+        const labelState = label.lookup(ItemState)
+        if (labelState) {
+          labelState.nodeColor = nodeColor
+          labelState.labelHidden = state?.visible === false
+        }
+        this.graph.setStyle(label, this.sharedNodeLabelStyle)
       })
     })
   }
@@ -127,44 +152,27 @@ export class StyleManager {
    * based on their horizontal positions.
    */
   updateEdgeStyle(edgeAggregator) {
-    this.graph.edges.filter(representativeFilter).forEach((edge) => {
-      const { colorA, colorB } = this.getEdgeColors(edge)
-      if (!colorB) {
-        this.graph.setStyle(
-          edge,
-          new CompositeEdgeStyle(
-            new PolylineEdgeStyle({
-              stroke: new Stroke(this.getEdgeColorMix(colorA), TIMELINE_CONSTANTS.EDGE_THICKNESS),
-              cssClass: 'event-timeline-edge'
-            }),
-            new EventTimelineEdgeEndsStyle(
-              TIMELINE_CONSTANTS.EDGE_THICKNESS,
-              TIMELINE_CONSTANTS.EDGE_RADIUS,
-              this.generateNodeToColorMap(),
-              TIMELINE_CONSTANTS.CSS_VAR_PREFIX
-            )
-          )
-        )
-      } else {
-        this.graph.setStyle(edge, this.simpleGradientStyle)
-      }
-    })
+    this.graph.edges
+      .filter((e) => representativeFilter(e))
+      .forEach((edge) => {
+        const { colorA, colorB } = this.getEdgeColors(edge)
+        const state = edge.lookup(ItemState)
+        if (state) {
+          state.edgeColorA = colorA
+          state.edgeColorB = colorB
+          state.edgeKind = 'simple'
+        }
+        this.graph.setStyle(edge, this.sharedSimpleEdgeStyle)
+      })
 
     edgeAggregator.representativeAggregateEdges.forEach((edge) => {
-      const group = edge.tag.representedGroup
-      const radius = 5
+      const group = edge.lookup(ItemState).representedGroup
+      const state = edge.lookup(ItemState)
+      if (state) {
+        state.edgeKind = 'aggregate'
+      }
 
-      this.graph.setStyle(
-        edge,
-        new EventTimelineAggregatedEdgesStyle(
-          group.edges,
-          radius + 3,
-          TIMELINE_CONSTANTS.EDGE_AGGREGATION_DELTA,
-          this.generateNodeToColorMap(),
-          this.gradients,
-          'event-timeline-aggregate-edge'
-        )
-      )
+      this.graph.setStyle(edge, this.sharedAggregatedEdgeStyle)
 
       group.edges.forEach((groupEdge) => {
         this.graph.setStyle(groupEdge, IEdgeStyle.VOID_EDGE_STYLE)
@@ -172,18 +180,12 @@ export class StyleManager {
     })
 
     edgeAggregator.representativeHyperEdges.forEach((edge) => {
-      const group = edge.tag.representedGroup
-      this.graph.setStyle(
-        edge,
-        new EventTimelineHyperEdgeStyle(
-          group.edges,
-          TIMELINE_CONSTANTS.EDGE_RADIUS,
-          TIMELINE_CONSTANTS.EDGE_AGGREGATION_DELTA,
-          this.generateNodeToColorMap(),
-          this.gradients,
-          'event-timeline-hyper-edge'
-        )
-      )
+      const group = edge.lookup(ItemState).representedGroup
+      const state = edge.lookup(ItemState)
+      if (state) {
+        state.edgeKind = 'hyper'
+      }
+      this.graph.setStyle(edge, this.sharedHyperEdgeStyle)
       group.edges.forEach((groupEdge) => {
         this.graph.setStyle(groupEdge, IEdgeStyle.VOID_EDGE_STYLE)
       })
@@ -191,15 +193,59 @@ export class StyleManager {
   }
 
   /**
+   * Updates the visibility of labels for a given node group based on its collapsed state.
+   * @param group The node group.
+   */
+  updateGroupLabelVisibility(group) {
+    group.nodes.forEach((n) =>
+      n.labels.forEach((l) => {
+        const state = l.lookup(ItemState)
+        if (state) {
+          state.labelHidden = group.collapsed
+        }
+      })
+    )
+  }
+
+  /**
    * Method with which to set the edge label style.
    */
   setEdgeLabelStyle() {
-    const LODStyle = new LevelOfDetailLabelStyle('vertical', 'event-timeline-edge-label')
-    this.graph.edges.filter(representativeFilter).forEach((edge) => {
-      edge.labels.forEach((label) => {
-        this.graph.setStyle(label, new ViewportLockedLabelStyle(LODStyle, 'vertical'))
+    const parameter = new TopEdgeLabelModel(-40).createParameter()
+    this.graph.edges
+      .filter((e) => representativeFilter(e))
+      .forEach((edge) => {
+        const { colorA } = this.getEdgeColors(edge)
+        const edgeState = edge.lookup(ItemState)
+        if (edgeState) {
+          edgeState.edgeColorA = colorA
+        }
+        edge.labels.forEach((label) => {
+          const labelState = label.lookup(ItemState)
+          if (labelState) {
+            labelState.edgeColorA = colorA
+            labelState.labelHidden = edgeState?.visible === false
+          }
+          this.graph.setStyle(label, this.sharedEdgeLabelStyle)
+          this.graph.setLabelLayoutParameter(label, parameter)
+        })
       })
-    })
+  }
+
+  getSharedNodeStyle() {
+    return this.sharedNodeStyle
+  }
+
+  getSharedSimpleEdgeStyle() {
+    return this.sharedSimpleEdgeStyle
+  }
+
+  getSharedNodeLabelStyle() {
+    return this.sharedNodeLabelStyle
+  }
+
+  getSharedEdgeLabelStyle() {
+    return this.sharedEdgeLabelStyle
   }
 
   /**
@@ -212,23 +258,24 @@ export class StyleManager {
   getEdgeColors(edge) {
     let colorA, colorB
     const group = this.getEdgeGroupName(edge)
+    colorA = this.config.defaultColors[0]
     if (this.edgeColorMode === 'EdgeGroups' && group) {
-      colorA = this.edgeColorMap.get(group)
+      colorA = this.edgeColorMap.get(group) ?? this.config.defaultColors[0]
     } else if (this.edgeColorMode === 'NodeGroups' || this.edgeColorMode === 'NodeGroupsInverted') {
       const sG = this.getNodeGroupName(edge.sourceNode)
       const tG = this.getNodeGroupName(edge.targetNode)
       if (sG && tG) {
         if (sG === tG) {
-          colorA = this.edgeColorMap.get(sG)
+          colorA = this.edgeColorMap.get(sG) ?? this.config.defaultColors[0]
         } else {
           colorA =
-            this.edgeColorMode === 'NodeGroupsInverted'
+            (this.edgeColorMode === 'NodeGroupsInverted'
               ? this.edgeColorMap.get(tG)
-              : this.edgeColorMap.get(sG)
+              : this.edgeColorMap.get(sG)) ?? this.config.defaultColors[0]
           colorB =
-            this.edgeColorMode === 'NodeGroupsInverted'
+            (this.edgeColorMode === 'NodeGroupsInverted'
               ? this.edgeColorMap.get(sG)
-              : this.edgeColorMap.get(tG)
+              : this.edgeColorMap.get(tG)) ?? this.config.defaultColors[0]
         }
       }
     }
@@ -236,25 +283,11 @@ export class StyleManager {
   }
 
   /**
-   * Given a color, calculate the mix of said color with the canvas' background color.
-   * @param color The (possible undefined) color as a string.
-   * @private
-   * @returns The mixed color as a string.
-   */
-  getEdgeColorMix(color) {
-    const base =
-      color ??
-      `var(--${TIMELINE_CONSTANTS.CSS_VAR_PREFIX}-edge-color, '${TIMELINE_CONSTANTS.EDGE_BASE_COLOR}')`
-    return new CssFill(
-      `color-mix(in oklab, ${base} var(--${TIMELINE_CONSTANTS.CSS_VAR_PREFIX}-edge-color-value, 100%), var(--${TIMELINE_CONSTANTS.CSS_VAR_PREFIX}-background-color, ${TIMELINE_CONSTANTS.BACKGROUND_COLOR}) var(--${TIMELINE_CONSTANTS.CSS_VAR_PREFIX}-background-color-value, 0%)`
-    )
-  }
-
-  /**
    * Method with which to generate a node color map, i.e., a map that takes as input some node and returns a string
    * describing its color.
    */
   generateNodeToColorMap() {
-    return (node) => this.edgeColorMap.get(this.getNodeGroupName(node))
+    return (node) =>
+      this.edgeColorMap.get(this.getNodeGroupName(node)) || this.config.defaultColors[0]
   }
 }

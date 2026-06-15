@@ -58,6 +58,7 @@
 .main-container {
   .interaction-panel {
     flex: 0 0 350px;
+    width: 350px;
     .navigate-select {
       justify-self: center;
     }

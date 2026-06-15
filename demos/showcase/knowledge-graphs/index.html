@@ -406,14 +406,20 @@
           </span>
         </div>
         <div id="graphComponent"></div>
-        <div id="neighborhood-backdrop"></div>
-        <div id="neighborhood-panel">
-          <button
-            id="neighborhood-close"
-            title="Close Neighborhood View"
-            aria-label="Close"
-          ></button>
-          <div id="neighborhood-graphComponent"></div>
+        <button
+          id="show-ontology-view"
+          class="material-symbols-outlined"
+          title="Show Ontology View"
+        >
+          hub
+        </button>
+        <div id="explorer-backdrop"></div>
+        <div id="explorer-panel">
+          <div id="title">
+            <div id="explorer-title-text"></div>
+            <div id="explorer-close" title="Close" class="material-symbols-outlined">close</div>
+          </div>
+          <div id="explorer-graphComponent"></div>
         </div>
       </div>
       <div class="interaction-panel">
@@ -499,6 +505,7 @@
             Open the right sidebar to see a list of detected problems. For each problem, you can
             either zoom to the affected node(s) or apply an automatic fix.
           </li>
+          <li>Press 'Show Ontology View' button to show the ontology structure triplets.</li>
           <li>
             Enable 'Spotlight all issues' to mark all problematic elements using a beacon animation
             (available only if the browser supports WebGL).

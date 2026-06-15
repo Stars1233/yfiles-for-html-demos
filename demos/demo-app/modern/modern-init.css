@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
 * {
   margin: 0;
   line-height: calc(1em + 0.5rem);
@@ -235,6 +235,7 @@ input:disabled {
 }
 .dnd-panel {
   flex: 0 1 12rem;
+  width: 12rem;
 }
 .demo-dnd-panel__item {
   width: fit-content;
@@ -282,6 +283,47 @@ input:disabled {
   place-content: center;
   border: none;
   color: var(--color-text);
+}
+.input-range {
+  width: 100px;
+  min-width: 7rem;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+.input-range ::before {
+  content: '';
+  display: inline-flex;
+}
+.input-range::-webkit-slider-runnable-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.input-range::-moz-range-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.input-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.input-range::-moz-range-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.input-range:hover {
+  cursor: pointer;
 }
 .demo-properties__settings > h1,
 h2,
@@ -509,7 +551,7 @@ h6 {
   display: inline;
 }
 .rail-popover {
-  left: calc(var(--nav-rail-width) - 4px);
+  left: calc(var(--nav-rail-width) - 2px);
   padding: var(--dialog-padding);
   min-width: 250px;
   max-height: 60vh;
@@ -533,7 +575,7 @@ h6 {
   content: '';
   position: absolute;
   left: -8px;
-  top: 20px;
+  top: var(--popover-arrow-top, 20px);
   width: 16px;
   height: 16px;
   background: var(--toolbar-bg);
@@ -1046,6 +1088,13 @@ button.guided-tour-trigger.hidden {
   font-weight: bold;
   padding: 0 0 0.5ex;
 }
+.interaction-panel h1 {
+  color: var(--description-heading1);
+  margin-top: 0;
+}
+.interaction-panel h2 {
+  color: var(--description-heading);
+}
 .interaction-panel button.collapse {
   font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -1152,12 +1201,49 @@ button.guided-tour-trigger.hidden {
   background-color: var(--interaction-button-hover);
   cursor: pointer;
 }
+.interaction-panel input[type='range'] {
+  width: 100px;
+  min-width: 7rem;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+.interaction-panel input[type='range'] ::before {
+  content: '';
+  display: inline-flex;
+}
+.interaction-panel input[type='range']::-webkit-slider-runnable-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.interaction-panel input[type='range']::-moz-range-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.interaction-panel input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.interaction-panel input[type='range']::-moz-range-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.interaction-panel input[type='range']:hover {
+  cursor: pointer;
+}
 .interaction-panel > :nth-child(2) {
   margin-top: 0;
-}
-.interaction-panel h1,
-.interaction-panel h2 {
-  color: var(--interaction-heading);
 }
 .interaction-panel input[type='number'] {
   border: 1px solid var(--color-text);
@@ -1201,11 +1287,6 @@ button.guided-tour-trigger.hidden {
 }
 .interaction-panel .demo-properties__settings > button {
   grid-column: -1/1;
-}
-.interaction-panel h1,
-.interaction-panel h2 {
-  color: var(--interaction-heading);
-  margin-right: 2rem;
 }
 .description-panel {
   flex: 0 0 var(--description-width);
@@ -1351,6 +1432,13 @@ button.guided-tour-trigger.hidden {
   font-weight: bold;
   padding: 0 0 0.5ex;
 }
+.description-panel h1 {
+  color: var(--description-heading1);
+  margin-top: 0;
+}
+.description-panel h2 {
+  color: var(--description-heading);
+}
 .description-panel button.collapse {
   font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -1457,12 +1545,46 @@ button.guided-tour-trigger.hidden {
   background-color: var(--interaction-button-hover);
   cursor: pointer;
 }
-.description-panel h1 {
-  color: var(--description-heading1);
-  margin-top: 0;
+.description-panel input[type='range'] {
+  width: 100px;
+  min-width: 7rem;
+  -webkit-appearance: none;
+  background-color: transparent;
 }
-.description-panel h2 {
-  color: var(--description-heading);
+.description-panel input[type='range'] ::before {
+  content: '';
+  display: inline-flex;
+}
+.description-panel input[type='range']::-webkit-slider-runnable-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.description-panel input[type='range']::-moz-range-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.description-panel input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.description-panel input[type='range']::-moz-range-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.description-panel input[type='range']:hover {
+  cursor: pointer;
 }
 .toolbar {
   view-transition-name: demo-toolbar;
@@ -1525,6 +1647,7 @@ button.guided-tour-trigger.hidden {
     height: calc(100% - 10px - 75px);
     box-shadow: var(--shadow-crispy-gray);
     width: var(--interaction-width);
+    max-width: calc(100% - 20px);
   }
   .description-panel {
     font-size: var(--body-font-size);
@@ -1673,6 +1796,13 @@ button.guided-tour-trigger.hidden {
     font-weight: bold;
     padding: 0 0 0.5ex;
   }
+  .description-panel h1 {
+    color: var(--description-heading1);
+    margin-top: 0;
+  }
+  .description-panel h2 {
+    color: var(--description-heading);
+  }
   .description-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -1779,12 +1909,46 @@ button.guided-tour-trigger.hidden {
     background-color: var(--interaction-button-hover);
     cursor: pointer;
   }
-  .description-panel h1 {
-    color: var(--description-heading1);
-    margin-top: 0;
+  .description-panel input[type='range'] {
+    width: 100px;
+    min-width: 7rem;
+    -webkit-appearance: none;
+    background-color: transparent;
   }
-  .description-panel h2 {
-    color: var(--description-heading);
+  .description-panel input[type='range'] ::before {
+    content: '';
+    display: inline-flex;
+  }
+  .description-panel input[type='range']::-webkit-slider-runnable-track {
+    background: var(--interaction-alt);
+    height: 6px;
+    border-radius: 1000px;
+  }
+  .description-panel input[type='range']::-moz-range-track {
+    background: var(--interaction-alt);
+    height: 6px;
+    border-radius: 1000px;
+  }
+  .description-panel input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: var(--interaction-alt);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+  }
+  .description-panel input[type='range']::-moz-range-thumb {
+    -webkit-appearance: none;
+    background: var(--interaction-alt);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+  }
+  .description-panel input[type='range']:hover {
+    cursor: pointer;
   }
   .description-panel .mobile-start-here-button {
     display: flex;
@@ -2074,6 +2238,13 @@ button.guided-tour-trigger.hidden {
     font-weight: bold;
     padding: 0 0 0.5ex;
   }
+  .interaction-panel h1 {
+    color: var(--description-heading1);
+    margin-top: 0;
+  }
+  .interaction-panel h2 {
+    color: var(--description-heading);
+  }
   .interaction-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -2180,12 +2351,49 @@ button.guided-tour-trigger.hidden {
     background-color: var(--interaction-button-hover);
     cursor: pointer;
   }
+  .interaction-panel input[type='range'] {
+    width: 100px;
+    min-width: 7rem;
+    -webkit-appearance: none;
+    background-color: transparent;
+  }
+  .interaction-panel input[type='range'] ::before {
+    content: '';
+    display: inline-flex;
+  }
+  .interaction-panel input[type='range']::-webkit-slider-runnable-track {
+    background: var(--interaction-alt);
+    height: 6px;
+    border-radius: 1000px;
+  }
+  .interaction-panel input[type='range']::-moz-range-track {
+    background: var(--interaction-alt);
+    height: 6px;
+    border-radius: 1000px;
+  }
+  .interaction-panel input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: var(--interaction-alt);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+  }
+  .interaction-panel input[type='range']::-moz-range-thumb {
+    -webkit-appearance: none;
+    background: var(--interaction-alt);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+  }
+  .interaction-panel input[type='range']:hover {
+    cursor: pointer;
+  }
   .interaction-panel > :nth-child(2) {
     margin-top: 0;
-  }
-  .interaction-panel h1,
-  .interaction-panel h2 {
-    color: var(--interaction-heading);
   }
   .interaction-panel input[type='number'] {
     border: 1px solid var(--color-text);
@@ -2538,6 +2746,13 @@ button.guided-tour-trigger.hidden {
     font-weight: bold;
     padding: 0 0 0.5ex;
   }
+  .description-panel h1 {
+    color: var(--description-heading1);
+    margin-top: 0;
+  }
+  .description-panel h2 {
+    color: var(--description-heading);
+  }
   .description-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -2644,12 +2859,46 @@ button.guided-tour-trigger.hidden {
     background-color: var(--interaction-button-hover);
     cursor: pointer;
   }
-  .description-panel h1 {
-    color: var(--description-heading1);
-    margin-top: 0;
+  .description-panel input[type='range'] {
+    width: 100px;
+    min-width: 7rem;
+    -webkit-appearance: none;
+    background-color: transparent;
   }
-  .description-panel h2 {
-    color: var(--description-heading);
+  .description-panel input[type='range'] ::before {
+    content: '';
+    display: inline-flex;
+  }
+  .description-panel input[type='range']::-webkit-slider-runnable-track {
+    background: var(--interaction-alt);
+    height: 6px;
+    border-radius: 1000px;
+  }
+  .description-panel input[type='range']::-moz-range-track {
+    background: var(--interaction-alt);
+    height: 6px;
+    border-radius: 1000px;
+  }
+  .description-panel input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: var(--interaction-alt);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+  }
+  .description-panel input[type='range']::-moz-range-thumb {
+    -webkit-appearance: none;
+    background: var(--interaction-alt);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+  }
+  .description-panel input[type='range']:hover {
+    cursor: pointer;
   }
   .interaction-panel {
     flex: 0 0 var(--interaction-width);
@@ -2793,6 +3042,13 @@ button.guided-tour-trigger.hidden {
     font-weight: bold;
     padding: 0 0 0.5ex;
   }
+  .interaction-panel h1 {
+    color: var(--description-heading1);
+    margin-top: 0;
+  }
+  .interaction-panel h2 {
+    color: var(--description-heading);
+  }
   .interaction-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -2899,12 +3155,49 @@ button.guided-tour-trigger.hidden {
     background-color: var(--interaction-button-hover);
     cursor: pointer;
   }
+  .interaction-panel input[type='range'] {
+    width: 100px;
+    min-width: 7rem;
+    -webkit-appearance: none;
+    background-color: transparent;
+  }
+  .interaction-panel input[type='range'] ::before {
+    content: '';
+    display: inline-flex;
+  }
+  .interaction-panel input[type='range']::-webkit-slider-runnable-track {
+    background: var(--interaction-alt);
+    height: 6px;
+    border-radius: 1000px;
+  }
+  .interaction-panel input[type='range']::-moz-range-track {
+    background: var(--interaction-alt);
+    height: 6px;
+    border-radius: 1000px;
+  }
+  .interaction-panel input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: var(--interaction-alt);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+  }
+  .interaction-panel input[type='range']::-moz-range-thumb {
+    -webkit-appearance: none;
+    background: var(--interaction-alt);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+  }
+  .interaction-panel input[type='range']:hover {
+    cursor: pointer;
+  }
   .interaction-panel > :nth-child(2) {
     margin-top: 0;
-  }
-  .interaction-panel h1,
-  .interaction-panel h2 {
-    color: var(--interaction-heading);
   }
   .interaction-panel input[type='number'] {
     border: 1px solid var(--color-text);
@@ -3045,14 +3338,15 @@ button.guided-tour-trigger.hidden {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: var(--nav-rail-width);
     height: 100%;
+    padding: 4px;
     overflow-y: auto;
     font-size: 0.75rem;
   }
   .rail nav {
     display: flex;
     flex-direction: column;
-    width: var(--nav-rail-width);
     margin-top: 20px;
   }
   .rail .spacer {
@@ -3082,7 +3376,6 @@ button.guided-tour-trigger.hidden {
   .rail button,
   .rail a {
     display: block;
-    width: calc(var(--nav-rail-width) - 4px);
     margin: -2px auto 14px;
     padding: 2px;
     background: none;
@@ -3145,6 +3438,24 @@ button.guided-tour-trigger.hidden {
     text-align: center;
     line-height: 130%;
   }
+  @supports not selector(::-webkit-scrollbar) {
+    .rail {
+      scrollbar-width: thin;
+    }
+  }
+  .rail::-webkit-scrollbar {
+    width: 6px;
+  }
+  .rail::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .rail::-webkit-scrollbar-thumb {
+    background-color: rgb(from var(--scrollbar-bg) r g b / 0.6);
+    border-radius: 6px;
+  }
+  .rail::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-bg);
+  }
   .interaction-panel {
     display: block;
   }
@@ -3202,6 +3513,11 @@ button.guided-tour-trigger.hidden {
   .header .y-logo {
     mask: url('./resources/ylogo-large.svg') no-repeat center;
     width: 12rem;
+  }
+}
+@media (min-width: 64rem) and (pointer: coarse) {
+  .rail::-webkit-scrollbar {
+    width: 3px;
   }
 }
 .disabled-link {

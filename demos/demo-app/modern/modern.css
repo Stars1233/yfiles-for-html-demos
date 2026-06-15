@@ -28,7 +28,7 @@
  ***************************************************************************/
 @import url('@fontsource/poppins/600.css');
 @import url('@fontsource/poppins/400.css');
-@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
 .demo-properties__settings > h1,
 h2,
 h3,
@@ -2000,6 +2000,7 @@ input:disabled {
 }
 .dnd-panel {
   flex: 0 1 12rem;
+  width: 12rem;
 }
 .demo-dnd-panel__item {
   width: fit-content;
@@ -2047,6 +2048,47 @@ input:disabled {
   place-content: center;
   border: none;
   color: var(--color-text);
+}
+.input-range {
+  width: 100px;
+  min-width: 7rem;
+  -webkit-appearance: none;
+  background-color: transparent;
+}
+.input-range ::before {
+  content: '';
+  display: inline-flex;
+}
+.input-range::-webkit-slider-runnable-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.input-range::-moz-range-track {
+  background: var(--interaction-alt);
+  height: 6px;
+  border-radius: 1000px;
+}
+.input-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.input-range::-moz-range-thumb {
+  -webkit-appearance: none;
+  background: var(--interaction-alt);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -5px;
+}
+.input-range:hover {
+  cursor: pointer;
 }
 .live-demo-container {
   font-size: 1rem;
@@ -2501,6 +2543,11 @@ input:disabled {
 }
 .demo-dialog--error label .optional:after {
   content: ')';
+}
+#yfiles-license-popup {
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
 }
 :root[data-theme='light'] {
   --vsdx-logo-url: url('./resources/vsdx-logo-light.svg');

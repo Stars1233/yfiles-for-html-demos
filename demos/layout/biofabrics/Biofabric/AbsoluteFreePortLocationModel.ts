@@ -44,11 +44,11 @@ import {
 export class AbsoluteFreePortLocationModel extends BaseClass(IPortLocationModel) {
   /**
    * Creates a parameter for this port location model at the specified location.
-   * @param owner The port owner (typically a node)
+   * @param _owner The port owner (typically a node)
    * @param location The absolute position for the port
    * @returns A parameter describing the port's location
    */
-  createParameter(owner: IPortOwner, location: Point): IPortLocationModelParameter {
+  createParameter(_owner: IPortOwner, location: Point): IPortLocationModelParameter {
     return new AbsoluteFreePortLocationModelParameter(this, location)
   }
 
@@ -58,21 +58,21 @@ export class AbsoluteFreePortLocationModel extends BaseClass(IPortLocationModel)
 
   /**
    * Returns the lookup context for this port location model.
-   * @param port The port to get the context for
+   * @param _port The port to get the context for
    * @returns An empty lookup context
    */
-  getContext(port: IPort): ILookup {
+  getContext(_port: IPort): ILookup {
     return ILookup.EMPTY
   }
 
   /**
    * Gets the absolute location for the given port based on its parameter.
-   * @param port The port to get the location for
+   * @param _port The port to get the location for
    * @param locationParameter The parameter describing the port's location
    * @returns The absolute point where the port should be located
-   * @throws Error if the parameter is not of the expected type
+   * @throws {Error} if the parameter is not of the expected type
    */
-  getLocation(port: IPort, locationParameter: IPortLocationModelParameter): Point {
+  getLocation(_port: IPort, locationParameter: IPortLocationModelParameter): Point {
     if (locationParameter instanceof AbsoluteFreePortLocationModelParameter) {
       return locationParameter.point
     } else {

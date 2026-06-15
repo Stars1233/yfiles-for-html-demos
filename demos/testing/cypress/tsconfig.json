@@ -12,8 +12,6 @@
     "isolatedModules": true,
     "moduleDetection": "force",
 
-    "baseUrl": ".",
-
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,

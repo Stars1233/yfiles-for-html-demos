@@ -28,50 +28,52 @@
  ***************************************************************************/
 import {
   DelegatingEdgeStyle,
-  GradientStop,
   type IEdge,
   type IEdgeStyle,
   type INode,
   type IRenderContext,
-  LinearGradient,
+  type LinearGradient,
   type PolylineEdgeStyle,
-  SvgVisual
+  SvgVisual,
+  type TaggedSvgVisual
 } from '@yfiles/yfiles'
+import { ItemState } from '../EventTimelineTypes'
+import { getOrCreateGradient } from './GradientUtility'
 
-/**
- * The SimpleGradientDelegatingEdgeStyle extends the DelegatingEdgeStyle to visualize an edge
- * with a color gradient.
- */
+type ElementAttrCache = { x?: string; y?: string; width?: string; height?: string }
+
+type SimpleGradientEdgeCache = {
+  rect: SVGRectElement
+  rectCache: ElementAttrCache
+  svgClass?: string
+}
+
+type SimpleGradientEdgeVisual = TaggedSvgVisual<SVGRectElement, SimpleGradientEdgeCache>
+
 export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
   readonly wrappedStyle: IEdgeStyle
   private readonly nodeToColorMapper: (node: INode) => string
-  cssClass: string | undefined
-  cssVarPrefix?: string = 'yfiles-gdes'
-  private gradients: Map<string, LinearGradient>
+  private readonly useItemStateColors: boolean
+  private readonly gradients: Map<string, LinearGradient>
 
   /**
    * Instantiates a new SimpleGradientDelegatingEdgeStyle.
    * @param wrappedStyle the IEdgeStyle around which the SimpleGradientDelegatingEdgeStyle wraps
    * @param nodeToColorMapper maps a particular INode to a particular color
    * @param gradientMap the general map of gradients in the drawing
-   * @param cssVarPrefix the prefix of the CSS variables in the visualization
+   * @param useItemStateColors whether to prefer colors stored in ItemState over the mapper
    */
   constructor(
     wrappedStyle: IEdgeStyle,
     nodeToColorMapper: (node: INode) => string,
     gradientMap: Map<string, LinearGradient> = new Map(),
-    cssVarPrefix?: string
+    useItemStateColors: boolean = true
   ) {
     super()
     this.wrappedStyle = wrappedStyle
     this.nodeToColorMapper = nodeToColorMapper
-    this.cssClass = cssVarPrefix
-    // get the cssClass from the wrappedStyle
-    if ('cssClass' in this.wrappedStyle) {
-      this.cssClass = this.wrappedStyle.cssClass as string
-    }
     this.gradients = gradientMap
-    this.cssVarPrefix = cssVarPrefix
+    this.useItemStateColors = useItemStateColors
   }
 
   /**
@@ -86,68 +88,86 @@ export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
     const target = edge.targetPort!.location
 
     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+    const state = edge.lookup(ItemState)
 
-    const sourceColor = this.nodeToColorMapper(edge.sourceNode!)
-    const targetColor = this.nodeToColorMapper(edge.targetNode!)
+    const sourceColor =
+      this.useItemStateColors && state?.edgeColorA
+        ? state.edgeColorA
+        : this.nodeToColorMapper(edge.sourceNode!)
+    const targetColor =
+      this.useItemStateColors && state?.edgeColorB
+        ? state.edgeColorB
+        : this.nodeToColorMapper(edge.targetNode!)
+
     if (sourceColor !== targetColor) {
-      let linearGradient = this.gradients.get(
-        source.y < target.y ? sourceColor + targetColor : targetColor + sourceColor
+      const linearGradient = getOrCreateGradient(
+        this.gradients,
+        sourceColor,
+        targetColor,
+        source.y,
+        target.y
       )
-      if (!linearGradient) {
-        linearGradient = new LinearGradient({
-          startPoint: [0, source.y < target.y ? 0 : 1],
-          endPoint: [0, source.y < target.y ? 1 : 0],
-          gradientStops: [
-            new GradientStop({ offset: 0, color: sourceColor }),
-            new GradientStop({ offset: 1, color: targetColor })
-          ]
-        })
-        this.gradients.set(
-          source.y < target.y ? sourceColor + targetColor : targetColor + sourceColor,
-          linearGradient
-        )
-      }
       linearGradient.applyTo(rect, context)
     } else {
-      rect.style.fill = sourceColor
+      rect.setAttribute('fill', sourceColor || 'var(--yfiles-event-timeline-edge-color, #dfdee3)')
     }
 
-    return this.updateVisual(context, SvgVisual.from(rect), edge)
+    rect.setAttribute('stroke', 'none')
+
+    const visual = SvgVisual.from(rect, { rect, rectCache: {} }) as SimpleGradientEdgeVisual
+
+    return this.updateVisual(context, visual, edge)
   }
 
   /**
    * Updates a given SVGVisual
-   * @param context the IRenderContext of the given SVGVisual
+   * @param _context the IRenderContext of the given SVGVisual
    * @param oldVisual the SVGVisual to be updated
    * @param edge the associated IEdge object
    * @protected
    * @returns an updated SVGVisual
    */
   protected updateVisual(
-    context: IRenderContext,
+    _context: IRenderContext,
     oldVisual: SvgVisual,
     edge: IEdge
   ): SvgVisual | null {
     const source = edge.sourcePort!.location
     const target = edge.targetPort!.location
     const rect = oldVisual.svgElement as SVGRectElement
+    const tag = (oldVisual as SimpleGradientEdgeVisual).tag
+
     const upperPort = source.y < target.y ? source : target
     const lowerPort = source.y < target.y ? target : source
     const width = (this.wrappedStyle as PolylineEdgeStyle).stroke?.thickness ?? 10
-    rect.setAttribute('x', `${upperPort.x - width / 2}`)
-    rect.setAttribute('y', `${upperPort.y}`)
-    rect.setAttribute('width', `${width}`)
-    rect.setAttribute('height', `${lowerPort.y - upperPort.y}`)
+
+    this.setAttrIfChanged(rect, tag.rectCache, 'x', `${upperPort.x - width / 2}`)
+    this.setAttrIfChanged(rect, tag.rectCache, 'y', `${upperPort.y}`)
+    this.setAttrIfChanged(rect, tag.rectCache, 'width', `${width}`)
+    this.setAttrIfChanged(rect, tag.rectCache, 'height', `${lowerPort.y - upperPort.y}`)
+
     return oldVisual
   }
 
   /**
    * Gets the style of a given IEdge object
-   * @param edge the given IEdge object
+   * @param _edge the given IEdge object
    * @protected
    * @returns the style around which the SimpleGradientDelegatingEdgeStyle is wrapped
    */
-  protected getStyle(edge: IEdge): IEdgeStyle {
+  protected getStyle(_edge: IEdge): IEdgeStyle {
     return this.wrappedStyle
+  }
+
+  private setAttrIfChanged(
+    element: SVGElement,
+    cache: ElementAttrCache,
+    name: keyof ElementAttrCache,
+    value: string
+  ): void {
+    if (cache[name] !== value) {
+      element.setAttribute(name, value)
+      cache[name] = value
+    }
   }
 }

@@ -29,18 +29,22 @@
 import {
   EdgeDataKey,
   EdgeLabelPreferredPlacement,
+  GenericLabelingData,
   GenericLayoutData,
   Insets,
   LayoutExecutorAsync,
+  LayoutGraphHider,
   LayoutStageBase,
   NodeDataKey,
+  NodeLabelDataKey,
   OrganicLayout,
   OrganicLayoutData,
+  RadialLayoutData,
   RadialTreeLayout,
   RecursiveGroupLayout,
   RecursiveGroupLayoutData
 } from '@yfiles/yfiles'
-import { getEdgeTag, getNodeTag } from './types'
+import { getEdgeTag, getLabelTag, getNodeTag } from './types'
 
 export const clusterNodeDataKey = new NodeDataKey('ClusterNodeDataKey')
 export const problemEdgeDataKey = new EdgeDataKey('ProblemEdgeDataKey')
@@ -51,10 +55,19 @@ let executor = null
  * Applies the layout in a web worker task.
  */
 export async function runLayout(worker, graphComponent, layoutStyle = 'organic') {
-  const layoutData =
-    layoutStyle === 'organic' || layoutStyle === 'neighborhood'
-      ? createOrganicLayoutData()
-      : createTeamsOrganicLayoutData()
+  let layoutData
+  switch (layoutStyle) {
+    case 'organic':
+      layoutData = createOrganicLayoutData()
+      break
+    case 'neighborhood':
+      layoutData = createRadialLayoutData()
+      break
+    case 'teams':
+      layoutData = createTeamsOrganicLayoutData()
+      break
+  }
+
   const layoutDescriptor =
     layoutStyle === 'organic'
       ? createOrganicLayoutDescriptor()
@@ -98,21 +111,42 @@ function createOrganicLayoutDescriptor() {
 }
 
 /**
- * Creates the object that describes the 'Teams' layout configuration to the Web Worker layout executor.
+ * Creates the object that describes the 'Neighborhood' layout configuration to the Web Worker layout executor.
  * @returns The LayoutDescriptor for this layout
  */
 function createNeighborhoodLayoutDescriptor() {
   return {
-    name: 'OrganicLayout',
+    name: 'RadialLayout',
     properties: {
-      nodeLabelPlacement: 'consider',
-      edgeLabelPlacement: 'integrated',
-      defaultPreferredEdgeLength: 100,
-      compactnessFactor: 1,
-      starSubstructureStyle: 'radial',
-      parallelSubstructureStyle: 'rectangular'
+      nodeLabelPlacement: 'ray-like',
+      edgeLabelPlacement: 'generic',
+      maximumChildSectorAngle: 360
     }
   }
+}
+
+/**
+ * Creates the layout data that is used to execute the radial layout.
+ */
+function createRadialLayoutData() {
+  const genericLayoutData = new GenericLayoutData()
+  // Mark the labels that have to be removed from the layout.
+  // Icon labels should be hidden so that they are ignored by the layout algorithm.
+  genericLayoutData.addItemCollection(LabelRemovalStage.LABEL_REMOVAL_DATA_KEY).predicate = (
+    label
+  ) => getLabelTag(label).type !== 'text'
+
+  const genericLabelingData = new GenericLabelingData({
+    edgeLabelPreferredPlacements: new EdgeLabelPreferredPlacement({
+      edgeSide: 'on-edge',
+      placementAlongEdge: 'at-center'
+    })
+  })
+  return genericLabelingData.combineWith(
+    genericLayoutData.combineWith(
+      new RadialLayoutData({ nodeTypes: (item) => getNodeTag(item).clusterId })
+    )
+  )
 }
 
 /**
@@ -145,6 +179,45 @@ function createTeamsOrganicLayoutData() {
     !!getEdgeTag(edge).problem
 
   return layoutData
+}
+
+/**
+ * A custom layout stage that hides the labels that are marked by the user using the {@link LABEL_REMOVAL_DATA_KEY}.
+ */
+export class LabelRemovalStage extends LayoutStageBase {
+  /**
+   * Key to register a {@link Mapper} with the input graph where the labels that should
+   * be removed are marked.
+   */
+  static LABEL_REMOVAL_DATA_KEY = new NodeLabelDataKey('LabelRemovalStage.LABEL_REMOVAL_DATA_KEY')
+
+  /**
+   * A stage that hides the marked labels from the core layout algorithm, applies teh core layout
+   * and, unhides again the marked labels.
+   *
+   * @param graph - The layout graph to arrange
+   */
+  applyLayoutImpl(graph) {
+    if (!this.coreLayout) {
+      return
+    }
+    const dataMap = graph.context.getItemData(LabelRemovalStage.LABEL_REMOVAL_DATA_KEY)
+    const hider = new LayoutGraphHider(graph)
+
+    if (dataMap) {
+      graph.nodeLabels.forEach((label) => {
+        if (dataMap.get(label)) {
+          hider.hide(label)
+        }
+      })
+    }
+
+    this.coreLayout.applyLayout(graph)
+
+    if (dataMap) {
+      hider.unhideAll()
+    }
+  }
 }
 
 /**

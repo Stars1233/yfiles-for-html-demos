@@ -56,7 +56,7 @@ function initToolbarResponsiveness(toolbar: Element) {
 
   // Capture the current icon ligature of each button so we can render it via CSS in the overflow menu
   // This enables showing the button title as text while keeping the Material icon on the right
-  const buttons = Array.from(toolbar.querySelectorAll('button')) as HTMLButtonElement[]
+  const buttons = Array.from(toolbar.querySelectorAll<HTMLButtonElement>('button'))
   for (const btn of buttons) {
     // Don't overwrite if already set (or for dynamically created buttons later)
     if (!btn.dataset.icon) {
@@ -87,15 +87,20 @@ function toolbarSizeChanged(entries: ResizeObserverEntry[]) {
       const toolbarParentElement = resizedTarget.classList.contains('toolbar')
         ? resizedTarget.parentElement!
         : resizedTarget
-      resizeToolbar(toolbarParentElement)
+      if (toolbarParentElement) {
+        resizeToolbar(toolbarParentElement)
+      }
     })
   })
 }
 
 function resizeToolbar(toolbarParentElement: Element): void {
-  const toolbar = toolbarParentElement.querySelector('.toolbar')! as HTMLElement
-  const overflowButton = toolbar.querySelector('.toolbar-overflow-button') as HTMLButtonElement
-  const overflowContainer = toolbar.querySelector('.toolbar-overflow-container') as HTMLDivElement
+  const toolbar = toolbarParentElement.querySelector<HTMLElement>('.toolbar')
+  if (!toolbar) {
+    return
+  }
+  const overflowButton = toolbar.querySelector<HTMLButtonElement>('.toolbar-overflow-button')!
+  const overflowContainer = toolbar.querySelector<HTMLDivElement>('.toolbar-overflow-container')!
 
   // Reset by moving all items back to the toolbar
   toolbar.append(...overflowContainer.children)

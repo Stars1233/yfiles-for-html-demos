@@ -87,13 +87,18 @@ function toolbarSizeChanged(entries) {
       const toolbarParentElement = resizedTarget.classList.contains('toolbar')
         ? resizedTarget.parentElement
         : resizedTarget
-      resizeToolbar(toolbarParentElement)
+      if (toolbarParentElement) {
+        resizeToolbar(toolbarParentElement)
+      }
     })
   })
 }
 
 function resizeToolbar(toolbarParentElement) {
   const toolbar = toolbarParentElement.querySelector('.toolbar')
+  if (!toolbar) {
+    return
+  }
   const overflowButton = toolbar.querySelector('.toolbar-overflow-button')
   const overflowContainer = toolbar.querySelector('.toolbar-overflow-container')
 

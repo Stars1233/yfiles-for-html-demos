@@ -26,7 +26,6 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import '@yfiles/demo-app/loading-demo.css'
 import {
   GraphComponent,
   GraphEditorInputMode,
@@ -36,6 +35,7 @@ import {
   ShapeNodeStyle
 } from '@yfiles/yfiles'
 import license from './license.json'
+import './style.css'
 
 const layoutWorker = new Worker(new URL('./LayoutWorker.js', import.meta.url), { type: 'module' })
 
