@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Single Selection Demo - yFiles for HTML
+# Single Selection Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/single-selection.webp" alt="demo-thumbnail" height="320"/>
 
@@ -20,11 +20,15 @@ This demo shows how to configure [GraphEditorInputMode](https://docs.yworks.com/
 ## Things to Try
 
 - **Toggle Single Selection Mode:** Use the checkbox to switch between single selection and regular selection modes.
+
 - **Toggle Selection State:** Select a single node and toggle its selection state by pressing Ctrl + Space. This works in both single selection and regular mode due to a custom command binding.
+
 - **Move Node Focus:** Move the node focus (indicated by a thin dashed line) by holding down Ctrl and pressing an arrow key. Toggle the selection state of the focused item by pressing Ctrl + Space.
 
 ## Features of Single Selection Mode
 
 - **Disabled Marquee Selection:** Try to drag the mouse over a set of nodes to select them - this won't work in single selection mode.
+
 - **Disabled Multi-Selection:** Try to extend the selection by holding the Ctrl key while clicking another node - this won't work in single selection mode.
+
 - **Disabled Select All:** Try to select all nodes by pressing Ctrl + A - this won't work in single selection mode.

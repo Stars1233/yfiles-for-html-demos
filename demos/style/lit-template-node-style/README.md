@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Lit Template Node Style Demo - yFiles for HTML
+# Lit Template Node Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/lit-template-node-style.webp" alt="demo-thumbnail" height="320"/>
 

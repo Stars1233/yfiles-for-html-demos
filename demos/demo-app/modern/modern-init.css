@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
 * {
   margin: 0;
   line-height: calc(1em + 0.5rem);
@@ -325,6 +325,42 @@ input:disabled {
 .input-range:hover {
   cursor: pointer;
 }
+ul.check-list {
+  list-style: none;
+  padding-left: 0;
+}
+ul.check-list li {
+  display: flex;
+  align-items: flex-start;
+  /* top-align icon and text */
+  gap: 0.5rem;
+}
+ul.check-list li::before {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--live-demo-highlight);
+  content: 'check_circle';
+  flex-shrink: 0;
+  margin-top: 0.15em;
+  /* nudge icon down to align with text cap-height */
+}
+hr.thin {
+  border: 0;
+  height: 1px;
+  background-color: var(--tour-dash);
+  margin: 1em 0;
+}
+p.remark {
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+p.not-important {
+  opacity: 0.7;
+}
 .demo-properties__settings > h1,
 h2,
 h3,
@@ -465,7 +501,6 @@ h6 {
   font-size: 1.5rem;
   display: flex;
   width: 32px;
-  height: stretch;
   border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
   background-color: var(--toolbar-button);
 }
@@ -809,6 +844,7 @@ h6 {
   --burger-menu-hover: var(--color-casper-blue-light);
   --live-demo-highlight: var(--color-highlight-pink);
   --live-demo-button: var(--color-highlight-pink);
+  --live-demo-button-text: var(--color-casper-blue-white);
   --toolbar-select-arrow: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%2338536b"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>');
   --collapse-button-hover: #0000000f;
   --panel-bar-button-blink: var(--color-casper-blue);
@@ -869,7 +905,8 @@ h6 {
   --burger-menu-tertiary-highlight: var(--color-highlight-blue);
   --burger-menu-hover: var(--color-casper-blue-dark);
   --live-demo-highlight: var(--color-highlight-gold);
-  --live-demo-button: var(--color-casper-blue-mid-500);
+  --live-demo-button: var(--color-highlight-gold);
+  --live-demo-button-text: var(--color-casper-blue-dark);
   --toolbar-select-arrow: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%23f3f4f6"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>');
   --collapse-button-hover: var(--color-casper-blue-black);
   --panel-bar-button-blink: var(--color-casper-blue-mid);

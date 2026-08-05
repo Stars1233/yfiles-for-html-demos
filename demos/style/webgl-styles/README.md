@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# WebGL Styles Demo - yFiles for HTML
+# WebGL Styles Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/webgl-styles.webp" alt="demo-thumbnail" height="320"/>
 

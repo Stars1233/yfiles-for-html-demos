@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Overview Component Demo - yFiles for HTML
+# Overview Component Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/overview.webp" alt="demo-thumbnail" height="320"/>
 

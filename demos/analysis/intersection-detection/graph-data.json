@@ -1,7 +1,15 @@
 {
   "nodes": [
-    { "id": 0, "layout": { "x": 1110, "y": -229.25, "width": 30, "height": 76 }, "tag": { "isEllipse": true } },
-    { "id": 1, "layout": { "x": 165, "y": -267.75, "width": 127.5, "height": 123 }, "tag": { "isEllipse": true } },
+    {
+      "id": 0,
+      "layout": { "x": 1110, "y": -229.25, "width": 30, "height": 76 },
+      "tag": { "isEllipse": true }
+    },
+    {
+      "id": 1,
+      "layout": { "x": 165, "y": -267.75, "width": 127.5, "height": 123 },
+      "tag": { "isEllipse": true }
+    },
     { "id": 2, "layout": { "x": 386.5, "y": -485.75, "width": 30, "height": 132.25 } },
     { "id": 3, "layout": { "x": 386.5, "y": -567.5, "width": 30, "height": 66 } },
     { "id": 4, "layout": { "x": 1013, "y": -396.75, "width": 57, "height": 30 } },
@@ -93,7 +101,15 @@
       "id": 18,
       "layout": { "x": 351, "y": -107, "width": 168.5, "height": 107 },
       "labels": [
-        { "text": "Group", "anchorX": 355, "anchorY": -89, "upX": 0, "upY": -1, "width": 160.5, "height": 14 }
+        {
+          "text": "Group",
+          "anchorX": 355,
+          "anchorY": -89,
+          "upX": 0,
+          "upY": -1,
+          "width": 160.5,
+          "height": 14
+        }
       ],
       "isGroup": true
     },

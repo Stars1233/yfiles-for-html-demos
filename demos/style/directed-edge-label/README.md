@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Directed Edge Label Style Demo - yFiles for HTML
+# Directed Edge Label Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/directed-edge-label-style.webp" alt="demo-thumbnail" height="320"/>
 

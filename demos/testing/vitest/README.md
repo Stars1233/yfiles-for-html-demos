@@ -9,6 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Vitest Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/vitest.webp" alt="demo-thumbnail" height="320"/>
 
 This demo shows how to use [Vitest](https://vitest.dev) for testing a yFiles for HTML web application. For interaction with the web browser it uses [Playwright](https://playwright.dev/).

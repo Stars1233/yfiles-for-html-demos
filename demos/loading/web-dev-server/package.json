@@ -10,9 +10,9 @@
     "postinstall": "node -e \"require('node:fs').cpSync('../../../lib/license.json', 'src/license.json'); require('node:fs').cpSync('../../demo-app/modern/loading-demo.css', 'src/demo.css'); require('node:fs').cpSync('../../demo-app/modern/resources', 'src/resources', {recursive: true});\""
   },
   "devDependencies": {
-    "@web/dev-server": "^0.4.6"
+    "@web/dev-server": "^1.0.0"
   },
   "dependencies": {
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.1+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.2+dev.tgz"
   }
 }

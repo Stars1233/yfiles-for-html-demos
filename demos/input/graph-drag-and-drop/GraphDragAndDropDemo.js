@@ -28,7 +28,6 @@
  ***************************************************************************/
 /* eslint-disable jsdoc/check-param-names */
 import {
-  CanvasComponent,
   DragDropEffects,
   EdgePathLabelModel,
   EdgeSides,
@@ -39,8 +38,10 @@ import {
   GraphEditorInputMode,
   GraphSnapContext,
   GridSnapTypes,
+  LabelStyle,
   License,
   NodeAlignmentPolicy,
+  PolylineEdgeStyle,
   SnappableItems,
   SvgExport
 } from '@yfiles/yfiles'
@@ -68,7 +69,7 @@ async function run() {
 
   initializeInputModes()
 
-  initDemoStyles(graphComponent.graph, { foldingEnabled: true })
+  initializeStyles(graphComponent.graph)
 
   await initializePalette()
 
@@ -76,7 +77,7 @@ async function run() {
 }
 
 /**
- * Registers the {@link GraphEditorInputMode} as the {@link CanvasComponent.inputMode}
+ * Registers the {@link GraphEditorInputMode} as the {@link import('@yfiles/yfiles').CanvasComponent.inputMode}
  * and initializes the input mode for dropping graphs.
  */
 function initializeInputModes() {
@@ -177,8 +178,7 @@ function toGraph(graphData) {
   const masterGraph = new Graph()
   const manager = new FoldingManager(masterGraph)
   const graph = manager.createFoldingView().graph
-
-  initDemoStyles(graph, { foldingEnabled: true })
+  initializeStyles(graph)
 
   const builder = new GraphBuilder(graph)
   builder.createNodesSource({
@@ -264,6 +264,26 @@ function initializeUI() {
   // button to allow or disable dropping of graphs on folder nodes
   folderButton.addEventListener('click', () => {
     graphDropInputMode.allowFolderNodeAsParent = folderButton.checked
+  })
+}
+
+/**
+ * Initializes the styles used for the graph elements of this demo.
+ */
+function initializeStyles(graph) {
+  initDemoStyles(graph, { theme: 'demo-palette-48', foldingEnabled: true })
+  graph.edgeDefaults.style = new PolylineEdgeStyle({
+    smoothingLength: 8,
+    stroke: `1.5px gray`,
+    targetArrow: `gray small triangle`
+  })
+
+  graph.edgeDefaults.labels.style = new LabelStyle({
+    shape: 'round-rectangle',
+    backgroundFill: '#cdced2',
+    verticalTextAlignment: 'center',
+    horizontalTextAlignment: 'center',
+    padding: [2, 4, 1, 4]
   })
 }
 

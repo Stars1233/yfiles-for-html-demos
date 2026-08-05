@@ -57,7 +57,7 @@ export async function exportImageClientSide(
 }
 
 /**
- * Exports the {@link IGraph} to a PNG image with the help of {@link SvgExport}.
+ * Exports the {@link import('@yfiles/yfiles').IGraph} to a PNG image with the help of {@link SvgExport}.
  * The {@link SvgExport} exports an SVG element of a {@link GraphComponent}
  * which is subsequently converted to PNG.
  */

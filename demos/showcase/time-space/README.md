@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Space & Time Demo - yFiles for HTML
+# Space & Time Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/time-space.webp" alt="demo-thumbnail" height="320"/>
 
@@ -34,6 +34,6 @@ hub Centric View
 - Switch to the Centric View to focus on a single event and its neighboring events in the past and future.
 - **Double-click** an event to bring it to the center.
 
-account_tree Tree View
+account\_tree Tree View
 
 - Switch to the Tree View to see the chain of events in a tree layout, making it easy to trace the contamination from its source.

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Collapsible Trees Demo - yFiles for HTML
+# Collapsible Trees Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/collapsible-trees.webp" alt="demo-thumbnail" height="320"/>
 

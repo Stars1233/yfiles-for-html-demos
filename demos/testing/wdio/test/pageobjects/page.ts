@@ -26,8 +26,10 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
+import { browser } from '@wdio/globals'
+
 /**
- * main page object containing all methods, selectors and functionality
+ * main page object containing all methods, selectors, and functionality
  * that is shared across all page objects
  */
 export class Page {

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Graph Decorator Demo - yFiles for HTML
+# Graph Decorator Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-decorator.webp" alt="demo-thumbnail" height="320"/>
 

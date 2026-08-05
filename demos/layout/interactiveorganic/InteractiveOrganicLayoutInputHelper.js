@@ -30,8 +30,7 @@ import { InteractiveOrganicLayoutHelper } from '@yfiles/demo-utils/InteractiveOr
 import {} from '@yfiles/yfiles'
 
 /**
- * Provides methods for configuring the interactive organic layout to
- * react to manual dragging of nodes.
+ * Helps configure the interactive organic layout to respond to manual node dragging.
  */
 export class InteractiveOrganicLayoutInputHelper {
   graph
@@ -43,7 +42,8 @@ export class InteractiveOrganicLayoutInputHelper {
   }
 
   /**
-   * Starts the layout using {@link setInterval}. Can be used in a worker thread.
+   * Starts the layout.
+   * This is suitable for execution inside a Web Worker thread.
    */
   startInterval() {
     this.prepareStructureChanges()
@@ -51,27 +51,27 @@ export class InteractiveOrganicLayoutInputHelper {
   }
 
   /**
-   * Configures the layout to react to the user starting to drag a node.
+   * Configures the layout to update when the user begins dragging nodes.
    */
-  startDrag(draggedNode, draggedComponent) {
+  startDrag(draggedNodes, draggedComponent) {
     this.layoutHelper.updateInertiaAndStressForAllNodes(0.8, 0.2)
-    this.restartLayout(draggedNode, draggedComponent)
+    this.restartLayout(draggedNodes, draggedComponent)
   }
 
   /**
-   * Configures the layout to react to the user dragging a node.
+   * Configures the layout to update as the user drags nodes.
    */
-  drag(draggedNode, draggedComponent, delta = 0.5) {
-    this.updateStressAndInertiaForOtherNodes([draggedNode], draggedComponent, delta)
-    this.layoutHelper.fixNode(draggedNode, 1)
+  drag(draggedNodes, draggedComponent, delta = 0.5) {
+    this.updateStressAndInertiaForOtherNodes(draggedNodes, draggedComponent, delta)
+    this.layoutHelper.fixNodes(draggedNodes, 1)
   }
 
   /**
-   * Configures the layout to react to the user finishing to drag a node.
+   * Configures the layout to update when the user finishes dragging nodes.
    */
-  finishDrag(draggedNode, draggedComponent) {
-    this.layoutHelper.fixNode(draggedNode, 1, 0)
-    this.updateStressAndInertiaForOtherNodes([draggedNode], draggedComponent, -1)
+  finishDrag(draggedNodes, draggedComponent) {
+    this.layoutHelper.fixNodes(draggedNodes, 1, 0)
+    this.updateStressAndInertiaForOtherNodes(draggedNodes, draggedComponent, -1)
   }
 
   /**
@@ -92,7 +92,7 @@ export class InteractiveOrganicLayoutInputHelper {
    */
   prepareStructureChanges() {
     this.graph.addEventListener('node-created', (evt) => {
-      // we want the node to animate, so we don't fix it.
+      // Keep the node unfixed so that it animates upon creation.
       this.layoutHelper.addNode(evt.item, false)
     })
     this.graph.addEventListener('node-removed', () => {
@@ -110,22 +110,23 @@ export class InteractiveOrganicLayoutInputHelper {
    * When a node is first dragged, the interactive layout is restarted with
    * an updated graph structure.
    */
-  restartLayout(draggedNode, draggedComponent) {
-    this.drag(draggedNode, draggedComponent, 0.5)
+  restartLayout(draggedNodes, draggedComponent) {
+    this.drag(draggedNodes, draggedComponent, 0.5)
     this.layoutHelper.warmupNodes()
-    this.layoutHelper.fixNode(draggedNode)
+    this.layoutHelper.fixNodes(draggedNodes)
   }
 
   /**
-   * Allow the nodes of the affected component to move close to the affected node.
-   * @param affectedNodes the node that will be affected.
-   * @param affectedComponent the nodes that belong to the affected component
-   * @param delta defines what stress to add to the nodes and what inertia to *remove* from the node.
+   * Adjusts the stress and inertia of nodes in the same connected component,
+   * allowing them to move closer to the dragged nodes.
+   * @param affectedNodes The nodes directly being manipulated.
+   * @param affectedComponent The nodes belonging to the component of the affected nodes.
+   * @param delta The value determining the stress to add and inertia to subtract.
    */
   updateStressAndInertiaForOtherNodes(affectedNodes, affectedComponent, delta = 0.1) {
     for (const node of affectedComponent) {
       if (!affectedNodes.includes(node)) {
-        // allow the nodes of the moved component to move close to the dragged node
+        // Allow the other nodes in the component to follow the dragged nodes closely.
         this.layoutHelper.changeStress(node, delta)
         this.layoutHelper.changeInertia(node, -delta)
       }

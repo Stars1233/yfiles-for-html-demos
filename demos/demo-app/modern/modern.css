@@ -28,7 +28,7 @@
  ***************************************************************************/
 @import url('@fontsource/poppins/600.css');
 @import url('@fontsource/poppins/400.css');
-@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
 .demo-properties__settings > h1,
 h2,
 h3,
@@ -169,7 +169,6 @@ h6 {
   font-size: 1.5rem;
   display: flex;
   width: 32px;
-  height: stretch;
   border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
   background-color: var(--toolbar-button);
 }
@@ -266,6 +265,7 @@ h6 {
   /* prevent the text button from wrapping */
   background: var(--toolbar-bg);
   backdrop-filter: blur(var(--overlay-blur));
+  height: 44px;
   padding: 4px 8px;
   gap: 4px;
   box-shadow: var(--shadow-crispy-gray);
@@ -797,7 +797,6 @@ h6 {
   font-size: 1.5rem;
   display: flex;
   width: 32px;
-  height: stretch;
   border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
   background-color: var(--toolbar-button);
 }
@@ -2090,6 +2089,42 @@ input:disabled {
 .input-range:hover {
   cursor: pointer;
 }
+ul.check-list {
+  list-style: none;
+  padding-left: 0;
+}
+ul.check-list li {
+  display: flex;
+  align-items: flex-start;
+  /* top-align icon and text */
+  gap: 0.5rem;
+}
+ul.check-list li::before {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--live-demo-highlight);
+  content: 'check_circle';
+  flex-shrink: 0;
+  margin-top: 0.15em;
+  /* nudge icon down to align with text cap-height */
+}
+hr.thin {
+  border: 0;
+  height: 1px;
+  background-color: var(--tour-dash);
+  margin: 1em 0;
+}
+p.remark {
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+p.not-important {
+  opacity: 0.7;
+}
 .live-demo-container {
   font-size: 1rem;
 }
@@ -2111,17 +2146,19 @@ input:disabled {
 }
 .live-demo-container .button-container {
   display: flex;
-  justify-content: end;
+  justify-content: center;
   margin-bottom: 5px;
 }
 .live-demo-container .btn {
   display: inline-block;
   padding: 12px 24px;
   background-color: var(--live-demo-button);
-  color: var(--color-casper-blue-white);
+  color: var(--live-demo-button-text);
   border: none;
   border-radius: 999px;
   text-decoration: none;
+  text-align: center;
+  width: 100%;
 }
 @media (min-width: 64rem) {
   .live-demo-container .btn {
@@ -2129,19 +2166,11 @@ input:disabled {
   }
 }
 .live-demo-container .btn:hover {
-  opacity: 0.75;
-  text-decoration: underline;
+  opacity: 0.85;
 }
-.live-demo-container .live-demo-separator {
-  border: 2px solid var(--color-text);
-  border-radius: 999px;
-  margin: 42px 12px 18px 12px;
-  width: 100%;
-  opacity: 0.2;
-}
-@media (min-width: 64rem) {
-  .live-demo-container .live-demo-separator {
-    display: none;
+@media (min-width: 40rem) {
+  .burger-menu .live-demo-container {
+    max-width: calc(40rem * 0.7);
   }
 }
 .burger-menu .live-demo-container h2,
@@ -2152,6 +2181,11 @@ input:disabled {
 .burger-menu .live-demo-container .button-container {
   display: flex;
   justify-content: center;
+}
+.burger-menu .live-demo-container .btn {
+  width: 200px;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 .demo-overview-link {
   display: block;
@@ -2165,7 +2199,6 @@ input:disabled {
 }
 .rail-popover .linked-demos-container,
 .rail-popover .live-demo-container {
-  max-height: calc(45vh - 16px);
   overflow: auto;
 }
 @supports not selector(::-webkit-scrollbar) {
@@ -2213,7 +2246,8 @@ input:disabled {
   background-color: var(--color-bg-hover);
 }
 #live-demo-popover {
-  max-height: 45vh;
+  max-width: 350px;
+  min-width: 350px;
 }
 #file-popover {
   min-width: 100px;

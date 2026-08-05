@@ -38,6 +38,7 @@ import {
   FreeNodePortLocationModel,
   GeneralPath,
   GraphComponent,
+  LayoutExecutor,
   License,
   LineCap,
   Point,
@@ -300,6 +301,7 @@ function runLayout(graphComponent) {
   })
 
   // calculate the initial layout
+  LayoutExecutor.ensure()
   graphComponent.graph.applyLayout(layout)
   // move the ports from the node center to outside the node
   adjustPorts(graphComponent.graph)

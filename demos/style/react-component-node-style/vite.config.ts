@@ -28,7 +28,7 @@
  ***************************************************************************/
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import optimizer from '@yworks/optimizer/rollup-plugin'
+import optimizer from '@yworks/optimizer/rolldown-plugin'
 
 export default defineConfig(({ mode }) => {
   return {

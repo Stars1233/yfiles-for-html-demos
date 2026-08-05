@@ -3756,6 +3756,93 @@ export function getAllEntries() {
       ]
     },
     {
+      id: 'cypress',
+      name: 'Cypress',
+      demoPath: 'testing/cypress/README.html',
+      summary: 'Shows how to test a yFiles for HTML app using Cypress.',
+      category: 'testing',
+      languageType: 'ts-only',
+      onlineAvailable: false,
+      tags: ['testing', 'cypress'],
+      keywords: ['v2.6.0.0', 'integration', 'end-to-end']
+    },
+    {
+      id: 'jest',
+      name: 'Jest',
+      demoPath: 'testing/jest/README.html',
+      summary: 'Shows how to use Jest for unit testing yFiles for HTML application logic.',
+      category: 'testing',
+      languageType: 'ts-only',
+      onlineAvailable: false,
+      tags: ['testing', 'jest'],
+      keywords: ['v3.1.0.1', 'v2.6.0.0', 'unit', 'tests']
+    },
+    {
+      id: 'jest-puppeteer',
+      name: 'Jest Puppeteer',
+      demoPath: 'testing/jest-puppeteer/README.html',
+      summary: 'Shows how to test a yFiles for HTML app using Jest with the Puppeteer environment.',
+      category: 'testing',
+      languageType: 'ts-only',
+      onlineAvailable: false,
+      tags: ['testing', 'jest', 'puppeteer'],
+      keywords: ['v3.1.0.1', 'v2.6.0.0', 'v2.2.0.2', 'integration', 'end-to-end']
+    },
+    {
+      id: 'vitest',
+      name: 'Vitest',
+      demoPath: 'testing/vitest/README.html',
+      summary: 'Shows how to test a yFiles for HTML app using Vitest.',
+      category: 'testing',
+      languageType: 'ts-only',
+      onlineAvailable: false,
+      tags: ['testing', 'vitest'],
+      keywords: ['v3.1.0.1', 'v2.6.0.0', 'integration', 'end-to-end']
+    },
+    {
+      id: 'playwright',
+      name: 'Playwright',
+      demoPath: 'testing/playwright/README.html',
+      summary: 'Shows how to test a yFiles for HTML app using Playwright.',
+      category: 'testing',
+      languageType: 'ts-only',
+      onlineAvailable: false,
+      tags: ['testing', 'playwright'],
+      keywords: ['v3.1.0.1', 'v2.6.0.0', 'integration', 'end-to-end']
+    },
+    {
+      id: 'webdriverio',
+      name: 'WebdriverIO',
+      demoPath: 'testing/wdio/README.html',
+      summary: 'Shows how to test a yFiles for HTML app in multiple browsers using WebdriverIO.',
+      category: 'testing',
+      languageType: 'ts-only',
+      onlineAvailable: false,
+      tags: ['testing', 'wdio', 'selenium'],
+      keywords: ['v3.1.0.1', 'v2.6.0.0', 'integration', 'web driver', 'end-to-end', 'e2e']
+    },
+    {
+      id: 'selenium-webdriver',
+      name: 'Selenium WebDriver',
+      demoPath: 'testing/selenium-webdriver/README.html',
+      summary: 'Shows how to test a yFiles for HTML app using Selenium WebDriver.',
+      category: 'testing',
+      languageType: 'ts-only',
+      onlineAvailable: false,
+      tags: ['testing', 'selenium', 'webdriver'],
+      keywords: ['v3.1.0.1', 'v2.6.0.0', 'integration', 'end-to-end']
+    },
+    {
+      id: 'application-under-test',
+      name: 'Simple Testable App',
+      demoPath: 'testing/application-under-test/',
+      summary: 'A simple app that is used as the test candidate in some of the testing demos.',
+      hiddenInGrid: true,
+      category: 'view',
+      tags: ['testing'],
+      keywords: []
+    },
+    {
       id: 'rollup',
       name: 'Rollup.js',
       demoPath: 'loading/rollupjs/README.html',
@@ -3776,93 +3863,6 @@ export function getAllEntries() {
       languageType: 'js-only',
       tags: ['modules', 'esm', 'deployment'],
       keywords: ['v2.4.0.4']
-    },
-    {
-      id: 'webdriverio',
-      name: 'WebdriverIO',
-      demoPath: 'testing/wdio/README.html',
-      summary: 'Shows how to test a yFiles for HTML app in multiple browsers using WebdriverIO.',
-      category: 'testing',
-      languageType: 'ts-only',
-      onlineAvailable: false,
-      tags: ['testing', 'wdio', 'selenium'],
-      keywords: ['v2.6.0.0', 'integration', 'web driver', 'end-to-end', 'e2e']
-    },
-    {
-      id: 'cypress',
-      name: 'Cypress',
-      demoPath: 'testing/cypress/README.html',
-      summary: 'Shows how to test a yFiles for HTML app using Cypress.',
-      category: 'testing',
-      languageType: 'ts-only',
-      onlineAvailable: false,
-      tags: ['testing', 'cypress'],
-      keywords: ['v2.6.0.0', 'integration', 'end-to-end']
-    },
-    {
-      id: 'jest',
-      name: 'Jest',
-      demoPath: 'testing/jest/README.html',
-      summary: 'Shows how to test a yFiles for HTML app using Jest.',
-      category: 'testing',
-      languageType: 'js-only',
-      onlineAvailable: false,
-      tags: ['testing', 'jest'],
-      keywords: ['v2.6.0.0', 'unit', 'tests']
-    },
-    {
-      id: 'jest-puppeteer',
-      name: 'Jest Puppeteer',
-      demoPath: 'testing/jest-puppeteer/README.html',
-      summary: 'Shows how to test a yFiles for HTML app using Jest with the Puppeteer environment.',
-      category: 'testing',
-      languageType: 'js-only',
-      onlineAvailable: false,
-      tags: ['testing', 'jest', 'puppeteer'],
-      keywords: ['v2.6.0.0', 'v2.2.0.2', 'integration', 'end-to-end']
-    },
-    {
-      id: 'vitest',
-      name: 'Vitest',
-      demoPath: 'testing/vitest/README.html',
-      summary: 'Shows how to test a yFiles for HTML app using Vitest.',
-      category: 'testing',
-      languageType: 'ts-only',
-      onlineAvailable: false,
-      tags: ['testing', 'vitest'],
-      keywords: ['v2.6.0.0', 'integration', 'end-to-end']
-    },
-    {
-      id: 'playwright',
-      name: 'Playwright',
-      demoPath: 'testing/playwright/README.html',
-      summary: 'Shows how to test a yFiles for HTML app using Playwright.',
-      category: 'testing',
-      languageType: 'ts-only',
-      onlineAvailable: false,
-      tags: ['testing', 'playwright'],
-      keywords: ['v2.6.0.0', 'integration', 'end-to-end']
-    },
-    {
-      id: 'selenium-webdriver',
-      name: 'Selenium WebDriver',
-      demoPath: 'testing/selenium-webdriver/README.html',
-      summary: 'Shows how to test a yFiles for HTML app using Selenium WebDriver.',
-      category: 'testing',
-      languageType: 'ts-only',
-      onlineAvailable: false,
-      tags: ['testing', 'selenium', 'webdriver'],
-      keywords: ['v2.6.0.0', 'integration', 'end-to-end']
-    },
-    {
-      id: 'application-under-test',
-      name: 'Application Under Test',
-      demoPath: 'testing/application-under-test/',
-      summary: 'A simple app that is used as the test candidate in some of the testing demos.',
-      hiddenInGrid: true,
-      category: 'view',
-      tags: ['testing'],
-      keywords: []
     },
     {
       id: 'clipboard',
@@ -3997,6 +3997,36 @@ export function getAllEntries() {
       linkedDemos: {
         type: 'related-demos',
         demos: [
+          'html-drag-and-drop',
+          'drag-and-drop',
+          'graph-drag-and-drop',
+          'custom-drag-and-drop',
+          'drag-from-component'
+        ]
+      }
+    },
+    {
+      id: 'html-drag-and-drop',
+      name: 'HTML Drag And Drop',
+      summary: 'Shows how to drag-and-drop draggable HTML elements into the graph.',
+      demoPath: 'application-features/drag-and-drop-html/',
+      category: 'application-features',
+      distributionType: 'needs-layout',
+      tags: ['interaction', 'native', 'drag and drop'],
+      keywords: [
+        'v3.1.0.2',
+        'DropInputMode',
+        'move',
+        'events',
+        'input mode',
+        'dnd',
+        'draggable',
+        'native'
+      ],
+      linkedDemos: {
+        type: 'related-demos',
+        demos: [
+          'simple-drag-and-drop',
           'drag-and-drop',
           'graph-drag-and-drop',
           'custom-drag-and-drop',

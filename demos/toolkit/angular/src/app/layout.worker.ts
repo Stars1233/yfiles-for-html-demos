@@ -41,9 +41,9 @@ import licenseData from '../license.json'
 License.value = licenseData
 
 LayoutExecutorAsyncWorker.initializeWebWorker((graph: LayoutGraph) => {
-  const treeLayout = new TreeLayout()
-  const treeReductionStage = treeLayout.treeReductionStage
-  treeReductionStage.nonTreeEdgeRouter = new OrganicEdgeRouter()
+  const treeLayout = new TreeLayout({
+    treeReductionStage: { nonTreeEdgeRouter: new OrganicEdgeRouter() }
+  })
 
   treeLayout.applyLayout(graph)
 })

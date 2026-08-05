@@ -9,28 +9,39 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Node.js Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/nodejs.webp" alt="demo-thumbnail" height="320"/>
 
-This demo shows how to run a yFiles layout algorithm in a _[Node.js](https://nodejs.org/)_ environment. This makes it possible to run the layout calculation asynchronously, preventing it from blocking the UI.
+[You can also run this demo online](https://www.yfiles.com/demos/loading/nodejs/).
 
-To transfer the graph structure and layout between the _Node.js_ _[Express](https://expressjs.com/)_ server and the main page, the LayoutExecutorAsync creates a serializable data object on the client-side and sends it to the _Node.js_ server.
+This demo shows how to run a yFiles layout algorithm in _[Node.js](https://nodejs.org/)_. This makes it possible to run the layout calculation asynchronously, preventing it from blocking the UI.
 
-On the server-side, the LayoutExecutorAsyncWorker parses this data object and provides a callback which allows applying a layout on the parsed graph. This callback is executed by calling `process(data)` on the worker which resolves with a serializable result data object that is supposed to be sent back to the LayoutExecutorAsync.
+To transfer the graph structure and layout between the _Node.js_ _[Express](https://expressjs.com/)_ server and the main page, the [LayoutExecutorAsync](https://docs.yworks.com/yfileshtml/api/LayoutExecutorAsync) creates a serializable data object on the client-side and sends it to the _Node.js_ server.
 
-On the client-side, the LayoutExecutorAsync waits for the response of the LayoutExecutorAsyncWorker and eventually applies the result to the graph.
+On the server-side, the [LayoutExecutorAsyncWorker](https://docs.yworks.com/yfileshtml/api/LayoutExecutorAsyncWorker) parses this data object and provides a callback which allows to apply a layout on the parsed graph. This callback is executed by calling `process(data)` on the worker which resolves with a serializable result data object that is supposed to be sent back to the [LayoutExecutorAsync](https://docs.yworks.com/yfileshtml/api/LayoutExecutorAsync).
 
-## Running the demo
+On the client-side, the [LayoutExecutorAsync](https://docs.yworks.com/yfileshtml/api/LayoutExecutorAsync) waits for the response of the [LayoutExecutorAsyncWorker](https://docs.yworks.com/yfileshtml/api/LayoutExecutorAsyncWorker) and eventually applies the result to the graph.
 
-First, install the required npm modules in the demo's `layout-server` directory:
+## Things to Try
 
-`> npm install`
-
-Then start the _layout_ server with:
-
-`> npm start`
-
-Afterward, open the `index.html` file via the standard demo server in a browser to start the demo.
+Modify the graph structure by adding/removing nodes and edges, and re-run the _Node.js_ layout.
 
 ## Note on licensing
 
 Running yFiles for HTML on a Node.js server requires a license that explicitly allows this. Please contact the [sales team](mailto:sales@yworks.com) for more information.
+
+## Running the Node.js Layout Server
+
+1.  Navigate to the `layout-server` subdirectory of this demo's directory
+2.  Install the required node modules:
+
+    ```
+    \> npm install
+    ```
+
+3.  Run the layout server:
+
+    ```
+    \> npm start
+    ```

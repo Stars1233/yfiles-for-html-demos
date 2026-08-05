@@ -32,7 +32,7 @@ import './modern/modern.css'
 import { createPanelFor } from './modern/navigation-rail'
 import { initializeBurgerMenu, openBurgerMenu } from './modern/burger-menu'
 import { initResponsiveToolbars } from './modern/toolbar'
-import { handleSplash } from './modern/element-utils'
+import { addNavigationButtons, handleSplash } from './modern/element-utils'
 
 function initializeNavigationRail() {
   createPanelFor(
@@ -118,7 +118,7 @@ export function initializeSidePanel(panel: Element | null, title: string) {
   panelBar.append(expandButton)
 }
 
-function initOverviewPanel() {
+function initializeOverviewPanel() {
   const overlayAnchor = document.querySelector<HTMLElement>('.graph-overview-anchor')
   if (overlayAnchor == null) {
     return
@@ -161,6 +161,24 @@ function initOverviewPanel() {
   })
 }
 
+function initializeSelectNavigationButtons() {
+  for (const select of document.querySelectorAll<HTMLSelectElement>('select[data-nav-buttons]')) {
+    addNavigationButtons(select)
+  }
+}
+
+function initializeTutorialUI() {
+  // handle dragging of description panel in tutorials
+  initTutorialDraggableDescription()
+
+  document.getElementById('tutorial-step-select')?.addEventListener('change', (evt) => {
+    window.location.href = (evt.target as HTMLSelectElement).value
+  })
+  // rest of init not relevant to tutorials
+  windowLoadSplash()
+  hideSplash()
+}
+
 function initializeUI() {
   const fullscreenButton = document.querySelector('button.fullscreen-button')!
   fullscreenButton.addEventListener('click', () => {
@@ -173,15 +191,7 @@ function initializeUI() {
   })
 
   if (document.body.classList.contains('demo-tutorial')) {
-    // handle dragging of description panel in tutorials
-    initTutorialDraggableDescription()
-
-    document.getElementById('tutorial-step-select')?.addEventListener('change', (evt) => {
-      window.location.href = (evt.target as HTMLSelectElement).value
-    })
-    // rest of init not relevant to tutorials
-    windowLoadSplash()
-    hideSplash()
+    initializeTutorialUI()
     return
   }
 
@@ -213,7 +223,7 @@ function initializeUI() {
   initializeSidePanel(document.querySelector('.interaction-panel'), 'Interaction')
   initializeSidePanel(document.querySelector('.description-panel'), 'Description')
   initResponsiveToolbars()
-  initOverviewPanel()
+  initializeOverviewPanel()
   initMobileStartPage()
   document.addEventListener('DOMContentLoaded', () => {
     initSelectWidths('.toolbar')
@@ -233,6 +243,7 @@ function initializeUI() {
     })
     graphMainPanel.append(mobileInteractionButton)
   }
+  initializeSelectNavigationButtons()
   windowLoadSplash()
   hideSplash()
 }

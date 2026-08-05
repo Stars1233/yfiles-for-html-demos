@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Flow Filtering Demo - yFiles for HTML
+# Flow Filtering Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/flow-filtering.webp" alt="demo-thumbnail" height="320"/>
 

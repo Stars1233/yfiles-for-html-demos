@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import {
-  CanvasComponent,
   Graph,
   GraphBuilder,
   GraphComponent,
@@ -70,7 +69,7 @@ async function run(): Promise<void> {
 }
 
 /**
- * Registers the {@link GraphEditorInputMode} as the {@link CanvasComponent.inputMode}
+ * Registers the {@link GraphEditorInputMode} as the {@link import('@yfiles/yfiles').CanvasComponent.inputMode}
  * and initializes the marquee input mode that clears the area of the marquee rectangle.
  */
 function initializeInputModes(): void {
@@ -112,7 +111,7 @@ function initializeInputModes(): void {
     enableOrthogonalEdgeEditing
   )
 
-  // use a position handler that avoids overlapping,
+  // Use a position handler that avoids overlapping
   // but only apply it to the moved node and not to the children of groups
   graph.decorator.nodes.positionHandler.addFactory(
     (node) => {
@@ -138,7 +137,7 @@ function initializeInputModes(): void {
     }
   )
 
-  // use a reshape handler that avoids overlapping
+  // use a re-shape handler that avoids overlapping
   graph.decorator.nodes.reshapeHandler.addFactory((node: INode) => {
     // Lookup the node reshape handler that only reshapes the node itself (and not its parent group node)
     const defaultReshapeHandler = Graph.DEFAULT_NODE_LOOKUP.contextLookup(
@@ -195,7 +194,7 @@ function initializeGraph(): void {
  * Loads the sample graph associated with the given name
  */
 function loadGraph(sampleName: string): void {
-  // @ts-ignore We don't have proper types for the sample data
+  // @ts-ignore - We don't have proper types for the sample data
   const data = SampleData[sampleName]
 
   const graph = graphComponent.graph

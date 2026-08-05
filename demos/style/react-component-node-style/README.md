@@ -9,6 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# React Component Node Style Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/react-component-node-style.webp" alt="demo-thumbnail" height="320"/>
 
 This demo presents the React component node style that uses a [React](https://react.dev/) component to visualize nodes.

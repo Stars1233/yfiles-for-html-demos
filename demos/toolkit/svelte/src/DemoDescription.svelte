@@ -1,5 +1,5 @@
 <div class='demo-sidebar-content'>
-  <h1>Svelte Integration Demo</h1>
+  <h1>Svelte Demo</h1>
   <p>
     This demo shows how to integrate yFiles for HTML with the <a
     href='https://svelte.dev/'

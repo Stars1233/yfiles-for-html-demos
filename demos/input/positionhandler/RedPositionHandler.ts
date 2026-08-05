@@ -28,7 +28,6 @@
  ***************************************************************************/
 import {
   BaseClass,
-  IDragHandler,
   type IInputModeContext,
   type IPoint,
   IPositionHandler,
@@ -50,19 +49,19 @@ export class RedPositionHandler extends BaseClass(IPositionHandler) {
   /**
    * Stores the initial location of the movement for reference, and calls the base method.
    * @param inputModeContext The context to retrieve information about the drag from
-   * @see Specified by {@link IDragHandler.initializeDrag}.
+   * @see Specified by {@link import('@yfiles/yfiles').IDragHandler.initializeDrag}.
    */
   initializeDrag(inputModeContext: IInputModeContext): void {}
 
   /**
    * Prevents node movements.
    * @param context The context to retrieve information about the drag from
-   * @param originalLocation The value of the {@link IDragHandler.location}
-   * property at the time of {@link IDragHandler.initializeDrag}
+   * @param originalLocation The value of the {@link import('@yfiles/yfiles').IDragHandler.location}
+   * property at the time of {@link import('@yfiles/yfiles').IDragHandler.initializeDrag}
    * @param newLocation The coordinates in the world coordinate system that the client wants
-   * the handle to be at. Depending on the implementation the {@link IDragHandler.location} may or may
+   * the handle to be at. Depending on the implementation the {@link import('@yfiles/yfiles').IDragHandler.location} may or may
    * not be modified to reflect the new value.
-   * @see Specified by {@link IDragHandler.handleMove}.
+   * @see Specified by {@link import('@yfiles/yfiles').IDragHandler.handleMove}.
    */
   handleMove(context: IInputModeContext, originalLocation: Point, newLocation: Point): void {}
 
@@ -70,20 +69,20 @@ export class RedPositionHandler extends BaseClass(IPositionHandler) {
    * Called when dragging has been canceled by the user.
    * @param inputModeContext The context to retrieve information about the drag from
    * @param originalLocation The value of the coordinate of the
-   * {@link IDragHandler.location} property at the time of
-   *   {@link IDragHandler.initializeDrag}.
+   * {@link import('@yfiles/yfiles').IDragHandler.location} property at the time of
+   *   {@link import('@yfiles/yfiles').IDragHandler.initializeDrag}.
    */
   cancelDrag(inputModeContext: IInputModeContext, originalLocation: Point): void {}
 
   /**
    * Called when dragging has finished.
    * @param inputModeContext The context to retrieve information about the drag from
-   * @param originalLocation The value of the {@link IDragHandler.location}
-   * property at the time of {@link IDragHandler.initializeDrag}
+   * @param originalLocation The value of the {@link import('@yfiles/yfiles').IDragHandler.location}
+   * property at the time of {@link import('@yfiles/yfiles').IDragHandler.initializeDrag}
    * @param newLocation The coordinates in the world coordinate system that the client wants
-   * the handle to be at. Depending on the implementation the {@link IDragHandler.location} may or may
+   * the handle to be at. Depending on the implementation the {@link import('@yfiles/yfiles').IDragHandler.location} may or may
    * not be modified to reflect the new value. This is the same value as delivered in the last invocation of
-   * {@link IDragHandler.handleMove}
+   * {@link import('@yfiles/yfiles').IDragHandler.handleMove}
    */
   dragFinished(
     inputModeContext: IInputModeContext,

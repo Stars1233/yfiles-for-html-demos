@@ -304,6 +304,12 @@ export class PrintingSupport {
       }
     } else {
       const newWindow = openInWindow(resultingHTML, 'Printing preview')
+      if (!newWindow) {
+        // Opening a window was blocked, and the openInWindow function showed an alert.
+        // There is nothing else we can do.
+        return
+      }
+
       // automatically close window after print dialog is closed
       newWindow.onafterprint = () => {
         newWindow.close()

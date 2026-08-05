@@ -40,42 +40,34 @@
     <main>
       <div class="simple content-centered">
         <div class="content">
-          <div class="breadcrumbs">
-            <a href="../../README.html">yFiles for HTML</a>
-            <span class="angle-right"></span>
-            Jest Demo
-          </div>
-
           <h1>Jest Demo</h1>
 
           <p>
-            The Jest demo shows how to use <a target="_blank" href="https://jestjs.io/">Jest</a> for
-            unit testing yFiles for HTML application logic.
-          </p>
-
-          <h2>yFiles and Jest</h2>
-          <p>
-            While modern JavaScript (or TypeScript) applications usually use JavaScript modules,
-            Jest's support for native JavaScript modules is still experimental. For this reason,
-            JavaScript modules code is transpiled. Due to its size, transpiling the yFiles
-            JavaScript modules library is rather slow.
-          </p>
-
-          <p>
-            Some parts of yFiles require a complete DOM implementation, which Jest's JSDOM
-            environment does not provide. To still be able to test code that uses yFiles API that
-            require a DOM, it is necessary to mock yFiles. See the
-            <code>tests/ItemFactoryWithMock.test.ts</code> file for details.
+            This shows how to use <a target="_blank" href="https://jestjs.io/">Jest</a> for unit
+            testing yFiles for HTML application logic.
           </p>
 
           <p>
             If you want to test your yFiles application with Jest in a fully functional browser
-            environment, see the <a href="../jest-puppeteer/README.html">Jest Puppeteer Demo</a>.
+            environment, see the
+            <a href="../jest-puppeteer/README.html">Jest Puppeteer Demo</a>.
           </p>
 
-          <p>To run the unit tests:</p>
+          <p>
+            You can find more information about
+            <a target="_blank" href="../../README.html">testing a yFiles-based application</a> in
+            general, and about using
+            <a
+              target="_blank"
+              href="https://docs.yworks.com/yfileshtml/dguide/testing/#testing-jest"
+              >Jest and yFiles</a
+            >
+            together in particular, in the documentation.
+          </p>
+
+          <h3>Running the unit tests</h3>
           <ol>
-            <li>Go to the demo's directory <code>demos-js/testing/jest</code>.</li>
+            <li>Go to the demo's directory <code>demos-ts/testing/jest</code>.</li>
             <li>Run <code>npm install</code>.</li>
             <li>Run the unit tests with <code>npm run test</code>.</li>
           </ol>

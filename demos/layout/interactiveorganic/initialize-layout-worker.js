@@ -26,50 +26,18 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import {
-  type GraphComponent,
-  type GraphEditorInputMode,
-  IEdge,
-  INode,
-  type MoveInputMode,
-  Reachability
-} from '@yfiles/yfiles'
+import { IEdge, INode, Reachability } from '@yfiles/yfiles'
 import { GraphSynchronizer } from './GraphSynchronizer'
-
-export type StartLayoutMessage = { type: 'start-layout' }
-export type DragStartedMessage = { type: 'drag-started'; nodeId: number; componentIds: number[] }
-export type DraggedMessage = { type: 'dragged'; nodeId: number; componentIds: number[] }
-export type DragCanceledMessage = { type: 'drag-canceled'; nodeId: number; componentIds: number[] }
-export type DragFinishedMessage = { type: 'drag-finished'; nodeId: number; componentIds: number[] }
-export type NodeChangedMessage = { type: 'node-changed'; nodeId: number; neighborsIds: number[] }
-export type EdgeChangedMessage = {
-  type: 'edge-changed'
-  edgeId: number
-  sourceId: number
-  targetId: number
-  neighborsIds: number[]
-}
-export type InteractionMessage =
-  | StartLayoutMessage
-  | DragStartedMessage
-  | DraggedMessage
-  | DragCanceledMessage
-  | DragFinishedMessage
-  | NodeChangedMessage
-  | EdgeChangedMessage
 
 /**
  * Initializes the web worker for the interactive layout and configures it for the input gestures.
  */
-export async function initializeWorkerLayout(
-  graphComponent: GraphComponent,
-  graphEditorInputMode: GraphEditorInputMode
-): Promise<{ startLayout: () => void }> {
+export async function initializeLayoutWorker(graphComponent, graphEditorInputMode) {
   // load worker immediately on startup
-  const worker = new Worker(new URL('./WorkerLayout', import.meta.url), { type: 'module' })
+  const worker = new Worker(new URL('./layout-worker', import.meta.url), { type: 'module' })
 
-  await new Promise<void>((resolve) => {
-    const readyListener = (evt: MessageEvent) => {
+  await new Promise((resolve) => {
+    const readyListener = (evt) => {
       if (typeof evt.data === 'object' && evt.data.type === 'worker-ready') {
         worker.removeEventListener('message', readyListener)
         resolve()
@@ -102,23 +70,20 @@ export async function initializeWorkerLayout(
    * Registers the necessary drag listeners to the input mode to configure the interactive layout
    * to respect the drag position.
    */
-  function prepareInteraction(
-    graphEditorInputMode: GraphEditorInputMode,
-    graphSynchronizer: GraphSynchronizer
-  ): void {
-    let draggedNodeId: number | undefined
-    let draggedComponentIds: number[] | undefined
+  function prepareInteraction(graphEditorInputMode, graphSynchronizer) {
+    let draggedNodeIds
+    let draggedComponentIds
 
     const moveInputMode = graphEditorInputMode.moveSelectedItemsInputMode
-    function getDraggedNode(moveInputMode: MoveInputMode): INode {
-      return moveInputMode.affectedItems.at(0) as INode
+    function getDraggedNodes(moveInputMode) {
+      return moveInputMode.affectedItems.toArray()
     }
 
     moveInputMode.addEventListener('drag-started', (_, moveInputMode) => {
-      const draggedNode = getDraggedNode(moveInputMode)
-      draggedNodeId = graphSynchronizer.getId(draggedNode)
+      const draggedNodes = getDraggedNodes(moveInputMode)
+      draggedNodeIds = draggedNodes.map((draggedNode) => graphSynchronizer.getId(draggedNode))
       // find the nodes that belong to the same component as the dragged node
-      const reachability = new Reachability({ directed: false, startNodes: [draggedNode] }).run(
+      const reachability = new Reachability({ directed: false, startNodes: draggedNodes }).run(
         graphComponent.graph
       )
       draggedComponentIds = reachability.reachableNodes
@@ -126,32 +91,32 @@ export async function initializeWorkerLayout(
         .toArray()
       sendMessage({
         type: 'drag-started',
-        nodeId: draggedNodeId,
+        nodeIds: draggedNodeIds,
         componentIds: draggedComponentIds
       })
     })
 
     moveInputMode.addEventListener('dragged', () => {
-      sendMessage({ type: 'dragged', nodeId: draggedNodeId!, componentIds: draggedComponentIds! })
+      sendMessage({ type: 'dragged', nodeIds: draggedNodeIds, componentIds: draggedComponentIds })
     })
 
     moveInputMode.addEventListener('drag-canceled', () => {
       sendMessage({
         type: 'drag-canceled',
-        nodeId: draggedNodeId!,
-        componentIds: draggedComponentIds!
+        nodeIds: draggedNodeIds,
+        componentIds: draggedComponentIds
       })
-      draggedNodeId = undefined
+      draggedNodeIds = undefined
       draggedComponentIds = undefined
     })
 
     moveInputMode.addEventListener('drag-finished', () => {
       sendMessage({
         type: 'drag-finished',
-        nodeId: draggedNodeId!,
-        componentIds: draggedComponentIds!
+        nodeIds: draggedNodeIds,
+        componentIds: draggedComponentIds
       })
-      draggedNodeId = undefined
+      draggedNodeIds = undefined
       draggedComponentIds = undefined
     })
 
@@ -177,7 +142,7 @@ export async function initializeWorkerLayout(
   /**
    * Sends a message to the worker when a node has been created/deleted.
    */
-  function createNodeChangedMessage(node: INode) {
+  function createNodeChangedMessage(node) {
     const neighborsIds = getClosestNodesIds(node)
     sendMessage({
       type: 'node-changed',
@@ -189,7 +154,7 @@ export async function initializeWorkerLayout(
   /**
    * Sends a message to the worker when an edge has been created/deleted.
    */
-  function createEdgeChangedMessage(edge: IEdge) {
+  function createEdgeChangedMessage(edge) {
     const source = edge.sourceNode
     const target = edge.targetNode
     if (source && target) {
@@ -206,14 +171,14 @@ export async function initializeWorkerLayout(
   /**
    * Returns the IDs of nodes whose centers lie within the specified distance of the given node.
    */
-  function getClosestNodesIds(node: INode, distance = 150) {
+  function getClosestNodesIds(node, distance = 150) {
     const closestNodes = graphComponent.graph.nodes
       .filter((n) => n !== node && n.layout.center.distanceTo(node.layout.center) < distance)
       .toArray()
     return closestNodes.map((neighbor) => graphSynchronizer.getId(neighbor))
   }
 
-  function sendMessage(message: InteractionMessage) {
+  function sendMessage(message) {
     worker.postMessage(message)
   }
 }

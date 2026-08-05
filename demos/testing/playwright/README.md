@@ -9,6 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Playwright Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/playwright.webp" alt="demo-thumbnail" height="320"/>
 
 This demo shows how to use [Playwright](https://playwright.dev/) for testing a yFiles for HTML web application.

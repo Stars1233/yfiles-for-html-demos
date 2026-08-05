@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Biofabrics Demo - yFiles for HTML
+# Biofabrics Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/biofabrics.webp" alt="demo-thumbnail" height="320"/>
 

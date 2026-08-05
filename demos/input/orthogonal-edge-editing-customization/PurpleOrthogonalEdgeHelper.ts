@@ -30,7 +30,6 @@ import {
   type IEdge,
   type IGraph,
   type IInputModeContext,
-  IOrthogonalEdgeHelper,
   IShapeGeometry,
   OrthogonalEdgeHelper
 } from '@yfiles/yfiles'
@@ -51,7 +50,7 @@ export class PurpleOrthogonalEdgeHelper extends OrthogonalEdgeHelper {
    * @param _sourceEnd `true` if the source end of the edge is queried, `false` for
    * the target end
    * @see Overrides {@link OrthogonalEdgeHelper.shouldMoveEndImplicitly}
-   * @see Specified by {@link IOrthogonalEdgeHelper.shouldMoveEndImplicitly}.
+   * @see Specified by {@link import('@yfiles/yfiles').IOrthogonalEdgeHelper.shouldMoveEndImplicitly}.
    */
   shouldMoveEndImplicitly(_inputModeContext: IInputModeContext, _sourceEnd: boolean): boolean {
     return true
@@ -63,7 +62,7 @@ export class PurpleOrthogonalEdgeHelper extends OrthogonalEdgeHelper {
    * @param inputModeContext The input mode context which edited the edge
    * @param graph The graph to use for modifying the edge instance
    * @see Overrides {@link OrthogonalEdgeHelper.cleanUpEdge}
-   * @see Specified by {@link IOrthogonalEdgeHelper.cleanUpEdge}.
+   * @see Specified by {@link import('@yfiles/yfiles').IOrthogonalEdgeHelper.cleanUpEdge}.
    */
   cleanUpEdge(inputModeContext: IInputModeContext, graph: IGraph): void {
     super.cleanUpEdge(inputModeContext, graph)

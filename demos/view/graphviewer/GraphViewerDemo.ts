@@ -73,7 +73,6 @@ let overviewComponent: GraphOverviewComponent
 let graphDescriptionMapper: Mapper<IGraph, string>
 let descriptionMapper: Mapper<INode, string>
 let tooltipMapper: Mapper<INode, string>
-let urlMapper: Mapper<INode, string>
 
 /**
  * Holds the graph search object functionality.
@@ -85,7 +84,6 @@ const graphChooserBox = document.querySelector<HTMLSelectElement>('#graph-choose
 const graphDescription = document.querySelector<HTMLElement>('#graph-info-content')!
 const nodeInfo = document.querySelector<HTMLElement>('#node-info-label')!
 const nodeInfoDescription = document.querySelector<HTMLElement>('#node-info-description')!
-const nodeInfoUrl = document.querySelector<HTMLElement>('#node-info-url')!
 const searchBox = document.querySelector<HTMLInputElement>('#searchBox')!
 
 async function run(): Promise<void> {
@@ -145,7 +143,6 @@ function initializeGraphComponent(): void {
   graphDescriptionMapper = new Mapper()
   descriptionMapper = new Mapper()
   tooltipMapper = new Mapper()
-  urlMapper = new Mapper()
 
   // whenever the currentItem property on the graph changes, we want to get notified...
   graphComponent.addEventListener('current-item-changed', onCurrentItemChanged)
@@ -309,7 +306,7 @@ function onHoveredItemChanged(item: IModelItem | null): void {
  * @param location The location of the click
  */
 function onClickInputModeOnClicked(context: IInputModeContext, location: Point): void {
-  // we check if there was something at the provided location..
+  // we check if there was something at the provided location
   if (graphComponent.graphModelManager.hitTester.enumerateHits(context, location).size === 0) {
     // and if there wasn't we try to exit the current group in case we are inside a folder node
     const navigationInputMode = (graphComponent.inputMode as GraphEditorInputMode)
@@ -338,24 +335,14 @@ function onCurrentItemChanged(): void {
   // clear the current display
   nodeInfo.innerHTML = 'Empty'
   nodeInfoDescription.innerHTML = 'Empty'
-  nodeInfoUrl.innerHTML = 'None'
 
   const currentItem = graphComponent.currentItem
   if (currentItem instanceof INode) {
-    // for nodes display the label and the values of the mappers for description and URLs..
+    // for nodes display the label and the values of the description mapper
     const node = currentItem
     nodeInfo.innerHTML = node.labels.size > 0 ? node.labels.first()!.text : 'Empty'
     const content = getDescription(node)
     nodeInfoDescription.innerHTML = content ? content : 'Empty'
-    const url = getUrl(node)
-    if (url !== null) {
-      const a = document.createElement('a')
-      a.setAttribute('href', url)
-      a.setAttribute('target', '_blank')
-      a.innerHTML = 'External'
-      nodeInfoUrl.innerHTML = ''
-      nodeInfoUrl.appendChild(a)
-    }
   }
 }
 
@@ -445,14 +432,6 @@ function getToolTip(node: INode): string | null {
 }
 
 /**
- * Gets the external resource location for the given node.
- */
-function getUrl(node: INode): string | null {
-  const masterNode = graphComponent.graph.foldingView!.getMasterItem(node) as INode
-  return urlMapper.get(masterNode)
-}
-
-/**
  * Helper method that creates and configures the GraphML parser.
  */
 function createGraphMLIOHandler(): GraphMLIOHandler {
@@ -460,10 +439,9 @@ function createGraphMLIOHandler(): GraphMLIOHandler {
   registerTemplateStyleSerialization(ioHandler)
   // enable support for fast style implementations
   ioHandler.addXamlNamespaceMapping('http://www.yworks.com/yfilesHTML/demos/', FastCanvasStyles)
-  // we also want to populate the mappers for "Description", "ToolTip", and "Url"
+  // we also want to populate the mappers for "Description" and "ToolTip"
   ioHandler.addInputMapper(INode, String, 'Description', descriptionMapper)
   ioHandler.addInputMapper(INode, String, 'ToolTip', tooltipMapper)
-  ioHandler.addInputMapper(INode, String, 'Url', urlMapper)
   graphDescriptionMapper.clear()
   // as well as the description of the graph
   ioHandler.addInputMapper(IGraph, String, 'GraphDescription', graphDescriptionMapper)

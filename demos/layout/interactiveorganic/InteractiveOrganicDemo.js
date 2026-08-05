@@ -31,13 +31,14 @@ import {
   GraphComponent,
   GraphEditorInputMode,
   GraphItemTypes,
+  LayoutExecutor,
   License,
   OrganicLayout
 } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
 import graphData from './graph-data.json'
 import { InteractiveOrganicFastEdgeStyle, InteractiveOrganicFastNodeStyle } from './DemoStyles'
-import { initializeWorkerLayout } from './initializeWorkerLayout'
+import { initializeLayoutWorker } from './initialize-layout-worker'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
@@ -57,7 +58,7 @@ async function run() {
   graphComponent.inputMode = graphEditorInputMode
 
   // initialize the interactive organic layout running in a web worker
-  const layout = await initializeWorkerLayout(graphComponent, graphEditorInputMode)
+  const layout = await initializeLayoutWorker(graphComponent, graphEditorInputMode)
 
   const graph = graphComponent.graph
 
@@ -72,6 +73,7 @@ async function run() {
   // simplicity of this demo, we run the initial layout in the UI thread,
   // but the initial layout can also be run in the worker thread.
   const initialLayout = new OrganicLayout({ defaultMinimumNodeDistance: 50 })
+  LayoutExecutor.ensure()
   graph.applyLayout(initialLayout)
 
   // center the graph

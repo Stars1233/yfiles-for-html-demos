@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Compact Tabular Layout Demo - yFiles for HTML
+# Compact Tabular Layout Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-compact-tabular-layout.webp" alt="demo-thumbnail" height="320"/>
 
@@ -19,7 +19,7 @@ This demo shows how to configure the [TabularLayout](https://docs.yworks.com/yfi
 
 The algorithm tries to calculate an arrangement that minimizes edge lengths. Since tabular layout only supports straight-line edges, [EdgeRouter](https://docs.yworks.com/yfileshtml/api/EdgeRouter) is used to calculate the final edge paths.
 
-Selecting the _Preserve Aspect Ratio_ button in the toolbar switches the layout mode to [FIXED_SIZE](https://docs.yworks.com/yfileshtml/api/TabularLayoutMode#FIXED_SIZE), maintaining a layout aspect ratio similar to that of the [GraphComponent](https://docs.yworks.com/yfileshtml/api/GraphComponent). In contrast, deselecting it uses [AUTO_SIZE](https://docs.yworks.com/yfileshtml/api/TabularLayoutMode#AUTO_SIZE) mode for maximum compactness.
+Selecting the _Preserve Aspect Ratio_ button in the toolbar switches the layout mode to [FIXED\_SIZE](https://docs.yworks.com/yfileshtml/api/TabularLayoutMode#FIXED_SIZE), maintaining a layout aspect ratio similar to that of the [GraphComponent](https://docs.yworks.com/yfileshtml/api/GraphComponent). In contrast, deselecting it uses [AUTO\_SIZE](https://docs.yworks.com/yfileshtml/api/TabularLayoutMode#AUTO_SIZE) mode for maximum compactness.
 
 In `FIXED_SIZE` mode, the layout algorithm requires a [LayoutGrid](https://docs.yworks.com/yfileshtml/api/LayoutGrid) to define the layout's columns and rows. In `AUTO_SIZE` mode, a grid is optional, though it can be used to specify spacing between auto-calculated columns and rows.
 

@@ -26,15 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import {
-  Font,
-  GeneralPath,
-  ObjectRendererBase,
-  Point,
-  Rect,
-  SvgVisual,
-  TextRenderSupport
-} from '@yfiles/yfiles'
+import { Font, ObjectRendererBase, Point, Rect, SvgVisual, TextRenderSupport } from '@yfiles/yfiles'
 
 /**
  * Renderer for circular node groups that displays them as arc segments around the circle.

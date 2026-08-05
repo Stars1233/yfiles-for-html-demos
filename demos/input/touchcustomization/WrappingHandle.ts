@@ -31,7 +31,6 @@ import {
   type ClickEventArgs,
   type Cursor,
   type HandleType,
-  IDragHandler,
   IHandle,
   type IInputModeContext,
   type IPoint,
@@ -96,10 +95,10 @@ export class WrappingHandle extends BaseClass(IHandle) {
   /**
    * Handles drag events for this handle.
    * @param context The context to retrieve information about the drag from.
-   * @param originalLocation The value of the {@link IDragHandler.location} property at the time of
-   * {@link IDragHandler.initializeDrag}.
+   * @param originalLocation The value of the {@link import('@yfiles/yfiles').IDragHandler.location} property at the time of
+   * {@link import('@yfiles/yfiles').IDragHandler.initializeDrag}.
    * @param newLocation The coordinates in the world coordinate system that the client wants the
-   * handle to be at. Depending on the implementation the {@link IDragHandler.location} may or may
+   * handle to be at. Depending on the implementation the {@link import('@yfiles/yfiles').IDragHandler.location} may or may
    * not be modified to reflect the new value.
    */
   handleMove(context: IInputModeContext, originalLocation: Point, newLocation: Point): void {
@@ -109,12 +108,12 @@ export class WrappingHandle extends BaseClass(IHandle) {
   /**
    * Finishes the drag gesture for this handle.
    * @param context The context to retrieve information about the drag from.
-   * @param originalLocation The value of the {@link IDragHandler.location}
-   * property at the time of {@link IDragHandler.initializeDrag}.
+   * @param originalLocation The value of the {@link import('@yfiles/yfiles').IDragHandler.location}
+   * property at the time of {@link import('@yfiles/yfiles').IDragHandler.initializeDrag}.
    * @param newLocation The coordinates in the world coordinate system that the client wants the
-   * handle to be at. Depending on the implementation the {@link IDragHandler.location} may or may
+   * handle to be at. Depending on the implementation the {@link import('@yfiles/yfiles').IDragHandler.location} may or may
    * not be modified to reflect the new value. This is the same value as delivered in the last
-   * invocation of {@link IDragHandler.handleMove}
+   * invocation of {@link import('@yfiles/yfiles').IDragHandler.handleMove}
    */
   dragFinished(context: IInputModeContext, originalLocation: Point, newLocation: Point): void {
     this.wrappedHandle.dragFinished(context, originalLocation, newLocation)
@@ -123,8 +122,8 @@ export class WrappingHandle extends BaseClass(IHandle) {
   /**
    * Resets the effects of the previous drag gesture if the gesture is aborted.
    * @param context The context to retrieve information about the drag from.
-   * @param originalLocation The value of the coordinate of the {@link IDragHandler.location}
-   * property at the time of {@link IDragHandler.initializeDrag}.
+   * @param originalLocation The value of the coordinate of the {@link import('@yfiles/yfiles').IDragHandler.location}
+   * property at the time of {@link import('@yfiles/yfiles').IDragHandler.initializeDrag}.
    */
   cancelDrag(context: IInputModeContext, originalLocation: Point): void {
     this.wrappedHandle.cancelDrag(context, originalLocation)

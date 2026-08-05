@@ -94,8 +94,13 @@ export default function DemoDescription() {
         </li>
         <li>
           After the graph has been changed, click{' '}
-          <span className="material-symbols-outlined" style={{ verticalAlign: 'middle', fontSize: '16px' }}>refresh</span> to reload
-          the initial sample graph.
+          <span
+            className="material-symbols-outlined"
+            style={{ verticalAlign: 'middle', fontSize: '16px' }}
+          >
+            refresh
+          </span>{' '}
+          to reload the initial sample graph.
         </li>
         <li>Vite's development server automatically updates the application upon code changes.</li>
       </ul>

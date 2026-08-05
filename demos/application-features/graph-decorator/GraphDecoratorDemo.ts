@@ -41,7 +41,6 @@ import {
   LabelStyle,
   LayoutExecutor,
   License,
-  NodeDecorator,
   Size
 } from '@yfiles/yfiles'
 
@@ -108,7 +107,7 @@ function buildGraph(graph: IGraph, graphData: JSONGraph): void {
 }
 
 /**
- * Configures custom port candidates by utilizing the portCandidateProvider of the {@link NodeDecorator}.
+ * Configures custom port candidates by utilizing the portCandidateProvider of the {@link import('@yfiles/yfiles').NodeDecorator}.
  */
 function configurePortCandidateProvider(graph: IGraph): void {
   // Don't remove unoccupied ports.
@@ -135,17 +134,16 @@ function configurePortCandidateProvider(graph: IGraph): void {
   // IPortCandidateProvider.fromExistingPorts provides port candidates at the locations of already existing ports.
   // IPortCandidateProvider.fromNodeCenter provides a single port candidate at the center of the node.
   // IPortCandidateProvider.fromShapeGeometry provides several port candidates based on the shape of the node's style.
-  portCandidateProvider.addFactory(
-    (node: INode): IPortCandidateProvider =>
-      IPortCandidateProvider.combine(
-        graph.isGroupNode(node)
-          ? [IPortCandidateProvider.fromShapeGeometry(node, 0.5)]
-          : [
-              IPortCandidateProvider.fromExistingPorts(node),
-              IPortCandidateProvider.fromNodeCenter(node),
-              IPortCandidateProvider.fromShapeGeometry(node, 0.5)
-            ]
-      )
+  portCandidateProvider.addFactory((node: INode): IPortCandidateProvider =>
+    IPortCandidateProvider.combine(
+      graph.isGroupNode(node)
+        ? [IPortCandidateProvider.fromShapeGeometry(node, 0.5)]
+        : [
+            IPortCandidateProvider.fromExistingPorts(node),
+            IPortCandidateProvider.fromNodeCenter(node),
+            IPortCandidateProvider.fromShapeGeometry(node, 0.5)
+          ]
+    )
   )
 }
 

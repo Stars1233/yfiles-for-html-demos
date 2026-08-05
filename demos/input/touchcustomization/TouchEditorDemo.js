@@ -68,7 +68,7 @@ import { DragAndDropPanel } from '@yfiles/demo-utils/DragAndDropPanel'
 import { NodePortCandidateProvider } from './NodePortCandidateProvider'
 import { EdgeReconnectionPortCandidateProvider } from './EdgeReconnectionPortCandidateProvider'
 import { WrappingHandle } from './WrappingHandle'
-import { TouchHandlesRenderer } from './TouchHandlesRenderer'
+import { CUSTOM_HANDLE_TYPES, TouchHandlesRenderer } from './TouchHandlesRenderer'
 import { createDialContextMenu } from './DialContextMenu'
 import {
   colorSets,
@@ -570,7 +570,42 @@ function updateSelection(item) {
  * Installs custom handle visualizations for resize and move handles.
  */
 function initializeCustomHandles(graphComponent) {
-  graphComponent.inputMode.handleInputMode.handlesRenderer = new TouchHandlesRenderer()
+  const handleInputMode = graphComponent.inputMode.handleInputMode
+  handleInputMode.handlesRenderer = new TouchHandlesRenderer()
+
+  // Customize handle hit-testing by assigning the closest resize/move handle to the event
+  handleInputMode.addEventListener('query-closest-handle', (evt, sender) => {
+    const context = evt.context
+    const zoom = context.zoom
+    const radius = TouchHandlesRenderer.handleRadius / zoom
+    const hitRadiusSq = Math.pow(radius + context.hitTestRadius, 2)
+    const location = evt.queryLocation
+
+    let closestHandle = null
+    let minDistanceSq = Number.MAX_VALUE
+
+    for (const handle of sender.handles) {
+      const type = handle.type
+      if (CUSTOM_HANDLE_TYPES.indexOf(type) === -1) {
+        continue
+      }
+      const handleOffset = sender.getHandleOffset(handle).multiply(1 / zoom)
+      const handleLocation = handle.location.toPoint().add(handleOffset)
+      const dx = location.x - handleLocation.x
+      const dy = location.y - handleLocation.y
+      const distanceSq = dx * dx + dy * dy
+      if (distanceSq <= hitRadiusSq) {
+        if (distanceSq < minDistanceSq) {
+          minDistanceSq = distanceSq
+          closestHandle = handle
+        }
+      }
+    }
+
+    if (closestHandle) {
+      evt.handle = closestHandle
+    }
+  })
 
   // use variant 2 of move handle for bends
   graphComponent.graph.decorator.bends.handle.addWrapperFactory((_bend, handle) =>

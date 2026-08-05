@@ -68,7 +68,6 @@ import {
   License,
   NodeAggregation,
   NodeAggregationPolicy,
-  NodeAggregationResult,
   NodeDataKey,
   NodeStyleIndicatorRenderer,
   Point,
@@ -449,7 +448,7 @@ async function runAggregationAndReplaceGraph(originalGraph: IGraph): Promise<voi
 
 /**
  * Asynchronously runs the {@link NodeAggregation} algorithm with the settings from the properties panel.
- * Afterwards, the {@link NodeAggregationResult} is applied to the `aggregateGraph`.
+ * Afterwards, the {@link import('@yfiles/yfiles').NodeAggregationResult} is applied to the `aggregateGraph`.
  */
 async function applyAggregation(
   originalGraph: IGraph,
@@ -513,10 +512,11 @@ async function runRadialTreeLayout(affectedNodes?: IEnumerable<INode>): Promise<
     compactnessFactor: 0.9,
     allowOverlaps: true
   })
-  // prepend a TreeReduction stage with the hierarchy edges as tree edges
+  // use a TreeReduction stage with the hierarchy edges as tree edges
   const treeReductionStage = layout.treeReductionStage
   treeReductionStage.nonTreeEdgeRouter = new StraightLineEdgeRouter()
   treeReductionStage.edgeBundling.bundlingStrength = 1
+
   const nonTreeEdges = graphComponent.graph.edges
     .filter((e) => !aggregationHelper.isHierarchyEdge(e))
     .toList()

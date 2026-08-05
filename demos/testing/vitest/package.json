@@ -1,18 +1,19 @@
 {
   "name": "@yfiles/vitest-demo-for-yfiles-for-html",
   "private": true,
+  "type": "module",
   "scripts": {
     "postinstall": "npx playwright install",
     "test": "vitest",
     "test-ui": "vitest --ui"
   },
   "devDependencies": {
-    "@playwright/test": "^1.60.0",
-    "@vitest/ui": "^4.1.7",
-    "playwright": "^1.60.0",
-    "vitest": "^4.1.7"
+    "@playwright/test": "^1.62.0",
+    "@vitest/ui": "^4.1.10",
+    "playwright": "^1.62.0",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.1+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.2+dev.tgz"
   }
 }

@@ -28,7 +28,6 @@
  ***************************************************************************/
 /* eslint-disable jsdoc/check-param-names */
 import {
-  CanvasComponent,
   DragDropEffects,
   EdgePathLabelModel,
   EdgeSides,
@@ -41,8 +40,10 @@ import {
   GridSnapTypes,
   type IGraph,
   type ILabelModelParameter,
+  LabelStyle,
   License,
   NodeAlignmentPolicy,
+  PolylineEdgeStyle,
   SnappableItems,
   SvgExport
 } from '@yfiles/yfiles'
@@ -70,7 +71,7 @@ async function run(): Promise<void> {
 
   initializeInputModes()
 
-  initDemoStyles(graphComponent.graph, { foldingEnabled: true })
+  initializeStyles(graphComponent.graph)
 
   await initializePalette()
 
@@ -78,7 +79,7 @@ async function run(): Promise<void> {
 }
 
 /**
- * Registers the {@link GraphEditorInputMode} as the {@link CanvasComponent.inputMode}
+ * Registers the {@link GraphEditorInputMode} as the {@link import('@yfiles/yfiles').CanvasComponent.inputMode}
  * and initializes the input mode for dropping graphs.
  */
 function initializeInputModes(): void {
@@ -196,8 +197,7 @@ function toGraph(graphData: GraphData): IGraph {
   const masterGraph = new Graph()
   const manager = new FoldingManager(masterGraph)
   const graph = manager.createFoldingView().graph
-
-  initDemoStyles(graph, { foldingEnabled: true })
+  initializeStyles(graph)
 
   const builder = new GraphBuilder(graph)
   builder.createNodesSource({
@@ -287,6 +287,26 @@ function initializeUI(): void {
   // button to allow or disable dropping of graphs on folder nodes
   folderButton.addEventListener('click', () => {
     graphDropInputMode.allowFolderNodeAsParent = folderButton.checked
+  })
+}
+
+/**
+ * Initializes the styles used for the graph elements of this demo.
+ */
+function initializeStyles(graph: IGraph): void {
+  initDemoStyles(graph, { theme: 'demo-palette-48', foldingEnabled: true })
+  graph.edgeDefaults.style = new PolylineEdgeStyle({
+    smoothingLength: 8,
+    stroke: `1.5px gray`,
+    targetArrow: `gray small triangle`
+  })
+
+  graph.edgeDefaults.labels.style = new LabelStyle({
+    shape: 'round-rectangle',
+    backgroundFill: '#cdced2',
+    verticalTextAlignment: 'center',
+    horizontalTextAlignment: 'center',
+    padding: [2, 4, 1, 4]
   })
 }
 

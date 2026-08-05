@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Filtering Demo - yFiles for HTML
+# Filtering Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/filtering.webp" alt="demo-thumbnail" height="320"/>
 

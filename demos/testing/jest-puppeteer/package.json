@@ -9,13 +9,17 @@
     "test:integration:watch": "jest -c integration/jest.config.js --watch"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "jest": "^29.7.0",
+    "@types/jest": "^30.0.0",
+    "jest": "~30.3.0",
     "jest-puppeteer": "^11.0.0",
-    "puppeteer": "^25.1.0",
-    "ts-jest": "^29.4.11"
+    "puppeteer": "^25.4.0",
+    "ts-jest": "^29.4.12"
+  },
+  "allowScripts": {
+    "puppeteer@25.4.0": true,
+    "unrs-resolver@1.12.2": true
   },
   "dependencies": {
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.1+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.2+dev.tgz"
   }
 }

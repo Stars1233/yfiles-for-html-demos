@@ -35,6 +35,7 @@ export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
   nodeToColorMapper
   useItemStateColors
   gradients
+  cssClass
 
   /**
    * Instantiates a new SimpleGradientDelegatingEdgeStyle.
@@ -43,12 +44,19 @@ export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
    * @param gradientMap the general map of gradients in the drawing
    * @param useItemStateColors whether to prefer colors stored in ItemState over the mapper
    */
-  constructor(wrappedStyle, nodeToColorMapper, gradientMap = new Map(), useItemStateColors = true) {
+  constructor(
+    wrappedStyle,
+    nodeToColorMapper,
+    gradientMap = new Map(),
+    useItemStateColors = true,
+    ccsClass = ''
+  ) {
     super()
     this.wrappedStyle = wrappedStyle
     this.nodeToColorMapper = nodeToColorMapper
     this.gradients = gradientMap
     this.useItemStateColors = useItemStateColors
+    this.cssClass = ccsClass
   }
 
   /**
@@ -116,7 +124,11 @@ export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
     this.setAttrIfChanged(rect, tag.rectCache, 'y', `${upperPort.y}`)
     this.setAttrIfChanged(rect, tag.rectCache, 'width', `${width}`)
     this.setAttrIfChanged(rect, tag.rectCache, 'height', `${lowerPort.y - upperPort.y}`)
-
+    const newClass = this.cssClass
+    if (oldVisual.tag.svgClass !== newClass) {
+      oldVisual.svgElement.setAttribute('class', newClass)
+      oldVisual.tag.svgClass = newClass
+    }
     return oldVisual
   }
 

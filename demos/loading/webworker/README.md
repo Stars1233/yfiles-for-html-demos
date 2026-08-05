@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Web Worker Demo - yFiles for HTML
+# Web Worker Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/web-worker.webp" alt="demo-thumbnail" height="320"/>
 

@@ -32,7 +32,6 @@ import {
   IEdge,
   INode,
   type Intersection,
-  Intersections,
   type IRenderContext,
   IVisualCreator,
   type Point,
@@ -49,7 +48,7 @@ const LABEL_INTERSECTION_COLOR_FILL = Color.from(colorSets['demo-green'].fill)
 const LABEL_INTERSECTION_COLOR_STROKE = Color.from(colorSets['demo-green'].stroke)
 
 /**
- * Visualizes intersections calculated by the {@link Intersections} algorithm.
+ * Visualizes intersections calculated by the {@link import('@yfiles/yfiles').Intersections} algorithm.
  */
 export class IntersectionVisualCreator extends BaseClass(IVisualCreator) {
   public intersections: Intersection[] = []

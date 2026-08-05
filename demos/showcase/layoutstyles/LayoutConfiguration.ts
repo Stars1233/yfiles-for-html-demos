@@ -63,12 +63,7 @@ type LayoutConfigurationImpl = {
   $layoutRunning: boolean
   createPreferredPlacementDescriptor: (
     placeAlongEdge:
-      | 'anywhere'
-      | 'at-source'
-      | 'at-source-port'
-      | 'at-target'
-      | 'at-target-port'
-      | 'centered',
+      'anywhere' | 'at-source' | 'at-source-port' | 'at-target' | 'at-target-port' | 'centered',
     sideOfEdge: 'anywhere' | 'on-edge' | 'left' | 'right' | 'left-or-right',
     orientation: 'parallel' | 'orthogonal' | 'horizontal' | 'vertical',
     distanceToEdge: number
@@ -187,12 +182,7 @@ export const LayoutConfiguration = (Class as any)('LayoutConfiguration', {
   createLabelingLayoutData: function (
     graph: IGraph,
     placeAlongEdge:
-      | 'anywhere'
-      | 'at-source'
-      | 'at-source-port'
-      | 'at-target'
-      | 'at-target-port'
-      | 'centered',
+      'anywhere' | 'at-source' | 'at-source-port' | 'at-target' | 'at-target-port' | 'centered',
     sideOfEdge: 'anywhere' | 'on-edge' | 'left' | 'right' | 'left-or-right',
     orientation: 'parallel' | 'orthogonal' | 'horizontal' | 'vertical',
     distanceToEdge: number
@@ -257,12 +247,7 @@ export const LayoutConfiguration = (Class as any)('LayoutConfiguration', {
    */
   createPreferredPlacementDescriptor: function (
     placeAlongEdge:
-      | 'anywhere'
-      | 'at-source'
-      | 'at-source-port'
-      | 'at-target'
-      | 'at-target-port'
-      | 'centered',
+      'anywhere' | 'at-source' | 'at-source-port' | 'at-target' | 'at-target-port' | 'centered',
     sideOfEdge: 'anywhere' | 'on-edge' | 'left' | 'right' | 'left-or-right',
     orientation: 'parallel' | 'orthogonal' | 'horizontal' | 'vertical',
     distanceToEdge: number

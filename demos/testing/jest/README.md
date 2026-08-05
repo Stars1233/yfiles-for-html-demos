@@ -9,20 +9,18 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Jest Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/jest.webp" alt="demo-thumbnail" height="320"/>
 
-The Jest demo shows how to use [Jest](https://jestjs.io/) for unit testing yFiles for HTML application logic.
-
-## yFiles and Jest
-
-While modern JavaScript (or TypeScript) applications usually use JavaScript modules, Jest's support for native JavaScript modules is still experimental. For this reason, JavaScript modules code is transpiled. Due to its size, transpiling the yFiles JavaScript modules library is rather slow.
-
-Some parts of yFiles require a complete DOM implementation, which Jest's JSDOM environment does not provide. To still be able to test code that uses yFiles API that require a DOM, it is necessary to mock yFiles. See the `tests/ItemFactoryWithMock.test.ts` file for details.
+This shows how to use [Jest](https://jestjs.io/) for unit testing yFiles for HTML application logic.
 
 If you want to test your yFiles application with Jest in a fully functional browser environment, see the [Jest Puppeteer Demo](../jest-puppeteer/README.html).
 
-To run the unit tests:
+You can find more information about [testing a yFiles-based application](../../README.html) in general, and about using [Jest and yFiles](https://docs.yworks.com/yfileshtml/dguide/testing/#testing-jest) together in particular, in the documentation.
 
-1.  Go to the demo's directory `demos-js/testing/jest`.
+### Running the unit tests
+
+1.  Go to the demo's directory `demos-ts/testing/jest`.
 2.  Run `npm install`.
 3.  Run the unit tests with `npm run test`.

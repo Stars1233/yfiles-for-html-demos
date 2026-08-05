@@ -28,7 +28,7 @@
  ***************************************************************************/
 import { type GraphComponent, LayoutExecutorAsync } from '@yfiles/yfiles'
 
-const layoutWorker = new Worker(new URL('./LayoutWorker', import.meta.url), { type: 'module' })
+const layoutWorker = new Worker(new URL('./layout-worker', import.meta.url), { type: 'module' })
 
 /**
  * Keeps track of layout requests on the graph and makes sure that there is always a clean layout

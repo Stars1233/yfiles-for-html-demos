@@ -31,7 +31,7 @@ import { type GraphComponent, LayoutExecutorAsync } from '@yfiles/yfiles'
 
 let layoutWorker: Worker
 function getWorker(): Worker {
-  layoutWorker = layoutWorker ?? new Worker(new URL('./LayoutWorker.ts', import.meta.url))
+  layoutWorker = layoutWorker ?? new Worker(new URL('./layout-worker.ts', import.meta.url))
   return layoutWorker
 }
 /**

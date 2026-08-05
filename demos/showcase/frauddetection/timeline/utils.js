@@ -49,7 +49,7 @@ export function* days(start, end) {
   const floor = new Date(start.getFullYear(), start.getMonth(), start.getDate())
   const ceiling = new Date(end.getFullYear(), end.getMonth(), end.getDate() + 1)
 
-  for (let currentDate = new Date(floor); currentDate < ceiling; ) {
+  for (let currentDate = new Date(floor); currentDate < ceiling;) {
     const start = new Date(currentDate)
     currentDate.setDate(currentDate.getDate() + 1)
     const end = new Date(currentDate)
@@ -66,7 +66,7 @@ export function* weeks(start, end) {
   const ceiling = new Date(end.getFullYear(), end.getMonth() + 1, 1)
 
   let week = 1
-  for (let currentDate = new Date(floor); currentDate < ceiling; ) {
+  for (let currentDate = new Date(floor); currentDate < ceiling;) {
     const start = new Date(currentDate)
     const label = String(week)
     currentDate.setDate(currentDate.getDate() + 7)
@@ -91,7 +91,7 @@ export function* months(start, end) {
   const floor = new Date(start.getFullYear(), start.getMonth(), 1)
   const ceiling = new Date(end.getFullYear(), end.getMonth() + 1, 1)
 
-  for (let currentDate = new Date(floor); currentDate < ceiling; ) {
+  for (let currentDate = new Date(floor); currentDate < ceiling;) {
     const start = new Date(currentDate)
     currentDate.setMonth(currentDate.getMonth() + 1)
     const end = new Date(currentDate)
@@ -107,7 +107,7 @@ export function* years(start, end) {
   const floor = new Date(start.getFullYear(), 0, 1)
   const ceiling = new Date(end.getFullYear() + 1, 0, 1)
 
-  for (let currentDate = new Date(floor); currentDate < ceiling; ) {
+  for (let currentDate = new Date(floor); currentDate < ceiling;) {
     const start = new Date(currentDate)
     currentDate.setFullYear(currentDate.getFullYear() + 1)
     const end = new Date(currentDate)

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Custom Snapping Demo - yFiles for HTML
+# Custom Snapping Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/custom-snapping.webp" alt="demo-thumbnail" height="320"/>
 

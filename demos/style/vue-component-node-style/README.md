@@ -9,6 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Vue Component Node Style Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/vue-component-node-style.webp" alt="demo-thumbnail" height="320"/>
 
 This demo presents the Vue.js component node style that uses a [Vue](https://vuejs.org/) component to visualize nodes.

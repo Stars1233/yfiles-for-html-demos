@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { type IInputModeContext, IOrthogonalEdgeHelper, OrthogonalEdgeHelper } from '@yfiles/yfiles'
+import { type IInputModeContext, OrthogonalEdgeHelper } from '@yfiles/yfiles'
 
 /**
  * An {@link OrthogonalEdgeHelper} that enables moving the
@@ -39,7 +39,7 @@ export class OrangeOrthogonalEdgeHelper extends OrthogonalEdgeHelper {
    * @param _sourceEnd `true` if the source end of the edge is queried, `false` false
    * for the target end
    * @see Overrides {@link OrthogonalEdgeHelper.shouldMoveEndImplicitly}
-   * @see Specified by {@link IOrthogonalEdgeHelper.shouldMoveEndImplicitly}.
+   * @see Specified by {@link import('@yfiles/yfiles').IOrthogonalEdgeHelper.shouldMoveEndImplicitly}.
    */
   shouldMoveEndImplicitly(_inputModeContext: IInputModeContext, _sourceEnd: boolean): boolean {
     return true

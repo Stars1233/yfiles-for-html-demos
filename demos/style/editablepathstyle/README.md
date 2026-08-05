@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Editable Path Node Style Demo - yFiles for HTML
+# Editable Path Node Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/editable-path-style.webp" alt="demo-thumbnail" height="320"/>
 

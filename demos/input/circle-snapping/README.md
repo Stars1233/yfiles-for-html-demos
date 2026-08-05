@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Circular Snapping Demo - yFiles for HTML
+# Circular Snapping Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/circle-snapping.webp" alt="demo-thumbnail" height="320"/>
 

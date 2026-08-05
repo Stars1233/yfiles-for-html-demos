@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# WebGL Selection Styles Demo - yFiles for HTML
+# WebGL Selection Styles Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/webgl-selection-styles.webp" alt="demo-thumbnail" height="320"/>
 

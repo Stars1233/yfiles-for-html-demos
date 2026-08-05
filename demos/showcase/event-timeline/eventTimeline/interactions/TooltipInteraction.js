@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import { IEdge, ILabel, INode } from '@yfiles/yfiles'
-import { ItemState } from '../EventTimelineTypes'
 import { TooltipHelper } from '../components/TooltipHelper'
 
 export class TooltipInteraction {

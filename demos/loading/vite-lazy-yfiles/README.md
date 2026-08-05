@@ -9,13 +9,18 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Vite Lazy Loading Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/vite-lazy-yfiles.webp" alt="demo-thumbnail" height="320"/>
 
-This demo shows how to lazy load yFiles with [Vite](https://vitejs.dev/)'s [dynamic import](https://vite.dev/guide/features#dynamic-import/) feature.
+This demo shows how to lazy-load yFiles with [Vite](https://vitejs.dev/)'s [dynamic import](https://vite.dev/guide/features#dynamic-import/) feature.
 
-By default, vite automatically performs tree-shaking and only includes the necessary modules for production builds.
+By default, vite automatically performs tree-shaking and only includes the necessary modules for
+production builds.
 
-Often, the diagram component is not needed for the initial startup of the application or can be loaded lazily in general to provide a better user experience. Thus, in this case, yFiles is only loaded when the diagram component of this application is requested.
+Often, the diagram component is not needed for the initial startup of the application or can be loaded
+lazily in general to provide a better user experience. Thus, in this case, yFiles is only loaded when
+the diagram component of this application is requested.
 
 The demo loads yFiles only if users click the 'Lazy Load yFiles' button.
 
@@ -23,12 +28,22 @@ The demo loads yFiles only if users click the 'Lazy Load yFiles' button.
 
 There are two possible approaches:
 
-- Create a separate diagram component that imports from the `yfiles` meta module.  
-  This separate diagram component with yFiles can then be loaded dynamically on demand which is demonstrated in this application.
-- yFiles can also be split up further, such that only specific yFiles ES modules are loaded when needed, e.g., initially only load the yFiles view, but lazy load the yFiles layout if needed.
+- Create a separate diagram component that imports from the `yfiles` meta module.
+  This separate diagram component with yFiles can then be loaded dynamically on demand, which is demonstrated in this application.
+- yFiles can also be split up further, such that only specific yFiles ES modules are loaded when needed, e.g., initially only load the yFiles view, but lazily load the yFiles layout if needed.
 
 ## Running the demo
 
-1.  Go to the demo's directory `demos-ts/loading/vite-lazy-yfiles`.
-2.  Run `npm install`.
-3.  Run `npm run dev`.
+First, install the required npm modules in the demo directory:
+
+```sh
+npm install
+```
+
+Then, start the Vite development server:
+
+```sh
+npm run dev
+```
+
+The Vite development server will launch the [index file](http://localhost:3000) in a browser.

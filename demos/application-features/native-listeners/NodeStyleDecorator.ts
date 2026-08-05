@@ -28,9 +28,7 @@
  ***************************************************************************/
 import {
   type ICanvasContext,
-  IHitTestable,
   type IInputModeContext,
-  IMarqueeTestable,
   type INode,
   type INodeStyle,
   type IRenderContext,
@@ -49,7 +47,7 @@ type TaggedSvgVisualGroup = SvgVisualGroup & TaggedSvgVisual<SVGGElement, Render
 /**
  * This node style decorator adds a circle with a native click listener representing a button.
  *
- * Checks like {@link IHitTestable.isHit} or {@link IMarqueeTestable.isInBox} are
+ * Checks like {@link import('@yfiles/yfiles').IHitTestable.isHit} or {@link import('@yfiles/yfiles').IMarqueeTestable.isInBox} are
  * simply delegated to the base style because the button is placed inside the node layout.
  */
 export class NodeStyleDecorator extends NodeStyleBase<TaggedSvgVisualGroup> {

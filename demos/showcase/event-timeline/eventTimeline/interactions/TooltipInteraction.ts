@@ -34,10 +34,9 @@ import {
   INode
 } from '@yfiles/yfiles'
 import type { EdgeAggregator } from '../components/EdgeAggregator'
-import { ItemState, type TooltipAccessors } from '../EventTimelineTypes'
+import type { TooltipAccessors } from '../EventTimelineTypes'
 import { TooltipHelper } from '../components/TooltipHelper'
 import type { EventTimelineConfig } from '../EventTimelineConfig'
-import type { ResolvedConfig } from 'vite'
 
 export class TooltipInteraction {
   private readonly graphComponent: GraphComponent

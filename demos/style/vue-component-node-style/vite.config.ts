@@ -29,7 +29,7 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import optimizer from '@yworks/optimizer/rollup-plugin'
+import optimizer from '@yworks/optimizer/rolldown-plugin'
 
 export default defineConfig(({ mode }) => {
   return {

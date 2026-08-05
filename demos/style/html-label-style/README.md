@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# HTML Label Style Demo - yFiles for HTML
+# HTML Label Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/html-label-style.webp" alt="demo-thumbnail" height="320"/>
 

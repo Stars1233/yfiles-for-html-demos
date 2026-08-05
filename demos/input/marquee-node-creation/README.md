@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Marquee Node Creation Demo - yFiles for HTML
+# Marquee Node Creation Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/marquee-node-creation.webp" alt="demo-thumbnail" height="320"/>
 

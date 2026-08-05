@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Bundled Edge Router Demo - yFiles for HTML
+# Bundled Edge Router Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-bundled-edge-router.webp" alt="demo-thumbnail" height="320"/>
 

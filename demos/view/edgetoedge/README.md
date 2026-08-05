@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Edge To Edge Demo - yFiles for HTML
+# Edge To Edge Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/edge-to-edge.webp" alt="demo-thumbnail" height="320"/>
 

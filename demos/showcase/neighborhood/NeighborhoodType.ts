@@ -27,8 +27,4 @@
  **
  ***************************************************************************/
 export type NeighborhoodType =
-  | 'neighborhood'
-  | 'predecessors'
-  | 'successors'
-  | 'both'
-  | 'folder-contents'
+  'neighborhood' | 'predecessors' | 'successors' | 'both' | 'folder-contents'

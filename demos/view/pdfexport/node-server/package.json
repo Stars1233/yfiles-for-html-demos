@@ -9,5 +9,8 @@
     "body-parser": "^2.2.1",
     "express": "^5.2.1",
     "puppeteer": "^24.34.0"
+  },
+  "allowScripts": {
+    "puppeteer@24.43.1": true
   }
 }

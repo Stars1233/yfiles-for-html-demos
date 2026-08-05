@@ -31,7 +31,6 @@ import {
   GraphComponent,
   GraphEditorInputMode,
   GraphItemTypes,
-  IEdgeReconnectionPortCandidateProvider,
   IPortCandidateProvider,
   License,
   Point,
@@ -49,9 +48,9 @@ import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Registers a callback function as decorator that provides a custom
- * {@link IEdgeReconnectionPortCandidateProvider} for each node.
+ * {@link import('@yfiles/yfiles').IEdgeReconnectionPortCandidateProvider} for each node.
  * This callback function is called whenever a node in the graph is queried
- * for its {@link IEdgeReconnectionPortCandidateProvider}. In this case, the 'node'
+ * for its {@link import('@yfiles/yfiles').IEdgeReconnectionPortCandidateProvider}. In this case, the 'node'
  * parameter will be set to that node.
  * @param graph The given graph
  */

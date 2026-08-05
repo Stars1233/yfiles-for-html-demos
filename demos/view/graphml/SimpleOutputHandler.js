@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { IGraph, IModelItem, KeyType, OutputHandlerBase } from '@yfiles/yfiles'
+import { IGraph, IModelItem, ITagOwner, OutputHandlerBase } from '@yfiles/yfiles'
 
 /**
  * An output handler that writes primitive data types and ignores complex types.
@@ -36,7 +36,7 @@ export class SimpleOutputHandler extends OutputHandlerBase {
   property
 
   constructor(property, propertiesPanel) {
-    super(Object, Object, property.keyScope, property.name, property.type)
+    super(ITagOwner, Object, property.keyScope, property.name, property.type)
     this.property = property
     this.propertiesPanel = propertiesPanel
     this.defaultExists = property.defaultExists
@@ -46,34 +46,19 @@ export class SimpleOutputHandler extends OutputHandlerBase {
   }
 
   /**
-   * Writes the property data to xml.
+   * Writes the property data to XML.
    *
-   * Only primitive data types are written. Complex data types are ignored, because they
-   * cannot be serialized in a meaningful manner.
+   * Only primitive data types are written. Complex data types are ignored because they
+   * cannot be serialized meaningfully.
    *
    * @see Overrides {@link OutputHandlerBase.writeValueCore}
    */
   writeValueCore(context, data) {
     if (data != null) {
-      switch (this.property.type) {
-        case KeyType.INT:
-          context.writer.writeString((data | 0).toString())
-          break
-        case KeyType.LONG:
-          context.writer.writeString((data | 0).toString())
-          break
-        case KeyType.FLOAT:
-        case KeyType.DOUBLE:
-          context.writer.writeString(parseFloat(data).toString())
-          break
-        case KeyType.STRING:
-          context.writer.writeCData(data)
-          break
-        case KeyType.BOOLEAN:
-          context.writer.writeString((!!data).toString())
-          break
-        default:
-          throw new Error('Invalid Type!')
+      try {
+        context.writer.writeString(String(data))
+      } catch (e) {
+        throw new Error('Invalid attribute type: ' + this.property.type)
       }
     }
   }

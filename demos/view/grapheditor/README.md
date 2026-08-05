@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Graph Editor Demo - yFiles for HTML
+# Graph Editor Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-editor.webp" alt="demo-thumbnail" height="320"/>
 
@@ -40,7 +40,7 @@ Press the F2 key while an element or connection is selected, or double click on 
 - Scroll the graph horizontally by scrolling the mouse wheel with the Shift key held down.
 - Scroll the graph vertically by scrolling the mouse wheel with the Ctrl key held down.
 - Move the diagram view by dragging the mouse with the Ctrl key held down. Start dragging on an empty location on the canvas.
-- Change the zoom factor with the mouse wheel or the zoom_in zoom_out buttons in the toolbar. Display the entire diagram using the zoom_out_map button in the toolbar.
+- Change the zoom factor with the mouse wheel or the zoom\_in zoom\_out buttons in the toolbar. Display the entire diagram using the zoom\_out\_map button in the toolbar.
 
 #### Selection
 
@@ -56,7 +56,7 @@ Press the F2 key while an element or connection is selected, or double click on 
 
 #### Removing Items
 
-Press the Delete key to remove all currently-selected items, or use the delete_forever button in the toolbar.
+Press the Delete key to remove all currently-selected items, or use the delete\_forever button in the toolbar.
 
 #### Resizing Elements
 
@@ -71,7 +71,7 @@ Select a node, then drag one of the resizing handles to change the size.
 - Copy selected elements to the clipboard by pressing Ctrl + C.
 - Paste the clipboard's contents into the diagram by pressing Ctrl + V.
 
-There are also cut content_copy content_paste buttons in the toolbar for clipboard operations.
+There are also cut content\_copy content\_paste buttons in the toolbar for clipboard operations.
 
 #### Undo/Redo
 
@@ -98,11 +98,11 @@ There are also group group and ungroup ungroup buttons in the toolbar.
 - Enter a selected group node by pressing Alt + DownArrow.
 - Exit a group node by pressing Alt + UpArrow.
 
-There are also enter group enter_group and exit group exit_group buttons in the toolbar.
+There are also enter group enter\_group and exit group exit\_group buttons in the toolbar.
 
 #### Orthogonal Edge Creation
 
-- Switch orthogonal edges on/off using the orthogonal_editing button in the toolbar.
+- Switch orthogonal edges on/off using the orthogonal\_editing button in the toolbar.
 - Change the outgoing node side by pressing Space while creating an orthogonal edge (before creating a bend).
 
 #### Snapping

@@ -41,7 +41,6 @@ import {
   ISelectionRenderer,
   type ISize,
   type ISvgDefsCreator,
-  IVisualCreator,
   LabelStyleBase,
   Matrix,
   MatrixOrder,
@@ -112,7 +111,7 @@ export class ZoomInvariantLabelStyleBase extends LabelStyleBase {
    *
    * @param ctx The render context.
    * @param label The label to which this style instance is assigned.
-   * @returns The visual as required by the {@link IVisualCreator.createVisual} interface.
+   * @returns The visual as required by the {@link import('@yfiles/yfiles').IVisualCreator.createVisual} interface.
    */
   createVisual(ctx: IRenderContext, label: ILabel): SvgVisualGroup {
     this.updateDummyLabel(ctx, label)
@@ -157,7 +156,7 @@ export class ZoomInvariantLabelStyleBase extends LabelStyleBase {
    * @param ctx The render context.
    * @param oldVisual The visual that has been created in the call to createVisual.
    * @param label The label to which this style instance is assigned.
-   * @returns visual as required by the {@link IVisualCreator.createVisual} interface.
+   * @returns visual as required by the {@link import('@yfiles/yfiles').IVisualCreator.createVisual} interface.
    */
   updateVisual(ctx: IRenderContext, oldVisual: SvgVisualGroup, label: ILabel): SvgVisual | null {
     this.updateDummyLabel(ctx, label)

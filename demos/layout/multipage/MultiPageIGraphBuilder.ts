@@ -49,7 +49,6 @@ import {
   type LayoutNodeLabel,
   Mapper,
   MultiPageEdgeType,
-  MultiPageLayout,
   type MultiPageLayoutResult,
   MultiPageNodeType,
   NodeDefaults,
@@ -76,9 +75,9 @@ export class MultiPageIGraphBuilder {
   result: MultiPageLayoutResult
 
   /**
-   * Creates a new instance for the given model graph and the given {@link MultiPageLayout}.
+   * Creates a new instance for the given model graph and the given {@link import('@yfiles/yfiles').MultiPageLayout}.
    * @param result The holder for the pages created by the
-   *   {@link MultiPageLayout}.
+   *   {@link import('@yfiles/yfiles').MultiPageLayout}.
    */
   constructor(result: MultiPageLayoutResult) {
     // initialize the graph item defaults with the null styles

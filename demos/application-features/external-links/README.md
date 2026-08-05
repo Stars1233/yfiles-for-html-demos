@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# External Links Demo - yFiles for HTML
+# External Links Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/external-links.webp" alt="demo-thumbnail" height="320"/>
 

@@ -29,7 +29,6 @@
 import {
   HierarchicalLayout,
   HierarchicalLayoutData,
-  IGraph,
   LayoutStageBase,
   NodeDataKey
 } from '@yfiles/yfiles'
@@ -52,7 +51,7 @@ import {
  * scenarios where a custom layout stage is required.
  * Inserting temporary elements is an effective way to influence the layout result and customize
  * them to specific requirements. Keeping temporary elements only inside the layout graph and
- * using a custom stage has the huge advantages that no additional view graph ({@link IGraph})
+ * using a custom stage has the huge advantages that no additional view graph ({@link import('@yfiles/yfiles').IGraph})
  * elements must be created and that only a single layout run on the view graph is required,
  * thus, not affecting the layout animation.
  */

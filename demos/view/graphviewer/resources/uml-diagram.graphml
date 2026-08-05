@@ -103,7 +103,7 @@
 		</y:SharedData>
 	</data>
 	<graph id="G" edgedefault="directed">
-		<data key="d8"><![CDATA[A class diagram using Unified Modelling Language (UML). The layout was created with the DirectedOrthogonalLayouter provided by yFiles.]]></data>
+		<data key="d8"><![CDATA[A class diagram using Unified Modelling Language (UML). The layout was created with the OrthogonalLayout provided by yFiles.]]></data>
 		<node id="n0">
 			<data key="d3">
 				<x:List>

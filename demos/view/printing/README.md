@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Printing Demo - yFiles for HTML
+# Printing Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/printing.webp" alt="demo-thumbnail" height="320"/>
 

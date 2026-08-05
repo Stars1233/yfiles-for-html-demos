@@ -28,7 +28,6 @@
  ***************************************************************************/
 import {
   BaseClass,
-  CanvasComponent,
   type ClickEventArgs,
   Color,
   CompositeLabelModel,
@@ -60,7 +59,6 @@ import {
   type ICanvasContext,
   ICloneable,
   IColumn,
-  IDragHandler,
   type IEdge,
   IEdgePathCropper,
   type IEdgeStyle,
@@ -88,7 +86,6 @@ import {
   INodeStyleRenderer,
   Insets,
   InteriorNodeLabelModel,
-  IObjectRenderer,
   IOrientedRectangle,
   IOrthogonalEdgeHelper,
   type IPoint,
@@ -121,7 +118,6 @@ import {
   OrientedRectangle,
   OrthogonalEdgeHelper,
   Point,
-  PolylineEdgeStyle,
   PortCandidate,
   PortCandidateProviderBase,
   RadialGradient,

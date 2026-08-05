@@ -9,22 +9,35 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# SolidJS Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/solid.webp" alt="demo-thumbnail" height="320"/>
 
-The SolidJS demo shows how to integrate yFiles in a [SolidJS](https://www.solidjs.com/) application with [TypeScript](https://www.typescriptlang.org/) in project bootstrapped with [Vite](https://vitejs.dev/).
+This demo shows how to integrate yFiles in a [SolidJS](https://www.solidjs.com/) application.
 
-To start the demo
+## Running the demo
 
-1.  Go to the demo's directory `demos-ts/toolkit/solid/`
-2.  Run `npm install`
-3.  Run `npm run dev`
+First, install the required npm modules in the demo directory:
 
-This will start the development server of the toolkit.
+```sh
+npm install
+```
 
-The integrated development server of the project will automatically update the application upon code changes.
+Now, start the demo:
 
-There are no special caveats that you need to look out for when you load yFiles as NPM dependency as in this demo application. However, we recommend including the [@yworks/optimizer](https://www.npmjs.com/package/@yworks/optimizer) when you deploy your app for production.
+```sh
+npm run dev
+```
 
-The optimizer will obfuscate the public API of the yFiles library files, as well as yFiles API usages in application sources.
+This will start the development server.
+This server will automatically update the application upon code changes.
 
-We highly recommend obfuscating the yFiles for HTML library prior to deploying your application to a public web server to reduce the download size of the library for the end user. Note that, at the time of writing, you are not required to use obfuscation.
+## Notes
+
+There are no special issues that you need to look out for when you load yFiles as NPM dependency as
+in this demo application.
+
+Consider using the [@yworks/optimizer](https://www.npmjs.com/package/@yworks/optimizer)
+when you deploy your app for production.
+This tool obfuscates the public API of the yFiles library files and yFiles API
+usages in application sources, reducing the file size of the production build.

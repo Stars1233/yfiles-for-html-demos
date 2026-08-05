@@ -29,24 +29,28 @@
 import { HandleType, ObjectRendererBase, SvgVisual } from '@yfiles/yfiles'
 
 /**
+ * Handle types that are handled by the {@link TouchHandlesRenderer}.
+ */
+export const CUSTOM_HANDLE_TYPES = [
+  HandleType.RESIZE,
+  HandleType.RESIZE_BOTTOM,
+  HandleType.RESIZE_BOTTOM_LEFT,
+  HandleType.RESIZE_BOTTOM_RIGHT,
+  HandleType.RESIZE_TOP,
+  HandleType.RESIZE_TOP_LEFT,
+  HandleType.RESIZE_TOP_RIGHT,
+  HandleType.RESIZE_LEFT,
+  HandleType.RESIZE_RIGHT,
+  HandleType.MOVE,
+  HandleType.MOVE2,
+  HandleType.MOVE3
+]
+
+/**
  * Renders large handles for resize and move as circles.
  */
 export class TouchHandlesRenderer extends ObjectRendererBase {
   static handleRadius = 15
-
-  resizeHandles = [
-    HandleType.RESIZE,
-    HandleType.RESIZE_BOTTOM,
-    HandleType.RESIZE_BOTTOM_LEFT,
-    HandleType.RESIZE_BOTTOM_RIGHT,
-    HandleType.RESIZE_TOP,
-    HandleType.RESIZE_TOP_LEFT,
-    HandleType.RESIZE_TOP_RIGHT,
-    HandleType.RESIZE_LEFT,
-    HandleType.RESIZE_RIGHT
-  ]
-
-  moveHandles = [HandleType.MOVE, HandleType.MOVE2, HandleType.MOVE3]
 
   createVisual(context, renderTag) {
     const group = document.createElementNS('http://www.w3.org/2000/svg', 'g')
@@ -71,7 +75,7 @@ export class TouchHandlesRenderer extends ObjectRendererBase {
     let index = 0
     for (const handle of renderTag.handles) {
       const type = handle.type
-      if (this.resizeHandles.indexOf(type) == -1 && this.moveHandles.indexOf(type) == -1) {
+      if (CUSTOM_HANDLE_TYPES.indexOf(type) === -1) {
         continue
       }
       let circle

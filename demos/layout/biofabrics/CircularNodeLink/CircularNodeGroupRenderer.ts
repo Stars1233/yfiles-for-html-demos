@@ -28,7 +28,6 @@
  ***************************************************************************/
 import {
   Font,
-  GeneralPath,
   type ICanvasContext,
   type IInputModeContext,
   type IRenderContext,

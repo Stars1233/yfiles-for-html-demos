@@ -28,7 +28,6 @@
  ***************************************************************************/
 import {
   BaseClass,
-  CanvasComponent,
   GeneralPath,
   IArrow,
   IBoundsProvider,
@@ -36,9 +35,7 @@ import {
   IVisualCreator,
   Point,
   Rect,
-  SvgDefsManager,
-  SvgVisual,
-  Visual
+  SvgVisual
 } from '@yfiles/yfiles'
 import { SVGNS } from './Namespaces'
 

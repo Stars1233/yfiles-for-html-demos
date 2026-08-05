@@ -37,7 +37,7 @@ import {
 import license from './license.json'
 import './style.css'
 
-const layoutWorker = new Worker(new URL('./LayoutWorker.js', import.meta.url), { type: 'module' })
+const layoutWorker = new Worker(new URL('./layout-worker.js', import.meta.url), { type: 'module' })
 
 License.value = license
 

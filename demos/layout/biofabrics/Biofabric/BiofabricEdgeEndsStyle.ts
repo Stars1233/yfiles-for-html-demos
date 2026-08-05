@@ -31,7 +31,6 @@ import {
   type ICanvasContext,
   type IEdge,
   type IRenderContext,
-  type Point,
   type Rect,
   SvgVisual,
   type TaggedSvgVisual

@@ -50,7 +50,6 @@ import {
   type IGraph,
   IHitTestable,
   IHitTester,
-  IInputMode,
   type IInputModeContext,
   ILabel,
   type ILabelModelParameter,
@@ -107,7 +106,7 @@ export type ButtonActionListener = (button: Button) => void
 export type ButtonTrigger = 'none' | 'hover' | 'current-item' | 'right-click'
 
 /**
- * An {@link IInputMode} that can be used to display several {@link Button buttons} at an owning
+ * An {@link import('@yfiles/yfiles').IInputMode} that can be used to display several {@link Button buttons} at an owning
  * {@link IModelItem} that trigger different actions for this owner.
  *
  * The kind of model items this input mode should consider as owners is specified by the

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Node Alignment Demo - yFiles for HTML
+# Hierarchical Layout with Node Alignment Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-hierarchical-node-alignment.webp" alt="demo-thumbnail" height="320"/>
 

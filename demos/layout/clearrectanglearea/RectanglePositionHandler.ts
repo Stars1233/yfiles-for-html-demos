@@ -29,7 +29,6 @@
 import {
   BaseClass,
   type IInputModeContext,
-  IMutablePoint,
   type IPoint,
   IPositionHandler,
   type MutableRectangle,
@@ -57,14 +56,14 @@ export class RectanglePositionHandler extends BaseClass(IPositionHandler) {
   }
 
   /**
-   * Stores the initial position of the {@link IMutablePoint}
+   * Stores the initial position of the {@link import('@yfiles/yfiles').IMutablePoint}
    */
   public initializeDrag(context: IInputModeContext): void {
     this.startPosition = this.rectangle.topLeft
   }
 
   /**
-   * Moves the {@link IMutablePoint} away from the start position by the difference
+   * Moves the {@link import('@yfiles/yfiles').IMutablePoint} away from the start position by the difference
    * between newLocation and originalLocation
    * @param context The context
    * @param originalLocation the original location
@@ -81,7 +80,7 @@ export class RectanglePositionHandler extends BaseClass(IPositionHandler) {
   }
 
   /**
-   * Moves the {@link IMutablePoint} back to the start position.
+   * Moves the {@link import('@yfiles/yfiles').IMutablePoint} back to the start position.
    */
   public cancelDrag(context: IInputModeContext, originalLocation: Point): void {
     if (this.startPosition) {

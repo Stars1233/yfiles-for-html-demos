@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Graph Drag and Drop Demo - yFiles for HTML
+# Graph Drag and Drop Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-drag-and-drop.webp" alt="demo-thumbnail" height="320"/>
 

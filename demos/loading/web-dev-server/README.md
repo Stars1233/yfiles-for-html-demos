@@ -9,18 +9,25 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Web Dev Server Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/web-dev-server.webp" alt="demo-thumbnail" height="320"/>
 
-This demo shows how to load yFiles for HTML with [Web Dev Server](https://modern-web.dev/docs/dev-server/overview/) as a loader for efficient web development and easy builds.
+This demo shows how to load yFiles for HTML with [Web Dev Server](https://modern-web.dev/docs/dev-server/overview/)
+as a loader for efficient web development and easy builds.
 
 ## Running the demo
 
 First, install the required npm modules in the demo directory:
 
-`> npm install`
+```sh
+npm install
+```
 
-Now the Web Dev Server can be started:
+Then, start the demo:
 
-`> npm start`
+```sh
+npm start
+```
 
-The Web Dev Server will launch the [index file](http://localhost:8000) in a browser.
+The Web Dev Server will launch the index file in a browser.

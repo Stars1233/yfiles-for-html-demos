@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Tree of Life Demo - yFiles for HTML
+# Tree of Life Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/tree-of-life.webp" alt="demo-thumbnail" height="320"/>
 

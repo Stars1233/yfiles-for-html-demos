@@ -171,7 +171,7 @@ export class EventTimeline {
    * Updates the graph data.
    * @param data The new data to be loaded.
    * @param resetZoom Whether to reset the zoom level (default = false).
-   * @param startTimeFrame
+   * @param startTimeFrame A tuple of dates that specifies the start and end time of the visible timeline.
    */
   async setData(data, resetZoom = false, startTimeFrame) {
     await this.controller.setData(data, resetZoom, startTimeFrame)

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Simple Graph Builder Demo - yFiles for HTML
+# Simple Graph Builder Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-graph-builder.webp" alt="demo-thumbnail" height="320"/>
 

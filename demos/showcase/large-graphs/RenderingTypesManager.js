@@ -28,7 +28,6 @@
  ***************************************************************************/
 import {
   GraphEditorInputMode,
-  GraphModelManager,
   List,
   SelectionIndicatorManager,
   WebGLGraphModelManager,

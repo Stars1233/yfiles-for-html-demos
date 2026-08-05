@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# CSS Item Style Demo - yFiles for HTML
+# CSS Item Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/css-item-style.webp" alt="demo-thumbnail" height="320"/>
 

@@ -1648,7 +1648,6 @@ var relativeTemplatePath = relativeTemplatePath || ''
                 parentNode = uiContainer.parentNode;
               parentNode.className.indexOf('option-ui') > -1 ||
               parentNode.id.indexOf('option-ui') > -1;
-
             ) {
               parentNode = parentNode.parentNode
             }

@@ -28,6 +28,7 @@
  ***************************************************************************/
 import {
   Animator,
+  CircularLayout,
   FreeNodeLabelModel,
   GraphBuilder,
   GraphComponent,
@@ -105,6 +106,9 @@ async function run(): Promise<void> {
   // Build the graph and calculate a nice initial layout
   const graphBuilder = createGraphBuilder(network, graphComponent)
   graphComponent.graph = graphBuilder.buildGraph()
+
+  // make sure the circular module is loaded to support the circular substructure style
+  CircularLayout.ensure()
   graphComponent.graph.applyLayout(
     new OrganicLayout({
       defaultPreferredEdgeLength: 20,

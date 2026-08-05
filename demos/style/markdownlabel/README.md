@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Markdown Label Demo - yFiles for HTML
+# Markdown Label Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/markdown-label.webp" alt="demo-thumbnail" height="320"/>
 

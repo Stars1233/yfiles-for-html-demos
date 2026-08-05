@@ -49,7 +49,6 @@ import {
   PortPlacementPolicy,
   TreeLayout,
   TreeLayoutData,
-  TreeReductionStage,
   ViewportLimitingPolicy
 } from '@yfiles/yfiles'
 
@@ -505,7 +504,7 @@ export class CollapsibleTree {
     // layout stages used to place nodes at barycenter for smoother layout animations
     treeLayout.layoutStages.append(new PlaceNodesAtBarycenterStage())
 
-    return new TreeReductionStage(treeLayout)
+    return treeLayout
   }
 
   addToHiddenNodes(nodes) {

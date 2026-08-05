@@ -44,9 +44,7 @@ export type WebGLNodeStyle = WebGLShapeNodeStyle | WebGLImageNodeStyle | WebGLGr
 export type WebGLEdgeStyle = WebGLPolylineEdgeStyle | WebGLArcEdgeStyle | WebGLBridgeEdgeStyle
 export type WebGLTextStyle = WebGLLabelStyle | WebGLIconLabelStyle
 export type WebGLIndicatorStyle =
-  | WebGLNodeIndicatorStyle
-  | WebGLEdgeIndicatorStyle
-  | WebGLLabelIndicatorStyle
+  WebGLNodeIndicatorStyle | WebGLEdgeIndicatorStyle | WebGLLabelIndicatorStyle
 
 export type WebGLStyle = WebGLNodeStyle | WebGLEdgeStyle | WebGLTextStyle | WebGLIndicatorStyle
 

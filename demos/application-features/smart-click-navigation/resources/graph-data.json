@@ -15,14 +15,26 @@
       "layout": { "x": 3794.3999999999996, "y": 3107, "width": 57.51999999999998, "height": 30 },
       "labels": "Puzzle"
     },
-    { "id": 3, "layout": { "x": 3440.16, "y": 2538, "width": 110, "height": 30 }, "labels": "Cops and Robbers" },
+    {
+      "id": 3,
+      "layout": { "x": 3440.16, "y": 2538, "width": 110, "height": 30 },
+      "labels": "Cops and Robbers"
+    },
     {
       "id": 4,
       "layout": { "x": 2552.1800000000003, "y": 3497, "width": 134.96000000000004, "height": 30 },
       "labels": "The Settler of Catan"
     },
-    { "id": 5, "layout": { "x": 2883.38896, "y": 752, "width": 56.54208, "height": 30 }, "labels": "Books" },
-    { "id": 6, "layout": { "x": 2834.468, "y": 0, "width": 46.38399999999996, "height": 30 }, "labels": "Travel" },
+    {
+      "id": 5,
+      "layout": { "x": 2883.38896, "y": 752, "width": 56.54208, "height": 30 },
+      "labels": "Books"
+    },
+    {
+      "id": 6,
+      "layout": { "x": 2834.468, "y": 0, "width": 46.38399999999996, "height": 30 },
+      "labels": "Travel"
+    },
     {
       "id": 7,
       "layout": { "x": 3904.1121599999997, "y": 1649, "width": 63.0956799999999, "height": 30 },
@@ -58,8 +70,16 @@
       "layout": { "x": 1988.968, "y": 1386, "width": 46.38399999999996, "height": 30 },
       "labels": "Tennis"
     },
-    { "id": 14, "layout": { "x": 3138.16, "y": 2997, "width": 71, "height": 30 }, "labels": "Games" },
-    { "id": 15, "layout": { "x": 3568.16, "y": 4037, "width": 71, "height": 30 }, "labels": "Computer" },
+    {
+      "id": 14,
+      "layout": { "x": 3138.16, "y": 2997, "width": 71, "height": 30 },
+      "labels": "Games"
+    },
+    {
+      "id": 15,
+      "layout": { "x": 3568.16, "y": 4037, "width": 71, "height": 30 },
+      "labels": "Computer"
+    },
     {
       "id": 16,
       "layout": { "x": 4597.96, "y": 1974, "width": 36.39999999999998, "height": 30 },
@@ -70,8 +90,16 @@
       "layout": { "x": 4664.86, "y": 1529, "width": 55.59999999999991, "height": 30 },
       "labels": "Stamps"
     },
-    { "id": 18, "layout": { "x": 4030.16, "y": 1028, "width": 46, "height": 30 }, "labels": "Cars" },
-    { "id": 19, "layout": { "x": 2539.91, "y": 2924, "width": 77.5, "height": 30 }, "labels": "Poker" },
+    {
+      "id": 18,
+      "layout": { "x": 4030.16, "y": 1028, "width": 46, "height": 30 },
+      "labels": "Cars"
+    },
+    {
+      "id": 19,
+      "layout": { "x": 2539.91, "y": 2924, "width": 77.5, "height": 30 },
+      "labels": "Poker"
+    },
     {
       "id": 20,
       "layout": { "x": 4483.96, "y": 1121, "width": 40.40000000000009, "height": 30 },
@@ -82,15 +110,27 @@
       "layout": { "x": 1410.02, "y": 1219, "width": 63.27999999999997, "height": 30 },
       "labels": "Baseball"
     },
-    { "id": 22, "layout": { "x": 722.1600000000001, "y": 1286, "width": 75, "height": 30 }, "labels": "Dancing" },
-    { "id": 23, "layout": { "x": 2282.16, "y": 651, "width": 75, "height": 30 }, "labels": "Literature" },
+    {
+      "id": 22,
+      "layout": { "x": 722.1600000000001, "y": 1286, "width": 75, "height": 30 },
+      "labels": "Dancing"
+    },
+    {
+      "id": 23,
+      "layout": { "x": 2282.16, "y": 651, "width": 75, "height": 30 },
+      "labels": "Literature"
+    },
     {
       "id": 24,
       "layout": { "x": 3285.802578125, "y": 1056, "width": 79.71484374999989, "height": 30 },
       "labels": "Stories"
     },
     { "id": 25, "layout": { "x": 3268.16, "y": 79, "width": 30, "height": 30 }, "labels": "Art" },
-    { "id": 26, "layout": { "x": 2335.9959375, "y": 137, "width": 70, "height": 30 }, "labels": "Adventure" },
+    {
+      "id": 26,
+      "layout": { "x": 2335.9959375, "y": 137, "width": 70, "height": 30 },
+      "labels": "Adventure"
+    },
     {
       "id": 27,
       "layout": { "x": 4162.11216, "y": 2208, "width": 63.0956799999999, "height": 30 },
@@ -101,7 +141,11 @@
       "layout": { "x": 3518.466139301757, "y": 446, "width": 76.38772139648586, "height": 30 },
       "labels": "History"
     },
-    { "id": 29, "layout": { "x": 701.1600000000001, "y": 3108, "width": 39, "height": 30 }, "labels": "Ice" },
+    {
+      "id": 29,
+      "layout": { "x": 701.1600000000001, "y": 3108, "width": 39, "height": 30 },
+      "labels": "Ice"
+    },
     {
       "id": 30,
       "layout": { "x": 262.9680000000001, "y": 2659, "width": 46.3839999999999, "height": 30 },
@@ -117,14 +161,26 @@
       "layout": { "x": 773.1600000000001, "y": 584, "width": 82.99999999999989, "height": 30 },
       "labels": "Rumba"
     },
-    { "id": 33, "layout": { "x": 120.16000000000008, "y": 1653, "width": 75, "height": 30 }, "labels": "Hip Hop" },
-    { "id": 34, "layout": { "x": 0, "y": 1143, "width": 54.32000000000005, "height": 30 }, "labels": "Samba" },
+    {
+      "id": 33,
+      "layout": { "x": 120.16000000000008, "y": 1653, "width": 75, "height": 30 },
+      "labels": "Hip Hop"
+    },
+    {
+      "id": 34,
+      "layout": { "x": 0, "y": 1143, "width": 54.32000000000005, "height": 30 },
+      "labels": "Samba"
+    },
     {
       "id": 35,
       "layout": { "x": 2913.302578125, "y": 4292, "width": 79.71484374999989, "height": 30 },
       "labels": "Minecraft"
     },
-    { "id": 36, "layout": { "x": 4050.16, "y": 4636, "width": 100, "height": 30 }, "labels": "World of Warcraft" },
+    {
+      "id": 36,
+      "layout": { "x": 4050.16, "y": 4636, "width": 100, "height": 30 },
+      "labels": "World of Warcraft"
+    },
     {
       "id": 37,
       "layout": { "x": 3198.8999999999996, "y": 4687, "width": 57.51999999999998, "height": 30 },

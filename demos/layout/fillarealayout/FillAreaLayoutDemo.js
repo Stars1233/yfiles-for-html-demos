@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import {
-  CanvasComponent,
   ComponentAssignmentStrategy,
   FillAreaLayout,
   GraphBuilder,
@@ -76,7 +75,7 @@ async function run() {
 }
 
 /**
- * Initializes the {@link GraphEditorInputMode} as the {@link CanvasComponent.inputMode}
+ * Initializes the {@link GraphEditorInputMode} as the {@link import('@yfiles/yfiles').CanvasComponent.inputMode}
  * and registers handlers which are called when selected nodes are deleted.
  */
 function initializeInputModes() {

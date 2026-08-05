@@ -37,8 +37,8 @@
  * #graphComponent container element, which yFiles populates automatically.
  */
 
-import {By, until, type WebDriver} from 'selenium-webdriver'
-import {type GraphComponent} from '@yfiles/yfiles'
+import { By, until, type WebDriver } from 'selenium-webdriver'
+import { type GraphComponent } from '@yfiles/yfiles'
 
 export interface PointLike {
   x: number

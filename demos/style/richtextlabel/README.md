@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Rich Text Label Demo - yFiles for HTML
+# Rich Text Label Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/rich-text-label.webp" alt="demo-thumbnail" height="320"/>
 

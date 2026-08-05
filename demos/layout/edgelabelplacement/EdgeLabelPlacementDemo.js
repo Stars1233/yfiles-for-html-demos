@@ -590,11 +590,8 @@ function createHierarchicalLayout(layoutOrientation) {
 function createTreeLayout() {
   const layout = new TreeLayout()
   layout.parallelEdgeRouter.enabled = false
-
-  const reductionStage = layout.treeReductionStage
-  reductionStage.nonTreeEdgeRouter = new EdgeRouter()
-  reductionStage.nonTreeEdgeLabeling = new GenericLabeling()
-
+  layout.treeReductionStage.nonTreeEdgeRouter = new EdgeRouter()
+  layout.treeReductionStage.nonTreeEdgeLabeling = new GenericLabeling()
   return layout
 }
 

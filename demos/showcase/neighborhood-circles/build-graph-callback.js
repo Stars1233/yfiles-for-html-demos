@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { BezierEdgeStyle, Neighborhood, TraversalDirection } from '@yfiles/yfiles'
+import { BezierEdgeStyle, TraversalDirection } from '@yfiles/yfiles'
 import { getBuildNeighborhoodCallback } from '../neighborhood/build-graph-callback'
 import { createDemoEdgeStyle } from '@yfiles/demo-app/demo-styles'
 
@@ -50,7 +50,7 @@ export function getBuildGraphCallback(type, distance) {
 
 /**
  * Maps the given {@link NeighborhoodType} to the corresponding {@link TraversalDirection} that
- * is used by the {@link Neighborhood} algorithm in yFiles.
+ * is used by the {@link import('@yfiles/yfiles').Neighborhood} algorithm in yFiles.
  */
 function getTraversalDirection(mode) {
   switch (mode) {

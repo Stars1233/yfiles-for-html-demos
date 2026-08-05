@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Drag From Component Demo - yFiles for HTML
+# Drag From Component Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/drag-from-component.webp" alt="demo-thumbnail" height="320"/>
 

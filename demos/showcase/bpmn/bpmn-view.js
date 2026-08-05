@@ -28,7 +28,6 @@
  ***************************************************************************/
 import {
   BaseClass,
-  CanvasComponent,
   Color,
   CompositeLabelModel,
   CreateEdgeInputMode,
@@ -51,7 +50,6 @@ import {
   IBoundsProvider,
   ICloneable,
   IColumn,
-  IDragHandler,
   IEdgePathCropper,
   IEditLabelHelper,
   IGroupPaddingProvider,
@@ -69,7 +67,6 @@ import {
   INodeStyleRenderer,
   Insets,
   InteriorNodeLabelModel,
-  IObjectRenderer,
   IOrientedRectangle,
   IOrthogonalEdgeHelper,
   IPortStyle,
@@ -94,7 +91,6 @@ import {
   OrientedRectangle,
   OrthogonalEdgeHelper,
   Point,
-  PolylineEdgeStyle,
   PortCandidate,
   PortCandidateProviderBase,
   RadialGradient,

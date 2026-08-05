@@ -183,7 +183,14 @@ function stopPropagation(e: Event): void {
 }
 
 function preventPropagation(element: HTMLElement): void {
-  for (const eventName of ['click', 'keydown', 'contextmenu', 'pointerdown', 'pointerup']) {
+  for (const eventName of [
+    'click',
+    'keydown',
+    'contextmenu',
+    'pointerdown',
+    'pointerup',
+    'wheel'
+  ]) {
     element.addEventListener(eventName, stopPropagation)
   }
 }

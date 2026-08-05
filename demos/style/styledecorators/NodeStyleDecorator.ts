@@ -28,15 +28,12 @@
  ***************************************************************************/
 import {
   type ICanvasContext,
-  IHitTestable,
   type IInputModeContext,
   ImageNodeStyle,
-  IMarqueeTestable,
   type INode,
   type INodeStyle,
   type IRectangle,
   type IRenderContext,
-  IVisibilityTestable,
   NodeStyleBase,
   type Point,
   Rect,
@@ -51,10 +48,10 @@ import {
  *
  * The {@link ImageNodeStyle} class is used to render the decoration image.
  *
- * This style overrides {@link IVisibilityTestable.isVisible} with a custom implementation that also
+ * This style overrides {@link import('@yfiles/yfiles').IVisibilityTestable.isVisible} with a custom implementation that also
  * checks the visibility of the decoration image in addition to calling the implementation of the decorated style.
  *
- * Other checks like {@link IHitTestable.isHit} and {@link IMarqueeTestable.isInBox} are
+ * Other checks like {@link import('@yfiles/yfiles').IHitTestable.isHit} and {@link import('@yfiles/yfiles').IMarqueeTestable.isInBox} are
  * simply delegated to the base style to prevent the node from being selected by clicking or marquee selecting the
  * decoration image part of the visualization. If desired, this feature can be implemented as demonstrated in
  * {@link NodeStyleDecorator.isVisible}.

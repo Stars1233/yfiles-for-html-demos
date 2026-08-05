@@ -106,12 +106,11 @@ export class StyleManager {
     )
     this.sharedSimpleEdgeStyle = new CompositeEdgeStyle(
       new SimpleGradientDelegatingEdgeStyle(
-        new PolylineEdgeStyle({
-          stroke: new Stroke({ thickness: this.config.edgeThickness }),
-          cssClass: 'event-timeline-edge'
-        }),
+        new PolylineEdgeStyle({ stroke: new Stroke({ thickness: this.config.edgeThickness }) }),
         this.generateNodeToColorMap(),
-        this.gradients
+        this.gradients,
+        true,
+        'event-timeline-edge'
       ),
       new EventTimelineEdgeEndsStyle(
         this.config.edgeThickness,

@@ -1,19 +1,8 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
-    "lib": ["ES2020", "DOM"],
-    "declaration": true,
-    "outDir": "./dist",
-    "rootDir": "./",
-    "strict": true,
-    "esModuleInterop": true,
+    "types": ["jest", "jest-puppeteer"],
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "types": ["jest", "jest-puppeteer"]
+    "noEmit": true
   },
-  "include": ["integration/**/*.ts", "util/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["integration/**/*.ts", "util/**/*.ts"]
 }

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# GraphQL Demo - yFiles for HTML
+# GraphQL Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graphql.webp" alt="demo-thumbnail" height="320"/>
 

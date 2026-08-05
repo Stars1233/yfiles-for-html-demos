@@ -31,12 +31,11 @@ import {
   type IInputModeContext,
   type INode,
   IReparentNodeHandler,
-  ITable,
-  NodeDropInputMode
+  ITable
 } from '@yfiles/yfiles'
 
 /**
- * Custom {@link NodeDropInputMode} that disallows to reparent a table node.
+ * Custom {@link import('@yfiles/yfiles').NodeDropInputMode} that disallows to reparent a table node.
  */
 export class MyReparentHandler extends BaseClass(IReparentNodeHandler) {
   private readonly coreHandler: IReparentNodeHandler

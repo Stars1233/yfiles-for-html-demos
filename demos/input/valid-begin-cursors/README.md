@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Valid Begin Cursors Demo - yFiles for HTML
+# Valid Begin Cursors Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/valid-begin-cursors.webp" alt="demo-thumbnail" height="320"/>
 
@@ -20,8 +20,13 @@ This demo illustrates how the mouse cursor dynamically changes within a [GraphCo
 ## Things to Try
 
 - **Move the Viewport:** Press Ctrl while hovering over an empty canvas area. The cursor changes to [GRAB](https://docs.yworks.com/yfileshtml/api/Cursor#GRAB).
+
 - **Lasso Select:** Begin a lasso selection by holding Alt over an empty area. The cursor becomes a custom lasso icon. During selection, Shift or Ctrl modifies the cursor to include + (add to selection) or \- (subtract from selection), respectively.
+
 - **Marquee Select:** Perform a rectangular selection by dragging over an empty area _without_ Ctrl or Alt held. The cursor displays as [CROSSHAIR](https://docs.yworks.com/yfileshtml/api/Cursor#CROSSHAIR). Similar to lasso, Shift and Ctrl modify the cursor for + (add) or \- (subtract) selection.
+
 - **Create Edge:** Hold Ctrl and hover over an unselected node. The cursor indicates valid edge creation with a custom icon.
+
 - **Move Node:** Hover over any node _without_ Ctrl pressed. The cursor changes to [MOVE](https://docs.yworks.com/yfileshtml/api/Cursor#MOVE), indicating you can drag the node.
+
 - **Show Tooltip:** Hover over an edge for a second. The cursor changes to [HELP](https://docs.yworks.com/yfileshtml/api/Cursor#HELP) to indicate that a tooltip can be displayed.

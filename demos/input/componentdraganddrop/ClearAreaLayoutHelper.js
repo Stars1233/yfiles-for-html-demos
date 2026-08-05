@@ -34,9 +34,7 @@ import {
   FilteredGraphWrapper,
   GivenCoordinatesLayout,
   GivenCoordinatesLayoutData,
-  ILayoutAlgorithm,
   LayoutExecutor,
-  LayoutGraphAdapter,
   List,
   Rect
 } from '@yfiles/yfiles'
@@ -46,7 +44,7 @@ import {
  */
 export class ClearAreaLayoutHelper {
   /**
-   * We use the same {@link LayoutGraphAdapter} for one drag gesture.
+   * We use the same {@link import('@yfiles/yfiles').LayoutGraphAdapter} for one drag gesture.
    */
   executor
 
@@ -76,7 +74,7 @@ export class ClearAreaLayoutHelper {
   component
 
   /**
-   * The {@link ILayoutAlgorithm} that makes space for the dropped component.
+   * The {@link import('@yfiles/yfiles').ILayoutAlgorithm} that makes space for the dropped component.
    */
   clearAreaLayout = null
 

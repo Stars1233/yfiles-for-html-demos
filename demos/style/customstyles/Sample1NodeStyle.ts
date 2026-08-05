@@ -27,17 +27,14 @@
  **
  ***************************************************************************/
 import {
-  Color,
   FreeNodePortLocationModel,
   GeneralPath,
   GeometryUtilities,
   type ICanvasContext,
   type IInputModeContext,
   type INode,
-  INodeStyle,
   type IRenderContext,
   ISvgDefsCreator,
-  ITagOwner,
   MutablePoint,
   NodeStyleBase,
   Point,
@@ -59,7 +56,7 @@ import { SVGNS, XLINKNS } from './Namespaces'
 type Sample1NodeStyleVisual = TaggedSvgVisual<SVGGElement, NodeRenderDataCache>
 
 /**
- * A custom implementation of an {@link INodeStyle}
+ * A custom implementation of an {@link import('@yfiles/yfiles').INodeStyle}
  * that uses the convenience class {@link NodeStyleBase}
  * as the base class.
  */
@@ -80,7 +77,7 @@ export class Sample1NodeStyle extends NodeStyleBase<Sample1NodeStyleVisual> {
   /**
    * Determines the color to use for filling the node.
    * This implementation uses the {@link Sample1NodeStyle.nodeColor} property unless
-   * the {@link ITagOwner.tag} of the {@link INode} is of type {@link Color},
+   * the {@link import('@yfiles/yfiles').ITagOwner.tag} of the {@link INode} is of type {@link import('@yfiles/yfiles').Color},
    * in which case that color overrides this style's setting.
    * @param node The node to determine the color for.
    * @returns The color for filling the node.

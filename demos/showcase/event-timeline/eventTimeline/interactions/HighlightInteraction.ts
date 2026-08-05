@@ -171,17 +171,18 @@ export class HighlightInteraction {
         edgeStyle: new CompositeEdgeStyle(
           new SimpleGradientDelegatingEdgeStyle(
             new PolylineEdgeStyle({
-              stroke: new Stroke({ thickness: this.config.edgeThickness + 2 }),
-              cssClass: 'event-timeline-edge highlight'
+              stroke: new Stroke({ thickness: this.config.edgeThickness + 2 })
             }),
             this.generateHighlightEdgeColor,
             new Map(),
-            false
+            false,
+            'event-timeline-edge highlight'
           ),
           new EventTimelineEdgeEndsStyle(
             this.config.edgeThickness + 2,
             this.config.edgeRadius + 3,
-            () => 'var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d)'
+            () => 'var(--yfiles-event-timeline-highlight-edge-color, #d9bb7d)',
+            'highlight'
           )
         )
       })
@@ -227,7 +228,7 @@ export class HighlightInteraction {
       .filter((e) => representativeFilter(e))
       .toArray()
     edges.forEach((edge) => {
-      this.highlightEdge(edge, true)
+      this.highlightEdge(edge, node)
       edge.labels.forEach((label) => this.graphComponent.highlights.add(label))
     })
     node.labels.forEach((label) => this.graphComponent.highlights.add(label))
@@ -237,7 +238,7 @@ export class HighlightInteraction {
     }
   }
 
-  private highlightEdge(edge: IEdge, indirect = false): void {
+  private highlightEdge(edge: IEdge, nodeHover?: INode): void {
     let bundle: AggregatedEdgeGroup | null = null
 
     if (this.richInteraction) {
@@ -258,32 +259,40 @@ export class HighlightInteraction {
       }
       this.graphComponent.invalidate()
       bundle.edges.forEach((e) => {
-        highlights.add(e.sourceNode)
-        highlights.add(e.targetNode)
-        e.sourceNode.labels.forEach((l) => highlights.add(l))
-        e.targetNode.labels.forEach((l) => highlights.add(l))
+        this.highlightConnectedNode(e.sourceNode, nodeHover)
+        this.highlightConnectedNode(e.targetNode, nodeHover)
+        if (!nodeHover) {
+          e.sourceNode.labels.forEach((l) => highlights.add(l))
+          e.targetNode.labels.forEach((l) => highlights.add(l))
+        }
         e.labels.forEach((l) => highlights.add(l))
       })
     } else {
       highlights.add(edge)
 
-      if (!highlights.includes(edge.sourceNode) && indirect) {
-        const sourceState = edge.sourceNode.lookup(ItemState)
-        if (sourceState) {
-          sourceState.highlightedAdjacent = true
-        }
+      this.highlightConnectedNode(edge.sourceNode, nodeHover)
+      this.highlightConnectedNode(edge.targetNode, nodeHover)
+      if (!nodeHover) {
+        edge.sourceNode.labels.forEach((l) => highlights.add(l))
+        edge.targetNode.labels.forEach((l) => highlights.add(l))
       }
-      highlights.add(edge.sourceNode)
-      if (!highlights.includes(edge.targetNode) && indirect) {
-        const targetState = edge.targetNode.lookup(ItemState)
-        if (targetState) {
-          targetState.highlightedAdjacent = true
-        }
-      }
-      highlights.add(edge.targetNode)
-      edge.sourceNode.labels.forEach((l) => highlights.add(l))
-      edge.targetNode.labels.forEach((l) => highlights.add(l))
       edge.labels.forEach((l) => highlights.add(l))
+    }
+  }
+
+  private highlightConnectedNode(node: INode, hoveredNode?: INode): void {
+    if (!hoveredNode) {
+      this.graphComponent.highlights.add(node)
+      return
+    }
+
+    if (node === hoveredNode) {
+      return
+    }
+
+    const state = node.lookup(ItemState)
+    if (state) {
+      state.highlightedAdjacent = true
     }
   }
 

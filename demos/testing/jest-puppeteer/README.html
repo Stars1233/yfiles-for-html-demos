@@ -40,24 +40,34 @@
     <main>
       <div class="simple content-centered">
         <div class="content">
-          <div class="breadcrumbs">
-            <a href="../../README.html">yFiles for HTML</a> <span class="angle-right"></span> Jest
-            Puppeteer Demo
-          </div>
-
           <h1>Jest Puppeteer Demo</h1>
 
           <p>
-            The Jest Puppeteer demo shows how to use
-            <a href="https://jestjs.io/en/" target="_blank">Jest</a> for integration testing a web
-            application that uses yFiles for HTML.
+            This demo shows how to use <a target="_blank" href="https://jestjs.io/">Jest</a> for
+            integration testing a web application that uses yFiles for HTML.
           </p>
 
-          <p>To start the demo and run the integration tests:</p>
+          <p>
+            You can find more information about
+            <a target="_blank" href="../../README.html">testing a yFiles-based application</a> in
+            general, and about using
+            <a
+              target="_blank"
+              href="https://docs.yworks.com/yfileshtml/dguide/testing/#testing-jest"
+              >Jest and yFiles</a
+            >
+            together in particular, in the documentation.
+          </p>
+
+          <h3>Starting the demo and running the integration tests</h3>
+
           <ol>
-            <li>Go to the demo's directory <code>demos-js/testing/jest-puppeteer</code>.</li>
+            <li>Go to the demo's directory <code>demos-ts/testing/jest-puppeteer</code>.</li>
             <li>Run <code>npm install</code>.</li>
-            <li>Run the integration tests: <code>npm run test:integration</code>.</li>
+            <li>
+              Run the integration tests:
+              <code>npm run test:integration</code>.
+            </li>
             <li>
               Run the integration tests in watch mode:
               <code>npm run test:integration:watch</code>.
@@ -73,7 +83,7 @@
           <p>
             The tests run in a
             <a target="_blank" href="https://github.com/smooth-code/jest-puppeteer">
-              puppeteer environment
+              Puppeteer environment
             </a>
             instead of the default
             <a target="_blank" href="https://github.com/jsdom/jsdom">jsdom</a>
@@ -81,7 +91,8 @@
             environment, which jsdom does not provide (in particular, jsdom lacks a complete SVG DOM
             implementation).
           </p>
-          <p>With puppeteer, the tests can run in a full Chrome headless environment instead.</p>
+
+          <p>With Puppeteer, the tests can be run in a complete Chrome headless environment.</p>
 
           <p>
             The application under test is the

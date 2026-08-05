@@ -27,6 +27,7 @@
  **
  ***************************************************************************/
 import {
+  EdgeStyleIndicatorRenderer,
   FreeNodeLabelModel,
   GraphBuilder,
   GraphComponent,
@@ -47,6 +48,7 @@ import {
   LayoutExecutor,
   License,
   NodeDropInputMode,
+  PolylineEdgeStyle,
   PortDropInputMode,
   Rect,
   ShapePortStyle,
@@ -139,8 +141,8 @@ function initializeGraph(graph: IGraph): void {
   graph.nodeDefaults.size = new Size(80, 40)
   // draw a port with an elliptical shape
   graph.nodeDefaults.ports.style = new ShapePortStyle({
-    fill: 'darkblue',
-    stroke: 'cornflowerblue',
+    fill: 'lightgray',
+    stroke: 'gray',
     shape: 'ellipse'
   })
   graph.nodeDefaults.labels.style = new LabelStyle({
@@ -151,8 +153,8 @@ function initializeGraph(graph: IGraph): void {
   })
   graph.nodeDefaults.labels.layoutParameter = FreeNodeLabelModel.CENTER
   graph.edgeDefaults.ports.style = new ShapePortStyle({
-    fill: 'darkblue',
-    stroke: 'cornflowerblue',
+    fill: 'lightgray',
+    stroke: 'gray',
     shape: 'ellipse'
   })
   graph.edgeDefaults.labels.style = new LabelStyle({
@@ -162,6 +164,14 @@ function initializeGraph(graph: IGraph): void {
     shape: 'round-rectangle'
   })
   graph.edgeDefaults.labels.layoutParameter = new SmartEdgeLabelModel().createParameterFromSource(0)
+
+  // initialize edge highlight when an edge element from dnd panel is dragged on a valid edge target
+  graph.decorator.edges.highlightRenderer.addConstant(
+    new EdgeStyleIndicatorRenderer({
+      edgeStyle: new PolylineEdgeStyle({ stroke: '2px solid cornflowerblue' }),
+      zoomPolicy: 'world-coordinates'
+    })
+  )
 }
 
 /**

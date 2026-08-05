@@ -9,6 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# WebdriverIO Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/webdriverio.webp" alt="demo-thumbnail" height="320"/>
 
 The WebdriverIO demo shows how to use [WebdriverIO](https://webdriver.io/) for integration testing a yFiles for HTML web application.

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# SVG Export Demo - yFiles for HTML
+# SVG Export Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/svg-export.webp" alt="demo-thumbnail" height="320"/>
 

@@ -43,11 +43,17 @@ export class EventTimelineEdgeEndsStyle extends EdgeStyleBase {
    * @param markerRadius the radius of the circles attached to the end of the edge.
    * @param nodeToColorMapper a function mapping an INode to a corresponding color.
    */
-  constructor(thickness, markerRadius, nodeToColorMapper = (_node) => undefined) {
+  constructor(
+    thickness,
+    markerRadius,
+    nodeToColorMapper = (_node) => undefined,
+    additionalCssClass = ''
+  ) {
     super()
     this.thickness = thickness
     this.markerRadius = markerRadius
     this.nodeToColorMapper = nodeToColorMapper
+    this.cssClass = this.cssClass + ' ' + additionalCssClass
   }
 
   /**

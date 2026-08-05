@@ -35,9 +35,7 @@ import {
   RectangleNodeStyle
 } from '@yfiles/yfiles'
 import graphData from './graph-data.json'
-import { graphComponent } from '@yfiles/demo-app/init'
-
-const graph = graphComponent.graph
+import { graph, graphComponent } from '@yfiles/demo-app/init'
 
 initializeDefaultStyles(graph)
 

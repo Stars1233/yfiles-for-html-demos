@@ -1,6 +1,11 @@
 {
   "nodes": [
-    { "id": 0, "layout": { "x": 0, "y": 0, "width": 30, "height": 30 }, "labels": "START", "tag": { "duration": 1 } },
+    {
+      "id": 0,
+      "layout": { "x": 0, "y": 0, "width": 30, "height": 30 },
+      "labels": "START",
+      "tag": { "duration": 1 }
+    },
     {
       "id": 1,
       "layout": { "x": 0, "y": 0, "width": 50, "height": 30 },
@@ -37,7 +42,12 @@
       "labels": "Windows",
       "tag": { "duration": 3 }
     },
-    { "id": 7, "layout": { "x": 0, "y": 0, "width": 90, "height": 30 }, "labels": "Roof", "tag": { "duration": 30 } },
+    {
+      "id": 7,
+      "layout": { "x": 0, "y": 0, "width": 90, "height": 30 },
+      "labels": "Roof",
+      "tag": { "duration": 30 }
+    },
     {
       "id": 8,
       "layout": { "x": 0, "y": 0, "width": 70, "height": 30 },
@@ -68,7 +78,12 @@
       "labels": "Landscape",
       "tag": { "duration": 20 }
     },
-    { "id": 13, "layout": { "x": 0, "y": 0, "width": 30, "height": 30 }, "labels": "FINISH", "tag": { "duration": 0 } }
+    {
+      "id": 13,
+      "layout": { "x": 0, "y": 0, "width": 30, "height": 30 },
+      "labels": "FINISH",
+      "tag": { "duration": 0 }
+    }
   ],
   "edges": [
     { "source": 0, "target": 1, "labels": "0d", "tag": { "transitionDuration": 0 } },

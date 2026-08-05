@@ -46,15 +46,12 @@ import {
   INode,
   InputHandlerBase,
   type InputModeEventArgs,
-  IOutputHandler,
   type IParseContext,
   type IPositionHandler,
   type IRenderTreeElement,
-  IRenderTreeGroup,
   IReparentNodeHandler,
   type ItemEventArgs,
   type ItemsEventArgs,
-  IUndoUnit,
   type IWriteContext,
   KeyScope,
   KeyType,
@@ -249,7 +246,7 @@ export class ZOrderSupport {
 
   /**
    * Sets the new z-order value stored for `key`.
-   * An {@link IUndoUnit} for the changed z-order is added as well if undo is enabled.
+   * An {@link import('@yfiles/yfiles').IUndoUnit} for the changed z-order is added as well if undo is enabled.
    */
   public setZOrder(key: INode, newZOrder: number): void {
     const master = this.getMasterNode(key)
@@ -919,7 +916,7 @@ export class ZOrderNodePositionHandler extends GroupingNodePositionHandler {
   }
 
   /**
-   * Customizes the temporary new parent of `node` and its z-order in its new {@link IRenderTreeGroup}
+   * Customizes the temporary new parent of `node` and its z-order in its new {@link import('@yfiles/yfiles').IRenderTreeGroup}
    */
   public setCurrentParent(context: IInputModeContext, node: INode, parent: INode): void {
     if (parent !== this.$initialParent) {
@@ -983,7 +980,7 @@ class ZOrderInputHandler extends InputHandlerBase<INode, number> {
 }
 
 /**
- * An {@link IOutputHandler} that writes the z-order of nodes, edges and ports.
+ * An {@link import('@yfiles/yfiles').IOutputHandler} that writes the z-order of nodes, edges and ports.
  */
 class ZOrderOutputHandler extends OutputHandlerBase<INode, number> {
   private readonly zOrderSupport: ZOrderSupport

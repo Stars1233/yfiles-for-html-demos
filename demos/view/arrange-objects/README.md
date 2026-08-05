@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Arrange Objects Demo - yFiles for HTML
+# Arrange Objects Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/arrange-objects.webp" alt="demo-thumbnail" height="320"/>
 
@@ -21,28 +21,28 @@ This demo presents simple operations for aligning and distributing nodes.
 
 - Select several nodes and use
 
-  vertical_align_top
+  vertical\_align\_top
 
-  vertical_align_bottom
+  vertical\_align\_bottom
 
-  horizontal_align_left
+  horizontal\_align\_left
 
-  horizontal_align_right
+  horizontal\_align\_right
 
   to align these nodes at their top, bottom, left, or right border.
 
 - Select several nodes and use
 
-  align_vertical_center
+  align\_vertical\_center
 
-  align_horizontal_center
+  align\_horizontal\_center
 
   to align these nodes such that their centers coincide.
 
 - Select several horizontally and/or vertically overlapping nodes and use
 
-  vertical_distribute
+  vertical\_distribute
 
-  horizontal_distribute
+  horizontal\_distribute
 
   to distribute these nodes along the indicated coordinate axis.

@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import {
-  CanvasComponent,
   ClearAreaStrategy,
   ComponentAssignmentStrategy,
   EventRecognizers,
@@ -76,7 +75,7 @@ async function run() {
 }
 
 /**
- * Registers the {@link GraphEditorInputMode} as the {@link CanvasComponent.inputMode}
+ * Registers the {@link GraphEditorInputMode} as the {@link import('@yfiles/yfiles').CanvasComponent.inputMode}
  * and initializes the marquee input mode that clears the area of the marquee rectangle.
  */
 function initializeInputModes() {

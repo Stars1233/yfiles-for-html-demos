@@ -33,8 +33,7 @@ import {
   PolylineEdgeStyle,
   ShapeNodeStyle,
   Size,
-  TreeBuilder,
-  TreeLayout
+  TreeBuilder
 } from '@yfiles/yfiles'
 import {
   createCategoryTreeConfiguration,
@@ -88,7 +87,7 @@ async function run() {
 }
 
 /**
- * Runs a {@link TreeLayout} using the specified {@link ISubtreePlacer}s.
+ * Runs a {@link import('@yfiles/yfiles').TreeLayout} using the specified {@link ISubtreePlacer}s.
  */
 async function runLayout(initConfig) {
   if (busy) {

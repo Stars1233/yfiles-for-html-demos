@@ -26,10 +26,10 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
+import process from 'node:process'
 import { type Browser, chromium, expect, selectors, test } from '@playwright/test'
-import { createGraphElementLocatorEngine } from '../util/graph-selectors'
 import type { Page } from 'playwright'
-import { preview, type PreviewServer } from 'vite'
+import { createGraphElementLocatorEngine } from '../util/graph-selectors'
 import {
   getBendLocations,
   getEdge,
@@ -42,7 +42,6 @@ import {
 import { mouseAction } from '../util/mouse-action'
 import { enableTestIds } from '../util/enable-test-ids'
 
-let server: PreviewServer
 let browser: Browser
 let page: Page
 
@@ -57,7 +56,6 @@ test.beforeAll(async () => {
     }
   }
 
-  server = await preview({ preview: { port: 3000 } })
   browser = await chromium.launch()
   page = await browser.newPage()
 
@@ -69,13 +67,7 @@ test.beforeAll(async () => {
   await page.goto(url)
 })
 
-test.afterAll(async () => {
-  await browser.close()
-  await new Promise<void>((resolve, reject) => {
-    server.httpServer.close((error) => (error ? reject(error) : resolve()))
-  })
-})
-
+test.afterAll(async () => await browser.close())
 test.describe.configure({ timeout: 30_000 })
 
 test.describe('Interactive GraphComponent Tests', () => {

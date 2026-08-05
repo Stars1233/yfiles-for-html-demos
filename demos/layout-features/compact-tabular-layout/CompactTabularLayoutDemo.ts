@@ -29,6 +29,8 @@
 import { demoApp, graphComponent } from '@yfiles/demo-app/init'
 import {
   EdgeRouter,
+  HierarchicalLayout,
+  LayoutExecutor,
   LayoutGrid,
   TabularLayout,
   TabularLayoutData,
@@ -40,6 +42,9 @@ import graphData from './sample.json'
  * Configures and applies the {@link TabularLayout} algorithm to for compact graph drawings.
  */
 async function applyCompactTabularLayout(tabularLayoutMode: TabularLayoutMode): Promise<void> {
+  // make sure the hierarchical module is loaded to support the grid
+  HierarchicalLayout.ensure()
+
   // Initialize tabular layout with specified mode
   const tabularLayout = new TabularLayout({
     considerEdges: true, // Minimize overall edge lengths
@@ -57,6 +62,7 @@ async function applyCompactTabularLayout(tabularLayoutMode: TabularLayoutMode): 
     layoutGridData: { layoutGridCellDescriptors: () => layoutGrid.createDynamicCellDescriptor() }
   })
 
+  LayoutExecutor.ensure()
   await graphComponent.applyLayoutAnimated(layout, '0.5s', layoutData)
 }
 

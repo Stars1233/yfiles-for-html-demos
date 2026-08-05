@@ -101,7 +101,7 @@ body {
   border-radius: 16px;
 }
 
-.demo-description {
+.description-panel {
   width: 320px;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -111,7 +111,7 @@ body {
   padding: 16px;
 }
 
-.demo-description h1 {
+.description-panel h1 {
   margin-top: 0;
   color: #00adcc;
   font-weight: 600;
@@ -119,18 +119,18 @@ body {
   line-height: 1.2;
 }
 
-.demo-description code {
+.description-panel code {
   color: #e56399;
   background-color: #d7e1ea;
 }
 
-.demo-description a {
+.description-panel a {
   font-weight: 600;
   color: #e56399;
   text-decoration: none;
 }
 
-.demo-description a:hover {
+.description-panel a:hover {
   text-decoration: underline;
 }
 

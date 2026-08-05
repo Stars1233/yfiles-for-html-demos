@@ -164,10 +164,7 @@ function onSelectionChanged() {
           to: renderFunctionSourceTextArea.state.doc.length,
           insert: (
             selectedItem.style as
-              | LitNodeStyle
-              | LitHtmlNodeStyle
-              | LitLabelStyle
-              | LitHtmlLabelStyle
+              LitNodeStyle | LitHtmlNodeStyle | LitLabelStyle | LitHtmlLabelStyle
           ).renderFunction.toString()
         }
       })

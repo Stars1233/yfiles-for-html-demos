@@ -9,6 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Cypress Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/cypress.webp" alt="demo-thumbnail" height="320"/>
 
 This demo shows how to use [Cypress](https://www.cypress.io) for testing a yFiles for HTML web application.

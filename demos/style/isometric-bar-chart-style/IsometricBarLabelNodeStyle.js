@@ -28,7 +28,6 @@
  ***************************************************************************/
 import {
   Font,
-  INodeStyle,
   NodeStyleBase,
   Point,
   SvgVisual,
@@ -37,7 +36,7 @@ import {
 } from '@yfiles/yfiles'
 
 /**
- * An {@link INodeStyle} rendering a label using the node's tag for the content and placement.
+ * An {@link import('@yfiles/yfiles').INodeStyle} rendering a label using the node's tag for the content and placement.
  */
 export class IsometricBarLabelNodeStyle extends NodeStyleBase {
   svgNS = 'http://www.w3.org/2000/svg'

@@ -29,6 +29,7 @@
 import {
   Arrow,
   ArrowType,
+  CircularLayout,
   Color,
   EdgeLabelPreferredPlacement,
   EdgePathLabelModel,
@@ -198,7 +199,7 @@ function createInputMode() {
     }
     if (updated) {
       graphBuilder.updateGraph()
-      await doLayout()
+      await applyLayout()
     }
   })
 
@@ -303,7 +304,7 @@ async function loadGraph() {
   graphBuilder.buildGraph()
 
   // apply a layout to the new graph
-  await doLayout()
+  await applyLayout()
 
   await showLoadingIndicator(false)
   setUIDisabled(false)
@@ -340,8 +341,11 @@ function onHoveredItemChanged(hoveredItem) {
 /**
  * Applies an organic layout to the current graph. Tries to highlight substructures in the process.
  */
-async function doLayout() {
+async function applyLayout() {
   setUIDisabled(true)
+
+  // comment
+  CircularLayout.ensure()
   const organicLayout = new OrganicLayout({
     chainSubstructureStyle: 'straight-line',
     chainSubstructureSize: 3,
@@ -488,7 +492,7 @@ function initializeUI() {
     graphBuilder = createGraphBuilder(graphComponent, nodes, edges)
     graphBuilder.buildGraph()
     // apply a layout to the new graph
-    await doLayout()
+    await applyLayout()
   })
 }
 

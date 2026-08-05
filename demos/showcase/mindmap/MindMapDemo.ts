@@ -235,7 +235,10 @@ async function buildGraph(graph: IGraph): Promise<void> {
   initializeNodeData(graph)
 
   // create the styles for the nodes and edges based on the elements' data
-  updateStyles(graph.nodes.find((node) => graph.inDegree(node) === 0)!, graph)
+  updateStyles(
+    graph.nodes.find((node) => graph.inDegree(node) === 0)!,
+    graph
+  )
   // calculate the bounds for each node based on its label's size
   graph.nodes.forEach((node) => adjustNodeBounds(node, graph))
 

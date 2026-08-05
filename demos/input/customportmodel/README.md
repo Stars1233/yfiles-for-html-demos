@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Custom Port Location Model Demo - yFiles for HTML
+# Custom Port Location Model Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/custom-port-location-model.webp" alt="demo-thumbnail" height="320"/>
 

@@ -114,7 +114,7 @@ function createDnDPanelItems() {
   const port = new SimplePort({
     owner: demoStyleNode,
     locationParameter: FreeNodePortLocationModel.CENTER,
-    style: new ShapePortStyle({ fill: 'darkblue', stroke: 'cornflowerblue', shape: 'ellipse' })
+    style: new ShapePortStyle({ fill: 'lightgray', stroke: 'gray', shape: 'ellipse' })
   })
   itemContainer.push({ modelItem: port, tooltip: 'Port' })
 
@@ -174,12 +174,20 @@ function createDnDPanelItems() {
   itemContainer.push({ modelItem: portLabel, tooltip: 'Port Label' })
 
   const edge1 = new SimpleEdge({
-    style: new PolylineEdgeStyle({ smoothingLength: 100, targetArrow: 'triangle' })
+    style: new PolylineEdgeStyle({
+      smoothingLength: 100,
+      targetArrow: `gray triangle`,
+      stroke: `2px dashed gray`
+    })
   })
   const edge2 = new SimpleEdge({
-    style: new PolylineEdgeStyle({ sourceArrow: 'triangle', targetArrow: 'triangle' })
+    style: new PolylineEdgeStyle({
+      sourceArrow: `gray triangle`,
+      targetArrow: `gray triangle`,
+      stroke: `2px gray`
+    })
   })
-  const edge3 = new SimpleEdge({ style: new PolylineEdgeStyle({ stroke: '2px dashed gray' }) })
+  const edge3 = new SimpleEdge({ style: new PolylineEdgeStyle({ stroke: `2px dashed gray` }) })
 
   itemContainer.push({ modelItem: edge1, tooltip: 'Default' })
   itemContainer.push({ modelItem: edge2, tooltip: 'Bidirectional' })

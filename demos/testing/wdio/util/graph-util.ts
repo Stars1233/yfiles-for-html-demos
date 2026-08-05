@@ -118,7 +118,7 @@ export async function getLayout(node: {
     const gc = (document.getElementById('graphComponent') as any)['data-this'] as GraphComponent
     const n = gc.graph.nodes.at(nodeIndex)
     if (!n) {
-      return {x: 0, y: 0, width: 0, height: 0}
+      return { x: 0, y: 0, width: 0, height: 0 }
     }
     const { x, y, width, height } = n.layout
     return { x, y, width, height }
@@ -142,7 +142,7 @@ export async function getItemWorldLocation(item: {
       }
 
       if (!modelItem) {
-        return {x: 0, y: 0}
+        return { x: 0, y: 0 }
       }
 
       if (typeof (modelItem as INode).layout?.x === 'number') {
@@ -203,12 +203,12 @@ export async function getLabelLayout(label: {
       }
 
       if (!owner) {
-        return {anchorX: 0, anchorY: 0, width: 0, height: 0, upX: 0, upY: 0}
+        return { anchorX: 0, anchorY: 0, width: 0, height: 0, upX: 0, upY: 0 }
       }
 
       const l = owner.labels.at(label._labelIndex)
       if (!l) {
-        return {anchorX: 0, anchorY: 0, width: 0, height: 0, upX: 0, upY: 0}
+        return { anchorX: 0, anchorY: 0, width: 0, height: 0, upX: 0, upY: 0 }
       }
 
       const { anchorX, anchorY, width, height, upX, upY } = l.layout

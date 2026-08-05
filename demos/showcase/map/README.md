@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Map Demo - yFiles for HTML
+# Map Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/map.webp" alt="demo-thumbnail" height="320"/>
 

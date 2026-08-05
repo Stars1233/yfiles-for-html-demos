@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Theming Demo - yFiles for HTML
+# Theming Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-theming.webp" alt="demo-thumbnail" height="320"/>
 

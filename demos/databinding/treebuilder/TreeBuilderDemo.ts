@@ -38,8 +38,7 @@ import {
   LabelEdgeSides,
   LabelSideReferences,
   LayoutExecutor,
-  License,
-  TreeBuilder
+  License
 } from '@yfiles/yfiles'
 import { SchemaComponent } from './SchemaComponent'
 import samples from './samples'
@@ -61,7 +60,7 @@ let existingNodes: IList<INode>
 
 /**
  * Shows building a graph from business data with class
- * {@link TreeBuilder}.
+ * {@link import('@yfiles/yfiles').TreeBuilder}.
  * This demo provides a schema graph component for interactive manipulation
  * of the result graph structure and content.
  *

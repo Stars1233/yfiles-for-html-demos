@@ -28,13 +28,17 @@
  ***************************************************************************/
 /**
  * Opens the given {@link content} in a new browser tab.
+ *
+ * This function shows an alert if the browser blocked opening the window.
+ *
  * @param content - The content of the document.
  * @param title - An optional title of the new document.
  */
 export function openInWindow(content, title = 'File content') {
   const newWindow = window.open('', '_blank')
   if (!newWindow) {
-    throw new Error('Could not open a new window. Maybe it was blocked by the browser.')
+    alert('Could not open a new window. Maybe it was blocked by the browser.')
+    return null
   }
   const newDocument = newWindow.document
   newDocument.open()

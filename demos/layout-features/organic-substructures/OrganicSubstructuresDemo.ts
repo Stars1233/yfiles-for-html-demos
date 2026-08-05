@@ -28,6 +28,7 @@
  ***************************************************************************/
 import { demoApp, graphComponent } from '@yfiles/demo-app/init'
 import {
+  CircularLayout,
   OrganicLayout,
   OrganicLayoutChainSubstructureStyle,
   OrganicLayoutCycleSubstructureStyle,
@@ -35,6 +36,9 @@ import {
   OrganicLayoutStarSubstructureStyle
 } from '@yfiles/yfiles'
 import graphData from './sample.json'
+
+// make sure the circular module is loaded to support the circular substructure style
+CircularLayout.ensure()
 
 // Configure the organic layout with specific substructure styles
 const layout = new OrganicLayout({

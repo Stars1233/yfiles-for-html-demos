@@ -91,7 +91,7 @@ let graphComponent
 const selectLayout = document.querySelector('#select-layout')
 const selectSample = document.querySelector('#select-sample')
 
-const worker = new Worker(new URL('./WorkerLayout', import.meta.url), { type: 'module' })
+const worker = new Worker(new URL('./layout-worker', import.meta.url), { type: 'module' })
 
 async function run() {
   License.value = licenseData

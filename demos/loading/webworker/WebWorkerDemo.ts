@@ -52,7 +52,7 @@ const layoutButton = document.querySelector<HTMLButtonElement>('#run-layout')!
 let graphComponent: GraphComponent = null!
 
 let executor: LayoutExecutorAsync | null = null
-const worker = new Worker(new URL('./WorkerLayout', import.meta.url), { type: 'module' })
+const worker = new Worker(new URL('./layout-worker', import.meta.url), { type: 'module' })
 
 async function run(): Promise<void> {
   License.value = licenseData

@@ -31,7 +31,6 @@ import {
   GraphEditorInputMode,
   GraphItemTypes,
   type IGraph,
-  IPositionHandler,
   License,
   MutableRectangle,
   Rect
@@ -47,9 +46,9 @@ import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Registers a callback function as decorator that provides a custom
- * {@link IPositionHandler} for each node.
+ * {@link import('@yfiles/yfiles').IPositionHandler} for each node.
  * This callback function is called whenever a node in the graph is queried
- * for its {@link IPositionHandler}. In this case, the 'node' parameter will be set
+ * for its {@link import('@yfiles/yfiles').IPositionHandler}. In this case, the 'node' parameter will be set
  * to that node and the 'delegateHandler' parameter will be set to the
  * position handler that would have been returned without setting this
  * function as decorator.

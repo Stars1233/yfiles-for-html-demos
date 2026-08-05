@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Rectangular Indicator Demo - yFiles for HTML
+# Rectangular Indicator Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/rectangular-indicator.webp" alt="demo-thumbnail" height="320"/>
 

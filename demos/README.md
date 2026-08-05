@@ -9,13 +9,18 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# yFiles for HTML Demo Applications
+# yFiles for HTML Demos
 
-The demos and tutorials are extensive sample applications that present the features of the [yFiles for HTML](https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html) diagramming library.
+This directory contains source code demo applications and tutorials to help you get started.
+They present best practices for working with yFiles features and show how to realize your requirements.
 
-The complete source code of all of these samples is part of the yFiles for HTML package and available at [Github](https://github.com/yWorks/yfiles-for-html-demos)
+The recommended way of browsing the demos is the demo server:
 
-To execute a specific sample, click on its card below. All of these demos are also hosted at the [yFiles homepage](https://www.yfiles.com/demos/).
+````shell
+npm start
+````
+
+All of these demos are also hosted on the yFiles website: https://www.yfiles.com/demos/.
 
 # [Analysis](analysis)
 
@@ -38,6 +43,7 @@ This folder and its subfolders contain demo applications which illustrate featur
 <img src="../doc/demo-thumbnails/table-editor.webp" alt="Table Editor screenshot" width="128" height="96" /> | [Table Editor](application-features/tableeditor/) | Shows the support for diagrams that are organized in a tabular way, for example in a grid or a swimlane layout.
 <img src="../doc/demo-thumbnails/rotatable-nodes.webp" alt="Rotatable Nodes screenshot" width="128" height="96" /> | [Rotatable Nodes](application-features/rotatablenodes/) | Shows nodes that can be rotated with the mouse or touch.
 <img src="../doc/demo-thumbnails/simple-drag-and-drop.webp" alt="Simple Drag And Drop screenshot" width="128" height="96" /> | [Simple Drag And Drop](application-features/drag-and-drop/) | Shows how to enable dragging nodes from a panel and drop them into the graph component.
+<img src="../doc/demo-thumbnails/html-drag-and-drop.webp" alt="HTML Drag And Drop screenshot" width="128" height="96" /> | [HTML Drag And Drop](application-features/drag-and-drop-html/) | Shows how to drag-and-drop draggable HTML elements into the graph.
 <img src="../doc/demo-thumbnails/background-image.webp" alt="Background Image screenshot" width="128" height="96" /> | [Background Image](application-features/background-image/) | Shows how to add a background visualizations to a graph component.
 <img src="../doc/demo-thumbnails/building-graph-from-data.webp" alt="Building Graphs From Data screenshot" width="128" height="96" /> | [Building Graphs From Data](application-features/building-graph-from-data/) | Shows how to build a graph from data in JSON format.
 <img src="../doc/demo-thumbnails/building-swimlanes-from-data.webp" alt="Building Swimlanes From Data screenshot" width="128" height="96" /> | [Building Swimlanes From Data](application-features/building-swimlanes-from-data/) | Shows how to build a graph with swimlanes from data in JSON format.
@@ -338,12 +344,12 @@ This collection of demos shows how to use testing frameworks with yFiles.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Demo | Description
 --- | --- | ---
-<img src="../doc/demo-thumbnails/webdriverio.webp" alt="WebdriverIO screenshot" width="128" height="96" /> | [WebdriverIO](testing/wdio/README.html) | Shows how to test a yFiles for HTML app in multiple browsers using WebdriverIO.
 <img src="../doc/demo-thumbnails/cypress.webp" alt="Cypress screenshot" width="128" height="96" /> | [Cypress](testing/cypress/README.html) | Shows how to test a yFiles for HTML app using Cypress.
-<img src="../doc/demo-thumbnails/jest.webp" alt="Jest screenshot" width="128" height="96" /> | [Jest](testing/jest/README.html) | Shows how to test a yFiles for HTML app using Jest.
+<img src="../doc/demo-thumbnails/jest.webp" alt="Jest screenshot" width="128" height="96" /> | [Jest](testing/jest/README.html) | Shows how to use Jest for unit testing yFiles for HTML application logic.
 <img src="../doc/demo-thumbnails/jest-puppeteer.webp" alt="Jest Puppeteer screenshot" width="128" height="96" /> | [Jest Puppeteer](testing/jest-puppeteer/README.html) | Shows how to test a yFiles for HTML app using Jest with the Puppeteer environment.
 <img src="../doc/demo-thumbnails/vitest.webp" alt="Vitest screenshot" width="128" height="96" /> | [Vitest](testing/vitest/README.html) | Shows how to test a yFiles for HTML app using Vitest.
 <img src="../doc/demo-thumbnails/playwright.webp" alt="Playwright screenshot" width="128" height="96" /> | [Playwright](testing/playwright/README.html) | Shows how to test a yFiles for HTML app using Playwright.
+<img src="../doc/demo-thumbnails/webdriverio.webp" alt="WebdriverIO screenshot" width="128" height="96" /> | [WebdriverIO](testing/wdio/README.html) | Shows how to test a yFiles for HTML app in multiple browsers using WebdriverIO.
 <img src="../doc/demo-thumbnails/selenium-webdriver.webp" alt="Selenium WebDriver screenshot" width="128" height="96" /> | [Selenium WebDriver](testing/selenium-webdriver/README.html) | Shows how to test a yFiles for HTML app using Selenium WebDriver.
 # [Tutorial Basic Features](tutorial-basic-features)
 

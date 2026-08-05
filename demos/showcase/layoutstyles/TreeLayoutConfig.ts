@@ -792,11 +792,7 @@ export const TreeLayoutConfig = (Class as any)('TreeLayoutConfig', {
 
   createPortCandidate(
     portAssignment:
-      | 'center'
-      | 'distributed-top'
-      | 'distributed-bottom'
-      | 'distributed-left'
-      | 'distributed-right'
+      'center' | 'distributed-top' | 'distributed-bottom' | 'distributed-left' | 'distributed-right'
   ): EdgePortCandidates {
     switch (portAssignment) {
       default:

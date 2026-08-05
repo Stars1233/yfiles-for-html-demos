@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Event Timeline Demo - yFiles for HTML
+# Event Timeline Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/event-timeline.webp" alt="demo-thumbnail" height="320"/>
 

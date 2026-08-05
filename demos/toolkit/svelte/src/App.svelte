@@ -25,7 +25,7 @@
      style='cursor: pointer;' target='_blank'
      class='demo-title'>Demos</a>
   <span class="material-symbols-outlined demo-overview">chevron_right</span>
-  <span class='demo-title'>Svelte Integration Demo</span>
+  <span class='demo-title'>Svelte Demo</span>
 </div>
 <div class="main">
   <div class="graph-component-container" style="width: 100%; height: 100%">

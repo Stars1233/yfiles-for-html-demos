@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Contextual Toolbar Demo - yFiles for HTML
+# Contextual Toolbar Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/contextual-toolbar.webp" alt="demo-thumbnail" height="320"/>
 

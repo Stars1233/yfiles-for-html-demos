@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Subdivide Edges Demo - yFiles for HTML
+# Subdivide Edges Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/subdivide-edges.webp" alt="demo-thumbnail" height="320"/>
 

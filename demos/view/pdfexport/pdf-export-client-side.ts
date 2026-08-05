@@ -29,7 +29,6 @@
 import {
   Graph,
   GraphComponent,
-  type IGraph,
   Insets,
   type Rect,
   Size,
@@ -81,7 +80,7 @@ export async function exportPdfClientSide(
 }
 
 /**
- * Exports the {@link IGraph} to PDF with the help of {@link SvgExport} and jsPDF in the client's browser.
+ * Exports the {@link import('@yfiles/yfiles').IGraph} to PDF with the help of {@link SvgExport} and jsPDF in the client's browser.
  * yFiles {@link SvgExport} is used to export the contents of a {@link GraphComponent} into an
  * SVG document which is subsequently converted into a PDF document by jsPDF.
  */

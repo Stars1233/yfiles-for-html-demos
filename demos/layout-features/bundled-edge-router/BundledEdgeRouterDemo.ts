@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { demoApp, graphComponent } from '@yfiles/demo-app/init'
+import { demoApp, graph, graphComponent } from '@yfiles/demo-app/init'
 import {
   Arrow,
   ArrowType,
@@ -84,7 +84,6 @@ demoApp.toolbar.addSelect(
   'spanner'
 )
 
-const graph = graphComponent.graph
 // Define the node and label styles.
 graph.nodeDefaults.style = new ShapeNodeStyle({ fill: '#012c69', shape: 'ellipse', stroke: 'none' })
 graph.nodeDefaults.labels.style = new LabelStyle({

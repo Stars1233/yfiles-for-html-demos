@@ -39,6 +39,7 @@ import {
   type INodeStyle,
   InteriorNodeLabelModel,
   LabelStyle,
+  LayoutExecutor,
   License,
   NodeStyleIndicatorRenderer,
   OrganicLayout,
@@ -79,6 +80,7 @@ async function run(): Promise<void> {
   // then build the graph with the given data set
   buildGraph(graphComponent.graph, graphData as unknown as JSONGraph)
 
+  LayoutExecutor.ensure()
   graphComponent.graph.applyLayout(
     new OrganicLayout({ defaultMinimumNodeDistance: 60, avoidNodeEdgeOverlap: true })
   )

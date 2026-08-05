@@ -36,6 +36,24 @@ import {
 } from '@yfiles/yfiles'
 
 /**
+ * Handle types that are handled by the {@link TouchHandlesRenderer}.
+ */
+export const CUSTOM_HANDLE_TYPES: readonly HandleType[] = [
+  HandleType.RESIZE,
+  HandleType.RESIZE_BOTTOM,
+  HandleType.RESIZE_BOTTOM_LEFT,
+  HandleType.RESIZE_BOTTOM_RIGHT,
+  HandleType.RESIZE_TOP,
+  HandleType.RESIZE_TOP_LEFT,
+  HandleType.RESIZE_TOP_RIGHT,
+  HandleType.RESIZE_LEFT,
+  HandleType.RESIZE_RIGHT,
+  HandleType.MOVE,
+  HandleType.MOVE2,
+  HandleType.MOVE3
+]
+
+/**
  * Keep the information, whether this is our custom handles visualization.
  */
 type SVGTaggedGElement = SVGGElement & { customHandlesElement?: boolean }
@@ -45,20 +63,6 @@ type SVGTaggedGElement = SVGGElement & { customHandlesElement?: boolean }
  */
 export class TouchHandlesRenderer extends ObjectRendererBase<HandlesRenderTag, SvgVisual> {
   static readonly handleRadius = 15
-
-  private resizeHandles = [
-    HandleType.RESIZE,
-    HandleType.RESIZE_BOTTOM,
-    HandleType.RESIZE_BOTTOM_LEFT,
-    HandleType.RESIZE_BOTTOM_RIGHT,
-    HandleType.RESIZE_TOP,
-    HandleType.RESIZE_TOP_LEFT,
-    HandleType.RESIZE_TOP_RIGHT,
-    HandleType.RESIZE_LEFT,
-    HandleType.RESIZE_RIGHT
-  ]
-
-  private moveHandles = [HandleType.MOVE, HandleType.MOVE2, HandleType.MOVE3]
 
   protected createVisual(context: IRenderContext, renderTag: HandlesRenderTag): SvgVisual | null {
     const group: SVGTaggedGElement = document.createElementNS('http://www.w3.org/2000/svg', 'g')
@@ -87,7 +91,7 @@ export class TouchHandlesRenderer extends ObjectRendererBase<HandlesRenderTag, S
     let index = 0
     for (const handle of renderTag.handles) {
       const type = handle.type
-      if (this.resizeHandles.indexOf(type) == -1 && this.moveHandles.indexOf(type) == -1) {
+      if (CUSTOM_HANDLE_TYPES.indexOf(type) === -1) {
         continue
       }
       let circle: SVGCircleElement

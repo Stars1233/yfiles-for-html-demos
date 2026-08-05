@@ -92,8 +92,7 @@ export class PresetsUiBuilder {
     clearGrid(grid)
 
     let appliedPreset:
-      | { handler: (htmlElement: HTMLElement) => void; htmlElement: HTMLElement }
-      | undefined
+      { handler: (htmlElement: HTMLElement) => void; htmlElement: HTMLElement } | undefined
 
     for (const presetId of samplePresets.presets) {
       const preset = presetDefs[presetId]

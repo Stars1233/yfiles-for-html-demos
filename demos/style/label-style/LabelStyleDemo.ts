@@ -45,7 +45,12 @@ import {
 
 import { configureToolTips } from './ToolTipHelper'
 import type { ColorSetName } from '@yfiles/demo-app/demo-styles'
-import { colorSets, createDemoEdgeStyle, createDemoNodeStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
+import {
+  colorSets,
+  createDemoEdgeStyle,
+  createDemoNodeStyle,
+  initDemoStyles
+} from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 

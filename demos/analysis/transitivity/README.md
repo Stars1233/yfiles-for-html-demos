@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Transitivity Demo - yFiles for HTML
+# Transitivity Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/transitivity.webp" alt="demo-thumbnail" height="320"/>
 

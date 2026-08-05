@@ -26,19 +26,25 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { IGraph, IModelItem, type IWriteContext, KeyType, OutputHandlerBase } from '@yfiles/yfiles'
+import {
+  IGraph,
+  IModelItem,
+  ITagOwner,
+  type IWriteContext,
+  OutputHandlerBase
+} from '@yfiles/yfiles'
 import type { GraphMLProperty } from './GraphMLProperty'
 import type { PropertiesPanel } from './PropertiesPanel'
 
 /**
  * An output handler that writes primitive data types and ignores complex types.
  */
-export class SimpleOutputHandler extends OutputHandlerBase<any, any> {
-  private propertiesPanel: PropertiesPanel
-  private property: GraphMLProperty
+export class SimpleOutputHandler extends OutputHandlerBase<ITagOwner, unknown> {
+  private readonly propertiesPanel: PropertiesPanel
+  private readonly property: GraphMLProperty
 
   constructor(property: GraphMLProperty, propertiesPanel: PropertiesPanel) {
-    super(Object, Object, property.keyScope, property.name, property.type)
+    super(ITagOwner, Object, property.keyScope, property.name, property.type)
     this.property = property
     this.propertiesPanel = propertiesPanel
     this.defaultExists = property.defaultExists
@@ -48,34 +54,19 @@ export class SimpleOutputHandler extends OutputHandlerBase<any, any> {
   }
 
   /**
-   * Writes the property data to xml.
+   * Writes the property data to XML.
    *
-   * Only primitive data types are written. Complex data types are ignored, because they
-   * cannot be serialized in a meaningful manner.
+   * Only primitive data types are written. Complex data types are ignored because they
+   * cannot be serialized meaningfully.
    *
    * @see Overrides {@link OutputHandlerBase.writeValueCore}
    */
-  writeValueCore(context: IWriteContext, data: any): void {
+  writeValueCore(context: IWriteContext, data: unknown | null): void {
     if (data != null) {
-      switch (this.property.type) {
-        case KeyType.INT:
-          context.writer.writeString((data | 0).toString())
-          break
-        case KeyType.LONG:
-          context.writer.writeString((data | 0).toString())
-          break
-        case KeyType.FLOAT:
-        case KeyType.DOUBLE:
-          context.writer.writeString(parseFloat(data).toString())
-          break
-        case KeyType.STRING:
-          context.writer.writeCData(data)
-          break
-        case KeyType.BOOLEAN:
-          context.writer.writeString((!!data).toString())
-          break
-        default:
-          throw new Error('Invalid Type!')
+      try {
+        context.writer.writeString(String(data))
+      } catch (e) {
+        throw new Error('Invalid attribute type: ' + this.property.type)
       }
     }
   }
@@ -84,7 +75,7 @@ export class SimpleOutputHandler extends OutputHandlerBase<any, any> {
    * Gets the value for the given key.
    * @see Overrides {@link OutputHandlerBase.getValue}
    */
-  getValue(context: IWriteContext, key: any): any {
+  getValue(context: IWriteContext, key: ITagOwner): unknown | null {
     if (key instanceof IModelItem) {
       return this.propertiesPanel.getItemValue(key, this.property)
     } else if (key instanceof IGraph && context.objectStack.size === 2) {

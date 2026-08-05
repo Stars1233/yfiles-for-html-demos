@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Lasso Selection Demo - yFiles for HTML
+# Lasso Selection Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/lasso-selection.webp" alt="demo-thumbnail" height="320"/>
 
@@ -20,11 +20,13 @@ This demo shows how to use [LassoSelectionInputMode](https://docs.yworks.com/yfi
 ## Things to Try
 
 - Choose between different **Selection Styles** using the toolbar dropdown:
+
   - **Free-hand:** Draw a free-form shape around elements by dragging the mouse.
   - **Polyline:** Create a polygon by clicking to add points. Double-click to complete the selection.
   - **Marquee:** Use the traditional rectangular selection by dragging the mouse.
 
 - Determine how nodes are considered **selected** by the lasso tool using the toolbar dropdown:
+
   - **Fully Contained:** Nodes are selected only if fully contained within the lasso path.
   - **Intersected:** Nodes are selected if they intersect the lasso path.
   - **Center Contained:** Nodes are selected only if their center point is contained within the lasso path.

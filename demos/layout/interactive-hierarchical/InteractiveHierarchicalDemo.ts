@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import {
-  CanvasComponent,
   type EdgePortCandidates,
   GivenLayersAssigner,
   GraphBuilder,
@@ -123,7 +122,7 @@ function buildGraph(graph: IGraph, graphData: JSONGraph): void {
 let graphComponent: GraphComponent
 
 /**
- * Calls {@link createEditorMode} and registers the result as the {@link CanvasComponent.inputMode}.
+ * Calls {@link createEditorMode} and registers the result as the {@link import('@yfiles/yfiles').CanvasComponent.inputMode}.
  */
 function initializeInputModes(): void {
   // create the interaction mode

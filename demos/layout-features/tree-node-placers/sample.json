@@ -1,24 +1,12 @@
 {
   "nodes": [
-    { "id": 0,  "labels": "0" },
-    {
-      "id": 1,
-      "labels": [{ "text": "1", "cssClass": "highlight" }],
-      "cssClass": "highlight"
-    },
-    {
-      "id": 2,
-      "labels": [{ "text": "2", "cssClass": "highlight" }],
-      "cssClass": "highlight"
-    },
+    { "id": 0, "labels": "0" },
+    { "id": 1, "labels": [{ "text": "1", "cssClass": "highlight" }], "cssClass": "highlight" },
+    { "id": 2, "labels": [{ "text": "2", "cssClass": "highlight" }], "cssClass": "highlight" },
     { "id": 3, "labels": "3" },
     { "id": 4, "labels": "4" },
     { "id": 5, "labels": "5" },
-    {
-      "id": 6,
-      "labels": [{ "text": "6", "cssClass": "highlight" }],
-      "cssClass": "highlight"
-    },
+    { "id": 6, "labels": [{ "text": "6", "cssClass": "highlight" }], "cssClass": "highlight" },
     { "id": 7, "labels": "7" },
     { "id": 8, "labels": "8" },
     { "id": 9, "labels": "9" },

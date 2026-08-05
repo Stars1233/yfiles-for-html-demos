@@ -445,7 +445,11 @@ function queryInputHandlers(args) {
 }
 
 function parse(type, value) {
-  return type.from(value)
+  try {
+    return type.from(value)
+  } catch (e) {
+    throw new Error('Cannot serialize non-primitive attribute types: ' + value)
+  }
 }
 
 /**

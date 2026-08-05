@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Custom Styles Demo - yFiles for HTML
+# Custom Styles Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/custom-styles.webp" alt="demo-thumbnail" height="320"/>
 

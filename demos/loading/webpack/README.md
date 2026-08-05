@@ -9,6 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Webpack Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/webpack.webp" alt="demo-thumbnail" height="320"/>
 
 This demo shows how to integrate the yFiles library in a [webpack](https://webpack.js.org/) project.
@@ -22,25 +24,34 @@ Two fundamental concepts for webpack projects are demonstrated:
 
 First, install the required npm modules in the demo directory:
 
-`> npm install`
+```sh
+npm install
+```
 
 ### Development
 
-For development, the [webpack dev server](https://webpack.js.org/configuration/dev-server/) offers convenient live reloading support to minimize turnaround times.
+For development, the [webpack dev server](https://webpack.js.org/configuration/dev-server/) offers convenient live reloading support to minimize
+turnaround times.
 
-The dev server will serve the webpack bundles from memory (no bundles will be created on disc), update the app bundle and refresh the page when changes are made to the source files.
+The dev server will serve the webpack bundles from memory (no bundles will be created on disc),
+update the app bundle and refresh the page when changes are made to the source files.
 
 To run the dev server:
 
-`> npm start`
+```sh
+npm start
+```
 
 The webpack dev server will create the bundles in memory and launch the [generated index file](http://localhost:9003/) in a browser.
 
-Note that the npm start script will run webpack once before starting the webpack dev server, so the generated index.html file already exists when the browser first tries to access it.
+Note that the npm start script will run webpack once before starting the webpack dev server, so the
+generated index.html file already exists when the browser first tries to access it.
 
-When the server runs, try making changes to `src/webpack-demo.js` and see how the app will be updated in the browser immediately.
+When the server runs, try making changes to `src/webpack-demo.js` and see how the app will be updated
+in the browser immediately.
 
-Debugging of application files in the browser's developer tools should work fine, as source maps are enabled using webpack's " [SourceMapDevToolPlugin](https://webpack.js.org/plugins/source-map-dev-tool-plugin/) ".
+Debugging of application files in the browser's developer tools should work fine, as source maps are
+enabled using webpack's " [SourceMapDevToolPlugin](https://webpack.js.org/plugins/source-map-dev-tool-plugin/) ".
 
 ### Production
 
@@ -51,6 +62,8 @@ The following build steps are specific to the production configuration:
 
 To run the production build:
 
-`> npm run production`
+```sh
+npm run production
+```
 
 Note that the final minification step of the production build may take some time (the first "done" message is misleading).

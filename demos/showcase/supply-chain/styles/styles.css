@@ -58,21 +58,6 @@
   color: var(--white);
 }
 
-.clear-highlights {
-  width: fit-content !important;
-  background-color: var(--demo-blue-dark) !important;
-  color: white !important;
-  border: none !important;
-  margin: 0 10px !important;
-  padding: 0 10px !important;
-}
-.clear-highlights:hover {
-  background-color: var(--demo-blue-dark-80) !important;
-}
-.clear-highlights:active {
-  background-color: var(--demo-blue-dark-70) !important;
-}
-
 .bold-edge {
   color: var(--edge-color);
 }

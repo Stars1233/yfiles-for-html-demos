@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# HTML Controls Demo - yFiles for HTML
+# HTML Controls Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/html-controls.webp" alt="demo-thumbnail" height="320"/>
 

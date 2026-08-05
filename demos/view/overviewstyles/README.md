@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Overview Styling Demo - yFiles for HTML
+# Overview Styling Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/overview-styling.webp" alt="demo-thumbnail" height="320"/>
 

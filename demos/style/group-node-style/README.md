@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Group Node Style Demo - yFiles for HTML
+# Group Node Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/group-node-style.webp" alt="demo-thumbnail" height="320"/>
 
@@ -27,15 +27,15 @@ The related [GroupNodeLabelModel](https://docs.yworks.com/yfileshtml/api/GroupNo
 
   minus
 
-  add_2
+  add\_2
 
-  keyboard_arrow_down
+  keyboard\_arrow\_down
 
-  keyboard_arrow_up
+  keyboard\_arrow\_up
 
-  arrow_drop_down
+  arrow\_drop\_down
 
-  arrow_drop_up
+  arrow\_drop\_up
 
   to collapse groups or expand folders.
 

@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import {
-  CanvasComponent,
   GivenLayersAssigner,
   GraphBuilder,
   GraphComponent,
@@ -116,7 +115,7 @@ function buildGraph(graph, graphData) {
 let graphComponent
 
 /**
- * Calls {@link createEditorMode} and registers the result as the {@link CanvasComponent.inputMode}.
+ * Calls {@link createEditorMode} and registers the result as the {@link import('@yfiles/yfiles').CanvasComponent.inputMode}.
  */
 function initializeInputModes() {
   // create the interaction mode

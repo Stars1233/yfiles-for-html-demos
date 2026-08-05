@@ -67,13 +67,23 @@
     }
   ],
   "edges": [
-    { "source": 0, "target": 1, "sourcePort": { "x": 203, "y": 30 }, "targetPort": { "x": 203, "y": 50 } },
+    {
+      "source": 0,
+      "target": 1,
+      "sourcePort": { "x": 203, "y": 30 },
+      "targetPort": { "x": 203, "y": 50 }
+    },
     {
       "source": 1,
       "target": 3,
       "sourcePort": { "x": 203, "y": 80 },
       "targetPort": { "x": 203, "y": 112 },
-      "tag": { "source": "01", "target": "10", "sourcePort": { "x": 315, "y": 80 }, "targetPort": { "x": 315, "y": 112 } }
+      "tag": {
+        "source": "01",
+        "target": "10",
+        "sourcePort": { "x": 315, "y": 80 },
+        "targetPort": { "x": 315, "y": 112 }
+      }
     },
     {
       "source": 3,
@@ -107,7 +117,12 @@
         { "x": 117, "y": 912 }
       ]
     },
-    { "source": 4, "target": 7, "sourcePort": { "x": 108.5, "y": 197 }, "targetPort": { "x": 108.5, "y": 229 } },
+    {
+      "source": 4,
+      "target": 7,
+      "sourcePort": { "x": 108.5, "y": 197 },
+      "targetPort": { "x": 108.5, "y": 229 }
+    },
     {
       "source": 7,
       "target": 8,
@@ -120,7 +135,12 @@
         { "x": 55.5, "y": 592 }
       ]
     },
-    { "source": 7, "target": 11, "sourcePort": { "x": 108.5, "y": 259 }, "targetPort": { "x": 108.5, "y": 306 } },
+    {
+      "source": 7,
+      "target": 11,
+      "sourcePort": { "x": 108.5, "y": 259 },
+      "targetPort": { "x": 108.5, "y": 306 }
+    },
     {
       "source": 8,
       "target": 5,

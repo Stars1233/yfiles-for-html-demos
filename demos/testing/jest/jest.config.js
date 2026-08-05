@@ -32,11 +32,6 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'json'],
   coverageProvider: 'v8',
   preset: 'ts-jest',
-  transform: {
-    '^.+\\.ts$': ['ts-jest', {}],
-    '^.+\\.js$': 'babel-jest'
-  },
-  transformIgnorePatterns: [
-    'node_modules/(?!(@yfiles)/)'
-  ]
+  transform: { '^.+\\.ts$': ['ts-jest', {}], '^.+\\.js$': 'babel-jest' },
+  transformIgnorePatterns: ['node_modules/(?!(@yfiles)/)']
 }

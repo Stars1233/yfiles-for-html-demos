@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Events Viewer Demo - yFiles for HTML
+# Events Viewer Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/events-viewer.webp" alt="demo-thumbnail" height="320"/>
 
@@ -21,7 +21,7 @@ Generally, when looking for an event that fits your needs, you should start look
 
 ## Event Types
 
-### Input Mode Events keyboard_arrow_down
+### Input Mode Events keyboard\_arrow\_down
 
 - Viewer/Editor Events
 - Navigation Events
@@ -37,7 +37,7 @@ Generally, when looking for an event that fits your needs, you should start look
 - Create Edge Events
 - Drag and Drop Events
 
-### GraphComponent Events keyboard_arrow_right
+### GraphComponent Events keyboard\_arrow\_right
 
 - Clipboard Events
 - Pointer Events
@@ -47,7 +47,7 @@ Generally, when looking for an event that fits your needs, you should start look
 - Render Events
 - Other Events
 
-### Graph Events keyboard_arrow_right
+### Graph Events keyboard\_arrow\_right
 
 - Node Events
 - Edge Events

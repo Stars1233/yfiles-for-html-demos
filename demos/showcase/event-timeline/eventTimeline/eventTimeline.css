@@ -39,6 +39,14 @@
   }
 }
 
+.event-timeline-node.highlighted-adjacent {
+  opacity: 1 !important;
+  & > rect {
+    stroke: var(--yfiles-event-timeline-node-color, #89919c);
+    fill: var(--yfiles-event-timeline-node-color, #89919c);
+  }
+}
+
 g:has(> .event-timeline-edge:not(.highlight)) {
   transition: opacity 0.5s ease-in-out;
   opacity: var(--yfiles-event-timeline-non-highlighted-opacity, 1);
@@ -58,16 +66,15 @@ g:has(> .event-timeline-edge:not(.highlight)) {
     opacity: 0.33;
   }
 }
-.highlighted-adjacent {
-  stroke: var(--yfiles-event-timeline-edge-color, #89919c) !important;
-  fill: var(--yfiles-event-timeline-edge-color, #89919c) !important;
-  & > rect {
-    stroke: var(--yfiles-event-timeline-edge-color, #89919c) !important;
-    fill: var(--yfiles-event-timeline-edge-color, #89919c) !important;
-  }
-  & > text {
-    fill: var(--event-timeline-background-color) !important;
-  }
+.event-timeline-edge.highlight,
+.event-timeline-aggregate-edge.highlight,
+.event-timeline-hyper-edge.highlight {
+  opacity: 1 !important;
+}
+
+.event-timeline-node-label.highlighted-adjacent,
+.event-timeline-node-label-collapsed.highlighted-adjacent {
+  opacity: 1 !important;
 }
 
 .hidden {

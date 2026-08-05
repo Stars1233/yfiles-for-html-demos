@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Supply Chain Demo - yFiles for HTML
+# Supply Chain Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/supply-chain.webp" alt="demo-thumbnail" height="320"/>
 

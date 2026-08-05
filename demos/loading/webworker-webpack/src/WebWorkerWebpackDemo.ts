@@ -52,7 +52,7 @@ License.value = licenseData
 
 let graphComponent: GraphComponent
 let executor: LayoutExecutorAsync | null
-const worker = new Worker(new URL('./WorkerLayout.ts', import.meta.url))
+const worker = new Worker(new URL('./layout-worker.ts', import.meta.url))
 
 const layoutButton = document.querySelector<HTMLButtonElement>('#layoutBtn')!
 

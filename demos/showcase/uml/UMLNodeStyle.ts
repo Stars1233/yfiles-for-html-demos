@@ -68,7 +68,6 @@ import {
   Stroke,
   SvgVisual,
   type TaggedSvgVisual,
-  TextEditorInputMode,
   TextRenderSupport,
   VerticalTextAlignment
 } from '@yfiles/yfiles'
@@ -570,7 +569,7 @@ export class UMLNodeStyle extends NodeStyleBase<UMLNodeStyleVisual> {
   }
 
   /**
-   * Manages text edits on the {@link UMLNodeStyle} by preconfiguring the {@link TextEditorInputMode}
+   * Manages text edits on the {@link UMLNodeStyle} by preconfiguring the {@link import('@yfiles/yfiles').TextEditorInputMode}
    * with the text that should be edited and its position such that the label edit text box is opened on top of the
    * clicked text.
    * @param evt The event args with which the edit label was triggered.

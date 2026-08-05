@@ -28,7 +28,7 @@
  ***************************************************************************/
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import optimizer from '@yworks/optimizer/rollup-plugin'
+import optimizer from '@yworks/optimizer/rolldown-plugin'
 
 export default defineConfig(({ mode }) => {
   return {
@@ -38,6 +38,7 @@ export default defineConfig(({ mode }) => {
       mode === 'production'
         ? optimizer({
             logLevel: 'info',
+            blacklist: ['createContext'],
             shouldOptimize({ id }) {
               // Make sure not to exclude the demo-app and demo-utils directories which are
               // installed as dependencies but use yFiles API.

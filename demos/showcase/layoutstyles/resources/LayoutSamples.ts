@@ -762,7 +762,7 @@ export const Presets: Record<string, Preset> = {
       '<p>Uses RecursiveGroupLayout to run the compact disk layout algorithm for each group node ' +
       'separately. The topmost level of the hierarchy is arranged with OrganicLayout.</p>',
     label: 'Recursive Groups',
-    settings: { layoutGroupsItem: 1, minimumNodeDistanceItem: 15 }
+    settings: { layoutGroupsItem: 'recursive', minimumNodeDistanceItem: 15 }
   },
 
   default: {

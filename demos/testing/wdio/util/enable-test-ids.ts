@@ -65,7 +65,9 @@ export async function enableTestIds(
   }
 
   return browser.execute((args) => {
-    const graphComponent = (document.getElementById('graphComponent') as any)['data-this'] as GraphComponent
+    const graphComponent = (document.getElementById('graphComponent') as any)[
+      'data-this'
+    ] as GraphComponent
     const { attributeName, nodeIndexPrefix, edgeIndexPrefix, labelIndexPrefix, portIndexPrefix } =
       args
 

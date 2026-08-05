@@ -35,8 +35,7 @@ import {
   LayoutGraphHider,
   LayoutKeys,
   LayoutStageBase,
-  Mapper,
-  TreeReductionStage
+  Mapper
 } from '@yfiles/yfiles'
 
 /**
@@ -49,7 +48,7 @@ import {
  *   - Re-inserts all previously removed edges and optionally places their labels.
  *
  * This stage can be useful for layout algorithms or stages that cannot handle edges between group nodes, e.g.,
- * {@link TreeReductionStage}. Optionally, {@link HandleEdgesBetweenGroupsStage} can also place the labels of
+ * {@link import('@yfiles/yfiles').TreeReductionStage}. Optionally, {@link HandleEdgesBetweenGroupsStage} can also place the labels of
  * the edges that were temporarily removed right after they are restored back to the graph.
  *
  * The routing of the temporarily hidden edges can be customized by specifying an

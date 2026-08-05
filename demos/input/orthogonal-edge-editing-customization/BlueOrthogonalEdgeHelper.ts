@@ -29,7 +29,6 @@
 import {
   type IEdge,
   type IInputModeContext,
-  IOrthogonalEdgeHelper,
   OrthogonalEdgeHelper,
   SegmentOrientation
 } from '@yfiles/yfiles'
@@ -51,7 +50,7 @@ export class BlueOrthogonalEdgeHelper extends OrthogonalEdgeHelper {
    *   needed
    * @param segmentIndex The index of the segment
    * @see Overrides {@link OrthogonalEdgeHelper.getSegmentOrientation}
-   * @see Specified by {@link IOrthogonalEdgeHelper.getSegmentOrientation}.
+   * @see Specified by {@link import('@yfiles/yfiles').IOrthogonalEdgeHelper.getSegmentOrientation}.
    */
   getSegmentOrientation(
     inputModeContext: IInputModeContext,

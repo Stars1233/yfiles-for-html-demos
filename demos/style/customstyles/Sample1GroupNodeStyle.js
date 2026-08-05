@@ -27,14 +27,12 @@
  **
  ***************************************************************************/
 import {
-  Color,
   GeneralPath,
   GraphComponent,
   IGroupBoundsCalculator,
   IGroupPaddingProvider,
   INodeSizeConstraintProvider,
   Insets,
-  ITagOwner,
   Matrix,
   NodeStyleBase,
   Rect,
@@ -248,7 +246,7 @@ export class Sample1GroupNodeStyle extends NodeStyleBase {
   /**
    * Determines the color to use for filling the node.
    * This implementation uses the {@link Sample1GroupNodeStyle.nodeColor} property unless
-   * the {@link ITagOwner.tag} of the {@link INode} is of type {@link Color},
+   * the {@link import('@yfiles/yfiles').ITagOwner.tag} of the {@link INode} is of type {@link Color},
    * in which case that color overrides this style's setting.
    * @param node The node to determine the color for.
    * @returns The color for filling the node.

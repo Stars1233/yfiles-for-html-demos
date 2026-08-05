@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Filtering With Folding Demo - yFiles for HTML
+# Filtering With Folding Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/filtering-with-folding.webp" alt="demo-thumbnail" height="320"/>
 
@@ -19,7 +19,7 @@ This sample shows how to configure [filtering](https://docs.yworks.com/yfileshtm
 
 Filtering and Folding are both features to reduce the complexity of a graph and to hide graph items from the viewer. With Folding, group nodes can be collapsed into folders, which hides their content. Filtering temporarily removes nodes or edges from the graph. Both features have their field of application, and sometimes the need arises to use both together.
 
-The general approach is also described in the article [Using Filtering and Folding Together](https://docs.yworks.com/yfileshtml/#/kb/article/693/Using_Filtering_and_Folding_Together).
+The general approach is also described in the article [Using Filtering and Folding Together](https://docs.yworks.com/yfileshtml/kb/834/using-filtering-and-folding-together/).
 
 ## Things to Try
 

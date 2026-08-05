@@ -34,8 +34,7 @@ import {
   MutableRectangle,
   Point,
   PopoverDescriptor,
-  PopoverBehavior,
-  ShapeNodeStyle
+  PopoverBehavior
 } from '@yfiles/yfiles'
 
 import './ContextualToolbarComponent'
@@ -45,8 +44,8 @@ import {} from './ContextualToolbarComponent'
  * Adds a HTML panel on top of the contents of the GraphComponent that is used as a container for the contextual
  * toolbar.
  * This implementation expects the node, edge and label styles to be of
- * type {@link ShapeNodeStyle}, {@link PolylineEdgeStyle} and
- * {@link LabelStyle}.
+ * type {@link import('@yfiles/yfiles').ShapeNodeStyle}, {@link import('@yfiles/yfiles').PolylineEdgeStyle} and
+ * {@link import('@yfiles/yfiles').LabelStyle}.
  */
 export class ContextualToolbar {
   _selectedItems

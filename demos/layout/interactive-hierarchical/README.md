@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Interactive Hierarchical Layout Demo - yFiles for HTML
+# Interactive Hierarchical Layout Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/interactive-hierarchical-layout.webp" alt="demo-thumbnail" height="320"/>
 

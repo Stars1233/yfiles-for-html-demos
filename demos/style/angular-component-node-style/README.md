@@ -9,6 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Angular Component Node Style Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/angular-component-node-style.webp" alt="demo-thumbnail" height="320"/>
 
 This demo presents the Angular component node style that uses an [Angular](https://angular.dev/) component to visualize nodes.

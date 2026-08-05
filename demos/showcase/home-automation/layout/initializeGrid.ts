@@ -35,7 +35,6 @@ import {
   GridRenderer,
   GridSnapTypes,
   GridStyle,
-  type INode,
   Stroke
 } from '@yfiles/yfiles'
 

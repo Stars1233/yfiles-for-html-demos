@@ -26,12 +26,11 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { graphComponent } from '@yfiles/demo-app/init'
+import { graph, graphComponent } from '@yfiles/demo-app/init'
 import { GraphEditorInputMode, Rect } from '@yfiles/yfiles'
 import { BorderAlignedLabelModel } from './BorderAlignedLabelModel'
 
 // Create the example graph
-const graph = graphComponent.graph
 const node1 = graph.createNode(new Rect(90, 90, 100, 100))
 const node2 = graph.createNode(new Rect(250, 90, 100, 100))
 await graphComponent.fitGraphBounds()

@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { MarkupLabelStyle, TextEditorInputMode } from '@yfiles/yfiles'
+import { TextEditorInputMode } from '@yfiles/yfiles'
 import Quill from 'quill'
 
 // Quill snow theme
@@ -34,7 +34,7 @@ import 'quill/dist/quill.snow.css'
 
 /**
  * A custom {@link TextEditorInputMode} which utilizes Quill to provide a WYSIWYG text editor that
- * allows to easily create labels with the {@link MarkupLabelStyle}.
+ * allows to easily create labels with the {@link import('@yfiles/yfiles').MarkupLabelStyle}.
  */
 export class RichTextEditorInputMode extends TextEditorInputMode {
   quill

@@ -34,8 +34,7 @@ import {
   PolylineEdgeStyle,
   ShapeNodeStyle,
   Size,
-  TreeBuilder,
-  TreeLayout
+  TreeBuilder
 } from '@yfiles/yfiles'
 import type { Configuration } from './TreeLayoutConfigurations'
 import {
@@ -90,7 +89,7 @@ async function run(): Promise<void> {
 }
 
 /**
- * Runs a {@link TreeLayout} using the specified {@link ISubtreePlacer}s.
+ * Runs a {@link import('@yfiles/yfiles').TreeLayout} using the specified {@link ISubtreePlacer}s.
  */
 async function runLayout(initConfig: boolean): Promise<void> {
   if (busy) {

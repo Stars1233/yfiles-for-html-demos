@@ -885,9 +885,7 @@ export class AggregationGraphWrapper extends GraphWrapperBase {
 
   private $removeAggregationLabel(aggregationLabel: AggregationLabel): void {
     ;(aggregationLabel.owner as
-      | AggregationNode
-      | AggregationEdge
-      | AggregationPort)!.$labels.remove(aggregationLabel)
+      AggregationNode | AggregationEdge | AggregationPort)!.$labels.remove(aggregationLabel)
     aggregationLabel.graph = null
     this.onLabelRemoved(new LabelEventArgs(aggregationLabel, aggregationLabel.owner))
   }
@@ -1612,11 +1610,7 @@ export class AggregationGraphWrapper extends GraphWrapperBase {
 
   delegateLookup(
     aggregationItem:
-      | AggregationNode
-      | AggregationEdge
-      | AggregationLabel
-      | AggregationPort
-      | AggregationBend,
+      AggregationNode | AggregationEdge | AggregationLabel | AggregationPort | AggregationBend,
     type: Constructor<any>
   ): object | null {
     return this.$lookupDecorator.delegateLookup(aggregationItem, type)

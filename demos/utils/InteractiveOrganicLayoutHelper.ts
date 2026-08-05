@@ -223,9 +223,7 @@ export class InteractiveOrganicLayoutHelper {
    * By default, it fixes all nodes, setting their inertia to 1 and stress to 0
    */
   updateInertiaAndStressForAllNodes(inertia = 1, stress = 0): void {
-    this.graph.nodes.forEach((node) => {
-      this.fixNode(node, inertia, stress)
-    })
+    this.fixNodes(this.graph.nodes.toArray(), inertia, stress)
   }
 
   /**
@@ -316,7 +314,29 @@ export class InteractiveOrganicLayoutHelper {
     this.setStressAndInertia(node, inertia, stress)
     // Increasing has the effect that the layout will consider this node as not completely placed...
     // In this case, the node itself is fixed, but its neighbors will wake up
-    this.increaseNeighborStress(node, 0.5)
+    this.increaseNeighborStress([node], 0.5)
+  }
+
+  /**
+   * Fixes the given nodes by increasing the heat of the neighbor nodes and optionally setting the inertia
+   * and stress of the node itself to the given values.
+   *
+   * @param nodes - The nodes to update.
+   * @param inertia - The inertia value to set for the node.
+   * @param stress - The stress value to set for the node.
+   */
+  fixNodes(nodes: INode[], inertia = -1, stress = -1): void {
+    for (const node of nodes) {
+      const nodeHandle = this.getNodeHandle(node)
+      if (nodeHandle) {
+        nodeHandle.setCenter(node.layout.centerX, node.layout.centerY)
+        // Actually, the node itself is fixed at the start of a drag gesture
+        this.setStressAndInertia(node, inertia, stress)
+      }
+    }
+    // Increasing has the effect that the layout will consider this node as not completely placed...
+    // In this case, the node itself is fixed, but its neighbors will wake up
+    this.increaseNeighborStress(nodes, 0.5)
   }
 
   /**
@@ -368,21 +388,22 @@ export class InteractiveOrganicLayoutHelper {
   }
 
   /**
-   * Increases the heat of the neighbors of a given node by a given value.
+   * Increases the heat of the neighbors of the given nodes by a given value.
    * <p>
    *   This will make the layout move the neighbor nodes more quickly.
    * </p>
-   * @param node - The node whose neighbors' stress will be increased.
+   * @param nodes - The nodes whose neighbors' stress will be increased.
    * @param delta - The amount to increase the heat by.
    */
-  increaseNeighborStress(node: INode, delta: number): void {
-    // Increase Heat of neighbors
-    for (const neighbor of this.graph.neighbors(node)) {
-      const nodeHandle = this.getNodeHandle(neighbor)
-      if (!nodeHandle) {
-        return
+  increaseNeighborStress(nodes: INode[], delta: number): void {
+    for (const node of nodes) {
+      // Increase Heat of neighbors
+      for (const neighbor of this.graph.neighbors(node)) {
+        const nodeHandle = this.getNodeHandle(neighbor)
+        if (nodeHandle && !nodes.includes(neighbor)) {
+          nodeHandle.stress = Math.min(1, nodeHandle.stress + delta)
+        }
       }
-      nodeHandle.stress = Math.min(1, nodeHandle.stress + delta)
     }
   }
 

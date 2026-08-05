@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Interactive Knowledge Graph Demo - yFiles for HTML
+# Interactive Knowledge Graph Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/knowledge-graphs.webp" alt="demo-thumbnail" height="320"/>
 
@@ -24,11 +24,11 @@ Use the right panel to locate detected problems and apply fixes directly. Altern
 ## Things to try
 
 - Open the right sidebar to see a list of detected problems. For each problem, you can either zoom to the affected node(s) or apply an automatic fix.
-- Press 'Show Ontology View' button to show the ontology structure triplets.
+- Press the 'Show Ontology View' button to show the ontology structure triplets.
 - Enable 'Spotlight all issues' to mark all problematic elements using a beacon animation (available only if the browser supports WebGL).
-- Merge duplicated nodes (copy_all) to consolidate identical entities into a single node.
+- Merge duplicated nodes (copy\_all) to consolidate identical entities into a single node.
 - Remove isolated nodes (error) that are not connected to the rest of the graph.
 - Fix edges with incorrect endpoints (warning) by selecting the edge and reconnecting its ports to the correct node(s).
 - Double-click on a node to open the neighborhood view panel showing all its direct neighbors.
 - Switch layout with the **Group By Teams** toolbar button: This groups nodes that belong to the same team next to each other for easier inspection.
-- Use the **Triplet Filtering** panel to filter-out or fade-out parts of the graph based on selected triples (subject, predicate, or object). Note that 'fade-out' operation is only available if the browser supports WebGL.
+- Use the **Triplet Filtering** panel to filter-out or fade-out parts of the graph based on selected triples (subject, predicate, or object). Note that the 'fade-out' operation is only available if the browser supports WebGL.

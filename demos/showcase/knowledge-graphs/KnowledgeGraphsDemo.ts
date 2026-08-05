@@ -91,7 +91,7 @@ let explorerComponent: GraphComponent
 let graphSearch: GraphSearch
 let layoutRunning = false
 
-const worker = new Worker(new URL('./WorkerLayout', import.meta.url), { type: 'module' })
+const worker = new Worker(new URL('./layout-worker', import.meta.url), { type: 'module' })
 
 const searchBox = document.querySelector<HTMLInputElement>('#searchBox')!
 const spotlightErrorsElement = document.querySelector<HTMLInputElement>('#error-beacon-animation')!

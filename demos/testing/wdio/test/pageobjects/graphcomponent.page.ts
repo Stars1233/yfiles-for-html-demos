@@ -26,6 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
+import { browser, $, $$ } from '@wdio/globals'
 import { Page } from './page.js'
 import {
   getBendLocations,

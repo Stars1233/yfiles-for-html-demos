@@ -26,15 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import {
-  BaseClass,
-  Color,
-  IEdge,
-  INode,
-  Intersections,
-  IVisualCreator,
-  SvgVisual
-} from '@yfiles/yfiles'
+import { BaseClass, Color, IEdge, INode, IVisualCreator, SvgVisual } from '@yfiles/yfiles'
 import { colorSets } from '@yfiles/demo-app/demo-styles'
 
 const EDGE_EDGE_INTERSECTION_COLOR = Color.from(colorSets['demo-palette-13'].fill)
@@ -45,7 +37,7 @@ const LABEL_INTERSECTION_COLOR_FILL = Color.from(colorSets['demo-green'].fill)
 const LABEL_INTERSECTION_COLOR_STROKE = Color.from(colorSets['demo-green'].stroke)
 
 /**
- * Visualizes intersections calculated by the {@link Intersections} algorithm.
+ * Visualizes intersections calculated by the {@link import('@yfiles/yfiles').Intersections} algorithm.
  */
 export class IntersectionVisualCreator extends BaseClass(IVisualCreator) {
   intersections = []

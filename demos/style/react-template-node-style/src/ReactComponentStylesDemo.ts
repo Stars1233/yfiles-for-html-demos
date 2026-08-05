@@ -26,8 +26,6 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
-
 import * as ReactDOM from 'react-dom'
 
 import {
@@ -556,4 +554,4 @@ function initializeUI(): void {
   document.querySelector('#reload')!.addEventListener('click', loadSampleGraph)
 }
 
-run().then(finishLoading)
+run().then()

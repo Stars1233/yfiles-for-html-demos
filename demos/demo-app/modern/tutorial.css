@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
 .material-symbols-outlined {
   font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -272,6 +272,42 @@ input:disabled {
 }
 .input-range:hover {
   cursor: pointer;
+}
+ul.check-list {
+  list-style: none;
+  padding-left: 0;
+}
+ul.check-list li {
+  display: flex;
+  align-items: flex-start;
+  /* top-align icon and text */
+  gap: 0.5rem;
+}
+ul.check-list li::before {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--live-demo-highlight);
+  content: 'check_circle';
+  flex-shrink: 0;
+  margin-top: 0.15em;
+  /* nudge icon down to align with text cap-height */
+}
+hr.thin {
+  border: 0;
+  height: 1px;
+  background-color: var(--tour-dash);
+  margin: 1em 0;
+}
+p.remark {
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+p.not-important {
+  opacity: 0.7;
 }
 .text-content {
   font-size: var(--body-font-size);
@@ -526,7 +562,6 @@ h6 {
   font-size: 1.5rem;
   display: flex;
   width: 32px;
-  height: stretch;
   border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
   background-color: var(--toolbar-button);
 }
@@ -644,6 +679,7 @@ h6 {
   /* prevent the text button from wrapping */
   background: var(--toolbar-bg);
   backdrop-filter: blur(var(--overlay-blur));
+  height: 44px;
   padding: 4px 8px;
   gap: 4px;
   box-shadow: var(--shadow-crispy-gray);
@@ -1232,7 +1268,6 @@ h6 {
   font-size: 1.5rem;
   display: flex;
   width: 32px;
-  height: stretch;
   border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
   background-color: var(--toolbar-button);
 }
@@ -1652,7 +1687,7 @@ body.demo-tutorial {
   grid-template-areas: 'header header' 'toolbar toolbar' 'description content';
   grid-template-rows: 3.75rem auto 1fr;
 }
-@media screen and (max-width: 60rem ) {
+@media screen and (max-width: 60rem) {
   body.demo-tutorial {
     grid-template-columns: 1fr;
     grid-template-rows: 3.75rem auto 1fr var(--description-drag-height, 1fr);
@@ -1662,7 +1697,7 @@ body.demo-tutorial {
     grid-template-rows: 1.875rem auto 1fr var(--description-drag-height, 1fr);
   }
 }
-@media screen and (max-width: 40rem ) {
+@media screen and (max-width: 40rem) {
   body.demo-tutorial {
     grid-template-rows: 0 auto 1fr var(--description-drag-height, 1fr);
   }
@@ -1673,7 +1708,7 @@ body.demo-tutorial {
 .demo-tutorial .header .burger-menu-button {
   display: none;
 }
-@media screen and (max-width: 60rem ) {
+@media screen and (max-width: 60rem) {
   .demo-tutorial .header .demo-overview {
     display: none;
   }
@@ -2309,7 +2344,7 @@ body.demo-tutorial {
   color: var(--color-text);
   background-color: var(--toolbar-bg-hover);
 }
-@media screen and (max-width: 40rem ) {
+@media screen and (max-width: 40rem) {
   .toolbar-button-back,
   .toolbar-button-forward {
     display: none;
@@ -2741,7 +2776,7 @@ body.demo-resizing-horizontal .demo-description__drag-area--horizontal {
   left: -5px;
   top: 50%;
 }
-@media screen and (max-width: 60rem ) {
+@media screen and (max-width: 60rem) {
   .demo-description__drag-area--vertical {
     display: none;
   }
@@ -2763,7 +2798,7 @@ body.demo-resizing-horizontal .demo-description__drag-area--horizontal {
   left: 50%;
   line-height: 0.8125rem;
 }
-@media screen and (max-width: 60rem ) {
+@media screen and (max-width: 60rem) {
   .demo-description__drag-area--horizontal {
     display: block;
   }

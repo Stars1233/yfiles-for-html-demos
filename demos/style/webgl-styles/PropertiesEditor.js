@@ -158,7 +158,8 @@ function updateEdgeSection(style) {
     updateEdgeSectionImpl(style, 'Arc')
   } else if (style instanceof WebGLBridgeEdgeStyle) {
     updateEdgeSectionImpl(style, 'Bridge')
-  } /* WebGLPolylineEdgeStyle*/ else {
+  } /* WebGLPolylineEdgeStyle*/
+  else {
     updateEdgeSectionImpl(style, 'Default')
   }
 }

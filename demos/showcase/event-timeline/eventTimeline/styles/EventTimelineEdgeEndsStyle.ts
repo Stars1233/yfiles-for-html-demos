@@ -70,12 +70,14 @@ export class EventTimelineEdgeEndsStyle extends EdgeStyleBase {
   constructor(
     thickness: number,
     markerRadius: number,
-    nodeToColorMapper: (node: INode) => string | undefined = (_node: INode) => undefined
+    nodeToColorMapper: (node: INode) => string | undefined = (_node: INode) => undefined,
+    additionalCssClass: string = ''
   ) {
     super()
     this.thickness = thickness
     this.markerRadius = markerRadius
     this.nodeToColorMapper = nodeToColorMapper
+    this.cssClass = this.cssClass + ' ' + additionalCssClass
   }
 
   /**

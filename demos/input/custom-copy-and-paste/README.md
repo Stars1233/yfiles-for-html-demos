@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Custom Copy and Paste Demo - yFiles for HTML
+# Custom Copy and Paste Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/custom-copy-and-paste.webp" alt="demo-thumbnail" height="320"/>
 

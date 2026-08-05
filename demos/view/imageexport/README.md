@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Image Export Demo - yFiles for HTML
+# Image Export Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/image-export.webp" alt="demo-thumbnail" height="320"/>
 

@@ -26,12 +26,11 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { graphComponent } from '@yfiles/demo-app/init'
+import { graph, graphComponent } from '@yfiles/demo-app/init'
 import { ArcEdgeStyle, EdgePathLabelModel, GraphEditorInputMode } from '@yfiles/yfiles'
 import { OffsetWrapperLabelModel } from './OffsetWrapperLabelModel'
 
 // Create the example graph
-const graph = graphComponent.graph
 const node1 = graph.createNode([0, 0, 100, 100])
 const node2 = graph.createNode([500, 0, 100, 100])
 const edge = graph.createEdge(node1, node2, new ArcEdgeStyle({ height: 50 }))

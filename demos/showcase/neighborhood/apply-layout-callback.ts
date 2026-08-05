@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { ComponentLayout, HierarchicalLayout, type INode } from '@yfiles/yfiles'
+import { ComponentLayout, HierarchicalLayout, type INode, LayoutExecutor } from '@yfiles/yfiles'
 import { type NeighborhoodType } from './NeighborhoodType'
 import type { ApplyLayoutCallback, NeighborhoodView } from './NeighborhoodView'
 
@@ -35,6 +35,7 @@ import type { ApplyLayoutCallback, NeighborhoodView } from './NeighborhoodView'
  * @param neighborhoodType the type of neighborhood graph to be arranged by the returned callback.
  */
 export function getApplyLayoutCallback(neighborhoodType: NeighborhoodType): ApplyLayoutCallback {
+  LayoutExecutor.ensure()
   return neighborhoodType === 'folder-contents'
     ? (view, nodes) => applyComponentLayout(view, nodes)
     : (view) => applyHierarchicalLayout(view)

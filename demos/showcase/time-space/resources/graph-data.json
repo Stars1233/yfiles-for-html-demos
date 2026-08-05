@@ -9,11 +9,7 @@
       "level": 0.9,
       "date": "2024-12-15",
       "description": "A train carrying industrial waste derailed near the Dutch-German border.",
-      "badges": [
-        "industry",
-        "chemical",
-        "spill"
-      ]
+      "badges": ["industry", "chemical", "spill"]
     },
     {
       "id": 2,
@@ -24,10 +20,7 @@
       "level": 0.8,
       "date": "2025-01-23",
       "description": "Toxins entered River Rhine, beginning their downstream journey.",
-      "badges": [
-        "water",
-        "spread"
-      ]
+      "badges": ["water", "spread"]
     },
     {
       "id": 3,
@@ -38,23 +31,18 @@
       "level": 0.6,
       "date": "2025-02-01",
       "description": "Initial public health advisory regarding water contamination in Dortmund.",
-      "badges": [
-        "health",
-        "urban"
-      ]
+      "badges": ["health", "urban"]
     },
     {
       "id": 4,
       "name": "Toxins Reach North Sea",
       "image": "contamination",
       "lat": 52.2553,
-      "lng": 4.4840,
+      "lng": 4.484,
       "level": 0.7,
       "date": "2025-03-10",
       "description": "Contaminated waters reach the North Sea, spreading to coastal regions.",
-      "badges": [
-        "marine"
-      ]
+      "badges": ["marine"]
     },
     {
       "id": 5,
@@ -65,11 +53,7 @@
       "level": 0.5,
       "date": "2025-03-12",
       "description": "Restrictions imposed on water usage due to elevated toxin levels.",
-      "badges": [
-        "government",
-        "restrictions",
-        "water"
-      ]
+      "badges": ["government", "restrictions", "water"]
     },
     {
       "id": 6,
@@ -80,10 +64,7 @@
       "level": 0.6,
       "date": "2025-03-20",
       "description": "Reports of damaged marine life and ecosystem impacts on the French coast.",
-      "badges": [
-        "ecosystem",
-        "marine"
-      ]
+      "badges": ["ecosystem", "marine"]
     },
     {
       "id": 7,
@@ -94,9 +75,7 @@
       "level": 0.3,
       "date": "2025-03-25",
       "description": "Emergency meeting to coordinate transnational response.",
-      "badges": [
-        "government"
-      ]
+      "badges": ["government"]
     },
     {
       "id": 8,
@@ -107,37 +86,29 @@
       "level": 0.5,
       "date": "2025-04-01",
       "description": "Elevated levels of toxins found along main ocean current.",
-      "badges": [
-        "marine",
-        "spread"
-      ]
+      "badges": ["marine", "spread"]
     },
     {
       "id": 9,
       "name": "Stornoway Marine Observation",
       "image": "lookout",
-      "lat": 58.2090,
+      "lat": 58.209,
       "lng": -6.3864,
       "level": 0.4,
       "date": "2025-04-02",
       "description": "UK authorities observe early signs of contamination near Stornoway.",
-      "badges": [
-        "observation",
-        "marine"
-      ]
+      "badges": ["observation", "marine"]
     },
     {
       "id": 10,
       "name": "Heightened Concerns in New York",
       "image": "alert",
       "lat": 40.7128,
-      "lng": -74.0060,
+      "lng": -74.006,
       "level": 0.6,
       "date": "2025-04-10",
       "description": "Contaminants detected approaching East Coast shores.",
-      "badges": [
-        "water"
-      ]
+      "badges": ["water"]
     },
     {
       "id": 11,
@@ -148,9 +119,7 @@
       "level": 0.3,
       "date": "2025-05-01",
       "description": "US and EU diplomatic talks discuss joint containment strategies.",
-      "badges": [
-        "government"
-      ]
+      "badges": ["government"]
     },
     {
       "id": 12,
@@ -161,9 +130,7 @@
       "level": 0.4,
       "date": "2025-05-02",
       "description": "Germany initiates pilot cleanup projects using new technology.",
-      "badges": [
-        "innovation"
-      ]
+      "badges": ["innovation"]
     },
     {
       "id": 13,
@@ -174,9 +141,7 @@
       "level": 0.5,
       "date": "2025-04-12",
       "description": "Residents advised against recreational water activities.",
-      "badges": [
-        "alert"
-      ]
+      "badges": ["alert"]
     },
     {
       "id": 14,
@@ -187,10 +152,7 @@
       "level": 0.3,
       "date": "2025-06-01",
       "description": "EU announces adjustments in industrial waste regulations.",
-      "badges": [
-        "government",
-        "industry"
-      ]
+      "badges": ["government", "industry"]
     },
     {
       "id": 15,
@@ -201,10 +163,7 @@
       "level": 0.4,
       "date": "2025-06-20",
       "description": "Low levels of contamination detected off the coast of Florida.",
-      "badges": [
-        "observation",
-        "marine"
-      ]
+      "badges": ["observation", "marine"]
     },
     {
       "id": 16,
@@ -215,23 +174,18 @@
       "level": 0.2,
       "date": "2025-07-25",
       "description": "Global summit tackling environmental disaster management.",
-      "badges": [
-        "government",
-        "ecosystem"
-      ]
+      "badges": ["government", "ecosystem"]
     },
     {
       "id": 17,
       "name": "Public Awareness Campaign Launch",
       "image": "government-eu",
-      "lat": 52.5200,
-      "lng": 13.4050,
+      "lat": 52.52,
+      "lng": 13.405,
       "level": 0.2,
       "date": "2025-08-25",
       "description": "EU launches campaign to raise awareness about contamination.",
-      "badges": [
-        "alert"
-      ]
+      "badges": ["alert"]
     },
     {
       "id": 18,
@@ -242,10 +196,7 @@
       "level": 0.5,
       "date": "2025-04-15",
       "description": "Fishing operations temporarily halted due to contamination.",
-      "badges": [
-        "fishing",
-        "restrictions"
-      ]
+      "badges": ["fishing", "restrictions"]
     },
     {
       "id": 19,
@@ -256,11 +207,7 @@
       "level": 0.3,
       "date": "2025-09-20",
       "description": "Ireland enhances monitoring systems for better detection.",
-      "badges": [
-        "observation",
-        "innovation",
-        "water"
-      ]
+      "badges": ["observation", "innovation", "water"]
     },
     {
       "id": 20,
@@ -271,11 +218,7 @@
       "level": 0.3,
       "date": "2025-10-01",
       "description": "US updates its environmental policies in response to crisis.",
-      "badges": [
-        "government",
-        "innovation",
-        "ecosystem"
-      ]
+      "badges": ["government", "innovation", "ecosystem"]
     },
     {
       "id": 21,
@@ -286,10 +229,7 @@
       "level": 0.4,
       "date": "2025-09-25",
       "description": "Major restoration project underway to revive affected ecosystems.",
-      "badges": [
-        "ecosystem",
-        "innovation"
-      ]
+      "badges": ["ecosystem", "innovation"]
     },
     {
       "id": 22,
@@ -300,10 +240,7 @@
       "level": 0.3,
       "date": "2025-10-16",
       "description": "Portugal initiated continuous coastal monitoring systems.",
-      "badges": [
-        "marine",
-        "observation"
-      ]
+      "badges": ["marine", "observation"]
     },
     {
       "id": 23,
@@ -314,10 +251,7 @@
       "level": 0.2,
       "date": "2025-11-05",
       "description": "Canadian authorities on high alert for potential threat.",
-      "badges": [
-        "alert",
-        "marine"
-      ]
+      "badges": ["alert", "marine"]
     },
     {
       "id": 24,
@@ -328,36 +262,29 @@
       "level": 0.3,
       "date": "2025-11-06",
       "description": "Reports indicate a decline in contamination levels.",
-      "badges": [
-        "decline"
-      ]
+      "badges": ["decline"]
     },
     {
       "id": 28,
       "name": "Investor Conference on Green Tech",
       "image": "tech-conference",
       "lat": 48.1351,
-      "lng": 11.5820,
+      "lng": 11.582,
       "level": 0.1,
       "date": "2025-11-10",
       "description": "Conference attracts interest in environmental tech investment.",
-      "badges": [
-        "innovation",
-        "industry"
-      ]
+      "badges": ["innovation", "industry"]
     },
     {
       "id": 27,
       "name": "New EU-Wide Safety Regulations",
       "image": "government-eu",
       "lat": 50.0647,
-      "lng": 19.9450,
+      "lng": 19.945,
       "level": 0.2,
       "date": "2025-11-15",
       "description": "EU finalizes new safety norms for future prevention.",
-      "badges": [
-        "government"
-      ]
+      "badges": ["government"]
     },
     {
       "id": 25,
@@ -368,22 +295,18 @@
       "level": 0.2,
       "date": "2025-12-05",
       "description": "Presentations on new tech solutions for environmental hazards.",
-      "badges": [
-        "innovation"
-      ]
+      "badges": ["innovation"]
     },
     {
       "id": 30,
       "name": "Ongoing Education Initiatives",
       "image": "ngo",
       "lat": 51.5092,
-      "lng": -0.1340,
+      "lng": -0.134,
       "level": 0.2,
       "date": "2025-12-10",
       "description": "Long-term education initiatives to prevent future crises.",
-      "badges": [
-        "innovation"
-      ]
+      "badges": ["innovation"]
     },
     {
       "id": 29,
@@ -394,22 +317,18 @@
       "level": 0.3,
       "date": "2026-01-12",
       "description": "EU commends joint efforts between Europe and the USA.",
-      "badges": [
-        "government"
-      ]
+      "badges": ["government"]
     },
     {
       "id": 26,
       "name": "Final Report: Impact Assessment",
       "image": "government-eu",
-      "lat": 54.5260,
+      "lat": 54.526,
       "lng": 15.2551,
       "level": 0.1,
       "date": "2026-01-20",
       "description": "Comprehensive report on contamination's full impact released.",
-      "badges": [
-        "government"
-      ]
+      "badges": ["government"]
     }
   ],
   "connections": [
@@ -423,11 +342,7 @@
       "target": 3,
       "description": "Contamination progresses downstream, prompting alerts in Nijmegen."
     },
-    {
-      "source": 2,
-      "target": 4,
-      "description": "Continued flow downstream reaches the North Sea."
-    },
+    { "source": 2, "target": 4, "description": "Continued flow downstream reaches the North Sea." },
     {
       "source": 4,
       "target": 5,
@@ -448,16 +363,8 @@
       "target": 11,
       "description": "EU meeting results in diplomatic outreach to the US."
     },
-    {
-      "source": 4,
-      "target": 8,
-      "description": "Contamination enters the Atlantic Ocean."
-    },
-    {
-      "source": 8,
-      "target": 9,
-      "description": "Marine contamination reaches waters near the UK."
-    },
+    { "source": 4, "target": 8, "description": "Contamination enters the Atlantic Ocean." },
+    { "source": 8, "target": 9, "description": "Marine contamination reaches waters near the UK." },
     {
       "source": 8,
       "target": 10,
@@ -478,46 +385,18 @@
       "target": 12,
       "description": "Diplomatic talks spur pilot cleanup initiatives."
     },
-    {
-      "source": 10,
-      "target": 13,
-      "description": "New York warning extends to Massachusetts."
-    },
+    { "source": 10, "target": 13, "description": "New York warning extends to Massachusetts." },
     {
       "source": 12,
       "target": 14,
       "description": "Pilot cleanup projects influence wider EU policy adjustments."
     },
-    {
-      "source": 14,
-      "target": 17,
-      "description": "Policy changes prompt awareness campaigns."
-    },
-    {
-      "source": 16,
-      "target": 20,
-      "description": "Policy changes prompt awareness campaigns."
-    },
-    {
-      "source": 19,
-      "target": 21,
-      "description": "Policy changes prompt awareness campaigns."
-    },
-    {
-      "source": 17,
-      "target": 19,
-      "description": "Policy changes prompt awareness campaigns."
-    },
-    {
-      "source": 20,
-      "target": 23,
-      "description": "Policy changes prompt awareness campaigns."
-    },
-    {
-      "source": 20,
-      "target": 22,
-      "description": "Policy changes prompt awareness campaigns."
-    },
+    { "source": 14, "target": 17, "description": "Policy changes prompt awareness campaigns." },
+    { "source": 16, "target": 20, "description": "Policy changes prompt awareness campaigns." },
+    { "source": 19, "target": 21, "description": "Policy changes prompt awareness campaigns." },
+    { "source": 17, "target": 19, "description": "Policy changes prompt awareness campaigns." },
+    { "source": 20, "target": 23, "description": "Policy changes prompt awareness campaigns." },
+    { "source": 20, "target": 22, "description": "Policy changes prompt awareness campaigns." },
     {
       "source": 21,
       "target": 20,
@@ -543,11 +422,7 @@
       "target": 27,
       "description": "Ministerial meetings influence EU regulatory updates."
     },
-    {
-      "source": 14,
-      "target": 15,
-      "description": "US coastal alerts extend to Florida."
-    },
+    { "source": 14, "target": 15, "description": "US coastal alerts extend to Florida." },
     {
       "source": 11,
       "target": 16,

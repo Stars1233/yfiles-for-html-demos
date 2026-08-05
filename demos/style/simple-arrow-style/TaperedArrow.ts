@@ -34,7 +34,6 @@ import {
   IBoundsProvider,
   type ICanvasContext,
   type IEdge,
-  IEdgeStyle,
   type ILookup,
   type IRenderContext,
   IVisualCreator,
@@ -123,7 +122,7 @@ export class TaperedArrow extends BaseClass(IArrow, IVisualCreator, IBoundsProvi
   /**
    * Gets the cropping length associated with this instance.
    * Value: Always returns 0
-   * This value is used by {@link IEdgeStyle}s to let the
+   * This value is used by {@link import('@yfiles/yfiles').IEdgeStyle}s to let the
    * edge appear to end shortly before its actual target.
    * @see Specified by {@link IArrow.cropLength}.
    */

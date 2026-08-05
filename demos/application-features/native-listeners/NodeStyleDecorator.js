@@ -26,19 +26,12 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import {
-  IHitTestable,
-  IMarqueeTestable,
-  NodeStyleBase,
-  ShapeNodeStyle,
-  SvgVisual,
-  SvgVisualGroup
-} from '@yfiles/yfiles'
+import { NodeStyleBase, ShapeNodeStyle, SvgVisual, SvgVisualGroup } from '@yfiles/yfiles'
 
 /**
  * This node style decorator adds a circle with a native click listener representing a button.
  *
- * Checks like {@link IHitTestable.isHit} or {@link IMarqueeTestable.isInBox} are
+ * Checks like {@link import('@yfiles/yfiles').IHitTestable.isHit} or {@link import('@yfiles/yfiles').IMarqueeTestable.isInBox} are
  * simply delegated to the base style because the button is placed inside the node layout.
  */
 export class NodeStyleDecorator extends NodeStyleBase {

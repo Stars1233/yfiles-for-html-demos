@@ -46,10 +46,16 @@ import {
 type Marker = { from: number; to: number; className?: string; id: string }
 
 /**
+ * Applies the Regexp.escape function if available and returns the original content otherwise.
+ */
+function regexpEscape(content: string | null): string | null {
+  return content == null ? content : ((RegExp as any).escape?.(content) ?? content)
+}
+
+/**
  * This class handles synchronization of the GraphML editor with the view graph.
  * @yjs:keep = setValue,getValue
  */
-
 export class EditorSync {
   public readonly itemToIdMap: HashMap<IModelItem, string> = new HashMap()
   private readonly itemToMarkerMap: HashMap<IModelItem, Marker> = new HashMap()
@@ -271,12 +277,12 @@ export class EditorSync {
    * @param tagName "node" or "edge"
    * @param editorText The GraphML text shown in the editor
    */
-  private setMarkersForItem(item: ILabelOwner, tagName: string, editorText: string): void {
+  private setMarkersForItem(item: ILabelOwner, tagName: 'node' | 'edge', editorText: string): void {
     // The internal GraphML ID for the item (determined during GraphML parsing/writing)
     const itemId = this.itemToIdMap.get(item)
 
     // Find the <node> or <edge> start tag
-    const regexpStr = `<${tagName}.*?id="${itemId}".*?>`
+    const regexpStr = `<${tagName}.*?id="${regexpEscape(itemId)}".*?>`
     const regexp = new RegExp(regexpStr, 'i')
     const matches = regexp.exec(editorText)
     if (!matches) {

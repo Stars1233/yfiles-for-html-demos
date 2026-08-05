@@ -37,7 +37,6 @@ import {
   type IEnumerable,
   type IInputModeContext,
   type INode,
-  INodeStyle,
   type IPort,
   type IRenderContext,
   NodeStyleBase,
@@ -92,7 +91,7 @@ type Cache = {
 type FlowchartNodeStyleVisual = TaggedSvgVisual<SVGGElement, Cache>
 
 /**
- * {@link INodeStyle} which draws a flowchart shape according to its type.
+ * {@link import('@yfiles/yfiles').INodeStyle} which draws a flowchart shape according to its type.
  * This style can be customized by changing the properties 'fill' and 'stroke' as well as with a css-stylesheet.
  */
 export class FlowchartNodeStyle extends NodeStyleBase<FlowchartNodeStyleVisual> {

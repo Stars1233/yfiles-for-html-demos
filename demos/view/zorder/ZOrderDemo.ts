@@ -188,7 +188,10 @@ function updateLabel(node: INode, zIndex: number): void {
     : graphComponent.graph.foldingView!.manager.masterGraph
 
   if (node.labels.some((label) => label.tag && label.tag.showZIndex)) {
-    graph.setLabelText(node.labels.find((label) => label.tag.showZIndex)!, `Level: ${zIndex}`)
+    graph.setLabelText(
+      node.labels.find((label) => label.tag.showZIndex)!,
+      `Level: ${zIndex}`
+    )
   } else {
     graph.addLabel({ owner: node, text: `Level: ${zIndex}`, tag: { showZIndex: true } })
   }

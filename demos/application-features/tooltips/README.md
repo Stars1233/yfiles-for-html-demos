@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Tooltips & Popovers Demo - yFiles for HTML
+# Tooltips & Popovers Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/tooltips.webp" alt="demo-thumbnail" height="320"/>
 

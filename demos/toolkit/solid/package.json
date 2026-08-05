@@ -13,15 +13,18 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "solid-js": "^1.9.10",
-    "@fontsource/material-symbols-outlined": "^5.2.41",
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.1+dev.tgz"
+    "@fontsource/material-symbols-outlined": "^5.3.1",
+    "solid-js": "^1.9.14",
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.2+dev.tgz"
   },
   "devDependencies": {
-    "solid-devtools": "^0.34.4",
+    "@yworks/optimizer": "^1.9.0",
+    "solid-devtools": "^0.34.5",
     "typescript": "~6.0.2",
-    "vite": "^7.3.0",
-    "vite-plugin-solid": "~2.11.10",
-    "@yworks/optimizer": "^1.8.9"
+    "vite": "^7.3.6",
+    "vite-plugin-solid": "~2.11.10"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true
   }
 }

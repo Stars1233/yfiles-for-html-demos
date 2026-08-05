@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Orthogonal Layout Demo - yFiles for HTML
+# Orthogonal Layout Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-orthogonal.webp" alt="demo-thumbnail" height="320"/>
 

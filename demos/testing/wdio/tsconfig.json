@@ -1,21 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es2023",
-    "lib": ["ES2023", "DOM", "DOM.Iterable", "WebWorker"],
+    "types": ["@wdio/globals/types", "@wdio/mocha-framework", "expect-webdriverio", "node"],
     "skipLibCheck": true,
-    "types": ["node", "@wdio/globals/types", "expect-webdriverio", "@wdio/mocha-framework"],
-
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "esModuleInterop": true,
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-    "noUnusedLocals": true
-  }
+    "exactOptionalPropertyTypes": true,
+    "noEmit": true
+  },
+  "include": ["test/**/*.ts", "util/**/*.ts", "wdio.conf.ts"]
 }

@@ -42,6 +42,7 @@ import {
   type IGraph,
   type INode,
   type IPort,
+  LayoutExecutor,
   License,
   LineCap,
   Point,
@@ -327,6 +328,7 @@ function runLayout(graphComponent: GraphComponent): void {
   })
 
   // calculate the initial layout
+  LayoutExecutor.ensure()
   graphComponent.graph.applyLayout(layout)
   // move the ports from the node center to outside the node
   adjustPorts(graphComponent.graph)

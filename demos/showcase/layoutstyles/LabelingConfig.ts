@@ -28,11 +28,9 @@
  ***************************************************************************/
 import {
   Class,
-  FreeEdgeLabelModel,
   GenericLabeling,
   GenericLabelingData,
   type GraphComponent,
-  ILabelModelParameterFinder,
   type ILayoutAlgorithm,
   LabelingCosts,
   LabelingOptimizationStrategy,
@@ -265,7 +263,6 @@ export const LabelingConfig = (Class as any)('LabelingConfig', {
     }
 
     if (this.placeEdgeLabelsItem) {
-      this.setupEdgeLabelModels(graphComponent)
       return layoutData.combineWith(
         this.createLabelingLayoutData(
           graphComponent.graph,
@@ -278,30 +275,6 @@ export const LabelingConfig = (Class as any)('LabelingConfig', {
     }
 
     return layoutData
-  },
-
-  setupEdgeLabelModels: function (graphComponent: GraphComponent): void {
-    const model = new FreeEdgeLabelModel()
-
-    const selectionOnly = this.considerSelectedFeaturesOnlyItem
-    const placeEdgeLabels = this.placeEdgeLabelsItem
-    if (!placeEdgeLabels) {
-      return
-    }
-
-    const graph = graphComponent.graph
-    for (const label of graph.edgeLabels) {
-      const parameterFinder = model
-        .getContext(label)
-        .lookup(ILabelModelParameterFinder) as ILabelModelParameterFinder
-      if (selectionOnly) {
-        if (graphComponent.selection.includes(label)) {
-          graph.setLabelLayoutParameter(label, parameterFinder.findBestParameter(label.layout))
-        }
-      } else {
-        graph.setLabelLayoutParameter(label, parameterFinder.findBestParameter(label.layout))
-      }
-    }
   },
 
   /** @type {OptionGroup} */

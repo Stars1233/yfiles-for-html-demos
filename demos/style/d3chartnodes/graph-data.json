@@ -3,21 +3,49 @@
     { "id": 0, "layout": { "x": 442, "y": 412, "width": 100, "height": 50 }, "labels": "New York" },
     { "id": 1, "layout": { "x": 150, "y": 544, "width": 100, "height": 50 }, "labels": "Tokyo" },
     { "id": 2, "layout": { "x": 185, "y": 300, "width": 100, "height": 50 }, "labels": "London" },
-    { "id": 3, "layout": { "x": 619, "y": 355, "width": 100, "height": 50 }, "labels": "Hong Kong" },
+    {
+      "id": 3,
+      "layout": { "x": 619, "y": 355, "width": 100, "height": 50 },
+      "labels": "Hong Kong"
+    },
     { "id": 4, "layout": { "x": 547, "y": 0, "width": 100, "height": 50 }, "labels": "Amsterdam" },
-    { "id": 5, "layout": { "x": 638, "y": 247, "width": 100, "height": 50 }, "labels": "Frankfurt" },
+    {
+      "id": 5,
+      "layout": { "x": 638, "y": 247, "width": 100, "height": 50 },
+      "labels": "Frankfurt"
+    },
     { "id": 6, "layout": { "x": 0, "y": 266, "width": 100, "height": 50 }, "labels": "Lisbon" },
     { "id": 7, "layout": { "x": 423, "y": 634, "width": 100, "height": 50 }, "labels": "Shanghai" },
     { "id": 8, "layout": { "x": 603, "y": 464, "width": 100, "height": 50 }, "labels": "Toronto" },
     { "id": 9, "layout": { "x": 256, "y": 418, "width": 100, "height": 50 }, "labels": "Paris" },
-    { "id": 10, "layout": { "x": 530, "y": 145, "width": 100, "height": 50 }, "labels": "Brussels" },
+    {
+      "id": 10,
+      "layout": { "x": 530, "y": 145, "width": 100, "height": 50 },
+      "labels": "Brussels"
+    },
     { "id": 11, "layout": { "x": 797, "y": 196, "width": 100, "height": 50 }, "labels": "Zurich" },
     { "id": 12, "layout": { "x": 764, "y": 631, "width": 100, "height": 50 }, "labels": "Mumbai" },
-    { "id": 13, "layout": { "x": 596, "y": 595, "width": 100, "height": 50 }, "labels": "Shenzhen" },
-    { "id": 14, "layout": { "x": 30, "y": 424, "width": 100, "height": 50 }, "labels": "Stockholm" },
+    {
+      "id": 13,
+      "layout": { "x": 596, "y": 595, "width": 100, "height": 50 },
+      "labels": "Shenzhen"
+    },
+    {
+      "id": 14,
+      "layout": { "x": 30, "y": 424, "width": 100, "height": 50 },
+      "labels": "Stockholm"
+    },
     { "id": 15, "layout": { "x": 649, "y": 752, "width": 100, "height": 50 }, "labels": "Seoul" },
-    { "id": 16, "layout": { "x": 349, "y": 200, "width": 100, "height": 50 }, "labels": "São Paulo" },
-    { "id": 17, "layout": { "x": 832, "y": 399, "width": 100, "height": 50 }, "labels": "Johannesburg" },
+    {
+      "id": 16,
+      "layout": { "x": 349, "y": 200, "width": 100, "height": 50 },
+      "labels": "São Paulo"
+    },
+    {
+      "id": 17,
+      "layout": { "x": 832, "y": 399, "width": 100, "height": 50 },
+      "labels": "Johannesburg"
+    },
     { "id": 18, "layout": { "x": 400, "y": 786, "width": 100, "height": 50 }, "labels": "Taipei" },
     { "id": 19, "layout": { "x": 93, "y": 165, "width": 100, "height": 50 }, "labels": "Madrid" },
     { "id": 20, "layout": { "x": 345, "y": 537, "width": 100, "height": 50 }, "labels": "Sydney" }

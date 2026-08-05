@@ -61,7 +61,7 @@ type SynchronizeMessage =
  * The graphs are synchronized both ways: changes in either graph are reflected
  * on the other graph. Both graphs must be empty when initializing the {@link GraphSynchronizer}s.
  *
- * This class only synchronizes structural changes. It does not synchronize labels, bends, ports
+ * This class only synchronizes structural changes. It does not synchronize labels, bends, ports,
  * or styles.
  */
 export class GraphSynchronizer {
@@ -128,8 +128,8 @@ export class GraphSynchronizer {
    * Returns the item with the given id. If this graph does not contain an item with this id,
    * it will throw an Error.
    */
-  public getItem(id: number): IModelItem | undefined {
-    return this.id2Item.get(id)
+  public getItem<T extends IModelItem = IModelItem>(id: number): T | undefined {
+    return this.id2Item.get(id) as T | undefined
   }
 
   /**
@@ -232,20 +232,20 @@ export class GraphSynchronizer {
   }
 
   private handleNodeRemoved(message: NodeRemovedMessage): void {
-    const item = this.getItem(message.id) as INode
+    const item = this.getItem<INode>(message.id)!
     this.graph.remove(item)
   }
 
   private handleNodeLayoutChanged(message: NodeLayoutChangedMessage): void {
-    const node = this.getItem(message.id) as INode
+    const node = this.getItem<INode>(message.id)
     if (node) {
       this.graph.setNodeLayout(node, Rect.from(message.newLayout))
     }
   }
 
   private handleEdgeCreated(message: EdgeCreatedMessage): void {
-    const sourceNode = this.getItem(message.sourceId) as INode
-    const targetNode = this.getItem(message.targetId) as INode
+    const sourceNode = this.getItem<INode>(message.sourceId)!
+    const targetNode = this.getItem<INode>(message.targetId)!
     const newEdge = this.graph.createEdge(sourceNode, targetNode)
     this.item2Id.set(newEdge, message.id)
     this.id2Item.set(message.id, newEdge)
@@ -253,7 +253,7 @@ export class GraphSynchronizer {
   }
 
   private handleEdgeRemoved(message: EdgeRemovedMessage): void {
-    const item = this.getItem(message.id) as IEdge
+    const item = this.getItem<IEdge>(message.id)!
     this.graph.remove(item)
   }
 }

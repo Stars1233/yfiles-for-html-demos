@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import {
-  CanvasComponent,
   DragDropEffects,
   Graph,
   GraphBuilder,
@@ -86,7 +85,7 @@ async function run(): Promise<void> {
 }
 
 /**
- * Registers the {@link GraphEditorInputMode} as the {@link CanvasComponent.inputMode}
+ * Registers the {@link GraphEditorInputMode} as the {@link import('@yfiles/yfiles').CanvasComponent.inputMode}
  * and initializes the input mode for dropping components.
  */
 function initializeInputModes(): void {

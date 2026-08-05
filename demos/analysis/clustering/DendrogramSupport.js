@@ -46,6 +46,7 @@ import {
   INode,
   IPositionHandler,
   LabelStyle,
+  LayoutExecutor,
   Mapper,
   MutablePoint,
   MutableRectangle,
@@ -226,6 +227,7 @@ export class DendrogramComponent {
     dendrogramLayoutData.addItemMapping(DendrogramLayout.LAYER_ID_DATA_KEY).mapper = layers
 
     // apply the layout
+    LayoutExecutor.ensure()
     this.dendrogramComponent.graph.applyLayout(dendrogramLayout, dendrogramLayoutData)
     this.dendrogramComponent.updateContentBounds()
 

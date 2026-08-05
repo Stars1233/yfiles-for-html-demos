@@ -31,20 +31,19 @@ import { Exception, yfiles } from '@yfiles/yfiles'
 /**
  * Registers error handlers that show an error dialog that can send error reports to yWorks.
  *
- * In addition, on Safari, the stacktrace of the innermost exception is logged, because the default
+ * In addition, on Safari, the stacktrace of the innermost exception is logged because the default
  * stacktrace is not always that useful.
  *
  * This function registers error handlers for errors reported to the following properties:
  * - window.onerror
  * - window.onunhandledrejection
  * - Exception.handler
- * - require.onError if require.js is used
  */
 export function registerErrorDialog() {
-  if (document.readyState !== 'loading') {
-    addErrorEventHandler()
-  } else {
+  if (document.readyState === 'loading') {
     addEventListener('DOMContentLoaded', addErrorEventHandler)
+  } else {
+    addErrorEventHandler()
   }
 }
 
@@ -56,8 +55,8 @@ let errorDialogOpen = false
 
 function addErrorEventHandler() {
   try {
-    // Try to increase the stacktrace limit, if we're running in V8
-    // https://v8.dev/docs/stack-trace-api
+    // Try to increase the stacktrace limit
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/stackTraceLimit
     window.Error.stackTraceLimit = 35
   } catch (ignored) {
     // do nothing if it didn't work
@@ -123,8 +122,11 @@ function unwindStack(error) {
  * @param event - The event that contained the error
  */
 function openErrorOverlay(errorOrMessage, event) {
-  const ErrorOverlay = customElements.get('vite-error-overlay')
-  if (ErrorOverlay && typeof window.reportError === 'function') {
+  // Check whether the error overlay is available
+  if (
+    customElements.get('vite-error-overlay') != null &&
+    typeof window.reportError === 'function'
+  ) {
     window.reportError(
       typeof errorOrMessage === 'string' ? new Error(errorOrMessage) : errorOrMessage
     )
@@ -316,7 +318,7 @@ function createErrorDialog(errorOrMessage, tag) {
   form.appendChild(buttonContainer)
 
   if (!tag) {
-    // activate the submit button only if user enters custom information
+    // Activate the Submit button only if user enters custom information
     inputEmail.addEventListener(
       'change',
       () => {
@@ -372,9 +374,7 @@ function setErrorState(errorOrMessage) {
 }
 
 function encode(value) {
-  return typeof value === 'string'
-    ? value.replace(new RegExp('<', 'g'), '[').replace(new RegExp('>', 'g'), ']')
-    : value
+  return typeof value === 'string' ? value.replaceAll('<', '[').replaceAll('>', ']') : value
 }
 
 function addFormRow(form, id, label, type, value, editable) {

@@ -9,6 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Selenium WebDriver Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/selenium-webdriver.webp" alt="demo-thumbnail" height="320"/>
 
 This demo shows how to use [Selenium WebDriver](https://www.selenium.dev/documentation/webdriver/) for testing a yFiles for HTML web application.

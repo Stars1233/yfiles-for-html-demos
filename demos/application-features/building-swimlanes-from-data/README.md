@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Building Swimlanes From Data Demo - yFiles for HTML
+# Building Swimlanes From Data Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/building-swimlanes-from-data.webp" alt="demo-thumbnail" height="320"/>
 

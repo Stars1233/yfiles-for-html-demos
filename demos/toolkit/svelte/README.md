@@ -9,18 +9,25 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Svelte Demo
+
 <img src="../../../doc/demo-thumbnails/svelte.webp" alt="demo-thumbnail" height="320"/>
 
-This demo shows how to integrate yFiles for HTML with the [Svelte](https://svelte.dev/) framework, using Vite for development and deployment.
+This demo shows how to integrate yFiles for HTML with the [Svelte](https://svelte.dev/) framework,
+using Vite for development and deployment.
 
 ## Running the demo
 
 First, install the required npm modules in the demo directory:
 
-`> npm install`
+```sh
+npm install
+```
 
-Now the Vite development server can be started:
+Now, start the demo:
 
-`> npm run dev`
+```sh
+npm run dev
+```
 
 The Vite development server will launch the [index file](http://localhost:5173) in a browser.

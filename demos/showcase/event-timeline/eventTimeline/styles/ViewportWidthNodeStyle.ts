@@ -124,18 +124,35 @@ export class ViewportWidthNodeStyle extends NodeStyleBase {
     const { mainRect, leftRect, rightRect } = cache
     const radius = node.layout.height * 0.5
 
-    const leftX = `${viewportXmin - 10}`
-    const leftWidth = `${Math.max(0, node.layout.x - viewportXmin)}`
+    // Establish a safe rendering zone around the visible viewport to prevent huge elements
+    const renderXmin = viewportXmin - 100
+    const renderXmax = viewportXmax + 100
+
     const height = `${node.layout.height}`
     const y = `${node.layout.y}`
     const rx = `${radius}`
     const ry = `${radius}`
 
-    const rightX = `${node.layout.x + node.layout.width}`
-    const rightWidth = `${Math.max(0, viewportXmax - (node.layout.x + node.layout.width))}`
+    // Clamped mainRect coordinates and width
+    const clampedMainX = Math.max(node.layout.x, renderXmin)
+    const clampedMainEndX = Math.min(node.layout.x + node.layout.width, renderXmax)
+    const mainWidthVal = Math.max(0, clampedMainEndX - clampedMainX)
+    const mainX = `${clampedMainX}`
+    const mainWidth = `${mainWidthVal}`
 
-    const mainX = `${node.layout.x}`
-    const mainWidth = `${node.layout.width}`
+    // Clamped leftRect coordinates and width
+    const clampedLeftX = Math.max(viewportXmin - 10, renderXmin)
+    const clampedLeftEndX = Math.min(node.layout.x, renderXmax)
+    const leftWidthVal = Math.max(0, clampedLeftEndX - clampedLeftX)
+    const leftX = `${clampedLeftX}`
+    const leftWidth = `${leftWidthVal}`
+
+    // Clamped rightRect coordinates and width
+    const clampedRightX = Math.max(node.layout.x + node.layout.width, renderXmin)
+    const clampedRightEndX = Math.min(viewportXmax + 10, renderXmax)
+    const rightWidthVal = Math.max(0, clampedRightEndX - clampedRightX)
+    const rightX = `${clampedRightX}`
+    const rightWidth = `${rightWidthVal}`
 
     this.setAttrIfChanged(leftRect, cache.leftRectCache, 'x', leftX)
     this.setAttrIfChanged(leftRect, cache.leftRectCache, 'width', leftWidth)
@@ -162,9 +179,9 @@ export class ViewportWidthNodeStyle extends NodeStyleBase {
     const highlightedAdjacent = node.lookup(ItemState)?.highlightedAdjacent ?? false
     if (cache.highlightedAdjacent !== highlightedAdjacent) {
       if (highlightedAdjacent) {
-        mainRect.classList.add('highlighted-adjacent')
+        oldVisual.svgElement.classList.add('highlighted-adjacent')
       } else {
-        mainRect.classList.remove('highlighted-adjacent')
+        oldVisual.svgElement.classList.remove('highlighted-adjacent')
       }
       cache.highlightedAdjacent = highlightedAdjacent
     }

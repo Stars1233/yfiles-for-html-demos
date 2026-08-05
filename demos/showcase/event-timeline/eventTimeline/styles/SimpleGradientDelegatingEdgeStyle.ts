@@ -55,6 +55,7 @@ export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
   private readonly nodeToColorMapper: (node: INode) => string
   private readonly useItemStateColors: boolean
   private readonly gradients: Map<string, LinearGradient>
+  private readonly cssClass: string
 
   /**
    * Instantiates a new SimpleGradientDelegatingEdgeStyle.
@@ -67,13 +68,15 @@ export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
     wrappedStyle: IEdgeStyle,
     nodeToColorMapper: (node: INode) => string,
     gradientMap: Map<string, LinearGradient> = new Map(),
-    useItemStateColors: boolean = true
+    useItemStateColors: boolean = true,
+    ccsClass: string = ''
   ) {
     super()
     this.wrappedStyle = wrappedStyle
     this.nodeToColorMapper = nodeToColorMapper
     this.gradients = gradientMap
     this.useItemStateColors = useItemStateColors
+    this.cssClass = ccsClass
   }
 
   /**
@@ -129,13 +132,13 @@ export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
    */
   protected updateVisual(
     _context: IRenderContext,
-    oldVisual: SvgVisual,
+    oldVisual: SimpleGradientEdgeVisual,
     edge: IEdge
   ): SvgVisual | null {
     const source = edge.sourcePort!.location
     const target = edge.targetPort!.location
     const rect = oldVisual.svgElement as SVGRectElement
-    const tag = (oldVisual as SimpleGradientEdgeVisual).tag
+    const tag = oldVisual.tag
 
     const upperPort = source.y < target.y ? source : target
     const lowerPort = source.y < target.y ? target : source
@@ -145,7 +148,11 @@ export class SimpleGradientDelegatingEdgeStyle extends DelegatingEdgeStyle {
     this.setAttrIfChanged(rect, tag.rectCache, 'y', `${upperPort.y}`)
     this.setAttrIfChanged(rect, tag.rectCache, 'width', `${width}`)
     this.setAttrIfChanged(rect, tag.rectCache, 'height', `${lowerPort.y - upperPort.y}`)
-
+    const newClass = this.cssClass
+    if (oldVisual.tag.svgClass !== newClass) {
+      oldVisual.svgElement.setAttribute('class', newClass)
+      oldVisual.tag.svgClass = newClass
+    }
     return oldVisual
   }
 

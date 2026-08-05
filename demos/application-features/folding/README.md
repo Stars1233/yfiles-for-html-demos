@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Folding Demo - yFiles for HTML
+# Folding Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/folding.webp" alt="demo-thumbnail" height="320"/>
 

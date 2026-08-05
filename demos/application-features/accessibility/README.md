@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Accessibility Demo - yFiles for HTML
+# Accessibility Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/accessibility.webp" alt="demo-thumbnail" height="320"/>
 

@@ -57,6 +57,7 @@ import {
   LabelStyle,
   type LayoutEdge,
   type LayoutEdgeLabel,
+  LayoutExecutor,
   type LayoutGraph,
   type LayoutGraphItem,
   type LayoutNode,
@@ -246,6 +247,7 @@ export class DendrogramComponent {
     dendrogramLayoutData.addItemMapping(DendrogramLayout.LAYER_ID_DATA_KEY).mapper = layers
 
     // apply the layout
+    LayoutExecutor.ensure()
     this.dendrogramComponent.graph.applyLayout(dendrogramLayout, dendrogramLayoutData)
     this.dendrogramComponent.updateContentBounds()
 

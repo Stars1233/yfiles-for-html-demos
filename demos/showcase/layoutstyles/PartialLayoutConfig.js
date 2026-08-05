@@ -53,6 +53,8 @@ import {
 
 export const SubgraphLayouts = { HIERARCHICAL: 0, ORGANIC: 1, CIRCULAR: 2, ORTHOGONAL: 3, AS_IS: 4 }
 
+const LocalComponentAssignmentStrategy = { SINGLE: 0, CONNECTED: 1, CLUSTERING: 2, CUSTOMIZED: 3 }
+
 /**
  * Configuration options for the layout algorithm of the same name.
  */
@@ -92,12 +94,12 @@ export const PartialLayoutConfig = Class('PartialLayoutConfig', {
       ),
       new OptionGroupAttribute('LayoutGroup', 20),
       new EnumValuesAttribute([
-        ['Connected Nodes as a Unit', ComponentAssignmentStrategy.CONNECTED],
-        ['Each Node Separately', ComponentAssignmentStrategy.SINGLE],
-        ['All Nodes as a Unit', ComponentAssignmentStrategy.SINGLE],
-        ['Clustering', ComponentAssignmentStrategy.CLUSTERING]
+        ['Connected Nodes as a Unit', LocalComponentAssignmentStrategy.CONNECTED],
+        ['Each Node Separately', LocalComponentAssignmentStrategy.SINGLE],
+        ['All Nodes as a Unit', LocalComponentAssignmentStrategy.CUSTOMIZED],
+        ['Clustering', LocalComponentAssignmentStrategy.CLUSTERING]
       ]),
-      new TypeAttribute(ComponentAssignmentStrategy)
+      new TypeAttribute(LocalComponentAssignmentStrategy)
     ],
     subgraphLayoutItem: [
       new LabelAttribute(
@@ -177,7 +179,7 @@ export const PartialLayoutConfig = Class('PartialLayoutConfig', {
     // @ts-ignore This is part of the old-school yFiles class definition used here
     LayoutConfiguration.call(this)
     this.routingToSubgraphItem = PartialLayoutRoutingStyle.AUTOMATIC
-    this.componentAssignmentStrategyItem = ComponentAssignmentStrategy.CONNECTED
+    this.componentAssignmentStrategyItem = LocalComponentAssignmentStrategy.CONNECTED
     this.subgraphLayoutItem = 'hierarchical'
     this.subgraphPlacementItem = SubgraphPlacement.FROM_SKETCH
     this.minNodeDistItem = 30
@@ -197,13 +199,15 @@ export const PartialLayoutConfig = Class('PartialLayoutConfig', {
     layout.considerNodeAlignment = this.alignNodesItem
     layout.minimumNodeDistance = this.minNodeDistItem
     layout.subgraphPlacement = this.subgraphPlacementItem
-    layout.componentAssignmentStrategy = this.componentAssignmentStrategyItem
+    layout.componentAssignmentStrategy = getComponentAssignmentStrategy(
+      this.componentAssignmentStrategyItem
+    )
     layout.layoutOrientation = this.orientationItem
     layout.edgeRoutingStyle = this.routingToSubgraphItem
     layout.allowMovingFixedElements = this.moveFixedElementsItem
 
     let subgraphLayout = null
-    if (this.componentAssignmentStrategyItem !== ComponentAssignmentStrategy.SINGLE) {
+    if (this.componentAssignmentStrategyItem !== LocalComponentAssignmentStrategy.SINGLE) {
       switch (this.subgraphLayoutItem) {
         case 'hierarchical':
           subgraphLayout = new HierarchicalLayout()
@@ -237,6 +241,10 @@ export const PartialLayoutConfig = Class('PartialLayoutConfig', {
     partialLayoutData.scope.nodes = selection.nodes
     partialLayoutData.scope.edges = selection.edges
 
+    if (this.componentAssignmentStrategyItem === LocalComponentAssignmentStrategy.CUSTOMIZED) {
+      partialLayoutData.componentIds.constant = {}
+    }
+
     return partialLayoutData
   },
 
@@ -253,7 +261,7 @@ export const PartialLayoutConfig = Class('PartialLayoutConfig', {
   /** @type {PartialLayoutRoutingStyle} */
   routingToSubgraphItem: null,
 
-  /** @type {ComponentAssignmentStrategy} */
+  /** @type {LocalComponentAssignmentStrategy} */
   componentAssignmentStrategyItem: null,
 
   /** @type {SubgraphLayouts} */
@@ -274,3 +282,16 @@ export const PartialLayoutConfig = Class('PartialLayoutConfig', {
   /** @type {boolean} */
   moveFixedElementsItem: false
 })
+
+function getComponentAssignmentStrategy(strategy) {
+  switch (strategy) {
+    case LocalComponentAssignmentStrategy.CONNECTED:
+      return ComponentAssignmentStrategy.CONNECTED
+    case LocalComponentAssignmentStrategy.CLUSTERING:
+      return ComponentAssignmentStrategy.CLUSTERING
+    case LocalComponentAssignmentStrategy.CUSTOMIZED:
+    case LocalComponentAssignmentStrategy.SINGLE:
+    default:
+      return ComponentAssignmentStrategy.SINGLE
+  }
+}

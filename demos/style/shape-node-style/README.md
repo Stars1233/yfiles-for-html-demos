@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Shape Node Style Demo - yFiles for HTML
+# Shape Node Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/shape-node-style.webp" alt="demo-thumbnail" height="320"/>
 

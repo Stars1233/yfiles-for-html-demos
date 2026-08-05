@@ -33,6 +33,7 @@ import {
   GraphComponent,
   GraphViewerInputMode,
   IEnumerable,
+  LayoutExecutor,
   License,
   WebGLFocusIndicatorManager,
   WebGLGraphModelManager,
@@ -106,6 +107,8 @@ function initializeUI(graphComponent) {
 function createGraph(graph) {
   graph.clear()
   createTree(graph)
+
+  LayoutExecutor.ensure()
   graph.applyLayout(new CircularLayout())
 }
 

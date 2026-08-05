@@ -33,7 +33,6 @@ import {
   GraphItemTypes,
   HandlePositions,
   type IGraph,
-  IReshapeHandleProvider,
   IReshapeHandler,
   License,
   MutableRectangle,
@@ -53,9 +52,9 @@ import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Registers a callback function as a decorator that provides a customized
- * {@link IReshapeHandleProvider} for each node.
+ * {@link import('@yfiles/yfiles').IReshapeHandleProvider} for each node.
  * This callback function is called whenever a node in the graph is queried
- * for its {@link IReshapeHandleProvider}. In this case, the 'node'
+ * for its {@link import('@yfiles/yfiles').IReshapeHandleProvider}. In this case, the 'node'
  * parameter will be set to that node.
  * @param graph The given graph
  * @param boundaryRectangle The rectangle that limits the node's size.

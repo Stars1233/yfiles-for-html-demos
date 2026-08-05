@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Clustering Algorithms Demo - yFiles for HTML
+# Clustering Algorithms Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/clustering-algorithms.webp" alt="demo-thumbnail" height="320"/>
 

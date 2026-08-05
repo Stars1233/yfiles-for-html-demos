@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Basic Demo
+# Basic Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/basic-demo.webp" alt="demo-thumbnail" height="320"/>
 

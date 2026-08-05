@@ -46,6 +46,7 @@ import {
   LabelShape,
   LabelStyle,
   LabelStyleIndicatorRenderer,
+  LayoutExecutor,
   License,
   NodeStyleIndicatorRenderer,
   Point,
@@ -512,6 +513,8 @@ function prepareSmoothLayoutAnimation(graphComponent) {
  * Layouts the current graph as a radial dendrogram.
  */
 async function layoutGraph(graphComponent) {
+  LayoutExecutor.ensure()
+
   const radialLayoutData = new RadialLayoutData()
   await graphComponent.applyLayoutAnimated(
     new RadialLayout({

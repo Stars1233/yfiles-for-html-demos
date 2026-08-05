@@ -46,7 +46,7 @@ export function enableSingleSelection(graphComponent) {
   // Disable marquee selection
   mode.marqueeSelectionInputMode.enabled = false
 
-  // Disable multi selection with Ctrl-Click
+  // Disable multi-selection with Ctrl-Click
   mode.multiSelectionRecognizer = EventRecognizers.NEVER
 
   // Deactivate commands that can lead to multi selection
@@ -57,7 +57,7 @@ export function enableSingleSelection(graphComponent) {
   mode.navigationInputMode.availableCommands.remove(Command.EXTEND_SELECTION_DOWN)
   mode.navigationInputMode.availableCommands.remove(Command.EXTEND_SELECTION_RIGHT)
 
-  // Add dummy command bindings that do nothing in order to prevent default behavior
+  // Add dummy command bindings that do nothing to prevent default behavior
   commandBindings.push(
     mode.keyboardInputMode.addCommandBinding(Command.EXTEND_SELECTION_LEFT, () => {})
   )

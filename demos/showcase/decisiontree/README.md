@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Decision Tree Demo - yFiles for HTML
+# Decision Tree Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/decision-tree.webp" alt="demo-thumbnail" height="320"/>
 
@@ -44,7 +44,7 @@ The decision tree contains different types of nodes.
 - Right click a node and select "Set as root node" to start the decision tree at this node. Right click the empty canvas to clear the root node.
 - Click the _start button_
 
-  play_arrow
+  play\_arrow
 
   to start the decision tree with the current graph.
 

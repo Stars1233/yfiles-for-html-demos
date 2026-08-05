@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Data Table Demo - yFiles for HTML
+# Data Table Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/data-table.webp" alt="demo-thumbnail" height="320"/>
 

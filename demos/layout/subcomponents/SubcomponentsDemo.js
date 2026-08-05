@@ -27,6 +27,7 @@
  **
  ***************************************************************************/
 import {
+  EdgeRouter,
   GraphBuilder,
   GraphComponent,
   GraphEditorInputMode,
@@ -107,7 +108,7 @@ function runLayout(graphComponent) {
   // Ensure that the LayoutExecutor class is not removed by build optimizers
   // It is needed for the 'applyLayoutAnimated' method in this demo.
   LayoutExecutor.ensure()
-
+  EdgeRouter.ensure()
   return graphComponent.applyLayoutAnimated(hierarchicalLayout, '700ms', hierarchicalLayoutData)
 }
 

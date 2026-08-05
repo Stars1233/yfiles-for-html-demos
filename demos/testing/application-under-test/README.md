@@ -9,7 +9,11 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# application-under-test Demo - yFiles for HTML
+# Simple Testable App Demo – yFiles for HTML
+
+<img src="../../../doc/demo-thumbnails/application-under-test.webp" alt="demo-thumbnail" height="320"/>
+
+[You can also run this demo online](https://www.yfiles.com/demos/testing/application-under-test/).
 
 This demo is a simple app used as the test candidate in the following testing demos:
 
@@ -18,7 +22,7 @@ This demo is a simple app used as the test candidate in the following testing de
 - [Playwright Demo](../../../demos-ts/testing/playwright/README.html)
 - [WebdriverIO Demo](../../../demos-ts/testing/wdio/README.html)
 - [Selenium WebDriver Demo](../../../demos-ts/testing/selenium-webdriver/README.html)
-- [Jest Puppeteer Demo](../../../demos-js/testing/jest-puppeteer/README.html)
+- [Jest Puppeteer Demo](../../../demos-ts/testing/jest-puppeteer/README.html)
 
 Please refer to the README files in these demos for further guidance.
 

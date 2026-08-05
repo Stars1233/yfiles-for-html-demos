@@ -30,7 +30,6 @@ import {
   GraphComponent,
   GraphEditorInputMode,
   GraphItemTypes,
-  INodeSizeConstraintProvider,
   License,
   MutableRectangle,
   NodeSizeConstraintProvider,
@@ -47,9 +46,9 @@ import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
  * Registers a callback function as decorator that provides a custom
- * {@link INodeSizeConstraintProvider} for each node.
+ * {@link import('@yfiles/yfiles').INodeSizeConstraintProvider} for each node.
  * This callback function is called whenever a node in the graph is queried
- * for its {@link INodeSizeConstraintProvider}. In this case, the 'node' parameter will be set
+ * for its {@link import('@yfiles/yfiles').INodeSizeConstraintProvider}. In this case, the 'node' parameter will be set
  * to that node.
  * @param graph The given graph
  * @param boundaryRectangle The rectangle that limits the node's size.

@@ -1,60 +1,16 @@
 {
   "nodes": [
-    {
-      "id": "srv-web",
-      "label": "Web Server",
-      "group": "Infrastructure"
-    },
-    {
-      "id": "srv-db",
-      "label": "Database",
-      "group": "Infrastructure"
-    },
-    {
-      "id": "srv-backup",
-      "label": "Backup Storage",
-      "group": "Infrastructure"
-    },
-    {
-      "id": "usr-alice",
-      "label": "Alice (Admin)",
-      "group": "Users"
-    },
-    {
-      "id": "usr-bob",
-      "label": "Bob (Dev)",
-      "group": "Users"
-    },
-    {
-      "id": "usr-charlie",
-      "label": "Charlie (HR)",
-      "group": "Users"
-    },
-    {
-      "id": "ip-ext-1",
-      "label": "External-A",
-      "group": "External"
-    },
-    {
-      "id": "ip-ext-2",
-      "label": "External-B",
-      "group": "External"
-    },
-    {
-      "id": "ip-vpn",
-      "label": "Corporate VPN",
-      "group": "External"
-    },
-    {
-      "id": "fw-gateway",
-      "label": "Firewall",
-      "group": "Network"
-    },
-    {
-      "id": "siem-log",
-      "label": "Log Server",
-      "group": "Network"
-    }
+    { "id": "srv-web", "label": "Web Server", "group": "Infrastructure" },
+    { "id": "srv-db", "label": "Database", "group": "Infrastructure" },
+    { "id": "srv-backup", "label": "Backup Storage", "group": "Infrastructure" },
+    { "id": "usr-alice", "label": "Alice (Admin)", "group": "Users" },
+    { "id": "usr-bob", "label": "Bob (Dev)", "group": "Users" },
+    { "id": "usr-charlie", "label": "Charlie (HR)", "group": "Users" },
+    { "id": "ip-ext-1", "label": "External-A", "group": "External" },
+    { "id": "ip-ext-2", "label": "External-B", "group": "External" },
+    { "id": "ip-vpn", "label": "Corporate VPN", "group": "External" },
+    { "id": "fw-gateway", "label": "Firewall", "group": "Network" },
+    { "id": "siem-log", "label": "Log Server", "group": "Network" }
   ],
   "edges": [
     {

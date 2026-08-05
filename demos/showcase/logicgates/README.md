@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Logic Gates Demo - yFiles for HTML
+# Logic Gates Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/logic-gates.webp" alt="demo-thumbnail" height="320"/>
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Graph Search Demo - yFiles for HTML
+# Graph Search Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-search.webp" alt="demo-thumbnail" height="320"/>
 

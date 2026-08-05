@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# WebGL Label Fading Demo - yFiles for HTML
+# WebGL Label Fading Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/webgl-label-fading.webp" alt="demo-thumbnail" height="320"/>
 

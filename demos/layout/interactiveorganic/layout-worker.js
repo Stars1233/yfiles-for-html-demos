@@ -29,9 +29,7 @@
 import {
   Graph,
   IEdgeStyle,
-  type IGraph,
   ILabelStyle,
-  type INode,
   INodeStyle,
   InteractiveOrganicLayout,
   License
@@ -39,20 +37,11 @@ import {
 import licenseData from '../../../lib/license.json'
 import { GraphSynchronizer } from './GraphSynchronizer'
 import { InteractiveOrganicLayoutInputHelper } from './InteractiveOrganicLayoutInputHelper'
-import type {
-  DragCanceledMessage,
-  DragFinishedMessage,
-  DraggedMessage,
-  DragStartedMessage,
-  EdgeChangedMessage,
-  InteractionMessage,
-  NodeChangedMessage
-} from './initializeWorkerLayout'
 
 // register the yFiles license in the worker as well
 License.value = licenseData
 
-// create a graph that is synchronized with the UI graph using the GraphSynchronizer class
+// create a graph synchronized with the UI graph using the GraphSynchronizer class
 const graph = createWorkerGraph()
 const graphSynchronizer = new GraphSynchronizer(graph, (message) => postMessage(message))
 
@@ -63,12 +52,12 @@ const layoutHelper = new InteractiveOrganicLayoutInputHelper(graph, {
 
 // Handle messages from the UI thread. Some messages are to configure the layout for the
 // current input gesture. The other messages are for the GraphSynchronizer.
-self.addEventListener('message', (event: MessageEvent) => {
+self.addEventListener('message', (event) => {
   if (typeof event.data !== 'object') {
     return
   }
 
-  const message = event.data as InteractionMessage
+  const message = event.data
 
   switch (message.type) {
     case 'start-layout':
@@ -100,59 +89,59 @@ self.addEventListener('message', (event: MessageEvent) => {
   }
 })
 
-// signal the UI thread the worker is all set-up
+// signal the UI thread the worker is all set up
 postMessage({ type: 'worker-ready' })
 
 function handleStartLayout() {
   layoutHelper.startInterval()
 }
 
-function handleDragStarted(message: DragStartedMessage) {
-  const draggedNode = graphSynchronizer.getItem(message.nodeId) as INode
+function handleDragStarted(message) {
+  const draggedNodes = message.nodeIds.map((nodeId) => graphSynchronizer.getItem(nodeId))
   const draggedComponent = getNodesForIds(message.componentIds)
-  layoutHelper.startDrag(draggedNode, draggedComponent)
+  layoutHelper.startDrag(draggedNodes, draggedComponent)
 }
 
-function handleDragged(message: DraggedMessage) {
-  const draggedNode = graphSynchronizer.getItem(message.nodeId) as INode
+function handleDragged(message) {
+  const draggedNodes = message.nodeIds.map((nodeId) => graphSynchronizer.getItem(nodeId))
   const draggedComponent = getNodesForIds(message.componentIds)
-  layoutHelper.drag(draggedNode, draggedComponent, 0.01)
+  layoutHelper.drag(draggedNodes, draggedComponent, 0.01)
 }
 
-function handleDragCanceled(message: DragCanceledMessage) {
-  const draggedNode = graphSynchronizer.getItem(message.nodeId) as INode
+function handleDragCanceled(message) {
+  const draggedNodes = message.nodeIds.map((nodeId) => graphSynchronizer.getItem(nodeId))
   const draggedComponent = getNodesForIds(message.componentIds)
-  layoutHelper.finishDrag(draggedNode, draggedComponent)
+  layoutHelper.finishDrag(draggedNodes, draggedComponent)
 }
 
-function handleDragFinished(message: DragFinishedMessage) {
-  const draggedNode = graphSynchronizer.getItem(message.nodeId) as INode
+function handleDragFinished(message) {
+  const draggedNodes = message.nodeIds.map((nodeId) => graphSynchronizer.getItem(nodeId))
   const draggedComponent = getNodesForIds(message.componentIds)
-  layoutHelper.finishDrag(draggedNode, draggedComponent)
+  layoutHelper.finishDrag(draggedNodes, draggedComponent)
 }
 
-function handleNodeChanged(message: NodeChangedMessage) {
-  const changedNode = graphSynchronizer.getItem(message.nodeId) as INode
+function handleNodeChanged(message) {
+  const changedNode = graphSynchronizer.getItem(message.nodeId)
   const closeNeighbors = getNodesForIds(message.neighborsIds)
   layoutHelper.updateLayoutAfterStructuralChange([changedNode], closeNeighbors)
 }
 
-function handleEdgeChanged(message: EdgeChangedMessage) {
-  const sourceNode = graphSynchronizer.getItem(message.sourceId) as INode
-  const targetNode = graphSynchronizer.getItem(message.targetId) as INode
+function handleEdgeChanged(message) {
+  const sourceNode = graphSynchronizer.getItem(message.sourceId)
+  const targetNode = graphSynchronizer.getItem(message.targetId)
   const closeNeighbors = getNodesForIds(message.neighborsIds)
   layoutHelper.updateLayoutAfterStructuralChange([sourceNode, targetNode], closeNeighbors)
 }
 
-function getNodesForIds(ids: number[]): INode[] {
-  return ids.map((id) => graphSynchronizer.getItem(id) as INode)
+function getNodesForIds(ids) {
+  return ids.map((id) => graphSynchronizer.getItem(id))
 }
 
 /**
  * Creates a new {@link IGraph} instance and uses void styles, since we cannot
  * use any DOM APIs in a web worker.
  */
-function createWorkerGraph(): IGraph {
+function createWorkerGraph() {
   const graph = new Graph()
   graph.nodeDefaults.style = INodeStyle.VOID_NODE_STYLE
   graph.nodeDefaults.labels.style = ILabelStyle.VOID_LABEL_STYLE

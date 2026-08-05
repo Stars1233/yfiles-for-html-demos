@@ -9,24 +9,29 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Web Worker Demo (Webpack) – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/web-worker-webpack.webp" alt="demo-thumbnail" height="320"/>
 
-This demo shows how to run a yFiles layout algorithm in a [Web Worker](https://html.spec.whatwg.org/multipage/workers.html) task in order to prevent the layout calculation from blocking the UI.
+This demo shows how to run a yFiles layout algorithm in a [Web Worker](https://html.spec.whatwg.org/multipage/workers.html) task to
+prevent the layout calculation from blocking the UI.
 
 This demo uses webpack to handle the loading of the yFiles library.
 
-The graph, layout, and layout data are configured in the main thread and transferred to the web worker using class LayoutExecutorAsync. The actual layout calculation is performed in _WorkerLayout.ts_ with class LayoutExecutorAsyncWorker on the web worker thread.
+The graph, layout, and layout data are configured in the main thread and transferred to the
+web worker using class LayoutExecutorAsync. The actual layout calculation is performed in
+_WorkerLayout.ts_ with class LayoutExecutorAsyncWorker on the web worker thread.
 
 ## Running the demo
 
 First, install the required npm modules in the demo directory:
 
-```
-\> npm install
+```sh
+npm install
 ```
 
-## Now the demo can be started:
+Now, start the demo:
 
-```
-\> npm start
+```sh
+npm start
 ```

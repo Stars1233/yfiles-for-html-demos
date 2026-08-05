@@ -28,15 +28,9 @@
  ***************************************************************************/
 import type { GraphComponent, SvgVisual, HtmlVisual } from '@yfiles/yfiles'
 
-const GraphItemPrefix = {
-  node: 'node',
-  edge: 'edge',
-  label: 'label',
-  port: 'port',
-} as const;
+const GraphItemPrefix = { node: 'node', edge: 'edge', label: 'label', port: 'port' } as const
 
-type GraphItemPrefix =
-  typeof GraphItemPrefix[keyof typeof GraphItemPrefix];
+type GraphItemPrefix = (typeof GraphItemPrefix)[keyof typeof GraphItemPrefix]
 
 type GraphElementByIndexSelector = `${GraphItemPrefix}_${number}`
 
@@ -60,7 +54,9 @@ type GraphElementByIndexSelector = `${GraphItemPrefix}_${number}`
  */
 export async function locateGraphElement(selector: GraphElementByIndexSelector) {
   const elementId = await browser.execute((selector: GraphElementByIndexSelector) => {
-    const graphComponent = (document.getElementById('graphComponent') as any)['data-this'] as GraphComponent
+    const graphComponent = (document.getElementById('graphComponent') as any)[
+      'data-this'
+    ] as GraphComponent
     if (graphComponent) {
       const match = /(\w+)_(-?\d+)/.exec(selector)
       if (match) {

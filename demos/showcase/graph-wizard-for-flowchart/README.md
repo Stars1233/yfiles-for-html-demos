@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# GraphWizard for Flowchart Demo - yFiles for HTML
+# GraphWizard for Flowchart Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-wizard-flowchart.webp" alt="demo-thumbnail" height="320"/>
 

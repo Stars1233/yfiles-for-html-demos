@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Multi-Page Layout Demo - yFiles for HTML
+# Multi-Page Layout Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/multi-page-layout.webp" alt="demo-thumbnail" height="320"/>
 

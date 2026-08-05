@@ -13,9 +13,19 @@
     { "id": 10, "layout": [570.69, 213.43, 96.0, 96.0], "labels": "scanner", "type": "scanner" },
     { "id": 11, "layout": [759.14, 362.41, 96.0, 96.0], "labels": "switch", "type": "switch" },
     { "id": 12, "layout": [866.5, 308.77, 96.0, 96.0], "labels": "trumm", "type": "workstation" },
-    { "id": 13, "layout": [836.21, 478.16, 96.0, 96.0], "labels": "garelli", "type": "workstation" },
+    {
+      "id": 13,
+      "layout": [836.21, 478.16, 96.0, 96.0],
+      "labels": "garelli",
+      "type": "workstation"
+    },
     { "id": 14, "layout": [700.4, 263.83, 96.0, 96.0], "labels": "brocken", "type": "workstation" },
-    { "id": 15, "layout": [664.83, 462.74, 96.0, 96.0], "labels": "kreidler", "type": "workstation" },
+    {
+      "id": 15,
+      "layout": [664.83, 462.74, 96.0, 96.0],
+      "labels": "kreidler",
+      "type": "workstation"
+    },
     { "id": 16, "layout": [727.38, 133.29, 96.0, 96.0], "labels": "phaser", "type": "printer" },
     { "id": 17, "layout": [554.57, 546.24, 96.0, 96.0], "labels": "phaser", "type": "printer" },
     { "id": 18, "layout": [315.66, 583.79, 96.0, 96.0], "labels": "protz", "type": "workstation" }

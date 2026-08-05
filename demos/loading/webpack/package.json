@@ -1,6 +1,6 @@
 {
   "name": "@yfiles/webpack-demo-for-yfiles-for-html",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "description": "Shows how to use webpack with yFiles for HTML",
   "author": "yWorks GmbH <yfileshtml@yworks.com>",
   "license": "https://www.yworks.com/products/yfiles-for-html/sla",
@@ -9,7 +9,7 @@
   "dependencies": {
     "@yfiles/demo-app": "../../demo-app",
     "@yfiles/demo-utils": "../../utils",
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.1+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.2+dev.tgz"
   },
   "scripts": {
     "postinstall": "node -e \"require('node:fs').cpSync('../../../lib/license.json', './src/license.json')\" || echo To run this demo, please add a license.json to the src folder.",
@@ -18,7 +18,7 @@
     "start": "webpack serve --mode development --open"
   },
   "devDependencies": {
-    "@yworks/optimizer": "^1.8.9",
+    "@yworks/optimizer": "^1.9.0",
     "css-loader": "7.1.2",
     "html-webpack-plugin": "5.6.5",
     "mini-css-extract-plugin": "2.9.4",
@@ -28,7 +28,7 @@
     "typescript": "~6.0.2",
     "webpack": "5.104.1",
     "webpack-cli": "6.0.1",
-    "webpack-dev-server": "5.2.5",
+    "webpack-dev-server": "5.2.2",
     "webpack-merge": "6.0.1"
   }
 }

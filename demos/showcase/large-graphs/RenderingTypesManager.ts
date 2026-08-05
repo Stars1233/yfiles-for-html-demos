@@ -29,7 +29,6 @@
 import {
   type GraphComponent,
   GraphEditorInputMode,
-  GraphModelManager,
   type IEdge,
   type IEdgeStyle,
   type IGraph,

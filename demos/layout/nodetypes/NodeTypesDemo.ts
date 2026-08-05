@@ -54,7 +54,6 @@ import {
   RadialTreeLayout,
   RadialTreeLayoutData,
   Size,
-  StraightLineEdgeRouter,
   TreeLayout,
   TreeLayoutData
 } from '@yfiles/yfiles'
@@ -198,10 +197,11 @@ function createOrganicSample(): Sample {
  * such that node types are considered.
  */
 function createTreeSample(): Sample {
-  //create a tree layout including a reduction stage to support non-tree graphs too
-  const layout = new TreeLayout({ defaultSubtreePlacer: new CompactSubtreePlacer() })
-  const reductionStage = layout.treeReductionStage
-  reductionStage.nonTreeEdgeRouter = new EdgeRouter()
+  // Create a tree layout
+  const layout = new TreeLayout({
+    defaultSubtreePlacer: new CompactSubtreePlacer(),
+    treeReductionStage: { nonTreeEdgeRouter: new EdgeRouter() }
+  })
 
   // the node types are specified as delegate on the nodeTypes property of the layout data
   const layoutData = new TreeLayoutData({ nodeTypes: getNodeType })
@@ -214,7 +214,7 @@ function createTreeSample(): Sample {
  * such that node types are considered.
  */
 function createCircularSample(): Sample {
-  //create a circular layout and specify the NodeTypeAwareSequencer as sequencer responsible
+  // Create a circular layout and specify the NodeTypeAwareSequencer as sequencer responsible
   // for the ordering on the circle - this is necessary to support node types
   const layout = new CircularLayout()
 
@@ -248,10 +248,8 @@ function createComponentSample(): Sample {
  * such that node types are considered.
  */
 function createRadialTreeSample(): Sample {
-  //create a radial tree layout including a reduction stage to support non-tree graphs too
+  // create a radial tree layout
   const layout = new RadialTreeLayout()
-  const reductionStage = layout.treeReductionStage
-  reductionStage.nonTreeEdgeRouter = new StraightLineEdgeRouter()
 
   // the node types are specified as delegate on the nodeTypes property of the layout data
   const layoutData = new RadialTreeLayoutData({ nodeTypes: getNodeType })

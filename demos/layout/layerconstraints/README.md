@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Layer Constraints Demo - yFiles for HTML
+# Layer Constraints Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layer-constraints.webp" alt="demo-thumbnail" height="320"/>
 

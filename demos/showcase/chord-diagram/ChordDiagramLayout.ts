@@ -28,7 +28,6 @@
  ***************************************************************************/
 import {
   EdgeDataKey,
-  IGraph,
   type IMapper,
   type LayoutEdge,
   type LayoutGraph,
@@ -79,7 +78,7 @@ export class ChordDiagramLayout extends LayoutStageBase {
 
   /**
    * Arranges the given graph.
-   * Note, the input graph is a {@link LayoutGraph}, which is a copy of the {@link IGraph} that
+   * Note, the input graph is a {@link LayoutGraph}, which is a copy of the {@link import('@yfiles/yfiles').IGraph} that
    * is operated on when setting styles or where input events are received from.
    * @param graph the graph to be arranged.
    */

@@ -27,7 +27,7 @@
  **
  ***************************************************************************/
 import { defineConfig } from 'vite'
-import optimizer from '@yworks/optimizer/rollup-plugin'
+import optimizer from '@yworks/optimizer/rolldown-plugin'
 
 export default defineConfig(({ mode }) => {
   return {
@@ -36,11 +36,8 @@ export default defineConfig(({ mode }) => {
       mode === 'production'
         ? optimizer({
             shouldOptimize({ id }) {
-              // Make sure not to exclude the demo-app and demo-utils directories which are
-              // installed as dependencies but use yFiles API.
-              return (
-                id.includes('demo-app') || id.includes('demo-utils') || !id.includes('node_modules')
-              )
+              // make sure not to exclude demo-utils since it is in node_modules and uses yFiles API
+              return id.includes('demo-utils') || !id.includes('node_modules')
             }
           })
         : null

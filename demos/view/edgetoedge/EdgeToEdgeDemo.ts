@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import {
-  CreateEdgeInputMode,
   EdgePathPortLocationModel,
   EventRecognizers,
   GraphComponent,
@@ -37,11 +36,7 @@ import {
   GridInfo,
   IBend,
   type IEdge,
-  IEdgePortHandleProvider,
   IEdgeReconnectionPortCandidateProvider,
-  IHitTestable,
-  IPortCandidateProvider,
-  IPortLocationModel,
   type KeyEventArgs,
   License,
   OrthogonalEdgeEditingContext,
@@ -67,11 +62,11 @@ let graphComponent: GraphComponent
  *
  * Connecting the source or target of an edge to itself is prohibited since this is conceptually forbidden.
  * Edge-to-edge connections have to be enabled explicitly using the property
- * {@link CreateEdgeInputMode.allowEdgeToEdgeConnections}.
+ * {@link import('@yfiles/yfiles').CreateEdgeInputMode.allowEdgeToEdgeConnections}.
  *
- * This demo also includes customized implementations of {@link IPortCandidateProvider},
- * {@link IEdgeReconnectionPortCandidateProvider}, {@link IHitTestable},
- * {@link IEdgePortHandleProvider} and {@link IPortLocationModel}
+ * This demo also includes customized implementations of {@link import('@yfiles/yfiles').IPortCandidateProvider},
+ * {@link IEdgeReconnectionPortCandidateProvider}, {@link import('@yfiles/yfiles').IHitTestable},
+ * {@link import('@yfiles/yfiles').IEdgePortHandleProvider} and {@link import('@yfiles/yfiles').IPortLocationModel}
  * to enable custom behavior like reconnecting an existing edge to another edge, starting edge creation from an edge
  * etc.
  */

@@ -27,12 +27,7 @@
  **
  ***************************************************************************/
 export type Components =
-  | 'slider'
-  | 'combobox'
-  | 'radio-button'
-  | 'checkbox'
-  | 'spinner'
-  | 'html-block'
+  'slider' | 'combobox' | 'radio-button' | 'checkbox' | 'spinner' | 'html-block'
 
 export class ComponentAttribute {
   constructor(value: Components)

@@ -1,20 +1,8 @@
 {
   "nodes": [
-    {
-      "id": "A",
-      "label": "Node A",
-      "group": "Group A"
-    },
-    {
-      "id": "B",
-      "label": "Node B",
-      "group": "Group A"
-    },
-    {
-      "id": "C",
-      "label": "Node C",
-      "group": "Group A"
-    }
+    { "id": "A", "label": "Node A", "group": "Group A" },
+    { "id": "B", "label": "Node B", "group": "Group A" },
+    { "id": "C", "label": "Node C", "group": "Group A" }
   ],
   "edges": [
     {

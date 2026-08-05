@@ -12,12 +12,8 @@
       "edgeGroupSortingPicker": "CardinalityDescending",
       "nodeGroupSortingPicker": "CardinalityDescending"
     },
-    "biofabric_parameters" : {
-      "edgeSpacing": 0.4
-    },
-    "circular_parameters": {
-      "edgeThickness": 4
-    }
+    "biofabric_parameters": { "edgeSpacing": 0.4 },
+    "circular_parameters": { "edgeThickness": 4 }
   },
   "LogisticsNetwork": {
     "title": "The Logistics Network",
@@ -32,12 +28,8 @@
       "edgeGroupSortingPicker": "LexicographicalAscending",
       "nodeGroupSortingPicker": "LexicographicalAscending"
     },
-    "biofabric_parameters" : {
-      "edgeSpacing": 0.2
-    },
-    "circular_parameters": {
-      "edgeThickness": 6
-    }
+    "biofabric_parameters": { "edgeSpacing": 0.2 },
+    "circular_parameters": { "edgeThickness": 6 }
   },
   "TradingGraph": {
     "title": "The Trading Network",
@@ -52,11 +44,7 @@
       "edgeGroupSortingPicker": "LexicographicalAscending",
       "nodeGroupSortingPicker": "CardinalityDescending"
     },
-    "biofabric_parameters" : {
-      "edgeSpacing": 0.3
-    },
-    "circular_parameters": {
-      "edgeThickness": 3
-    }
+    "biofabric_parameters": { "edgeSpacing": 0.3 },
+    "circular_parameters": { "edgeThickness": 3 }
   }
 }

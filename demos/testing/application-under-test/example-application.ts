@@ -30,6 +30,11 @@ import { GraphComponent, GraphEditorInputMode, GraphItemTypes, License, Rect } f
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import licenseData from '../../../lib/license.json'
 
+function createInitialGraph(graphComponent: GraphComponent) {
+  graphComponent.graph.createNode(new Rect(100, 100, 30, 30))
+  graphComponent.graph.createNode(new Rect(200, 200, 30, 30))
+}
+
 async function run() {
   License.value = licenseData
 
@@ -52,7 +57,7 @@ async function run() {
         label: 'Clear the graph',
         cssClass: 'clear-graph-menu-item',
         action: () => {
-          graph.clear()
+          graphComponent.graph.clear()
         }
       }
     ]
@@ -62,17 +67,22 @@ async function run() {
   graphComponent.inputMode = graphEditorInputMode
 
   // create a sample graph
-  const graph = graphComponent.graph
-
-  graph.createNode(new Rect(100, 100, 30, 30))
-  graph.createNode(new Rect(200, 200, 30, 30))
+  createInitialGraph(graphComponent)
 
   // bind UI elements
-  document
-    .querySelector('#create-edge')
-    .addEventListener('click', () => graph.createEdge(graph.nodes.first(), graph.nodes.last()))
+  document.querySelector('#create-edge')!.addEventListener('click', async () => {
+    const graph = graphComponent.graph
+    if (graph.nodes.size === 0) {
+      // Create some nodes, otherwise edge creation would fail
+      createInitialGraph(graphComponent)
+      await graphComponent.fitGraphBounds()
+    }
+    return graph.createEdge(graph.nodes.first()!, graph.nodes.last()!)
+  })
 
-  document.querySelector('#clear-graph').addEventListener('click', () => graph.clear())
+  document
+    .querySelector('#clear-graph')!
+    .addEventListener('click', () => graphComponent.graph.clear())
 }
 
 run().then(finishLoading)

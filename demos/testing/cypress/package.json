@@ -2,6 +2,7 @@
   "name": "@yfiles/cypress-demo-for-yfiles-for-html",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "scripts": {
     "test": "npx cypress run",
     "test-ui": "npx cypress open"
@@ -9,9 +10,12 @@
   "author": "yWorks GmbH <yfileshtml@yworks.com>",
   "license": "https://www.yworks.com/products/yfiles-for-html/sla",
   "devDependencies": {
-    "cypress": "^15.16.0"
+    "cypress": "^15.19.0"
+  },
+  "allowScripts": {
+    "cypress@15.19.0": true
   },
   "dependencies": {
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.1+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.2+dev.tgz"
   }
 }

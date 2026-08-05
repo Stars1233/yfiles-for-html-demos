@@ -30,5 +30,5 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 export default defineConfig(({ mode }) => {
-  return { base: './', plugins: [react()], build: { minify: false, chunkSizeWarningLimit: 3000 } }
+  return { base: './', plugins: [react()], build: { minify: false, chunkSizeWarningLimit: 5000 } }
 })

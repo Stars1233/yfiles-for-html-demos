@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Large Graphs Demo - yFiles for HTML
+# Large Graphs Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/large-graphs.webp" alt="demo-thumbnail" height="320"/>
 

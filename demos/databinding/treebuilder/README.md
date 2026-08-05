@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Tree Builder Demo - yFiles for HTML
+# Tree Builder Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/tree-graph-builder.webp" alt="demo-thumbnail" height="320"/>
 

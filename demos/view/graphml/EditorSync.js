@@ -30,10 +30,16 @@ import { HashMap } from '@yfiles/yfiles'
 import { createGraphMLEditor, EditorView } from '@yfiles/demo-app/codemirror-editor'
 
 /**
+ * Applies the Regexp.escape function if available and returns the original content otherwise.
+ */
+function regexpEscape(content) {
+  return content == null ? content : (RegExp.escape?.(content) ?? content)
+}
+
+/**
  * This class handles synchronization of the GraphML editor with the view graph.
  * @yjs:keep = setValue,getValue
  */
-
 export class EditorSync {
   itemToIdMap = new HashMap()
   itemToMarkerMap = new HashMap()
@@ -248,7 +254,7 @@ export class EditorSync {
     const itemId = this.itemToIdMap.get(item)
 
     // Find the <node> or <edge> start tag
-    const regexpStr = `<${tagName}.*?id="${itemId}".*?>`
+    const regexpStr = `<${tagName}.*?id="${regexpEscape(itemId)}".*?>`
     const regexp = new RegExp(regexpStr, 'i')
     const matches = regexp.exec(editorText)
     if (!matches) {

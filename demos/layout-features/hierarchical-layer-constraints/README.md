@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Layer Constraints Demo - yFiles for HTML
+# Hierarchical Layout with Layer Constraints Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-layer-constraints.webp" alt="demo-thumbnail" height="320"/>
 
@@ -20,8 +20,11 @@ This demo shows how to customize the assignment of nodes to layers (layering) wh
 ## Layer constraints
 
 - Node 9 is placed in the topmost layer with the [placeAtTop](https://docs.yworks.com/yfileshtml/api/LayerConstraintData#placeAtTop) method.
+
 - Node 7 is placed in the bottommost layer with the [placeAtBottom](https://docs.yworks.com/yfileshtml/api/LayerConstraintData#placeAtBottom) method.
+
 - Node 0 is placed at least one layer below node 9 with the [placeInOrder](https://docs.yworks.com/yfileshtml/api/LayerConstraintData#placeInOrder) method.
+
 - Node 2 is placed in the same layer as node 0 with the [placeInSameLayer](https://docs.yworks.com/yfileshtml/api/LayerConstraintData#placeInSameLayer) method.
 
 ## Things to Try

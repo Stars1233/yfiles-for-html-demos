@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Chord Diagram Demo - yFiles for HTML
+# Chord Diagram Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/chord-diagram.webp" alt="demo-thumbnail" height="320"/>
 

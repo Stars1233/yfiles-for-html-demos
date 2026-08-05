@@ -26,16 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import {
-  Color,
-  Fill,
-  GeneralPath,
-  INodeStyle,
-  NodeStyleBase,
-  Rect,
-  Stroke,
-  SvgVisual
-} from '@yfiles/yfiles'
+import { Color, Fill, GeneralPath, NodeStyleBase, Rect, Stroke, SvgVisual } from '@yfiles/yfiles'
 
 export const FlowchartNodeType = {
   Process: 'process',
@@ -69,7 +60,7 @@ export const FlowchartNodeType = {
 }
 
 /**
- * {@link INodeStyle} which draws a flowchart shape according to its type.
+ * {@link import('@yfiles/yfiles').INodeStyle} which draws a flowchart shape according to its type.
  * This style can be customized by changing the properties 'fill' and 'stroke' as well as with a css-stylesheet.
  */
 export class FlowchartNodeStyle extends NodeStyleBase {

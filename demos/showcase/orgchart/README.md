@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Organization Chart Demo - yFiles for HTML
+# Organization Chart Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/organization-chart.webp" alt="demo-thumbnail" height="320"/>
 
@@ -50,7 +50,7 @@ Click on a superior, subordinate, or colleague link to select and zoom to the co
   - Hide children: hides the children of the currently selected employee.
   - Show children: Shows the children of the currently selected employee.
   - Show all: show all employees
-- In the toolbar, you can expand_all **Show All** nodes.
+- In the toolbar, you can expand\_all **Show All** nodes.
 - Change the zoom level to switch between three different levels of detail for node visualization.
 
 ## Developer Information

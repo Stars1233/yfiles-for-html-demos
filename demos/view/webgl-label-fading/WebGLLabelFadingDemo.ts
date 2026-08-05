@@ -36,6 +36,7 @@ import {
   IEnumerable,
   type IGraph,
   type INode,
+  LayoutExecutor,
   License,
   type PointConvertible,
   WebGLFocusIndicatorManager,
@@ -110,6 +111,8 @@ function initializeUI(graphComponent: GraphComponent) {
 function createGraph(graph: IGraph) {
   graph.clear()
   createTree(graph)
+
+  LayoutExecutor.ensure()
   graph.applyLayout(new CircularLayout())
 }
 

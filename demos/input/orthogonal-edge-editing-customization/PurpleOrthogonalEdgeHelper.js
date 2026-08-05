@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { IOrthogonalEdgeHelper, IShapeGeometry, OrthogonalEdgeHelper } from '@yfiles/yfiles'
+import { IShapeGeometry, OrthogonalEdgeHelper } from '@yfiles/yfiles'
 
 /**
  * An {@link OrthogonalEdgeHelper} that enables moving the
@@ -44,7 +44,7 @@ export class PurpleOrthogonalEdgeHelper extends OrthogonalEdgeHelper {
    * @param _sourceEnd `true` if the source end of the edge is queried, `false` for
    * the target end
    * @see Overrides {@link OrthogonalEdgeHelper.shouldMoveEndImplicitly}
-   * @see Specified by {@link IOrthogonalEdgeHelper.shouldMoveEndImplicitly}.
+   * @see Specified by {@link import('@yfiles/yfiles').IOrthogonalEdgeHelper.shouldMoveEndImplicitly}.
    */
   shouldMoveEndImplicitly(_inputModeContext, _sourceEnd) {
     return true
@@ -56,7 +56,7 @@ export class PurpleOrthogonalEdgeHelper extends OrthogonalEdgeHelper {
    * @param inputModeContext The input mode context which edited the edge
    * @param graph The graph to use for modifying the edge instance
    * @see Overrides {@link OrthogonalEdgeHelper.cleanUpEdge}
-   * @see Specified by {@link IOrthogonalEdgeHelper.cleanUpEdge}.
+   * @see Specified by {@link import('@yfiles/yfiles').IOrthogonalEdgeHelper.cleanUpEdge}.
    */
   cleanUpEdge(inputModeContext, graph) {
     super.cleanUpEdge(inputModeContext, graph)

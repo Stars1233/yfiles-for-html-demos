@@ -48,8 +48,7 @@ export function createGenericConfiguration(graph, subtreePlacerPanel) {
   const sample = document.querySelector('#select-sample').value
   if (sample === 'general') {
     // add the tree reduction stage for the case where the graph is not a tree but a general graph
-    const treeReductionStage = layout.treeReductionStage
-    treeReductionStage.nonTreeEdgeRouter = new OrganicEdgeRouter()
+    layout.treeReductionStage.nonTreeEdgeRouter = new OrganicEdgeRouter()
   }
 
   // configure layout data with subtree placers, assistant markers and edge order
@@ -149,11 +148,9 @@ export function createCategoryTreeConfiguration(graph, subtreePlacerPanel) {
  */
 export function createGeneralGraphConfiguration(graph, subtreePlacerPanel) {
   // create layout algorithm
-  const treeLayout = new TreeLayout()
-  const treeReductionStage = treeLayout.treeReductionStage
-  treeReductionStage.nonTreeEdgeRouter = new OrganicEdgeRouter()
-
-  const layout = treeLayout
+  const layout = new TreeLayout({
+    treeReductionStage: { nonTreeEdgeRouter: new OrganicEdgeRouter() }
+  })
 
   // update subtree placers with the same values to keep the panel intact
   for (const node of graph.nodes) {

@@ -13,9 +13,12 @@
     "@types/jest": "^30.0.0",
     "babel-jest": "^30.4.1",
     "jest": "^30.4.2",
-    "ts-jest": "^29.4.11"
+    "ts-jest": "^29.4.12"
+  },
+  "allowScripts": {
+    "unrs-resolver@1.12.2": true
   },
   "dependencies": {
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.1+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.2+dev.tgz"
   }
 }

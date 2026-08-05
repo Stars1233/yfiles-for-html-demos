@@ -65,7 +65,6 @@ import {
   IRow,
   type IStripe,
   type ITable,
-  ITagOwner,
   LabelAlongEdgePlacements,
   LabelEdgeSides,
   LabelStyle,
@@ -1032,7 +1031,7 @@ export class BpmnDiParser {
   }
 
   /**
-   * Callback to add some of the {@link BpmnShape} or {@link BpmnElement} data to the {@link ITagOwner.tag} of `iNode`.
+   * Callback to add some of the {@link BpmnShape} or {@link BpmnElement} data to the {@link import('@yfiles/yfiles').ITagOwner.tag} of `iNode`.
    * @param shape The bpmn shape used to create the node.
    * @param iNode The node whose tag shall be filled.
    */
@@ -1043,7 +1042,7 @@ export class BpmnDiParser {
   }
 
   /**
-   * Callback to add some of the {@link BpmnEdge} or {@link BpmnElement} data to the {@link ITagOwner.tag} of `iEdge`.
+   * Callback to add some of the {@link BpmnEdge} or {@link BpmnElement} data to the {@link import('@yfiles/yfiles').ITagOwner.tag} of `iEdge`.
    * @param edge The bpmn edge used to create the edge.
    * @param iEdge The edge whose tag shall be filled.
    */

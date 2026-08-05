@@ -41,12 +41,10 @@ import {
   HandlePositions,
   type HandleType,
   type ICompoundEdit,
-  IDragHandler,
   type IEnumerable,
   type IGraph,
   type IGraphSelection,
   IHandle,
-  IInputMode,
   type IInputModeContext,
   type IList,
   type IModelItem,
@@ -79,7 +77,7 @@ import {
 import { RectangleRenderer } from '@yfiles/demo-utils/RectangleRenderer'
 
 /**
- * An {@link IInputMode} for reshape handles for groups of nodes. Can be added as child input
+ * An {@link import('@yfiles/yfiles').IInputMode} for reshape handles for groups of nodes. Can be added as child input
  * mode of {@link GraphEditorInputMode} and changes the default node reshape handles when multiple nodes are
  * selected: instead of one set of handles per node, this input mode only shows a single set of handles around all
  * selected nodes.
@@ -1138,7 +1136,7 @@ class ResizingReshapeHandler extends ReshapeHandlerBase {
 
 /**
  * A {@link ReshapeHandlerHandle} for an {@link EncompassingRectangle} that considers the
- * {@link EncompassingRectangle.margins} for the calculation of its {@link IDragHandler.location}.
+ * {@link EncompassingRectangle.margins} for the calculation of its {@link import('@yfiles/yfiles').IDragHandler.location}.
  */
 class NodeSelectionReshapeHandle extends BaseClass(IHandle) {
   private readonly reshapeHandlerHandle: ReshapeHandlerHandle

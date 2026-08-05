@@ -33,6 +33,7 @@ import {
   FreeEdgeLabelModel,
   GenericLabeling,
   GenericLabelingData,
+  HierarchicalLayout,
   Insets,
   LabelAlongEdgePlacements,
   LabelAngleReferences,
@@ -42,6 +43,9 @@ import {
   OrganicLayoutData
 } from '@yfiles/yfiles'
 import graphData from './sample.json'
+
+// make sure the hierarchical module is loaded to support the integrated edge labeling
+HierarchicalLayout.ensure()
 
 // Configure the organic layout
 const organicLayout = new OrganicLayout({

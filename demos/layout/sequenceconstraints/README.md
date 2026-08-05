@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Sequence Constraints Demo - yFiles for HTML
+# Sequence Constraints Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/sequence-constraints.webp" alt="demo-thumbnail" height="320"/>
 

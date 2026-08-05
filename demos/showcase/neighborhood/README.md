@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Neighborhood View Demo - yFiles for HTML
+# Neighborhood View Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/neighborhood-view.webp" alt="demo-thumbnail" height="320"/>
 

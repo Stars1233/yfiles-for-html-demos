@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import {
-  AdjacencyGraphBuilder,
   EdgeLabelPreferredPlacement,
   GraphComponent,
   GraphViewerInputMode,
@@ -57,7 +56,7 @@ let existingNodes: IList<INode>
 
 /**
  * Shows building a graph from business data with class
- * {@link AdjacencyGraphBuilder}.
+ * {@link import('@yfiles/yfiles').AdjacencyGraphBuilder}.
  * This demo provides a schema graph component for interactive manipulation
  * of the result graph structure and content.
  *

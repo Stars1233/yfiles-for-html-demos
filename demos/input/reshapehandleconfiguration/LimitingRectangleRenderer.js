@@ -31,7 +31,6 @@ import {
   IBoundsProvider,
   IHitTestable,
   IObjectRenderer,
-  IRenderTreeElement,
   IVisibilityTestable,
   IVisualCreator,
   SvgVisual
@@ -44,7 +43,7 @@ export class LimitingRectangleRenderer extends BaseClass(IObjectRenderer, IVisua
   rectangle = null
 
   /**
-   * Gets the {@link IVisualCreator} for a given {@link IRenderTreeElement}.
+   * Gets the {@link IVisualCreator} for a given {@link import('@yfiles/yfiles').IRenderTreeElement}.
    */
   getVisualCreator(renderTag) {
     this.rectangle = renderTag

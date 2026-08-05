@@ -28,7 +28,7 @@
  ***************************************************************************/
 import { defineConfig } from 'vite'
 import solidPlugin from 'vite-plugin-solid'
-import optimizer from '@yworks/optimizer/rollup-plugin'
+import optimizer from '@yworks/optimizer/rolldown-plugin'
 //import devtools from 'solid-devtools/vite'
 
 export default defineConfig(({ mode }) => {

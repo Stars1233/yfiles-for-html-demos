@@ -31,43 +31,35 @@
      //
      ////////////////////////////////////////////////////////////////////////-->
 
-    <title>Web Worker Demo (Webpack) [yFiles for HTML]</title>
+    <title>Web Worker Webpack Demo [yFiles for HTML]</title>
     <link rel="stylesheet" href="../../../doc/resources/readme-style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
   </head>
   <body>
-    <div id="header" class="simple-header">Web Worker Demo (Webpack)</div>
+    <div id="header" class="simple-header">Web Worker Webpack Demo</div>
     <main>
       <div class="simple content-centered">
         <div class="content">
-          <div class="breadcrumbs">
-            <a href="../../README.html">yFiles for HTML</a>
-            <span class="angle-right"></span>
-            Web Worker Demo
-          </div>
-          <h1>Web Worker Demo (Webpack)</h1>
-
+          <h1>Web Worker Demo (Webpack) – yFiles for HTML</h1>
           <p>
             This demo shows how to run a yFiles layout algorithm in a
-            <a href="https://html.spec.whatwg.org/multipage/workers.html" target="_blank"
-              >Web Worker</a
-            >
-            task in order to prevent the layout calculation from blocking the UI.
+            <a href="https://html.spec.whatwg.org/multipage/workers.html">Web Worker</a> task to
+            prevent the layout calculation from blocking the UI.
           </p>
           <p>This demo uses webpack to handle the loading of the yFiles library.</p>
           <p>
             The graph, layout, and layout data are configured in the main thread and transferred to
-            the web worker using class <a data-api>LayoutExecutorAsync</a>. The actual layout
-            calculation is performed in <em>WorkerLayout.ts</em> with class
-            <a data-api>LayoutExecutorAsyncWorker</a> on the web worker thread.
+            the web worker using class LayoutExecutorAsync. The actual layout calculation is
+            performed in <em>WorkerLayout.ts</em> with class LayoutExecutorAsyncWorker on the web
+            worker thread.
           </p>
-
           <h2>Running the demo</h2>
-
           <p>First, install the required npm modules in the demo directory:</p>
-          <pre>> npm install</pre>
-          <h2>Now the demo can be started:</h2>
-          <pre>> npm start</pre>
+          <pre><code class="language-sh">npm install
+</code></pre>
+          <p>Now, start the demo:</p>
+          <pre><code class="language-sh">npm start
+</code></pre>
         </div>
         <!-- populated by readme-style.js -->
         <div id="footer-detailed"></div>

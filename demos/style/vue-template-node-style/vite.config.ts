@@ -26,35 +26,35 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { defineConfig, type Plugin } from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import optimizer from '@yworks/optimizer/rollup-plugin'
+import optimizer from '@yworks/optimizer/rolldown-plugin'
 
 export default defineConfig(({ mode }) => {
-  const plugins: Plugin[] = [vue()]
-  if (mode === 'production') {
-    plugins.push(
-      optimizer({
-        shouldOptimize({ id }) {
-          // Make sure not to exclude the demo-app and demo-utils directories which are
-          // installed as dependencies but use yFiles API.
-          return (
-            id.includes('demo-app') || id.includes('demo-utils') || !id.includes('node_modules')
-          )
-        },
-        blacklist: [
-          'getValue',
-          'setValue',
-          'focused',
-          'template',
-          'content',
-          'visible',
-          'icon',
-          'update'
-        ]
-      })
-    )
-  }
+  const plugins = [
+    vue(),
+    mode === 'production'
+      ? optimizer({
+          shouldOptimize({ id }) {
+            // Make sure not to exclude the demo-app and demo-utils directories which are
+            // installed as dependencies but use yFiles API.
+            return (
+              id.includes('demo-app') || id.includes('demo-utils') || !id.includes('node_modules')
+            )
+          },
+          blacklist: [
+            'getValue',
+            'setValue',
+            'focused',
+            'template',
+            'content',
+            'visible',
+            'icon',
+            'update'
+          ]
+        })
+      : null
+  ]
   return {
     base: './',
     plugins,

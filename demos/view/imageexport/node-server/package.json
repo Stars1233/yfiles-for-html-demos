@@ -10,5 +10,8 @@
     "data-uri-to-buffer": "^6.0.2",
     "express": "^5.2.1",
     "puppeteer": "^24.34.0"
+  },
+  "allowScripts": {
+    "puppeteer@24.43.1": true
   }
 }

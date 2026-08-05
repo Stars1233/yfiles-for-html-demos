@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Compact Groups Demo - yFiles for HTML
+# Hierarchical Layout with Compact Groups Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-hierarchical-compact-groups.webp" alt="demo-thumbnail" height="320"/>
 

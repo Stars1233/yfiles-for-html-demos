@@ -32,56 +32,9 @@
      ////////////////////////////////////////////////////////////////////////-->
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <title>Vite Loading Demo [yFiles for HTML]</title>
+    <title>Vite Lazy Load yFiles Demo [yFiles for HTML]</title>
 
-    <style>
-      #graphComponent {
-        transition: background-color 1s ease-out;
-      }
-
-      #graphComponent.inactive {
-        background-color: #eeeeee;
-        height: 100%;
-      }
-
-      #load-yfiles-note {
-        position: absolute;
-        top: 30%;
-        left: 42%;
-        margin: 50px;
-        width: 16rem;
-        line-height: 150%;
-      }
-
-      #load-diagram-component-btn {
-        width: 14rem;
-        height: 3.75rem;
-        outline: none;
-        cursor: pointer;
-        background: white;
-        font-size: 1.5em;
-        border-radius: 5px;
-        border: 2px solid #2a3e50;
-        color: #2a3e50;
-        transition: all 0.3s ease-in-out;
-      }
-
-      #load-diagram-component-btn:hover {
-        background-color: #2a3e50;
-        color: white;
-      }
-
-      #load-diagram-component-btn.loading {
-        color: white;
-        background-color: #00adcc;
-        border-color: #00adcc;
-        transition: all 0.3s;
-      }
-
-      .demo-page__toolbar .apply-layout {
-        font-size: 1.5rem;
-      }
-    </style>
+    <link rel="stylesheet" href="./src/demo-ui.css" />
   </head>
   <body>
     <div class="demo-header">

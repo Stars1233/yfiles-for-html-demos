@@ -40,12 +40,10 @@ import {
   type ICompoundEdit,
   IEdge,
   type IGraph,
-  IInputMode,
   type IInputModeContext,
   type ILabel,
   type ILabelModelParameter,
   type IModelItem,
-  InputModeBase,
   type IPort,
   type IPortCandidate,
   type IRenderContext,
@@ -984,7 +982,7 @@ export class GraphWizardInputMode extends MultiplexingInputMode {
 
   /**
    * @param context - the context to install this mode into
-   * @param controller - The {@link InputModeBase.controller} for this mode.
+   * @param controller - The {@link import('@yfiles/yfiles').InputModeBase.controller} for this mode.
    */
   install(context: IInputModeContext, controller: ConcurrencyController): void {
     super.install(context, controller)
@@ -1005,7 +1003,7 @@ export class GraphWizardInputMode extends MultiplexingInputMode {
   }
 
   /**
-   * @param context - The context to remove this mode from. This is the same instance that has been passed to {@link InputModeBase.install}.
+   * @param context - The context to remove this mode from. This is the same instance that has been passed to {@link import('@yfiles/yfiles').InputModeBase.install}.
    */
   uninstall(context: IInputModeContext): void {
     super.uninstall(context)
@@ -1121,7 +1119,7 @@ export class KeyboardCreateEdgeInputMode extends CreateEdgeInputMode {
 
   /**
    * @param context - The context that this instance shall be installed into.
-   * The same instance will be passed to this instance during {@link IInputMode.uninstall}.
+   * The same instance will be passed to this instance during {@link import('@yfiles/yfiles').IInputMode.uninstall}.
    * A reference to the context may be kept and queried during the time the mode is installed.
    * @param controller - The {@link CreateEdgeInputMode.controller} for this mode.
    */
@@ -1133,7 +1131,7 @@ export class KeyboardCreateEdgeInputMode extends CreateEdgeInputMode {
 
   /**
    * @param context - The context to deregister from. This is the same instance
-   * that had been passed to {@link IInputMode.install} during installation.
+   * that had been passed to {@link import('@yfiles/yfiles').IInputMode.install} during installation.
    */
   uninstall(context: IInputModeContext): void {
     context.canvasComponent!.removeEventListener('key-down', this.keyListener)

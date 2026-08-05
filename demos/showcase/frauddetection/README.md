@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Fraud Detection Demo - yFiles for HTML
+# Fraud Detection Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/fraud-detection.webp" alt="demo-thumbnail" height="320"/>
 

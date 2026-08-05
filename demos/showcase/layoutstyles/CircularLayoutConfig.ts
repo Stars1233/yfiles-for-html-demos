@@ -64,10 +64,7 @@ import {
 } from '@yfiles/demo-app/demo-option-editor'
 
 export type CircularPartitioningPolicy =
-  | 'bcc-compact'
-  | 'bcc-isolated'
-  | 'single-cycle'
-  | 'custom-partitions'
+  'bcc-compact' | 'bcc-isolated' | 'single-cycle' | 'custom-partitions'
 
 type EdgeRoutingPolicy = 'interior' | 'automatic' | 'exterior' | 'marked-exterior'
 

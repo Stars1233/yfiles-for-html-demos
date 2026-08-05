@@ -54,7 +54,8 @@ import {
   PortCandidate,
   Rect,
   Size,
-  SmartEdgeLabelModel
+  SmartEdgeLabelModel,
+  LayoutExecutor
 } from '@yfiles/yfiles'
 
 import { EmptyReshapeHandleProvider, NetworkFlowInputMode } from './NetworkFlowsHelper'
@@ -656,6 +657,7 @@ async function runLayout(fromSketch, additionalIncrementalNodes) {
     return preferredPlacementDescriptor
   }
 
+  LayoutExecutor.ensure()
   await graphComponent.applyLayoutAnimated(layoutAlgorithm, '1s', layoutData)
   graph.edges.forEach((edge) => {
     if (lastFlowMap.get(edge) !== edge.tag.flow) {

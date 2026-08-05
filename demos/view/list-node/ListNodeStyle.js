@@ -90,16 +90,14 @@ export class ListNodeStyle extends NodeStyleBase {
     const cache = oldVisual.tag
     const nodeSize = node.layout.toSize()
     const nodeInfo = node.tag
-    if (
-      !(
-        cache.nodeSize === nodeSize &&
-        cache.backgroundFill === this.backgroundFill &&
-        cache.borderFill === this.borderFill &&
-        cache.lineStroke === this.lineStroke &&
-        cache.numRows === nodeInfo.rows.length &&
-        cache.draggingIndex === nodeInfo.draggingIndex
-      )
-    ) {
+    if (!(
+      cache.nodeSize === nodeSize &&
+      cache.backgroundFill === this.backgroundFill &&
+      cache.borderFill === this.borderFill &&
+      cache.lineStroke === this.lineStroke &&
+      cache.numRows === nodeInfo.rows.length &&
+      cache.draggingIndex === nodeInfo.draggingIndex
+    )) {
       // re-render: remove all children and call render
       while (g.hasChildNodes()) {
         g.removeChild(g.lastChild)

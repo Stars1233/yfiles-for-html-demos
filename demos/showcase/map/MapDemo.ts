@@ -38,7 +38,7 @@ import {
 import licenseData from '../../../lib/license.json'
 import { flightData } from './resources/flight-data'
 import { initializeDefaultMapStyles } from './map-styles'
-import { createMap, type MapData } from './leaflet-graph-layer'
+import { createMap } from './leaflet-graph-layer'
 import type { Map as LeafletMap } from 'leaflet'
 import { initializeShortestPaths } from './shortest-paths'
 import { getAirportData } from './data-types'

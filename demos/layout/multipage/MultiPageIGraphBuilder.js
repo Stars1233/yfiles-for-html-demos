@@ -35,7 +35,6 @@ import {
   LayoutGraphAdapter,
   Mapper,
   MultiPageEdgeType,
-  MultiPageLayout,
   MultiPageNodeType,
   NodeDefaults,
   Point,
@@ -61,9 +60,9 @@ export class MultiPageIGraphBuilder {
   result
 
   /**
-   * Creates a new instance for the given model graph and the given {@link MultiPageLayout}.
+   * Creates a new instance for the given model graph and the given {@link import('@yfiles/yfiles').MultiPageLayout}.
    * @param result The holder for the pages created by the
-   *   {@link MultiPageLayout}.
+   *   {@link import('@yfiles/yfiles').MultiPageLayout}.
    */
   constructor(result) {
     // initialize the graph item defaults with the null styles

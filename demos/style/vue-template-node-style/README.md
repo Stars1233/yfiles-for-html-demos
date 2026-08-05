@@ -9,6 +9,8 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Vue Template Node Style Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/vue-template-node-style.webp" alt="demo-thumbnail" height="320"/>
 
 This demo presents the Vue template node style that leverages the powerful data binding and conditional rendering features of the [Vue framework](https://vuejs.org/).

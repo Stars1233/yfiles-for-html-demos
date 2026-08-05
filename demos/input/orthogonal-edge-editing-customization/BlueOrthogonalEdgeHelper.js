@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { IOrthogonalEdgeHelper, OrthogonalEdgeHelper, SegmentOrientation } from '@yfiles/yfiles'
+import { OrthogonalEdgeHelper, SegmentOrientation } from '@yfiles/yfiles'
 
 /**
  * The {@link OrthogonalEdgeHelper} for blue edges. Orthogonal edge
@@ -45,7 +45,7 @@ export class BlueOrthogonalEdgeHelper extends OrthogonalEdgeHelper {
    *   needed
    * @param segmentIndex The index of the segment
    * @see Overrides {@link OrthogonalEdgeHelper.getSegmentOrientation}
-   * @see Specified by {@link IOrthogonalEdgeHelper.getSegmentOrientation}.
+   * @see Specified by {@link import('@yfiles/yfiles').IOrthogonalEdgeHelper.getSegmentOrientation}.
    */
   getSegmentOrientation(inputModeContext, segmentIndex) {
     const isFirstOrLastSegment = segmentIndex === 0 || segmentIndex === this.edge.bends.size

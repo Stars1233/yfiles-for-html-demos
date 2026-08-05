@@ -39,7 +39,6 @@ import {
   LabelStyle,
   LayoutExecutor,
   License,
-  NodeDecorator,
   Size
 } from '@yfiles/yfiles'
 
@@ -105,7 +104,7 @@ function buildGraph(graph, graphData) {
 }
 
 /**
- * Configures custom port candidates by utilizing the portCandidateProvider of the {@link NodeDecorator}.
+ * Configures custom port candidates by utilizing the portCandidateProvider of the {@link import('@yfiles/yfiles').NodeDecorator}.
  */
 function configurePortCandidateProvider(graph) {
   // Don't remove unoccupied ports.

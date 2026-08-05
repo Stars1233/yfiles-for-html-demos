@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Graph Copy Demo - yFiles for HTML
+# Graph Copy Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/graph-copy.webp" alt="demo-thumbnail" height="320"/>
 

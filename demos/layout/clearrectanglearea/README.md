@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Clear Rectangle Area Demo - yFiles for HTML
+# Clear Rectangle Area Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/clear-rectangle-area.webp" alt="demo-thumbnail" height="320"/>
 

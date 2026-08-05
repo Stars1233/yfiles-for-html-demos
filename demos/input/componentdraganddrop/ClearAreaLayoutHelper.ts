@@ -38,10 +38,8 @@ import {
   type IEdge,
   type IEnumerable,
   type IGraph,
-  ILayoutAlgorithm,
   type INode,
   LayoutExecutor,
-  LayoutGraphAdapter,
   List,
   type Point,
   Rect
@@ -52,7 +50,7 @@ import {
  */
 export class ClearAreaLayoutHelper {
   /**
-   * We use the same {@link LayoutGraphAdapter} for one drag gesture.
+   * We use the same {@link import('@yfiles/yfiles').LayoutGraphAdapter} for one drag gesture.
    */
   private executor!: LayoutExecutor
 
@@ -82,7 +80,7 @@ export class ClearAreaLayoutHelper {
   public component: IEnumerable<INode>
 
   /**
-   * The {@link ILayoutAlgorithm} that makes space for the dropped component.
+   * The {@link import('@yfiles/yfiles').ILayoutAlgorithm} that makes space for the dropped component.
    */
   private clearAreaLayout: ClearAreaLayout | null = null
 

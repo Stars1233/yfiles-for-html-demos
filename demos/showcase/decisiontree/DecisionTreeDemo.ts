@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { GraphComponent, Insets, License } from '@yfiles/yfiles'
+import { GraphComponent, License } from '@yfiles/yfiles'
 import licenseData from '../../../lib/license.json'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { initializeEditorComponent, readSampleGraph } from './editor-component/editor-component'

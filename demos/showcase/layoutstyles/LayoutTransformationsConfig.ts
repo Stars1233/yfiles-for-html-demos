@@ -36,7 +36,7 @@ import {
   SubgraphLayoutStage
 } from '@yfiles/yfiles'
 
-import { LayoutConfiguration, OperationType } from './LayoutConfiguration'
+import { LayoutConfiguration } from './LayoutConfiguration'
 import {
   ComponentAttribute,
   EnumValuesAttribute,
@@ -241,7 +241,7 @@ export const LayoutTransformationsConfig = (Class as any)('LayoutTransformations
     }
   },
 
-  /** @type {OperationType} */
+  /** @type {import('./LayoutConfiguration').OperationType} */
   operationItem: null,
 
   /** @type {boolean} */

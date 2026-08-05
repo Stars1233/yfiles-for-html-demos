@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Heat Map Demo - yFiles for HTML
+# Heat Map Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/heat-map.webp" alt="demo-thumbnail" height="320"/>
 

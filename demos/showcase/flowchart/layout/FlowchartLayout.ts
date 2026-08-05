@@ -284,7 +284,7 @@ export class FlowchartLayout extends BaseClass(ILayoutAlgorithm) {
       componentLayout: { enabled: false },
       defaultEdgeDescriptor: new HierarchicalLayoutEdgeDescriptor({
         minimumDistance: this.minimumEdgeDistance,
-        minimumLength: 15.0,
+        minimumLength: this.minimumEdgeLength,
         minimumFirstSegmentLength: 20.0,
         minimumLastSegmentLength: 20.0,
         routingStyleDescriptor: new RoutingStyleDescriptor('orthogonal'),

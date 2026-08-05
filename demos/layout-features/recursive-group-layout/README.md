@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Recursive Group Layout Demo - yFiles for HTML
+# Recursive Group Layout Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/layout-recursive-group-layout.webp" alt="demo-thumbnail" height="320"/>
 
@@ -24,7 +24,7 @@ In this demo, [a different layout algorithm](https://docs.yworks.com/yfileshtml/
 - [RadialLayout](https://docs.yworks.com/yfileshtml/api/RadialLayout) for group 3
 - [No layout](https://docs.yworks.com/yfileshtml/api/RecursiveGroupLayout#FIX_CONTENT_LAYOUT) for group 4
 
-As the child nodes of group node 4 already have predefined layout values in the graph data, [FIX_CONTENT_LAYOUT](https://docs.yworks.com/yfileshtml/api/RecursiveGroupLayout#FIX_CONTENT_LAYOUT) is used, which only calculates the size of the group node itself and does not alter the layout of its children.
+As the child nodes of group node 4 already have predefined layout values in the graph data, [FIX\_CONTENT\_LAYOUT](https://docs.yworks.com/yfileshtml/api/RecursiveGroupLayout#FIX_CONTENT_LAYOUT) is used, which only calculates the size of the group node itself and does not alter the layout of its children.
 
 The top-level hierarchy as well as groups without an assigned layout algorithm are arranged with the core layout algorithm.
 

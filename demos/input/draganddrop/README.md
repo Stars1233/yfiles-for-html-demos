@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Drag and Drop Demo - yFiles for HTML
+# Drag and Drop Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/drag-and-drop.webp" alt="demo-thumbnail" height="320"/>
 

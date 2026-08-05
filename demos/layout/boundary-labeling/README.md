@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Boundary Labeling Demo - yFiles for HTML
+# Boundary Labeling Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/boundary-labeling.webp" alt="demo-thumbnail" height="320"/>
 

@@ -40,61 +40,37 @@
     <main>
       <div class="simple content-centered">
         <div class="content">
-          <div class="breadcrumbs">
-            <a href="../../README.html">yFiles for HTML</a>
-            <span class="angle-right"></span>
-            React Class Components Demo
-          </div>
-
-          <h1>React Class Components Demo</h1>
-
+          <h1>React Class Components Demo – yFiles for HTML</h1>
           <p>
-            The React Class Components demo shows how to integrate yFiles in a
-            <a href="https://reactjs.org/" target="_blank" rel="noopener noreferrer">React</a>
-            application with
-            <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer"
-              >TypeScript</a
-            >
-            in project bootstrapped with
-            <a href="https://vitejs.dev/" target="_blank" rel="noopener noreferrer">Vite</a>.
+            This demo shows how to integrate yFiles in a
+            <a href="https://reactjs.org/">React</a> application.
           </p>
-
           <p>
             This application integrates a yFiles <code>GraphComponent</code> as a class-based React
             component.
           </p>
-
-          <p>To start the demo</p>
-          <ol>
-            <li>Go to the demo's directory <code>demos-ts/toolkit/react</code></li>
-            <li>Run <code>npm install</code></li>
-            <li>Run <code>npm run dev</code></li>
-          </ol>
-          <p>This will start the development server of the toolkit.</p>
-
+          <h2>Running the demo</h2>
+          <p>First, install the required npm modules in the demo directory:</p>
+          <pre><code class="language-sh">npm install
+</code></pre>
+          <p>Now, start the demo:</p>
+          <pre><code class="language-sh">npm run dev
+</code></pre>
           <p>
-            The integrated development server of the project will automatically update the
+            This will start the development server. This server will automatically update the
             application upon code changes.
           </p>
-
-          <h1>Deploying React with yFiles</h1>
-
+          <h2>Notes</h2>
           <p>
             There are no special issues that you need to look out for when you load yFiles as NPM
-            dependency as in this demo application. However, we recommend including the
-            <a href="https://www.npmjs.com/package/@yworks/optimizer" target="_blank"
-              >@yworks/optimizer</a
-            >
-            when you deploy your app for production.
+            dependency as in this demo application.
           </p>
           <p>
-            The optimizer will obfuscate the public API of the yFiles library files, as well as
-            yFiles API usages in application sources.
-          </p>
-          <p>
-            We highly recommend obfuscating the yFiles for HTML library prior to deploying your
-            application to a public web server to reduce the download size of the library for the
-            end user. Note that, at the time of writing, you are not required to use obfuscation.
+            Consider using the
+            <a href="https://www.npmjs.com/package/@yworks/optimizer">@yworks/optimizer</a> when you
+            deploy your app for production. This tool obfuscates the public API of the yFiles
+            library files and yFiles API usages in application sources, reducing the file size of
+            the production build.
           </p>
         </div>
         <!-- populated by readme-style.js -->

@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "types": ["node"],
+    "skipLibCheck": true,
+    "exactOptionalPropertyTypes": true,
+    "noEmit": true
+  },
+  "include": ["tests/**/*.ts", "util/**/*.ts", "vitest.config.ts"]
+}

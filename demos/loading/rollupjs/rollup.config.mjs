@@ -40,6 +40,6 @@ export default {
       console.log(warning.message)
     }
   },
-  input: { bundle: 'src/RollupJsDemo.js', LayoutWorker: 'src/LayoutWorker.js' },
+  input: { bundle: 'src/RollupJsDemo.js', 'layout-worker': 'src/layout-worker.js' },
   output: { dir: distDir, format: 'esm' }
 }

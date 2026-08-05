@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Hierarchical Layout with Exact Coordinates Demo - yFiles for HTML
+# Hierarchical Layout with Exact Coordinates Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/hierarchical-exact-coordinates.webp" alt="demo-thumbnail" height="320"/>
 

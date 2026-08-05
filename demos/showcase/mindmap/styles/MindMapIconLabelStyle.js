@@ -63,7 +63,7 @@ export const stateIcons = [
 
 /**
  * A label style that renders an icon (the state label) next to a text.
- * The StateIcon property of the {@link NodeData} will determine the icon that will be rendered.
+ * The StateIcon property of the {@link import('../data-types').NodeData} will determine the icon that will be rendered.
  * The placement of the icon is on the right (left) side of the text label for nodes on the
  * left (right) side of the tree.
  */

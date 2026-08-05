@@ -32,11 +32,9 @@ import {
   DragDropItem,
   DragSource,
   FilteredGraphWrapper,
-  GraphComponent,
   GraphCopier,
   GraphItemTypes,
   type GraphSnapContext,
-  HighlightIndicatorManager,
   type IBend,
   type IGraph,
   IHitTester,
@@ -59,7 +57,7 @@ import {
  * {@link ItemDropInputMode.snapContext snapContext} and
  * {@link ItemDropInputMode.highlightDropTarget highlighting} of the
  * {@link ItemDropInputMode.dropTarget dropTarget} via a
- * {@link HighlightIndicatorManager}. In addition, it supports dragging nodes into
+ * {@link import('@yfiles/yfiles').HighlightIndicatorManager}. In addition, it supports dragging nodes into
  * {@link IGraph.isGroupNode groups} and, optionally,
  * {@link IFoldingView.collapse folders}.
  */
@@ -107,7 +105,7 @@ export class GraphDropInputMode extends ItemDropInputMode<IGraph> {
    * @param context The context for which the graph should be created.
    * @param graph The target {@link IGraph graph} in which to create the dragged graph.
    * @param draggedGraph The graph that was dragged and should therefore be created.
-   * The items of the graph will be copied into the graph of the {@link GraphComponent}.
+   * The items of the graph will be copied into the graph of the {@link import('@yfiles/yfiles').GraphComponent}.
    * @param dropTarget The {@link IModelItem} on which the graph is dropped.
    * @param dropLocation The location where the graph has been dropped.
    * @returns A newly created graph.
@@ -160,7 +158,8 @@ export class GraphDropInputMode extends ItemDropInputMode<IGraph> {
 
     // return the dropped graph
     this.graphWrapper = new FilteredGraphWrapper(targetGraph, (node) => droppedNodes.has(node))
-
+    // update the content bounds of the target graph component
+    this.parentInputModeContext?.canvasComponent.updateContentBounds()
     return this.graphWrapper
   }
 

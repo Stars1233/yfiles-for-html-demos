@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Orthogonal Edge Editing Customization Demo - yFiles for HTML
+# Orthogonal Edge Editing Customization Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/orthogonal-edge-editing-customization.webp" alt="demo-thumbnail" height="320"/>
 

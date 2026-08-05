@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import type { Device } from './Device'
-import { Simulator } from './Simulator'
 
 /**
  * Represents a connection in the network.
@@ -52,7 +51,7 @@ export class Connection {
    * The load of this connection.
    * Load is a value between 0 and 1 that indicates how utilized the connection is (with 0 being
    * not at all and 1 being fully). Load also factors into the failure probability of connections
-   * in the {@link Simulator}.
+   * in the {@link import('./Simulator').Simulator}.
    */
   load = 0
 

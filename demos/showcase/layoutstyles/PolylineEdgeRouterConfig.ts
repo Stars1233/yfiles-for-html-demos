@@ -54,8 +54,7 @@ import {
   LabelPlacementAlongEdge,
   LabelPlacementOrientation,
   LabelPlacementSideOfEdge,
-  LayoutConfiguration,
-  Scope
+  LayoutConfiguration
 } from './LayoutConfiguration'
 import {
   ComponentAttribute,
@@ -741,7 +740,7 @@ export const PolylineEdgeRouterConfig = (Class as any)('PolylineEdgeRouterConfig
     }
   },
 
-  /** @type {Scope} */
+  /** @type {import('./LayoutConfiguration').Scope} */
   scopeItem: null,
 
   /** @type {EdgeRouterCosts} */

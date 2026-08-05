@@ -30,14 +30,10 @@
 
 import './demo-overview-page.css'
 
-import { type DemoCategory, type DemoEntry, getCategoryNames, getDemos } from '../demo-data'
-
-type ExtendedDemoEntry = DemoEntry & Partial<{ element: HTMLElement; availableInPackage: boolean }>
+import { getCategoryNames, getDemos } from '../demo-data'
 
 const allDemos = getDemos()
-const others = allDemos.filter((d) => !d.demoPath.startsWith('tutorial'))
-const tutorialDemos = allDemos.filter((d) => d.demoPath.startsWith('tutorial'))
-const categoryNames: Record<DemoCategory, string> = getCategoryNames()
+const categoryNames = getCategoryNames()
 
 // @ts-ignore
 const isViewerPackage = 'Viewer' === 'Complete'
@@ -54,19 +50,19 @@ const layoutCategories = [
   'tutorial-graph-builder'
 ]
 
-const demos: ExtendedDemoEntry[] = allDemos
+const demos = allDemos
 
 const tutorialIds = demos
   .filter((item) => item.category?.startsWith('tutorial'))
   .map((item) => item.id)
 
-const demoGrid = document.getElementById('demo-grid')!
+const demoGrid = document.getElementById('demo-grid')
 demoGrid.className = 'responsive-css-grid'
-const searchBox = document.querySelector<HTMLInputElement>('#search')!
-const noSearchResultsElement = document.querySelector<HTMLElement>('#no-search-results')!
-const resetSearchButton = document.querySelector('.reset-search')!
+const searchBox = document.querySelector('#search')
+const noSearchResultsElement = document.querySelector('#no-search-results')
+const resetSearchButton = document.querySelector('.reset-search')
 
-let activeCategory: HTMLInputElement | null
+let activeCategory
 
 //creating the grid
 
@@ -76,7 +72,7 @@ demos.forEach((demo, index) => {
   demo.element = gridItem
 })
 
-function createGridItem(demo: ExtendedDemoEntry, index: number): HTMLElement {
+function createGridItem(demo, index) {
   const gridItem = document.createElement('div')
   gridItem.className = `grid-item`
 
@@ -116,9 +112,7 @@ function createGridItem(demo: ExtendedDemoEntry, index: number): HTMLElement {
     gridItem.classList.add('not-available')
     const notAvailableNotice = document.createElement('div')
     notAvailableNotice.className = 'not-available-notice'
-    notAvailableNotice.innerHTML = `<div>Requires "${
-      isViewerPackage ? 'layout' : 'viewer'
-    }" features to run.</div>
+    notAvailableNotice.innerHTML = `<div>Requires "${isViewerPackage ? 'layout' : 'viewer'}" features to run.</div>
          <div><a href="https://www.yfiles.com/demos/${demo.demoPath}">Run it online</a>
           or view the source code files.</div>`
     gridItem.appendChild(notAvailableNotice)
@@ -139,20 +133,20 @@ searchBox.addEventListener('click', searchBoxClicked)
 searchBox.addEventListener('blur', () => {
   searchBox.addEventListener('click', searchBoxClicked)
 })
-resetSearchButton!.addEventListener('click', () => {
+resetSearchButton.addEventListener('click', () => {
   searchBox.value = ''
 })
 
-let updatePillsContainerHeight: () => void = () => {}
+let updatePillsContainerHeight = () => {}
 
 createStickySearchHeader()
 initializeCategoryPills()
 
 function createStickySearchHeader() {
-  const overviewMain = document.querySelector<HTMLElement>('.overview-main-container')!
-  const overviewHeader = document.querySelector<HTMLElement>('.overview-search-header')!
-  const headerAnchor = document.querySelector<HTMLElement>('.overview-header-anchor')!
-  const header = document.querySelector<HTMLElement>('.header')!
+  const overviewMain = document.querySelector('.overview-main-container')
+  const overviewHeader = document.querySelector('.overview-search-header')
+  const headerAnchor = document.querySelector('.overview-header-anchor')
+  const header = document.querySelector('.header')
   const FIXED_HEADER_CLASS = 'header-sticky'
 
   const siteHeaderHeight = header.clientHeight
@@ -169,10 +163,10 @@ function createStickySearchHeader() {
 }
 
 function initializeCategoryPills() {
-  const pillsContainer = document.querySelector<HTMLElement>('.category-pills')!
-  const pills: { element: HTMLElement; searchValue: string }[] = []
+  const pillsContainer = document.querySelector('.category-pills')
+  const pills = []
 
-  const seenCategories = new Set<string>()
+  const seenCategories = new Set()
 
   demos.forEach((demo) => {
     const category = demo.category
@@ -227,7 +221,7 @@ function searchBoxClicked() {
   searchBox.removeEventListener('click', searchBoxClicked)
 }
 
-function filterDemos(searchTerm: string, categoryFilter = '') {
+function filterDemos(searchTerm, categoryFilter = '') {
   let noSearchResults = true
   const searchBoxEmpty = searchTerm === ''
 
@@ -262,13 +256,13 @@ function filterDemos(searchTerm: string, categoryFilter = '') {
   sortedDemos.forEach((item, index) => {
     const demo = item.demo
     // Reorder the nodes in each grid section
-    const demoElement = demo.element!
-    demoElement.parentElement!.appendChild(demoElement)
+    const demoElement = demo.element
+    demoElement.parentElement.appendChild(demoElement)
 
     // Update the tabindex.
-    demo
-      .element!.querySelector('.title')!
-      .firstElementChild!.setAttribute('tabindex', String(index + baseTabIndex))
+    demo.element
+      .querySelector('.title')
+      .firstElementChild.setAttribute('tabindex', String(index + baseTabIndex))
 
     if (searchBoxEmpty && demo.hiddenInGrid) {
       // the search box is empty ...
@@ -308,14 +302,14 @@ function filterDemos(searchTerm: string, categoryFilter = '') {
         allHidden = false
         // Update the tabindex.
         demoCard
-          .querySelector('.title')!
-          .firstElementChild!.setAttribute('tabindex', `${baseTabIndex++}`)
+          .querySelector('.title')
+          .firstElementChild.setAttribute('tabindex', `${baseTabIndex++}`)
       }
     }
     if (allHidden) {
-      document.getElementById(id + '-header')!.style.display = 'none'
+      document.getElementById(id + '-header').style.display = 'none'
     } else {
-      document.getElementById(id + '-header')!.style.display = 'block'
+      document.getElementById(id + '-header').style.display = 'block'
     }
   })
   noSearchResultsElement.style.display = noSearchResults ? 'flex' : 'none'
@@ -331,13 +325,13 @@ function searchBoxChanged() {
   changeTextContent('')
 }
 
-function getDemosWithDescriptionElement(): HTMLElement[] {
+function getDemosWithDescriptionElement() {
   return demos
     .map((item) => document.getElementById(item.category))
-    .filter((element): element is HTMLElement => element != null)
+    .filter((element) => element != null)
 }
 
-function changeTextContent(categoryName: string) {
+function changeTextContent(categoryName) {
   for (const element of getDemosWithDescriptionElement()) {
     element.style.display = 'none'
   }
@@ -353,7 +347,7 @@ function changeTextContent(categoryName: string) {
  * @returns The quality of the match in the range [0-100]. Higher quality is better,
  *   and the value is 0 if the demo doesn't match at all.
  */
-function matchDemo(demo: ExtendedDemoEntry, needle: string, categoryFilter: string): number {
+function matchDemo(demo, needle, categoryFilter) {
   if (categoryFilter && demo.category !== categoryFilter) {
     return 0
   }
@@ -380,8 +374,8 @@ function matchDemo(demo: ExtendedDemoEntry, needle: string, categoryFilter: stri
  * @returns The quality of the match in the range [0-100]. Higher quality is better,
  *   and the value is 0 if the demo doesn't match at all.
  */
-function matchWord(demo: ExtendedDemoEntry, word: string): number {
-  const regex = new RegExp(word, 'gi')
+function matchWord(demo, word) {
+  const regex = new RegExp(regexpEscape(word), 'gi')
   if (regex.test(demo.name)) {
     return 100
   }
@@ -394,17 +388,21 @@ function matchWord(demo: ExtendedDemoEntry, word: string): number {
   return regex.test(demo.summary) ? 15 : 0
 }
 
-function normalize(word: string) {
+function normalize(word) {
   return word.replaceAll(/\s|-/g, '')
 }
 
-export function debounce<T extends unknown[], U>(
-  callback: (...args: T) => PromiseLike<U> | U,
-  wait: number
-) {
-  let timer: ReturnType<typeof setTimeout> | undefined
+/**
+ * Applies the Regexp.escape function if available and returns the original content otherwise.
+ */
+function regexpEscape(content) {
+  return RegExp.escape?.(content) ?? content
+}
 
-  return (...args: T): Promise<U> => {
+export function debounce(callback, wait) {
+  let timer
+
+  return (...args) => {
     if (timer) clearTimeout(timer)
 
     return new Promise((resolve) => {

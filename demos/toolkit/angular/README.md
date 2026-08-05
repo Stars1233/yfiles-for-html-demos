@@ -9,14 +9,25 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
+# Angular Demo – yFiles for HTML
+
 <img src="../../../doc/demo-thumbnails/angular.webp" alt="demo-thumbnail" height="320"/>
 
-The Angular Demo shows the integration of yFiles for HTML with [Angular](https://angular.dev/).
+This shows the integration of yFiles for HTML with [Angular](https://angular.dev/).
 
-To start the demo
+## Running the demo
 
-1.  Go to the demo's directory `demos-ts/toolkit/angular`.
-2.  Run `npm install`.
-3.  Run `npm start`.
+First, install the required npm modules in the demo directory:
 
-This will compile the app and launch a debugging server that will serve the demo application. Source code changes will be compiled and displayed automatically.
+```sh
+npm install
+```
+
+Now, start the demo:
+
+```sh
+npm start
+```
+
+This will compile the app and launch a debugging server that will serve the demo application.
+Source code changes will be compiled and displayed automatically.

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Octilinear Edge Editing Demo - yFiles for HTML
+# Octilinear Edge Editing Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/octilinear-edge-editing.webp" alt="demo-thumbnail" height="320"/>
 

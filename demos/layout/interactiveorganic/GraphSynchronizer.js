@@ -34,7 +34,7 @@ import { Rect } from '@yfiles/yfiles'
  * The graphs are synchronized both ways: changes in either graph are reflected
  * on the other graph. Both graphs must be empty when initializing the {@link GraphSynchronizer}s.
  *
- * This class only synchronizes structural changes. It does not synchronize labels, bends, ports
+ * This class only synchronizes structural changes. It does not synchronize labels, bends, ports,
  * or styles.
  */
 export class GraphSynchronizer {

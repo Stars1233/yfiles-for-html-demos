@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Sankey Diagram Demo - yFiles for HTML
+# Sankey Diagram Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/sankey-diagram.webp" alt="demo-thumbnail" height="320"/>
 

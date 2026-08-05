@@ -30,6 +30,7 @@ import {
   ComponentArrangementStyle,
   EdgeLabelPreferredPlacement,
   GenericLabelingData,
+  LayoutExecutor,
   OrganicLayout,
   OrganicLayoutData,
   OrganicScope
@@ -47,6 +48,7 @@ export async function runLayout(graphComponent, animated = false, affectedNodes)
   const { layout, layoutData } = getOrganicLayoutConfiguration(affectedNodes)
 
   setUIDisabled(true, graphComponent)
+  LayoutExecutor.ensure()
   await graphComponent.applyLayoutAnimated(layout, animated ? '0.5s' : '0s', layoutData)
   setUIDisabled(false, graphComponent)
 }

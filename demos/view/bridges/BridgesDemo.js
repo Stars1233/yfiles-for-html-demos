@@ -37,8 +37,7 @@ import {
   HierarchicalNestingPolicy,
   Insets,
   License,
-  Point,
-  Rect
+  Point
 } from '@yfiles/yfiles'
 
 import { CustomCallback, GroupNodeObstacleProvider } from './BridgeHelper'

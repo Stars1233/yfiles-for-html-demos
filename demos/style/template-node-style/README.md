@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Template Node Style Demo - yFiles for HTML
+# Template Node Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/template-node-style.webp" alt="demo-thumbnail" height="320"/>
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Edge Bundling Demo - yFiles for HTML
+# Edge Bundling Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/edge-bundling.webp" alt="demo-thumbnail" height="320"/>
 

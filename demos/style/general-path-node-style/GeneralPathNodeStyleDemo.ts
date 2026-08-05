@@ -324,12 +324,7 @@ function createCustomNodes(graph: IGraph): void {
 function createFactoryNodeStyle(
   direction: 'right' | 'left',
   colorSetName:
-    | 'demo-orange'
-    | 'demo-blue'
-    | 'demo-red'
-    | 'demo-green'
-    | 'demo-purple'
-    | 'demo-lightblue'
+    'demo-orange' | 'demo-blue' | 'demo-red' | 'demo-green' | 'demo-purple' | 'demo-lightblue'
 ): GeneralPathNodeStyle {
   const colorSet = colorSets[colorSetName]
   const generalPath = new GeneralPath()
@@ -379,12 +374,7 @@ function createFactoryNodeStyle(
  */
 function createPersonNodeStyle(
   colorSetName:
-    | 'demo-orange'
-    | 'demo-blue'
-    | 'demo-red'
-    | 'demo-green'
-    | 'demo-purple'
-    | 'demo-lightblue'
+    'demo-orange' | 'demo-blue' | 'demo-red' | 'demo-green' | 'demo-purple' | 'demo-lightblue'
 ): GeneralPathNodeStyle {
   const colorSet = colorSets[colorSetName]
   const generalPath = new GeneralPath()
@@ -407,12 +397,7 @@ function createPersonNodeStyle(
  */
 function createComputerNodeStyle(
   colorSetName:
-    | 'demo-orange'
-    | 'demo-blue'
-    | 'demo-red'
-    | 'demo-green'
-    | 'demo-purple'
-    | 'demo-lightblue'
+    'demo-orange' | 'demo-blue' | 'demo-red' | 'demo-green' | 'demo-purple' | 'demo-lightblue'
 ): GeneralPathNodeStyle {
   const colorSet = colorSets[colorSetName]
   const generalPath = new GeneralPath()
@@ -435,12 +420,7 @@ function createComputerNodeStyle(
  */
 function createAirplaneNodeStyle(
   colorSetName:
-    | 'demo-orange'
-    | 'demo-blue'
-    | 'demo-red'
-    | 'demo-green'
-    | 'demo-purple'
-    | 'demo-lightblue'
+    'demo-orange' | 'demo-blue' | 'demo-red' | 'demo-green' | 'demo-purple' | 'demo-lightblue'
 ): GeneralPathNodeStyle {
   const colorSet = colorSets[colorSetName]
   const generalPath = new GeneralPath()

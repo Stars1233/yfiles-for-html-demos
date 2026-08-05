@@ -40,35 +40,35 @@
     <main>
       <div class="simple content-centered">
         <div class="content">
-          <div class="breadcrumbs">
-            <a href="../../README.html">yFiles for HTML</a>
-            <span class="angle-right"></span>
-            Vue Demo
-          </div>
-
-          <h1>Vue Demo</h1>
-
+          <h1>Vue Demo – yFiles for HTML</h1>
           <p>
             This demo shows how to integrate yFiles in a basic
-            <a href="https://github.com/vuejs/create-vue" target="_blank">create-vue</a>
-            setup with Vue 3 and TypeScript.
+            <a href="https://github.com/vuejs/create-vue">create-vue</a> project.
           </p>
-
-          <p>To start the demo</p>
+          <h2>Running the demo</h2>
           <p>
-            The demo was scaffolded using
-            <code>create-vue</code>
-            , thus the following steps are required to start it:
+            The demo was scaffolded using <code>create-vue</code>, thus the following steps are
+            required to start it:
           </p>
-          <code>
-            > npm install
-            <br />
-            > npm run dev
-          </code>
+          <p>First, install the required npm modules in the demo directory:</p>
+          <pre><code class="language-sh">npm install
+</code></pre>
           <p>
-            This will start the
-            <a href="https://vitejs.dev/" target="_blank">Vite</a>
-            development server.
+            Now, start the demo in its <a href="https://vitejs.dev/">Vite</a> development server:
+          </p>
+          <pre><code class="language-sh">npm run dev
+</code></pre>
+          <h2>Notes</h2>
+          <p>
+            There are no special issues that you need to look out for when you load yFiles as NPM
+            dependency as in this demo application.
+          </p>
+          <p>
+            Consider using the
+            <a href="https://www.npmjs.com/package/@yworks/optimizer">@yworks/optimizer</a> when you
+            deploy your app for production. This tool obfuscates the public API of the yFiles
+            library files and yFiles API usages in application sources, reducing the file size of
+            the production build.
           </p>
         </div>
         <!-- populated by readme-style.js -->

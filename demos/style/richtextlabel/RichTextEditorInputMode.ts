@@ -30,7 +30,6 @@ import {
   type GraphEditorInputMode,
   type ILabel,
   type LabelEditingEventArgs,
-  MarkupLabelStyle,
   TextEditorInputMode
 } from '@yfiles/yfiles'
 import Quill from 'quill'
@@ -40,7 +39,7 @@ import 'quill/dist/quill.snow.css'
 
 /**
  * A custom {@link TextEditorInputMode} which utilizes Quill to provide a WYSIWYG text editor that
- * allows to easily create labels with the {@link MarkupLabelStyle}.
+ * allows to easily create labels with the {@link import('@yfiles/yfiles').MarkupLabelStyle}.
  */
 export class RichTextEditorInputMode extends TextEditorInputMode {
   private quill: Quill

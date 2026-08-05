@@ -12,20 +12,20 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@fontsource/material-symbols-outlined": "^5.2.1",
-    "@fontsource/poppins": "^5.2.7",
-    "@mui/icons-material": "^7.3.6",
-    "@mui/material": "^7.3.6",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.1+dev.tgz"
+    "@fontsource/material-symbols-outlined": "^5.3.1",
+    "@fontsource/poppins": "^5.3.0",
+    "@mui/icons-material": "^9.2.0",
+    "@mui/material": "^9.2.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.2+dev.tgz"
   },
   "devDependencies": {
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^5.1.2",
-    "@yworks/optimizer": "^1.8.9",
-    "typescript": "~6.0.2",
-    "vite": "^7.3.0"
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.0.5",
+    "@yworks/optimizer": "^1.9.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.2.0"
   }
 }

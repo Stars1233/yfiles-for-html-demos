@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Shape Port Style Demo - yFiles for HTML
+# Shape Port Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/shape-port-style.webp" alt="demo-thumbnail" height="320"/>
 

@@ -58,6 +58,12 @@ export class ViewportManager {
     this.onStylesUpdate = onStylesUpdate
     this.coordinateMapping = coordinateMapping
     this.graphComponent = graphComponent
+
+    this.graphComponent.addEventListener('viewport-changed', () => {
+      this.renderTimescale(
+        this.calculateVisibleRange(this.graphComponent.viewport, this.coordinateMapping.stretchX)
+      )
+    })
   }
 
   /**
@@ -173,7 +179,12 @@ export class ViewportManager {
       ? stretchY
       : [this.coordinateMapping.stretchY, stretchY]
 
-    if (stretchXValues[1] < 0.00001 || stretchYValues[1] < 0.00001) {
+    if (
+      stretchXValues[1] < 0.00001 ||
+      stretchYValues[1] < 0.00001 ||
+      stretchXValues[1] > 200 ||
+      stretchYValues[1] > 200
+    ) {
       return
     }
 
@@ -225,10 +236,6 @@ export class ViewportManager {
         panTargetY !== undefined
           ? interpolateLinear(startViewPointY, panTargetY, t)
           : zoomCorrectedViewPoint.y
-      )
-
-      this.renderTimescale(
-        this.calculateVisibleRange(this.graphComponent.viewport, currentStretchX)
       )
     }, TimeSpan.from(duration))
 

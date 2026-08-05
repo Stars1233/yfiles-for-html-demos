@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Simple Arrow Style Demo - yFiles for HTML
+# Simple Arrow Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/simple-arrow-style.webp" alt="demo-thumbnail" height="320"/>
 

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Label Editing Demo - yFiles for HTML
+# Label Editing Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/label-editing.webp" alt="demo-thumbnail" height="320"/>
 

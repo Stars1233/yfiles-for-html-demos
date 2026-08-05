@@ -32,7 +32,6 @@ import {
   IHitTestable,
   IObjectRenderer,
   type IRenderContext,
-  IRenderTreeElement,
   IVisibilityTestable,
   IVisualCreator,
   type MutableRectangle,
@@ -47,7 +46,7 @@ export class LimitingRectangleRenderer extends BaseClass(IObjectRenderer, IVisua
   private rectangle: MutableRectangle = null!
 
   /**
-   * Gets the {@link IVisualCreator} for a given {@link IRenderTreeElement}.
+   * Gets the {@link IVisualCreator} for a given {@link import('@yfiles/yfiles').IRenderTreeElement}.
    */
   getVisualCreator(renderTag: object): IVisualCreator {
     this.rectangle = renderTag as MutableRectangle

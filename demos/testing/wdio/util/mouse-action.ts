@@ -30,8 +30,7 @@ import { getItemWorldLocation, getPageCoordinates } from './graph-util'
 
 export type PointLike = { x: number; y: number }
 export type PointLikeArgs =
-  | PointLike
-  | { _nodeIndex?: number; _edgeIndex?: number; _labelIndex?: number }
+  PointLike | { _nodeIndex?: number; _edgeIndex?: number; _labelIndex?: number }
 export type ModifierKeys = 'Shift' | 'Control' | 'Alt' | 'Meta' | 'ControlOrMeta'
 
 /**

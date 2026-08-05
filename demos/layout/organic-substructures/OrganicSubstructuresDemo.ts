@@ -27,6 +27,7 @@
  **
  ***************************************************************************/
 import {
+  CircularLayout,
   Graph,
   GraphComponent,
   GraphEditorInputMode,
@@ -46,8 +47,10 @@ import {
   OrganicLayoutParallelSubstructureStyle,
   OrganicLayoutStarSubstructureStyle,
   OrganicLayoutTreeSubstructureStyle,
+  RadialLayout,
   ShapeNodeStyle,
-  Size
+  Size,
+  TreeLayout
 } from '@yfiles/yfiles'
 import { NodeTypePanel } from '@yfiles/demo-utils/NodeTypePanel'
 import type { ColorSetName } from '@yfiles/demo-app/demo-styles'
@@ -226,6 +229,8 @@ function getNodeType(node: INode): number {
 function getCycleStyle(): OrganicLayoutCycleSubstructureStyle {
   switch (getSelectedValue('cycleStyle')) {
     case 'CIRCULAR':
+      // make sure the circular module is loaded to support the circular substructure style
+      CircularLayout.ensure()
       return OrganicLayoutCycleSubstructureStyle.CIRCULAR
     default:
       return OrganicLayoutCycleSubstructureStyle.NONE
@@ -288,8 +293,12 @@ function getTreeStyle(): OrganicLayoutTreeSubstructureStyle {
     case 'RADIAL_TREE':
       return OrganicLayoutTreeSubstructureStyle.RADIAL_TREE
     case 'RADIAL':
+      // make sure the radial module is loaded to support the radial substructure style
+      RadialLayout.ensure()
       return OrganicLayoutTreeSubstructureStyle.RADIAL
     case 'ORIENTED':
+      // make sure the tree module is loaded to support the oriented substructure style
+      TreeLayout.ensure()
       return OrganicLayoutTreeSubstructureStyle.ORIENTED
     default:
       return OrganicLayoutTreeSubstructureStyle.NONE

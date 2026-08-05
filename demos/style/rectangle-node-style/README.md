@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Rectangle Node Style Demo - yFiles for HTML
+# Rectangle Node Style Demo – yFiles for HTML
 
 <img src="../../../doc/demo-thumbnails/rectangle-node-style.webp" alt="demo-thumbnail" height="320"/>
 
