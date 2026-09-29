@@ -33,6 +33,8 @@ export class NavigationComponent extends HTMLElement {
   _items = []
   _selectedItem = null
   _disabled = false
+  _showLabel = true
+  navigationContainer
   itemsElement
 
   constructor() {
@@ -86,7 +88,7 @@ export class NavigationComponent extends HTMLElement {
         }
 
         &.selected {
-          background: #4caf50;
+          background: var(--navigation-selection);
           color: white;
         }
       }
@@ -100,11 +102,12 @@ export class NavigationComponent extends HTMLElement {
   }
 </style>
 <div id="navigation-container">
-  <span class="navigation-label">You are here:</span>
   <span class="navigation-items"></span>
 </div>
     `
+    this.navigationContainer = shadowRoot.querySelector('#navigation-container')
     this.itemsElement = shadowRoot.querySelector('.navigation-items')
+    this.render()
   }
 
   /**
@@ -154,8 +157,34 @@ export class NavigationComponent extends HTMLElement {
     })
   }
 
+  /**
+   * Gets whether the navigation label is visible.
+   */
+  get showLabel() {
+    return this._showLabel
+  }
+
+  /**
+   * Sets whether the navigation label is rendered.
+   */
+  set showLabel(value) {
+    this._showLabel = value
+    this.render()
+  }
+
   render() {
     this.itemsElement.innerHTML = ''
+
+    const existingLabel = this.navigationContainer.querySelector('.navigation-label')
+    existingLabel?.remove()
+
+    if (this._showLabel) {
+      const label = document.createElement('span')
+      label.classList.add('navigation-label')
+      label.textContent = 'You are here:'
+      this.navigationContainer.insertBefore(label, this.itemsElement)
+    }
+
     const ancestors = [...this._items]
 
     if (ancestors.length === 0) {

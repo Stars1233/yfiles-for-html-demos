@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/layout/busrouting/).
 
+Demo
+
 This demo shows how to create bus structures using [EdgeRouter](https://docs.yworks.com/yfileshtml/api/EdgeRouter).
 
 ## Things to Try

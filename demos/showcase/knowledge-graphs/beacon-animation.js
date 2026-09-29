@@ -26,10 +26,8 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { WebGLGraphModelManagerRenderMode } from '@yfiles/yfiles'
+import { WebGLGraphModelManager } from '@yfiles/yfiles'
 import { getEdgeTag, getNodeTag } from './types'
-import { filterApplied, resetFiltering, setFilteringPanelDisabled } from './filter-panel'
-import { showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
 
 /** Tracks whether a beacon animation is currently active. */
 let beaconActive = false
@@ -44,31 +42,21 @@ const beaconInputElement = document.querySelector('#error-beacon-animation')
  *
  * @param graphComponent - The GraphComponent whose WebGLGraphModelManager will be used
  *                         to register animations on graph items with problems.
- * @param filteringCallback - The callback function in case where the filtering has to be reset
+ * @param supportsWebGL2 - Whether the browser supports WebGL2
  */
-export function initializeErrorBeaconAnimation(graphComponent, filteringCallback) {
-  const supportsWebGL =
-    graphComponent.graphModelManager.renderMode === WebGLGraphModelManagerRenderMode.WEBGL
-  if (!supportsWebGL) {
-    const errorAnimationElement = document.querySelector('#error-animation')
-    errorAnimationElement.title = 'Available only when WebGL is supported'
-    beaconInputElement.disabled = true
-  }
-  beaconInputElement.addEventListener('change', async (e) => {
-    if (e.currentTarget.checked) {
-      await resetFiltering(graphComponent, true)
-      if (filterApplied) {
-        await showLoadingIndicator(true, 'Calculating the layout. This might take a while...')
-        await filteringCallback()
-        await showLoadingIndicator(false)
+export function initializeErrorBeaconAnimation(graphComponent, supportsWebGL2) {
+  const errorAnimationElement = document.querySelector('#error-animation')
+  errorAnimationElement.title = 'Available only when WebGL is supported'
+  beaconInputElement.disabled = true
+  if (supportsWebGL2) {
+    beaconInputElement.addEventListener('change', async (e) => {
+      if (e.currentTarget.checked) {
+        await startBeaconAnimation(graphComponent)
+      } else {
+        await stopBeaconAnimation()
       }
-      setFilteringPanelDisabled(true)
-      await startBeaconAnimation(graphComponent)
-    } else {
-      await stopBeaconAnimation()
-      setFilteringPanelDisabled(false)
-    }
-  })
+    })
+  }
 }
 
 /**
@@ -120,15 +108,18 @@ async function stopBeaconAnimation() {
  */
 export async function resetBeaconAnimation() {
   await stopBeaconAnimation()
+  beaconInputElement.checked = false
 }
 
 /**
  * Removes any animations registered on the provided graph item (node or edge).
  *
- * @param graphComponent - The GraphComponent whose graphModelManager will be used.
- * @param item - The INode or IEdge to clear animations from.
+ * @param graphComponent - The GraphComponent whose graphModelManager will be used
+ * @param item - The INode or IEdge to clear animations from
  */
 export function removeBeaconAnimation(graphComponent, item) {
-  const graphModelManager = graphComponent.graphModelManager
-  graphModelManager.setAnimations(item, [])
+  const supportsWebGL = graphComponent.graphModelManager instanceof WebGLGraphModelManager
+  if (supportsWebGL) {
+    graphComponent.graphModelManager.setAnimations(item, [])
+  }
 }

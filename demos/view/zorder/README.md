@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/view/zorder/).
 
+Demo
+
 This demo customizes editing gestures to keep the z-order of nodes consistent.
 
 ## Usage

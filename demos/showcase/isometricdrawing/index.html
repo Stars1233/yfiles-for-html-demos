@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Isometric Drawing Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -145,6 +142,12 @@
     <script type="module" async>
       import '@yfiles/demo-app/initialize-ui'
     </script>
+
+    <style>
+      .yfiles-canvascomponent {
+        --yfiles-theme-scale: 2;
+      }
+    </style>
   </head>
   <body class="demo-modern">
     <div id="splash-screen">
@@ -413,18 +416,48 @@
             Orthogonal
           </button>
           <span class="separator"></span>
+          <span>
+            <label for="view-mode">View:</label>
+            <select id="view-mode" aria-label="Visual mode">
+              <option value="pseudo3d" selected>Pseudo3D</option>
+              <option value="isometric">Isometric</option>
+            </select>
+          </span>
+          <span class="separator"></span>
           <label>
             Rotation:
             <input
               style="width: 200px; max-width: 100%; line-height: 24px; vertical-align: middle"
               type="range"
-              min="-3.14"
-              max="3.14"
-              step="0.01"
+              min="0"
+              max="360"
+              step="1"
               id="rotation"
             />
           </label>
+          <span id="inclination-control">
+            <label>
+              Inclination:
+              <input
+                style="width: 200px; max-width: 100%; line-height: 24px; vertical-align: middle"
+                type="range"
+                min="10"
+                max="90"
+                step="1"
+                id="inclination"
+              />
+            </label>
+          </span>
           <span class="separator"></span>
+          <div>
+            <input type="checkbox" id="demo-orthogonal-editing-button" checked />
+            <label
+              for="demo-orthogonal-editing-button"
+              class="yIcon"
+              title="Toggle orthogonal editing"
+              >orthogonal_editing</label
+            >
+          </div>
           <div>
             <input type="checkbox" id="grid-toggle" checked="" />
             <label for="grid-toggle" class="material-symbols-outlined" title="Show Grid"
@@ -435,49 +468,68 @@
         <div id="graphComponent"></div>
       </div>
       <div class="description-panel">
-        <h1>Isometric Drawing Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Isometric Drawing</h1>
 
-        <p>
-          This demo displays graphs isometrically, adding an additional dimension to the
-          visualization. This can be used to represent characteristics of the business data as
-          height, or just because of the beautiful looks.
+        <p id="pseudo3d-description">
+          This demo uses advanced features of yFiles to render complex SVG node and edge styles in a
+          <a href="https://docs.yworks.com/yfileshtml/dguide/projections-main" class="dguide" target="_blank">projected</a> perspective, adding a third dimension.
         </p>
-
-        <p>
-          In this demo, WebGL is used for the rendering but the
-          <a href="https://docs.yworks.com/yfileshtml/dguide/projections-main" class="dguide" target="_blank">projection</a> feature of yFiles for HTML supports SVG
-          and HTML Canvas rendering, too.
+        <p id="isometric-description" hidden>
+          This view uses a compact isometric projection with simple node styles and a dedicated
+          z-order comparator, making the implementation easy to study and reuse.
         </p>
 
         <h2>Interaction</h2>
 
         <p>
-          This demo features the full range of interactions
-          <a href="https://docs.yworks.com/yfileshtml/dguide/interaction-support" class="dguide" target="_blank">supported by yFiles</a>. In addition, each node has
-          an special handle at its top to change the height of the node.
+          The visualization features the full range of interactions
+          <a href="https://docs.yworks.com/yfileshtml/dguide/interaction-support" class="dguide" target="_blank">supported by yFiles</a>. In addition, each node has a
+          special handle at its top to change the height of the node.
+        </p>
+        <p id="pseudo3d-interaction">
+          A custom InputMode is used that allows controlling the rotation and inclination of the
+          scene.
+        </p>
+        <p id="isometric-interaction" hidden>
+          The isometric view uses a fixed projection inclination; use the rotation slider to change
+          its viewing direction.
         </p>
 
         <h2>Things to Try</h2>
 
-        <ul>
-          <li>Change the height of a node by selecting it and dragging the handle at its top.</li>
-          <li>Change the rotation of the scene with the "Rotation" slider in the toolbar.</li>
-          <li>Turn the grid on or off with the "Toggle Grid" button in the toolbar.</li>
+        <ul id="pseudo3d-things-to-try">
           <li>
-            Create a new node with a random color and height by clicking on empty space in the
-            canvas.
+            Use the right mouse button to orbit the scene and the middle mouse button to move it.
+          </li>
+          <li>Change the rotation or inclination of the scene with the sliders in the toolbar.</li>
+          <li>Change the height of a node by selecting it and dragging the handle at its top.</li>
+          <li>
+            Create new nodes by clicking on empty space in the canvas, or change groupings with ctrl
+            + g
+          </li>
+        </ul>
+        <ul id="isometric-things-to-try" hidden>
+          <li>Change the viewing direction with the rotation slider in the toolbar.</li>
+          <li>Change the height of a node by selecting it and dragging the handle at its top.</li>
+          <li>
+            Create new nodes by clicking on empty space in the canvas, or change groupings with ctrl
+            + g
           </li>
         </ul>
 
         <h2>Layout</h2>
-        <p>There are two suitable layout algorithms to apply to the graph.</p>
+        <p>There are two layout algorithms to apply to the graph:</p>
         <ul>
           <li>Hierarchical layout</li>
           <li>Orthogonal layout</li>
         </ul>
 
         <h2>Loading Graphs</h2>
-        <p>Load your own graph and display it isometrically.</p>
+        <p>
+          Load your own graph and display it in the selected view. Note that the active view's
+          default styles are applied to the nodes in your GraphML.
+        </p>
       </div>
       <div class="panel-bar"></div>
     </div>

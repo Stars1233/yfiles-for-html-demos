@@ -31,7 +31,6 @@ export interface Person {
   name: string
   email: string
   phone: string
-  fax: string
   businessUnit: string
   status: string
   icon: string
@@ -45,7 +44,6 @@ export class SveltePerson implements Person {
   name = $state('')
   email = $state('')
   phone = $state('')
-  fax = $state('')
   businessUnit = $state('')
   status = $state('')
   icon = $state('')
@@ -55,7 +53,6 @@ export class SveltePerson implements Person {
     this.name = data.name
     this.email = data.email
     this.phone = data.phone
-    this.fax = data.fax
     this.businessUnit = data.businessUnit
     this.status = data.status
     this.icon = data.icon

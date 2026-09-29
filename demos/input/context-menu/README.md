@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/input/context-menu/).
 
+Demo
+
 This demo shows how to add a context menu to the nodes of a graph and to the canvas background.
 
 ## Things to Try

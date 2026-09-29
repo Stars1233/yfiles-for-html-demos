@@ -15,11 +15,15 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/showcase/networkmonitoring/).
 
+Demo
+
 This demo shows a basic network monitoring tool. Watch the traffic flowing through the network.
 
 The network consists of PCs, Laptops, Tablets, Servers, Databases and Routers. The color of a connection depicts its traffic load and changes from green to yellow to red. The traffic load of a node is shown on its control panel pop-up.
 
 The bar charts in the node popups are created using [D3.js](https://d3js.org/).
+
+A heatmap displays the current traffic of nodes and edges (available only in browsers that support WebGL).
 
 ## Things to Try
 

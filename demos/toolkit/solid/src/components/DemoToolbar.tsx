@@ -28,7 +28,6 @@
  ***************************************************************************/
 import { Command, GraphComponent } from '@yfiles/yfiles'
 import { onMount } from 'solid-js'
-import './DemoToolbar.css'
 
 type DemoToolbarProps = {
   graphComponent: () => GraphComponent
@@ -54,7 +53,7 @@ export const DemoToolbar = (props: DemoToolbarProps) => {
   })
 
   return (
-    <div class="demo-page__toolbar">
+    <div class="component-toolbar">
       <button title="Zoom In" onClick={() => commandCallbacks.zoomIn()}>
         <span class="material-symbols-outlined">zoom_in</span>
       </button>
@@ -64,11 +63,11 @@ export const DemoToolbar = (props: DemoToolbarProps) => {
       <button title="Fit Diagram" onClick={() => commandCallbacks.fitContent()}>
         <span class="material-symbols-outlined">zoom_out_map</span>
       </button>
-      <span class="demo-separator"></span>
+      <span class="separator"></span>
       <button class="labeled" onClick={() => props.layout()}>
         <span class="material-symbols-outlined">play_arrow</span>Layout
       </button>
-      <span class="demo-separator"></span>
+      <span class="separator"></span>
       <button title="Reset Graph" onClick={() => commandCallbacks.resetData()}>
         <span class="material-symbols-outlined">refresh</span>
       </button>

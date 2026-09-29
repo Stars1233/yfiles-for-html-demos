@@ -65,8 +65,7 @@ export function createNewRandomUserData() {
     name: `${firstName} ${familyName}`,
     unit: UNITS[getRandomInt(UNITS.length)],
     email: `${firstName.toLowerCase() + familyName.toLowerCase()}@yoyodyne.com`,
-    phone: `555-${phoneNumber}`,
-    fax: `555-${phoneNumber + 1}`
+    phone: `555-${phoneNumber}`
   }
 }
 

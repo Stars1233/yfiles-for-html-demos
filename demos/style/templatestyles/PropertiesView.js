@@ -101,11 +101,6 @@ export class PropertiesView {
     table.appendChild(tr)
     tr.appendChild(createElement('td', 'Phone'))
     tr.appendChild(createElement('td', employee.phone))
-    // The employee fax
-    tr = document.createElement('tr')
-    table.appendChild(tr)
-    tr.appendChild(createElement('td', 'Fax'))
-    tr.appendChild(createElement('td', employee.fax))
     // The employee status
     tr = document.createElement('tr')
     table.appendChild(tr)

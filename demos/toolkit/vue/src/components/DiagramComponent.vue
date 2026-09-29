@@ -8,6 +8,7 @@
       @export-svg="exportSvg"
       @search-query-change="graphSearch.onSearchQueryChange"
     ></demo-toolbar>
+    <graph-overview-component />
     <context-menu @hide-context-menu="contextMenu.hide()" v-bind="contextMenu.data" />
   </div>
 </template>
@@ -22,6 +23,7 @@ import {
   SvgExport
 } from '@yfiles/yfiles'
 import DemoToolbar from './DemoToolbar.vue'
+import GraphOverviewComponent from './GraphOverviewComponent.vue'
 import ContextMenu from './ContextMenu.vue'
 import { defineComponent, inject, nextTick, onBeforeMount, onMounted, ref } from 'vue'
 import { useContextMenu } from '@/composables/useContextMenu'
@@ -36,7 +38,7 @@ License.value = licenseData
 
 export default defineComponent({
   name: 'DiagramComponent',
-  components: { DemoToolbar, ContextMenu },
+  components: { DemoToolbar, GraphOverviewComponent, ContextMenu },
   setup() {
     const graphComponentProvider = inject('GraphComponentProvider') as {
       getGraphComponent: () => GraphComponent
@@ -122,24 +124,5 @@ export default defineComponent({
   height: 100%;
   background-color: white;
   border-radius: 16px;
-}
-
-.toolbar {
-  position: absolute;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 999px;
-  height: 40px;
-  width: fit-content;
-  padding: 0 12px;
-  box-sizing: border-box;
-  user-select: none;
-  background-color: #f2f5f8;
-  z-index: 10;
-  box-shadow:
-    0 5px 20px rgba(0, 0, 0, 0.1),
-    0 3px 10px rgba(0, 0, 0, 0.1),
-    0 1px 5px rgba(0, 0, 0, 0.15);
 }
 </style>

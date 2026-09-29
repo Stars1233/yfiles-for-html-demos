@@ -9,7 +9,7 @@
   "dependencies": {
     "@yfiles/demo-app": "../../demo-app",
     "@yfiles/demo-utils": "../../utils",
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.2+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.3+dev.tgz"
   },
   "scripts": {
     "postinstall": "node -e \"require('node:fs').cpSync('../../../lib/license.json', './src/license.json')\" || echo To run this demo, please add a license.json to the src folder.",
@@ -19,16 +19,17 @@
   },
   "devDependencies": {
     "@yworks/optimizer": "^1.9.0",
-    "css-loader": "7.1.2",
-    "html-webpack-plugin": "5.6.5",
-    "mini-css-extract-plugin": "2.9.4",
+    "css-loader": "7.1.5",
+    "html-webpack-plugin": "5.6.8",
+    "mini-css-extract-plugin": "2.10.2",
     "style-loader": "4.0.0",
-    "terser-webpack-plugin": "5.3.16",
-    "ts-loader": "^9.5.4",
-    "typescript": "~6.0.2",
-    "webpack": "5.104.1",
+    "terser-webpack-plugin": "5.6.1",
+    "ts-loader": "^9.6.2",
+    "typescript": "npm:@typescript/typescript6@~6.0.2",
+    "typescript-7": "npm:typescript@~7.0.2",
+    "webpack": "5.111.0",
     "webpack-cli": "6.0.1",
-    "webpack-dev-server": "5.2.2",
+    "webpack-dev-server": "^6.0.0",
     "webpack-merge": "6.0.1"
   }
 }

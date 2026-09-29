@@ -1,0 +1,210 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+:host {
+  /* outlines and labels */
+  --node-stroke: rgba(0, 0, 0, 0.55);
+  --label-color: #1b1b1b;
+
+  /* producers */
+  --producer-nuclear: #1fa9c4;
+  --producer-coal: #4dd6ef;
+  --producer-gas: #66e7ff;
+
+  --producer-biomass: #3fae80;
+  --producer-hydro: #5fdba8;
+  --producer-solar: #8eeac4;
+  --producer-wind: #bff3dc;
+
+  /* consumers */
+  --consumer-res: #f9d9a0;
+  --consumer-com: #f0ac5c;
+  --consumer-ind: #d98f4a;
+
+  /* distributors */
+  --dist-substation: #e8536a;
+}
+
+/* --------------------------------------------------------------------------- */
+/* Overlay */
+/* --------------------------------------------------------------------------- */
+
+.card__overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+  z-index: 500;
+  opacity: 0;
+  transition: opacity 0.2s ease-out;
+  pointer-events: none;
+  font-size: 0.875rem;
+}
+
+.card__overlay.light {
+  color: var(--interaction-text);
+}
+
+.card__overlay.visible {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------- */
+/* Graph / map containers */
+/* --------------------------------------------------------------------------- */
+
+.graph-component {
+  width: 100%;
+  height: 100%;
+}
+
+.node-selection {
+  stroke: light-dark(var(--color-highlight-pink), var(--color-highlight-gold));
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  fill: none;
+}
+
+.node-selection-dashed {
+  stroke: light-dark(var(--color-highlight-pink), var(--color-highlight-gold));
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  fill: none;
+  stroke-dasharray: 8 4;
+}
+
+/* --------------------------------------------------------------------------- */
+/* Graph element styles (nodes, edges, labels) */
+/* --------------------------------------------------------------------------- */
+
+.electricity-node.grayed-out {
+  opacity: 0.2;
+}
+
+.electricity-edge {
+  color: light-dark(var(--color-casper-blue-dark), var(--color-casper-blue-light));
+}
+
+.electricity-edge.grayed-out {
+  opacity: 0.2;
+}
+
+.label > text {
+  fill: light-dark(var(--color-casper-blue-dark), var(--color-casper-blue-light));
+}
+
+.label.grayed-out {
+  opacity: 0.2;
+}
+
+/* Optional: labels */
+.electricity-node-label .yfiles-label-text {
+  fill: var(--label-color);
+}
+
+/* Producers */
+.producer-coal {
+  fill: var(--producer-coal);
+}
+.producer-gas {
+  fill: var(--producer-gas);
+}
+.producer-nuclear {
+  fill: var(--producer-nuclear);
+}
+.producer-hydro {
+  fill: var(--producer-hydro);
+}
+.producer-solar {
+  fill: var(--producer-solar);
+}
+.producer-wind {
+  fill: var(--producer-wind);
+}
+.producer-biomass {
+  fill: var(--producer-biomass);
+}
+
+/* Consumers */
+.consumer-residential {
+  fill: var(--consumer-res);
+}
+.consumer-commercial {
+  fill: var(--consumer-com);
+}
+.consumer-industrial {
+  fill: var(--consumer-ind);
+}
+
+/* Distributors */
+.distributor-substation {
+  fill: var(--dist-substation);
+}
+
+/* Utility: strong outline for very light nodes (optional) */
+.electricity-node.hc-outline {
+  stroke-width: 2px;
+}
+
+.node-background {
+  fill: var(--toolbar-bg);
+  stroke: light-dark(var(--color-casper-blue-light), var(--color-casper-blue));
+}
+
+.progress-background {
+  fill: light-dark(var(--color-casper-blue-light), var(--color-casper-blue));
+}
+
+.progress-bar {
+  transition: width 0.5s ease-out;
+}
+
+.node-text {
+  fill: var(--color-text);
+}
+
+.node-text-reversed {
+  fill: var(--color-text-reversed);
+}
+
+.node-text-secondary {
+  fill: var(--color-text);
+  opacity: 0.8;
+}

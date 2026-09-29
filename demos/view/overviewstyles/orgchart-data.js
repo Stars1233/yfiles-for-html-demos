@@ -35,7 +35,6 @@ export const orgChartData = [
     name: 'Eric Joplin',
     email: 'ejoplin@yoyodyne.com',
     phone: '555-0100',
-    fax: '555-0101',
     businessUnit: 'Executive Unit',
     status: 'present',
     icon: 'usericon_male1',
@@ -45,7 +44,6 @@ export const orgChartData = [
         name: 'Gary Roberts',
         email: 'groberts@yoyodyne.com',
         phone: '555-0100',
-        fax: '555-0101',
         businessUnit: 'Executive Unit',
         status: 'present',
         icon: 'usericon_male2',
@@ -56,7 +54,6 @@ export const orgChartData = [
             name: 'Alexander Burns',
             email: 'aburns@yoyodyne.com',
             phone: '555-0102',
-            fax: '555-0103',
             businessUnit: 'Executive Unit',
             status: 'present',
             icon: 'usericon_male3'
@@ -66,7 +63,6 @@ export const orgChartData = [
             name: 'Linda Newland',
             email: 'lnewland@yoyodyne.com',
             phone: '555-0112',
-            fax: '555-0113',
             businessUnit: 'Executive Unit',
             status: 'present',
             icon: 'usericon_female1'
@@ -78,7 +74,6 @@ export const orgChartData = [
         name: 'Amy Kain',
         email: 'akain@yoyodyne.com',
         phone: '555-0106',
-        fax: '555-0107',
         businessUnit: 'Production',
         status: 'unavailable',
         icon: 'usericon_female2',
@@ -88,7 +83,6 @@ export const orgChartData = [
             name: 'Dorothy Turner',
             email: 'dturner@yoyodyne.com',
             phone: '555-0108',
-            fax: '555-0109',
             businessUnit: 'Production',
             status: 'unavailable',
             icon: 'usericon_female3',
@@ -98,7 +92,6 @@ export const orgChartData = [
                 name: 'Valerie Burnett',
                 email: 'vburnett@yoyodyne.com',
                 phone: '555-0110',
-                fax: '555-0111',
                 businessUnit: 'Production',
                 status: 'present',
                 icon: 'usericon_female1',
@@ -108,7 +101,6 @@ export const orgChartData = [
                     name: 'Martin Cornett',
                     email: 'mcornett@yoyodyne.com',
                     phone: '555-0114',
-                    fax: '555-0115',
                     businessUnit: 'Production',
                     status: 'present',
                     icon: 'usericon_male2'
@@ -120,7 +112,6 @@ export const orgChartData = [
                 name: 'Edward Monge',
                 email: 'emonge@yoyodyne.com',
                 phone: '555-0118',
-                fax: '555-0119',
                 businessUnit: 'Production',
                 status: 'present',
                 icon: 'usericon_male3',
@@ -130,7 +121,6 @@ export const orgChartData = [
                     name: 'Howard Meyer',
                     email: 'hmeyer@yoyodyne.com',
                     phone: '555-0116',
-                    fax: '555-0117',
                     businessUnit: 'Production',
                     status: 'present',
                     icon: 'usericon_male1'
@@ -140,7 +130,6 @@ export const orgChartData = [
                     name: 'Lisa Jensen',
                     email: 'ljensen@yoyodyne.com',
                     phone: '555-0120',
-                    fax: '555-0121',
                     businessUnit: 'Production',
                     status: 'travel',
                     icon: 'usericon_female2',
@@ -155,7 +144,6 @@ export const orgChartData = [
             name: 'Larry Littlefield',
             email: 'llittlefield@yoyodyne.com',
             phone: '555-0126',
-            fax: '555-0127',
             businessUnit: 'Production',
             status: 'present',
             icon: 'usericon_male4'
@@ -165,7 +153,6 @@ export const orgChartData = [
             name: 'Anne Binger',
             email: 'abinger@yoyodyne.com',
             phone: '555-0122',
-            fax: '555-0123',
             businessUnit: 'Production',
             status: 'present',
             icon: 'usericon_female4',
@@ -175,7 +162,6 @@ export const orgChartData = [
                 name: 'Timothy Jackson',
                 email: 'tjackson@yoyodyne.com',
                 phone: '555-0140',
-                fax: '555-0141',
                 businessUnit: 'Production',
                 status: 'busy',
                 icon: 'usericon_male5',
@@ -185,7 +171,6 @@ export const orgChartData = [
                     name: 'Carmen Short',
                     email: 'cshort@yoyodyne.com',
                     phone: '555-0142',
-                    fax: '555-0143',
                     businessUnit: 'Production',
                     status: 'present',
                     icon: 'usericon_female1'
@@ -195,7 +180,6 @@ export const orgChartData = [
                     name: 'Thomas Stark',
                     email: 'tstark@yoyodyne.com',
                     phone: '555-0144',
-                    fax: '555-0145',
                     businessUnit: 'Production',
                     status: 'present',
                     icon: 'usericon_male2'
@@ -209,7 +193,6 @@ export const orgChartData = [
             name: 'Ray Hammond',
             email: 'rhammond@yoyodyne.com',
             phone: '555-0146',
-            fax: '555-0147',
             businessUnit: 'Production',
             status: 'travel',
             icon: 'usericon_male3',
@@ -219,7 +202,6 @@ export const orgChartData = [
                 name: 'Bob Lacey',
                 email: 'blacey@yoyodyne.com',
                 phone: '555-0124',
-                fax: '555-0125',
                 businessUnit: 'Production',
                 status: 'travel',
                 icon: 'usericon_male1'
@@ -229,7 +211,6 @@ export const orgChartData = [
                 name: 'Ronnie Garcia',
                 email: 'rgarcia@yoyodyne.com',
                 phone: '555-0130',
-                fax: '555-0131',
                 businessUnit: 'Production',
                 status: 'present',
                 icon: 'usericon_male4'
@@ -241,7 +222,6 @@ export const orgChartData = [
             name: 'Kathy Maxwell',
             email: 'kmaxwell@yoyodyne.com',
             phone: '555-0132',
-            fax: '555-0133',
             businessUnit: 'Production',
             status: 'present',
             icon: 'usericon_female3'
@@ -253,7 +233,6 @@ export const orgChartData = [
         name: 'Richard Fuller',
         email: 'rfuller@yoyodyne.com',
         phone: '555-0134',
-        fax: '555-0135',
         businessUnit: 'Sales',
         status: 'present',
         icon: 'usericon_male1',
@@ -263,7 +242,6 @@ export const orgChartData = [
             name: 'Joe Vargas',
             email: 'jvargas@yoyodyne.com',
             phone: '555-0136',
-            fax: '555-0137',
             businessUnit: 'Sales',
             status: 'present',
             icon: 'usericon_male2',
@@ -273,7 +251,6 @@ export const orgChartData = [
                 name: 'Robert Parson',
                 email: 'rparson@yoyodyne.com',
                 phone: '555-0150',
-                fax: '555-0151',
                 businessUnit: 'Sales',
                 status: 'travel',
                 icon: 'usericon_male3'
@@ -283,7 +260,6 @@ export const orgChartData = [
                 name: 'Melissa Noren',
                 email: 'mnoren@yoyodyne.com',
                 phone: '555-0152',
-                fax: '555-0153',
                 businessUnit: 'Sales',
                 status: 'present',
                 icon: 'usericon_female1'
@@ -293,7 +269,6 @@ export const orgChartData = [
                 name: 'Chris Jones',
                 email: 'cjones@yoyodyne.com',
                 phone: '555-0144',
-                fax: '555-0145',
                 businessUnit: 'Sales',
                 status: 'travel',
                 icon: 'usericon_male2'
@@ -303,7 +278,6 @@ export const orgChartData = [
                 name: 'Olivia Taylor',
                 email: 'otaylor@yoyodyne.com',
                 phone: '555-0278',
-                fax: '555-0278',
                 businessUnit: 'Sales',
                 status: 'present',
                 icon: 'usericon_female2'
@@ -313,7 +287,6 @@ export const orgChartData = [
                 name: 'Alexander White',
                 email: 'awhite@yoyodyne.com',
                 phone: '555-0162',
-                fax: '555-0163',
                 businessUnit: 'Sales',
                 status: 'present',
                 icon: 'usericon_male4'
@@ -323,7 +296,6 @@ export const orgChartData = [
                 name: 'Sophia Harris',
                 email: 'sharris@yoyodyne.com',
                 phone: '555-0562',
-                fax: '555-0563',
                 businessUnit: 'Sales',
                 status: 'present',
                 icon: 'usericon_female3'
@@ -333,7 +305,6 @@ export const orgChartData = [
                 name: 'David Martinez',
                 email: 'dmartinez@yoyodyne.com',
                 phone: '555-0492',
-                fax: '555-0493',
                 businessUnit: 'Sales',
                 status: 'unavailable',
                 icon: 'usericon_male1'
@@ -345,7 +316,6 @@ export const orgChartData = [
             name: 'Robert Hartman',
             email: 'rhartman@yoyodyne.com',
             phone: '555-0138',
-            fax: '555-0139',
             businessUnit: 'Sales',
             status: 'present',
             icon: 'usericon_male5',
@@ -355,7 +325,6 @@ export const orgChartData = [
                 name: 'Rebecca Polite',
                 email: 'rpolite@yoyodyne.com',
                 phone: '555-0148',
-                fax: '555-0149',
                 businessUnit: 'Sales',
                 status: 'travel',
                 icon: 'usericon_female3'
@@ -365,7 +334,6 @@ export const orgChartData = [
                 name: 'Michael Daniels',
                 email: 'mdaniels@yoyodyne.com',
                 phone: '555-0154',
-                fax: '555-0155',
                 businessUnit: 'Sales',
                 status: 'travel',
                 icon: 'usericon_male1'
@@ -375,7 +343,6 @@ export const orgChartData = [
                 name: 'John Smith',
                 email: 'jsmith@yoyodyne.com',
                 phone: '555-0830',
-                fax: '555-0831',
                 businessUnit: 'Sales',
                 status: 'present',
                 icon: 'usericon_male4'
@@ -385,7 +352,6 @@ export const orgChartData = [
                 name: 'Emma Johnson',
                 email: 'ejohnson@yoyodyne.com',
                 phone: '555-0356',
-                fax: '555-0357',
                 businessUnit: 'Sales',
                 status: 'present',
                 icon: 'usericon_female1'
@@ -395,7 +361,6 @@ export const orgChartData = [
                 name: 'Daniel Brown',
                 email: 'dbrown@yoyodyne.com',
                 phone: '555-0614',
-                fax: '555-0615',
                 businessUnit: 'Sales',
                 status: 'busy',
                 icon: 'usericon_male2'
@@ -405,7 +370,6 @@ export const orgChartData = [
                 name: 'Megan Davis',
                 email: 'mdavis@yoyodyne.com',
                 phone: '555-0728',
-                fax: '555-0729',
                 businessUnit: 'Sales',
                 status: 'unavailable',
                 icon: 'usericon_female2'
@@ -415,7 +379,6 @@ export const orgChartData = [
                 name: 'Matthew Miller',
                 email: 'mmiller@yoyodyne.com',
                 phone: '555-0486',
-                fax: '555-0487',
                 businessUnit: 'Sales',
                 status: 'travel',
                 icon: 'usericon_male3'
@@ -425,7 +388,6 @@ export const orgChartData = [
                 name: 'Lauren Wilson',
                 email: 'lwilson@yoyodyne.com',
                 phone: '555-0904',
-                fax: '555-0905',
                 businessUnit: 'Sales',
                 status: 'travel',
                 icon: 'usericon_female3'
@@ -439,7 +401,6 @@ export const orgChartData = [
         name: 'Mildred Shark',
         email: 'mshark@yoyodyne.com',
         phone: '555-0156',
-        fax: '555-0157',
         businessUnit: 'Engineering',
         status: 'present',
         icon: 'usericon_female2',
@@ -449,7 +410,6 @@ export const orgChartData = [
             name: 'Martha Barnes',
             email: 'mbarnes@yoyodyne.com',
             phone: '555-0158',
-            fax: '555-0159',
             businessUnit: 'Engineering',
             status: 'busy',
             icon: 'usericon_female3',
@@ -459,7 +419,6 @@ export const orgChartData = [
                 name: 'Maria Dossantos',
                 email: 'mdossantos@yoyodyne.com',
                 phone: '555-0160',
-                fax: '555-0161',
                 businessUnit: 'Engineering',
                 status: 'present',
                 icon: 'usericon_female1',
@@ -469,7 +428,6 @@ export const orgChartData = [
                     name: 'Hector Donald',
                     email: 'hdonald@yoyodyne.com',
                     phone: '555-0162',
-                    fax: '555-0163',
                     businessUnit: 'Engineering',
                     status: 'busy',
                     icon: 'usericon_male2'
@@ -479,7 +437,6 @@ export const orgChartData = [
                     name: 'Michelle Douglas',
                     email: 'mdouglas@yoyodyne.com',
                     phone: '555-0228',
-                    fax: '555-0229',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_female5'
@@ -489,7 +446,6 @@ export const orgChartData = [
                     name: 'Bonnie Penney',
                     email: 'bpenney@yoyodyne.com',
                     phone: '555-0234',
-                    fax: '555-0235',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_female4'
@@ -499,7 +455,6 @@ export const orgChartData = [
                     name: 'Francis Webster',
                     email: 'fwebster@yoyodyne.com',
                     phone: '555-0236',
-                    fax: '555-0237',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male4'
@@ -509,7 +464,6 @@ export const orgChartData = [
                     name: 'Gregory Arnold',
                     email: 'garnold@yoyodyne.com',
                     phone: '555-0238',
-                    fax: '555-0239',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male3'
@@ -519,7 +473,6 @@ export const orgChartData = [
                     name: 'Ken Kowalski',
                     email: 'kkowalski@yoyodyne.com',
                     phone: '555-0240',
-                    fax: '555-0241',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male1'
@@ -531,7 +484,6 @@ export const orgChartData = [
                 name: 'Laurie Aitken',
                 email: 'laitken@yoyodyne.com',
                 phone: '555-0164',
-                fax: '555-0165',
                 businessUnit: 'Engineering',
                 status: 'present',
                 icon: 'usericon_female2',
@@ -541,7 +493,6 @@ export const orgChartData = [
                     name: 'Carla Clark',
                     email: 'cclark@yoyodyne.com',
                     phone: '555-0242',
-                    fax: '555-0243',
                     businessUnit: 'Engineering',
                     status: 'unavailable',
                     icon: 'usericon_female3'
@@ -551,7 +502,6 @@ export const orgChartData = [
                     name: 'Cynthia Judd',
                     email: 'cjudd@yoyodyne.com',
                     phone: '555-0244',
-                    fax: '555-0245',
                     businessUnit: 'Engineering',
                     status: 'unavailable',
                     icon: 'usericon_female1'
@@ -561,7 +511,6 @@ export const orgChartData = [
                     name: 'Robert Finn',
                     email: 'rfinn@yoyodyne.com',
                     phone: '555-0246',
-                    fax: '555-0247',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male2'
@@ -571,7 +520,6 @@ export const orgChartData = [
                     name: 'Willie Schaub',
                     email: 'wschaub@yoyodyne.com',
                     phone: '555-0248',
-                    fax: '555-0249',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male3'
@@ -581,7 +529,6 @@ export const orgChartData = [
                     name: 'Edwin Nagy',
                     email: 'enagy@yoyodyne.com',
                     phone: '555-0166',
-                    fax: '555-0167',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male1'
@@ -593,7 +540,6 @@ export const orgChartData = [
                 name: 'John Payne',
                 email: 'jpayne@yoyodyne.com',
                 phone: '555-0168',
-                fax: '555-0169',
                 businessUnit: 'Engineering',
                 status: 'present',
                 icon: 'usericon_male2',
@@ -603,7 +549,6 @@ export const orgChartData = [
                     name: 'Rana Oxborough',
                     email: 'roxborough@yoyodyne.com',
                     phone: '555-0176',
-                    fax: '555-0177',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_female4'
@@ -613,7 +558,6 @@ export const orgChartData = [
                     name: 'Gary Olsen',
                     email: 'golsen@yoyodyne.com',
                     phone: '555-0178',
-                    fax: '555-0179',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male1'
@@ -623,7 +567,6 @@ export const orgChartData = [
                     name: 'Matthew Finney',
                     email: 'mfinney@yoyodyne.com',
                     phone: '555-0206',
-                    fax: '555-0207',
                     businessUnit: 'Engineering',
                     status: 'travel',
                     icon: 'usericon_male2'
@@ -633,7 +576,6 @@ export const orgChartData = [
                     name: 'Julius Kelly',
                     email: 'jkelly@yoyodyne.com',
                     phone: '555-0208',
-                    fax: '555-0209',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male3'
@@ -643,7 +585,6 @@ export const orgChartData = [
                     name: 'Charles Wylam',
                     email: 'cwylam@yoyodyne.com',
                     phone: '555-0212',
-                    fax: '555-0213',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male1'
@@ -653,7 +594,6 @@ export const orgChartData = [
                     name: 'Steven Dotter',
                     email: 'sdotter@yoyodyne.com',
                     phone: '555-0214',
-                    fax: '555-0215',
                     businessUnit: 'Engineering',
                     status: 'busy',
                     icon: 'usericon_male2'
@@ -663,7 +603,6 @@ export const orgChartData = [
                     name: 'Richard Bradshaw',
                     email: 'rbradshaw@yoyodyne.com',
                     phone: '555-0216',
-                    fax: '555-0217',
                     businessUnit: 'Engineering',
                     status: 'unavailable',
                     icon: 'usericon_male5'
@@ -673,7 +612,6 @@ export const orgChartData = [
                     name: 'Vera Shoe',
                     email: 'vshoe@yoyodyne.com',
                     phone: '555-0218',
-                    fax: '555-0219',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_female1'
@@ -683,7 +621,6 @@ export const orgChartData = [
                     name: 'Marty Tucker',
                     email: 'mtucker@yoyodyne.com',
                     phone: '555-0230',
-                    fax: '555-0231',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male2'
@@ -693,7 +630,6 @@ export const orgChartData = [
                     name: 'Dennis Long',
                     email: 'dlong@yoyodyne.com',
                     phone: '555-0232',
-                    fax: '555-0233',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male3'
@@ -703,7 +639,6 @@ export const orgChartData = [
                     name: 'Anthony Rice',
                     email: 'arice@yoyodyne.com',
                     phone: '555-0222',
-                    fax: '555-0223',
                     businessUnit: 'Engineering',
                     status: 'busy',
                     icon: 'usericon_male1'
@@ -713,7 +648,6 @@ export const orgChartData = [
                     name: 'Joseph Lewis',
                     email: 'jlewis@yoyodyne.com',
                     phone: '555-0224',
-                    fax: '555-0225',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_male2'
@@ -723,7 +657,6 @@ export const orgChartData = [
                     name: 'Susan Reid',
                     email: 'sreid@yoyodyne.com',
                     phone: '555-0226',
-                    fax: '555-0227',
                     businessUnit: 'Engineering',
                     status: 'present',
                     icon: 'usericon_female3'
@@ -739,7 +672,6 @@ export const orgChartData = [
         name: 'David Kerry',
         email: 'dkerry@yoyodyne.com',
         phone: '555-0180',
-        fax: '555-0181',
         businessUnit: 'Accounting',
         status: 'present',
         icon: 'usericon_male1',
@@ -749,7 +681,6 @@ export const orgChartData = [
             name: 'Walter Hastings',
             email: 'whastings@yoyodyne.com',
             phone: '555-0182',
-            fax: '555-0183',
             businessUnit: 'Accounting',
             status: 'present',
             icon: 'usericon_male4',
@@ -759,7 +690,6 @@ export const orgChartData = [
                 name: 'Susan Moran',
                 email: 'smoran@yoyodyne.com',
                 phone: '555-0184',
-                fax: '555-0185',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_female3'
@@ -769,7 +699,6 @@ export const orgChartData = [
                 name: 'Melvin Cruz',
                 email: 'mcruz@yoyodyne.com',
                 phone: '555-0186',
-                fax: '555-0187',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_male1'
@@ -779,7 +708,6 @@ export const orgChartData = [
                 name: 'Rachel King',
                 email: 'rking@yoyodyne.com',
                 phone: '555-0188',
-                fax: '555-0189',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_female2'
@@ -789,7 +717,6 @@ export const orgChartData = [
                 name: 'Andrew Lee',
                 email: 'alee@yoyodyne.com',
                 phone: '555-0182',
-                fax: '555-0183',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_male2'
@@ -799,7 +726,6 @@ export const orgChartData = [
                 name: 'Brittany Garcia',
                 email: 'bgarcia@yoyodyne.com',
                 phone: '555-0256',
-                fax: '555-0257',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_female1'
@@ -809,7 +735,6 @@ export const orgChartData = [
                 name: 'Charles Nguyen',
                 email: 'cnguyen@yoyodyne.com',
                 phone: '555-0478',
-                fax: '555-0479',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_male3'
@@ -819,7 +744,6 @@ export const orgChartData = [
                 name: 'Danielle Cooper',
                 email: 'dcooper@yoyodyne.com',
                 phone: '555-0502',
-                fax: '555-0503',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_female4'
@@ -829,7 +753,6 @@ export const orgChartData = [
                 name: 'Ethan Perez',
                 email: 'eperez@yoyodyne.com',
                 phone: '555-0648',
-                fax: '555-0649',
                 businessUnit: 'Accounting',
                 status: 'busy',
                 icon: 'usericon_male4'
@@ -839,7 +762,6 @@ export const orgChartData = [
                 name: 'Fiona Ross',
                 email: 'fross@yoyodyne.com',
                 phone: '555-0734',
-                fax: '555-0735',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_female2'
@@ -851,7 +773,6 @@ export const orgChartData = [
             name: 'Joy Medico',
             email: 'jmedico@yoyodyne.com',
             phone: '555-0190',
-            fax: '555-0191',
             businessUnit: 'Accounting',
             status: 'present',
             icon: 'usericon_female3',
@@ -861,7 +782,6 @@ export const orgChartData = [
                 name: 'Edward Lewis',
                 email: 'elewis@yoyodyne.com',
                 phone: '555-0192',
-                fax: '555-0193',
                 businessUnit: 'Accounting',
                 status: 'unavailable',
                 icon: 'usericon_male1'
@@ -871,7 +791,6 @@ export const orgChartData = [
                 name: 'Mildred Bean',
                 email: 'mbean@yoyodyne.com',
                 phone: '555-0194',
-                fax: '555-0195',
                 businessUnit: 'Accounting',
                 status: 'busy',
                 icon: 'usericon_female5',
@@ -882,7 +801,6 @@ export const orgChartData = [
                 name: 'Raymond Lindley',
                 email: 'rlindley@yoyodyne.com',
                 phone: '555-0196',
-                fax: '555-0197',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_male3'
@@ -892,7 +810,6 @@ export const orgChartData = [
                 name: 'Julia Foster',
                 email: 'jfoster@yoyodyne.com',
                 phone: '555-0820',
-                fax: '555-0821',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_female4'
@@ -902,7 +819,6 @@ export const orgChartData = [
                 name: 'George Young',
                 email: 'gyoung@yoyodyne.com',
                 phone: '555-0396',
-                fax: '555-0397',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_male5'
@@ -912,7 +828,6 @@ export const orgChartData = [
                 name: 'Hannah Scott',
                 email: 'hscott@yoyodyne.com',
                 phone: '555-0568',
-                fax: '555-0569',
                 businessUnit: 'Accounting',
                 status: 'busy',
                 icon: 'usericon_female5'
@@ -924,7 +839,6 @@ export const orgChartData = [
             name: 'Danny Welch',
             email: 'dwelch@yoyodyne.com',
             phone: '555-0198',
-            fax: '555-0199',
             businessUnit: 'Accounting',
             status: 'present',
             icon: 'usericon_male1',
@@ -934,7 +848,6 @@ export const orgChartData = [
                 name: 'Leroy Vison',
                 email: 'lvison@yoyodyne.com',
                 phone: '555-0200',
-                fax: '555-0201',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_male2',
@@ -945,7 +858,6 @@ export const orgChartData = [
                 name: 'Mark Parks',
                 email: 'mparks@yoyodyne.com',
                 phone: '555-0202',
-                fax: '555-0203',
                 businessUnit: 'Accounting',
                 status: 'present',
                 icon: 'usericon_male5'
@@ -955,7 +867,6 @@ export const orgChartData = [
                 name: 'Linda Lenhart',
                 email: 'llenhart@yoyodyne.com',
                 phone: '555-0204',
-                fax: '555-0205',
                 businessUnit: 'Accounting',
                 status: 'busy',
                 icon: 'usericon_female1'

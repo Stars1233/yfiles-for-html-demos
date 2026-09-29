@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Organic Substructures Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -175,6 +172,22 @@
 
       .current-type {
         border: thick solid black;
+      }
+
+      .interaction-panel {
+        #sample-combo-box {
+          width: 100% !important;
+        }
+
+        .options-select {
+          width: 100% !important;
+        }
+      }
+
+      @media (max-width: 80rem) {
+        .interaction-panel select {
+          max-width: 200px !important;
+        }
       }
     </style>
   </head>
@@ -408,61 +421,96 @@
         </div>
       </div>
       <div class="interaction-panel">
-        <div class="data-editor-header">
-          <h2>Sample Graph</h2>
-          <div class="content">
-            <select
-              id="sample-combo-box"
-              class="sidebar-select-box"
-              title="Select a sample for the layout algorithm"
-            ></select>
-          </div>
-        </div>
+        <h2>Sample Graph</h2>
+        <select
+          id="sample-combo-box"
+          class="sidebar-select-box"
+          title="Select a sample for the layout algorithm"
+        ></select>
 
         <h3>Substructure Layout</h3>
-        <div class="demo-properties__settings">
-          <label for="cycleStyle">Cycles</label>
-          <select title="Select a style for cycle substructures" id="cycleStyle">
-            <option value="NONE">Ignore</option>
-            <option value="CIRCULAR">Circular</option>
-          </select>
-          <label for="chainStyle">Chains</label>
-          <select title="Select a style for chain substructures" id="chainStyle">
-            <option value="NONE">Ignore</option>
-            <option value="DISK">Disk</option>
-            <option value="RECTANGULAR">Rectangular</option>
-            <option value="STRAIGHT_LINE">Straight-Line</option>
-          </select>
-          <label for="starStyle">Star</label>
-          <select title="Select a style for star substructures" id="starStyle">
-            <option value="NONE">Ignore</option>
-            <option value="CIRCULAR">Circular</option>
-            <option value="RADIAL">Radial</option>
-            <option value="SEPARATED_RADIAL">Separated Radial</option>
-          </select>
-          <label for="parallelStyle">Parallel</label>
-          <select title="Select a style for parallel substructures" id="parallelStyle">
-            <option value="NONE">Ignore</option>
-            <option value="RADIAL">Radial</option>
-            <option value="RECTANGULAR">Rectangular</option>
-            <option value="STRAIGHT_LINE">Straight-Line</option>
-          </select>
-          <label for="treeStyle">Tree</label>
-          <select title="Select a style for tree substructures" id="treeStyle">
-            <option value="NONE">Ignore</option>
-            <option value="RADIAL_TREE">Radial Tree</option>
-            <option value="ORIENTED">Oriented</option>
-            <option value="RADIAL">Radial</option>
-          </select>
-          <label for="groupScope">Groups</label>
-          <select title="Select a scope for group substructures" id="groupScope">
-            <option value="NO_GROUPS">Ignore</option>
-            <option value="ALL">All Groups</option>
-            <option value="WITHOUT_EDGES">Groups without edges</option>
-            <option value="WITHOUT_INTER_EDGES">Groups without inter-edges</option>
-          </select>
-          <label for="use-edge-grouping"> Use Edge Grouping </label>
-          <input id="use-edge-grouping" type="checkbox" />
+        <div class="options-section two-rows">
+          <label for="cycleStyle"
+            ><span>Cycles</span>
+            <select
+              title="Select a style for cycle substructures"
+              id="cycleStyle"
+              class="options-select"
+            >
+              <option value="NONE">Ignore</option>
+              <option value="CIRCULAR">Circular</option>
+            </select>
+          </label>
+          <label for="chainStyle"
+            ><span>Chains</span>
+            <select
+              title="Select a style for chain substructures"
+              id="chainStyle"
+              class="options-select"
+            >
+              <option value="NONE">Ignore</option>
+              <option value="DISK">Disk</option>
+              <option value="RECTANGULAR">Rectangular</option>
+              <option value="STRAIGHT_LINE">Straight-Line</option>
+            </select>
+          </label>
+          <label for="starStyle"
+            ><span>Star</span>
+            <select
+              title="Select a style for star substructures"
+              id="starStyle"
+              class="options-select"
+            >
+              <option value="NONE">Ignore</option>
+              <option value="CIRCULAR">Circular</option>
+              <option value="RADIAL">Radial</option>
+              <option value="SEPARATED_RADIAL">Separated Radial</option>
+            </select>
+          </label>
+          <label for="parallelStyle"
+            ><span>Parallel</span>
+            <select
+              title="Select a style for parallel substructures"
+              id="parallelStyle"
+              class="options-select"
+            >
+              <option value="NONE">Ignore</option>
+              <option value="RADIAL">Radial</option>
+              <option value="RECTANGULAR">Rectangular</option>
+              <option value="STRAIGHT_LINE">Straight-Line</option>
+            </select>
+          </label>
+          <label for="treeStyle"
+            ><span>Tree</span>
+            <select
+              title="Select a style for tree substructures"
+              id="treeStyle"
+              class="options-select"
+            >
+              <option value="NONE">Ignore</option>
+              <option value="RADIAL_TREE">Radial Tree</option>
+              <option value="ORIENTED">Oriented</option>
+              <option value="RADIAL">Radial</option>
+            </select>
+          </label>
+          <label for="groupScope"
+            ><span>Groups</span>
+            <select
+              title="Select a scope for group substructures"
+              id="groupScope"
+              class="options-select"
+            >
+              <option value="NO_GROUPS">Ignore</option>
+              <option value="ALL">All Groups</option>
+              <option value="WITHOUT_EDGES">Groups without edges</option>
+              <option value="WITHOUT_INTER_EDGES">Groups without inter-edges</option>
+            </select>
+          </label>
+
+          <label for="use-edge-grouping"
+            ><span>Use Edge Grouping</span>
+            <input id="use-edge-grouping" type="checkbox" />
+          </label>
         </div>
 
         <h3 style="margin-top: 50px">Node Types</h3>
@@ -480,7 +528,8 @@
         </div>
       </div>
       <div class="description-panel">
-        <h1>Organic Substructures Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Organic Substructures</h1>
 
         <p>
           This demo showcases how the

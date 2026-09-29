@@ -30,10 +30,12 @@ import {
   Animator,
   CircularLayout,
   FreeNodeLabelModel,
+  GradientStop,
   GraphBuilder,
   GraphComponent,
   GraphItemTypes,
   GraphViewerInputMode,
+  HeatMapRenderer,
   IEdge,
   INode,
   Insets,
@@ -65,6 +67,7 @@ import {
   removeFailureHighlight
 } from './failure-highlight'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
 
 LayoutExecutor.ensure()
 
@@ -75,6 +78,11 @@ LayoutExecutor.ensure()
  * Manages the animation of packets that travel along the edges.
  */
 let edgeAnimator
+
+let heatMapRenderer
+let heatMapElement
+
+const supportsWebGL = BrowserDetection.webGL2
 
 async function run() {
   License.value = licenseData
@@ -143,6 +151,9 @@ async function run() {
 
   enableViewportLimiter(graphComponent)
   initializeUI(graphComponent, simulator)
+  if (supportsWebGL) {
+    createHeatmap(graphComponent)
+  }
 }
 
 /**
@@ -257,6 +268,49 @@ function initializeUI(graphComponent, simulator) {
     edgeAnimator.paused = button.checked
     simulator.paused = button.checked
   })
+
+  const enableHeatMap = document.querySelector('#enableHeatMap')
+  if (!supportsWebGL) {
+    enableHeatMap.disabled = true
+    enableHeatMap.labels.item(0).title = 'WebGL is required to enable the heat map'
+  }
+  enableHeatMap.addEventListener('click', (evt) => {
+    const enabled = evt.target.checked
+    if (enabled) {
+      heatMapElement = graphComponent.renderTree.createElement(
+        graphComponent.renderTree.backgroundGroup,
+        graphComponent.graph,
+        heatMapRenderer
+      )
+    } else {
+      graphComponent.renderTree.remove(heatMapElement)
+    }
+  })
+}
+
+/**
+ * Creates a heatmap visualization which displays the device load for all nodes
+ * as a color map in the background.
+ * @param graphComponent The graph component to which the heatmap is added
+ */
+function createHeatmap(graphComponent) {
+  const getHeatNode = (item) => Math.min(1, getDevice(item).load)
+  const getHeatEdge = (item) => Math.min(1, getConnection(item).load)
+  heatMapRenderer = new HeatMapRenderer({
+    nodeHeatProvider: getHeatNode,
+    edgeHeatProvider: getHeatEdge,
+    gradient: [
+      new GradientStop('#0000ff0a', 0),
+      new GradientStop('#00ff00', 0.25),
+      new GradientStop('#ffff00', 0.5),
+      new GradientStop('#FF4433', 1.0)
+    ]
+  })
+  heatMapElement = graphComponent.renderTree.createElement(
+    graphComponent.renderTree.backgroundGroup,
+    graphComponent.graph,
+    heatMapRenderer
+  )
 }
 
 function getDevice(node) {

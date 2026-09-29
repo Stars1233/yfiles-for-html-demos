@@ -111,6 +111,11 @@ export type SerializedLabelModelParameter =
       modelProperties: { padding: InsetsConvertible }
     }
   | {
+      model: 'GroupNodeLabelModel'
+      placeOnTab: boolean
+      modelProperties: { considerTabPadding: boolean }
+    }
+  | {
       model: 'FreeLabelModel'
       parameterProps:
         | {

@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/showcase/neighborhood/).
 
+Demo
+
 The Neighborhood demo shows the neighborhood of the currently selected node alongside the graph. The neighborhood view is a filtered copy of the original graph. There are different modes for the neighborhood computation. The currently selected node is highlighted inside the neighborhood view.
 
 The following neighborhood types are available:

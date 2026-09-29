@@ -29,10 +29,10 @@
   "exclude": [
     "**/build.*ts",
     "**/spec.*ts",
+    "input/collaborative-graph-editing/collaboration-server",
     "loading/vite",
     "loading/vite-lazy-yfiles",
     "loading/webpack",
-    "loading/webworker-webpack",
     "node_modules",
     "style/angular-component-node-style",
     "style/react-component-node-style",

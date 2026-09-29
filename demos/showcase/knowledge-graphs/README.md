@@ -15,20 +15,41 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/showcase/knowledge-graphs/).
 
-This demo visualizes a knowledge graph and highlights potential data issues, offering interactive tools to inspect and fix them.
+Demo
 
-Knowledge graph data are typically stored as triples (subject–predicate–object). Because triples can come from different sources and formats, common problems include duplicated nodes, edges connected to the wrong endpoints, and isolated nodes.
+This demo visualizes a knowledge graph and highlights potential data quality issues, providing interactive tools to inspect and resolve them.
 
-Use the right panel to locate detected problems and apply fixes directly. Alternatively, select nodes or edges in the graph and use the context menu (right‑click) to repair them.
+Knowledge graphs are typically represented as triples (subject–predicate–object). Since triples often come from diverse sources and formats, common issues include duplicate nodes, edges connected to incorrect endpoints, and isolated nodes.
 
-## Things to try
+The visualization clusters nodes using the [Louvain Modularity](https://docs.yworks.com/yfileshtml/api/LouvainModularityClustering) algorithm, with node colors indicating their cluster membership. Node size reflects centrality, calculated with the [PageRank](https://docs.yworks.com/yfileshtml/api/PageRank) algorithm.
 
-- Open the right sidebar to see a list of detected problems. For each problem, you can either zoom to the affected node(s) or apply an automatic fix.
-- Press the 'Show Ontology View' button to show the ontology structure triplets.
-- Enable 'Spotlight all issues' to mark all problematic elements using a beacon animation (available only if the browser supports WebGL).
-- Merge duplicated nodes (copy\_all) to consolidate identical entities into a single node.
-- Remove isolated nodes (error) that are not connected to the rest of the graph.
-- Fix edges with incorrect endpoints (warning) by selecting the edge and reconnecting its ports to the correct node(s).
-- Double-click on a node to open the neighborhood view panel showing all its direct neighbors.
-- Switch layout with the **Group By Teams** toolbar button: This groups nodes that belong to the same team next to each other for easier inspection.
-- Use the **Triplet Filtering** panel to filter-out or fade-out parts of the graph based on selected triples (subject, predicate, or object). Note that the 'fade-out' operation is only available if the browser supports WebGL.
+## Things to Try
+
+Use the 'Walkthrough' at the top of the left sidebar to learn the demo basics and get familiar with its features.
+
+### Interactive Ontology View
+
+The **Interactive Ontology View** displays all triples in the dataset. Use it to filter or fade out graph elements based on selected triples or to hide specific types from the main graph.
+
+- Click an edge to highlight items matching its triplet (subject, predicate, object) - WebGL browsers only.
+- Click an edge to filter the graph to show only items matching its triplet.
+- Click a node or edge to show or hide its type.
+- Press reset\_settings to reset all filters and highlights.
+
+### Problem Detection
+
+Click 'Click here to see details' to view detected issues. For each issue, you can zoom to the affected node(s) or apply automatic fixes. Problems can also be fixed by right-clicking the element and using its context menu.
+
+- Enable 'Spotlight all issues' to highlight all problematic elements with a beacon animation (WebGL browsers only).
+- Merge duplicate nodes (copy\_all) to consolidate identical entities.
+- Remove isolated nodes (error) that have no connections to the rest of the graph.
+- Fix edges with incorrect endpoints (warning) by selecting the edge and reconnecting it to the correct nodes.
+
+### Main Graph
+
+- Double-click a node to open the neighborhood view, displaying all nodes directly connected to it.
+- Change the layout using the **'Group By'** dropdown.
+
+### Interactive Neighborhood View
+
+- Click a node in this view to show its neighbors. The main graph will zoom to the selected node.

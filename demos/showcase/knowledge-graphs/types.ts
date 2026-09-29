@@ -77,7 +77,7 @@ export type NodeData = {
  */
 export type EdgeData = {
   id: string
-  label: string
+  type: string
   from: string
   to: string
   problem?: Problem
@@ -97,6 +97,8 @@ export type LabelData = { type: LabelType }
  * The data associated with this demo.
  */
 export type GraphData = { nodes: NodeData[]; edges: EdgeData[] }
+
+export type OntologyData = { type: string; visible: boolean }
 
 /**
  * Retrieves the node data tag.
@@ -124,3 +126,16 @@ export function getEdgeTag(edge: IEdge): EdgeData {
 export function getLabelTag(label: ILabel): LabelData {
   return label.tag as LabelData
 }
+
+/**
+ * Returns the tag for the nodes and edges of the ontology view.
+ * @param item - The item to retrieve data from
+ */
+export function getOntologyTag(item: INode | IEdge): OntologyData {
+  return item.tag as OntologyData
+}
+
+/**
+ * The different layout styles used for the demo.
+ */
+export type LayoutStyle = 'clusters' | 'teams' | 'neighborhood' | 'organic'

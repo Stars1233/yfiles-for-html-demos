@@ -34,7 +34,7 @@ import '@fontsource/material-symbols-outlined/300.css'
 // render the graph component and its provider only client side
 const ClientSideGraph = dynamic(() => import('@/app/components/ClientSideGraph'), {
   ssr: false,
-  loading: () => <div className={'main-loader'}></div>
+  loading: () => <div className={'demo-main'}></div>
 })
 
 export interface NodeData {
@@ -106,7 +106,7 @@ export default function Home() {
 
   return (
     <main id="root">
-      <div className="app">
+      <div className="demo-app">
         <div className="demo-header">
           <a
             href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
@@ -114,12 +114,14 @@ export default function Home() {
             target="_blank"
             title="yFiles Product Page"
           ></a>
-          <span className="material-symbols-outlined demo-overview">chevron_right</span>
-          <a href="../../../README.html" target="_blank" rel="noopener noreferrer">
+          <span className="material-symbols-outlined">chevron_right</span>
+          <a href="https://www.yfiles.com/demos/" className="breadcrumb-wrapper" target="_blank">
             Demos
           </a>
           <span className="material-symbols-outlined demo-overview">chevron_right</span>
-          <span>Next.js Demo</span>
+          <span id="name" className="breadcrumb-wrapper demo-name">
+            Next.js Demo
+          </span>
         </div>
         <ClientSideGraph
           graphData={graphData}

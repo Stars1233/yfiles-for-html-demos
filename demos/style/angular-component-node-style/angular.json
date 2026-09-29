@@ -19,7 +19,7 @@
             "polyfills": [],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/assets"],
-            "styles": ["@angular/material/prebuilt-themes/purple-green.css", "src/styles.css"],
+            "styles": ["@angular/material/prebuilt-themes/purple-green.css", "src/main.css"],
             "scripts": []
           },
           "configurations": {
@@ -52,7 +52,7 @@
             "polyfills": [],
             "tsConfig": "tsconfig.spec.json",
             "assets": ["src/assets"],
-            "styles": ["@angular/material/prebuilt-themes/purple-green.css", "src/styles.css"],
+            "styles": ["@angular/material/prebuilt-themes/purple-green.css", "src/main.css"],
             "scripts": []
           }
         }

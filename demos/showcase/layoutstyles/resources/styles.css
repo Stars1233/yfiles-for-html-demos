@@ -26,10 +26,53 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-.data-editor-header select:not(.demo-disabled),
-.data-editor-header select:not(.demo-disabled):hover {
-  border-color: #888;
-  border-width: 1px;
+.description-panel #layout-description-container {
+  border-radius: 8px;
+  padding: 16px;
+  margin: 0 -8px;
+}
+
+.interaction-panel.advanced-editor {
+  --border-radius: 16px;
+  --small-padding: 8px;
+  --panel-min-width: 280px;
+
+  padding-inline: 0;
+  /*flex: 0 1 var(--panel-width);*/
+  min-width: var(--panel-min-width);
+}
+
+.advanced-editor {
+  > .content {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--small-padding);
+
+    overflow: hidden;
+
+    > * {
+      flex: 0 0 auto;
+    }
+
+    .scroll.scrollbar {
+      flex: 1;
+      min-height: 0;
+      overflow: auto;
+
+      /* The heading of this block is outside the element to prevent it from scrolling,
+        so we must revert the flex gap */
+      margin-block-start: calc(-1 * var(--small-padding));
+    }
+  }
+
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 }
 
 .option-ui-content-container {
@@ -38,13 +81,27 @@
 }
 
 .data-editor-header {
-  padding: 8px 8px 0 8px;
-}
+  padding: 0 var(--small-padding);
 
-.data-editor-header .content {
-  display: flex;
-  margin-bottom: 8px;
-  justify-content: space-evenly;
+  h2 {
+    margin-top: 0 !important;
+  }
+
+  .content {
+    display: flex;
+    margin-bottom: var(--small-padding);
+    justify-content: space-evenly;
+  }
+
+  select:not(.demo-disabled),
+  select:not(.demo-disabled):hover {
+    border-color: #888;
+    border-width: 1px;
+  }
+
+  button:disabled {
+    opacity: 0.5;
+  }
 }
 
 #sample-select-box,
@@ -58,53 +115,27 @@
   grid-area: mid;
 }
 
-.data-editor-header button:disabled {
-  opacity: 0.5;
-}
-#interactionPanelContent {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 0;
-  padding-top: 10px;
-  height: 100%;
-  overflow: hidden;
-  margin-left: -16px;
-  margin-right: -16px;
-  width: 100%;
-}
-
 #data-editor {
   -webkit-overflow-scrolling: touch;
   width: 100%;
 }
+
 .scroll {
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
 }
 
-#data-editor-button-container {
-  margin: 10px auto;
+.main-container .interaction-panel .option-ui-button {
+  background: var(--toolbar-button) !important;
+  color: var(--toolbar-button-text);
+  border-radius: 10px;
+  height: 30px;
+  letter-spacing: 1px;
+  align-content: center;
+  padding-left: 3px;
 }
-.main-container {
-  .interaction-panel {
-    overflow-x: hidden;
-    padding-bottom: 0;
-    flex-direction: column;
-    flex: 0 1 300px;
-    width: 300px;
-    & .option-ui-button {
-      background: var(--toolbar-button) !important;
-      color: var(--toolbar-button-text);
-      border-radius: 10px;
-      height: 30px;
-      letter-spacing: 1px;
-      align-content: center;
-      padding-left: 3px;
-    }
-  }
-}
+
 #reset-layout-button:hover {
   box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.1) inset;
 }
@@ -216,12 +247,6 @@
   background-image: url('./star-icon.svg');
 }
 
-.description-panel #layout-description-container {
-  border-radius: 8px;
-  padding: 16px;
-  margin: 0 -8px;
-}
-
 #preset-tooltip {
   position: absolute;
   display: none;
@@ -237,44 +262,44 @@
     0 2px 4px -1px rgba(0, 0, 0, 0.2),
     0 4px 5px 0 rgba(0, 0, 0, 0.14),
     0 1px 10px 0 rgba(0, 0, 0, 0.12) !important;
-}
 
-#preset-tooltip * {
-  color: rgba(0, 0, 0, 0.87);
-}
+  * {
+    color: rgba(0, 0, 0, 0.87);
+  }
 
-#preset-tooltip.active * {
-  color: #fff !important;
-}
+  &.active {
+    background-color: var(--color-highlight-blue);
+  }
 
-#preset-tooltip.visible {
-  opacity: 1;
-}
+  &.active * {
+    color: #fff !important;
+  }
 
-#preset-tooltip .triangle {
-  position: absolute;
-  top: -11px;
-  width: 0;
-  height: 0;
-  display: block;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-bottom: 12px solid #dadada;
-}
+  &.active .triangle {
+    border-bottom-color: var(--color-highlight-blue);
+  }
 
-#preset-tooltip.active .triangle {
-  border-bottom-color: var(--color-highlight-blue);
-}
+  &.visible {
+    opacity: 1;
+  }
 
-#preset-tooltip.active {
-  background-color: var(--color-highlight-blue);
-}
+  .triangle {
+    position: absolute;
+    top: -11px;
+    width: 0;
+    height: 0;
+    display: block;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-bottom: 12px solid #dadada;
+  }
 
-.preset-tooltip-dummy {
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  z-index: -1;
+  .preset-tooltip-dummy {
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    z-index: -1;
+  }
 }
 
 .yfiles-canvascomponent {

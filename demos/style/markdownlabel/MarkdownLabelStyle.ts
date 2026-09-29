@@ -49,7 +49,7 @@ import MarkdownIt from 'markdown-it'
 export class MarkdownLabelStyle extends LabelStyleBase {
   readonly markupLabelStyle: MarkupLabelStyle
   // the Markdown parser/renderer
-  private static markdownIt: MarkdownIt = new MarkdownIt()
+  private static markdownIt = new MarkdownIt()
 
   private readonly simpleLabel = new SimpleLabel()
   private readonly markupCache = new WeakMap<ILabel, { markdown: string; markup: string }>()

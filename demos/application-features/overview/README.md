@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/application-features/overview/).
 
+Demo
+
 This demo shows how to add an overview component to the application.
 
 ## Things to Try

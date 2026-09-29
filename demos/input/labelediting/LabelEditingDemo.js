@@ -31,8 +31,6 @@ import {
   GraphComponent,
   GraphEditorInputMode,
   GraphItemTypes,
-  ILabel,
-  ILabelOwner,
   LabelStyle,
   License,
   Point,
@@ -64,11 +62,6 @@ let validationPattern = new RegExp(DefaultValidationPattern)
  */
 let customHelperEnabled = false
 
-/**
- * Whether to automatically start editing the label on key press.
- */
-let instantTypingEnabled = false
-
 let graphComponent
 
 let graphEditorInputMode
@@ -95,9 +88,6 @@ function initializeInputModes() {
 
   // Custom label helpers
   registerCustomEditLabelHelper()
-
-  // Register custom event handler for the instant typing feature
-  graphComponent.addEventListener('key-down', handleInstantTyping)
 }
 
 /**
@@ -182,50 +172,6 @@ function registerCustomEditLabelHelper() {
   )
 }
 
-function getEditableItem() {
-  const currentItem = graphComponent.currentItem
-  if (currentItem && graphComponent.selection.includes(currentItem)) {
-    return currentItem
-  }
-  return graphComponent.selection.at(0) ?? null
-}
-
-function isTextEditing() {
-  const inputMode = graphComponent.inputMode
-  return inputMode.editLabelInputMode.textEditorInputMode.editing
-}
-
-/**
- * Event handler that implements "instant typing"
- */
-function handleInstantTyping(args) {
-  // Start editing only for printable characters.
-  if (!instantTypingEnabled || args.key?.length !== 1 || isTextEditing()) {
-    return
-  }
-
-  // Prevent the TextEditorInputMode from handling this event, as we already handled it.
-  args.preventDefault()
-
-  const item = getEditableItem()
-  const editLabelInputMode = graphEditorInputMode.editLabelInputMode
-
-  // Trigger the label editor.
-  if (item instanceof ILabelOwner) {
-    if (item.labels.size > 0) {
-      void editLabelInputMode.startLabelEditing(item.labels.at(0))
-    } else {
-      void editLabelInputMode.startLabelAddition(item)
-    }
-  } else if (item instanceof ILabel) {
-    void editLabelInputMode.startLabelEditing(item)
-  }
-
-  // Set the text of the input box after the editor is triggered but without awaiting its promise.
-  // This ensures that the pressed character, which started the instant label editing, is its input.
-  editLabelInputMode.textEditorInputMode.editorText = args.key
-}
-
 /**
  * Wires up the UI.
  */
@@ -243,13 +189,14 @@ function initializeUI() {
     graphEditorInputMode.editLabelInputMode.hideLabelDuringEditing = hideLabel.checked
   })
   const instantTyping = document.querySelector('#instantTyping')
-  instantTyping.addEventListener('change', () => (instantTypingEnabled = instantTyping.checked))
+  instantTyping.addEventListener('change', () => {
+    graphEditorInputMode.allowEditLabelOnTyping = instantTyping.checked
+  })
   const customLabelHelper = document.querySelector('#customLabelHelper')
   customLabelHelper.addEventListener(
     'change',
     () => (customHelperEnabled = customLabelHelper.checked)
   )
-
   const nodesEnabled = document.querySelector('#nodesEnabled')
   nodesEnabled.addEventListener('change', () => {
     if (nodesEnabled.checked) {

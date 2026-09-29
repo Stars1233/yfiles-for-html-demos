@@ -30,19 +30,22 @@ import {
   Color,
   EdgeRouter,
   EdgeRouterData,
-  EdgeRouterScope,
   FreeNodePortLocationModel,
   GraphComponent,
   GraphEditorInputMode,
   GraphMLIOHandler,
   HierarchicalLayout,
   HierarchicalLayoutData,
-  type IEdge,
+  IEdge,
+  type IEnumerable,
   type IGraph,
   IHitTestable,
   type IInputModeContext,
+  type IModelItem,
   INode,
   INodeStyle,
+  IntersectionItemTypes,
+  Intersections,
   type IPortCandidate,
   LayoutExecutor,
   License,
@@ -222,11 +225,52 @@ function createInputMode(): GraphEditorInputMode {
   })
   mode.add(bim)
 
+  /**
+   * Calculates the affected edges after a move or resize gesture
+   */
+  function getAffectedEdges(affectedItems: IEnumerable<IModelItem>) {
+    const affectedEdges = new Set<IEdge>()
+
+    for (const affectedItem of affectedItems) {
+      if (affectedItem instanceof IEdge) {
+        affectedEdges.add(affectedItem)
+      } else if (affectedItem instanceof INode) {
+        graphComponent.graph
+          .edgesAt(affectedItem)
+          .forEach((affectedEdge) => affectedEdges.add(affectedEdge))
+      }
+    }
+
+    // also checking edges the moved/resized nodes might now overlap
+    const intersections = new Intersections({
+      affectedItems: affectedItems.filter((item) => item instanceof INode),
+      consideredItemTypes: IntersectionItemTypes.NODE | IntersectionItemTypes.EDGE
+    }).run(graphComponent.graph)
+
+    for (const intersection of intersections.intersections) {
+      if (intersection.item1 instanceof IEdge) {
+        affectedEdges.add(intersection.item1)
+      } else if (intersection.item2 instanceof IEdge) {
+        affectedEdges.add(intersection.item2)
+      }
+    }
+
+    return [...affectedEdges]
+  }
+
   // execute a layout after certain gestures
-  mode.moveSelectedItemsInputMode.addEventListener('drag-finished', () => routeEdges())
-  mode.moveUnselectedItemsInputMode.addEventListener('drag-finished', () => routeEdges())
-  mode.handleInputMode.addEventListener('drag-finished', () => routeEdges())
-  createEdgeInputMode.addEventListener('edge-created', () => routeEdges())
+  mode.moveSelectedItemsInputMode.addEventListener('drag-finished', () => {
+    void routeEdges(getAffectedEdges(mode.moveSelectedItemsInputMode.affectedItems))
+  })
+  mode.moveUnselectedItemsInputMode.addEventListener(
+    'drag-finished',
+    () => void routeEdges(getAffectedEdges(mode.moveUnselectedItemsInputMode.affectedItems))
+  )
+  mode.handleInputMode.addEventListener(
+    'drag-finished',
+    () => void routeEdges(getAffectedEdges(mode.handleInputMode.affectedItems))
+  )
+  createEdgeInputMode.addEventListener('edge-created', (evt) => void routeEdges([evt.item]))
 
   // hide the edge creation buttons when the empty canvas was clicked
   mode.addEventListener('canvas-clicked', () => {
@@ -246,14 +290,14 @@ function createInputMode(): GraphEditorInputMode {
 /**
  * Routes edges which need to be re-routed. This is called after an input gesture.
  */
-async function routeEdges(): Promise<void> {
-  const edgeRouter = new EdgeRouter()
-  const edgeRouterData = new EdgeRouterData()
-  edgeRouterData.scope.edgeMapping = EdgeRouterScope.SEGMENTS_AS_NEEDED
+async function routeEdges(affectedEdges: IEdge[]): Promise<void> {
+  const layout = new EdgeRouter()
+  const layoutData = new EdgeRouterData({ scope: { edges: affectedEdges } })
 
   const layoutExecutor = new LayoutExecutor({
     graphComponent,
-    layout: edgeRouter,
+    layout,
+    layoutData,
     animationDuration: '0.5s',
     animateViewport: false,
     updateContentBounds: false

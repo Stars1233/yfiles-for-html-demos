@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/view/graphviewer/).
 
+Demo
+
 The Graph Viewer demo displays several sample graphs from various domains. It allows navigating the diagram but prohibits editing.
 
 ## Things to Try

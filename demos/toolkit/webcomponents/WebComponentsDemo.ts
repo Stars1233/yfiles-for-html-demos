@@ -57,7 +57,7 @@ async function run(): Promise<void> {
   const graphComponent = document.createElement('graph-component') as GraphComponentElementType
   graphComponent.setAttribute('id', 'graphComponent')
 
-  document.querySelector('.graph-container')!.appendChild(graphComponent)
+  document.querySelector('.graph-panel')!.appendChild(graphComponent)
 
   graphComponent.editMode = new GraphEditorInputMode()
 
@@ -106,17 +106,6 @@ function initializeUI(graphComponent: GraphComponentElementType): void {
   })
   addClickListener("button[data-command='FIT_GRAPH_BOUNDS']", () => {
     graphComponent.fitGraphBounds()
-  })
-  addClickListener("button[data-command='ZOOM_ORIGINAL']", () => {
-    // Demonstrates how changing the 'zoom' HTML attribute of a custom 'graph-component' element
-    // will change the 'zoom' property of the corresponding yFiles GraphComponent instance.
-    // This approach is meant as a proof-of-concept for reflecting GraphComponent properties as
-    // HTML attributes.
-    // In a real world application, the class defining the custom 'graph-component' should expose
-    // a 'zoom' property of type number and simply forward calls of said property to the zoom
-    // property of the associated yFiles GraphComponent instance (i.e. the approach from ZoomIn and
-    // ZoomOut above).
-    graphComponent.setAttribute('zoom', '1')
   })
   addClickListener('#useShadow', () => {
     graphComponent.toggleShadowRoot()

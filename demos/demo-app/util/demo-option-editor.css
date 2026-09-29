@@ -26,6 +26,10 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
+#layout-select-box {
+  width: 100% !important;
+}
+
 .option-ui-tabbar {
   position: relative;
   box-sizing: border-box;
@@ -499,6 +503,7 @@ form.option-ui-slider input[type='number'] {
   width: 90%;
   margin: 0;
   vertical-align: middle;
+  text-align: center;
 }
 
 .option-ui-item {

@@ -72,7 +72,10 @@ export function HtmlNodeComponent({ tag }: ReactComponentHtmlNodeStyleProps<Node
           }
           title={name}
         />
-        <CardContent sx={{ maxHeight: '200px', overflowY: 'auto' }}>
+        <CardContent
+          sx={{ maxHeight: '200px', overflowY: 'auto' }}
+          onWheel={(e) => e.stopPropagation()}
+        >
           <Typography variant="body2" color="text.secondary">
             {content}
           </Typography>

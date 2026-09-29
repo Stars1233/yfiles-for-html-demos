@@ -29,7 +29,6 @@
 import { defineConfig } from 'cypress'
 
 export default defineConfig({
-  allowCypressEnv: false,
   env: { testingUrl: process.env.TEST_SERVER_URL },
   e2e: {
     setupNodeEvents(on, config) {

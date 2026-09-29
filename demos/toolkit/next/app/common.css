@@ -1,0 +1,229 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+@import '@fontsource/material-symbols-outlined/300.css';
+
+/* Layout of the page: header, main area */
+
+:root {
+  --text-color: #2a3e50;
+  --panel-bg-color: #e8edf2;
+  --text-accent-color: #00adcc;
+
+  --size-h1: 2rem;
+  --size-h2: 1.5rem;
+  --size-h3: 1.2rem;
+
+  --gap: 8px;
+  --border-radius: 12px;
+  --description-width: 300px;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.demo-app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.demo-header {
+  flex: 0 0 70px;
+  height: 70px;
+}
+
+.demo-main {
+  flex: 1 1 auto;
+  min-height: 0; /* allows scrolling content inside the remaining space */
+  overflow: auto;
+  padding: 0 var(--gap) var(--gap);
+}
+
+/* Layout of the main area: component-panel, interaction-panel, description-panel */
+
+.demo-main {
+  display: flex;
+  gap: var(--gap);
+  align-items: stretch;
+
+  > * {
+    min-width: 0;
+    position: relative;
+  }
+}
+
+/* The graph component gets all remaining space */
+.demo-main__component-panel {
+  flex: 1 1 0;
+}
+
+/* These panels have a fixed width */
+.demo-main__description-panel,
+.demo-main__interaction-panel {
+  flex: 0 0 var(--description-width);
+}
+
+/* Theme: colors, font, etc.*/
+
+body {
+  color: var(--text-color);
+  background-color: var(--panel-bg-color);
+  font-family: sans-serif;
+}
+
+button {
+  color: inherit;
+  font-family: inherit;
+}
+
+.demo-main__description-panel,
+.demo-main__interaction-panel {
+  background-color: #ffffff;
+  font-weight: 400;
+  font-size: 0.875rem;
+
+  border-radius: var(--border-radius);
+  padding: var(--border-radius);
+  overflow: auto;
+
+  h1,
+  h2,
+  h3 {
+    margin: 1.25em 0 0.5em 0;
+    line-height: 130%;
+    hyphens: auto;
+  }
+
+  :first-child,
+  h1 {
+    margin-top: 0;
+  }
+
+  /* Additional small heading above the h1 */
+  .subheading {
+    font-size: 1rem;
+    color: color-mix(in oklch, var(--text-color) 60%, white);
+    font-weight: 700;
+  }
+
+  a {
+    color: var(--text-color);
+    &:hover {
+      text-decoration-thickness: 2px;
+    }
+  }
+
+  ul {
+    padding-inline-start: 1.5em;
+  }
+
+  li + li {
+    margin-top: 0.5em;
+  }
+}
+
+.demo-main__component-panel {
+  border-radius: var(--border-radius);
+  background-color: #ffffff;
+}
+
+.demo-main__description-panel {
+  h1 {
+    color: var(--text-accent-color);
+    font-size: var(--size-h1);
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: var(--size-h2);
+  }
+
+  h3 {
+    font-size: var(--size-h3);
+  }
+}
+
+.demo-main__interaction-panel {
+  h2 {
+    color: var(--text-accent-color);
+    font-size: var(--size-h2);
+    font-weight: 600;
+  }
+}
+
+/* Header */
+
+.demo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 0 92px;
+
+  font-weight: 400;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .y-logo {
+    width: 12em;
+    height: 100%;
+    margin: 4px 4px 4px 16px;
+    mask: url(../public/assets/ylogo-large.svg) no-repeat center;
+    background-color: var(--text-color);
+  }
+
+  .breadcrumb-wrapper {
+    font-size: 1.125em;
+  }
+}
+
+/* Misc */
+
+.material-symbols-outlined {
+  font-variation-settings: 'GRAD' 30;
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5em;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+}

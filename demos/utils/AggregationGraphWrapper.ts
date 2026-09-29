@@ -512,6 +512,10 @@ export class AggregationGraphWrapper extends GraphWrapperBase {
       const existingReplacementEdge = replacementEdges.get(otherPortOwner)
       if (existingReplacementEdge) {
         existingReplacementEdge.aggregatedEdges.add(edge)
+        if (otherPortOwner instanceof AggregationNode) {
+          // hide the edge since the other endpoint is an aggregation node
+          this.$hide(edge)
+        }
         continue
       }
 

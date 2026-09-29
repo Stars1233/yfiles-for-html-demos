@@ -26,9 +26,17 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
+@import 'interaction-panel.css';
+@import 'neighborhood-panel.css';
+@import 'ontology-view.css';
+
+:root {
+  --color-orange: var(--rail-highlighted);
+}
+
 :root[data-theme='light'] {
-  --gc-color-background: radial-gradient(#ffffff, var(--color-bluish-white));
-  --gc-title-background: radial-gradient(var(--color-bluish-white), var(--color-casper-blue-light));
+  --gc-color-background: radial-gradient(var(--color-bluish-white), var(--color-casper-blue-light));
+  --gc-title-background: var(--color-casper-blue-light);
 }
 
 :root[data-theme='dark'] {
@@ -36,118 +44,34 @@
   --gc-title-background: black;
 }
 
+.graph-splash::before {
+  /* override default indicator background-color because of dark graphComponent */
+  background-color: var(--toolbar-bg) !important;
+}
+
+.main-container #graphComponent {
+  background-color: var(--gc-color-background) !important;
+}
+
 .yfiles-rendertreepanel,
 .graph-panel {
   background: var(--gc-color-background);
 }
 
-.graph-overlay {
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgb(209, 209, 209);
-
-  h3 {
-    margin: 10px 0;
-    font-weight: normal;
-  }
-
-  .filter-dropdowns {
-    margin: 10px 0;
-    display: flex;
-    flex-direction: column;
-
-    .down-arrow {
-      font-size: 18px;
-      font-weight: bold;
-      margin: 5px 0;
-      text-align: center;
-    }
-  }
-
-  .filter-buttons {
-    align-self: center;
-    margin: 20px 0 5px 0;
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-  }
-}
-
-#subject-combo,
-#predicate-combo,
-#object-combo {
-  width: 100%;
-  border: 2px solid rgb(209, 209, 209);
-  border-radius: 5px;
-  padding: 5px 7px;
-  outline: none;
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23313638' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 3px center;
-  background-size: 16px;
-}
-
-.main-interaction-button {
+.yfiles-tooltip {
+  background-color: var(--toolbar-bg);
+  color: var(--color-text);
   border: none;
-  padding: 5px 10px;
-  border-radius: 999px;
-  line-height: 1;
-  cursor: pointer;
-  transition: box-shadow 160ms ease;
-  margin-left: 5px;
-  margin-bottom: 5px;
+  border-radius: var(--border-radius);
 
-  &:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-    opacity: 0.8;
-  }
-
-  &[aria-disabled='true'] {
-    opacity: 0.4;
-    cursor: not-allowed;
+  .edge-tooltip {
+    text-align: center;
   }
 }
 
-.data-problem-container {
-  margin: 20px 0;
-  display: flex;
-  align-items: flex-start;
-  padding: 5px;
-
-  p {
-    margin: 0 !important;
-  }
-
-  button {
-    display: inline;
-    font-size: 11px;
-  }
-
-  .main-interaction-button {
-    margin: 10px 0 0 0;
-  }
-
-  &.disabled {
-    opacity: 0.3;
-    pointer-events: none;
-  }
-
-  &.selected {
-    animation: highlight-fade 2s ease-in-out forwards;
-    border-radius: 5px;
-  }
-}
-
-#error-beacon-animation {
-  &.disabled {
-    opacity: 0.3;
-    pointer-events: none;
+.yfiles-rendertreepanel {
+  &.blur {
+    opacity: 0.65;
   }
 }
 
@@ -157,7 +81,7 @@
   margin-right: 10px;
   height: 30px;
   width: 30px;
-  color: #ff4400;
+  color: var(--color-orange);
   display: inline-block;
   line-height: 1;
 
@@ -168,156 +92,12 @@
   }
 }
 
-.footnote {
-  font-size: 12px;
-  opacity: 0.9;
-
-  &.error {
-    color: #ff4400;
-  }
+.icon-text {
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-size: 1.2rem;
+  vertical-align: sub;
 }
 
-p.footnote {
-  margin: 0.3em;
-}
-
-@keyframes highlight-fade {
-  0% {
-    background-color: rgba(255, 0, 0, 0);
-  }
-  10% {
-    background-color: #f9be93;
-  }
-  70% {
-    background-color: #f9be93;
-  }
-  100% {
-    background-color: rgba(255, 0, 0, 0);
-  }
-}
-
-.group-separator {
-  display: flex;
-  align-items: center;
-  margin: 12px 0;
-  pointer-events: none;
-
-  &::before,
-  &::after {
-    content: '';
-    height: 1px;
-    background: rgba(0, 0, 0, 0.2);
-    flex: 1;
-  }
-}
-
-#explorer-panel {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 80%;
-  height: 80%;
-  transform: translate(-50%, -50%);
-  z-index: 200000;
-  background: var(--toolbar-bg);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.2s ease-in;
-  display: flex;
-  flex-direction: column;
-  user-select: none;
-
-  &.open {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  #title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.4rem 1rem;
-  }
-
-  #explorer-title-text {
-    font-weight: 600;
-    color: var(--toolbar-button-text, #fff);
-  }
-}
-
-#explorer-graphComponent {
-  flex: 1 1 auto;
-  overflow: hidden;
-}
-
-#explorer-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 199999;
-  background: rgba(0, 0, 0, 0.5);
-  display: none;
-  transition: background 0.3s ease;
-
-  &.open {
-    display: block;
-  }
-}
-
-#explorer-close {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  line-height: 1;
-  transition:
-    background 0.1s,
-    color 0.2s;
-
-  &:hover {
-    background: var(--toolbar-bg-hover);
-    color: #fff;
-  }
-}
-
-#show-ontology-view {
-  position: absolute;
-  right: 15px;
-  bottom: 15px;
-  width: 70px;
-  height: 70px;
-  border-radius: 100px;
-  font-size: 40px;
-  display: flex;
-  background-color: var(--toolbar-bg);
-  color: var(--toolbar-button-text);
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  z-index: 5;
-  border: var(--toolbar-bg);
-  box-shadow: var(--shadow-crispy-gray);
-
-  &:hover {
-    background-color: var(--toolbar-button-hover);
-  }
-
-  &.disabled {
-    background-color: #aaaaaa;
-  }
-}
-
-#toggle_highlighting {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
+.toggle-text {
+  margin-left: 10px;
 }

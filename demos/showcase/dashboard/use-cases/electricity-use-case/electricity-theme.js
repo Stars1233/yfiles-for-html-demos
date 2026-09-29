@@ -1,0 +1,80 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+const NODE_COLORS = {
+  // producers
+  'producer-nuclear': '#1fa9c4',
+  'producer-coal': '#4dd6ef',
+  'producer-gas': '#66e7ff',
+
+  'producer-biomass': '#3fae80',
+  'producer-hydro': '#5fdba8',
+  'producer-solar': '#8eeac4',
+  'producer-wind': '#bff3dc',
+
+  // consumers
+  'consumer-industrial': '#d98f4a',
+  'consumer-commercial': '#f0ac5c',
+  'consumer-residential': '#f9d9a0',
+
+  // distributors
+  'distributor-substation': '#e8536a'
+}
+
+export const icons = {
+  'producer-nuclear': 'electric_bolt',
+  'producer-gas': 'gas_meter',
+  'producer-solar': 'sunny',
+  'producer-biomass': 'compost',
+  'producer-coal': 'mode_heat',
+  'producer-wind': 'wind_power',
+  'producer-hydro': 'water',
+  'consumer-industrial': 'factory',
+  'consumer-residential': 'home',
+  'consumer-commercial': 'store',
+  'distributor-substation': 'cable'
+}
+
+export const countries = {
+  FR: 'France',
+  FI: 'Finland',
+  PL: 'Poland',
+  DE: 'Germany',
+  UK: 'United Kingdom',
+  NL: 'Netherlands',
+  ES: 'Spain',
+  PT: 'Portugal',
+  BE: 'Belgium',
+  DK: 'Denmark',
+  CZ: 'Czech Republic',
+  IE: 'Ireland'
+}
+
+export function getNodeColor(type) {
+  return NODE_COLORS[type] ?? '#000000'
+}

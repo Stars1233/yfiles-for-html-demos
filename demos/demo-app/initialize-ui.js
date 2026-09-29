@@ -32,7 +32,12 @@ import './modern/modern.css'
 import { createPanelFor } from './modern/navigation-rail'
 import { initializeBurgerMenu, openBurgerMenu } from './modern/burger-menu'
 import { initResponsiveToolbars } from './modern/toolbar'
-import { addNavigationButtons, handleSplash } from './modern/element-utils'
+import {
+  addNavigationButtons,
+  handleSplash,
+  maybeStartViewTransition
+} from './modern/element-utils'
+import { initializeToast } from './modern/toast'
 
 function initializeNavigationRail() {
   createPanelFor(
@@ -57,28 +62,6 @@ function initializeNavigationRail() {
   }
 }
 
-/**
- * Executes a callback within a view transition if the browser supports it.
- * @param callback The function to execute.
- */
-function maybeStartViewTransition(callback) {
-  if (!document.startViewTransition) {
-    callback()
-    return
-  }
-
-  try {
-    document.startViewTransition(callback)
-  } catch (e) {
-    if (!(e instanceof DOMException)) {
-      // we do not throw DOMExceptions and just ignore them - view transitions can throw when the
-      // view gets closed and similar - we don't care about that and don't want to bother the user
-      // as this is just for the looks.
-      throw e
-    }
-  }
-}
-
 export function initializeSidePanel(panel, title) {
   const panelBar = document.querySelector('.panel-bar')
   if (panel == null || panelBar == null) {
@@ -88,7 +71,7 @@ export function initializeSidePanel(panel, title) {
   // Get the panel to hide from the class name
   const panelName = panel.className.split(' ')[0]
   const collapsePanel = document.createElement('div')
-  collapsePanel.classList.add('collapse-panel')
+  collapsePanel.classList.add('collapse-anchor')
   const collapseButton = document.createElement('button')
   collapseButton.classList.add('collapse', 'icon')
   collapseButton.title = `Collapse ${title} panel`
@@ -222,10 +205,10 @@ function initializeUI() {
   initResponsiveToolbars()
   initializeOverviewPanel()
   initMobileStartPage()
-  document.addEventListener('DOMContentLoaded', () => {
-    initSelectWidths('.toolbar')
-    observeSelectChanges('.toolbar')
-  })
+  initSelectWidths('.toolbar')
+  observeSelectChanges('.toolbar')
+  initSelectWidths('.interaction-panel')
+  observeSelectChanges('.interaction-panel')
 
   if (document.querySelector('.interaction-panel')) {
     const mobileInteractionButton = document.createElement('button')
@@ -241,6 +224,7 @@ function initializeUI() {
     graphMainPanel.append(mobileInteractionButton)
   }
   initializeSelectNavigationButtons()
+  initializeToast()
   windowLoadSplash()
   hideSplash()
 }
@@ -349,68 +333,216 @@ function initMobileStartPage() {
   document.body.classList.add('description-panel-visible')
 }
 
+const originalText = new WeakMap()
+const initializedSelects = new WeakSet()
+const selectNaturalWidth = new WeakMap()
+const openSelects = new WeakSet()
+
+function getCssMaxWidth(el) {
+  const styles = getComputedStyle(el)
+  const values = [styles.maxInlineSize, styles.maxWidth]
+    .filter((v) => v !== 'none' && v !== '')
+    .map((v) => parseFloat(v))
+    .filter((v) => Number.isFinite(v))
+  return values.length ? Math.min(...values) : undefined
+}
+
+function truncateWithEllipsis(text, maxWidth, measuringSpan) {
+  measuringSpan.textContent = text
+  if (measuringSpan.offsetWidth <= maxWidth) {
+    return text
+  }
+
+  // Binary search for the right truncation point
+  let truncated = text
+  while (truncated.length > 0) {
+    truncated = truncated.slice(0, -1)
+    measuringSpan.textContent = truncated + '…'
+
+    if (measuringSpan.offsetWidth <= maxWidth) {
+      return truncated + '…'
+    }
+  }
+  return '…'
+}
+
+function applyTruncation(select, availableTextWidth, temp) {
+  if (openSelects.has(select)) return
+
+  // Reserve space for dropdown arrow and add padding
+  const ARROW_WIDTH = 25
+  const ARROW_PADDING = 8
+  const truncateWidth = availableTextWidth - ARROW_WIDTH - ARROW_PADDING
+
+  for (const option of select.options) {
+    const fullText = originalText.get(option) ?? option.text
+    option.textContent = option.selected
+      ? truncateWithEllipsis(fullText, truncateWidth, temp)
+      : fullText
+  }
+}
+
+function createMeasuringSpan(select) {
+  const temp = document.createElement('span')
+  temp.style.visibility = 'hidden'
+  temp.style.position = 'absolute'
+  temp.style.whiteSpace = 'nowrap'
+  document.body.appendChild(temp)
+
+  const cs = getComputedStyle(select)
+  temp.style.font = cs.font
+  temp.style.fontFamily = cs.fontFamily
+  temp.style.fontSize = cs.fontSize
+  temp.style.fontWeight = cs.fontWeight
+  temp.style.letterSpacing = cs.letterSpacing
+
+  return temp
+}
+
 function initSelectWidths(containerSelector = '.toolbar') {
-  const containers = document.querySelectorAll(containerSelector)
-  if (!containers) return
-  containers.forEach((container) => {
-    const selects = container.querySelectorAll('select')
+  document.querySelectorAll(containerSelector).forEach((container) => {
+    container.querySelectorAll('select').forEach((select) => {
+      if (openSelects.has(select)) return
 
-    selects.forEach((select) => {
-      let maxWidth = 0
-      const temp = document.createElement('span')
-
-      // temp for measuring
-      temp.style.visibility = 'hidden'
-      temp.style.position = 'absolute'
-      temp.style.whiteSpace = 'nowrap'
-      document.body.appendChild(temp)
-
-      // match font & text styles
-      const cs = getComputedStyle(select)
-      temp.style.font = cs.font
-      temp.style.fontFamily = cs.fontFamily
-
-      // calculate width
-      select.querySelectorAll('option').forEach((option) => {
-        temp.textContent = option.textContent
-        const width = temp.offsetWidth
-        if (width > maxWidth) maxWidth = width
-      })
-
-      temp.remove()
-
-      // add some space
-      let extra = 0
-      switch (true) {
-        case maxWidth === 0:
-          extra = 235
-          break
-        case maxWidth < 25:
-          extra = 50
-          break
-        case maxWidth < 50:
-          extra = 65
-          break
-        case maxWidth < 75:
-          extra = 55
-          break
-        case maxWidth < 100:
-          extra = 50
-          break
-        case maxWidth < 125:
-          extra = 43
-          break
-        case maxWidth < 225:
-          extra = 38
-          break
-        case maxWidth < 300:
-          extra = 35
-          break
-        default:
-          extra = 35
+      // Store original text for all options
+      for (const option of select.options) {
+        if (!originalText.has(option)) {
+          originalText.set(option, option.text)
+        }
       }
 
-      select.style.width = `${maxWidth * 1.2 + extra}px`
+      const temp = createMeasuringSpan(select)
+
+      // Calculate and cache natural width once
+      if (!selectNaturalWidth.has(select)) {
+        select.style.width = ''
+        let maxTextWidth = 0
+        for (const option of select.options) {
+          temp.textContent = originalText.get(option) ?? option.text
+          const width = temp.offsetWidth
+          if (width > maxTextWidth) maxTextWidth = width
+        }
+
+        let extra = 0
+        switch (true) {
+          case maxTextWidth === 0:
+            extra = 235
+            break
+          case maxTextWidth < 25:
+            extra = 50
+            break
+          case maxTextWidth < 50:
+            extra = 65
+            break
+          case maxTextWidth < 75:
+            extra = 55
+            break
+          case maxTextWidth < 100:
+            extra = 50
+            break
+          case maxTextWidth < 125:
+            extra = 43
+            break
+          case maxTextWidth < 225:
+            extra = 38
+            break
+          default:
+            extra = 35
+            break
+        }
+
+        selectNaturalWidth.set(select, maxTextWidth * 1.2 + extra)
+      }
+
+      const naturalWidth = selectNaturalWidth.get(select)
+      const cssMaxWidth = getCssMaxWidth(select)
+
+      // Natural width capped by cssMaxWidth only — parentWidth excluded
+      // to avoid reflow inconsistencies after user interactions
+      const constrainedWidth = cssMaxWidth ? Math.min(naturalWidth, cssMaxWidth) : naturalWidth
+
+      const ARROW_WIDTH = 25
+      const ARROW_PADDING = 8
+      const availableWidth = constrainedWidth - ARROW_WIDTH - ARROW_PADDING
+      select.style.width = `${constrainedWidth}px`
+
+      if (naturalWidth > constrainedWidth) {
+        applyTruncation(select, availableWidth, temp)
+      } else {
+        // Restore only the selected option — others are never truncated
+        const selected = select.options[select.selectedIndex]
+        if (selected) {
+          const full = originalText.get(selected)
+          if (full !== undefined) selected.textContent = full
+        }
+      }
+      temp.remove()
+
+      if (!initializedSelects.has(select)) {
+        initializedSelects.add(select)
+
+        // Restore full text when dropdown opens so all options show correctly
+        select.addEventListener('mousedown', () => {
+          if (document.activeElement === select) {
+            // Second click — closing, document mousedown will re-truncate
+            openSelects.delete(select)
+          } else {
+            openSelects.add(select)
+            for (const option of select.options) {
+              const full = originalText.get(option)
+              if (full !== undefined) option.textContent = full
+            }
+          }
+        })
+
+        document.addEventListener('mousedown', (e) => {
+          if (e.target === select) {
+            // Closing via second click on select
+            if (!openSelects.has(select)) {
+              requestAnimationFrame(() =>
+                requestAnimationFrame(() => initSelectWidths(containerSelector))
+              )
+            }
+            return
+          }
+
+          if (!openSelects.has(select)) return
+
+          // Clicked outside — close and re-truncate
+          openSelects.delete(select)
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() => initSelectWidths(containerSelector))
+          )
+        })
+
+        select.addEventListener('change', () => {
+          // Restore previous selected option to full text
+          for (const option of select.options) {
+            if (!option.selected) {
+              const full = originalText.get(option)
+              if (full !== undefined) option.textContent = full
+            }
+          }
+          openSelects.delete(select)
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() => initSelectWidths(containerSelector))
+          )
+        })
+
+        select.addEventListener('keydown', (e) => {
+          if (e.key === 'Tab' || e.key === 'Escape') {
+            openSelects.delete(select)
+            requestAnimationFrame(() =>
+              requestAnimationFrame(() => initSelectWidths(containerSelector))
+            )
+          }
+        })
+
+        window.addEventListener('resize', () => {
+          selectNaturalWidth.delete(select)
+          initSelectWidths(containerSelector)
+        })
+      }
     })
   })
 }
@@ -429,13 +561,14 @@ function observeSelectChanges(containerSelector = '.toolbar') {
           (node) => node instanceof HTMLOptionElement || node instanceof HTMLSelectElement
         )
       ) {
+        if (mutation.target instanceof HTMLSelectElement) {
+          selectNaturalWidth.delete(mutation.target)
+        }
         needsUpdate = true
       }
     }
 
-    if (needsUpdate) {
-      initSelectWidths(containerSelector)
-    }
+    if (needsUpdate) initSelectWidths(containerSelector)
   })
 
   observer.observe(container, { subtree: true, childList: true })

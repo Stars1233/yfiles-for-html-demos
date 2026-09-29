@@ -11,7 +11,7 @@ const props = defineProps(['color', 'content', 'zoom', 'image', 'name', 'moreUrl
     height="100%"
     class="d-flex flex-column node-card"
   >
-    <v-card-text class="content py-2">
+    <v-card-text class="content py-2" @wheel.stop>
       {{ content }}
     </v-card-text>
 

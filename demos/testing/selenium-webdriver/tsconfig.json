@@ -5,5 +5,5 @@
     "exactOptionalPropertyTypes": true,
     "noEmit": true
   },
-  "include": ["tests/**/*.ts", "util/**/*.ts"],
+  "include": ["tests/**/*.ts", "util/**/*.ts"]
 }

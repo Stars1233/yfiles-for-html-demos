@@ -30,14 +30,17 @@ import {
   Animator,
   CircularLayout,
   FreeNodeLabelModel,
+  GradientStop,
   GraphBuilder,
   GraphComponent,
   type GraphInputMode,
   GraphItemTypes,
   GraphViewerInputMode,
+  HeatMapRenderer,
   IEdge,
   INode,
   Insets,
+  type IRenderTreeElement,
   LabelStyle,
   LayoutExecutor,
   License,
@@ -67,6 +70,7 @@ import {
   removeFailureHighlight
 } from './failure-highlight'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
 
 LayoutExecutor.ensure()
 
@@ -77,6 +81,11 @@ LayoutExecutor.ensure()
  * Manages the animation of packets that travel along the edges.
  */
 let edgeAnimator: Animator
+
+let heatMapRenderer: HeatMapRenderer
+let heatMapElement: IRenderTreeElement
+
+const supportsWebGL = BrowserDetection.webGL2
 
 async function run(): Promise<void> {
   License.value = licenseData
@@ -145,6 +154,9 @@ async function run(): Promise<void> {
 
   enableViewportLimiter(graphComponent)
   initializeUI(graphComponent, simulator)
+  if (supportsWebGL) {
+    createHeatmap(graphComponent)
+  }
 }
 
 /**
@@ -259,6 +271,49 @@ function initializeUI(graphComponent: GraphComponent, simulator: Simulator): voi
     edgeAnimator.paused = button.checked
     simulator.paused = button.checked
   })
+
+  const enableHeatMap = document.querySelector<HTMLButtonElement>('#enableHeatMap')!
+  if (!supportsWebGL) {
+    enableHeatMap.disabled = true
+    enableHeatMap.labels.item(0).title = 'WebGL is required to enable the heat map'
+  }
+  enableHeatMap.addEventListener('click', (evt) => {
+    const enabled = (evt.target as HTMLInputElement).checked
+    if (enabled) {
+      heatMapElement = graphComponent.renderTree.createElement(
+        graphComponent.renderTree.backgroundGroup,
+        graphComponent.graph,
+        heatMapRenderer
+      )
+    } else {
+      graphComponent.renderTree.remove(heatMapElement)
+    }
+  })
+}
+
+/**
+ * Creates a heatmap visualization which displays the device load for all nodes
+ * as a color map in the background.
+ * @param graphComponent The graph component to which the heatmap is added
+ */
+function createHeatmap(graphComponent: GraphComponent): void {
+  const getHeatNode = (item: INode): number => Math.min(1, getDevice(item).load)
+  const getHeatEdge = (item: IEdge): number => Math.min(1, getConnection(item).load)
+  heatMapRenderer = new HeatMapRenderer({
+    nodeHeatProvider: getHeatNode,
+    edgeHeatProvider: getHeatEdge,
+    gradient: [
+      new GradientStop('#0000ff0a', 0),
+      new GradientStop('#00ff00', 0.25),
+      new GradientStop('#ffff00', 0.5),
+      new GradientStop('#FF4433', 1.0)
+    ]
+  })
+  heatMapElement = graphComponent.renderTree.createElement(
+    graphComponent.renderTree.backgroundGroup,
+    graphComponent.graph,
+    heatMapRenderer
+  )
 }
 
 function getDevice(node: INode): Device {

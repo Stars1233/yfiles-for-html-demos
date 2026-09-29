@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/view/structureview/).
 
+Demo
+
 The Structure View is a demo component that displays group and node nesting. It updates with interactive graph changes and allows for item selection within the panel.
 
 ## Things to Try

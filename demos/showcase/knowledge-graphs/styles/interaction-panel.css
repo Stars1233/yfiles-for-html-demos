@@ -1,0 +1,275 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+:root {
+  --context-menu-button-radius: 5px;
+  --expanded-breakpoint: 60vh;
+}
+
+.main-container .interaction-panel {
+  flex: 0 1 500px;
+  width: 500px;
+}
+
+.main-container .interaction-panel.expanded {
+  width: var(--expanded-breakpoint);
+  flex-basis: var(--expanded-breakpoint);
+}
+
+.main-container .interaction-panel.expanded .ontology-container {
+  min-height: var(--expanded-breakpoint);
+}
+
+.main-container .interaction-panel.expanded #ontology-graphComponent {
+  min-height: var(--expanded-breakpoint);
+}
+
+.graph-overlay {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: 2px solid rgb(209, 209, 209);
+  border-radius: 5px;
+}
+
+.graph-overlay h3 {
+  margin: 10px 0;
+  font-weight: normal;
+}
+
+.graph-overlay .filter-dropdowns {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+}
+
+.graph-overlay .filter-dropdowns .down-arrow {
+  margin: 5px 0;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.graph-overlay .filter-buttons {
+  align-self: center;
+  margin: 20px 0 5px;
+}
+
+.graph-overlay .filter-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.graph-overlay #subject-combo,
+.graph-overlay #predicate-combo,
+.graph-overlay #object-combo {
+  width: 100%;
+  padding: 5px 7px;
+  border: 2px solid rgb(209, 209, 209);
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23313638' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 3px center;
+  background-size: 16px;
+}
+
+select option:disabled {
+  color: #999;
+  background-color: #eeeeee;
+}
+
+.footnote {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.footnote.error {
+  color: var(--color-orange);
+}
+
+p.footnote {
+  margin: 0.3em;
+}
+
+.group-separator {
+  display: flex;
+  align-items: center;
+  margin: 12px 12px 12px 0;
+  pointer-events: none;
+}
+
+.group-separator::before,
+.group-separator::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--description-text);
+  opacity: 0.2;
+}
+
+#toggle_highlighting {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.main-interaction-button {
+  display: inline-flex;
+  align-items: center;
+  border: none;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  line-height: 1;
+  cursor: pointer;
+  transition: box-shadow 160ms ease;
+}
+
+.main-interaction-button:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  opacity: 0.8;
+}
+
+.main-interaction-button[aria-disabled='true'] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#data-problems-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  cursor: pointer;
+}
+
+#data-problems-text .problem-text {
+  display: flex;
+  gap: 0.5em;
+}
+
+#data-problems-text .toggle-details {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+#data-problems-text .material-symbols-outlined {
+  color: var(--rail-highlighted);
+}
+
+.error-panel {
+  display: none;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 10px;
+  border: 2px solid rgb(209, 209, 209);
+  border-radius: 5px;
+}
+
+.error-panel.visible {
+  display: flex;
+}
+
+.error-panel #data-problems-list {
+  max-height: 380px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-bg) transparent;
+}
+
+.error-panel #data-problems-list .data-problem-container {
+  display: flex;
+  align-items: flex-start;
+  margin: 10px 0;
+  padding: 3px;
+  font-size: 13px;
+}
+
+.error-panel #data-problems-list .data-problem-container p {
+  margin: 0 !important;
+}
+
+.error-panel #data-problems-list .data-problem-container button {
+  display: inline;
+  font-size: 11px;
+}
+
+.error-panel #data-problems-list .data-problem-container .main-interaction-button {
+  margin: 10px 10px 0 0;
+}
+
+.error-panel #data-problems-list .data-problem-container.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.error-panel #data-problems-list .data-problem-container.selected {
+  border-radius: 5px;
+  animation: highlight-fade 2s ease-in-out forwards;
+}
+
+.error-panel #data-problems-list::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.error-panel #data-problems-list::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.error-panel #data-problems-list::-webkit-scrollbar-thumb {
+  background-color: rgb(from var(--scrollbar-bg) r g b / 0.6);
+  border-radius: 6px;
+}
+
+.error-panel #data-problems-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-bg);
+}
+
+#error-beacon-animation.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.yfiles-context-menu {
+  background-color: var(--toolbar-bg);
+  border: none;
+}
+
+.yfiles-context-menu .yfiles-context-menu__item {
+  border-radius: var(--context-menu-button-radius);
+}
+
+.yfiles-context-menu button:hover {
+  background-color: var(--toolbar-bg-hover) !important;
+  border-radius: var(--context-menu-button-radius);
+}

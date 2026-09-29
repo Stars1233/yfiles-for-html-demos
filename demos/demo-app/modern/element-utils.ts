@@ -31,6 +31,74 @@ import type { CanvasComponent, Command } from '@yfiles/yfiles'
 export type OptionData = { value: string; text: string }
 
 /**
+ * Creates an empty general-purpose dialog with a title bar.
+ *
+ * @param titleText The text for the dialog title.
+ */
+export function createPlainDialog(titleText: string) {
+  const dialogAnchor = document.createElement('div')
+  dialogAnchor.classList.add('demo-dialog-anchor')
+
+  const dialogPanel = document.createElement('div')
+  dialogPanel.classList.add('demo-dialog')
+
+  const title = document.createElement('h2')
+  title.classList.add('demo-dialog__title')
+  title.innerHTML = titleText
+
+  const contentPanel = document.createElement('div')
+  contentPanel.classList.add('demo-dialog__content')
+
+  dialogAnchor.appendChild(dialogPanel)
+  dialogPanel.appendChild(title)
+  dialogPanel.appendChild(contentPanel)
+
+  return { dialogAnchor, dialogPanel, title, contentPanel }
+}
+
+function createWebGLMissingDialog(mainText: string): HTMLElement {
+  const { dialogAnchor, dialogPanel, contentPanel } = createPlainDialog(
+    'WebGL is not Supported in Your Browser'
+  )
+  dialogPanel.classList.add('demo-dialog--error')
+  dialogAnchor.classList.add('demo-dialog-anchor--error')
+  const messageElement = document.createElement('div')
+  messageElement.innerHTML = `
+<p style="border-top: 0">${mainText}</p>
+`
+  contentPanel.appendChild(messageElement)
+  return dialogAnchor
+}
+
+export function addWebGLMissingDialog(mainText: string): void {
+  document.body.appendChild(createWebGLMissingDialog(mainText))
+}
+
+/**
+ * Executes a callback within a view transition if the browser supports it.
+ * @param callback The function to execute.
+ */
+export function maybeStartViewTransition(callback: () => void | Promise<void>): void {
+  // @ts-ignore
+  if (!document.startViewTransition) {
+    callback()
+    return
+  }
+
+  try {
+    // @ts-ignore
+    document.startViewTransition(callback)
+  } catch (e) {
+    if (!(e instanceof DOMException)) {
+      // we do not throw DOMExceptions and just ignore them - view transitions can throw when the
+      // view gets closed and similar - we don't care about that and don't want to bother the user
+      // as this is just for the looks.
+      throw e
+    }
+  }
+}
+
+/**
  * Adds options to an HTMLSelectElement
  * @param selectElement the HTMLSelectElement
  * @param values the option values
@@ -102,7 +170,7 @@ export function addNavigationButtons(
   if (labelText) {
     const labelWrapper = document.createElement('div')
     labelWrapper.className = 'navigate-select-labeled'
-    const label = document.createElement('label')
+    const label = document.createElement('span')
     label.className = 'navigate-select-label'
     label.textContent += labelText
     labelWrapper.appendChild(label)
@@ -208,7 +276,7 @@ export function checkWebGL2Support(): boolean {
     const message =
       'Your browser or device does not support WebGL2.<br />\n' +
       'This demo only works if WebGL2 is available.'
-    createWebGLSupportWarningMessage(message)
+    addWebGLMissingDialog(message)
     return false
   }
   return true
@@ -225,7 +293,7 @@ export function checkWebGLSupport(): boolean {
     const message =
       'Your browser or device does not support WebGL.<br /> \n' +
       'This demo only works if WebGL is available.'
-    createWebGLSupportWarningMessage(message)
+    addWebGLMissingDialog(message)
     return false
   }
   return true

@@ -46,12 +46,12 @@ export default function ClientSideGraph({
 }: ClientSideGraphProps) {
   return (
     <GraphComponentProvider>
-      <div className="main">
+      <div className="demo-main">
         <ReactGraphComponent graphData={graphData} onResetData={onResetData} />
-        <div className="demo-sidebar interaction">
+        <div className="demo-main__interaction-panel">
           <DemoDataPanel graphData={graphData} onAddNode={addNode} onRemoveNode={removeNode} />
         </div>
-        <div className="demo-sidebar description demo-page__description">
+        <div className="demo-main__description-panel">
           <DemoDescription />
         </div>
       </div>

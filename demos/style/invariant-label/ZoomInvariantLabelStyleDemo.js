@@ -30,17 +30,16 @@ import {
   GraphBuilder,
   GraphComponent,
   GraphItemTypes,
+  GraphModelManager,
   GraphViewerInputMode,
   HierarchicalLayout,
   LayoutExecutor,
   License,
   Rect,
-  SelectionIndicatorManager,
   WebGLGraphModelManager,
   WebGLLabelIndicatorStyle,
   WebGLLabelStyle,
   WebGLLabelStyleDecorator,
-  WebGLSelectionIndicatorManager,
   WebGLZoomScalingPolicy
 } from '@yfiles/yfiles'
 import {
@@ -52,13 +51,15 @@ import {
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
 import graphData from './graph-data.json'
-import { addNavigationButtons, addOptions } from '@yfiles/demo-app/modern/element-utils'
+import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
+import { initializeSvgWebGlSwitchButton } from '@yfiles/demo-app/modern/svg-webgl-switch'
 
 async function run() {
   License.value = licenseData
   const graphComponent = new GraphComponent('graphComponent')
-  graphComponent.graphModelManager = new WebGLGraphModelManager({ renderMode: 'svg' })
+  configureRenderMode(graphComponent)
   graphComponent.inputMode = new GraphViewerInputMode({
     selectableItems: GraphItemTypes.NODE | GraphItemTypes.EDGE | GraphItemTypes.LABEL
   })
@@ -91,8 +92,18 @@ async function run() {
   graphComponent.graph.edgeDefaults.labels.shareStyleInstance = false
 
   initializeUI(graphComponent)
+  void graphComponent.fitGraphBounds()
 }
 
+/**
+ * Configures the graphModelManager to support switching between svg and webgl rendering.
+ * At the beginning, the svg rendering is applied.
+ */
+function configureRenderMode(graphComponent) {
+  graphComponent.graphModelManager = BrowserDetection.webGL2
+    ? new WebGLGraphModelManager({ renderMode: 'svg' })
+    : new GraphModelManager()
+}
 /**
  * Creates nodes and edges according to the given data.
  */
@@ -148,10 +159,8 @@ function setLabelStyle(graph, mode, thresholds, baseLabelStyle = null) {
  * Creates a new label style for the given mode and base style.
  */
 function createLabelStyle(mode, thresholds, baseLabelStyle, webGLStyle) {
-  return new WebGLLabelStyleDecorator(
-    createSvgLabelStyle(mode, thresholds, baseLabelStyle),
-    webGLStyle
-  )
+  const labelStyle = createSvgLabelStyle(mode, thresholds, baseLabelStyle)
+  return BrowserDetection.webGL2 ? new WebGLLabelStyleDecorator(labelStyle, webGLStyle) : labelStyle
 }
 
 /**
@@ -211,36 +220,12 @@ function createWebGLLabelStyle(mode, [lowerThreshold, upperThreshold]) {
  * Wires up the UI.
  */
 function initializeUI(graphComponent) {
-  const renderModeSelectElement = document.querySelector('#renderModeChooserBox')
-  addOptions(
-    renderModeSelectElement,
-    { value: 'svg', text: 'SVG Mode' },
-    { value: 'webgl', text: 'WebGL Mode' }
-  )
-  addNavigationButtons(renderModeSelectElement).addEventListener('change', (_evt) => {
-    const renderMode = renderModeSelectElement.value
-    graphComponent.graphModelManager.renderMode = renderMode
-
-    if (renderMode === 'svg') {
-      graphComponent.selectionIndicatorManager = new SelectionIndicatorManager()
-    } else {
-      // webgl zoom scaling policy only works with zoomPolicy "world-coordinates"
-      graphComponent.selectionIndicatorManager = new WebGLSelectionIndicatorManager({
-        nodeLabelStyle: new WebGLLabelIndicatorStyle({ zoomPolicy: 'world-coordinates' }),
-        edgeLabelStyle: new WebGLLabelIndicatorStyle({ zoomPolicy: 'world-coordinates' })
-      })
-    }
+  initializeSvgWebGlSwitchButton('#render-modes', graphComponent, {
+    nodeLabelStyle: new WebGLLabelIndicatorStyle({ zoomPolicy: 'world-coordinates' }),
+    edgeLabelStyle: new WebGLLabelIndicatorStyle({ zoomPolicy: 'world-coordinates' })
   })
 
   const modeSelectElement = document.querySelector('#modeChooserBox')
-  addOptions(
-    modeSelectElement,
-    { value: 'FIXED_ABOVE_THRESHOLD', text: 'Fixed above zoom threshold' },
-    { value: 'FIXED_BELOW_THRESHOLD', text: 'Fixed below zoom threshold' },
-    { value: 'INVARIANT_OUTSIDE_RANGE', text: 'Fixed when outside specified range' },
-    { value: 'FIT_OWNER', text: "Fit into the label's owner" },
-    { value: 'DEFAULT', text: 'Default behaviour' }
-  )
   addNavigationButtons(modeSelectElement, 'Zoom Mode').addEventListener('change', (_evt) => {
     setLabelStyle(graphComponent.graph, modeSelectElement.value, getZoomThresholds())
 

@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/analysis/clustering/).
 
+Demo
+
 This demo showcases a selection of clustering algorithms. The algorithms presented are the following:
 
 - Edge Betweenness Clustering

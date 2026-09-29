@@ -32,7 +32,6 @@ export const NODE_DATA = [
     name: 'Eric Joplin',
     email: 'ejoplin@yoyodyne.com',
     phone: '555-0100',
-    fax: '555-0101',
     businessUnit: 'Executive Unit',
     status: 'present',
     icon: 'usericon_male1'
@@ -42,7 +41,6 @@ export const NODE_DATA = [
     name: 'Gary Roberts',
     email: 'groberts@yoyodyne.com',
     phone: '555-0100',
-    fax: '555-0101',
     businessUnit: 'Executive Unit',
     status: 'present',
     icon: 'usericon_male2'
@@ -52,7 +50,6 @@ export const NODE_DATA = [
     name: 'Alexander Burns',
     email: 'aburns@yoyodyne.com',
     phone: '555-0102',
-    fax: '555-0103',
     businessUnit: 'Executive Unit',
     status: 'present',
     icon: 'usericon_male3'
@@ -62,7 +59,6 @@ export const NODE_DATA = [
     name: 'Linda Newland',
     email: 'lnewland@yoyodyne.com',
     phone: '555-0112',
-    fax: '555-0113',
     businessUnit: 'Executive Unit',
     status: 'present',
     icon: 'usericon_female1'
@@ -72,7 +68,6 @@ export const NODE_DATA = [
     name: 'Amy Kain',
     email: 'akain@yoyodyne.com',
     phone: '555-0106',
-    fax: '555-0107',
     businessUnit: 'Production',
     status: 'unavailable',
     icon: 'usericon_female2'
@@ -82,7 +77,6 @@ export const NODE_DATA = [
     name: 'Dorothy Turner',
     email: 'dturner@yoyodyne.com',
     phone: '555-0108',
-    fax: '555-0109',
     businessUnit: 'Production',
     status: 'unavailable',
     icon: 'usericon_female3'
@@ -92,7 +86,6 @@ export const NODE_DATA = [
     name: 'Valerie Burnett',
     email: 'vburnett@yoyodyne.com',
     phone: '555-0110',
-    fax: '555-0111',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_female1'
@@ -102,7 +95,6 @@ export const NODE_DATA = [
     name: 'Martin Cornett',
     email: 'mcornett@yoyodyne.com',
     phone: '555-0114',
-    fax: '555-0115',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_male2'
@@ -112,7 +104,6 @@ export const NODE_DATA = [
     name: 'Edward Monge',
     email: 'emonge@yoyodyne.com',
     phone: '555-0118',
-    fax: '555-0119',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_male3'
@@ -122,7 +113,6 @@ export const NODE_DATA = [
     name: 'Howard Meyer',
     email: 'hmeyer@yoyodyne.com',
     phone: '555-0116',
-    fax: '555-0117',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_male1'
@@ -132,7 +122,6 @@ export const NODE_DATA = [
     name: 'Lisa Jensen',
     email: 'ljensen@yoyodyne.com',
     phone: '555-0120',
-    fax: '555-0121',
     businessUnit: 'Production',
     status: 'travel',
     icon: 'usericon_female2'
@@ -142,7 +131,6 @@ export const NODE_DATA = [
     name: 'Larry Littlefield',
     email: 'llittlefield@yoyodyne.com',
     phone: '555-0126',
-    fax: '555-0127',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_male3'
@@ -152,7 +140,6 @@ export const NODE_DATA = [
     name: 'Rico Cronin',
     email: 'rcronin@yoyodyne.com',
     phone: '555-0128',
-    fax: '555-0129',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_male1'
@@ -162,7 +149,6 @@ export const NODE_DATA = [
     name: 'Anne Binger',
     email: 'abinger@yoyodyne.com',
     phone: '555-0122',
-    fax: '555-0123',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_female2'
@@ -172,7 +158,6 @@ export const NODE_DATA = [
     name: 'Timothy Jackson',
     email: 'tjackson@yoyodyne.com',
     phone: '555-0140',
-    fax: '555-0141',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_male3'
@@ -182,7 +167,6 @@ export const NODE_DATA = [
     name: 'Carmen Short',
     email: 'cshort@yoyodyne.com',
     phone: '555-0142',
-    fax: '555-0143',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_female1'
@@ -192,7 +176,6 @@ export const NODE_DATA = [
     name: 'Thomas Stark',
     email: 'tstark@yoyodyne.com',
     phone: '555-0144',
-    fax: '555-0145',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_male2'
@@ -202,7 +185,6 @@ export const NODE_DATA = [
     name: 'Ray Hammond',
     email: 'rhammond@yoyodyne.com',
     phone: '555-0146',
-    fax: '555-0147',
     businessUnit: 'Production',
     status: 'travel',
     icon: 'usericon_male3'
@@ -212,7 +194,6 @@ export const NODE_DATA = [
     name: 'Bob Lacey',
     email: 'blacey@yoyodyne.com',
     phone: '555-0124',
-    fax: '555-0125',
     businessUnit: 'Production',
     status: 'travel',
     icon: 'usericon_male1'
@@ -222,7 +203,6 @@ export const NODE_DATA = [
     name: 'Ronnie Garcia',
     email: 'rgarcia@yoyodyne.com',
     phone: '555-0130',
-    fax: '555-0131',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_male2'
@@ -232,7 +212,6 @@ export const NODE_DATA = [
     name: 'Kathy Maxwell',
     email: 'kmaxwell@yoyodyne.com',
     phone: '555-0132',
-    fax: '555-0133',
     businessUnit: 'Production',
     status: 'present',
     icon: 'usericon_female3'
@@ -242,7 +221,6 @@ export const NODE_DATA = [
     name: 'Richard Fuller',
     email: 'rfuller@yoyodyne.com',
     phone: '555-0134',
-    fax: '555-0135',
     businessUnit: 'Sales',
     status: 'present',
     icon: 'usericon_male1'
@@ -252,7 +230,6 @@ export const NODE_DATA = [
     name: 'Joe Vargas',
     email: 'jvargas@yoyodyne.com',
     phone: '555-0136',
-    fax: '555-0137',
     businessUnit: 'Sales',
     status: 'present',
     icon: 'usericon_male2'
@@ -262,7 +239,6 @@ export const NODE_DATA = [
     name: 'Robert Parson',
     email: 'rparson@yoyodyne.com',
     phone: '555-0150',
-    fax: '555-0151',
     businessUnit: 'Sales',
     status: 'travel',
     icon: 'usericon_male3'
@@ -272,7 +248,6 @@ export const NODE_DATA = [
     name: 'Melissa Noren',
     email: 'mnoren@yoyodyne.com',
     phone: '555-0152',
-    fax: '555-0153',
     businessUnit: 'Sales',
     status: 'present',
     icon: 'usericon_female1'
@@ -282,7 +257,6 @@ export const NODE_DATA = [
     name: 'Robert Hartman',
     email: 'rhartman@yoyodyne.com',
     phone: '555-0138',
-    fax: '555-0139',
     businessUnit: 'Sales',
     status: 'present',
     icon: 'usericon_male2'
@@ -292,7 +266,6 @@ export const NODE_DATA = [
     name: 'Rebecca Polite',
     email: 'rpolite@yoyodyne.com',
     phone: '555-0148',
-    fax: '555-0149',
     businessUnit: 'Sales',
     status: 'travel',
     icon: 'usericon_female3'
@@ -302,7 +275,6 @@ export const NODE_DATA = [
     name: 'Michael Daniels',
     email: 'mdaniels@yoyodyne.com',
     phone: '555-0154',
-    fax: '555-0155',
     businessUnit: 'Sales',
     status: 'travel',
     icon: 'usericon_male1'
@@ -312,7 +284,6 @@ export const NODE_DATA = [
     name: 'David Kerry',
     email: 'dkerry@yoyodyne.com',
     phone: '555-0180',
-    fax: '555-0181',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_male1'
@@ -322,7 +293,6 @@ export const NODE_DATA = [
     name: 'Walter Hastings',
     email: 'whastings@yoyodyne.com',
     phone: '555-0182',
-    fax: '555-0183',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_male2'
@@ -332,7 +302,6 @@ export const NODE_DATA = [
     name: 'Susan Moran',
     email: 'smoran@yoyodyne.com',
     phone: '555-0184',
-    fax: '555-0185',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_female3'
@@ -342,7 +311,6 @@ export const NODE_DATA = [
     name: 'Melvin Cruz',
     email: 'mcruz@yoyodyne.com',
     phone: '555-0186',
-    fax: '555-0187',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_male1'
@@ -352,7 +320,6 @@ export const NODE_DATA = [
     name: 'Rachel King',
     email: 'rking@yoyodyne.com',
     phone: '555-0188',
-    fax: '555-0189',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_female2'
@@ -362,7 +329,6 @@ export const NODE_DATA = [
     name: 'Joy Medico',
     email: 'jmedico@yoyodyne.com',
     phone: '555-0190',
-    fax: '555-0191',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_female3'
@@ -372,7 +338,6 @@ export const NODE_DATA = [
     name: 'Edward Lewis',
     email: 'elewis@yoyodyne.com',
     phone: '555-0192',
-    fax: '555-0193',
     businessUnit: 'Accounting',
     status: 'unavailable',
     icon: 'usericon_male1'
@@ -382,7 +347,6 @@ export const NODE_DATA = [
     name: 'Mildred Bean',
     email: 'mbean@yoyodyne.com',
     phone: '555-0194',
-    fax: '555-0195',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_female2'
@@ -392,7 +356,6 @@ export const NODE_DATA = [
     name: 'Raymond Lindley',
     email: 'rlindley@yoyodyne.com',
     phone: '555-0196',
-    fax: '555-0197',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_male3'
@@ -402,7 +365,6 @@ export const NODE_DATA = [
     name: 'Danny Welch',
     email: 'dwelch@yoyodyne.com',
     phone: '555-0198',
-    fax: '555-0199',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_male1'
@@ -412,7 +374,6 @@ export const NODE_DATA = [
     name: 'Leroy Vison',
     email: 'lvison@yoyodyne.com',
     phone: '555-0200',
-    fax: '555-0201',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_male2'
@@ -422,7 +383,6 @@ export const NODE_DATA = [
     name: 'Mark Parks',
     email: 'mparks@yoyodyne.com',
     phone: '555-0202',
-    fax: '555-0203',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_male3'
@@ -432,7 +392,6 @@ export const NODE_DATA = [
     name: 'Linda Lenhart',
     email: 'llenhart@yoyodyne.com',
     phone: '555-0204',
-    fax: '555-0205',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_female1'
@@ -442,7 +401,6 @@ export const NODE_DATA = [
     name: 'Aaron Buckman',
     email: 'abuckman@yoyodyne.com',
     phone: '555-0210',
-    fax: '555-0211',
     businessUnit: 'Accounting',
     status: 'present',
     icon: 'usericon_male2'

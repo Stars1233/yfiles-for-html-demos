@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/layout-features/edge-router-incremental/).
 
+Demo
+
 This demo shows how to run the edge router algorithm on a predefined subset of edges in a graph.
 
 ## Setup

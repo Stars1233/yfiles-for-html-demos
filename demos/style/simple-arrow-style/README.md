@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/style/simple-arrow-style/).
 
+Demo
+
 This demo shows how to create a simple custom arrow for edges.
 
 ## Things to Try

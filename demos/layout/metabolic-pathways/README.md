@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/layout/metabolic-pathways/).
 
+Demo
+
 This demo shows how to configure the [organic layout](https://docs.yworks.com/yfileshtml/api/OrganicLayout) for visualizing metabolic pathways.
 
 A metabolic path way is a series of enzyme-catalyzed reactions that converts reactants or products into a final product. In this demo, nodes have different types based on their role in the pathway, i.e., products, reactants, reactions, co-reactants, enzymes and other.

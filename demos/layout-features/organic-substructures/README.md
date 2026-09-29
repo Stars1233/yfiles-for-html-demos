@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/layout-features/organic-substructures/).
 
+Demo
+
 This demo shows the ability of [OrganicLayout](https://docs.yworks.com/yfileshtml/api/OrganicLayout) to consider substructures in the graph.
 
 ## Substructure Configuration

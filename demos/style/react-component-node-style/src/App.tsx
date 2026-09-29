@@ -57,7 +57,7 @@ function initGraph(graphComponent: GraphComponent) {
 
 function App() {
   return (
-    <div className="demo-main__graph-component">
+    <div className="demo-main__graph-component" style={{ width: '100%', height: '100%' }}>
       <DiagramComponent initGraph={initGraph} />
     </div>
   )

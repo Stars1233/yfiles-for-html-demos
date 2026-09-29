@@ -46,9 +46,9 @@ import {
 import { configureToolTips } from './ToolTipHelper'
 import { colorSets, initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { initializeSvgWebGlSwitchButton } from './svg-webgl-switch'
 import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
+import { initializeSvgWebGlSwitchButton } from '@yfiles/demo-app/modern/svg-webgl-switch'
 
 async function run(): Promise<void> {
   License.value = licenseData

@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Tree Map Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -147,10 +144,6 @@
     </script>
 
     <style>
-      .main-container .interaction-panel {
-        flex: 0 1 340px;
-        width: 340px;
-      }
       #navigation {
         flex: 1;
         margin: 0 5px;
@@ -166,19 +159,12 @@
         white-space: nowrap;
         font-family: 'Arial', serif;
       }
-      .demo-properties__settings > div {
-        justify-self: end;
-      }
-      .demo-properties__settings {
-        margin: 10px 0 10px 0;
-      }
-      .center {
-        display: flex;
-        align-items: center;
-      }
       .number-label {
-        width: 3ch;
-        text-align: right;
+        width: 2ch;
+      }
+
+      .interaction-panel select {
+        max-width: none !important;
       }
     </style>
   </head>
@@ -400,58 +386,76 @@
       </div>
       <div class="interaction-panel">
         <h2>Tree Map Layout</h2>
-        <div class="demo-properties__settings">
-          <label for="select-zooming-mode" class="option-label">Zooming Mode</label>
-          <select id="select-zooming-mode" class="option-element">
-            <option value="constant">Constant Size</option>
-            <option value="aspect-ratio">Aspect Ratio of Root</option>
-          </select>
+        <div class="options-section">
+          <label for="select-zooming-mode"
+            ><span>Zooming Mode</span>
+            <select id="select-zooming-mode">
+              <option value="constant">Constant Size</option>
+              <option value="aspect-ratio">Aspect Ratio of Root</option>
+            </select>
+          </label>
 
-          <label for="select-tiling-algorithm" class="option-label">Tiling Algorithm</label>
-          <select id="select-tiling-algorithm" class="option-element">
-            <option value="squarified">Squarified</option>
-            <option value="slice-and-dice">Slice-And-Dice</option>
-          </select>
+          <label for="select-tiling-algorithm"
+            ><span>Tiling Algorithm</span>
+            <select id="select-tiling-algorithm">
+              <option value="squarified">Squarified</option>
+              <option value="slice-and-dice">Slice-And-Dice</option>
+            </select>
+          </label>
 
-          <label for="aspect-ratio" class="option-label">Aspect Ratio</label>
-          <div class="center">
-            <input type="range" id="aspect-ratio" min="1" max="10" value="1" />
-            <span id="aspect-ratio-label" class="number-label">1</span>
-          </div>
-        </div>
-        <div class="demo-properties__settings">
-          <label for="select-sorting-criterion" class="option-label">Sorting Criterion</label>
-          <select id="select-sorting-criterion" class="option-element">
-            <option value="size">Size</option>
-            <option value="name">Name</option>
-          </select>
-          <label for="select-sorting-order" class="option-label">Sorting Order</label>
-          <select id="select-sorting-order" class="option-element">
-            <option value="descending">Descending</option>
-            <option value="ascending">Ascending</option>
-          </select>
-        </div>
-        <div class="demo-properties__settings">
-          <label for="spacing" class="option-label">Spacing</label>
-          <div class="center">
-            <input type="range" id="spacing" min="0" max="20" value="2" />
-            <span id="spacing-label" class="number-label">2</span>
-          </div>
-          <label for="minimum-node-width" class="option-label">Minimum Node Width</label>
-          <div class="center">
-            <input type="range" id="minimum-node-width" min="5" max="50" value="5" />
-            <span id="minimum-node-width-label" class="number-label">5</span>
-          </div>
-          <label for="minimum-node-height" class="option-label">Minimum Node Height</label>
-          <div class="center">
-            <input type="range" id="minimum-node-height" min="5" max="50" value="5" />
-            <span id="minimum-node-height-label" class="number-label">5</span>
-          </div>
+          <label for="aspect-ratio"
+            ><span>Aspect Ratio</span>
+            <span class="range-container">
+              <input type="range" id="aspect-ratio" min="1" max="10" value="1" />
+              <span id="aspect-ratio-label" class="number-label">1</span>
+            </span>
+          </label>
+
+          <label for="select-sorting-criterion"
+            ><span>Sorting Criterion</span>
+            <select id="select-sorting-criterion">
+              <option value="size">Size</option>
+              <option value="name">Name</option>
+            </select>
+          </label>
+
+          <label for="select-sorting-order"
+            ><span>Sorting Order</span>
+            <select id="select-sorting-order">
+              <option value="descending">Descending</option>
+              <option value="ascending">Ascending</option>
+            </select>
+          </label>
+
+          <label for="spacing"
+            ><span>Spacing</span>
+            <span class="range-container">
+              <input type="range" id="spacing" min="0" max="20" value="2" />
+              <span id="spacing-label" class="number-label">2</span>
+            </span>
+          </label>
+
+          <label for="minimum-node-width"
+            ><span>Minimum Node Width</span>
+            <span class="range-container">
+              <input type="range" id="minimum-node-width" min="5" max="50" value="5" />
+              <span id="minimum-node-width-label" class="number-label">5</span>
+            </span>
+          </label>
+
+          <label for="minimum-node-height"
+            ><span>Minimum Node Height</span>
+            <span class="range-container">
+              <input type="range" id="minimum-node-height" min="5" max="50" value="5" />
+              <span id="minimum-node-height-label" class="number-label">5</span>
+            </span>
+          </label>
           <button id="apply-layout">Apply</button>
         </div>
       </div>
       <div class="description-panel">
-        <h1>Tree Map Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Tree Map</h1>
 
         <p>
           Tree maps allow to visualize hierarchical data using nested rectangles, which in this case

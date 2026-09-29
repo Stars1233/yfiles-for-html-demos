@@ -26,14 +26,14 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import './DemoDescription.css'
 import { Component } from 'react'
 
 export default class DemoDescription extends Component {
   render() {
     return (
       <>
-        <div className="demo-sidebar-content">
+        <div className="demo-description__content">
+          <div className="subheading">Demo</div>
           <h1>React Class Components</h1>
           <p>
             This demo shows how to integrate yFiles in a{' '}

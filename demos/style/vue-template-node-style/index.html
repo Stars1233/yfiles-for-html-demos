@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
 <!-- ////////////////////////////////////////////////////////////////////////
@@ -30,12 +30,11 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>Vue Template Node Style Demo [yFiles for HTML]</title>
-    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./src/index.css" />
   </head>
-  <body>
+  <body class="demo-app">
     <header class="demo-header">
       <a
         href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
@@ -47,68 +46,61 @@
       <span class="material-symbols-outlined">chevron_right</span>
       <span id="name" class="breadcrumb-wrapper demo-name">Vue Template Node Style</span>
     </header>
-    <div class="main-container">
-      <div class="demo-page__main">
-        <div class="demo-main__graph-component">
-          <div class="demo-page__toolbar">
-            <button data-command="DECREASE_ZOOM" class="material-symbols-outlined">zoom_out</button>
-            <button data-command="INCREASE_ZOOM" class="material-symbols-outlined">zoom_in</button>
-            <button data-command="FIT_GRAPH_BOUNDS" class="material-symbols-outlined">
-              zoom_out_map
-            </button>
-            <span class="separator"></span>
-            <button
-              id="open-file-button"
-              title="Open a GraphML file"
-              class="material-symbols-outlined"
-            >
-              file_open
-            </button>
-            <button id="save-button" title="Save a GraphML file" class="material-symbols-outlined">
-              save
-            </button>
-            <div class="separator"></div>
-            <button id="reload" title="Reload" class="material-symbols-outlined">refresh</button>
-          </div>
-          <div id="graphComponent"></div>
+    <div class="demo-main">
+      <div class="demo-main__component-panel">
+        <div id="graphComponent"></div>
+        <div class="component-toolbar">
+          <button data-command="DECREASE_ZOOM" class="material-symbols-outlined">zoom_out</button>
+          <button data-command="INCREASE_ZOOM" class="material-symbols-outlined">zoom_in</button>
+          <button data-command="FIT_GRAPH_BOUNDS" class="material-symbols-outlined">
+            zoom_out_map
+          </button>
+          <span class="separator"></span>
+          <button
+            id="open-file-button"
+            title="Open a GraphML file"
+            class="material-symbols-outlined"
+          >
+            file_open
+          </button>
+          <button id="save-button" title="Save a GraphML file" class="material-symbols-outlined">
+            save
+          </button>
+          <div class="separator"></div>
+          <button id="reload" title="Reload" class="material-symbols-outlined">refresh</button>
         </div>
       </div>
-      <div
-        data-title="Template Editor"
-        class="demo-main__sidebar"
-        style="--sidebar-width: max(50%, min(100%, 450px))"
-      >
-        <div class="demo-sidebar__content editor-panel">
-          <div class="heading-row">
-            <h2>Template String</h2>
-            <button
-              id="apply-template-button"
-              class="apply-button"
-              title="Applies the current Template to all selected nodes"
-            >
-              Apply Template
-            </button>
-          </div>
-          <div id="template-text-area-error" class="error">Could not compile template string!</div>
-          <div id="templateEditorContainer" class="editorText"></div>
+      <div data-title="Template Editor" class="demo-main__interaction-panel editor-panel">
+        <div class="heading-row">
+          <h2>Template String</h2>
+          <button
+            id="apply-template-button"
+            class="apply-button"
+            title="Applies the current Template to all selected nodes"
+          >
+            Apply Template
+          </button>
+        </div>
+        <div id="template-text-area-error" class="error">Could not compile template string!</div>
+        <div id="templateEditorContainer" class="editorText"></div>
 
-          <div class="heading-row">
-            <h2>Tag Object</h2>
-            <button
-              id="apply-tag-button"
-              class="apply-button"
-              title="Applies the current Tag to all selected nodes"
-            >
-              Apply Tag
-            </button>
-          </div>
-          <div id="tag-text-area-error" class="error">Could not parse tag object!</div>
-          <div id="tagEditorContainer" class="editorText"></div>
+        <div class="heading-row" style="margin-top: 2ex">
+          <h2>Tag Object</h2>
+          <button
+            id="apply-tag-button"
+            class="apply-button"
+            title="Applies the current Tag to all selected nodes"
+          >
+            Apply Tag
+          </button>
         </div>
+        <div id="tag-text-area-error" class="error">Could not parse tag object!</div>
+        <div id="tagEditorContainer" class="editorText"></div>
       </div>
-      <div class="demo-page__description">
+      <div class="demo-main__description-panel">
         <div class="demo-description__content">
-          <h1>Vue Template Node Style Demo</h1>
+          <div class="subheading">Demo</div>
+          <h1>Vue Template Node Style</h1>
 
           <p>
             This demo presents the Vue template node style that leverages the powerful data binding

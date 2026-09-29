@@ -251,6 +251,7 @@ function onDragged(_evt, _moveInputMode) {
 function dragFinished(_evt, moveInputMode) {
   layoutHelper.location = graphComponent.lastPointerEvent.location
   layoutHelper.component = moveInputMode.affectedItems.filter((item) => item instanceof INode)
+  layoutHelper.finishLayout()
 }
 
 /**

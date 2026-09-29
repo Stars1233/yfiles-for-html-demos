@@ -26,125 +26,35 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-.editorText {
-  font-family: 'Consolas', 'Courier New', Courier, mono, serif;
-  font-size: 13px;
-}
+@import url('editor-panel.css');
 
-.flex-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-}
-
-.editor-panel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-#templateEditorContainer {
-  flex: 0 1 70%;
-  min-height: 0;
-}
-
-#tagEditorContainer {
-  flex: 0 1 fit-content;
-  min-height: 0;
-}
-.cm-editor {
-  height: 100% !important;
-  background-color: #fff;
-}
-.error {
-  display: none;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: bold;
-  vertical-align: baseline;
-  text-align: center;
-  height: 0;
-  box-sizing: border-box;
-  margin-left: 1ex;
-  transition:
-    height 0.3s ease,
-    display 0.3s ease allow-discrete;
-  &.open-error {
-    display: flex;
-    height: 1.5em;
-    background-color: #f44336;
-    padding: 2px 4px;
-  }
-}
-@starting-style {
-  .error.open-error {
-    height: 0;
-  }
-}
-#template-text-area-error {
-  bottom: 250px;
-}
-
-#tag-text-area-error {
-  bottom: 15px;
-}
-#apply-tag-button {
-  margin-right: 20px;
-}
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 24px;
-  user-select: none;
-  cursor: pointer;
-}
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-}
-.slider:before {
-  position: absolute;
-  content: '';
-  top: 3px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-  transform: translateX(26px);
-}
-.slider.round {
-  border-radius: 12px;
-}
-.slider.round:before {
-  border-radius: 50%;
-}
+/* Styles specific to this demo */
 
 .main-container {
   display: flex;
-  .graph-panel {
-    flex: 1 1 50vw;
-  }
+
+  /* The graph component and the code editor should get the same width */
+  .graph-panel,
   .interaction-panel {
-    flex: 0 1 50vw;
+    flex: 1 1 0;
+  }
+
+  .interaction-panel {
+    .switch input[type='checkbox'] {
+      display: none !important;
+    }
+
+    .collapse-anchor {
+      width: 0;
+    }
+
+    .heading-row:first-child {
+      margin-right: 24px;
+    }
+  }
+
+  .editor-panel {
+    height: 100%;
+    display: flex;
   }
 }

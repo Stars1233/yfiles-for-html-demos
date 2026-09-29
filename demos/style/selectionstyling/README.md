@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/style/selectionstyling/).
 
+Demo
+
 The Selection Styling demo shows customized selection painting of nodes, edges and labels by decorating these items with a corresponding style.
 
 Customizing the focus and highlight painting is possible in the same way but not shown in this demo.

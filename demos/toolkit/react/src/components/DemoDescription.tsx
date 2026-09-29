@@ -26,11 +26,10 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import './DemoDescription.css'
-
 export default function DemoDescription() {
   return (
-    <div className="demo-sidebar-content">
+    <div className="demo-description__content">
+      <div className="subheading">Demo</div>
       <h1>React Demo with Functional Components</h1>
       <p>
         This demo shows how to integrate yFiles in a{' '}

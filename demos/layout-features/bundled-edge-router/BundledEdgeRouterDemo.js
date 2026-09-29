@@ -35,7 +35,6 @@ import {
   EdgeBundleDescriptor,
   ExteriorNodeLabelModel,
   GenericLabeling,
-  LabelStyle,
   ShapeNodeStyle
 } from '@yfiles/yfiles'
 import graphData from './sample.json'
@@ -78,18 +77,14 @@ demoApp.toolbar.addSelect(
   'spanner'
 )
 
-// Define the node and label styles.
-graph.nodeDefaults.style = new ShapeNodeStyle({ fill: '#012c69', shape: 'ellipse', stroke: 'none' })
-graph.nodeDefaults.labels.style = new LabelStyle({
-  backgroundFill: '#dcebf7',
-  shape: 'round-rectangle',
-  padding: 2
-})
+// Define the node styles and label layout.
+graph.nodeDefaults.style = new ShapeNodeStyle({ shape: 'ellipse', cssClass: 'node' })
 graph.nodeDefaults.labels.layoutParameter = ExteriorNodeLabelModel.TOP
 
 // Because Bézier fitting is enabled, applying BezierEdgeStyle yields better visual results
 graph.edgeDefaults.style = new BezierEdgeStyle({
-  stroke: '0.2px solid #326BBB',
+  cssClass: 'edge',
+  stroke: '0.2px solid currentColor',
   sourceArrow: new Arrow({ cropAtPort: true, type: ArrowType.NONE }),
   targetArrow: new Arrow({ cropAtPort: true, type: ArrowType.NONE })
 })

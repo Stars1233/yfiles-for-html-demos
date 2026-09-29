@@ -50,7 +50,7 @@ const shaftRatioRange = document.querySelector('#shaft-ratio')
 const shaftRatioLabel = document.querySelector('#shaft-ratio-label')
 const croppingRange = document.querySelector('#cropping-range')
 const croppingLabel = document.querySelector('#cropping-label')
-const propertiesPanel = document.querySelector('.demo-form-block')
+const propertiesPanel = document.querySelector('.options-section')
 const infoMessage = document.querySelector('.info-message')
 
 async function run() {
@@ -243,7 +243,7 @@ function updatePanelState(style, shape, thickness, angle, shaftRatio, cropping, 
   croppingRange.value = cropping
   croppingRange.disabled = disabled
   croppingLabel.innerText = cropping
-  propertiesPanel.style.display = disabled ? 'none' : 'inline-block'
+  propertiesPanel.style.display = disabled ? 'none' : 'flex'
   infoMessage.style.display = disabled ? 'inline-block' : 'none'
 }
 

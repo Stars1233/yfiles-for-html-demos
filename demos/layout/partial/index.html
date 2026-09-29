@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Partial Layout Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -416,47 +413,66 @@
       </div>
       <div class="interaction-panel">
         <h2>Layout Settings</h2>
-        <div class="demo-properties__settings">
-          <label for="component-assignment" class="option-label">Component Assignment</label>
-          <select id="component-assignment" class="option-element">
-            <option value="single">Single</option>
-            <option value="connected">Connected</option>
-          </select>
-          <label for="subgraph-layout" class="option-label">Subgraph Layout</label>
-          <select id="subgraph-layout" class="option-element">
-            <option value="hierarchical">Hierarchical</option>
-            <option value="orthogonal">Orthogonal</option>
-            <option value="organic">Organic</option>
-            <option value="circular">Circular</option>
-          </select>
-          <label for="subgraph-positioning" class="option-label">Subgraph Positioning</label>
-          <select id="subgraph-positioning" class="option-element">
-            <option value="barycenter">Barycenter</option>
-            <option value="from-sketch">From Sketch</option>
-          </select>
-          <label for="edge-routing-style" class="option-label">Edge Routing Style</label>
-          <select id="edge-routing-style" class="option-element">
-            <option value="automatic">Automatic</option>
-            <option value="orthogonal">Orthogonal</option>
-            <option value="straight-line">Straight-line</option>
-            <option value="organic">Organic</option>
-            <option value="octilinear">Octilinear</option>
-          </select>
-          <label for="layout-orientation" class="option-label">Layout Orientation</label>
-          <select id="layout-orientation" class="option-element">
-            <option value="none">None</option>
-            <option value="auto-detect">Auto-detect</option>
-            <option value="top-to-bottom">Top to Bottom</option>
-            <option value="bottom-to-top">Bottom to Top</option>
-            <option value="left-to-right">Left to Right</option>
-            <option value="right-to-left">Right to Left</option>
-          </select>
-          <label for="node-distance" class="option-label">Minimum Node Distance</label>
-          <input type="number" id="node-distance" value="20" min="0" max="200" />
-          <label for="mirroring" class="option-label">Allow Mirroring</label>
-          <input type="checkbox" id="mirroring" />
-          <label for="snapping" class="option-label">Node Snapping</label>
-          <input type="checkbox" id="snapping" />
+        <div class="options-section">
+          <label for="component-assignment" class="option-label"
+            ><span>Component Assignment</span>
+            <select id="component-assignment" class="option-element">
+              <option value="single">Single</option>
+              <option value="connected">Connected</option>
+            </select>
+          </label>
+          <label for="subgraph-layout" class="option-label"
+            ><span>Subgraph Layout</span>
+            <select id="subgraph-layout" class="option-element">
+              <option value="hierarchical">Hierarchical</option>
+              <option value="orthogonal">Orthogonal</option>
+              <option value="organic">Organic</option>
+              <option value="circular">Circular</option>
+            </select>
+          </label>
+
+          <label for="subgraph-positioning" class="option-label"
+            ><span>Subgraph Positioning</span>
+            <select id="subgraph-positioning" class="option-element">
+              <option value="barycenter">Barycenter</option>
+              <option value="from-sketch">From Sketch</option>
+            </select>
+          </label>
+
+          <label for="edge-routing-style" class="option-label"
+            ><span>Edge Routing Style</span>
+            <select id="edge-routing-style" class="option-element">
+              <option value="automatic">Automatic</option>
+              <option value="orthogonal">Orthogonal</option>
+              <option value="straight-line">Straight-line</option>
+              <option value="organic">Organic</option>
+              <option value="octilinear">Octilinear</option>
+            </select>
+          </label>
+          <label for="layout-orientation" class="option-label"
+            ><span>Layout Orientation</span>
+            <select id="layout-orientation" class="option-element">
+              <option value="none">None</option>
+              <option value="auto-detect">Auto-detect</option>
+              <option value="top-to-bottom">Top to Bottom</option>
+              <option value="bottom-to-top">Bottom to Top</option>
+              <option value="left-to-right">Left to Right</option>
+              <option value="right-to-left">Right to Left</option>
+            </select>
+          </label>
+
+          <label for="node-distance" class="option-label"
+            ><span>Minimum Node Distance</span>
+            <input type="number" id="node-distance" value="20" min="0" max="200" />
+          </label>
+          <label for="mirroring" class="option-label"
+            ><span>Allow Mirroring</span>
+            <input type="checkbox" id="mirroring" />
+          </label>
+          <label for="snapping" class="option-label"
+            ><span>Node Snapping</span>
+            <input type="checkbox" id="snapping" />
+          </label>
         </div>
 
         <h2>Configuration Options</h2>
@@ -498,7 +514,8 @@
         </dl>
       </div>
       <div class="description-panel">
-        <h1>Partial Layout Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Partial Layout</h1>
 
         <p>
           Shows how to integrate (new) graph elements into an existing graph layout with

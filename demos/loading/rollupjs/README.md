@@ -29,3 +29,5 @@ Install the required npm packages and run the build script:
 npm install
 npm run build
 ```
+
+After building the demo, you can open the `dist/index.html` file in a web browser to see the demo in action.

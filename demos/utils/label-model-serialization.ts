@@ -47,6 +47,8 @@ import {
   FreeNodeLabelModelParameter,
   FreePortLabelModel,
   FreePortLabelModelParameter,
+  GroupNodeLabelModel,
+  GroupNodeLabelModelParameter,
   type ILabelModelParameter,
   InsideOutsidePortLabelModel,
   InsideOutsidePortLabelModelParameter,
@@ -190,6 +192,12 @@ export function serializeLabelModelParameter(
         ]
       }
     }
+  } else if (parameter instanceof GroupNodeLabelModelParameter) {
+    return {
+      model: 'GroupNodeLabelModel',
+      placeOnTab: parameter.placeOnTab,
+      modelProperties: { considerTabPadding: parameter.model.considerTabPadding }
+    }
   } else if (parameter instanceof AbsoluteFreeLabelModelParameter) {
     return {
       model: 'FreeLabelModel',
@@ -318,7 +326,9 @@ export function deserializeLabelModelParameter(serializedParameter: SerializedLa
       return new NinePositionsEdgeLabelModel(modelProperties).createParameter(position)
     }
     case 'FreeNodeLabelModel': {
-      const { ...options } = serializedParameter
+      const { model, ...options } = serializedParameter
+      const labelRatio = options.labelRatio as [number, number]
+      options.labelRatio = [labelRatio[0], 1 - labelRatio[1]]
       return FreeNodeLabelModel.INSTANCE.createParameter(options)
     }
     case 'ExteriorNodeLabelModel': {
@@ -332,6 +342,11 @@ export function deserializeLabelModelParameter(serializedParameter: SerializedLa
     case 'StretchNodeLabelModel': {
       const { modelProperties, position } = serializedParameter
       return new StretchNodeLabelModel(modelProperties).createParameter(position)
+    }
+    case 'GroupNodeLabelModel': {
+      const { modelProperties, placeOnTab } = serializedParameter
+      const model = new GroupNodeLabelModel(modelProperties)
+      return placeOnTab ? model.createTabParameter() : model.createTabBackgroundParameter()
     }
     case 'FreeLabelModel': {
       const parameterProps = serializedParameter.parameterProps

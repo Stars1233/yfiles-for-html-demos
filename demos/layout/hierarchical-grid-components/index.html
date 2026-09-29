@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Hierarchical Grid Components Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -375,6 +372,8 @@
             Layout
           </button>
 
+          <span class="separator"></span>
+
           <div>
             <input
               type="checkbox"
@@ -386,7 +385,7 @@
               for="grid-components-toggle"
               title="Toggles grid components for HierarchicalLayout"
             >
-              Toggle Grid Components
+              Grid Components
             </label>
           </div>
 
@@ -431,7 +430,8 @@
         <div id="graphComponent"></div>
       </div>
       <div class="description-panel">
-        <h1>Hierarchical Grid Components Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Hierarchical Grid Components</h1>
 
         <p>
           This demo shows how
@@ -500,8 +500,8 @@
         <h2>Things to Try</h2>
         <ul>
           <li>
-            Click
-            <em>Toggle Grid Components</em>
+            Toggle
+            <em>Grid Components</em>
             to see the difference between the layout without grid components and the current grid
             component preset.
           </li>

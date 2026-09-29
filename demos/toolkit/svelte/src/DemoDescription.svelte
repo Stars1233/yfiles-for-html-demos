@@ -1,5 +1,6 @@
-<div class='demo-sidebar-content'>
-  <h1>Svelte Demo</h1>
+<div class='demo-description__content'>
+  <div class="subheading">Demo</div>
+  <h1>Svelte</h1>
   <p>
     This demo shows how to integrate yFiles for HTML with the <a
     href='https://svelte.dev/'
@@ -43,22 +44,22 @@
   <p>See the sources for details.</p>
 </div>
 <style>
-  .demo-sidebar-content a,
-  .demo-sidebar-content a:visited {
+  .demo-description__content a,
+  .demo-description__content a:visited {
     text-decoration: none;
     color: #1871bd;
   }
 
-  .demo-sidebar-content a:hover {
+  .demo-description__content a:hover {
     text-decoration: none;
     color: #18468c;
   }
 
-  .demo-sidebar-content ul {
+  .demo-description__content ul {
     padding-left: 1.3em;
   }
 
-  .demo-sidebar-content li {
+  .demo-description__content li {
     margin: 0.5em 0;
   }
 </style>

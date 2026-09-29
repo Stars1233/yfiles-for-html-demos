@@ -8,7 +8,7 @@
     />
     <rect fill="#FFFFFF" stroke="#C0C0C0" width="285" height="100" />
     <g
-      style="font-family: Roboto, sans-serif; font-weight: 300; fill: #444"
+      style="font-family: 'poppins', sans-serif; font-weight: 300; fill: #444"
       [style.font-size.px]="zoom() > zoomDetail ? 10 : 15"
     >
       @if (zoom() > zoomIntermediate) {
@@ -52,7 +52,6 @@
         <ng-container>
           <text transform="translate(100 75)">{{ item().email }}</text>
           <text transform="translate(100 92)">{{ item().phone }}</text>
-          <text transform="translate(170 92)">{{ item().fax }}</text>
         </ng-container>
       }
     </g>

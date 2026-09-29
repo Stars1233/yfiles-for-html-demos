@@ -30,11 +30,11 @@ const groupColor = { r: 153, g: 193, b: 255, a: 127 }
 const sizes = {
   Tablet: { width: 40, depth: 20, height: 20 },
   Server: { width: 40, depth: 60, height: 60 },
-  PC: { width: 20, depth: 60, height: 40 },
-  Laptop: { width: 40, depth: 20, height: 40 },
+  PC: { width: 30, depth: 60, height: 40 },
+  Laptop: { width: 50, depth: 40, height: 40 },
   DB: { width: 20, depth: 20, height: 20 },
   Hub: { width: 40, depth: 40, height: 40 },
-  Gateway: { width: 20, depth: 60, height: 40 },
+  Gateway: { width: 50, depth: 60, height: 40 },
   Firewall: { width: 80, depth: 20, height: 60 },
   Switch: { width: 60, depth: 20, height: 20 }
 }
@@ -220,7 +220,43 @@ export default {
     },
     { id: 'switch', color: { r: 255, g: 102, b: 0, a: 255 }, label: 'Switch', ...sizes.Switch },
     { id: 'gateway', color: { r: 153, g: 51, b: 255, a: 255 }, label: 'Gateway', ...sizes.Gateway },
-    { id: 'firewall', color: { r: 255, g: 0, b: 0, a: 255 }, label: 'Firewall', ...sizes.Firewall }
+    { id: 'firewall', color: { r: 255, g: 0, b: 0, a: 255 }, label: 'Firewall', ...sizes.Firewall },
+    {
+      id: 'pc12',
+      color: { r: 153, g: 204, b: 0, a: 255 },
+      label: 'PC',
+      group: 'cybersecurity',
+      ...sizes.PC
+    },
+    {
+      id: 'pc13',
+      color: { r: 153, g: 204, b: 0, a: 255 },
+      label: 'PC',
+      group: 'cybersecurity',
+      ...sizes.PC
+    },
+    {
+      id: 'pc14',
+      color: { r: 153, g: 204, b: 0, a: 255 },
+      label: 'PC',
+      group: 'cybersecurity',
+      ...sizes.PC
+    },
+
+    {
+      id: 'firewallCybersecurity',
+      color: { r: 255, g: 0, b: 0, a: 255 },
+      group: 'cybersecurity',
+      label: 'Firewall',
+      ...sizes.Firewall
+    },
+    {
+      id: 'hubCybersecurity',
+      color: { r: 191, g: 191, b: 191, a: 255 },
+      group: 'cybersecurity',
+      label: 'Hub',
+      ...sizes.Hub
+    }
   ],
   edgesSource: [
     { from: 'server1', to: 'hub1' },
@@ -252,10 +288,16 @@ export default {
     { from: 'server2', to: 'switch', label: '10 GByte/s' },
     { from: 'db', to: 'switch', label: '10 GByte/s' },
     { from: 'switch', to: 'gateway', label: '100 MByte/s' },
-    { from: 'gateway', to: 'firewall' }
+    { from: 'gateway', to: 'firewall' },
+    { from: 'hub1', to: 'firewallCybersecurity' },
+    { from: 'firewallCybersecurity', to: 'hubCybersecurity' },
+    { from: 'hubCybersecurity', to: 'pc12' },
+    { from: 'hubCybersecurity', to: 'pc13' },
+    { from: 'hubCybersecurity', to: 'pc14' }
   ],
   groupsSource: [
     { id: 'development', label: 'Development', color: groupColor },
+    { id: 'cybersecurity', label: 'Cybersecurity', color: groupColor, group: 'development' },
     { id: 'management', label: 'Management', color: groupColor },
     { id: 'production', label: 'Production', color: groupColor },
     { id: 'sales', label: 'Sales', color: groupColor },

@@ -1,0 +1,125 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+#neighborhood-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  z-index: 200000;
+  background: var(--toolbar-bg);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  #title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 1rem;
+  }
+
+  #neighborhood-title-text {
+    font-weight: 600;
+    color: var(--toolbar-button-text, #fff);
+  }
+}
+
+#neighborhood-graphComponent {
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+
+#neighborhood-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 199999;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  transition: background 0.3s ease;
+
+  &.open {
+    display: block;
+  }
+}
+
+#neighborhood-close {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1;
+  transition:
+    background 0.1s,
+    color 0.2s;
+
+  &:hover {
+    background: var(--toolbar-bg-hover);
+    color: #fff;
+  }
+}
+
+#navigation {
+  --navigation-bg: transparent;
+  --navigation-text: var(--color-text);
+  --navigation-wrap: wrap;
+  --navigation-selection: var(--color-gold-dark);
+  position: absolute;
+  left: 20px;
+  padding: 4px;
+  overflow: hidden;
+  white-space: nowrap;
+  display: none;
+  z-index: 2;
+  margin-top: 10px;
+  text-align: center;
+
+  #navigation-container.navigation-label {
+    display: none !important;
+  }
+}

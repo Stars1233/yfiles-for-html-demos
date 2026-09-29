@@ -53,7 +53,7 @@ export interface LitNodeStyleProps<TTag = any> {
 /**
  * Caching the properties of the LitNodeStyle to decide whether a style update is necessary.
  */
-type LitNodeStyleVisual<TTag> = TaggedSvgVisual<SVGGElement, LitNodeStyleProps<TTag>>
+export type LitNodeStyleVisual<TTag> = TaggedSvgVisual<SVGGElement, LitNodeStyleProps<TTag>>
 
 /**
  * The render function used for the Lit node style.

@@ -43,7 +43,6 @@ import {
 import { CustomCallback, GroupNodeObstacleProvider } from './BridgeHelper'
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
-import { addNavigationButtons } from '@yfiles/demo-app/modern/element-utils'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 
 /**
@@ -114,7 +113,7 @@ function configureBridges() {
  */
 function initializeToolBarElements() {
   const crossingStylesComboBox = document.querySelector('#crossing-styles')
-  addNavigationButtons(crossingStylesComboBox, 'Style:').addEventListener('change', () => {
+  crossingStylesComboBox.addEventListener('change', () => {
     bridgeManager.defaultBridgeCrossingStyle = getValueFromComboBox('#crossing-styles')
     graphComponent.invalidate()
   })
@@ -131,13 +130,10 @@ function initializeToolBarElements() {
   fillComboBox(crossingStylesComboBox, crossingStylesElements)
 
   const crossingPolicyComboBox = document.querySelector('#crossing-policies')
-  addNavigationButtons(crossingPolicyComboBox, 'Crossing Policy:').addEventListener(
-    'change',
-    () => {
-      bridgeManager.bridgeCrossingPolicy = getValueFromComboBox('#crossing-policies')
-      graphComponent.invalidate()
-    }
-  )
+  crossingPolicyComboBox.addEventListener('change', () => {
+    bridgeManager.bridgeCrossingPolicy = getValueFromComboBox('#crossing-policies')
+    graphComponent.invalidate()
+  })
   const crossingDeterminationElements = [
     { text: 'HorizontalBridgesVertical', value: BridgeCrossingPolicy.HORIZONTAL_BRIDGES_VERTICAL },
     { text: 'VerticalBridgesHorizontal', value: BridgeCrossingPolicy.VERTICAL_BRIDGES_HORIZONTAL },
@@ -153,13 +149,10 @@ function initializeToolBarElements() {
   fillComboBox(crossingPolicyComboBox, crossingDeterminationElements)
 
   const bridgeOrientationComboBox = document.querySelector('#bridge-orientations')
-  addNavigationButtons(bridgeOrientationComboBox, 'Orientation: ').addEventListener(
-    'change',
-    () => {
-      bridgeManager.defaultBridgeOrientationStyle = getValueFromComboBox('#bridge-orientations')
-      graphComponent.invalidate()
-    }
-  )
+  bridgeOrientationComboBox.addEventListener('change', () => {
+    bridgeManager.defaultBridgeOrientationStyle = getValueFromComboBox('#bridge-orientations')
+    graphComponent.invalidate()
+  })
   const bridgeOrientationElements = [
     { text: 'Up', value: BridgeOrientationStyle.UP },
     { text: 'Down', value: BridgeOrientationStyle.DOWN },

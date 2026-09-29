@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/testing/application-under-test/).
 
+Demo
+
 This demo is a simple app used as the test candidate in the following testing demos:
 
 - [Cypress Demo](../../../demos-ts/testing/cypress/README.html)

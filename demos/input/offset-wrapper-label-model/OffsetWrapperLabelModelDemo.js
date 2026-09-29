@@ -33,7 +33,11 @@ import { OffsetWrapperLabelModel } from './OffsetWrapperLabelModel'
 // Create the example graph
 const node1 = graph.createNode([0, 0, 100, 100])
 const node2 = graph.createNode([500, 0, 100, 100])
-const edge = graph.createEdge(node1, node2, new ArcEdgeStyle({ height: 50 }))
+const edge = graph.createEdge(
+  node1,
+  node2,
+  new ArcEdgeStyle({ height: 50, stroke: '1.5px #adadad' })
+)
 await graphComponent.fitGraphBounds()
 
 // Add reference labels with default parameter

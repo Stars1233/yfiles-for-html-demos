@@ -65,8 +65,7 @@ graphComponent.graph.nodeDefaults.style.shape = ShapeNodeShape.ELLIPSE
 
 // Configure circular style and appearance for group nodes
 graphComponent.graph.groupNodeDefaults.style = new ShapeNodeStyle({
-  fill: 'white',
-  stroke: '5px #093237',
+  cssClass: 'node group',
   shape: 'ellipse'
 })
 

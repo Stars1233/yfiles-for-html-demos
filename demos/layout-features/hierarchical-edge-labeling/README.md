@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/layout-features/hierarchical-edge-labeling/).
 
+Demo
+
 This demo shows how to configure the [HierarchicalLayout](https://docs.yworks.com/yfileshtml/api/HierarchicalLayout) for automatic edge label placements.
 
 ## Label Placement

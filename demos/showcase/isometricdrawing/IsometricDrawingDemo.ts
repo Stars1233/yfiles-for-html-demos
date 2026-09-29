@@ -27,58 +27,102 @@
  **
  ***************************************************************************/
 import {
+  Command,
   EdgeLabelPreferredPlacement,
-  EdgePathLabelModel,
-  ExteriorNodeLabelModel,
   FolderNodeConverter,
   FoldingEdgeConverter,
   FoldingManager,
   GraphBuilder,
   GraphComponent,
-  GraphEditorInputMode,
   GraphMLIOHandler,
-  GraphSnapContext,
-  GridInfo,
-  GridRenderer,
-  GridStyle,
   HierarchicalLayout,
   HierarchicalLayoutData,
-  HierarchicalNestingPolicy,
-  type IGraph,
-  IGroupPaddingProvider,
   type ILayoutAlgorithm,
-  type INode,
-  Insets,
   LabelAngleReferences,
   LabelEdgeSides,
-  LabelLayerPolicy,
   LabelSideReferences,
-  LabelStyle,
   type LayoutData,
   LayoutExecutor,
   License,
-  Matrix,
   OrthogonalLayout,
   OrthogonalLayoutData,
-  PolylineEdgeStyle,
+  PortAdjustmentPolicy,
   Rect,
-  RenderMode,
-  SerializationProperties,
-  StretchNodeLabelModel,
-  Stroke
+  SerializationProperties
 } from '@yfiles/yfiles'
 import IsometricData from './resources/IsometricData'
-import { HeightHandleProvider } from './HeightHandleProvider'
 import licenseData from '../../../lib/license.json'
-import { configureTwoPointerPanning } from '@yfiles/demo-utils/configure-two-pointer-panning'
 import { openGraphML } from '@yfiles/demo-utils/graphml-support'
-import { IsometricNodeComparator } from './IsometricNodeComparator'
-import { IsometricNodeStyle } from './IsometricNodeStyle'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
-
-const MINIMUM_NODE_HEIGHT = 3
+import { IsometricRuntime } from './isometric'
+import { Pseudo3DRuntime } from './pseudo3d'
+import type { ViewMode, ViewRuntime } from './ViewRuntime'
 
 let graphComponent: GraphComponent = null!
+let foldingManager: FoldingManager = null!
+let activeRuntime: ViewRuntime = null!
+let activeMode: ViewMode = 'pseudo3d'
+let switching = false
+
+function createRuntimeTag(dataItem: any): any {
+  return { ...dataItem, color: dataItem.color ? { ...dataItem.color } : dataItem.color }
+}
+
+type ToolbarCommand = { selector: string; command: Command; parameter: any; tooltip: string }
+
+const toolbarCommands: ToolbarCommand[] = [
+  {
+    selector: "[data-command='FIT_GRAPH_BOUNDS']",
+    command: Command.FIT_GRAPH_BOUNDS,
+    parameter: null,
+    tooltip: 'Fit content'
+  },
+  {
+    selector: "[data-command='INCREASE_ZOOM']",
+    command: Command.INCREASE_ZOOM,
+    parameter: null,
+    tooltip: 'Increase zoom'
+  },
+  {
+    selector: "[data-command='DECREASE_ZOOM']",
+    command: Command.DECREASE_ZOOM,
+    parameter: null,
+    tooltip: 'Decrease zoom'
+  }
+]
+
+function rebindToolbarCommands(target: GraphComponent): void {
+  for (const { selector, command, parameter, tooltip } of toolbarCommands) {
+    const element = document.querySelector<HTMLElement>(selector)
+    if (!element) {
+      continue
+    }
+
+    const replacement = element.cloneNode(true) as HTMLElement
+    replacement.removeAttribute('data-command-registered')
+    replacement.removeAttribute('data-disabled')
+    replacement.removeAttribute('disabled')
+    element.replaceWith(replacement)
+
+    replacement.addEventListener('click', () => {
+      if (target.canExecuteCommand(command, parameter)) {
+        target.executeCommand(command, parameter)
+      }
+    })
+
+    const updateDisabledState = () => {
+      if (target.canExecuteCommand(command, parameter)) {
+        replacement.removeAttribute('disabled')
+      } else {
+        replacement.setAttribute('disabled', 'disabled')
+      }
+    }
+    target.addEventListener('can-execute-changed', updateDisabledState)
+    replacement.setAttribute('data-command-registered', '')
+    replacement.setAttribute('title', tooltip)
+    updateDisabledState()
+  }
+}
 
 /**
  * A flag that signals whether a layout is currently running to prevent re-entrant layout
@@ -86,94 +130,182 @@ let graphComponent: GraphComponent = null!
  */
 let layoutRunning = false
 
-let gridRenderer: GridRenderer = null!
-
-/**
- * Orders nodes such their z-order in a graph component works well for the component's current
- * projection.
- */
-let isometricNodeComparator: IsometricNodeComparator = null!
-
 /**
  * Starts the demo which displays graphs in an isometric fashion to create an impression of a
  * 3-dimensional view.
  */
 async function run(): Promise<void> {
   License.value = licenseData
-
-  graphComponent = new GraphComponent('graphComponent')
-
-  initializeProjection()
-
-  initializeFolding()
-
-  initializeInputMode()
-
-  initializeGridVisual()
-
-  initializeGraph(graphComponent.graph)
-
-  await loadGraph()
-
   initializeUI()
-}
-
-function initializeProjection(): void {
-  // enable isometric projection
-  graphComponent.projection = Matrix.ISOMETRIC
-
-  // configure the GraphModelManager to render the nodes in their correct z-order
-  configureGraphModelManager(graphComponent)
-}
-
-function configureGraphModelManager(graphComponent: GraphComponent): void {
-  isometricNodeComparator = new IsometricNodeComparator(graphComponent)
-
-  const manager = graphComponent.graphModelManager
-
-  manager.hierarchicalNestingPolicy = HierarchicalNestingPolicy.GROUP_NODES
-  manager.nodeLabelLayerPolicy = LabelLayerPolicy.AT_OWNER
-  manager.edgeLabelLayerPolicy = LabelLayerPolicy.AT_OWNER
-  manager.nodeManager.comparator = isometricNodeComparator.compare.bind(isometricNodeComparator)
-  manager.provideRenderTagOnMainRenderTreeElement = true
+  await switchView('pseudo3d')
 }
 
 function initializeFolding(): void {
-  const manager = new FoldingManager(graphComponent.graph)
-  manager.folderNodeConverter = new FolderNodeConverter({
+  foldingManager = new FoldingManager(graphComponent.graph)
+  foldingManager.folderNodeConverter = new FolderNodeConverter({
     folderNodeDefaults: { copyLabels: true, shareStyleInstance: false, size: [210, 120] }
   })
-  manager.foldingEdgeConverter = new FoldingEdgeConverter({
+  foldingManager.foldingEdgeConverter = new FoldingEdgeConverter({
     foldingEdgeDefaults: { copyLabels: true }
   })
 
-  graphComponent.graph = manager.createFoldingView().graph
+  graphComponent.graph = foldingManager.createFoldingView().graph
 }
 
-function initializeInputMode(): void {
-  const graphEditorInputMode = new GraphEditorInputMode()
-
-  // we use orthogonal edge editing and snapping, both very helpful for editing in isometric views
-  graphEditorInputMode.snapContext = new GraphSnapContext()
-  graphComponent.inputMode = graphEditorInputMode
-
-  // use two finger panning to allow easier editing with touch gestures
-  configureTwoPointerPanning(graphComponent)
+function createRuntime(mode: ViewMode): ViewRuntime {
+  if (mode === 'isometric') {
+    return new IsometricRuntime(graphComponent, { onProjectionChanged: syncProjectionControls })
+  }
+  return new Pseudo3DRuntime(graphComponent, { onProjectionChanged: syncProjectionControls })
 }
 
-function initializeGridVisual(): void {
-  gridRenderer = new GridRenderer({
-    gridStyle: GridStyle.LINES,
-    stroke: new Stroke(210, 210, 210, 255, 0.1),
-    renderMode: RenderMode.WEBGL,
-    visibilityThreshold: 10
+async function switchView(mode: ViewMode): Promise<void> {
+  if (switching || layoutRunning || (activeMode === mode && activeRuntime)) {
+    return
+  }
+
+  switching = true
+  setUIDisabled(true)
+  try {
+    disposeCurrentComponent()
+    activeMode = mode
+    syncModeDescription()
+
+    const host = document.querySelector<HTMLElement>('#graphComponent')!
+    host.replaceChildren()
+    graphComponent = new GraphComponent(host)
+    rebindToolbarCommands(graphComponent)
+    initializeFolding()
+    activeRuntime = createRuntime(mode)
+    activeRuntime.initialize()
+    activeRuntime.initializeGraph(graphComponent.graph)
+    await loadGraph()
+    syncModeControls()
+    syncProjectionControls()
+  } finally {
+    switching = false
+    setUIDisabled(false)
+  }
+}
+
+function disposeCurrentComponent(): void {
+  activeRuntime?.dispose()
+  activeRuntime = null!
+  foldingManager?.dispose()
+  foldingManager = null!
+  if (graphComponent) {
+    graphComponent.cleanUp()
+    graphComponent = null!
+  }
+}
+
+/**
+ * Loads a graph from JSON and initializes all styles and isometric data.
+ * The graph also gets an initial layout.
+ */
+async function loadGraph(): Promise<void> {
+  const graph = graphComponent.graph
+
+  const graphBuilder = new GraphBuilder(graph)
+  const nodeSource = graphBuilder.createNodesSource({
+    data: IsometricData.nodesSource,
+    id: 'id',
+    parentId: 'group',
+    labels: ['label'],
+    layout: (data: any) => new Rect(0, 0, data.width, data.depth),
+    tag: createRuntimeTag
   })
+  if (activeRuntime.getNodeStyle) {
+    nodeSource.nodeCreator.styleProvider = (dataItem) => activeRuntime.getNodeStyle!(dataItem)
+  }
+  graphBuilder.createGroupNodesSource({
+    data: IsometricData.groupsSource,
+    id: 'id',
+    parentId: 'group',
+    labels: ['label'],
+    tag: createRuntimeTag
+  })
+  const edgesSource = graphBuilder.createEdgesSource({
+    data: IsometricData.edgesSource,
+    sourceId: 'from',
+    targetId: 'to'
+  })
+  edgesSource.edgeCreator.createLabelsSource((edgeData: any) => [edgeData.label])
 
-  graphComponent.renderTree.createElement(
-    graphComponent.renderTree.backgroundGroup,
-    new GridInfo(20, 20),
-    gridRenderer
-  )
+  graphBuilder.buildGraph()
+
+  await runHierarchicalLayout()
+}
+
+function syncProjectionControls(): void {
+  if (!activeRuntime) {
+    return
+  }
+
+  const rotationSlider = document.querySelector<HTMLInputElement>('#rotation')
+  if (rotationSlider) {
+    rotationSlider.value = String(Math.round(activeRuntime.getRotation()))
+  }
+
+  const inclinationSlider = document.querySelector<HTMLInputElement>('#inclination')
+  if (inclinationSlider && activeRuntime.getInclination) {
+    inclinationSlider.value = String(Math.round(activeRuntime.getInclination()))
+  }
+}
+
+function syncModeDescription() {
+  const pseudo3dDescription = document.querySelector<HTMLElement>('#pseudo3d-description')
+  if (pseudo3dDescription) {
+    pseudo3dDescription.hidden = activeMode !== 'pseudo3d'
+  }
+  const isometricDescription = document.querySelector<HTMLElement>('#isometric-description')
+  if (isometricDescription) {
+    isometricDescription.hidden = activeMode !== 'isometric'
+  }
+  const pseudo3dInteraction = document.querySelector<HTMLElement>('#pseudo3d-interaction')
+  if (pseudo3dInteraction) {
+    pseudo3dInteraction.hidden = activeMode !== 'pseudo3d'
+  }
+  const isometricInteraction = document.querySelector<HTMLElement>('#isometric-interaction')
+  if (isometricInteraction) {
+    isometricInteraction.hidden = activeMode !== 'isometric'
+  }
+  const pseudo3dThingsToTry = document.querySelector<HTMLElement>('#pseudo3d-things-to-try')
+  if (pseudo3dThingsToTry) {
+    pseudo3dThingsToTry.hidden = activeMode !== 'pseudo3d'
+  }
+  const isometricThingsToTry = document.querySelector<HTMLElement>('#isometric-things-to-try')
+  if (isometricThingsToTry) {
+    isometricThingsToTry.hidden = activeMode !== 'isometric'
+  }
+}
+
+function syncModeControls(): void {
+  if (!activeRuntime) {
+    return
+  }
+
+  const rotationSlider = document.querySelector<HTMLInputElement>('#rotation')
+  if (rotationSlider) {
+    rotationSlider.min = String(activeRuntime.rotationMinimum)
+    rotationSlider.max = String(activeRuntime.rotationMaximum)
+    rotationSlider.step = String(activeRuntime.rotationStep)
+  }
+
+  const modeSelector = document.querySelector<HTMLSelectElement>('#view-mode')
+  if (modeSelector) {
+    modeSelector.value = activeMode
+  }
+
+  const inclinationControl = document.querySelector<HTMLElement>('#inclination-control')
+  if (inclinationControl) {
+    inclinationControl.hidden = activeMode === 'isometric'
+  }
+
+  const gridToggle = document.querySelector<HTMLInputElement>('#grid-toggle')
+  if (gridToggle) {
+    gridToggle.checked = activeRuntime.getGridVisible()
+  }
 }
 
 function runHierarchicalLayout(): Promise<void> {
@@ -225,162 +357,24 @@ async function runLayout(layout: ILayoutAlgorithm, layoutData: LayoutData): Prom
     layout,
     layoutData,
     animateViewport: true,
-    animationDuration: '0.5s'
+    animationDuration: '1s',
+    portAdjustmentPolicies: PortAdjustmentPolicy.ALWAYS
   })
 
-  // start layout
-  const promise = await executor.start()
-  layoutRunning = false
-  setUIDisabled(false)
-  return promise
-}
-
-function initializeGraph(graph: IGraph): void {
-  graph.nodeDefaults.style = new IsometricNodeStyle()
-  graph.nodeDefaults.labels.layoutParameter = ExteriorNodeLabelModel.BOTTOM_LEFT
-  graph.edgeDefaults.style = new PolylineEdgeStyle({ stroke: '2px #444', orthogonalEditing: true })
-  graph.edgeDefaults.labels.layoutParameter = new EdgePathLabelModel(10).createRatioParameter()
-  graph.groupNodeDefaults.labels.layoutParameter = new StretchNodeLabelModel({
-    padding: 10
-  }).createParameter('bottom')
-  graph.groupNodeDefaults.labels.style = new LabelStyle({
-    font: 'bold 14px Arial,sans-serif',
-    horizontalTextAlignment: 'right'
-  })
-  graph.groupNodeDefaults.style = new IsometricNodeStyle()
-
-  // add a handle that enables the user to change the height of a node
-  graph.decorator.nodes.handleProvider.addWrapperFactory(
-    (n) => !graph.isGroupNode(n),
-    (node, delegateProvider) =>
-      new HeightHandleProvider(node!, delegateProvider!, MINIMUM_NODE_HEIGHT)
-  )
-
-  graph.decorator.nodes.groupPaddingProvider.addConstant(
-    (node) => graph.isGroupNode(node),
-    IGroupPaddingProvider.create(() => new Insets(10, 10, 50, 10))
-  )
-
-  // ensure that every node has geometry and color information
-  graph.addEventListener('node-created', (evt) => {
-    ensureNodeTag(evt.item)
-    if (graph.isGroupNode(evt.item)) {
-      adaptGroupNodes()
-    }
-  })
-
-  graph.addEventListener('is-group-node-changed', () => {
-    adaptGroupNodes()
-  })
-}
-
-/**
- * Loads a graph from JSON and initializes all styles and isometric data.
- * The graph also gets an initial layout.
- */
-async function loadGraph(): Promise<void> {
-  const graph = graphComponent.graph
-
-  const graphBuilder = new GraphBuilder(graph)
-  graphBuilder.createNodesSource({
-    data: IsometricData.nodesSource,
-    id: 'id',
-    parentId: 'group',
-    labels: ['label'],
-    layout: (data: any) => new Rect(0, 0, data.width, data.depth)
-  })
-  graphBuilder.createGroupNodesSource({
-    data: IsometricData.groupsSource,
-    id: 'id',
-    labels: ['label']
-  })
-  const edgesSource = graphBuilder.createEdgesSource({
-    data: IsometricData.edgesSource,
-    sourceId: 'from',
-    targetId: 'to'
-  })
-  edgesSource.edgeCreator.createLabelsSource((edgeData: any) => [edgeData.label])
-
-  graphBuilder.buildGraph()
-
-  await runHierarchicalLayout()
-}
-
-/**
- * Adapt the group node height and colors: group nodes should be flat,
- * but nested group nodes should still be drawn on top of each other
- */
-function adaptGroupNodes(): void {
-  const graph = graphComponent.graph
-
-  for (const groupNode of graph.nodes.filter((n) => graph.isGroupNode(n))) {
-    const nestingLevel = graph.groupingSupport.getAncestors(groupNode).size
-    const tag = groupNode.tag
-    tag.height = nestingLevel * 0.01
-    tag.color.a = (Math.min(1, 0.4 + nestingLevel * 0.1) * 255) | 0
+  try {
+    await executor.start()
+  } finally {
+    layoutRunning = false
+    setUIDisabled(false)
   }
-
-  graphComponent.invalidate()
-}
-
-/**
- * Ensures that the node has geometry and color information present in its tag.
- */
-function ensureNodeTag(node: INode): void {
-  if (!node.tag || typeof node.tag !== 'object') {
-    node.tag = {}
-  }
-  if (typeof node.tag.height !== 'number') {
-    node.tag.height = MINIMUM_NODE_HEIGHT + Math.round(Math.random() * 30)
-  }
-  if (typeof node.tag.color !== 'object') {
-    node.tag.color = {}
-  }
-  const color = node.tag.color
-  for (const component of 'rgba'.split('')) {
-    if (typeof color[component] !== 'number' || color[component] < 0 || 255 < color[component]) {
-      color[component] = component === 'a' ? 255 : (Math.random() * 256) | 0
-    }
-  }
-}
-
-function updateRotation(angle: string): void {
-  const isometricProjection = Matrix.ISOMETRIC.clone()
-  isometricProjection.rotate(parseFloat(angle))
-  graphComponent.projection = isometricProjection
-
-  // update the z-order of model items to match new projection
-  // has to be done each time the projection changes
-  // can be omitted in applications which do not change the projection
-  isometricNodeComparator.update()
-  const nodeManager = graphComponent.graphModelManager.nodeManager
-  for (const node of graphComponent.graph.nodes) {
-    nodeManager.update(node)
-  }
-
-  graphComponent.invalidate()
 }
 
 async function openFile(graphMLIOHandler: GraphMLIOHandler): Promise<void> {
   try {
     const graph = graphComponent.graph
     await openGraphML(graphComponent, graphMLIOHandler)
-    const nodeStyle = graph.nodeDefaults.style
-    const groupStyle = graph.groupNodeDefaults.style
-    for (const node of graph.nodes) {
-      if (graph.isGroupNode(node)) {
-        graph.setStyle(node, groupStyle)
-      } else {
-        graph.setStyle(node, nodeStyle)
-      }
-    }
+    activeRuntime.applyStyles(graph)
 
-    const edgeStyle = graph.edgeDefaults.style
-    for (const edge of graph.edges) {
-      graph.setStyle(edge, edgeStyle)
-    }
-
-    setUIDisabled(true)
     await runHierarchicalLayout()
   } finally {
     setUIDisabled(false)
@@ -392,15 +386,27 @@ async function openFile(graphMLIOHandler: GraphMLIOHandler): Promise<void> {
  */
 function initializeUI(): void {
   // ignore deserialization errors when loading graphs that use different styles
-  // the styles will be replaced with isometric styles later
+  // the styles will be replaced with the active view's styles later
   const graphMLIOHandler = new GraphMLIOHandler()
   graphMLIOHandler.deserializationPropertyOverrides.set(
     SerializationProperties.IGNORE_XAML_DESERIALIZATION_ERRORS,
     true
   )
 
-  const slider = document.querySelector<HTMLInputElement>('#rotation')!
-  slider.addEventListener('input', () => updateRotation(slider.value))
+  const rotationSlider = document.querySelector<HTMLInputElement>('#rotation')!
+  rotationSlider.addEventListener('input', () => {
+    activeRuntime?.setRotation(Number(rotationSlider.value))
+  })
+  const inclinationSlider = document.querySelector<HTMLInputElement>('#inclination')!
+  inclinationSlider.addEventListener('input', () => {
+    activeRuntime?.setInclination?.(Number(inclinationSlider.value))
+  })
+
+  const modeSelector = document.querySelector<HTMLSelectElement>('#view-mode')
+  modeSelector?.addEventListener('change', () => {
+    const mode: ViewMode = modeSelector.value === 'isometric' ? 'isometric' : 'pseudo3d'
+    void switchView(mode)
+  })
 
   document
     .querySelector<HTMLButtonElement>('#open-file-button')!
@@ -415,8 +421,15 @@ function initializeUI(): void {
     .querySelector<HTMLButtonElement>('#orthogonal-layout')!
     .addEventListener('click', runOrthogonalLayout)
   document.querySelector<HTMLButtonElement>('#grid-toggle')!.addEventListener('click', () => {
-    gridRenderer.visible = !gridRenderer.visible
-    graphComponent.invalidate()
+    if (activeRuntime) {
+      activeRuntime.setGridVisible(!activeRuntime.getGridVisible())
+    }
+  })
+  const orthogonalEditingButton = document.querySelector<HTMLInputElement>(
+    '#demo-orthogonal-editing-button'
+  )!
+  orthogonalEditingButton.addEventListener('click', () => {
+    activeRuntime?.setOrthogonalEditing?.(orthogonalEditingButton.checked)
   })
 }
 
@@ -424,11 +437,19 @@ function initializeUI(): void {
  * Disables buttons in the toolbar.
  */
 function setUIDisabled(disabled: boolean): void {
-  document.querySelector<HTMLButtonElement>('#open-file-button')!.disabled = disabled
-  document.querySelector<HTMLButtonElement>('#hierarchical-layout')!.disabled = disabled
-  document.querySelector<HTMLButtonElement>('#orthogonal-layout')!.disabled = disabled
-  document.querySelector<HTMLButtonElement>('#grid-toggle')!.disabled = disabled
-  document.querySelector<HTMLInputElement>('#rotation')!.disabled = disabled
+  const effectiveDisabled = disabled || switching || layoutRunning
+  document.querySelector<HTMLButtonElement>('#open-file-button')!.disabled = effectiveDisabled
+  document.querySelector<HTMLButtonElement>('#hierarchical-layout')!.disabled = effectiveDisabled
+  document.querySelector<HTMLButtonElement>('#orthogonal-layout')!.disabled = effectiveDisabled
+  document.querySelector<HTMLButtonElement>('#grid-toggle')!.disabled = effectiveDisabled
+  document.querySelector<HTMLInputElement>('#rotation')!.disabled = effectiveDisabled
+  document.querySelector<HTMLInputElement>('#inclination')!.disabled = effectiveDisabled
+  document.querySelector<HTMLInputElement>('#demo-orthogonal-editing-button')!.disabled =
+    effectiveDisabled
+  const modeSelector = document.querySelector<HTMLSelectElement>('#view-mode')
+  if (modeSelector) {
+    modeSelector.disabled = effectiveDisabled
+  }
 }
 
 run().then(finishLoading)

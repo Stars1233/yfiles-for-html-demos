@@ -52,3 +52,11 @@ export function getEdgeTag(edge) {
 export function getLabelTag(label) {
   return label.tag
 }
+
+/**
+ * Returns the tag for the nodes and edges of the ontology view.
+ * @param item - The item to retrieve data from
+ */
+export function getOntologyTag(item) {
+  return item.tag
+}

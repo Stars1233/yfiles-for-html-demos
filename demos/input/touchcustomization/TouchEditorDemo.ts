@@ -776,7 +776,7 @@ function initializeDnDPanel(): void {
  * Initializes the snap panning selection box.
  */
 function initializePanSnapping(geim: GraphEditorInputMode): void {
-  const select = document.querySelector<HTMLSelectElement>('#snap-panning-box>select')!
+  const select = document.querySelector<HTMLSelectElement>('#snap-panning-select')!
   select.addEventListener('change', () => {
     const item = select[select.selectedIndex] as HTMLOptionElement
     switch (item.value) {
@@ -823,7 +823,7 @@ function initializePanStart(geim: GraphEditorInputMode): void {
   // initialize the demo with two-finger panning
   configurePanStartGesture(geim, 'two')
   // listen for behavior switch
-  const select = document.querySelector<HTMLSelectElement>('#start-panning-box>select')!
+  const select = document.querySelector<HTMLSelectElement>('#start-panning-select')!
   select.addEventListener('change', () => {
     const item = select[select.selectedIndex] as HTMLOptionElement
     configurePanStartGesture(geim, item.value)

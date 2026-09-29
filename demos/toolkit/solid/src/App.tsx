@@ -30,11 +30,10 @@ import type { Component } from 'solid-js'
 import './App.css'
 import { SolidGraphComponent } from './components/SolidGraphComponent'
 import { DemoDescription } from './components/DemoDescription'
-import yLogo from './assets/ylogo-large.svg'
 
 export const App: Component = () => {
   return (
-    <div class="app">
+    <>
       <div class="demo-header">
         <a
           href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
@@ -42,20 +41,27 @@ export const App: Component = () => {
           target="_blank"
           title="yFiles Product Page"
         ></a>
-        <span class="material-symbols-outlined demo-overview">chevron_right</span>
-        <a href="../../../README.html" target="_blank" rel="noopener noreferrer">
+        <span class="material-symbols-outlined">chevron_right</span>
+        <a
+          href="https://www.yfiles.com/demos"
+          class="breadcrumb-wrapper"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Demos
         </a>
-        <span class="material-symbols-outlined demo-overview">chevron_right</span>
-        <span>SolidJS Demo</span>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span id="name" class="breadcrumb-wrapper demo-name">
+          SolidJS Demo
+        </span>
       </div>
-      <div class="demo-page__main">
-        <div class="graph-panel">
-          <SolidGraphComponent />
+      <div class="demo-main">
+        <SolidGraphComponent />
+        <div class="demo-main__description-panel">
+          <DemoDescription />
         </div>
-        <DemoDescription></DemoDescription>
       </div>
-    </div>
+    </>
   )
 }
 

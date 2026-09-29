@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/toolkit/webcomponents/).
 
+Demo
+
 This demo shows how yFiles for HTML can be used with Web Components.
 
 [Web Components](https://developer.mozilla.org/docs/Web/api/Web_Components) are supported by all modern browsers.

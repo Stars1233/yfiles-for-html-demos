@@ -1,4 +1,4 @@
-<div class="demo-sidebar__content">
+<div class="demo-description__content">
   <h2>Properties</h2>
   @if (person(); as p) {
     <div>
@@ -32,14 +32,6 @@
           type="text"
           [ngModel]="p.phone"
           (ngModelChange)="p.phone = $event; personChange.emit()"
-        />
-      </label>
-      <label>
-        Fax
-        <input
-          type="text"
-          [ngModel]="p.fax"
-          (ngModelChange)="p.fax = $event; personChange.emit()"
         />
       </label>
       <label>

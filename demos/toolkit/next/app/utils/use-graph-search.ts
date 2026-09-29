@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import { GraphSearch } from './GraphSearch'
+import { GraphSearch } from '@yfiles/demo-utils/GraphSearch.ts'
 import type { GraphComponent, INode } from '@yfiles/yfiles'
 import { useCallback, useEffect, useMemo } from 'react'
 

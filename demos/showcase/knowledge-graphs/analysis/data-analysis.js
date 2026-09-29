@@ -65,7 +65,7 @@ function findDanglingEdges(edges, nodeById) {
       toExists: nodeById.has(e.to),
       from: e.from,
       to: e.to,
-      label: e.label
+      type: e.type
     }))
 }
 

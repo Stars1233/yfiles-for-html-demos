@@ -32,6 +32,7 @@ import { GraphComponentService } from '../services/graph-component.service'
 
 @Component({
   selector: 'app-graph-overview-component',
+  styleUrls: ['./graph-overview-component.component.css'],
   templateUrl: './graph-overview-component.component.html'
 })
 export class GraphOverviewComponentComponent implements AfterViewInit {

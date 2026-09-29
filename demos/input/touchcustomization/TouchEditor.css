@@ -199,14 +199,6 @@
   justify-content: center;
 }
 
-.panning-options-box select {
-  border: none;
-  font-size: 14px;
-  padding: 5px;
-  width: auto;
-  color: var(--color-text);
-}
-
 .panning-options-box option {
   color: #000;
 }

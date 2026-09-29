@@ -67,65 +67,70 @@ import {
   getTextLabelStyle
 } from './styles/graph-styles'
 import { applyClustering, applyPageRankAlgorithm } from './analysis/clustering'
-import { runLayout } from './layout'
 
 import { configureHighlighting } from './highlighting'
-import { configureContentMenu } from './context-menu'
-import { initializeDescriptionPanel } from './description-panel'
-import {
-  initializeFilterPanel,
-  setFilteringPanelDisabled,
-  updateGraphInformation
-} from './filter-panel'
-import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
+import { configureContentMenu } from './components/context-menu'
+import { initializeDescriptionPanel } from './components/description-panel'
+import { updateGraphInformation } from './filtering'
 import { GraphSearch } from '@yfiles/demo-utils/GraphSearch'
-import { showNeighborhood } from './neighborhood-panel'
+import {
+  initializeNeighborhoodComponent,
+  showNeighborhood,
+  toggleComponentPanel
+} from './components/neighborhood-component'
 import { resetBeaconAnimation } from './beacon-animation'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { showLoadingIndicator } from '@yfiles/demo-app/modern/element-utils'
-import { createExplorerComponent, toggleComponentPanel } from './explorer-component'
-import { createOntologyGraph, showOntologyGraph } from './ontology-panel'
+import { runLayout } from './layout'
+import {
+  initializeOntologyComponent,
+  resetOntologyGraphState
+} from './components/ontology-component'
+import { startTour } from '@yfiles/demo-app/modern/tour'
+import { tour } from './tour/tour'
+import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
 
 let graphComponent
-let explorerComponent
 let graphSearch
 let layoutRunning = false
-
-const worker = new Worker(new URL('./layout-worker', import.meta.url), { type: 'module' })
+const supportsWebGL2 = BrowserDetection.webGL2
 
 const searchBox = document.querySelector('#searchBox')
 const spotlightErrorsElement = document.querySelector('#error-beacon-animation')
-const teamsLayoutButton = document.querySelector('#teams-view')
-const showOntologyViewButton = document.querySelector('#show-ontology-view')
+const groupBySelect = document.querySelector('#group-by')
+const errorDetailsInput = document.querySelector('#toggle-error-details')
+const errorPanel = document.querySelector('.error-panel')
+const toggleText = document.querySelector('.toggle-text')
 
 async function run() {
   License.value = licenseData
 
   // Initialize graph component and enable webgl mode if supported by the browser
   graphComponent = new GraphComponent('#graphComponent')
-  graphComponent.graphModelManager = new WebGLGraphModelManager({
-    renderMode: BrowserDetection.webGL2 ? 'webgl' : 'svg'
-  })
+  if (supportsWebGL2) {
+    graphComponent.graphModelManager = new WebGLGraphModelManager()
+  }
 
-  setTimeout(async () => {
-    await showLoadingIndicator(true, 'Loading the graph. This may take a while...')
-    setUIDisabled(true)
-    await initializeGraphData(graphComponent)
-    initializeFilterPanel(graphComponent, () => filter(graphComponent))
-    initializeDescriptionPanel(graphComponent, async () => {
-      await applyLayout(graphComponent)
-    })
-    explorerComponent = createExplorerComponent()
-    // Creates the graph that shows the ontology triplets
-    createOntologyGraph(graphComponent.graph)
-    await showLoadingIndicator(false)
-  }, 0)
-
+  initializeInputMode()
   initializeGraph()
   configureHighlighting(graphComponent)
-
   configureContentMenu(graphComponent)
   initializeUI(graphComponent)
+
+  setUIDisabled(true)
+
+  setTimeout(async () => {
+    await showLoadingIndicator(true)
+    requestAnimationFrame(async () => {
+      await initializeGraphData(graphComponent)
+      initializeOntologyComponent(graphComponent, supportsWebGL2)
+      initializeNeighborhoodComponent(graphComponent, supportsWebGL2)
+      initializeDescriptionPanel(graphComponent, supportsWebGL2)
+      // Calculate and apply automatic layout algorithm
+      await applyLayout(graphComponent, 'clusters')
+    })
+    await showLoadingIndicator(false)
+  }, 0)
 }
 
 /**
@@ -158,14 +163,12 @@ async function initializeGraphData(graphComponent) {
   applyClustering(graphComponent)
   // Apply visual styling: colors by cluster, error styling for problematic items
   updateGraphStyles()
-  // Calculate and apply automatic layout algorithm
-  await applyLayout(graphComponent, 'organic', true)
 }
 
 /**
- * Configures graph input mode, decorators, and event listeners.
+ * Configures the interactions for this graphComponent.
  */
-function initializeGraph() {
+function initializeInputMode() {
   const inputMode = new GraphEditorInputMode({
     allowCreateNode: false,
     allowCreateEdge: false,
@@ -181,22 +184,43 @@ function initializeGraph() {
     showHandleItems: GraphItemTypes.EDGE,
     clickableItems: GraphItemTypes.NODE | GraphItemTypes.EDGE,
     contextMenuItems: GraphItemTypes.NODE | GraphItemTypes.EDGE,
-    movableSelectedItems: GraphItemTypes.NODE | GraphItemTypes.EDGE,
-    movableUnselectedItems: GraphItemTypes.NODE | GraphItemTypes.EDGE
+    movableSelectedItems: GraphItemTypes.NONE,
+    movableUnselectedItems: GraphItemTypes.NONE,
+    toolTipItems: GraphItemTypes.NODE | GraphItemTypes.EDGE
   })
 
   // Double-clicking on a node, opens the neighborhood view
   inputMode.addEventListener('item-double-clicked', async (evt) => {
     if (evt.item instanceof INode) {
       graphComponent.selection.clear()
-      await showNeighborhood(graphComponent, explorerComponent, evt.item)
-      await applyLayout(explorerComponent, 'neighborhood')
+      await resetOntologyGraphState()
+      await showNeighborhood(evt.item)
     }
     evt.handled = true
   })
 
-  graphComponent.inputMode = inputMode
+  inputMode.addEventListener('canvas-clicked', async () => {
+    await resetOntologyGraphState()
+  })
 
+  inputMode.addEventListener('query-item-tool-tip', (evt) => {
+    if (evt.handled) {
+      // Tool tip content has already been assigned -> nothing to do.
+      return
+    }
+    // Use a rich HTML element as tool tip content. Alternatively, a plain string would do as well.
+    evt.toolTip = createToolTipContent(evt.item)
+    // Indicate that the tool tip content has been set.
+    evt.handled = true
+  })
+
+  graphComponent.inputMode = inputMode
+}
+
+/**
+ * Configures graph decorator styles, selection interaction and event listeners.
+ */
+function initializeGraph() {
   const graph = graphComponent.graph
   // Show port candidates only on actual nodes or nodes without problems
   graph.decorator.nodes.portCandidateProvider.addFactory((node) =>
@@ -311,9 +335,37 @@ function initializeGraph() {
     updateEdgePorts(graphComponent, event)
   })
 
+  // Fit the graph if the component has been resized
+  graphComponent.addEventListener('size-changed', () => {
+    void graphComponent.fitGraphBounds()
+  })
+
   // Set some min/max zoom values for the graphComponent
   graphComponent.minimumZoom = 0.01
   graphComponent.maximumZoom = 4
+}
+
+/**
+ * Creates the tooltip element for the clicked node or edge.
+ * @param item - The item to create the tooltip for
+ */
+function createToolTipContent(item) {
+  const tooltip = document.createElement('div')
+  if (item instanceof INode) {
+    tooltip.innerHTML = `<div class="node-tooltip">${getNodeTag(item).label}</div>`
+  } else {
+    const sourceNode = item.sourceNode
+    const targetNode = item.targetNode
+    tooltip.innerHTML = `<div class="edge-tooltip">
+  <div>${getNodeTag(sourceNode).label}</div>
+  <div>↓</div>
+  <div>${getEdgeTag(item).type}</div>
+  <div>↓</div>
+  <div>${getNodeTag(targetNode).label}</div>
+</div>`
+  }
+
+  return tooltip
 }
 
 /**
@@ -400,24 +452,7 @@ function updateGraphStyles() {
   })
 
   graph.edges.forEach((edge) => {
-    const tag = getEdgeTag(edge)
     graph.setStyle(edge, getEdgeStyle(edge))
-
-    // Add text label with adjusted positioning for problem edges
-    graph.addLabel({
-      owner: edge,
-      text: tag.label,
-      layoutParameter: !tag.problem
-        ? new EdgePathLabelModel({ angle: 0, autoRotation: true }).createRatioParameter()
-        : new EdgePathLabelModel({
-            angle: 0,
-            autoRotation: true,
-            distance: 35,
-            sideOfEdge: 'right-of-edge'
-          }).createRatioParameter(),
-      style: getTextLabelStyle(edge),
-      tag: { type: 'text', visible: true }
-    })
   })
 }
 
@@ -425,29 +460,15 @@ function updateGraphStyles() {
  * Applies layout algorithm to the graph.
  *
  * @param graphComponent - The graph component
- * @param layoutStyle - Layout type: 'organic', 'teams' or 'neighborhood' (default: 'organic')
- * @param firstLayout - Whether the layout runs for the first time.
+ * @param style - The desired layout style
  */
-async function applyLayout(graphComponent, layoutStyle = 'organic', firstLayout = false) {
+async function applyLayout(graphComponent, style = 'clusters') {
   if (layoutRunning) {
     return Promise.resolve()
   }
   layoutRunning = true
-
-  if (firstLayout) {
-    graphComponent.htmlElement.style.opacity = '0'
-  }
   setUIDisabled(true)
-
-  let style = layoutStyle
-  if (layoutStyle === 'organic') {
-    style = teamsLayoutButton.checked ? 'teams' : 'organic'
-  }
-  await runLayout(worker, graphComponent, style)
-
-  if (firstLayout) {
-    graphComponent.htmlElement.style.opacity = '1'
-  }
+  await runLayout(graphComponent, style)
   setUIDisabled(false)
   layoutRunning = false
 }
@@ -458,10 +479,10 @@ async function applyLayout(graphComponent, layoutStyle = 'organic', firstLayout 
  * @param graphComponent - The graph component
  */
 function initializeUI(graphComponent) {
-  teamsLayoutButton.addEventListener('click', async () => {
+  groupBySelect.addEventListener('change', async () => {
     resetUI()
-    await showLoadingIndicator(true, 'Calculating the layout. This might take a while...')
-    await applyLayout(graphComponent)
+    await showLoadingIndicator(true)
+    await applyLayout(graphComponent, groupBySelect.value)
     await showLoadingIndicator(false)
   })
   graphSearch = new GraphSearch(graphComponent)
@@ -475,8 +496,27 @@ function initializeUI(graphComponent) {
   })
   GraphSearch.registerEventListener(searchBox, graphSearch)
 
-  showOntologyViewButton.addEventListener('click', async () => {
-    showOntologyGraph(explorerComponent)
+  errorDetailsInput.addEventListener('change', () => {
+    const checked = errorDetailsInput.checked
+    if (!checked) {
+      errorPanel.classList.remove('visible')
+      toggleText.textContent = 'Click here to see details'
+    } else {
+      errorPanel.classList.add('visible')
+      toggleText.textContent = 'Click here to hide details'
+    }
+  })
+
+  const guidedTourTriggers = document.querySelectorAll('.guided-tour-trigger')
+  for (const guidedTourTrigger of guidedTourTriggers) {
+    guidedTourTrigger.classList.remove('hidden')
+    guidedTourTrigger.addEventListener('click', async () => {
+      startTour(tour)
+    })
+  }
+
+  window.addEventListener('start-layout', async () => {
+    await applyLayout(graphComponent, groupBySelect.value)
   })
 }
 
@@ -486,10 +526,8 @@ function initializeUI(graphComponent) {
  * @param disabled - Whether to disable UI controls
  */
 function setUIDisabled(disabled) {
-  setFilteringPanelDisabled(disabled)
-  spotlightErrorsElement.disabled = disabled
-  showOntologyViewButton.disabled = disabled
-  teamsLayoutButton.disabled = disabled
+  spotlightErrorsElement.disabled = !(supportsWebGL2 && !disabled)
+  groupBySelect.disabled = disabled
   searchBox.disabled = disabled
   graphComponent.inputMode.waitInputMode.enabled = !disabled
 }
@@ -502,21 +540,6 @@ function resetUI() {
   searchBox.value = ''
   graphSearch.updateSearch('')
   void resetBeaconAnimation()
-  spotlightErrorsElement.checked = false
-}
-
-/**
- * Applies the filter/layout flow for the given GraphComponent.
- *
- * @param graphComponent - The GraphComponent to which the layout should be applied.
- */
-async function filter(graphComponent) {
-  resetUI()
-  if (graphComponent.graph.nodes.size > 0) {
-    await showLoadingIndicator(true, 'Calculating the layout. This might take a while...')
-    await applyLayout(graphComponent)
-    await showLoadingIndicator(false)
-  }
 }
 
 void run().then(finishLoading)

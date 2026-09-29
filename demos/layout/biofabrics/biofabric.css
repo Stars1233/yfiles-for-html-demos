@@ -308,10 +308,14 @@ g:has(> .biofabric-edge:not(.highlight)) {
   }
 }
 
-select {
-  margin-top: 5px;
-  margin-bottom: 15px;
+.option {
+  select {
+    margin-top: 0.5rem;
+    width: 100% !important;
+  }
+  margin: 1rem 0 1rem 0;
 }
+
 .demo-properties__settings {
   margin-bottom: 15px;
 }

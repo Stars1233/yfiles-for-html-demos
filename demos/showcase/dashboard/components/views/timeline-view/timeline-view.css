@@ -1,0 +1,86 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+:host {
+  transition: opacity 1s ease-in-out;
+  --event-timeline-background-color: var(--description-bg);
+  --yfiles-event-timeline-tooltip-background-color: var(--color-casper-blue-black);
+  --yfiles-event-timeline-edge-color: var(--color-casper-blue-light);
+  --yfiles-event-timeline-highlight-edge-color: var(--color-highlight-gold);
+  --yfiles-event-timeline-node-color: var(--color-casper-blue-mid);
+  --yfiles-event-timeline-node-highlight-color: var(--color-highlight-gold);
+  --yfiles-event-timeline-time-color: var(--color-casper-blue-light);
+  --yfiles-event-timeline-tick-color: var(--color-casper-blue-light);
+  --yfiles-event-timeline-aggregate-background-color: var(--color-casper-blue-dark);
+}
+
+:host([data-theme='light']) {
+  transition: opacity 1s ease-in-out;
+  --event-timeline-background-color: var(--description-bg);
+  --yfiles-event-timeline-tooltip-background-color: var(--color-casper-blue-black);
+  --yfiles-event-timeline-edge-color: var(--color-casper-blue);
+  --yfiles-event-timeline-highlight-edge-color: var(--color-highlight-pink);
+  --yfiles-event-timeline-node-color: var(--color-casper-blue-light);
+  --yfiles-event-timeline-node-highlight-color: var(--color-highlight-pink);
+  --yfiles-event-timeline-time-color: var(--color-casper-blue);
+  --yfiles-event-timeline-tick-color: var(--color-casper-blue);
+  --yfiles-event-timeline-aggregate-background-color: var(--color-casper-blue);
+}
+
+/* Styles for TimelineViewComponent */
+.graph-component {
+  width: 100%;
+  height: 100%;
+  margin: 10px;
+}
+
+.zoom-in-button {
+  background-image: url("data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'%20standalone='no'?%3e%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20viewBox='0.5%2016.5%2016%2016'%3e%3cpath%20d='m%209.707737,6.53196%20a%202.6007147,3.3797307%200%201%201%20-5.2014294,0%202.6007147,3.3797307%200%201%201%205.2014294,0%20z'%20transform='matrix(3.0760775,0,0,2.3670525,-13.361752,9.0385075)'%20style='fill:%23415269;%20fill-opacity:1;stroke:none'/%3e%3cpath%20d='M%204,23%20L%207,23%20L7,20%20L10,20%20L10,23%20L13,23%20L13,26%20L10,26%20L10,29%20L7,29%20L7,26%20L4,26%20d'%20style='fill:%23ffffff;fill-opacity:1;stroke:none'%3e%3c/path%3e%3c/svg%3e");
+  right: 5px;
+}
+
+.zoom-out-button {
+  background-image: url("data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='UTF-8'%20standalone='no'?%3e%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20viewBox='0.5%2016.5%2016%2016'%3e%3cpath%20d='m%209.707737,6.53196%20a%202.6007147,3.3797307%200%201%201%20-5.2014294,0%202.6007147,3.3797307%200%201%201%205.2014294,0%20z'%20transform='matrix(3.0760775,0,0,2.3670525,-13.361752,9.0385075)'%20style='fill:%23415269;fill-opacity:1;stroke:none'/%3e%3crect%20width='9'%20height='3'%20x='4'%20y='23'%20style='fill:%23ffffff;fill-opacity:1;stroke:none'/%3e%3c/svg%3e");
+  right: 42px;
+}
+
+.zoom-in-button:hover,
+.zoom-out-button:hover {
+  opacity: 0.7;
+}
+
+.event-timeline-node.highlight {
+  & > rect {
+    stroke-width: 2px !important;
+  }
+}
+
+.yfiles-tooltip {
+  background: light-dark(var(--color-casper-blue-white), var(--color-casper-blue-mid)) !important;
+  color: var(--color-text) !important;
+}

@@ -45,6 +45,7 @@ export default (props) => html`
       Enabled
       <input
         type="checkbox"
+        style="margin: 5px;"
         checked=${props.data.state}
         onChange=${() => props.toggleState(props.index)}
         disabled=${props.disabled}

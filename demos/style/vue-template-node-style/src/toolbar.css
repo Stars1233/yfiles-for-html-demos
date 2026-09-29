@@ -1,0 +1,135 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+.component-toolbar {
+  --toolbar-color: #2a3e50;
+  --toolbar-bg: #f2f5f8;
+  --toolbar-hover: #aec3d5;
+  --toolbar-height: 44px;
+  --toolbar-font-size: 14px;
+  --toolbar-padding: 4px;
+
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  height: var(--toolbar-height);
+  box-sizing: border-box;
+  padding: var(--toolbar-padding) 6px;
+  z-index: 2;
+
+  font-size: var(--toolbar-font-size);
+  display: flex;
+  gap: calc(0.5 * var(--toolbar-padding));
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+
+  color: var(--toolbar-color);
+  background: var(--toolbar-bg);
+
+  box-shadow:
+    0 5px 20px rgba(0, 0, 0, 0.1),
+    0 3px 10px rgba(0, 0, 0, 0.1),
+    0 1px 5px rgba(0, 0, 0, 0.15);
+
+  border-radius: 999px;
+  user-select: none;
+
+  button,
+  .input {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--toolbar-padding);
+
+    border: none;
+    border-radius: 99px;
+    background-color: transparent;
+
+    &,
+    label,
+    input[type='checkbox'] {
+      cursor: pointer;
+    }
+
+    &:hover {
+      background-color: var(--toolbar-hover);
+    }
+  }
+
+  button,
+  input,
+  select {
+    font-family: 'poppins', sans-serif;
+
+    &.material-symbols-outlined {
+      font-family: 'Material Symbols Outlined', sans-serif;
+    }
+  }
+
+  button {
+    height: 100%;
+    aspect-ratio: 1;
+
+    &.labeled {
+      width: fit-content;
+      height: calc(var(--toolbar-height) - 3 * var(--toolbar-padding));
+      aspect-ratio: unset;
+      background-position: 50% 50%;
+
+      &:active {
+        background-color: #0000001f;
+      }
+    }
+  }
+
+  .input {
+    height: calc(var(--toolbar-height) - 3 * var(--toolbar-padding));
+    padding-inline: 8px;
+  }
+
+  input[type='text'] {
+    width: 15ex;
+
+    border: none;
+    border-bottom: 1px solid var(--toolbar-color);
+    border-radius: 4px 4px 0 0;
+    outline: 0;
+
+    background-color: unset;
+  }
+
+  .separator {
+    width: 1px;
+    height: 1.75rem;
+    margin-inline: calc(0.5 * var(--toolbar-padding));
+    background: var(--toolbar-color);
+  }
+}

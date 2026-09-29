@@ -43,7 +43,7 @@ import {
   type SizeConvertible
 } from '@yfiles/yfiles'
 
-import SampleData, { type FullNodeData, type NodeData } from '../resources/sample.ts'
+import SampleData, { type FullNodeData, type NodeData } from './assets/sample.ts'
 import licenseData from './license.json'
 import { registerReactComponentNodeStyleSerialization } from './ReactComponentSvgNodeStyleMarkupExtension.ts'
 import {
@@ -303,7 +303,6 @@ const demoSvgNodeStyleJSXSources = `({width, height, selected, detail, tag}) =>
               </text>
               <text transform="translate(90 72)" style={{ fontSize: '10px'}}>{tag.email}</text>
               <text transform="translate(90 88)" style={{ fontSize: '10px'}}>{tag.phone}</text>
-              <text transform="translate(170 88)" style={{ fontSize: '10px'}}>{tag.fax}</text>
             </g>
           </>
         ),
@@ -365,7 +364,6 @@ const demoHtmlNodeStyleJSXSources = `({selected, detail, tag}) =>
                 <div style={{ fontSize: "8px", textTransform: "uppercase", margin: "8px 0" }}>{tag.position}</div>
                 <div style={{ fontSize: "10px", marginTop: "15px"  }}>{tag.email}</div>
                 <span style={{ fontSize: "10px" }}>{tag.phone}</span>
-                <span style={{ fontSize: "10px", marginLeft: "2.5rem" }}>{tag.fax}</span>
               </div>
             </>
           ),

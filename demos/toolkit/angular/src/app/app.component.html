@@ -1,52 +1,29 @@
-<div class="demo-page__main">
-  <app-graph-overview-component class="demo-overlay"></app-graph-overview-component>
-  <div class="demo-main__graph-component">
-    <div class="demo-page__toolbar">
-      <button
-        (click)="zoomOut()"
-        title="Zoom Out"
-        class="material-symbols-outlined demo-toolbar-button"
-      >
-        zoom_out
-      </button>
-      <button
-        (click)="zoomIn()"
-        title="Zoom In"
-        class="material-symbols-outlined demo-toolbar-button"
-      >
-        zoom_in
-      </button>
-      <button
-        (click)="fitContent()"
-        title="Fit Content"
-        class="material-symbols-outlined demo-toolbar-button"
-      >
-        zoom_out_map
-      </button>
-      <span class="separator"></span>
-      <button
-        (click)="exportSvg()"
-        title="Export SVG"
-        class="material-symbols-outlined demo-toolbar-button"
-      >
-        save
-      </button>
-      <span class="separator"></span>
+<div class="demo-main__component-panel">
+  <app-graph-overview-component></app-graph-overview-component>
+  <div class="component-toolbar">
+    <button (click)="zoomOut()" title="Zoom Out" class="material-symbols-outlined">zoom_out</button>
+    <button (click)="zoomIn()" title="Zoom In" class="material-symbols-outlined">zoom_in</button>
+    <button (click)="fitContent()" title="Fit Content" class="material-symbols-outlined">
+      zoom_out_map
+    </button>
+    <span class="separator"></span>
+    <button (click)="exportSvg()" title="Export SVG" class="material-symbols-outlined">save</button>
+    <span class="separator"></span>
+    <label>
+      Search:
       <input
-        type="text"
         [ngModel]="searchString"
         (ngModelChange)="onSearchInput($event)"
         (keyup.enter)="graphSearch.zoomToSearchResult()"
         class="search"
-        placeholder="Search Names"
         name="searchString"
       />
-    </div>
-    <graph-component></graph-component>
+    </label>
   </div>
+  <graph-component></graph-component>
 </div>
 <properties-view
-  class="demo-main__sidebar"
+  class="demo-main__interaction-panel"
   [person]="currentPerson()"
   (personChange)="onPersonChange()"
 ></properties-view>

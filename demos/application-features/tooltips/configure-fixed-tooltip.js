@@ -35,7 +35,7 @@ import { INode, Point } from '@yfiles/yfiles'
 export function configureAboveNodeTooltip(evt) {
   // adjust the placement of the tooltip
   if (evt.item instanceof INode) {
-    // centered below the node bounds
+    // centered above the node bounds
     const layout = evt.item.layout
     evt.popover.anchor = new Point(layout.x + layout.width * 0.5, layout.y)
     evt.popover.offset = new Point(0, -5) // five pixel view offset

@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Layout Grid Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -171,12 +168,6 @@
       .option {
         display: flex;
         padding-bottom: 1em;
-      }
-
-      .toolbar button.labeled {
-        background-color: transparent;
-        font-family: var(--font-family), 'sans-serif';
-        font-size: 16px;
       }
 
       .add-delete-panel {
@@ -438,11 +429,11 @@
 
           <span class="separator"></span>
 
-          <button data-command="HierarchicalLayout" class="labeled">
-            <span class="yIcon" style="margin-right: 5px">layout_hierarchic</span>Hierarchical
+          <button id="hierarchical-layout" class="labeled">
+            <span class="yIcon">layout_hierarchic</span>Hierarchical
           </button>
-          <button data-command="OrganicLayout" class="labeled">
-            <span class="yIcon" style="margin-right: 5px">layout-organic</span>Organic
+          <button id="organic-layout" class="labeled">
+            <span class="yIcon">layout-organic</span>Organic
           </button>
         </div>
         <div id="graphComponent"></div>
@@ -508,7 +499,8 @@
         </div>
       </div>
       <div class="description-panel">
-        <h1>Layout Grid Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Layout Grid</h1>
 
         <p>
           This demo application lets you experience the usage of a <a href="https://docs.yworks.com/yfileshtml/api/LayoutGrid" class="api" target="_blank">LayoutGrid</a> for

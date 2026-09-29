@@ -26,112 +26,174 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
+/* Layout of the page: header, main area */
+
+:root {
+  --text-color: #2a3e50;
+  --panel-bg-color: #e8edf2;
+  --text-accent-color: #00adcc;
+
+  --size-h1: 2rem;
+  --size-h2: 1.5rem;
+  --size-h3: 1.2rem;
+
+  --gap: 8px;
+  --border-radius: 12px;
+  --description-width: 300px;
+}
+
 html,
 body {
   height: 100%;
-  background-color: #e8edf2;
-  font-family: 'poppins', sans-serif;
-  color: #2a3e50;
   overflow: hidden;
   margin: 0;
+  box-sizing: border-box;
+}
+
+.demo-app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .demo-header {
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
+  flex: 0 0 70px;
   height: 70px;
-  font-size: 1.125rem;
-  font-weight: 400;
-  padding-left: 92px;
-  padding-right: 8px;
-  color: #2a3e50;
-  gap: 12px;
 }
 
-.demo-header a {
-  text-decoration: none;
-  color: inherit;
+.demo-main {
+  flex: 1 1 auto;
+  min-height: 0; /* allows scrolling content inside the remaining space */
+  overflow: auto;
+  padding: 0 var(--gap) var(--gap);
 }
 
-.demo-header .chevron-right {
-  mask: url('./assets/header-angle.svg') no-repeat center;
-  font-weight: 270;
-  background-color: #2a3e50;
-  height: 100%;
-  width: 30px;
+/* Layout of the main area: component-panel, description-panel */
+
+.demo-main {
+  display: flex;
+  gap: var(--gap);
+  align-items: stretch;
+
+  > * {
+    min-width: 0;
+    position: relative;
+  }
 }
 
-.y-logo {
-  margin: 4px 4px 4px 16px;
-  height: 100%;
-  background-color: #2a3e50;
-
-  mask: url('./assets/ylogo-large.svg') no-repeat center;
-  width: 12rem;
+/* The graph component gets all remaining space */
+.demo-main__component-panel {
+  flex: 1 1 0;
 }
 
-.main-container {
-  height: calc(100% - 80px);
-  width: 100%;
-  display: grid;
-  grid-template-columns: auto 320px;
-  gap: 8px;
-  box-sizing: border-box;
-  min-height: 0;
+/* These panels have a fixed width */
+.demo-main__description-panel {
+  flex: 0 0 var(--description-width);
 }
 
-.demo-page__description {
-  background-color: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
+body {
+  color: var(--text-color);
+  background-color: var(--panel-bg-color);
   font-family: 'poppins', sans-serif;
+}
+
+button {
+  color: inherit;
+  font-family: inherit;
+}
+
+.demo-main__description-panel {
+  background-color: #ffffff;
   font-weight: 400;
   font-size: 0.875rem;
+
+  border-radius: var(--border-radius);
+  padding: var(--border-radius);
   overflow: auto;
-  h1 {
-    color: #00adcc;
-    margin-top: 0;
-    font-size: 160%;
-    font-weight: 600;
+
+  h1,
+  h2 {
+    margin: 1.25em 0 0.5em 0;
+    line-height: 130%;
+    hyphens: auto;
   }
+
+  :first-child,
+  h1 {
+    margin-top: 0;
+  }
+
+  /* Additional small heading above the h1 */
+  .subheading {
+    font-size: 1rem;
+    color: color-mix(in oklch, var(--text-color) 60%, white);
+    font-weight: 700;
+  }
+
   a {
-    color: #2a3e50;
+    color: var(--text-color);
     &:hover {
       text-decoration-thickness: 2px;
     }
   }
 }
 
-.demo-page__main {
-  height: 100%;
-  border-radius: 16px;
+.demo-main__component-panel {
+  border-radius: var(--border-radius);
   background-color: #ffffff;
-  position: relative;
+}
+
+.demo-main__description-panel {
+  h1 {
+    color: var(--text-accent-color);
+    font-size: var(--size-h1);
+    font-weight: 600;
+  }
+
+  h2 {
+    font-size: var(--size-h2);
+  }
+}
+
+/* Header */
+
+.demo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 0 92px;
+
+  font-weight: 400;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .y-logo {
+    margin: 4px 4px 4px 16px;
+    height: 100%;
+    background-color: #2a3e50;
+
+    mask: url('./assets/ylogo-large.svg') no-repeat center;
+    width: 12rem;
+  }
+
+  .chevron-right {
+    mask: url('./assets/header-angle.svg') no-repeat center;
+    font-weight: 270;
+    background-color: #2a3e50;
+    height: 100%;
+    width: 30px;
+  }
+
+  .breadcrumb-wrapper {
+    font-size: 1.125em;
+  }
 }
 
 .graph-component {
   height: 100%;
-}
-
-.demo-page__description button {
-  width: fit-content;
-  height: 28px;
-  border: 1px solid #000000;
-  border-radius: 16px;
-  background-color: transparent;
-  color: #000000;
-  padding: 0 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #aec3d5;
-    cursor: pointer;
-  }
 }
 
 @media (max-width: 768px) {
@@ -140,7 +202,7 @@ body {
     overflow: hidden;
   }
 
-  .main-container {
+  .demo-main {
     display: flex;
     flex-direction: column;
     height: calc(100% - 60px);
@@ -160,7 +222,7 @@ body {
     overflow-x: hidden;
   }
 
-  .demo-page__main {
+  .demo-main__component-panel {
     order: 2;
     flex: 1 0 60vh;
   }

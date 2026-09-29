@@ -64,7 +64,6 @@ export function showNodeProperties(node: INode, orgChartGraph: CollapsibleTree):
     createProperty('Dept.', employee.businessUnit ?? ''),
     createProperty('Email', employee.email ?? ''),
     createProperty('Phone', employee.phone ?? ''),
-    createProperty('Fax', employee.fax ?? ''),
     createProperty('Status', createSVGIcon(`${employee.status}_icon`, 100, 15, '0 2.5 70 5'))
   )
 

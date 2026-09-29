@@ -47,7 +47,10 @@ import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
 import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
-import { initializeSvgWebGlSwitchButton, updateSvgWebGlSwitchButton } from './svg-webgl-switch'
+import {
+  initializeSvgWebGlSwitchButton,
+  updateSvgWebGlSwitchButton
+} from '@yfiles/demo-app/modern/svg-webgl-switch'
 
 let graphComponent
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="utf-8" />
 <!-- ////////////////////////////////////////////////////////////////////////
@@ -30,12 +30,11 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>React JSX Component Style Demo [yFiles for HTML]</title>
-    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./src/index.css" />
   </head>
-  <body>
+  <body class="loaded demo-app">
     <header class="demo-header">
       <a
         href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
@@ -47,70 +46,73 @@
       <span class="material-symbols-outlined">chevron_right</span>
       <span id="name" class="breadcrumb-wrapper demo-name">React JSX Component Style</span>
     </header>
-    <div class="main-container">
-      <div class="demo-page__main">
-        <div class="demo-main__graph-component">
-          <div class="demo-page__toolbar">
-            <button data-command="DECREASE_ZOOM" class="material-symbols-outlined">zoom_out</button>
-            <button data-command="INCREASE_ZOOM" class="material-symbols-outlined">zoom_in</button>
-            <button data-command="FIT_GRAPH_BOUNDS" class="material-symbols-outlined">
-              zoom_out_map
-            </button>
-            <span class="separator"></span>
-            <button
-              id="open-file-button"
-              title="Open a GraphML file"
-              class="material-symbols-outlined"
-            >
-              file_open
-            </button>
-            <button id="save-button" title="Save a GraphML file" class="material-symbols-outlined">
-              save
-            </button>
-            <div class="separator"></div>
-            <button id="reload" title="Reload" class="material-symbols-outlined">refresh</button>
-          </div>
-          <div id="graphComponent"></div>
+    <div class="demo-main">
+      <div class="demo-main__component-panel">
+        <div id="graphComponent"></div>
+        <div class="component-toolbar">
+          <button data-command="DECREASE_ZOOM" class="material-symbols-outlined">zoom_out</button>
+          <button data-command="INCREASE_ZOOM" class="material-symbols-outlined">zoom_in</button>
+          <button data-command="FIT_GRAPH_BOUNDS" class="material-symbols-outlined">
+            zoom_out_map
+          </button>
+          <span class="separator"></span>
+          <button
+            id="open-file-button"
+            title="Open a GraphML file"
+            class="material-symbols-outlined"
+          >
+            file_open
+          </button>
+          <button id="save-button" title="Save a GraphML file" class="material-symbols-outlined">
+            save
+          </button>
+          <div class="separator"></div>
+          <button id="reload" title="Reload" class="material-symbols-outlined">refresh</button>
         </div>
       </div>
-      <div data-title="Template Editor" class="demo-main__sidebar">
-        <div class="demo-sidebar__content">
-          <div class="heading-row">
-            <h2>JSX Render function</h2>
-            <span>SVG</span>
-            <label class="switch">
-              <input type="checkbox" id="html-template" />
-              <span class="slider round"></span>
-            </label>
-            <span>HTML</span>
-            <button
-              id="apply-template-button"
-              class="apply-button"
-              title="Compiles and applies the current JSX render function to all selected items"
-            >
-              Apply Function
-            </button>
-          </div>
-          <div id="template-text-area-error" class="error">Could not compile template string!</div>
-          <div id="templateEditorContainer" class="editorText"></div>
+      <div data-title="Template Editor" class="demo-main__interaction-panel editor-panel">
+        <div class="heading-row">
+          <h2>JSX Render function</h2>
 
-          <div class="heading-row">
-            <h2>Tag Object</h2>
-            <button
-              id="apply-tag-button"
-              class="apply-button"
-              title="Applies the current Tag to all selected items"
-            >
-              Apply Tag
-            </button>
+          <div class="labeled-switch">
+            <div>SVG</div>
+            <label class="switch">
+              <input
+                type="checkbox"
+                id="html-template"
+                aria-label="Switch between SVG and HTML rendering"
+              />
+            </label>
+            <div>HTML</div>
           </div>
-          <div id="tag-text-area-error" class="error">Could not parse tag object!</div>
-          <div id="tagEditorContainer" class="editorText"></div>
+          <button
+            id="apply-template-button"
+            class="apply-button"
+            title="Compiles and applies the current JSX render function to all selected items"
+          >
+            Apply Function
+          </button>
         </div>
+        <div id="template-text-area-error" class="error">Could not compile template string!</div>
+        <div id="templateEditorContainer" class="editorText"></div>
+
+        <div class="heading-row" style="margin-top: 2ex">
+          <h2>Tag Object</h2>
+          <button
+            id="apply-tag-button"
+            class="apply-button"
+            title="Applies the current Tag to all selected items"
+          >
+            Apply Tag
+          </button>
+        </div>
+        <div id="tag-text-area-error" class="error">Could not parse the tag object!</div>
+        <div id="tagEditorContainer" class="editorText"></div>
       </div>
-      <div class="demo-page__description">
+      <div class="demo-main__description-panel">
         <div class="demo-description__content">
-          <h1>React JSX Component Style Demo</h1>
+          <div class="subheading">Demo</div>
+          <h1>React JSX Com&shy;pon&shy;ent Style</h1>
 
           <p>
             This demo presents the React Component node and label style that leverages JSX and the
@@ -125,9 +127,9 @@
           </p>
           <p>
             Note that the implementation used here employs a runtime JSX compiler (Babel) that
-            transforms the code to JavaScript which then gets evaluated for the purpose of the demo
-            and interactivity. Real applications define the rendering function in JSX or TSX files
-            and the compiler tool-chain performs the compilation at build time.
+            transforms the code to JavaScript, which then gets evaluated for the demo and
+            interactivity. Real applications define the rendering function in JSX or TSX files, and
+            the compiler tool-chain performs the compilation at build time.
           </p>
 
           <h2>Things to Try</h2>

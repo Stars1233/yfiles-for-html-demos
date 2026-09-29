@@ -1,0 +1,252 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  background-color: var(--description-bg);
+  height: 100%;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+h3 {
+  margin-top: 1.2rem;
+  flex-shrink: 0;
+}
+
+.timeline-controls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.play-pause-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  border: none;
+  background-color: light-dark(
+    var(--color-highlight-pink),
+    var(--color-highlight-gold)
+  ); /* M3 Primary */
+  color: var(--color-text-reversed); /* M3 On Primary */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  flex-shrink: 0;
+}
+
+.play-pause-button:hover {
+  box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.25) inset;
+}
+
+.play-pause-button:active {
+  box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.25) inset;
+}
+
+.play-pause-button .material-symbols-outlined {
+  font-size: 24px;
+}
+
+.current-date {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: light-dark(var(--color-highlight-pink), var(--color-highlight-gold));
+  text-align: center;
+}
+
+.slider-container {
+  width: 100%;
+  padding: 8px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.slider-and-ticks {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  flex: 1;
+  height: 4px;
+  background: var(--toolbar-bg); /* M3 Surface Variant / Outline Variant */
+  border-radius: 2px;
+  outline: none;
+  margin: 12px 0;
+}
+
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: light-dark(var(--color-highlight-pink), var(--color-highlight-gold)); /* M3 Primary */
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+}
+
+input[type='range']::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: light-dark(var(--color-highlight-pink), var(--color-highlight-gold)); /* M3 Primary */
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+datalist {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: -12px; /* Move closer to slider */
+  pointer-events: none;
+  z-index: 1;
+  padding-bottom: 20px; /* Ensure space for labels */
+}
+
+datalist option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  width: 2px;
+  height: 6px;
+  background-color: light-dark(
+    var(--color-highlight-pink),
+    var(--color-highlight-gold)
+  ); /* M3 Outline */
+  border-radius: 1px;
+  font-size: 0.65rem;
+  color: var(--color-text); /* M3 On Surface Variant */
+  position: relative;
+}
+
+datalist option::before {
+  content: attr(data-label);
+  position: absolute;
+  top: 8px;
+  white-space: nowrap;
+  transform: translateX(-50%); /* Center the label */
+  left: 50%;
+}
+
+.events-heading {
+  margin: 16px 0 8px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+.event-tags-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  max-height: 75%;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.event-tags-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.event-tags-container::-webkit-scrollbar-thumb {
+  background: light-dark(#e7e0ec, #49454f);
+  border-radius: 2px;
+}
+
+.event-button {
+  background-color: var(--toolbar-bg); /* M3 Primary Container */
+  color: var(--color-text); /* M3 On Primary Container */
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+  font-family: inherit;
+}
+
+.event-button:hover {
+  box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.25) inset;
+  transform: translateY(-1px);
+}
+
+.event-button:active {
+  transform: translateY(0);
+  box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.25) inset;
+}
+
+.event-button .event-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text); /* M3 Primary */
+}
+
+.event-button .event-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.event-button .event-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.event-button .event-date {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}

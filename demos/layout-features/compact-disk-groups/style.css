@@ -49,3 +49,12 @@
 .node-label.purple .yfiles-label-background {
   fill: #dacae1;
 }
+
+.group {
+  fill: none;
+  stroke-width: 5px;
+}
+
+.node-label text {
+  fill: black;
+}

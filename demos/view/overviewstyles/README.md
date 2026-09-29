@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/view/overviewstyles/).
 
+Demo
+
 This demo shows different ways to render and style the overview:
 
 - With HTML Canvas by extending [GraphOverviewRenderer](https://docs.yworks.com/yfileshtml/api/GraphOverviewRenderer).

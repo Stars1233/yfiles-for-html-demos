@@ -35,7 +35,9 @@ import {
   ShapeNodeStyle
 } from '@yfiles/yfiles'
 import license from './license.json'
-import './style.css'
+import './common.css'
+import './custom-ui.css'
+import './toolbar.css'
 
 const layoutWorker = new Worker(new URL('./layout-worker.js', import.meta.url), { type: 'module' })
 

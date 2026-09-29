@@ -69,10 +69,13 @@ export function applyPageRankAlgorithm(graphComponent) {
       centralityScore = 0
     }
     // Scale size linearly: leastCentralSize + (centrality * range)
-    const size = Math.floor(
-      leastCentralSize + centralityScore * (mostCentralSize - leastCentralSize)
-    )
+    const size = getNodeTag(node).problem
+      ? 200
+      : Math.floor(leastCentralSize + centralityScore * (mostCentralSize - leastCentralSize))
     // Apply new node layout with scaled size
-    graph.setNodeLayout(node, Rect.from([0, 0, size, size]))
+    graph.setNodeLayout(
+      node,
+      Rect.from([graphComponent.center.x, graphComponent.center.y, size, size])
+    )
   })
 }

@@ -2,7 +2,8 @@
   "compilerOptions": {
     "types": ["jest", "jest-puppeteer"],
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "esModuleInterop": true
   },
   "include": ["integration/**/*.ts", "util/**/*.ts"]
 }

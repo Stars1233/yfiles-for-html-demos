@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/style/bezieredgestyle/).
 
+Demo
+
 [BezierEdgeStyle](https://docs.yworks.com/yfileshtml/api/BezierEdgeStyle) allows for smooth curved edge routes. This demo shows how to use this style and interactively edit the bezier curves.
 
 ### Creating Edges

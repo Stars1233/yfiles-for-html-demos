@@ -49,7 +49,6 @@ export type Employee = {
   name: string
   email: string
   phone: string
-  fax: string
   businessUnit: string
   status: string
   icon: string
@@ -89,7 +88,6 @@ const nodeStyleTemplate = `({ layout, tag, selected, zoom }) => {
         \${formatPosition(tag.position, 30).map((line, i) => svg\`<text x='100' y='\${i*15+45}' font-size='9' font-family='Poppins,sans-serif'>\${line}</text>\`)}
         <text transform='translate(100 72)'>\${tag.email}</text>
         <text transform='translate(100 88)'>\${tag.phone}</text>
-        <text transform='translate(170 88)'>\${tag.fax}</text>
       </g>
     \` :  zoom >= 0.4 ? svg\`
       <!-- Intermediate View -->

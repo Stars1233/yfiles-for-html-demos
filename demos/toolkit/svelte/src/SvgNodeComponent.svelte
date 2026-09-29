@@ -80,10 +80,9 @@
       fill="#444"
     />
   {/if}
-  <!-- Email, phone, and fax number -->
+  <!-- Email and phone -->
   {#if zoom > zoomDetail}
     <text transform="translate(100 75)">{item.email}</text>
     <text transform="translate(100 92)">{item.phone}</text>
-    <text transform="translate(170 92)">{item.fax}</text>
   {/if}
 </g>

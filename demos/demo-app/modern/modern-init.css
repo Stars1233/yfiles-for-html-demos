@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,cable,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compost,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,electric_bolt,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,filter_alt,filter_alt_off,fit_page_width,folder_open,format_paint,fullscreen,gas_meter,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,home,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,ink_highlighter,ink_highlighter_off,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,mode_heat,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,replay,reset,reset_settings,save,search,set_meal,settings,shopping_cart,stop,store,sync,sunny,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,visibility_off,ward,warning,water,wheat,wind_power,zoom_in,zoom_out,zoom_out_map&display=block';
 * {
   margin: 0;
   line-height: calc(1em + 0.5rem);
@@ -124,6 +124,13 @@ button[data-command] {
 :root[data-theme='dark'] .icon-inline,
 :root[data-theme='dark'] button[data-command] {
   font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+button.icon.yIcon,
+button .icon.yIcon,
+a .icon.yIcon,
+.icon-inline.yIcon,
+button[data-command].yIcon {
+  font-size: 1.2rem;
 }
 .icon-inline {
   font-size: inherit;
@@ -273,9 +280,8 @@ input:disabled {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .input-select-checkbox::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -287,6 +293,7 @@ input:disabled {
 .input-range {
   width: 100px;
   min-width: 7rem;
+  max-width: 10rem;
   -webkit-appearance: none;
   background-color: transparent;
 }
@@ -395,7 +402,7 @@ h6 {
 @supports (appearance: base-select) {
   .interaction-panel select,
   .demo-popup select {
-    padding: 6px 14px;
+    padding: 6px 10px;
     appearance: base-select;
     border: none;
     border-radius: var(--border-radius);
@@ -454,7 +461,7 @@ h6 {
 }
 .interaction-panel select option,
 .demo-popup select option {
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-transform: none;
   padding: 10px;
   cursor: pointer;
@@ -494,14 +501,14 @@ h6 {
 }
 .interaction-panel .navigate-select:has(button) select,
 .demo-popup .navigate-select:has(button) select {
-  border-radius: var(--small-border-radius);
+  border-radius: 0;
 }
 .interaction-panel .navigate-select button,
 .demo-popup .navigate-select button {
   font-size: 1.5rem;
   display: flex;
-  width: 32px;
-  border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
+  width: 28px;
+  border-radius: 0 20px 20px 0;
   background-color: var(--toolbar-button);
 }
 .interaction-panel .navigate-select button:hover,
@@ -510,7 +517,7 @@ h6 {
 }
 .interaction-panel .navigate-select button:first-of-type,
 .demo-popup .navigate-select button:first-of-type {
-  border-radius: 20px var(--small-border-radius) var(--small-border-radius) 20px;
+  border-radius: 20px 0 0 20px;
 }
 .interaction-panel .navigate-select select,
 .demo-popup .navigate-select select {
@@ -519,8 +526,11 @@ h6 {
   color: var(--color-text);
   margin: 0;
   outline: none;
-  width: stretch;
+  width: 100%;
+  min-width: 0;
   height: auto;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .interaction-panel .navigate-select select:hover,
 .demo-popup .navigate-select select:hover {
@@ -537,7 +547,7 @@ h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
 }
 .interaction-panel .navigation-button:hover,
 .demo-popup .navigation-button:hover {
@@ -551,7 +561,15 @@ h6 {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.interaction-panel .navigation-button.labeled:has(.material-symbols-outlined),
+.demo-popup .navigation-button.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.interaction-panel .navigation-button.labeled:has(.yIcon),
+.demo-popup .navigation-button.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .interaction-panel .navigation-button.labeled:hover,
@@ -625,41 +643,46 @@ h6 {
   margin-bottom: 0 !important;
 }
 .text-content {
+  --margin-block: 0.75rem;
   font-size: var(--body-font-size);
 }
-.text-content > :first-child {
+.text-content > :first-child,
+.text-content h2:first-child,
+.text-content h3:first-child {
   margin-top: 0 !important;
 }
 .text-content > :last-child {
   margin-bottom: 0 !important;
 }
-.text-content h1 {
-  font-size: xx-large;
-  margin: 1.2rem 0;
-}
-.text-content h2 {
-  font-size: x-large;
-}
-.text-content h3 {
-  font-size: large;
-}
+.text-content h1,
 .text-content h2,
 .text-content h3,
 .text-content h4 {
-  margin: 1.5rem 0 1rem;
+  margin: 1.25rem 0 var(--margin-block);
+  hyphens: auto;
+}
+.text-content h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+.text-content h2 {
+  font-size: 1.5rem;
+}
+.text-content h3 {
+  font-size: 1.25rem;
 }
 .text-content .text-medium {
   font-size: 130%;
 }
 .text-content ul,
 .text-content ol {
-  padding-left: 1.3em;
+  padding-left: 1.25em;
 }
 .text-content p,
 .text-content dl,
 .text-content ul,
 .text-content ul.paragraph-style li {
-  margin: 1rem 0;
+  margin-block: var(--margin-block);
 }
 .text-content li {
   margin: 0.5rem 0;
@@ -758,9 +781,7 @@ h6 {
   --color-casper-blue-white: #f2f5f8;
   --color-casper-blue-light: #d7e1ea;
   --color-casper-blue: #aec3d5;
-  --color-casper-blue-half-alpha: #aec3d588;
   --color-casper-blue-mid: #38536b;
-  --color-casper-blue-dark-half-alpha: #2a3e5088;
   --color-casper-blue-dark: #2a3e50;
   --color-casper-blue-black: #1c2a35;
   --color-gold-light: #5ce7ff;
@@ -797,8 +818,7 @@ h6 {
   --loading-indicator-background: var(--color-casper-blue-light);
   --loading-indicator-message-color: var(--color-casper-blue-dark);
   --color-bg: var(--color-casper-blue-light);
-  --color-bg-hover: var(--color-casper-blue-half-alpha);
-  --color-bg-active: var(--color-casper-blue);
+  --color-bg-hover: color-mix(in oklch, var(--color-casper-blue) 80%, white);
   --color-demo-name: var(--color-gold-dark);
   --color-text: var(--color-casper-blue-dark);
   --color-text-reversed: var(--color-bluish-white);
@@ -821,9 +841,8 @@ h6 {
   --description-text: var(--color-casper-blue-dark);
   --description-bg: white;
   --description-bg-highlight: var(--color-bluish-white);
-  --description-heading: var(--color-casper-blue-dark);
-  --description-heading1: var(--color-gold-dark);
   --description-note: #9df1ff;
+  --description-subheading: color-mix(in oklch, var(--description-text) 60%, white);
   --interaction-text: var(--color-casper-blue-dark);
   --interaction-text-alt: white;
   --interaction-heading: var(--color-casper-blue-dark);
@@ -848,6 +867,10 @@ h6 {
   --toolbar-select-arrow: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%2338536b"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>');
   --collapse-button-hover: #0000000f;
   --panel-bar-button-blink: var(--color-casper-blue);
+  --toast-color: var(--color-casper-blue-dark);
+  --toast-bg: var(--color-casper-blue-white);
+  --toast-button: var(--color-casper-blue-white);
+  --toast-button-hover: var(--color-casper-blue-light);
   --error-dialog-button: var(--color-highlight-blue);
   --error-dialog-button-hover: var(--color-casper-blue-light);
   --error-dialog-input-background: white;
@@ -860,7 +883,7 @@ h6 {
   --loading-indicator-background: var(--color-casper-blue-light);
   --loading-indicator-message-color: var(--color-casper-blue-dark);
   --color-bg: var(--color-casper-blue-mid);
-  --color-bg-hover: var(--color-casper-blue-dark);
+  --color-bg-hover: color-mix(in oklch, var(--color-casper-blue-dark) 80%, white);
   --color-demo-name: var(--color-gold);
   --color-text: var(--color-bluish-white);
   --color-text-reversed: var(--color-casper-blue-dark);
@@ -883,9 +906,8 @@ h6 {
   --description-text: white;
   --description-bg: var(--color-casper-blue-dark);
   --description-bg-highlight: var(--color-casper-blue-black);
-  --description-heading: white;
-  --description-heading1: var(--color-gold-dark);
   --description-note: var(--color-pacific-blue);
+  --description-subheading: var(--color-casper-blue-light);
   --interaction-text: white;
   --interaction-text-alt: var(--color-casper-blue-dark);
   --interaction-heading: var(--color-gold-dark);
@@ -910,6 +932,10 @@ h6 {
   --toolbar-select-arrow: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%23f3f4f6"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>');
   --collapse-button-hover: var(--color-casper-blue-black);
   --panel-bar-button-blink: var(--color-casper-blue-mid);
+  --toast-color: white;
+  --toast-bg: var(--color-casper-blue-mid);
+  --toast-button: var(--color-casper-blue-mid);
+  --toast-button-hover: var(--color-casper-blue-dark);
   --error-dialog-button: var(--color-gold-dark);
   --error-dialog-button-hover: var(--color-gold);
   --error-dialog-input-background: var(--color-casper-blue-black);
@@ -983,14 +1009,23 @@ button.guided-tour-trigger.hidden {
 }
 .interaction-panel {
   flex: 0 0 var(--interaction-width);
+  --margin-block: 0.75rem;
   font-size: var(--body-font-size);
-  color: var(--description-text);
-  background-color: var(--description-bg);
   --panel-bg: var(--description-bg);
   --collapse-hover-bg: var(--interaction-button-hover);
-  overflow-x: hidden;
   padding: var(--dialog-padding);
+  overflow-x: hidden;
+  color: var(--description-text);
+  background-color: var(--description-bg);
+  /* Additional small heading above the h1 */
+  /*
+    This is the anchoring element for the collapse icon.
+    By default, it is sticky on the top-left and reserves space for always-visible part of the icon.
+    If this is not desired for a specific demo, override the width and height with smaller values.
+   */
   z-index: 2;
+  /* If a panel doesn't scroll but has content that fits the height,
+   we don't need sticky placement. */
 }
 @supports not selector(::-webkit-scrollbar) {
   .interaction-panel {
@@ -1015,39 +1050,43 @@ button.guided-tour-trigger.hidden {
 .interaction-panel::-webkit-scrollbar-thumb:hover {
   background-color: var(--scrollbar-bg);
 }
-.interaction-panel > :first-child {
+.interaction-panel > :first-child,
+.interaction-panel h2:first-child,
+.interaction-panel h3:first-child {
   margin-top: 0 !important;
 }
 .interaction-panel > :last-child {
   margin-bottom: 0 !important;
 }
-.interaction-panel h1 {
-  font-size: xx-large;
-  margin: 1.2rem 0;
-}
-.interaction-panel h2 {
-  font-size: x-large;
-}
-.interaction-panel h3 {
-  font-size: large;
-}
+.interaction-panel h1,
 .interaction-panel h2,
 .interaction-panel h3,
 .interaction-panel h4 {
-  margin: 1.5rem 0 1rem;
+  margin: 1.25rem 0 var(--margin-block);
+  hyphens: auto;
+}
+.interaction-panel h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+.interaction-panel h2 {
+  font-size: 1.5rem;
+}
+.interaction-panel h3 {
+  font-size: 1.25rem;
 }
 .interaction-panel .text-medium {
   font-size: 130%;
 }
 .interaction-panel ul,
 .interaction-panel ol {
-  padding-left: 1.3em;
+  padding-left: 1.25em;
 }
 .interaction-panel p,
 .interaction-panel dl,
 .interaction-panel ul,
 .interaction-panel ul.paragraph-style li {
-  margin: 1rem 0;
+  margin-block: var(--margin-block);
 }
 .interaction-panel li {
   margin: 0.5rem 0;
@@ -1126,11 +1165,12 @@ button.guided-tour-trigger.hidden {
   padding: 0 0 0.5ex;
 }
 .interaction-panel h1 {
-  color: var(--description-heading1);
-  margin-top: 0;
+  color: var(--color-gold-dark);
 }
-.interaction-panel h2 {
-  color: var(--description-heading);
+.interaction-panel .subheading {
+  font-size: 1rem;
+  color: var(--description-subheading);
+  font-weight: 700;
 }
 .interaction-panel button.collapse {
   font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
@@ -1147,14 +1187,14 @@ button.guided-tour-trigger.hidden {
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  position: absolute;
+  top: calc(var(--dialog-padding) * -1 + 4px);
+  right: calc(var(--dialog-padding) * -1 + 4px);
   border: none;
   border-radius: 99px;
-  position: relative;
-  top: -10px;
-  right: -10px;
-  padding: 8px;
   color: inherit;
   background-color: var(--panel-bg);
+  transition: background-color 0.25s ease-in-out;
 }
 :root[data-theme='dark'] .interaction-panel button.collapse {
   font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
@@ -1162,14 +1202,14 @@ button.guided-tour-trigger.hidden {
 .interaction-panel button.collapse:hover {
   background-color: var(--collapse-hover-bg);
 }
-.interaction-panel .collapse-panel {
-  top: 0px;
+.interaction-panel .collapse-anchor {
   position: sticky;
   float: right;
-  z-index: 1;
-}
-.interaction-panel .collapse-panel:hover {
-  cursor: pointer;
+  top: 0;
+  z-index: 1000;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: var(--panel-bg);
 }
 .interaction-panel button {
   background-color: var(--toolbar-button);
@@ -1189,9 +1229,8 @@ button.guided-tour-trigger.hidden {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .interaction-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox)::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -1208,15 +1247,18 @@ button.guided-tour-trigger.hidden {
 .interaction-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):checked::after {
   content: 'check_box';
 }
+.interaction-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):hover {
+  background-color: var(--toolbar-button);
+  box-shadow: 0 0 0 6px var(--toolbar-button);
+}
 .interaction-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox) {
   appearance: none;
   -webkit-appearance: none;
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .interaction-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox)::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -1241,6 +1283,7 @@ button.guided-tour-trigger.hidden {
 .interaction-panel input[type='range'] {
   width: 100px;
   min-width: 7rem;
+  max-width: 10rem;
   -webkit-appearance: none;
   background-color: transparent;
 }
@@ -1282,6 +1325,13 @@ button.guided-tour-trigger.hidden {
 .interaction-panel > :nth-child(2) {
   margin-top: 0;
 }
+.interaction-panel.absolute-collapse .collapse-anchor {
+  position: absolute;
+  top: var(--border-radius);
+  right: var(--border-radius);
+  width: 0;
+  height: 0;
+}
 .interaction-panel input[type='number'] {
   border: 1px solid var(--color-text);
   border-top: none;
@@ -1304,7 +1354,7 @@ button.guided-tour-trigger.hidden {
   outline: 0;
   font-size: 16px;
   padding: 6px 4px;
-  transition: border-color 0.2s;
+  transition: border-color 0.25s ease-in-out;
 }
 .interaction-panel .demo-properties__settings {
   display: grid;
@@ -1325,15 +1375,328 @@ button.guided-tour-trigger.hidden {
 .interaction-panel .demo-properties__settings > button {
   grid-column: -1/1;
 }
+.interaction-panel .options-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  justify-content: center;
+}
+.interaction-panel .options-section > label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-width: 0;
+}
+.interaction-panel .options-section > label > span:first-child {
+  flex: 1 1 auto;
+  min-width: 30px;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.interaction-panel .options-section > label input {
+  align-self: center;
+}
+.interaction-panel .options-section > label > select {
+  align-self: flex-start;
+  flex: 0 0 auto;
+  width: auto;
+  inline-size: auto;
+  min-width: 0;
+  max-width: none;
+  margin-inline-start: auto;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.35rem;
+}
+.interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > span:first-child {
+  min-width: 0;
+  overflow: visible;
+  text-overflow: clip;
+}
+.interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > select {
+  align-self: stretch;
+  flex: 1 1 auto;
+  width: 100%;
+  inline-size: 100%;
+  min-width: 0;
+  max-width: none;
+  margin-inline-start: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > .range-container {
+  margin-inline-start: 0;
+  width: 100%;
+}
+.interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > .range-container > input[type='range'] {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+}
+.interaction-panel .options-section.two-rows > label:has(input[type='checkbox']),
+.interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+.interaction-panel .options-section.two-rows > label:has(input[type='checkbox']) > span:first-child,
+.interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) > span:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.interaction-panel .options-section.two-rows > label:has(input[type='checkbox']) > input[type='checkbox'],
+.interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) > input[type='checkbox'],
+.interaction-panel .options-section.two-rows > label:has(input[type='checkbox']) > input[type='number'],
+.interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) > input[type='number'] {
+  flex: 0 0 auto;
+  margin: 0;
+  align-self: center;
+}
+.interaction-panel .options-section.two-rows > label:has(input[type='range']) {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+.interaction-panel .options-section.two-rows > label:has(input[type='range']) > span:first-child {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+.interaction-panel .options-section.two-rows > label:has(input[type='range']) > .range-container {
+  flex: 1 1 100%;
+  margin-inline-start: 0;
+  width: 100%;
+  align-self: center;
+}
+.interaction-panel .options-section.two-rows > label:has(input[type='range']) > .range-container > input[type='range'] {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+}
+@media (max-width: 80rem) {
+  .interaction-panel .options-section > label input {
+    align-self: start;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > span:first-child {
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > select {
+    align-self: stretch;
+    flex: 0 0 auto;
+    width: 100%;
+    inline-size: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-inline-start: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container {
+    flex: 1 1 auto;
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > input[type='checkbox'] {
+    flex: 0 0 auto;
+    margin: 0;
+    align-self: start !important;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container {
+    flex: 1 1 100%;
+    margin-inline-start: 0;
+    width: 100%;
+    align-self: center;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+}
+@media (max-width: 40rem) {
+  .interaction-panel .options-section > label {
+    flex-wrap: wrap;
+  }
+  .interaction-panel .options-section > label input {
+    align-self: start;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > span:first-child {
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > select {
+    align-self: stretch;
+    flex: 0 0 auto;
+    width: 100%;
+    inline-size: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-inline-start: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container {
+    flex: 1 1 auto;
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > input[type='checkbox'] {
+    flex: 0 0 auto;
+    margin: 0;
+    align-self: start !important;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container {
+    flex: 1 1 100%;
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+}
+.interaction-panel .range-container {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin-inline-start: auto;
+  gap: 0.2rem;
+}
+.interaction-panel .range-container > input[type='range'] {
+  min-width: 0;
+}
+.interaction-panel .range-container > .number-label {
+  flex: 0 0 auto;
+  min-width: 2ch;
+  text-align: end;
+  line-height: 1;
+}
 .description-panel {
   flex: 0 0 var(--description-width);
+  --margin-block: 0.75rem;
   font-size: var(--body-font-size);
-  color: var(--description-text);
-  background-color: var(--description-bg);
   --panel-bg: var(--description-bg);
   --collapse-hover-bg: var(--interaction-button-hover);
-  overflow-x: hidden;
   padding: var(--dialog-padding);
+  overflow-x: hidden;
+  color: var(--description-text);
+  background-color: var(--description-bg);
+  /* Additional small heading above the h1 */
+  /*
+    This is the anchoring element for the collapse icon.
+    By default, it is sticky on the top-left and reserves space for always-visible part of the icon.
+    If this is not desired for a specific demo, override the width and height with smaller values.
+   */
   z-index: 3;
 }
 @supports not selector(::-webkit-scrollbar) {
@@ -1359,39 +1722,43 @@ button.guided-tour-trigger.hidden {
 .description-panel::-webkit-scrollbar-thumb:hover {
   background-color: var(--scrollbar-bg);
 }
-.description-panel > :first-child {
+.description-panel > :first-child,
+.description-panel h2:first-child,
+.description-panel h3:first-child {
   margin-top: 0 !important;
 }
 .description-panel > :last-child {
   margin-bottom: 0 !important;
 }
-.description-panel h1 {
-  font-size: xx-large;
-  margin: 1.2rem 0;
-}
-.description-panel h2 {
-  font-size: x-large;
-}
-.description-panel h3 {
-  font-size: large;
-}
+.description-panel h1,
 .description-panel h2,
 .description-panel h3,
 .description-panel h4 {
-  margin: 1.5rem 0 1rem;
+  margin: 1.25rem 0 var(--margin-block);
+  hyphens: auto;
+}
+.description-panel h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+.description-panel h2 {
+  font-size: 1.5rem;
+}
+.description-panel h3 {
+  font-size: 1.25rem;
 }
 .description-panel .text-medium {
   font-size: 130%;
 }
 .description-panel ul,
 .description-panel ol {
-  padding-left: 1.3em;
+  padding-left: 1.25em;
 }
 .description-panel p,
 .description-panel dl,
 .description-panel ul,
 .description-panel ul.paragraph-style li {
-  margin: 1rem 0;
+  margin-block: var(--margin-block);
 }
 .description-panel li {
   margin: 0.5rem 0;
@@ -1470,11 +1837,12 @@ button.guided-tour-trigger.hidden {
   padding: 0 0 0.5ex;
 }
 .description-panel h1 {
-  color: var(--description-heading1);
-  margin-top: 0;
+  color: var(--color-gold-dark);
 }
-.description-panel h2 {
-  color: var(--description-heading);
+.description-panel .subheading {
+  font-size: 1rem;
+  color: var(--description-subheading);
+  font-weight: 700;
 }
 .description-panel button.collapse {
   font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
@@ -1491,14 +1859,14 @@ button.guided-tour-trigger.hidden {
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  position: absolute;
+  top: calc(var(--dialog-padding) * -1 + 4px);
+  right: calc(var(--dialog-padding) * -1 + 4px);
   border: none;
   border-radius: 99px;
-  position: relative;
-  top: -10px;
-  right: -10px;
-  padding: 8px;
   color: inherit;
   background-color: var(--panel-bg);
+  transition: background-color 0.25s ease-in-out;
 }
 :root[data-theme='dark'] .description-panel button.collapse {
   font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
@@ -1506,14 +1874,14 @@ button.guided-tour-trigger.hidden {
 .description-panel button.collapse:hover {
   background-color: var(--collapse-hover-bg);
 }
-.description-panel .collapse-panel {
-  top: 0px;
+.description-panel .collapse-anchor {
   position: sticky;
   float: right;
-  z-index: 1;
-}
-.description-panel .collapse-panel:hover {
-  cursor: pointer;
+  top: 0;
+  z-index: 1000;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: var(--panel-bg);
 }
 .description-panel button {
   background-color: var(--toolbar-button);
@@ -1533,9 +1901,8 @@ button.guided-tour-trigger.hidden {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox)::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -1552,15 +1919,18 @@ button.guided-tour-trigger.hidden {
 .description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):checked::after {
   content: 'check_box';
 }
+.description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):hover {
+  background-color: var(--toolbar-button);
+  box-shadow: 0 0 0 6px var(--toolbar-button);
+}
 .description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox) {
   appearance: none;
   -webkit-appearance: none;
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox)::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -1585,6 +1955,7 @@ button.guided-tour-trigger.hidden {
 .description-panel input[type='range'] {
   width: 100px;
   min-width: 7rem;
+  max-width: 10rem;
   -webkit-appearance: none;
   background-color: transparent;
 }
@@ -1687,13 +2058,20 @@ button.guided-tour-trigger.hidden {
     max-width: calc(100% - 20px);
   }
   .description-panel {
+    --margin-block: 0.75rem;
     font-size: var(--body-font-size);
-    color: var(--description-text);
-    background-color: var(--description-bg);
     --panel-bg: var(--description-bg);
     --collapse-hover-bg: var(--interaction-button-hover);
-    overflow-x: hidden;
     padding: var(--dialog-padding);
+    overflow-x: hidden;
+    color: var(--description-text);
+    background-color: var(--description-bg);
+    /* Additional small heading above the h1 */
+    /*
+    This is the anchoring element for the collapse icon.
+    By default, it is sticky on the top-left and reserves space for always-visible part of the icon.
+    If this is not desired for a specific demo, override the width and height with smaller values.
+   */
     z-index: 3;
     position: absolute;
     height: 100%;
@@ -1723,39 +2101,43 @@ button.guided-tour-trigger.hidden {
   .description-panel::-webkit-scrollbar-thumb:hover {
     background-color: var(--scrollbar-bg);
   }
-  .description-panel > :first-child {
+  .description-panel > :first-child,
+  .description-panel h2:first-child,
+  .description-panel h3:first-child {
     margin-top: 0 !important;
   }
   .description-panel > :last-child {
     margin-bottom: 0 !important;
   }
-  .description-panel h1 {
-    font-size: xx-large;
-    margin: 1.2rem 0;
-  }
-  .description-panel h2 {
-    font-size: x-large;
-  }
-  .description-panel h3 {
-    font-size: large;
-  }
+  .description-panel h1,
   .description-panel h2,
   .description-panel h3,
   .description-panel h4 {
-    margin: 1.5rem 0 1rem;
+    margin: 1.25rem 0 var(--margin-block);
+    hyphens: auto;
+  }
+  .description-panel h1 {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+  .description-panel h2 {
+    font-size: 1.5rem;
+  }
+  .description-panel h3 {
+    font-size: 1.25rem;
   }
   .description-panel .text-medium {
     font-size: 130%;
   }
   .description-panel ul,
   .description-panel ol {
-    padding-left: 1.3em;
+    padding-left: 1.25em;
   }
   .description-panel p,
   .description-panel dl,
   .description-panel ul,
   .description-panel ul.paragraph-style li {
-    margin: 1rem 0;
+    margin-block: var(--margin-block);
   }
   .description-panel li {
     margin: 0.5rem 0;
@@ -1834,11 +2216,12 @@ button.guided-tour-trigger.hidden {
     padding: 0 0 0.5ex;
   }
   .description-panel h1 {
-    color: var(--description-heading1);
-    margin-top: 0;
+    color: var(--color-gold-dark);
   }
-  .description-panel h2 {
-    color: var(--description-heading);
+  .description-panel .subheading {
+    font-size: 1rem;
+    color: var(--description-subheading);
+    font-weight: 700;
   }
   .description-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
@@ -1855,14 +2238,14 @@ button.guided-tour-trigger.hidden {
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
+    position: absolute;
+    top: calc(var(--dialog-padding) * -1 + 4px);
+    right: calc(var(--dialog-padding) * -1 + 4px);
     border: none;
     border-radius: 99px;
-    position: relative;
-    top: -10px;
-    right: -10px;
-    padding: 8px;
     color: inherit;
     background-color: var(--panel-bg);
+    transition: background-color 0.25s ease-in-out;
   }
   :root[data-theme='dark'] .description-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
@@ -1870,14 +2253,14 @@ button.guided-tour-trigger.hidden {
   .description-panel button.collapse:hover {
     background-color: var(--collapse-hover-bg);
   }
-  .description-panel .collapse-panel {
-    top: 0px;
+  .description-panel .collapse-anchor {
     position: sticky;
     float: right;
-    z-index: 1;
-  }
-  .description-panel .collapse-panel:hover {
-    cursor: pointer;
+    top: 0;
+    z-index: 1000;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: var(--panel-bg);
   }
   .description-panel button {
     background-color: var(--toolbar-button);
@@ -1897,9 +2280,8 @@ button.guided-tour-trigger.hidden {
     display: inline-grid;
     place-content: center;
     position: relative;
-    border-radius: var(--border-radius);
-    width: 2.25rem;
-    height: 2.25rem;
+    border-radius: 6px;
+    transition: box-shadow 0.15s ease, background-color 0.15s ease;
   }
   .description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox)::after {
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -1916,15 +2298,18 @@ button.guided-tour-trigger.hidden {
   .description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):checked::after {
     content: 'check_box';
   }
+  .description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):hover {
+    background-color: var(--toolbar-button);
+    box-shadow: 0 0 0 6px var(--toolbar-button);
+  }
   .description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox) {
     appearance: none;
     -webkit-appearance: none;
     display: inline-grid;
     place-content: center;
     position: relative;
-    border-radius: var(--border-radius);
-    width: 2.25rem;
-    height: 2.25rem;
+    border-radius: 6px;
+    transition: box-shadow 0.15s ease, background-color 0.15s ease;
   }
   .description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox)::after {
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -1949,6 +2334,7 @@ button.guided-tour-trigger.hidden {
   .description-panel input[type='range'] {
     width: 100px;
     min-width: 7rem;
+    max-width: 10rem;
     -webkit-appearance: none;
     background-color: transparent;
   }
@@ -2138,14 +2524,23 @@ button.guided-tour-trigger.hidden {
     bottom: 0;
     right: 0;
     box-shadow: none;
+    --margin-block: 0.75rem;
     font-size: var(--body-font-size);
-    color: var(--description-text);
-    background-color: var(--description-bg);
     --panel-bg: var(--description-bg);
     --collapse-hover-bg: var(--interaction-button-hover);
-    overflow-x: hidden;
     padding: var(--dialog-padding);
+    overflow-x: hidden;
+    color: var(--description-text);
+    background-color: var(--description-bg);
+    /* Additional small heading above the h1 */
+    /*
+    This is the anchoring element for the collapse icon.
+    By default, it is sticky on the top-left and reserves space for always-visible part of the icon.
+    If this is not desired for a specific demo, override the width and height with smaller values.
+   */
     z-index: 2;
+    /* If a panel doesn't scroll but has content that fits the height,
+   we don't need sticky placement. */
   }
   @supports not selector(::-webkit-scrollbar) {
     .interaction-panel {
@@ -2165,39 +2560,43 @@ button.guided-tour-trigger.hidden {
   .interaction-panel::-webkit-scrollbar-thumb:hover {
     background-color: var(--scrollbar-bg);
   }
-  .interaction-panel > :first-child {
+  .interaction-panel > :first-child,
+  .interaction-panel h2:first-child,
+  .interaction-panel h3:first-child {
     margin-top: 0 !important;
   }
   .interaction-panel > :last-child {
     margin-bottom: 0 !important;
   }
-  .interaction-panel h1 {
-    font-size: xx-large;
-    margin: 1.2rem 0;
-  }
-  .interaction-panel h2 {
-    font-size: x-large;
-  }
-  .interaction-panel h3 {
-    font-size: large;
-  }
+  .interaction-panel h1,
   .interaction-panel h2,
   .interaction-panel h3,
   .interaction-panel h4 {
-    margin: 1.5rem 0 1rem;
+    margin: 1.25rem 0 var(--margin-block);
+    hyphens: auto;
+  }
+  .interaction-panel h1 {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+  .interaction-panel h2 {
+    font-size: 1.5rem;
+  }
+  .interaction-panel h3 {
+    font-size: 1.25rem;
   }
   .interaction-panel .text-medium {
     font-size: 130%;
   }
   .interaction-panel ul,
   .interaction-panel ol {
-    padding-left: 1.3em;
+    padding-left: 1.25em;
   }
   .interaction-panel p,
   .interaction-panel dl,
   .interaction-panel ul,
   .interaction-panel ul.paragraph-style li {
-    margin: 1rem 0;
+    margin-block: var(--margin-block);
   }
   .interaction-panel li {
     margin: 0.5rem 0;
@@ -2276,11 +2675,12 @@ button.guided-tour-trigger.hidden {
     padding: 0 0 0.5ex;
   }
   .interaction-panel h1 {
-    color: var(--description-heading1);
-    margin-top: 0;
+    color: var(--color-gold-dark);
   }
-  .interaction-panel h2 {
-    color: var(--description-heading);
+  .interaction-panel .subheading {
+    font-size: 1rem;
+    color: var(--description-subheading);
+    font-weight: 700;
   }
   .interaction-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
@@ -2297,14 +2697,14 @@ button.guided-tour-trigger.hidden {
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
+    position: absolute;
+    top: calc(var(--dialog-padding) * -1 + 4px);
+    right: calc(var(--dialog-padding) * -1 + 4px);
     border: none;
     border-radius: 99px;
-    position: relative;
-    top: -10px;
-    right: -10px;
-    padding: 8px;
     color: inherit;
     background-color: var(--panel-bg);
+    transition: background-color 0.25s ease-in-out;
   }
   :root[data-theme='dark'] .interaction-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
@@ -2312,14 +2712,14 @@ button.guided-tour-trigger.hidden {
   .interaction-panel button.collapse:hover {
     background-color: var(--collapse-hover-bg);
   }
-  .interaction-panel .collapse-panel {
-    top: 0px;
+  .interaction-panel .collapse-anchor {
     position: sticky;
     float: right;
-    z-index: 1;
-  }
-  .interaction-panel .collapse-panel:hover {
-    cursor: pointer;
+    top: 0;
+    z-index: 1000;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: var(--panel-bg);
   }
   .interaction-panel button {
     background-color: var(--toolbar-button);
@@ -2339,9 +2739,8 @@ button.guided-tour-trigger.hidden {
     display: inline-grid;
     place-content: center;
     position: relative;
-    border-radius: var(--border-radius);
-    width: 2.25rem;
-    height: 2.25rem;
+    border-radius: 6px;
+    transition: box-shadow 0.15s ease, background-color 0.15s ease;
   }
   .interaction-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox)::after {
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -2358,15 +2757,18 @@ button.guided-tour-trigger.hidden {
   .interaction-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):checked::after {
     content: 'check_box';
   }
+  .interaction-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):hover {
+    background-color: var(--toolbar-button);
+    box-shadow: 0 0 0 6px var(--toolbar-button);
+  }
   .interaction-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox) {
     appearance: none;
     -webkit-appearance: none;
     display: inline-grid;
     place-content: center;
     position: relative;
-    border-radius: var(--border-radius);
-    width: 2.25rem;
-    height: 2.25rem;
+    border-radius: 6px;
+    transition: box-shadow 0.15s ease, background-color 0.15s ease;
   }
   .interaction-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox)::after {
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -2391,6 +2793,7 @@ button.guided-tour-trigger.hidden {
   .interaction-panel input[type='range'] {
     width: 100px;
     min-width: 7rem;
+    max-width: 10rem;
     -webkit-appearance: none;
     background-color: transparent;
   }
@@ -2432,6 +2835,13 @@ button.guided-tour-trigger.hidden {
   .interaction-panel > :nth-child(2) {
     margin-top: 0;
   }
+  .interaction-panel.absolute-collapse .collapse-anchor {
+    position: absolute;
+    top: var(--border-radius);
+    right: var(--border-radius);
+    width: 0;
+    height: 0;
+  }
   .interaction-panel input[type='number'] {
     border: 1px solid var(--color-text);
     border-top: none;
@@ -2454,7 +2864,7 @@ button.guided-tour-trigger.hidden {
     outline: 0;
     font-size: 16px;
     padding: 6px 4px;
-    transition: border-color 0.2s;
+    transition: border-color 0.25s ease-in-out;
   }
   .interaction-panel .demo-properties__settings {
     display: grid;
@@ -2474,6 +2884,139 @@ button.guided-tour-trigger.hidden {
   }
   .interaction-panel .demo-properties__settings > button {
     grid-column: -1/1;
+  }
+  .interaction-panel .options-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    justify-content: center;
+  }
+  .interaction-panel .options-section > label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    min-width: 0;
+  }
+  .interaction-panel .options-section > label > span:first-child {
+    flex: 1 1 auto;
+    min-width: 30px;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label input {
+    align-self: center;
+  }
+  .interaction-panel .options-section > label > select {
+    align-self: flex-start;
+    flex: 0 0 auto;
+    width: auto;
+    inline-size: auto;
+    min-width: 0;
+    max-width: none;
+    margin-inline-start: auto;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+  .interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+  }
+  .interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > span:first-child {
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > select {
+    align-self: stretch;
+    flex: 1 1 auto;
+    width: 100%;
+    inline-size: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-inline-start: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > .range-container {
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='checkbox']),
+  .interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: space-between;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='checkbox']) > span:first-child,
+  .interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='checkbox']) > input[type='checkbox'],
+  .interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) > input[type='checkbox'],
+  .interaction-panel .options-section.two-rows > label:has(input[type='checkbox']) > input[type='number'],
+  .interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) > input[type='number'] {
+    flex: 0 0 auto;
+    margin: 0;
+    align-self: center;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='range']) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='range']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='range']) > .range-container {
+    flex: 1 1 100%;
+    margin-inline-start: 0;
+    width: 100%;
+    align-self: center;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='range']) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+  .interaction-panel .range-container {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    margin-inline-start: auto;
+    gap: 0.2rem;
+  }
+  .interaction-panel .range-container > input[type='range'] {
+    min-width: 0;
+  }
+  .interaction-panel .range-container > .number-label {
+    flex: 0 0 auto;
+    min-width: 2ch;
+    text-align: end;
+    line-height: 1;
   }
   .header {
     align-items: center;
@@ -2527,6 +3070,7 @@ button.guided-tour-trigger.hidden {
     padding: 8px;
     color: inherit;
     background-color: transparent;
+    transition: background-color 0.25s ease-in-out;
   }
   :root[data-theme='dark'] .header .theme-toggle,
   :root[data-theme='dark'] .header .fullscreen-button,
@@ -2545,7 +3089,10 @@ button.guided-tour-trigger.hidden {
   }
   .header .theme-toggle:hover,
   .header .fullscreen-button:hover,
-  .header .burger-menu-button:hover {
+  .header .burger-menu-button:hover,
+  .header .theme-toggle:focus-visible,
+  .header .fullscreen-button:focus-visible,
+  .header .burger-menu-button:focus-visible {
     background-color: var(--color-bg-hover);
     cursor: pointer;
   }
@@ -2609,6 +3156,179 @@ button.guided-tour-trigger.hidden {
     width: 3px;
   }
 }
+@media (min-width: 40rem) and (max-width: 80rem) {
+  .interaction-panel .options-section > label input {
+    align-self: start;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > span:first-child {
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > select {
+    align-self: stretch;
+    flex: 0 0 auto;
+    width: 100%;
+    inline-size: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-inline-start: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container {
+    flex: 1 1 auto;
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > input[type='checkbox'] {
+    flex: 0 0 auto;
+    margin: 0;
+    align-self: start !important;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container {
+    flex: 1 1 100%;
+    margin-inline-start: 0;
+    width: 100%;
+    align-self: center;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+}
+@media (min-width: 40rem) and (max-width: 40rem) {
+  .interaction-panel .options-section > label {
+    flex-wrap: wrap;
+  }
+  .interaction-panel .options-section > label input {
+    align-self: start;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > span:first-child {
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > select {
+    align-self: stretch;
+    flex: 0 0 auto;
+    width: 100%;
+    inline-size: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-inline-start: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container {
+    flex: 1 1 auto;
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > input[type='checkbox'] {
+    flex: 0 0 auto;
+    margin: 0;
+    align-self: start !important;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container {
+    flex: 1 1 100%;
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+}
 @media (min-width: 40rem) and (min-width: 64rem) {
   .header .y-logo {
     mask: url('./resources/ylogo-large.svg') no-repeat center;
@@ -2638,13 +3358,20 @@ button.guided-tour-trigger.hidden {
     border-radius: var(--border-radius);
   }
   .description-panel {
+    --margin-block: 0.75rem;
     font-size: var(--body-font-size);
-    color: var(--description-text);
-    background-color: var(--description-bg);
     --panel-bg: var(--description-bg);
     --collapse-hover-bg: var(--interaction-button-hover);
-    overflow-x: hidden;
     padding: var(--dialog-padding);
+    overflow-x: hidden;
+    color: var(--description-text);
+    background-color: var(--description-bg);
+    /* Additional small heading above the h1 */
+    /*
+    This is the anchoring element for the collapse icon.
+    By default, it is sticky on the top-left and reserves space for always-visible part of the icon.
+    If this is not desired for a specific demo, override the width and height with smaller values.
+   */
     z-index: 3;
     height: 100%;
     max-height: 100%;
@@ -2673,39 +3400,43 @@ button.guided-tour-trigger.hidden {
   .description-panel::-webkit-scrollbar-thumb:hover {
     background-color: var(--scrollbar-bg);
   }
-  .description-panel > :first-child {
+  .description-panel > :first-child,
+  .description-panel h2:first-child,
+  .description-panel h3:first-child {
     margin-top: 0 !important;
   }
   .description-panel > :last-child {
     margin-bottom: 0 !important;
   }
-  .description-panel h1 {
-    font-size: xx-large;
-    margin: 1.2rem 0;
-  }
-  .description-panel h2 {
-    font-size: x-large;
-  }
-  .description-panel h3 {
-    font-size: large;
-  }
+  .description-panel h1,
   .description-panel h2,
   .description-panel h3,
   .description-panel h4 {
-    margin: 1.5rem 0 1rem;
+    margin: 1.25rem 0 var(--margin-block);
+    hyphens: auto;
+  }
+  .description-panel h1 {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+  .description-panel h2 {
+    font-size: 1.5rem;
+  }
+  .description-panel h3 {
+    font-size: 1.25rem;
   }
   .description-panel .text-medium {
     font-size: 130%;
   }
   .description-panel ul,
   .description-panel ol {
-    padding-left: 1.3em;
+    padding-left: 1.25em;
   }
   .description-panel p,
   .description-panel dl,
   .description-panel ul,
   .description-panel ul.paragraph-style li {
-    margin: 1rem 0;
+    margin-block: var(--margin-block);
   }
   .description-panel li {
     margin: 0.5rem 0;
@@ -2784,11 +3515,12 @@ button.guided-tour-trigger.hidden {
     padding: 0 0 0.5ex;
   }
   .description-panel h1 {
-    color: var(--description-heading1);
-    margin-top: 0;
+    color: var(--color-gold-dark);
   }
-  .description-panel h2 {
-    color: var(--description-heading);
+  .description-panel .subheading {
+    font-size: 1rem;
+    color: var(--description-subheading);
+    font-weight: 700;
   }
   .description-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
@@ -2805,14 +3537,14 @@ button.guided-tour-trigger.hidden {
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
+    position: absolute;
+    top: calc(var(--dialog-padding) * -1 + 4px);
+    right: calc(var(--dialog-padding) * -1 + 4px);
     border: none;
     border-radius: 99px;
-    position: relative;
-    top: -10px;
-    right: -10px;
-    padding: 8px;
     color: inherit;
     background-color: var(--panel-bg);
+    transition: background-color 0.25s ease-in-out;
   }
   :root[data-theme='dark'] .description-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
@@ -2820,14 +3552,14 @@ button.guided-tour-trigger.hidden {
   .description-panel button.collapse:hover {
     background-color: var(--collapse-hover-bg);
   }
-  .description-panel .collapse-panel {
-    top: 0px;
+  .description-panel .collapse-anchor {
     position: sticky;
     float: right;
-    z-index: 1;
-  }
-  .description-panel .collapse-panel:hover {
-    cursor: pointer;
+    top: 0;
+    z-index: 1000;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: var(--panel-bg);
   }
   .description-panel button {
     background-color: var(--toolbar-button);
@@ -2847,9 +3579,8 @@ button.guided-tour-trigger.hidden {
     display: inline-grid;
     place-content: center;
     position: relative;
-    border-radius: var(--border-radius);
-    width: 2.25rem;
-    height: 2.25rem;
+    border-radius: 6px;
+    transition: box-shadow 0.15s ease, background-color 0.15s ease;
   }
   .description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox)::after {
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -2866,15 +3597,18 @@ button.guided-tour-trigger.hidden {
   .description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):checked::after {
     content: 'check_box';
   }
+  .description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):hover {
+    background-color: var(--toolbar-button);
+    box-shadow: 0 0 0 6px var(--toolbar-button);
+  }
   .description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox) {
     appearance: none;
     -webkit-appearance: none;
     display: inline-grid;
     place-content: center;
     position: relative;
-    border-radius: var(--border-radius);
-    width: 2.25rem;
-    height: 2.25rem;
+    border-radius: 6px;
+    transition: box-shadow 0.15s ease, background-color 0.15s ease;
   }
   .description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox)::after {
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -2899,6 +3633,7 @@ button.guided-tour-trigger.hidden {
   .description-panel input[type='range'] {
     width: 100px;
     min-width: 7rem;
+    max-width: 10rem;
     -webkit-appearance: none;
     background-color: transparent;
   }
@@ -2942,14 +3677,23 @@ button.guided-tour-trigger.hidden {
     position: relative;
     height: 100%;
     border-radius: var(--border-radius);
+    --margin-block: 0.75rem;
     font-size: var(--body-font-size);
-    color: var(--description-text);
-    background-color: var(--description-bg);
     --panel-bg: var(--description-bg);
     --collapse-hover-bg: var(--interaction-button-hover);
-    overflow-x: hidden;
     padding: var(--dialog-padding);
+    overflow-x: hidden;
+    color: var(--description-text);
+    background-color: var(--description-bg);
+    /* Additional small heading above the h1 */
+    /*
+    This is the anchoring element for the collapse icon.
+    By default, it is sticky on the top-left and reserves space for always-visible part of the icon.
+    If this is not desired for a specific demo, override the width and height with smaller values.
+   */
     z-index: 2;
+    /* If a panel doesn't scroll but has content that fits the height,
+   we don't need sticky placement. */
   }
   @supports not selector(::-webkit-scrollbar) {
     .interaction-panel {
@@ -2969,39 +3713,43 @@ button.guided-tour-trigger.hidden {
   .interaction-panel::-webkit-scrollbar-thumb:hover {
     background-color: var(--scrollbar-bg);
   }
-  .interaction-panel > :first-child {
+  .interaction-panel > :first-child,
+  .interaction-panel h2:first-child,
+  .interaction-panel h3:first-child {
     margin-top: 0 !important;
   }
   .interaction-panel > :last-child {
     margin-bottom: 0 !important;
   }
-  .interaction-panel h1 {
-    font-size: xx-large;
-    margin: 1.2rem 0;
-  }
-  .interaction-panel h2 {
-    font-size: x-large;
-  }
-  .interaction-panel h3 {
-    font-size: large;
-  }
+  .interaction-panel h1,
   .interaction-panel h2,
   .interaction-panel h3,
   .interaction-panel h4 {
-    margin: 1.5rem 0 1rem;
+    margin: 1.25rem 0 var(--margin-block);
+    hyphens: auto;
+  }
+  .interaction-panel h1 {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+  .interaction-panel h2 {
+    font-size: 1.5rem;
+  }
+  .interaction-panel h3 {
+    font-size: 1.25rem;
   }
   .interaction-panel .text-medium {
     font-size: 130%;
   }
   .interaction-panel ul,
   .interaction-panel ol {
-    padding-left: 1.3em;
+    padding-left: 1.25em;
   }
   .interaction-panel p,
   .interaction-panel dl,
   .interaction-panel ul,
   .interaction-panel ul.paragraph-style li {
-    margin: 1rem 0;
+    margin-block: var(--margin-block);
   }
   .interaction-panel li {
     margin: 0.5rem 0;
@@ -3080,11 +3828,12 @@ button.guided-tour-trigger.hidden {
     padding: 0 0 0.5ex;
   }
   .interaction-panel h1 {
-    color: var(--description-heading1);
-    margin-top: 0;
+    color: var(--color-gold-dark);
   }
-  .interaction-panel h2 {
-    color: var(--description-heading);
+  .interaction-panel .subheading {
+    font-size: 1rem;
+    color: var(--description-subheading);
+    font-weight: 700;
   }
   .interaction-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
@@ -3101,14 +3850,14 @@ button.guided-tour-trigger.hidden {
     word-wrap: normal;
     white-space: nowrap;
     direction: ltr;
+    position: absolute;
+    top: calc(var(--dialog-padding) * -1 + 4px);
+    right: calc(var(--dialog-padding) * -1 + 4px);
     border: none;
     border-radius: 99px;
-    position: relative;
-    top: -10px;
-    right: -10px;
-    padding: 8px;
     color: inherit;
     background-color: var(--panel-bg);
+    transition: background-color 0.25s ease-in-out;
   }
   :root[data-theme='dark'] .interaction-panel button.collapse {
     font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
@@ -3116,14 +3865,14 @@ button.guided-tour-trigger.hidden {
   .interaction-panel button.collapse:hover {
     background-color: var(--collapse-hover-bg);
   }
-  .interaction-panel .collapse-panel {
-    top: 0px;
+  .interaction-panel .collapse-anchor {
     position: sticky;
     float: right;
-    z-index: 1;
-  }
-  .interaction-panel .collapse-panel:hover {
-    cursor: pointer;
+    top: 0;
+    z-index: 1000;
+    width: 1.5em;
+    height: 1.5em;
+    background-color: var(--panel-bg);
   }
   .interaction-panel button {
     background-color: var(--toolbar-button);
@@ -3143,9 +3892,8 @@ button.guided-tour-trigger.hidden {
     display: inline-grid;
     place-content: center;
     position: relative;
-    border-radius: var(--border-radius);
-    width: 2.25rem;
-    height: 2.25rem;
+    border-radius: 6px;
+    transition: box-shadow 0.15s ease, background-color 0.15s ease;
   }
   .interaction-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox)::after {
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -3162,15 +3910,18 @@ button.guided-tour-trigger.hidden {
   .interaction-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):checked::after {
     content: 'check_box';
   }
+  .interaction-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):hover {
+    background-color: var(--toolbar-button);
+    box-shadow: 0 0 0 6px var(--toolbar-button);
+  }
   .interaction-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox) {
     appearance: none;
     -webkit-appearance: none;
     display: inline-grid;
     place-content: center;
     position: relative;
-    border-radius: var(--border-radius);
-    width: 2.25rem;
-    height: 2.25rem;
+    border-radius: 6px;
+    transition: box-shadow 0.15s ease, background-color 0.15s ease;
   }
   .interaction-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox)::after {
     font-family: 'Material Symbols Outlined', sans-serif;
@@ -3195,6 +3946,7 @@ button.guided-tour-trigger.hidden {
   .interaction-panel input[type='range'] {
     width: 100px;
     min-width: 7rem;
+    max-width: 10rem;
     -webkit-appearance: none;
     background-color: transparent;
   }
@@ -3236,6 +3988,13 @@ button.guided-tour-trigger.hidden {
   .interaction-panel > :nth-child(2) {
     margin-top: 0;
   }
+  .interaction-panel.absolute-collapse .collapse-anchor {
+    position: absolute;
+    top: var(--border-radius);
+    right: var(--border-radius);
+    width: 0;
+    height: 0;
+  }
   .interaction-panel input[type='number'] {
     border: 1px solid var(--color-text);
     border-top: none;
@@ -3258,7 +4017,7 @@ button.guided-tour-trigger.hidden {
     outline: 0;
     font-size: 16px;
     padding: 6px 4px;
-    transition: border-color 0.2s;
+    transition: border-color 0.25s ease-in-out;
   }
   .interaction-panel .demo-properties__settings {
     display: grid;
@@ -3278,6 +4037,139 @@ button.guided-tour-trigger.hidden {
   }
   .interaction-panel .demo-properties__settings > button {
     grid-column: -1/1;
+  }
+  .interaction-panel .options-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    justify-content: center;
+  }
+  .interaction-panel .options-section > label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    min-width: 0;
+  }
+  .interaction-panel .options-section > label > span:first-child {
+    flex: 1 1 auto;
+    min-width: 30px;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label input {
+    align-self: center;
+  }
+  .interaction-panel .options-section > label > select {
+    align-self: flex-start;
+    flex: 0 0 auto;
+    width: auto;
+    inline-size: auto;
+    min-width: 0;
+    max-width: none;
+    margin-inline-start: auto;
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+  .interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+  }
+  .interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > span:first-child {
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > select {
+    align-self: stretch;
+    flex: 1 1 auto;
+    width: 100%;
+    inline-size: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-inline-start: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > .range-container {
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section.two-rows > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])):not(:has(> input[type='number'])) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='checkbox']),
+  .interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: space-between;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='checkbox']) > span:first-child,
+  .interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='checkbox']) > input[type='checkbox'],
+  .interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) > input[type='checkbox'],
+  .interaction-panel .options-section.two-rows > label:has(input[type='checkbox']) > input[type='number'],
+  .interaction-panel .options-section.two-rows > label:has(> input[type='number']):not(:has(input[type='range'])) > input[type='number'] {
+    flex: 0 0 auto;
+    margin: 0;
+    align-self: center;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='range']) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='range']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='range']) > .range-container {
+    flex: 1 1 100%;
+    margin-inline-start: 0;
+    width: 100%;
+    align-self: center;
+  }
+  .interaction-panel .options-section.two-rows > label:has(input[type='range']) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+  .interaction-panel .range-container {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    margin-inline-start: auto;
+    gap: 0.2rem;
+  }
+  .interaction-panel .range-container > input[type='range'] {
+    min-width: 0;
+  }
+  .interaction-panel .range-container > .number-label {
+    flex: 0 0 auto;
+    min-width: 2ch;
+    text-align: end;
+    line-height: 1;
   }
   .header {
     align-items: center;
@@ -3330,6 +4222,7 @@ button.guided-tour-trigger.hidden {
     padding: 8px;
     color: inherit;
     background-color: transparent;
+    transition: background-color 0.25s ease-in-out;
   }
   :root[data-theme='dark'] .header .theme-toggle,
   :root[data-theme='dark'] .header .fullscreen-button,
@@ -3348,7 +4241,10 @@ button.guided-tour-trigger.hidden {
   }
   .header .theme-toggle:hover,
   .header .fullscreen-button:hover,
-  .header .burger-menu-button:hover {
+  .header .burger-menu-button:hover,
+  .header .theme-toggle:focus-visible,
+  .header .fullscreen-button:focus-visible,
+  .header .burger-menu-button:focus-visible {
     background-color: var(--color-bg-hover);
     cursor: pointer;
   }
@@ -3402,14 +4298,6 @@ button.guided-tour-trigger.hidden {
   .rail a.try-yfiles.active {
     color: var(--rail-highlighted) !important;
   }
-  .rail button.live-demo.active .icon,
-  .rail a.try-yfiles.active .icon {
-    background-color: var(--color-text-reversed) !important;
-  }
-  .rail button.live-demo:not(.active):hover .icon,
-  .rail a.try-yfiles:not(.active):hover .icon {
-    background-color: var(--color-text-reversed-half-alpha) !important;
-  }
   .rail button,
   .rail a {
     display: block;
@@ -3418,17 +4306,13 @@ button.guided-tour-trigger.hidden {
     background: none;
     color: var(--color-text);
   }
+  .rail button .label-only,
+  .rail a .label-only {
+    border-radius: 99px;
+  }
   .rail button[disabled],
   .rail a[disabled] {
     color: #777;
-  }
-  .rail button:not(.active):hover:not([disabled]),
-  .rail a:not(.active):hover:not([disabled]) {
-    font-variation-settings: 'wght' 600, 'opsz' 24;
-  }
-  .rail button:not(.active):hover:not([disabled]) .icon,
-  .rail a:not(.active):hover:not([disabled]) .icon {
-    background-color: var(--color-bg-hover);
   }
   .rail button.active,
   .rail a.active {
@@ -3437,11 +4321,27 @@ button.guided-tour-trigger.hidden {
   }
   .rail button.active .icon,
   .rail a.active .icon {
-    background-color: var(--color-bg-active);
+    background-color: var(--color-bg-hover);
   }
   .rail button.active .label,
   .rail a.active .label {
     color: var(--color-primary-light);
+  }
+  .rail button:not(.active):not([disabled]):hover,
+  .rail a:not(.active):not([disabled]):hover,
+  .rail button:not(.active):not([disabled]):focus-visible,
+  .rail a:not(.active):not([disabled]):focus-visible {
+    font-variation-settings: 'wght' 600, 'opsz' 24;
+  }
+  .rail button:not(.active):not([disabled]):hover .icon,
+  .rail a:not(.active):not([disabled]):hover .icon,
+  .rail button:not(.active):not([disabled]):focus-visible .icon,
+  .rail a:not(.active):not([disabled]):focus-visible .icon,
+  .rail button:not(.active):not([disabled]):hover .label-only,
+  .rail a:not(.active):not([disabled]):hover .label-only,
+  .rail button:not(.active):not([disabled]):focus-visible .label-only,
+  .rail a:not(.active):not([disabled]):focus-visible .label-only {
+    background-color: var(--color-bg-hover);
   }
   .rail button span,
   .rail a span {
@@ -3459,7 +4359,7 @@ button.guided-tour-trigger.hidden {
     margin-bottom: 4px;
     margin-left: auto;
     font-variation-settings: 'FILL' 1, 'wght' 400, 'opsz' 24;
-    transition: font-variation-settings 0.2s cubic-bezier(0.2, 0, 0, 1);
+    transition: font-variation-settings 0.2s cubic-bezier(0.2, 0, 0, 1), background-color 0.25s ease-in-out;
     border-radius: 16px;
   }
   .rail button .svg-icon,
@@ -3471,7 +4371,7 @@ button.guided-tour-trigger.hidden {
   .rail button .label,
   .rail a .label {
     margin-bottom: 4px;
-    transition: font-variation-settings 0.2s cubic-bezier(0.2, 0, 0, 1);
+    transition: font-variation-settings 0.2s cubic-bezier(0.2, 0, 0, 1), background-color 0.25s ease-in-out;
     text-align: center;
     line-height: 130%;
   }
@@ -3544,6 +4444,179 @@ button.guided-tour-trigger.hidden {
 @media (min-width: 64rem) and (pointer: coarse) {
   .interaction-panel::-webkit-scrollbar {
     width: 3px;
+  }
+}
+@media (min-width: 64rem) and (max-width: 80rem) {
+  .interaction-panel .options-section > label input {
+    align-self: start;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > span:first-child {
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > select {
+    align-self: stretch;
+    flex: 0 0 auto;
+    width: 100%;
+    inline-size: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-inline-start: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container {
+    flex: 1 1 auto;
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > input[type='checkbox'] {
+    flex: 0 0 auto;
+    margin: 0;
+    align-self: start !important;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container {
+    flex: 1 1 100%;
+    margin-inline-start: 0;
+    width: 100%;
+    align-self: center;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+}
+@media (min-width: 64rem) and (max-width: 40rem) {
+  .interaction-panel .options-section > label {
+    flex-wrap: wrap;
+  }
+  .interaction-panel .options-section > label input {
+    align-self: start;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > span:first-child {
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > select {
+    align-self: stretch;
+    flex: 0 0 auto;
+    width: 100%;
+    inline-size: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-inline-start: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container {
+    flex: 1 1 auto;
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:not(:has(input[type='checkbox'])):not(:has(input[type='range'])) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='checkbox']) > input[type='checkbox'] {
+    flex: 0 0 auto;
+    margin: 0;
+    align-self: start !important;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > span:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container {
+    flex: 1 1 100%;
+    margin-inline-start: 0;
+    width: 100%;
+  }
+  .interaction-panel .options-section > label:has(input[type='range']) > .range-container > input[type='range'] {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
   }
 }
 @media (min-width: 64rem) and (min-width: 64rem) {
@@ -3627,7 +4700,7 @@ button.guided-tour-trigger.hidden {
   transform: translate(-50%, -50%);
   width: 20%;
   height: 20%;
-  background-color: white;
+  background-color: var(--splash-text-color);
   mask-image: url('./resources/loading-indicator.svg');
   mask-mode: luminance;
   mask-repeat: no-repeat;
@@ -3635,7 +4708,7 @@ button.guided-tour-trigger.hidden {
   mask-position: center;
 }
 .graph-splash .loading-message {
-  color: white;
+  color: var(--splash-text-color);
   font-size: 1.2rem;
   position: relative;
   transform: translateY(150px);

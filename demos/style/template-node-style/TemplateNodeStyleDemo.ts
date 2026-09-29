@@ -193,7 +193,6 @@ function initializeStyles(graph: IGraph): void {
     <text transform="translate(90 45)" style="text-transform: uppercase" data-content="{Binding position}"/>
     <text transform="translate(90 72)" data-content="{Binding email}"/>
     <text transform="translate(90 88)" data-content="{Binding phone}"/>
-    <text transform="translate(170 88)" data-content="{Binding fax}"/>
   </g>
    <rect fill='transparent'
       stroke="{TemplateBinding itemSelected, Converter=demoConverters.selectedStrokeConverter}"

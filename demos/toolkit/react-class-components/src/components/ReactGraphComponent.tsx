@@ -28,7 +28,6 @@
  ***************************************************************************/
 import { Component, createRef, RefObject } from 'react'
 import {
-  Arrow,
   ExteriorNodeLabelModel,
   GraphComponent,
   GraphEditorInputMode,

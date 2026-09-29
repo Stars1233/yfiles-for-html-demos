@@ -771,7 +771,7 @@ function initializeDnDPanel() {
  * Initializes the snap panning selection box.
  */
 function initializePanSnapping(geim) {
-  const select = document.querySelector('#snap-panning-box>select')
+  const select = document.querySelector('#snap-panning-select')
   select.addEventListener('change', () => {
     const item = select[select.selectedIndex]
     switch (item.value) {
@@ -818,7 +818,7 @@ function initializePanStart(geim) {
   // initialize the demo with two-finger panning
   configurePanStartGesture(geim, 'two')
   // listen for behavior switch
-  const select = document.querySelector('#start-panning-box>select')
+  const select = document.querySelector('#start-panning-select')
   select.addEventListener('change', () => {
     const item = select[select.selectedIndex]
     configurePanStartGesture(geim, item.value)

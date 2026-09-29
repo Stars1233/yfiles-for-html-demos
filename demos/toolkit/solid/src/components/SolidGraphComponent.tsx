@@ -26,6 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
+import './SolidGraphComponent.css'
 import { GraphComponent, GraphEditorInputMode, License } from '@yfiles/yfiles'
 import license from '../license.json'
 import type { JSX } from 'solid-js'
@@ -59,17 +60,19 @@ export const SolidGraphComponent = (props: SolidGraphComponentProps) => {
   onCleanup(() => gc?.cleanUp())
 
   return (
-    <>
+    <div class="graph-component-container" style={{ width: '100%', height: '100%' }}>
       <DemoToolbar
         graphComponent={() => gc}
         resetGraph={() => resetGraph()}
         layout={() => layout()}
       />
-      <SolidGraphOverviewComponent graphComponent={() => gc} />
       <div
         ref={gcDiv}
         style={{ height: props?.height ?? '100%', width: props?.width ?? '100%', ...props.style }}
       ></div>
-    </>
+      <div style={{ position: 'absolute', right: '20px', bottom: '20px' }}>
+        <SolidGraphOverviewComponent graphComponent={() => gc} />
+      </div>
+    </div>
   )
 }

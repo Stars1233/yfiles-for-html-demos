@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/layout/hierarchical-grid-components/).
 
+Demo
+
 This demo shows how [grid components](https://docs.yworks.com/yfileshtml/api/HierarchicalLayoutData#gridComponents) in the hierarchical layout can result in much more compact arrangements.
 
 So-called grid components are related to edge grouping. A grid component consists of a root node and bus nodes that are directly connected to the root node. All edges connecting bus nodes of the same grid component have the same edge direction.
@@ -49,7 +51,7 @@ In this mode, you can play around with the sliders that control the `maximumNode
 
 ## Things to Try
 
-- Click _Toggle Grid Components_ to see the difference between the layout without grid components and the current grid component preset.
+- Toggle _Grid Components_ to see the difference between the layout without grid components and the current grid component preset.
 - Try the different grid component presets in the dropdown menu.
 - Choose the _Custom_ preset of the dropdown and try different settings for `maximumNodesAfterBus` and `maximumNodesBeforeBus` with the sliders.
 - Edit the graph and click the play\_arrow button to re-run the layout with the current settings.

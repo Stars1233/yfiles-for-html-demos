@@ -38,7 +38,7 @@ export type MissingReport = {
     toExists: boolean
     from: string
     to: string
-    label: string
+    type: string
   }[]
   isolatedNodes: string[]
 }
@@ -104,7 +104,7 @@ function findDanglingEdges(
       toExists: nodeById.has(e.to),
       from: e.from,
       to: e.to,
-      label: e.label
+      type: e.type
     }))
 }
 

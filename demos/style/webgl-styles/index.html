@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>WebGL Styles Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -151,15 +148,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
     <style>
-      .two-column {
-        display: grid;
-        grid-template-columns: 4fr 5fr;
-        align-items: center;
-        column-gap: 2px;
-        row-gap: 2px;
-        margin-bottom: 10px;
-      }
-
       input[type='range'] {
         appearance: none;
         width: 200px;
@@ -182,38 +170,100 @@
       }
       .main-container {
         .interaction-panel {
-          .demo-properties__settings {
+          flex: 0 0 340px;
+
+          select {
+            width: 185px !important;
+          }
+
+          .options-section {
             row-gap: 10px;
             margin-bottom: 10px;
           }
-          .strokeTab {
-            overflow: hidden;
-            display: inline-flex;
-            border: 1px solid #ccc;
+
+          .options-section {
+            > div {
+              display: flex;
+              align-items: center;
+              flex-wrap: wrap;
+              gap: 0.75rem;
+
+              > span {
+                flex: 1 1 auto;
+                min-width: 0;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+              }
+
+              > .strokeTab {
+                display: flex;
+                flex: 0 0 auto;
+                margin-inline-start: auto;
+                border: 1px solid #ccc;
+
+                > button {
+                  flex: 0 0 auto;
+                  border-radius: 0;
+                  float: left;
+                  border: none;
+                  outline: none;
+                  cursor: pointer;
+                  padding: 5px 5px;
+                  transition: 0.3s;
+                  width: auto;
+                  font-size: 0.875rem;
+
+                  &.active {
+                    background-color: var(--description-bg);
+                  }
+
+                  &:hover {
+                    background-color: #aaaaaa;
+                  }
+                }
+              }
+            }
           }
 
-          .strokeTab button {
-            border-radius: 0;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 5px 5px;
-            transition: 0.3s;
-            width: auto;
+          @media (max-width: 40rem) {
+            .interaction-panel select {
+              max-width: 150px !important;
+            }
+
+            .options-section {
+              > div {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+
+                > span {
+                  flex: 1 1 auto;
+                  min-width: 0;
+                  overflow: visible;
+                  text-overflow: clip;
+                  white-space: normal;
+                }
+
+                > .strokeTab {
+                  flex: 1 1 auto;
+                  margin-inline-start: 0;
+                  width: 100%;
+
+                  > button {
+                    flex: 1 1 auto;
+                    padding: 8px 10px;
+                    font-size: 0.75rem;
+                  }
+                }
+              }
+            }
           }
           #groupStrokeButtonNone,
           #groupStrokeButtonSimple {
             width: 50%;
           }
 
-          .strokeTab button:hover {
-            background-color: #aaaaaa;
-          }
-
-          .strokeTab button.active {
-            background-color: var(--description-bg);
-          }
           .collapsible {
             display: flex;
             align-items: center;
@@ -244,8 +294,7 @@
       }
 
       .tab-content {
-        padding-top: 12px;
-        padding-left: 12px;
+        padding: 10px;
         border: 1px solid #ccc;
       }
     </style>
@@ -486,65 +535,82 @@
           Nodes
         </button>
         <div id="nodes-section" class="collapsible-content">
-          <div class="demo-properties__settings">
-            <span>Shape</span>
-            <select title="NodeShape" id="nodeShape" class="editor">
-              <option value="ELLIPSE">Ellipse</option>
-              <option value="RECTANGLE">Rectangle</option>
-              <option value="ROUND_RECTANGLE">Rounded Rectangle</option>
-              <option value="HEXAGON">Hexagon</option>
-              <option value="HEXAGON_STANDING">Hexagon Standing</option>
-              <option value="TRIANGLE">Triangle</option>
-              <option value="OCTAGON">Octagon</option>
-              <option value="PILL">Pill</option>
-              <option value="SQUIRCLE">Squircle</option>
-            </select>
-            <span>Fill</span>
-            <input type="color" id="nodeFill" value="#ff00ff" class="editor" />
-            <span>Effect</span>
-            <select title="NodeEffect" id="nodeEffect" class="editor">
-              <option value="NONE">None</option>
-              <option value="SHADOW">Shadow</option>
-              <option value="AMBIENT_FILL_COLOR">Ambient fill color</option>
-              <option value="AMBIENT_STROKE_COLOR">Ambient stroke color</option>
-            </select>
-            <span>Stroke</span>
-            <div class="strokeTab">
-              <button id="nodeStrokeButtonNone" name="nodeStrokeType" class="editor active">
-                None
-              </button>
-              <button id="nodeStrokeButtonSimple" name="nodeStrokeType" class="editor">
-                Solid
-              </button>
-              <button id="nodeStrokeButtonMore" name="nodeStrokeType" class="editor">Dashed</button>
+          <div class="options-section">
+            <label>
+              <span>Shape</span>
+              <select title="NodeShape" id="nodeShape">
+                <option value="ELLIPSE">Ellipse</option>
+                <option value="RECTANGLE">Rectangle</option>
+                <option value="ROUND_RECTANGLE">Rounded Rectangle</option>
+                <option value="HEXAGON">Hexagon</option>
+                <option value="HEXAGON_STANDING">Hexagon Standing</option>
+                <option value="TRIANGLE">Triangle</option>
+                <option value="OCTAGON">Octagon</option>
+                <option value="PILL">Pill</option>
+                <option value="SQUIRCLE">Squircle</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Fill</span>
+              <input type="color" id="nodeFill" value="#ff00ff" />
+            </label>
+
+            <label>
+              <span>Effect</span>
+              <select title="NodeEffect" id="nodeEffect">
+                <option value="NONE">None</option>
+                <option value="SHADOW">Shadow</option>
+                <option value="AMBIENT_FILL_COLOR">Ambient fill color</option>
+                <option value="AMBIENT_STROKE_COLOR">Ambient stroke color</option>
+              </select>
+            </label>
+
+            <div>
+              <span>Stroke</span>
+              <div class="strokeTab">
+                <button id="nodeStrokeButtonNone" name="nodeStrokeType" class="editor active">
+                  None
+                </button>
+                <button id="nodeStrokeButtonSimple" name="nodeStrokeType">Solid</button>
+                <button id="nodeStrokeButtonMore" name="nodeStrokeType">Dashed</button>
+              </div>
             </div>
           </div>
 
           <div id="nodeTabContent" class="tab-content" style="display: none">
             <div id="nodeStrokeSimple" style="display: none">
-              <div class="two-column">
-                <span>Color</span>
-                <input type="color" id="nodeStrokeColor" value="#38434f" class="editor" />
-                <span>Thickness</span>
-                <input type="number" id="nodeStrokeThickness" value="1" min="1" class="editor" />
+              <div class="options-section">
+                <label>
+                  <span>Color</span>
+                  <input type="color" id="nodeStrokeColor" value="#38434f" />
+                </label>
+                <label>
+                  <span>Thickness</span>
+                  <input type="number" id="nodeStrokeThickness" value="1" min="1" />
+                </label>
               </div>
             </div>
             <div id="nodeStrokeMore" style="display: none">
-              <div class="two-column">
-                <span>Dash Style</span>
-                <select title="Dash Style" id="nodeStrokeDashStyle" class="editor">
-                  <option selected="" value="DASH">Dash</option>
-                  <option value="DOT">Dot</option>
-                  <option value="DASH_DOT">Dash Dot</option>
-                  <option value="DASH_DOT_DOT">Dash Dot Dot</option>
-                </select>
-                <span>Line Caps</span>
-                <select title="Line Caps" id="nodeStrokeLineCaps" class="editor">
-                  <option value="FLAT">Flat</option>
-                  <option selected="" value="ROUND">Round</option>
-                  <option value="TRIANGLE">Triangle</option>
-                  <option value="SQUARE">Square</option>
-                </select>
+              <div class="options-section">
+                <label>
+                  <span>Dash Style</span>
+                  <select title="Dash Style" id="nodeStrokeDashStyle">
+                    <option selected="" value="DASH">Dash</option>
+                    <option value="DOT">Dot</option>
+                    <option value="DASH_DOT">Dash Dot</option>
+                    <option value="DASH_DOT_DOT">Dash Dot Dot</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Line Caps</span>
+                  <select title="Line Caps" id="nodeStrokeLineCaps">
+                    <option value="FLAT">Flat</option>
+                    <option selected="" value="ROUND">Round</option>
+                    <option value="TRIANGLE">Triangle</option>
+                    <option value="SQUARE">Square</option>
+                  </select>
+                </label>
               </div>
             </div>
           </div>
@@ -556,114 +622,148 @@
         </button>
         <div id="group-nodes-section" class="collapsible-content">
           <h3>General</h3>
-          <div class="demo-properties__settings">
-            <span>Fill</span>
-            <input type="color" id="groupNodeFill" value="#38434f" class="editor" />
-            <span>ContentArea</span>
-            <input type="color" id="groupNodeContentFill" value="#EEEEEE" class="editor" />
-            <span>Effect</span>
-            <select title="NodeEffect" id="groupNodeEffect" class="editor">
-              <option value="NONE">None</option>
-              <option selected="" value="SHADOW">Shadow</option>
-              <option value="AMBIENT_FILL_COLOR">Ambient fill color</option>
-              <option value="AMBIENT_STROKE_COLOR">Ambient stroke color</option>
-            </select>
+          <div class="options-section">
+            <label>
+              <span>Fill</span>
+              <input type="color" id="groupNodeFill" value="#38434f" />
+            </label>
+            <label>
+              <span>ContentArea</span>
+              <input type="color" id="groupNodeContentFill" value="#EEEEEE" />
+            </label>
+            <label>
+              <span>Effect</span>
+              <select title="NodeEffect" id="groupNodeEffect">
+                <option value="NONE">None</option>
+                <option selected="" value="SHADOW">Shadow</option>
+                <option value="AMBIENT_FILL_COLOR">Ambient fill color</option>
+                <option value="AMBIENT_STROKE_COLOR">Ambient stroke color</option>
+              </select>
+            </label>
 
-            <span>Stroke</span>
-            <div class="strokeTab">
-              <button id="groupStrokeButtonNone" name="groupStrokeType" class="editor">None</button>
-              <button id="groupStrokeButtonSimple" name="groupStrokeType" class="editor active">
-                Solid
-              </button>
-              <button
-                id="groupStrokeButtonMore"
-                name="groupStrokeType"
-                class="editor hidden"
-                disabled=""
-              >
-                Dashed
-              </button>
+            <div>
+              <span>Stroke</span>
+              <div class="strokeTab">
+                <button id="groupStrokeButtonNone" name="groupStrokeType">None</button>
+                <button id="groupStrokeButtonSimple" name="groupStrokeType" class="editor active">
+                  Solid
+                </button>
+                <button
+                  id="groupStrokeButtonMore"
+                  name="groupStrokeType"
+                  class="editor hidden"
+                  disabled=""
+                >
+                  Dashed
+                </button>
+              </div>
             </div>
           </div>
           <div id="groupTabContent" class="tab-content">
             <div id="groupStrokeSimple">
-              <div class="two-column">
-                <span>Color</span>
-                <input type="color" id="groupStrokeColor" class="editor" />
-                <span>Thickness</span>
-                <input type="number" id="groupStrokeThickness" value="1" min="1" class="editor" />
+              <div class="options-section">
+                <label>
+                  <span>Color</span>
+                  <input type="color" id="groupStrokeColor" />
+                </label>
+                <label>
+                  <span>Thickness</span>
+                  <input type="number" id="groupStrokeThickness" value="1" min="1" />
+                </label>
               </div>
             </div>
             <div id="groupStrokeMore" style="display: none">
-              <div class="two-column">
-                <span>Dash Style</span>
-                <select title="Dash Style" id="groupStrokeDashStyle" class="editor">
-                  <option selected="" value="DASH">Dash</option>
-                  <option value="DOT">Dot</option>
-                  <option value="DASH_DOT">Dash Dot</option>
-                  <option value="DASH_DOT_DOT">Dash Dot Dot</option>
-                </select>
-                <span>Line Caps</span>
-                <select title="Line Caps" id="groupStrokeLineCaps" class="editor">
-                  <option value="FLAT">Flat</option>
-                  <option selected="" value="ROUND">Round</option>
-                  <option value="TRIANGLE">Triangle</option>
-                  <option value="SQUARE">Square</option>
-                </select>
+              <div class="options-section">
+                <label>
+                  <span>Dash Style</span>
+                  <select title="Dash Style" id="groupStrokeDashStyle">
+                    <option selected="" value="DASH">Dash</option>
+                    <option value="DOT">Dot</option>
+                    <option value="DASH_DOT">Dash Dot</option>
+                    <option value="DASH_DOT_DOT">Dash Dot Dot</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Line Caps</span>
+                  <select title="Line Caps" id="groupStrokeLineCaps">
+                    <option value="FLAT">Flat</option>
+                    <option selected="" value="ROUND">Round</option>
+                    <option value="TRIANGLE">Triangle</option>
+                    <option value="SQUARE">Square</option>
+                  </select>
+                </label>
               </div>
             </div>
           </div>
 
           <h3>Tab</h3>
-          <div class="demo-properties__settings">
-            <span>Position</span>
-            <select title="Tab Position" id="groupNodeTabPosition" class="editor">
-              <option value="NONE">None</option>
+          <div class="options-section">
+            <label>
+              <span>Position</span>
+              <select title="Tab Position" id="groupNodeTabPosition">
+                <option value="NONE">None</option>
 
-              <option value="TOP_LEADING">Top Leading</option>
-              <option value="TOP_TRAILING">Top Trailing</option>
-              <option selected="" value="TOP">Top</option>
+                <option value="TOP_LEADING">Top Leading</option>
+                <option value="TOP_TRAILING">Top Trailing</option>
+                <option selected="" value="TOP">Top</option>
 
-              <option value="BOTTOM_LEADING">Bottom Leading</option>
-              <option value="BOTTOM_TRAILING">Bottom Trailing</option>
-              <option value="BOTTOM">Bottom</option>
+                <option value="BOTTOM_LEADING">Bottom Leading</option>
+                <option value="BOTTOM_TRAILING">Bottom Trailing</option>
+                <option value="BOTTOM">Bottom</option>
 
-              <option value="LEFT_LEADING">Left Leading</option>
-              <option value="LEFT_TRAILING">Left Trailing</option>
-              <option value="LEFT">Left</option>
+                <option value="LEFT_LEADING">Left Leading</option>
+                <option value="LEFT_TRAILING">Left Trailing</option>
+                <option value="LEFT">Left</option>
 
-              <option value="RIGHT_LEADING">Right Leading</option>
-              <option value="RIGHT_TRAILING">Right Trailing</option>
-              <option value="RIGHT">Right</option>
-            </select>
-            <span>Background Fill</span>
-            <input type="color" id="groupNodeTabBackgroundFill" value="#1E90FF" class="editor" />
-            <span>Height</span>
-            <input id="groupNodeTabHeight" type="number" value="20" min="1" class="editor" />
-            <span>Width</span>
-            <input id="groupNodeTabWidth" type="number" value="50" min="1" class="editor" />
-            <span>Slope</span>
-            <input id="groupNodeTabSlope" type="number" value="0.5" min="0" class="editor" />
-            <span>Padding</span>
-            <input id="groupNodeTabPadding" type="number" value="4" min="0" class="editor" />
-            <span>Corner Radius</span>
-            <input id="groupNodeCornerRadius" type="number" value="4" min="0" class="editor" />
+                <option value="RIGHT_LEADING">Right Leading</option>
+                <option value="RIGHT_TRAILING">Right Trailing</option>
+                <option value="RIGHT">Right</option>
+              </select>
+            </label>
+            <label>
+              <span>Background Fill</span>
+              <input type="color" id="groupNodeTabBackgroundFill" value="#1E90FF" />
+            </label>
+            <label>
+              <span>Height</span>
+              <input id="groupNodeTabHeight" type="number" value="20" min="1" />
+            </label>
+            <label>
+              <span>Width</span>
+              <input id="groupNodeTabWidth" type="number" value="50" min="1" />
+            </label>
+            <label>
+              <span>Slope</span>
+              <input id="groupNodeTabSlope" type="number" value="0.5" min="0" />
+            </label>
+            <label>
+              <span>Padding</span>
+              <input id="groupNodeTabPadding" type="number" value="4" min="0" />
+            </label>
+            <label>
+              <span>Corner Radius</span>
+              <input id="groupNodeCornerRadius" type="number" value="4" min="0" />
+            </label>
           </div>
 
           <h3>Icon</h3>
-          <div class="demo-properties__settings">
-            <span>Icon</span>
-            <select title="Icon" id="groupNodeIcon" class="editor">
-              <option value="NONE">None</option>
-              <option selected="" value="PLUSMINUS">Plus / Minus</option>
-              <option value="TRIANGLE">Triangle</option>
-              <option value="CHEVRON">Chevron</option>
-            </select>
-            <span>Foreground Fill</span>
-            <input type="color" id="groupNodeIconForegroundFill" value="#aaaaaa" class="editor" />
-            <span>Icon Background</span>
-            <div style="min-width: 0">
-              <select title="Icon" id="groupNodeIconBackgroundShape" class="editor">
+          <div class="options-section">
+            <label>
+              <span>Icon</span>
+              <select title="Icon" id="groupNodeIcon">
+                <option value="NONE">None</option>
+                <option selected="" value="PLUSMINUS">Plus / Minus</option>
+                <option value="TRIANGLE">Triangle</option>
+                <option value="CHEVRON">Chevron</option>
+              </select>
+            </label>
+            <label>
+              <span>Foreground Fill</span>
+              <input type="color" id="groupNodeIconForegroundFill" value="#aaaaaa" />
+            </label>
+            <label>
+              <span>Icon Background</span>
+              <select title="Icon" id="groupNodeIconBackgroundShape">
                 <option value="NONE">None</option>
                 <option value="CIRCLE">Circle</option>
                 <option value="CIRCLE_SOLID">Circle Solid</option>
@@ -672,9 +772,11 @@
                 <option selected="" value="ROUND_RECTANGLE">Rounded Box</option>
                 <option value="ROUND_RECTANGLE_SOLID">Rounded Box Solid</option>
               </select>
-            </div>
-            <span>Background Fill</span>
-            <input type="color" id="groupNodeIconBackgroundFill" value="#ffffff" class="editor" />
+            </label>
+            <label>
+              <span>Background Fill</span>
+              <input type="color" id="groupNodeIconBackgroundFill" value="#ffffff" />
+            </label>
           </div>
         </div>
 
@@ -683,89 +785,111 @@
           Edges
         </button>
         <div id="edges-section" class="collapsible-content">
-          <div class="demo-properties__settings">
-            <span>Style</span>
-            <select title="Style" id="edgeStyle" class="editor">
-              <option value="Default">Default</option>
-              <option value="Arc">Arc</option>
-              <option value="Bridge">Bridge</option>
-            </select>
-            <span>Source arrow</span>
-            <select title="Source Arrow" id="sourceArrow" class="editor">
-              <option value="NONE">None</option>
-              <option value="STEALTH">Stealth</option>
-              <option value="STEALTH_SMALL">Stealth, small</option>
-              <option value="STEALTH_LARGE">Stealth, large</option>
-              <option value="POINTED">Pointed</option>
-              <option value="TRIANGLE">Triangle</option>
-              <option value="TRIANGLE_SMALL">Triangle, small</option>
-              <option value="TRIANGLE_LARGE">Triangle, large</option>
-            </select>
-            <span>Target arrow</span>
-            <select title="Target Arrow" id="targetArrow" class="editor">
-              <option value="NONE">None</option>
-              <option value="STEALTH">Stealth</option>
-              <option value="STEALTH_SMALL">Stealth, small</option>
-              <option value="STEALTH_LARGE">Stealth, large</option>
-              <option value="POINTED">Pointed</option>
-              <option value="TRIANGLE">Triangle</option>
-              <option value="TRIANGLE_SMALL">Triangle, small</option>
-              <option value="TRIANGLE_LARGE">Triangle, large</option>
-            </select>
-            <span>Effect</span>
-            <select title="EdgeEffect" id="edgeEffect" class="editor">
-              <option value="NONE">None</option>
-              <option value="SHADOW">Shadow</option>
-              <option value="AMBIENT_STROKE_COLOR">Ambient stroke color</option>
-            </select>
-            <span>Bend Smoothing</span>
-            <input type="number" id="bendSmoothing" value="0" min="0" class="editor" />
-            <span>Height</span>
-            <input type="number" id="height" value="20" min="-100" max="100" class="editor" />
+          <div class="options-section">
+            <label>
+              <span>Style</span>
+              <select title="Style" id="edgeStyle">
+                <option value="Default">Default</option>
+                <option value="Arc">Arc</option>
+                <option value="Bridge">Bridge</option>
+              </select>
+            </label>
+            <label>
+              <span>Source arrow</span>
+              <select title="Source Arrow" id="sourceArrow">
+                <option value="NONE">None</option>
+                <option value="STEALTH">Stealth</option>
+                <option value="STEALTH_SMALL">Stealth, small</option>
+                <option value="STEALTH_LARGE">Stealth, large</option>
+                <option value="POINTED">Pointed</option>
+                <option value="TRIANGLE">Triangle</option>
+                <option value="TRIANGLE_SMALL">Triangle, small</option>
+                <option value="TRIANGLE_LARGE">Triangle, large</option>
+              </select>
+            </label>
+            <label>
+              <span>Target arrow</span>
+              <select title="Target Arrow" id="targetArrow">
+                <option value="NONE">None</option>
+                <option value="STEALTH">Stealth</option>
+                <option value="STEALTH_SMALL">Stealth, small</option>
+                <option value="STEALTH_LARGE">Stealth, large</option>
+                <option value="POINTED">Pointed</option>
+                <option value="TRIANGLE">Triangle</option>
+                <option value="TRIANGLE_SMALL">Triangle, small</option>
+                <option value="TRIANGLE_LARGE">Triangle, large</option>
+              </select>
+            </label>
+            <label>
+              <span>Effect</span>
+              <select title="EdgeEffect" id="edgeEffect">
+                <option value="NONE">None</option>
+                <option value="SHADOW">Shadow</option>
+                <option value="AMBIENT_STROKE_COLOR">Ambient stroke color</option>
+              </select>
+            </label>
+            <label>
+              <span>Bend Smoothing</span>
+              <input type="number" id="bendSmoothing" value="0" min="0" />
+            </label>
+            <label>
+              <span>Height</span>
+              <input type="number" id="height" value="20" min="-100" max="100" />
+            </label>
           </div>
-          <div class="demo-properties__settings">
-            <span>Stroke</span>
-            <div class="strokeTab">
-              <button
-                id="edgeStrokeButtonNone"
-                name="edgeStrokeType"
-                class="editor hidden"
-                disabled=""
-              >
-                None
-              </button>
-              <button id="edgeStrokeButtonSimple" name="edgeStrokeType" class="editor active">
-                Solid
-              </button>
-              <button id="edgeStrokeButtonMore" name="edgeStrokeType" class="editor">Dashed</button>
+          <div class="options-section">
+            <div>
+              <span>Stroke</span>
+              <div class="strokeTab">
+                <button
+                  id="edgeStrokeButtonNone"
+                  name="edgeStrokeType"
+                  class="editor hidden"
+                  disabled=""
+                >
+                  None
+                </button>
+                <button id="edgeStrokeButtonSimple" name="edgeStrokeType" class="editor active">
+                  Solid
+                </button>
+                <button id="edgeStrokeButtonMore" name="edgeStrokeType">Dashed</button>
+              </div>
             </div>
           </div>
 
           <div id="edgeTabContent" class="tab-content">
             <div id="edgeStrokeSimple">
-              <div class="two-column">
-                <span>Color</span>
-                <input type="color" id="edgeStrokeColor" value="#38434f" class="editor" />
-                <span>Thickness</span>
-                <input type="number" id="edgeStrokeThickness" value="1" min="1" class="editor" />
+              <div class="options-section">
+                <label>
+                  <span>Color</span>
+                  <input type="color" id="edgeStrokeColor" value="#38434f" />
+                </label>
+                <label>
+                  <span>Thickness</span>
+                  <input type="number" id="edgeStrokeThickness" value="1" min="1" />
+                </label>
               </div>
             </div>
             <div id="edgeStrokeMore" style="display: none">
-              <div class="two-column">
-                <span>Dash Style</span>
-                <select title="Dash Style" id="edgeStrokeDashStyle" class="editor">
-                  <option selected="" value="DASH">Dash</option>
-                  <option value="DOT">Dot</option>
-                  <option value="DASH_DOT">Dash Dot</option>
-                  <option value="DASH_DOT_DOT">Dash Dot Dot</option>
-                </select>
-                <span>Line Caps</span>
-                <select title="Line Caps" id="edgeStrokeLineCaps" class="editor">
-                  <option value="FLAT">Flat</option>
-                  <option selected="" value="ROUND">Round</option>
-                  <option value="TRIANGLE">Triangle</option>
-                  <option value="SQUARE">Square</option>
-                </select>
+              <div class="options-section">
+                <label>
+                  <span>Dash Style</span>
+                  <select title="Dash Style" id="edgeStrokeDashStyle">
+                    <option selected="" value="DASH">Dash</option>
+                    <option value="DOT">Dot</option>
+                    <option value="DASH_DOT">Dash Dot</option>
+                    <option value="DASH_DOT_DOT">Dash Dot Dot</option>
+                  </select>
+                </label>
+                <label>
+                  <span>Line Caps</span>
+                  <select title="Line Caps" id="edgeStrokeLineCaps">
+                    <option value="FLAT">Flat</option>
+                    <option selected="" value="ROUND">Round</option>
+                    <option value="TRIANGLE">Triangle</option>
+                    <option value="SQUARE">Square</option>
+                  </select>
+                </label>
               </div>
             </div>
           </div>
@@ -776,109 +900,110 @@
           Labels
         </button>
         <div id="labels-section" class="collapsible-content">
-          <div class="demo-properties__settings">
-            <span>Shape</span>
-            <select title="Shape" id="labelShape" class="editor">
-              <option value="RECTANGLE">Rectangle</option>
-              <option selected="" value="ROUND_RECTANGLE">Rounded rectangle</option>
-              <option value="PILL">Pill</option>
-            </select>
-            <span>Text Color</span>
-            <input type="color" id="labelTextColor" class="editor" />
-            <span>Fill Color</span>
-            <input type="color" id="labelBackgroundColor" value="#ffffff" class="editor" />
-            <span>Effect</span>
-            <select title="NodeEffect" id="labelEffect" class="editor">
-              <option value="NONE">None</option>
-              <option value="SHADOW">Shadow</option>
-              <option value="AMBIENT_FILL_COLOR">Ambient fill color</option>
-              <option value="AMBIENT_STROKE_COLOR">Ambient stroke color</option>
-            </select>
+          <div class="options-section">
+            <label
+              ><span>Shape</span>
+              <select title="Shape" id="labelShape">
+                <option value="RECTANGLE">Rectangle</option>
+                <option selected="" value="ROUND_RECTANGLE">Rounded rectangle</option>
+                <option value="PILL">Pill</option>
+              </select>
+            </label>
 
-            <span>RenderType</span>
-            <select title="Shape" id="labelRenderingType" class="editor">
-              <option selected="" value="SDF">SDF</option>
-              <option value="Interpolated">Interpolated</option>
-            </select>
-            <span>Oversampling</span>
-            <input
-              id="labelOversampling"
-              type="number"
-              value="2"
-              min="0.1"
-              max="20"
-              step="0.2"
-              class="editor"
-            />
-            <span>Horizontal Padding</span>
-            <input
-              id="horizontalPadding"
-              type="number"
-              value="6"
-              min="0.1"
-              max="10"
-              step="1"
-              class="editor"
-            />
+            <label
+              ><span>Text Color</span>
+              <input type="color" id="labelTextColor" />
+            </label>
 
-            <span>Vertical Padding</span>
-            <input
-              id="verticalPadding"
-              type="number"
-              value="4"
-              min="0.1"
-              max="10"
-              step="1"
-              class="editor"
-            />
-          </div>
-          <div class="demo-properties__settings">
-            <span>Stroke</span>
-            <div class="strokeTab">
-              <button id="labelStrokeButtonNone" name="labelStrokeType" class="editor active">
-                None
-              </button>
-              <button id="labelStrokeButtonSimple" name="labelStrokeType" class="editor">
-                Solid
-              </button>
-              <button id="labelStrokeButtonMore" name="labelStrokeType" class="editor">
-                Dashed
-              </button>
-            </div>
-          </div>
+            <label>
+              <span>Fill Color</span>
+              <input type="color" id="labelBackgroundColor" value="#ffffff" />
+            </label>
 
-          <div id="labelTabContent" class="tab-content" style="display: none">
-            <div id="labelStrokeSimple">
-              <div class="two-column">
-                <span>Color</span>
-                <input type="color" id="labelStrokeColor" class="editor" />
-                <span>Thickness</span>
-                <input type="number" id="labelStrokeThickness" value="1" min="1" class="editor" />
+            <label>
+              <span>Effect</span>
+              <select title="NodeEffect" id="labelEffect">
+                <option value="NONE">None</option>
+                <option value="SHADOW">Shadow</option>
+                <option value="AMBIENT_FILL_COLOR">Ambient fill color</option>
+                <option value="AMBIENT_STROKE_COLOR">Ambient stroke color</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Render Type</span>
+              <select title="Shape" id="labelRenderingType">
+                <option selected="" value="SDF">SDF</option>
+                <option value="Interpolated">Interpolated</option>
+              </select>
+            </label>
+
+            <label>
+              <span>Oversampling</span>
+              <input id="labelOversampling" type="number" value="2" min="0.1" max="20" step="0.2" />
+            </label>
+            <label>
+              <span>Horizontal Padding</span>
+              <input id="horizontalPadding" type="number" value="6" min="0.1" max="10" step="1" />
+            </label>
+            <label>
+              <span>Vertical Padding</span>
+              <input id="verticalPadding" type="number" value="4" min="0.1" max="10" step="1" />
+            </label>
+
+            <div>
+              <span>Stroke</span>
+              <div class="strokeTab">
+                <button id="labelStrokeButtonNone" name="labelStrokeType" class="editor active">
+                  None
+                </button>
+                <button id="labelStrokeButtonSimple" name="labelStrokeType">Solid</button>
+                <button id="labelStrokeButtonMore" name="labelStrokeType">Dashed</button>
               </div>
             </div>
-            <div id="labelStrokeMore">
-              <div class="two-column">
-                <span>Dash Style</span>
-                <select title="Dash Style" id="labelStrokeDashStyle" class="editor">
-                  <option value="DASH">Dash</option>
-                  <option selected="" value="DOT">Dot</option>
-                  <option value="DASH_DOT">Dash Dot</option>
-                  <option value="DASH_DOT_DOT">Dash Dot Dot</option>
-                </select>
-                <span>Line Caps</span>
-                <select title="Line Caps" id="labelStrokeLineCaps" class="editor">
-                  <option value="FLAT">Flat</option>
-                  <option selected="" value="ROUND">Round</option>
-                  <option value="TRIANGLE">Triangle</option>
-                  <option value="SQUARE">Square</option>
-                </select>
+
+            <div id="labelTabContent" class="tab-content" style="display: none">
+              <div id="labelStrokeSimple">
+                <div class="options-section">
+                  <label>
+                    <span>Color</span>
+                    <input type="color" id="labelStrokeColor" />
+                  </label>
+                  <label>
+                    <span>Thickness</span>
+                    <input type="number" id="labelStrokeThickness" value="1" min="1" />
+                  </label>
+                </div>
+              </div>
+              <div id="labelStrokeMore">
+                <div class="options-section">
+                  <label>
+                    <span>Dash Style</span>
+                    <select title="Dash Style" id="labelStrokeDashStyle">
+                      <option value="DASH">Dash</option>
+                      <option selected="" value="DOT">Dot</option>
+                      <option value="DASH_DOT">Dash Dot</option>
+                      <option value="DASH_DOT_DOT">Dash Dot Dot</option>
+                    </select>
+                  </label>
+                  <label>
+                    <span>Line Caps</span>
+                    <select title="Line Caps" id="labelStrokeLineCaps">
+                      <option value="FLAT">Flat</option>
+                      <option selected="" value="ROUND">Round</option>
+                      <option value="TRIANGLE">Triangle</option>
+                      <option value="SQUARE">Square</option>
+                    </select>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="description-panel">
-        <h1>WebGL Styles Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>WebGL Styles</h1>
 
         <p>This demo shows the available styles for nodes, edges and labels in WebGL rendering.</p>
         <p>

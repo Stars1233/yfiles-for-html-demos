@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/layout-features/hierarchical-compact-groups/).
 
+Demo
+
 This demo shows how to configure the [HierarchicalLayout](https://docs.yworks.com/yfileshtml/api/HierarchicalLayout) and the corresponding [CoordinateAssigner](https://docs.yworks.com/yfileshtml/api/CoordinateAssigner) to draw compacter group nodes than default.
 
 ## Layer Compaction

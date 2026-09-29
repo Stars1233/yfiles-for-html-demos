@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Mouse Wheel Customization Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -147,11 +144,17 @@
     </script>
 
     <style>
-      .main-container .interaction-panel {
-        .demo-properties__settings {
-          row-gap: 30px;
-          margin-top: 30px;
-          margin-bottom: 30px;
+      .number-label {
+        min-width: 3ch !important;
+      }
+
+      .interaction-panel select {
+        max-width: none !important;
+      }
+
+      @media (max-width: 80rem) {
+        .interaction-panel select {
+          max-width: 140px !important;
         }
       }
     </style>
@@ -371,57 +374,63 @@
         <div id="graphComponent"></div>
       </div>
       <div class="interaction-panel">
-        <h2>Graph Settings</h2>
-        <div class="demo-properties__settings">
-          <span>Wheel Behavior</span>
-          <select id="wheel-behavior-select" title="Select the mouse wheel behavior">
-            <option value="none">None</option>
-            <option value="zoom">Zoom</option>
-            <option value="scroll">Scroll</option>
-            <option value="both">Scroll &amp; Zoom</option>
-            <option selected="selected" value="custom">Scroll, Zoom and Resize</option>
-          </select>
+        <h2>Settings</h2>
+        <div class="options-section two-rows">
+          <label
+            ><span>Wheel Behavior</span>
+            <select id="wheel-behavior-select" title="Select the mouse wheel behavior">
+              <option value="none">None</option>
+              <option value="zoom">Zoom</option>
+              <option value="scroll">Scroll</option>
+              <option value="both">Scroll &amp; Zoom</option>
+              <option selected="selected" value="custom">Scroll, Zoom and Resize</option>
+            </select>
+          </label>
 
-          <span>Modifiers</span>
-          <select id="modifiers-select" title="Select the modifier settings">
-            <option value="default">Default</option>
-            <option value="alt">Alternative</option>
-          </select>
-        </div>
-        <div class="demo-properties__settings">
-          <span>Wheel Zoom Factor</span>
-          <div style="display: flex; gap: 5px">
-            <input
-              style="width: 100px"
-              type="range"
-              min="1.1"
-              max="3.0"
-              step="0.1"
-              value="1.2"
-              id="zoom-factor-input"
-              title="Mouse Wheel Zoom Factor"
-            />
-            <span id="zoom-factor-value">1.2</span>
-          </div>
+          <label
+            ><span>Modifiers</span>
+            <select id="modifiers-select" title="Select the modifier settings">
+              <option value="default">Default</option>
+              <option value="alt">Alternative</option>
+            </select>
+          </label>
 
-          <span>Wheel Scroll Factor</span>
-          <div style="display: flex; gap: 5px">
-            <input
-              style="width: 100px"
-              type="range"
-              min="1"
-              max="50"
-              step="1"
-              value="5"
-              id="scroll-factor-input"
-              title="Mouse Wheel Scroll Factor"
-            />
-            <span id="scroll-factor-value">5</span>
-          </div>
+          <label
+            ><span>Wheel Zoom Factor</span>
+            <span class="range-container">
+              <input
+                type="range"
+                min="1.1"
+                max="3.0"
+                step="0.1"
+                value="1.2"
+                id="zoom-factor-input"
+                title="Mouse Wheel Zoom Factor"
+              />
+              <span id="zoom-factor-value" class="number-label">1.2</span>
+            </span>
+          </label>
+
+          <label
+            ><span>Wheel Scroll Factor</span>
+            <span class="range-container">
+              <input
+                type="range"
+                min="1"
+                max="50"
+                step="1"
+                value="5"
+                id="scroll-factor-input"
+                title="Mouse Wheel Scroll Factor"
+              />
+              <span id="scroll-factor-value" class="number-label">5</span>
+            </span>
+          </label>
         </div>
       </div>
       <div class="description-panel">
-        <h1>Mouse Wheel Customization Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Mouse Wheel Customization</h1>
 
         <p>This demo shows how to customize and enhance the default mouse wheel behavior.</p>
 

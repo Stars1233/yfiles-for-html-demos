@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/style/datatable/).
 
+Demo
+
 This demo shows a node style and a label style that display data in a tabular fashion.
 
 ## Things to Try

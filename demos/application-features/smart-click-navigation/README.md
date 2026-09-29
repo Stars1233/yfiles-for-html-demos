@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/application-features/smart-click-navigation/).
 
+Demo
+
 This demos shows how to navigate in a large graph, especially when only a part of the graph is visible in the viewport.
 
 ### Things To Try

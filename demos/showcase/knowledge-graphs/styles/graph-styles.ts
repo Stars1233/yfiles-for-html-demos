@@ -44,27 +44,24 @@ import { getEdgeTag, getLabelTag, getNodeTag, type Problem } from '../types'
 /**
  * Represents a pair of colors for styling (main and light variants).
  */
-export type ColorSet = { main: string; light: string }
+export type ColorSet = { main: string; secondary: string }
 
 /**
  * Maps cluster IDs to their associated color schemes.
  * Each cluster gets a distinct main color and light background variant.
  */
 export const clusterIdToColors = new Map<number, ColorSet>([
-  [0, { main: '#B786FF', light: '#F7F2FF' }],
-  [1, { main: '#8DB580', light: '#F2FFEF' }],
-  [2, { main: '#F2D0A9', light: '#FFF8EF' }],
-  [3, { main: '#4AD8FF', light: '#F1FCFF' }],
-  [4, { main: '#82AEFF', light: '#F1F5FF' }],
-  [5, { main: '#7EBD9D', light: '#EDFFF6' }],
-  [6, { main: '#D5ACD3', light: '#FFF2FF' }],
-  [7, { main: '#E4BEBF', light: '#FFF3F3' }],
-  [8, { main: '#6CC7BF', light: '#F0FFFD' }],
-  [9, { main: '#FBDD89', light: '#FFFBEE' }],
-  [10, { main: '#dc67ce', light: '#fff3fd' }],
-  [11, { main: '#67b7dc', light: '#f6fbff' }],
-  [12, { main: '#ffadc6', light: '#fff3f3' }],
-  [13, { main: '#17bebb', light: '#f3ffff' }]
+  [0, { main: '#B786FF', secondary: '#F7F2FF' }],
+  [1, { main: '#ffadc6', secondary: '#fff3f3' }],
+  [2, { main: '#F2D0A9', secondary: '#FFF8EF' }],
+  [3, { main: '#4AD8FF', secondary: '#F1FCFF' }],
+  [4, { main: '#82AEFF', secondary: '#F1F5FF' }],
+  [5, { main: '#7EBD9D', secondary: '#EDFFF6' }],
+  [6, { main: '#D5ACD3', secondary: '#FFF2FF' }],
+  [7, { main: '#E4BEBF', secondary: '#FFF3F3' }],
+  [8, { main: '#dc67ce', secondary: '#fff3fd' }],
+  [9, { main: '#17bebb', secondary: '#f3ffff' }],
+  [10, { main: '#FBDD89', secondary: '#fff3fd' }]
 ])
 
 /** Color used for error states (main stroke). */
@@ -86,13 +83,7 @@ const nodeLabelZoomVisibilityPolicy = new WebGLZoomVisibilityPolicy({
 })
 
 const nodeIconLabelZoomVisibilityPolicy = new WebGLZoomVisibilityPolicy({
-  lowerThreshold: 0.1,
-  transitionEasing,
-  transitionDuration
-})
-
-const edgeLabelZoomVisibilityPolicy = new WebGLZoomVisibilityPolicy({
-  lowerThreshold: 0.5,
+  lowerThreshold: 0.05,
   transitionEasing,
   transitionDuration
 })
@@ -168,7 +159,7 @@ export function getEdgeStyle(edge: IEdge): WebGLPolylineEdgeStyle {
     const sourceCluster = getNodeTag(source).clusterId! as number
     const colorSet = clusterIdToColors.get(sourceCluster)! as ColorSet
     const fill = Color.from(colorSet.main) as Color
-    stroke = `2px rgba(${fill.r}, ${fill.g}, ${fill.b}, 1)`
+    stroke = `4px rgba(${fill.r}, ${fill.g}, ${fill.b}, 1)`
   }
 
   return new WebGLPolylineEdgeStyle({ stroke, effect: 'ambient-stroke-color' })
@@ -186,7 +177,7 @@ export function getLabelStyle(label: ILabel, alwaysVisible = false): ILabelStyle
   const tag = getLabelTag(label)
 
   if (tag.type === 'icon') {
-    return getIconLabelStyle(label.owner as INode)
+    return getIconLabelStyle(label.owner as INode, alwaysVisible)
   } else if (tag.type === 'error') {
     return errorNodeLabelStyle
   }
@@ -209,7 +200,7 @@ export function getTextLabelStyle(item: INode | IEdge, alwaysVisible = false): I
   const colorSet = clusterIdToColors.get(clusterId)! as ColorSet
 
   const backgroundStroke = `2px ${!tag.problem ? colorSet.main : errorMainColor}`
-  const backgroundFill = `${!tag.problem ? colorSet.light : errorMainColor}`
+  const backgroundFill = `${!tag.problem ? colorSet.secondary : errorMainColor}`
   const textFill = !tag.problem ? textColor : 'white'
   const fontSize = isNodeLabel ? item.layout.width / 10 + 22 : 20
 
@@ -220,13 +211,9 @@ export function getTextLabelStyle(item: INode | IEdge, alwaysVisible = false): I
     textColor: textFill,
     horizontalTextAlignment: 'center',
     verticalTextAlignment: 'center',
-    padding: [2, 6, 2, 6],
-    shape: 'pill',
-    zoomVisibilityPolicy: alwaysVisible
-      ? null
-      : isNodeLabel
-        ? nodeLabelZoomVisibilityPolicy
-        : edgeLabelZoomVisibilityPolicy
+    padding: [4, 6, 4, 6],
+    shape: 'squircle',
+    zoomVisibilityPolicy: alwaysVisible || !isNodeLabel ? null : nodeLabelZoomVisibilityPolicy
   })
 }
 
@@ -254,7 +241,7 @@ export function getIconLabelStyle(node: INode, alwaysVisible = false): ILabelSty
  * Predefined label style for error indicators using Material Symbols.
  */
 export const errorNodeLabelStyle = new LabelStyle({
-  font: '40px Material Symbols Outlined',
+  font: '80px Material Symbols Outlined',
   horizontalTextAlignment: 'center',
   verticalTextAlignment: 'center',
   textFill: errorMainColor

@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Maze Routing Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -147,9 +144,10 @@
     </script>
 
     <style>
-      label {
-        margin-right: 2px;
-        margin-left: 5px;
+      @media (max-width: 80rem) {
+        .interaction-panel select {
+          max-width: 200px !important;
+        }
       }
     </style>
   </head>
@@ -374,49 +372,58 @@
 
           <button data-command="UNDO">undo</button>
           <button data-command="REDO">redo</button>
-
-          <span class="separator"></span>
-
-          <select id="router-scope" title="Select a scope">
-            <optgroup label="Scope">
-              <option value="route-all-edges">Route All Edges</option>
-              <option value="route-selected-edges">Route Selected Edges</option>
-              <option value="route-edges-at-selected-nodes">Route Edges At Selected Nodes</option>
-            </optgroup>
-          </select>
-
-          <span class="separator"></span>
-          <select id="router-style" title="Select a routing style">
-            <optgroup label="Style">
-              <option value="orthogonal">Orthogonal</option>
-              <option value="octilinear">Octilinear</option>
-            </optgroup>
-          </select>
-
-          <span class="separator"></span>
-          <select id="router-ports" title="Select the allowed port sides">
-            <optgroup label="Allowed Port Sides">
-              <option value="any">Any</option>
-              <option value="left-right">Left or Right</option>
-              <option value="top-bottom">Top or Bottom</option>
-            </optgroup>
-          </select>
-
-          <span class="separator"></span>
-          <label for="router-edge-distance">Edge Distance:</label>
-          <input type="number" min="1" max="50" value="6" id="router-edge-distance" />
-
-          <span class="separator"></span>
-
-          <button id="route-edges" title="Route Edges" class="labeled" disabled="">
-            <span class="material-symbols-outlined">play_arrow</span>
-            Route Edges
-          </button>
         </div>
         <div id="graphComponent"></div>
       </div>
+      <div class="interaction-panel">
+        <h2>Settings</h2>
+
+        <div class="options-section two-rows">
+          <label
+            ><span>Scope</span>
+            <select id="router-scope" title="Select a scope">
+              <optgroup label="Scope">
+                <option value="route-all-edges">Route All Edges</option>
+                <option value="route-selected-edges">Route Selected Edges</option>
+                <option value="route-edges-at-selected-nodes">Route Edges At Selected Nodes</option>
+              </optgroup>
+            </select>
+          </label>
+
+          <label
+            ><span>Routing Style</span>
+            <select id="router-style" title="Select a routing style">
+              <optgroup label="Style">
+                <option value="orthogonal">Orthogonal</option>
+                <option value="octilinear">Octilinear</option>
+              </optgroup>
+            </select>
+          </label>
+
+          <label
+            ><span>Allowed Port Sides</span>
+            <select id="router-ports" title="Select the allowed port sides">
+              <optgroup label="Allowed Port Sides">
+                <option value="any">Any</option>
+                <option value="left-right">Left or Right</option>
+                <option value="top-bottom">Top or Bottom</option>
+              </optgroup>
+            </select>
+          </label>
+
+          <label for="router-edge-distance"
+            ><span>Edge Distance</span>
+            <input type="number" min="1" max="50" value="6" id="router-edge-distance" />
+          </label>
+
+          <button id="route-edges" title="Route Edges" class="labeled" disabled="">
+            Route Edges
+          </button>
+        </div>
+      </div>
       <div class="description-panel">
-        <h1>Maze Routing Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Maze Routing</h1>
 
         <p>
           This demo shows how the <a href="https://docs.yworks.com/yfileshtml/api/EdgeRouter" class="api" target="_blank">EdgeRouter</a>

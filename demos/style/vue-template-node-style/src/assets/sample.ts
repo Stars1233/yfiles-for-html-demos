@@ -31,7 +31,6 @@ export type SampleDataType = {
   name: string
   email: string
   phone: string
-  fax: string
   businessUnit: string
   status: string
   icon: string
@@ -46,7 +45,6 @@ export default {
       name: 'Dorothy Turner',
       email: 'dturner@yoyodyne.com',
       phone: '555-0108',
-      fax: '555-0109',
       businessUnit: 'Production',
       status: 'unavailable',
       icon: 'usericon_female3',
@@ -58,7 +56,6 @@ export default {
       name: 'Valerie Burnett',
       email: 'vburnett@yoyodyne.com',
       phone: '555-0110',
-      fax: '555-0111',
       businessUnit: 'Production',
       status: 'present',
       icon: 'usericon_female1',
@@ -70,7 +67,6 @@ export default {
       name: 'Martin Cornett',
       email: 'mcornett@yoyodyne.com',
       phone: '555-0114',
-      fax: '555-0115',
       businessUnit: 'Production',
       status: 'busy',
       icon: 'usericon_male2',
@@ -82,7 +78,6 @@ export default {
       name: 'Edward Monge',
       email: 'emonge@yoyodyne.com',
       phone: '555-0118',
-      fax: '555-0119',
       businessUnit: 'Production',
       status: 'present',
       icon: 'usericon_male3',
@@ -94,7 +89,6 @@ export default {
       name: 'Howard Meyer',
       email: 'hmeyer@yoyodyne.com',
       phone: '555-0116',
-      fax: '555-0117',
       businessUnit: 'Production',
       status: 'present',
       icon: 'usericon_male1',
@@ -106,7 +100,6 @@ export default {
       name: 'Lisa Jensen',
       email: 'ljensen@yoyodyne.com',
       phone: '555-0120',
-      fax: '555-0121',
       businessUnit: 'Production',
       status: 'travel',
       icon: 'usericon_female2',

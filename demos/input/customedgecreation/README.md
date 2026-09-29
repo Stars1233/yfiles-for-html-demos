@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/input/customedgecreation/).
 
+Demo
+
 This demo shows how to provide directional [IPort](https://docs.yworks.com/yfileshtml/api/IPort)s and [PortCandidate](https://docs.yworks.com/yfileshtml/api/PortCandidate)s and demonstrates several customizations for the edge creation gesture.
 
 ## Ports and PortCandidates

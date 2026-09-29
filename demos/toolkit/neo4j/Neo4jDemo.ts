@@ -423,7 +423,7 @@ function initializeUI(): void {
     e.preventDefault()
     let url = hostEl.value
     if (url.indexOf('://') < 0) {
-      url = `neo4j://${url}`
+      url = `neo4j+s://${url}`
     }
     const user = userEl.value
     const pass = passwordEl.value
@@ -442,7 +442,11 @@ function initializeUI(): void {
       document.querySelector<HTMLDivElement>('#connectionError')!.innerHTML =
         `An error occurred: ${e}`
       // In some cases (connecting from https to http) an exception is thrown outside the promise
-      if (window.location.protocol === 'https:') {
+      if (
+        window.location.protocol === 'https:' &&
+        // see https://neo4j.com/docs/javascript-manual/current/connect-advanced/
+        !url.match(/^\s*?(neo4j|bolt)\+(ssc|s):\/\//gm)
+      ) {
         document.querySelector<HTMLDivElement>('#openInHttp')!.hidden = false
         document
           .querySelector<HTMLDivElement>('#openInHttp>a')!

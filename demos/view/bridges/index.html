@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Bridges Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -147,18 +144,8 @@
     </script>
 
     <style>
-      .custom-slider {
-        padding: 0;
-        width: 100px;
-        line-height: 24px;
-        vertical-align: middle;
-      }
-
-      .slider-label {
-        max-width: 15px;
-        width: 15px;
-        margin-right: 10px;
-        display: inline-block;
+      .interaction-panel select {
+        max-width: 200px !important;
       }
     </style>
   </head>
@@ -373,54 +360,59 @@
           </button>
 
           <span class="separator"></span>
-
-          <select title="Crossing Style" id="crossing-styles"></select>
-          <select title="Crossing Policy" id="crossing-policies"></select>
-          <select title="Bridge Orientation" id="bridge-orientations"></select>
-
-          <span class="separator"></span>
-
-          <label title="Select width">
-            Width:
-            <input
-              type="range"
-              min="1"
-              max="30"
-              value="10"
-              id="bridge-width-slider"
-              class="custom-slider"
-            />
-            <span id="bridge-width-label" class="slider-label">10</span>
-          </label>
-          <label title="Select height">
-            Height:
-            <input
-              type="range"
-              min="1"
-              max="30"
-              value="10"
-              id="bridge-height-slider"
-              class="custom-slider"
-            />
-            <span id="bridge-height-label" class="slider-label">10</span>
-          </label>
-          <label>
-            Max Width:
-            <input
-              type="range"
-              min="1"
-              max="50"
-              value="10"
-              id="bridge-max-width-slider"
-              class="custom-slider"
-            />
-            <span id="bridge-max-width-label" class="slider-label">10</span>
-          </label>
         </div>
         <div id="graphComponent"></div>
       </div>
+      <div class="interaction-panel">
+        <h2>Settings</h2>
+        <div class="options-section">
+          <label>
+            <span>Crossing Style</span>
+            <select id="crossing-styles"></select>
+          </label>
+
+          <label>
+            <span>Crossing Policy</span>
+            <select id="crossing-policies"></select>
+          </label>
+
+          <label>
+            <span>Bridge Orientation</span>
+            <select id="bridge-orientations"></select>
+          </label>
+
+          <label>
+            <span>Width</span>
+            <span class="range-container">
+              <input type="range" min="1" max="30" value="10" id="bridge-width-slider" />
+              <span id="bridge-width-label" for="bridge-width-slider" class="number-label">10</span>
+            </span>
+          </label>
+
+          <label>
+            <span>Height</span>
+            <span class="range-container">
+              <input type="range" min="1" max="30" value="5" id="bridge-height-slider" />
+              <span id="bridge-height-label" for="bridge-height-slider" class="number-label"
+                >5</span
+              >
+            </span>
+          </label>
+
+          <label>
+            <span>Max Width</span>
+            <span class="range-container">
+              <input type="range" min="1" max="50" value="10" id="bridge-max-width-slider" />
+              <span id="bridge-max-width-label" for="bridge-max-width-slider" class="number-label"
+                >10</span
+              >
+            </span>
+          </label>
+        </div>
+      </div>
       <div class="description-panel">
-        <h1>Bridges Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Bridges</h1>
 
         <p>
           The Bridges demo showcases the capabilities of the

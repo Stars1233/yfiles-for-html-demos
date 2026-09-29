@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/style/invariant-label/).
 
+Demo
+
 This demo shows label styles that render the labels independent of the zoom level.
 
 ## Zoom Modes

@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/style/templatestyles/).
 
+Demo
+
 This demo shows how to create SVG templates for nodes, labels and ports. It also shows how to customize various aspects of template styles.
 
 ### Template Styles

@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/layout-features/hierarchical/).
 
+Demo
+
 This demo showcases common configuration options for the [HierarchicalLayout](https://docs.yworks.com/yfileshtml/api/HierarchicalLayout) algorithm.
 
 It highlights the configuration of various aspects, including:

@@ -9,7 +9,7 @@
  //
  //////////////////////////////////////////////////////////////////////////////
 -->
-# Svelte Demo
+# Svelte
 
 <img src="../../../doc/demo-thumbnails/svelte.webp" alt="demo-thumbnail" height="320"/>
 

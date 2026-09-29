@@ -46,33 +46,31 @@ export default function DemoDataPanel(props: DemoDataPanelProps) {
   ))
 
   return (
-    <div>
-      <div className="demo-sidebar-content">
-        <h2>Graph Data</h2>
-        <p>
-          The following buttons add/remove items in the internal <code>graphData</code> object, that
-          is bound to the <code>GraphComponent</code>. Upon change, the graph will be updated and
-          rearranged.
-        </p>
-        <div className="controls">
-          <button className="control-button" onClick={props.onAddNode}>
-            <span className="material-symbols-outlined">add</span>
-            <span>Add Node to Data</span>
-          </button>
-          <button
-            className="control-button"
-            onClick={props.onRemoveNode}
-            disabled={props.graphData.nodesSource.length === 0}
-          >
-            <span className="material-symbols-outlined">remove</span>
-            <span>Remove Node from Data</span>
-          </button>
-        </div>
-        <h2>Nodes Source</h2>
-        {nodeItems}
-        <h2>Edges Source</h2>
-        {edgeItems}
+    <div className="demo-description__content">
+      <h2>Graph Data</h2>
+      <p>
+        The following buttons add/remove items in the internal <code>graphData</code> object, that
+        is bound to the <code>GraphComponent</code>. Upon change, the graph will be updated and
+        rearranged.
+      </p>
+      <div className="controls">
+        <button className="control-button" onClick={props.onAddNode}>
+          <span className="material-symbols-outlined">add</span>
+          <span>Add Node to Data</span>
+        </button>
+        <button
+          className="control-button"
+          onClick={props.onRemoveNode}
+          disabled={props.graphData.nodesSource.length === 0}
+        >
+          <span className="material-symbols-outlined">remove</span>
+          <span>Remove Node from Data</span>
+        </button>
       </div>
+      <h2>Nodes Source</h2>
+      {nodeItems}
+      <h2>Edges Source</h2>
+      {edgeItems}
     </div>
   )
 }

@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/layout-features/organic-edge-labeling/).
 
+Demo
+
 This demo shows how to configure the [OrganicLayout](https://docs.yworks.com/yfileshtml/api/OrganicLayout) for automatic edge label placement.
 
 ## Label Placement

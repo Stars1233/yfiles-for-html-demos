@@ -27,28 +27,21 @@
  **
  ***************************************************************************/
 import {
-  EdgePathLabelModel,
-  EdgeSides,
-  ExteriorNodeLabelModel,
   type FoldingEdgeState,
   FoldingManager,
   Graph,
   GraphBuilder,
   GraphComponent,
   GraphEditorInputMode,
-  GroupNodeLabelModel,
-  GroupNodeStyle,
   HierarchicalLayout,
   type IEdge,
   type IFoldingView,
   type IGraph,
   type IListEnumerable,
-  LabelStyle,
   LayoutExecutor,
   License,
   MergingFoldingEdgeConverter,
-  NinePositionsEdgeLabelModel,
-  Size
+  NinePositionsEdgeLabelModel
 } from '@yfiles/yfiles'
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
@@ -183,38 +176,7 @@ function enableFolding(): IFoldingView {
  */
 function initializeGraph(graph: IGraph): void {
   // set styles for this demo
-  initDemoStyles(graph, { foldingEnabled: true })
-
-  graph.groupNodeDefaults.style = new GroupNodeStyle({
-    groupIcon: 'chevron-down',
-    folderIcon: 'chevron-up',
-    iconSize: 14,
-    iconBackgroundShape: 'circle',
-    iconForegroundFill: '#fff',
-    tabFill: '#242265',
-    tabPosition: 'top-trailing',
-    stroke: '2px solid #242265',
-    cornerRadius: 8,
-    tabWidth: 70,
-    contentAreaPadding: 8,
-    hitTransparentContentArea: true
-  })
-  graph.groupNodeDefaults.labels.style = new LabelStyle({
-    horizontalTextAlignment: 'right',
-    textFill: '#fff'
-  })
-  graph.groupNodeDefaults.labels.layoutParameter = new GroupNodeLabelModel().createTabParameter()
-
-  // set sizes and locations specific for this demo
-  graph.nodeDefaults.size = new Size(40, 40)
-
-  graph.nodeDefaults.labels.layoutParameter = new ExteriorNodeLabelModel({
-    margins: 5
-  }).createParameter('bottom')
-  graph.edgeDefaults.labels.layoutParameter = new EdgePathLabelModel({
-    distance: 5,
-    autoRotation: true
-  }).createRatioParameter({ sideOfEdge: EdgeSides.BELOW_EDGE })
+  initDemoStyles(graph, { theme: 'demo-palette-12', foldingEnabled: true })
 }
 
 run().then(finishLoading)

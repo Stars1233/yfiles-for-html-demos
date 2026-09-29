@@ -69,21 +69,19 @@ export function ReactGraphComponent({ graphData, onResetData }: ReactGraphCompon
         style={{ width: '100%', height: '100%' }}
         ref={graphComponentContainer}
       >
-        <div className="toolbar">
-          <DemoToolbar
-            resetData={onResetData}
-            zoomIn={() => graphComponent.executeCommand(Command.INCREASE_ZOOM)}
-            zoomOut={() => graphComponent.executeCommand(Command.DECREASE_ZOOM)}
-            resetZoom={() => graphComponent.executeCommand(Command.ZOOM, 1)}
-            fitContent={() => graphComponent.executeCommand(Command.FIT_CONTENT)}
-            searchChange={(evt) => setSearchQuery(evt.target.value)}
-          />
-        </div>
-        <div style={{ position: 'absolute', left: '20px', top: '20px' }}>
+        <DemoToolbar
+          resetData={onResetData}
+          zoomIn={() => graphComponent.executeCommand(Command.INCREASE_ZOOM)}
+          zoomOut={() => graphComponent.executeCommand(Command.DECREASE_ZOOM)}
+          resetZoom={() => graphComponent.executeCommand(Command.ZOOM, 1)}
+          fitContent={() => graphComponent.executeCommand(Command.FIT_CONTENT)}
+          searchChange={(evt) => setSearchQuery(evt.target.value)}
+        />
+        <div style={{ position: 'absolute', right: '20px', bottom: '20px' }}>
           <ReactGraphOverviewComponent />
         </div>
+        <ContextMenuComponent />
       </div>
-      <ContextMenuComponent />
     </>
   )
 }

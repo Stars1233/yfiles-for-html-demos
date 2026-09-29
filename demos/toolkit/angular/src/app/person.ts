@@ -34,7 +34,6 @@ export class Person {
   private _name: string
   private _email: string
   private _phone: string
-  private _fax: string
   private _businessUnit: string
   private readonly _status: string
   private readonly _icon: string
@@ -53,10 +52,6 @@ export class Person {
 
   get phone() {
     return this._phone
-  }
-
-  get fax() {
-    return this._fax
   }
 
   get businessUnit() {
@@ -87,10 +82,6 @@ export class Person {
     this._phone = value
   }
 
-  set fax(value) {
-    this._fax = value
-  }
-
   set businessUnit(value) {
     this._businessUnit = value
   }
@@ -100,7 +91,6 @@ export class Person {
     name,
     email,
     phone,
-    fax,
     businessUnit,
     status,
     icon
@@ -109,7 +99,6 @@ export class Person {
     name: string
     email: string
     phone: string
-    fax: string
     businessUnit: string
     status: string
     icon: string
@@ -118,7 +107,6 @@ export class Person {
     this._name = name
     this._email = email
     this._phone = phone
-    this._fax = fax
     this._businessUnit = businessUnit
     this._status = status
     this._icon = icon

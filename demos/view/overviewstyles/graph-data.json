@@ -7,7 +7,6 @@
         "name": "Eric Joplin",
         "email": "ejoplin@yoyodyne.com",
         "phone": "555-0100",
-        "fax": "555-0101",
         "businessUnit": "Executive Unit",
         "status": "present",
         "icon": "usericon_male1",
@@ -17,7 +16,6 @@
             "name": "Gary Roberts",
             "email": "groberts@yoyodyne.com",
             "phone": "555-0100",
-            "fax": "555-0101",
             "businessUnit": "Executive Unit",
             "status": "present",
             "icon": "usericon_male2",
@@ -28,7 +26,6 @@
                 "name": "Alexander Burns",
                 "email": "aburns@yoyodyne.com",
                 "phone": "555-0102",
-                "fax": "555-0103",
                 "businessUnit": "Executive Unit",
                 "status": "present",
                 "icon": "usericon_male3"
@@ -38,7 +35,6 @@
                 "name": "Linda Newland",
                 "email": "lnewland@yoyodyne.com",
                 "phone": "555-0112",
-                "fax": "555-0113",
                 "businessUnit": "Executive Unit",
                 "status": "present",
                 "icon": "usericon_female1"
@@ -50,7 +46,6 @@
             "name": "Richard Fuller",
             "email": "rfuller@yoyodyne.com",
             "phone": "555-0134",
-            "fax": "555-0135",
             "businessUnit": "Sales",
             "status": "unavailable",
             "icon": "usericon_male1",
@@ -60,7 +55,6 @@
                 "name": "Joe Vargas",
                 "email": "jvargas@yoyodyne.com",
                 "phone": "555-0136",
-                "fax": "555-0137",
                 "businessUnit": "Sales",
                 "status": "present",
                 "icon": "usericon_male2",
@@ -70,7 +64,6 @@
                     "name": "Robert Parson",
                     "email": "rparson@yoyodyne.com",
                     "phone": "555-0150",
-                    "fax": "555-0151",
                     "businessUnit": "Sales",
                     "status": "travel",
                     "icon": "usericon_male3"
@@ -80,7 +73,6 @@
                     "name": "Melissa Noren",
                     "email": "mnoren@yoyodyne.com",
                     "phone": "555-0152",
-                    "fax": "555-0153",
                     "businessUnit": "Sales",
                     "status": "unavailable",
                     "icon": "usericon_female1"
@@ -92,7 +84,6 @@
                 "name": "Robert Hartman",
                 "email": "rhartman@yoyodyne.com",
                 "phone": "555-0138",
-                "fax": "555-0139",
                 "businessUnit": "Sales",
                 "status": "busy",
                 "icon": "usericon_male5",
@@ -102,7 +93,6 @@
                     "name": "Rebecca Polite",
                     "email": "rpolite@yoyodyne.com",
                     "phone": "555-0148",
-                    "fax": "555-0149",
                     "businessUnit": "Sales",
                     "status": "travel",
                     "icon": "usericon_female3"
@@ -112,7 +102,6 @@
                     "name": "Michael Daniels",
                     "email": "mdaniels@yoyodyne.com",
                     "phone": "555-0154",
-                    "fax": "555-0155",
                     "businessUnit": "Sales",
                     "status": "travel",
                     "icon": "usericon_male1"
@@ -126,7 +115,6 @@
             "name": "Angela Haase",
             "email": "ahaase@yoyodyne.com",
             "phone": "555-0170",
-            "fax": "555-0171",
             "businessUnit": "Marketing",
             "status": "unavailable",
             "icon": "usericon_female1",
@@ -136,7 +124,6 @@
                 "name": "Jermaine Stewart",
                 "email": "jstewart@yoyodyne.com",
                 "phone": "555-0172",
-                "fax": "555-0173",
                 "businessUnit": "Marketing",
                 "status": "present",
                 "icon": "usericon_male2"
@@ -146,7 +133,6 @@
                 "name": "Lorraine Deaton",
                 "email": "ldeaton@yoyodyne.com",
                 "phone": "555-0174",
-                "fax": "555-0175",
                 "businessUnit": "Marketing",
                 "status": "present",
                 "icon": "usericon_female3",
@@ -159,7 +145,6 @@
             "name": "David Kerry",
             "email": "dkerry@yoyodyne.com",
             "phone": "555-0180",
-            "fax": "555-0181",
             "businessUnit": "Accounting",
             "status": "busy",
             "icon": "usericon_male1",
@@ -169,7 +154,6 @@
                 "name": "Walter Hastings",
                 "email": "whastings@yoyodyne.com",
                 "phone": "555-0182",
-                "fax": "555-0183",
                 "businessUnit": "Accounting",
                 "status": "present",
                 "icon": "usericon_male4",
@@ -179,7 +163,6 @@
                     "name": "Susan Moran",
                     "email": "smoran@yoyodyne.com",
                     "phone": "555-0184",
-                    "fax": "555-0185",
                     "businessUnit": "Accounting",
                     "status": "present",
                     "icon": "usericon_female3"
@@ -189,7 +172,6 @@
                     "name": "Melvin Cruz",
                     "email": "mcruz@yoyodyne.com",
                     "phone": "555-0186",
-                    "fax": "555-0187",
                     "businessUnit": "Accounting",
                     "status": "unavailable",
                     "icon": "usericon_male1"
@@ -199,7 +181,6 @@
                     "name": "Rachel King",
                     "email": "rking@yoyodyne.com",
                     "phone": "555-0188",
-                    "fax": "555-0189",
                     "businessUnit": "Accounting",
                     "status": "present",
                     "icon": "usericon_female2"
@@ -211,7 +192,6 @@
                 "name": "Joy Medico",
                 "email": "jmedico@yoyodyne.com",
                 "phone": "555-0190",
-                "fax": "555-0191",
                 "businessUnit": "Accounting",
                 "status": "present",
                 "icon": "usericon_female3",
@@ -221,7 +201,6 @@
                     "name": "Edward Lewis",
                     "email": "elewis@yoyodyne.com",
                     "phone": "555-0192",
-                    "fax": "555-0193",
                     "businessUnit": "Accounting",
                     "status": "unavailable",
                     "icon": "usericon_male1"
@@ -231,7 +210,6 @@
                     "name": "Mildred Bean",
                     "email": "mbean@yoyodyne.com",
                     "phone": "555-0194",
-                    "fax": "555-0195",
                     "businessUnit": "Accounting",
                     "status": "busy",
                     "icon": "usericon_female5",
@@ -242,7 +220,6 @@
                     "name": "Raymond Lindley",
                     "email": "rlindley@yoyodyne.com",
                     "phone": "555-0196",
-                    "fax": "555-0197",
                     "businessUnit": "Accounting",
                     "status": "present",
                     "icon": "usericon_male3"
@@ -254,7 +231,6 @@
                 "name": "Danny Welch",
                 "email": "dwelch@yoyodyne.com",
                 "phone": "555-0198",
-                "fax": "555-0199",
                 "businessUnit": "Accounting",
                 "status": "present",
                 "icon": "usericon_male1",
@@ -264,7 +240,6 @@
                     "name": "Leroy Vison",
                     "email": "lvison@yoyodyne.com",
                     "phone": "555-0200",
-                    "fax": "555-0201",
                     "businessUnit": "Accounting",
                     "status": "present",
                     "icon": "usericon_male2",
@@ -275,7 +250,6 @@
                     "name": "Mark Parks",
                     "email": "mparks@yoyodyne.com",
                     "phone": "555-0202",
-                    "fax": "555-0203",
                     "businessUnit": "Accounting",
                     "status": "present",
                     "icon": "usericon_male5"
@@ -285,7 +259,6 @@
                     "name": "Linda Lenhart",
                     "email": "llenhart@yoyodyne.com",
                     "phone": "555-0204",
-                    "fax": "555-0205",
                     "businessUnit": "Accounting",
                     "status": "busy",
                     "icon": "usericon_female1"
@@ -304,7 +277,6 @@
         "name": "Gary Roberts",
         "email": "groberts@yoyodyne.com",
         "phone": "555-0100",
-        "fax": "555-0101",
         "businessUnit": "Executive Unit",
         "status": "present",
         "icon": "usericon_male2",
@@ -315,7 +287,6 @@
             "name": "Alexander Burns",
             "email": "aburns@yoyodyne.com",
             "phone": "555-0102",
-            "fax": "555-0103",
             "businessUnit": "Executive Unit",
             "status": "present",
             "icon": "usericon_male3"
@@ -325,7 +296,6 @@
             "name": "Linda Newland",
             "email": "lnewland@yoyodyne.com",
             "phone": "555-0112",
-            "fax": "555-0113",
             "businessUnit": "Executive Unit",
             "status": "present",
             "icon": "usericon_female1"
@@ -340,7 +310,6 @@
         "name": "Richard Fuller",
         "email": "rfuller@yoyodyne.com",
         "phone": "555-0134",
-        "fax": "555-0135",
         "businessUnit": "Sales",
         "status": "unavailable",
         "icon": "usericon_male1",
@@ -350,7 +319,6 @@
             "name": "Joe Vargas",
             "email": "jvargas@yoyodyne.com",
             "phone": "555-0136",
-            "fax": "555-0137",
             "businessUnit": "Sales",
             "status": "present",
             "icon": "usericon_male2",
@@ -360,7 +328,6 @@
                 "name": "Robert Parson",
                 "email": "rparson@yoyodyne.com",
                 "phone": "555-0150",
-                "fax": "555-0151",
                 "businessUnit": "Sales",
                 "status": "travel",
                 "icon": "usericon_male3"
@@ -370,7 +337,6 @@
                 "name": "Melissa Noren",
                 "email": "mnoren@yoyodyne.com",
                 "phone": "555-0152",
-                "fax": "555-0153",
                 "businessUnit": "Sales",
                 "status": "unavailable",
                 "icon": "usericon_female1"
@@ -382,7 +348,6 @@
             "name": "Robert Hartman",
             "email": "rhartman@yoyodyne.com",
             "phone": "555-0138",
-            "fax": "555-0139",
             "businessUnit": "Sales",
             "status": "busy",
             "icon": "usericon_male5",
@@ -392,7 +357,6 @@
                 "name": "Rebecca Polite",
                 "email": "rpolite@yoyodyne.com",
                 "phone": "555-0148",
-                "fax": "555-0149",
                 "businessUnit": "Sales",
                 "status": "travel",
                 "icon": "usericon_female3"
@@ -402,7 +366,6 @@
                 "name": "Michael Daniels",
                 "email": "mdaniels@yoyodyne.com",
                 "phone": "555-0154",
-                "fax": "555-0155",
                 "businessUnit": "Sales",
                 "status": "travel",
                 "icon": "usericon_male1"
@@ -419,7 +382,6 @@
         "name": "Angela Haase",
         "email": "ahaase@yoyodyne.com",
         "phone": "555-0170",
-        "fax": "555-0171",
         "businessUnit": "Marketing",
         "status": "unavailable",
         "icon": "usericon_female1",
@@ -429,7 +391,6 @@
             "name": "Jermaine Stewart",
             "email": "jstewart@yoyodyne.com",
             "phone": "555-0172",
-            "fax": "555-0173",
             "businessUnit": "Marketing",
             "status": "present",
             "icon": "usericon_male2"
@@ -439,7 +400,6 @@
             "name": "Lorraine Deaton",
             "email": "ldeaton@yoyodyne.com",
             "phone": "555-0174",
-            "fax": "555-0175",
             "businessUnit": "Marketing",
             "status": "present",
             "icon": "usericon_female3",
@@ -455,7 +415,6 @@
         "name": "David Kerry",
         "email": "dkerry@yoyodyne.com",
         "phone": "555-0180",
-        "fax": "555-0181",
         "businessUnit": "Accounting",
         "status": "busy",
         "icon": "usericon_male1",
@@ -465,7 +424,6 @@
             "name": "Walter Hastings",
             "email": "whastings@yoyodyne.com",
             "phone": "555-0182",
-            "fax": "555-0183",
             "businessUnit": "Accounting",
             "status": "present",
             "icon": "usericon_male4",
@@ -475,7 +433,6 @@
                 "name": "Susan Moran",
                 "email": "smoran@yoyodyne.com",
                 "phone": "555-0184",
-                "fax": "555-0185",
                 "businessUnit": "Accounting",
                 "status": "present",
                 "icon": "usericon_female3"
@@ -485,7 +442,6 @@
                 "name": "Melvin Cruz",
                 "email": "mcruz@yoyodyne.com",
                 "phone": "555-0186",
-                "fax": "555-0187",
                 "businessUnit": "Accounting",
                 "status": "unavailable",
                 "icon": "usericon_male1"
@@ -495,7 +451,6 @@
                 "name": "Rachel King",
                 "email": "rking@yoyodyne.com",
                 "phone": "555-0188",
-                "fax": "555-0189",
                 "businessUnit": "Accounting",
                 "status": "present",
                 "icon": "usericon_female2"
@@ -507,7 +462,6 @@
             "name": "Joy Medico",
             "email": "jmedico@yoyodyne.com",
             "phone": "555-0190",
-            "fax": "555-0191",
             "businessUnit": "Accounting",
             "status": "present",
             "icon": "usericon_female3",
@@ -517,7 +471,6 @@
                 "name": "Edward Lewis",
                 "email": "elewis@yoyodyne.com",
                 "phone": "555-0192",
-                "fax": "555-0193",
                 "businessUnit": "Accounting",
                 "status": "unavailable",
                 "icon": "usericon_male1"
@@ -527,7 +480,6 @@
                 "name": "Mildred Bean",
                 "email": "mbean@yoyodyne.com",
                 "phone": "555-0194",
-                "fax": "555-0195",
                 "businessUnit": "Accounting",
                 "status": "busy",
                 "icon": "usericon_female5",
@@ -538,7 +490,6 @@
                 "name": "Raymond Lindley",
                 "email": "rlindley@yoyodyne.com",
                 "phone": "555-0196",
-                "fax": "555-0197",
                 "businessUnit": "Accounting",
                 "status": "present",
                 "icon": "usericon_male3"
@@ -550,7 +501,6 @@
             "name": "Danny Welch",
             "email": "dwelch@yoyodyne.com",
             "phone": "555-0198",
-            "fax": "555-0199",
             "businessUnit": "Accounting",
             "status": "present",
             "icon": "usericon_male1",
@@ -560,7 +510,6 @@
                 "name": "Leroy Vison",
                 "email": "lvison@yoyodyne.com",
                 "phone": "555-0200",
-                "fax": "555-0201",
                 "businessUnit": "Accounting",
                 "status": "present",
                 "icon": "usericon_male2",
@@ -571,7 +520,6 @@
                 "name": "Mark Parks",
                 "email": "mparks@yoyodyne.com",
                 "phone": "555-0202",
-                "fax": "555-0203",
                 "businessUnit": "Accounting",
                 "status": "present",
                 "icon": "usericon_male5"
@@ -581,7 +529,6 @@
                 "name": "Linda Lenhart",
                 "email": "llenhart@yoyodyne.com",
                 "phone": "555-0204",
-                "fax": "555-0205",
                 "businessUnit": "Accounting",
                 "status": "busy",
                 "icon": "usericon_female1"
@@ -598,7 +545,6 @@
         "name": "Walter Hastings",
         "email": "whastings@yoyodyne.com",
         "phone": "555-0182",
-        "fax": "555-0183",
         "businessUnit": "Accounting",
         "status": "present",
         "icon": "usericon_male4",
@@ -608,7 +554,6 @@
             "name": "Susan Moran",
             "email": "smoran@yoyodyne.com",
             "phone": "555-0184",
-            "fax": "555-0185",
             "businessUnit": "Accounting",
             "status": "present",
             "icon": "usericon_female3"
@@ -618,7 +563,6 @@
             "name": "Melvin Cruz",
             "email": "mcruz@yoyodyne.com",
             "phone": "555-0186",
-            "fax": "555-0187",
             "businessUnit": "Accounting",
             "status": "unavailable",
             "icon": "usericon_male1"
@@ -628,7 +572,6 @@
             "name": "Rachel King",
             "email": "rking@yoyodyne.com",
             "phone": "555-0188",
-            "fax": "555-0189",
             "businessUnit": "Accounting",
             "status": "present",
             "icon": "usericon_female2"
@@ -643,7 +586,6 @@
         "name": "Joy Medico",
         "email": "jmedico@yoyodyne.com",
         "phone": "555-0190",
-        "fax": "555-0191",
         "businessUnit": "Accounting",
         "status": "present",
         "icon": "usericon_female3",
@@ -653,7 +595,6 @@
             "name": "Edward Lewis",
             "email": "elewis@yoyodyne.com",
             "phone": "555-0192",
-            "fax": "555-0193",
             "businessUnit": "Accounting",
             "status": "unavailable",
             "icon": "usericon_male1"
@@ -663,7 +604,6 @@
             "name": "Mildred Bean",
             "email": "mbean@yoyodyne.com",
             "phone": "555-0194",
-            "fax": "555-0195",
             "businessUnit": "Accounting",
             "status": "busy",
             "icon": "usericon_female5",
@@ -674,7 +614,6 @@
             "name": "Raymond Lindley",
             "email": "rlindley@yoyodyne.com",
             "phone": "555-0196",
-            "fax": "555-0197",
             "businessUnit": "Accounting",
             "status": "present",
             "icon": "usericon_male3"
@@ -689,7 +628,6 @@
         "name": "Danny Welch",
         "email": "dwelch@yoyodyne.com",
         "phone": "555-0198",
-        "fax": "555-0199",
         "businessUnit": "Accounting",
         "status": "present",
         "icon": "usericon_male1",
@@ -699,7 +637,6 @@
             "name": "Leroy Vison",
             "email": "lvison@yoyodyne.com",
             "phone": "555-0200",
-            "fax": "555-0201",
             "businessUnit": "Accounting",
             "status": "present",
             "icon": "usericon_male2",
@@ -710,7 +647,6 @@
             "name": "Mark Parks",
             "email": "mparks@yoyodyne.com",
             "phone": "555-0202",
-            "fax": "555-0203",
             "businessUnit": "Accounting",
             "status": "present",
             "icon": "usericon_male5"
@@ -720,7 +656,6 @@
             "name": "Linda Lenhart",
             "email": "llenhart@yoyodyne.com",
             "phone": "555-0204",
-            "fax": "555-0205",
             "businessUnit": "Accounting",
             "status": "busy",
             "icon": "usericon_female1"
@@ -735,7 +670,6 @@
         "name": "Leroy Vison",
         "email": "lvison@yoyodyne.com",
         "phone": "555-0200",
-        "fax": "555-0201",
         "businessUnit": "Accounting",
         "status": "present",
         "icon": "usericon_male2",
@@ -749,7 +683,6 @@
         "name": "Mark Parks",
         "email": "mparks@yoyodyne.com",
         "phone": "555-0202",
-        "fax": "555-0203",
         "businessUnit": "Accounting",
         "status": "present",
         "icon": "usericon_male5"
@@ -762,7 +695,6 @@
         "name": "Linda Lenhart",
         "email": "llenhart@yoyodyne.com",
         "phone": "555-0204",
-        "fax": "555-0205",
         "businessUnit": "Accounting",
         "status": "busy",
         "icon": "usericon_female1"
@@ -775,7 +707,6 @@
         "name": "Edward Lewis",
         "email": "elewis@yoyodyne.com",
         "phone": "555-0192",
-        "fax": "555-0193",
         "businessUnit": "Accounting",
         "status": "unavailable",
         "icon": "usericon_male1"
@@ -788,7 +719,6 @@
         "name": "Mildred Bean",
         "email": "mbean@yoyodyne.com",
         "phone": "555-0194",
-        "fax": "555-0195",
         "businessUnit": "Accounting",
         "status": "busy",
         "icon": "usericon_female5",
@@ -802,7 +732,6 @@
         "name": "Raymond Lindley",
         "email": "rlindley@yoyodyne.com",
         "phone": "555-0196",
-        "fax": "555-0197",
         "businessUnit": "Accounting",
         "status": "present",
         "icon": "usericon_male3"
@@ -815,7 +744,6 @@
         "name": "Susan Moran",
         "email": "smoran@yoyodyne.com",
         "phone": "555-0184",
-        "fax": "555-0185",
         "businessUnit": "Accounting",
         "status": "present",
         "icon": "usericon_female3"
@@ -828,7 +756,6 @@
         "name": "Melvin Cruz",
         "email": "mcruz@yoyodyne.com",
         "phone": "555-0186",
-        "fax": "555-0187",
         "businessUnit": "Accounting",
         "status": "unavailable",
         "icon": "usericon_male1"
@@ -841,7 +768,6 @@
         "name": "Rachel King",
         "email": "rking@yoyodyne.com",
         "phone": "555-0188",
-        "fax": "555-0189",
         "businessUnit": "Accounting",
         "status": "present",
         "icon": "usericon_female2"
@@ -854,7 +780,6 @@
         "name": "Jermaine Stewart",
         "email": "jstewart@yoyodyne.com",
         "phone": "555-0172",
-        "fax": "555-0173",
         "businessUnit": "Marketing",
         "status": "present",
         "icon": "usericon_male2"
@@ -867,7 +792,6 @@
         "name": "Lorraine Deaton",
         "email": "ldeaton@yoyodyne.com",
         "phone": "555-0174",
-        "fax": "555-0175",
         "businessUnit": "Marketing",
         "status": "present",
         "icon": "usericon_female3",
@@ -881,7 +805,6 @@
         "name": "Joe Vargas",
         "email": "jvargas@yoyodyne.com",
         "phone": "555-0136",
-        "fax": "555-0137",
         "businessUnit": "Sales",
         "status": "present",
         "icon": "usericon_male2",
@@ -891,7 +814,6 @@
             "name": "Robert Parson",
             "email": "rparson@yoyodyne.com",
             "phone": "555-0150",
-            "fax": "555-0151",
             "businessUnit": "Sales",
             "status": "travel",
             "icon": "usericon_male3"
@@ -901,7 +823,6 @@
             "name": "Melissa Noren",
             "email": "mnoren@yoyodyne.com",
             "phone": "555-0152",
-            "fax": "555-0153",
             "businessUnit": "Sales",
             "status": "unavailable",
             "icon": "usericon_female1"
@@ -916,7 +837,6 @@
         "name": "Robert Hartman",
         "email": "rhartman@yoyodyne.com",
         "phone": "555-0138",
-        "fax": "555-0139",
         "businessUnit": "Sales",
         "status": "busy",
         "icon": "usericon_male5",
@@ -926,7 +846,6 @@
             "name": "Rebecca Polite",
             "email": "rpolite@yoyodyne.com",
             "phone": "555-0148",
-            "fax": "555-0149",
             "businessUnit": "Sales",
             "status": "travel",
             "icon": "usericon_female3"
@@ -936,7 +855,6 @@
             "name": "Michael Daniels",
             "email": "mdaniels@yoyodyne.com",
             "phone": "555-0154",
-            "fax": "555-0155",
             "businessUnit": "Sales",
             "status": "travel",
             "icon": "usericon_male1"
@@ -951,7 +869,6 @@
         "name": "Rebecca Polite",
         "email": "rpolite@yoyodyne.com",
         "phone": "555-0148",
-        "fax": "555-0149",
         "businessUnit": "Sales",
         "status": "travel",
         "icon": "usericon_female3"
@@ -964,7 +881,6 @@
         "name": "Michael Daniels",
         "email": "mdaniels@yoyodyne.com",
         "phone": "555-0154",
-        "fax": "555-0155",
         "businessUnit": "Sales",
         "status": "travel",
         "icon": "usericon_male1"
@@ -977,7 +893,6 @@
         "name": "Robert Parson",
         "email": "rparson@yoyodyne.com",
         "phone": "555-0150",
-        "fax": "555-0151",
         "businessUnit": "Sales",
         "status": "travel",
         "icon": "usericon_male3"
@@ -990,7 +905,6 @@
         "name": "Melissa Noren",
         "email": "mnoren@yoyodyne.com",
         "phone": "555-0152",
-        "fax": "555-0153",
         "businessUnit": "Sales",
         "status": "unavailable",
         "icon": "usericon_female1"
@@ -1003,7 +917,6 @@
         "name": "Alexander Burns",
         "email": "aburns@yoyodyne.com",
         "phone": "555-0102",
-        "fax": "555-0103",
         "businessUnit": "Executive Unit",
         "status": "present",
         "icon": "usericon_male3"
@@ -1016,7 +929,6 @@
         "name": "Linda Newland",
         "email": "lnewland@yoyodyne.com",
         "phone": "555-0112",
-        "fax": "555-0113",
         "businessUnit": "Executive Unit",
         "status": "present",
         "icon": "usericon_female1"

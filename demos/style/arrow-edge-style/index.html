@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Arrow Edge Style Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -145,20 +142,6 @@
     <script type="module" async>
       import '@yfiles/demo-app/initialize-ui'
     </script>
-
-    <style>
-      .demo-properties__settings {
-        gap: 5px;
-      }
-      .range-container {
-        display: flex;
-        align-items: center;
-      }
-      .number-label {
-        margin-left: 5px;
-        width: 2rem;
-      }
-    </style>
   </head>
   <body class="demo-modern">
     <div id="splash-screen">
@@ -378,19 +361,22 @@
         <h2>Style Properties</h2>
 
         <div class="info-message">Please select an edge to modify its settings.</div>
-        <div class="demo-form-block" style="display: none">
-          <div class="demo-properties__settings">
-            <label for="basic-shape">Basic Shape</label>
-            <select id="basic-shape" disabled="">
+        <div class="options-section" style="display: none">
+          <label>
+            <span>Basic Shape</span>
+            <select id="basic-shape" disabled>
               <option value="ARROW">Arrow</option>
               <option value="DOUBLE_ARROW">Double Arrow</option>
               <option value="NOTCHED_ARROW">Notched Arrow</option>
               <option value="TRAPEZOID">Trapezoid</option>
               <option value="PARALLELOGRAM">Parallelogram</option>
             </select>
+          </label>
 
-            <label for="thickness-range">Thickness</label>
-            <div class="range-container">
+          <label>
+            <span>Thickness</span>
+
+            <span class="range-container">
               <input
                 type="range"
                 id="thickness-range"
@@ -398,19 +384,25 @@
                 max="100"
                 value="18"
                 step="1"
-                disabled=""
+                disabled
               />
-              <span id="thickness-label" class="number-label">18</span>
-            </div>
+              <span id="thickness-label" class="number-label" for="thickness-range">18</span>
+            </span>
+          </label>
 
-            <label for="angle-range">Angle</label>
-            <div class="range-container">
-              <input type="range" id="angle-range" min="0" max="90" value="45" disabled="" />
-              <span id="angle-label" class="number-label">45</span>
-            </div>
+          <label>
+            <span>Angle</span>
 
-            <label for="shaft-ratio">Shaft Ratio</label>
-            <div class="range-container">
+            <span class="range-container">
+              <input type="range" id="angle-range" min="0" max="90" value="45" disabled />
+              <span id="angle-label" class="number-label" for="angle-range"> 45 </span>
+            </span>
+          </label>
+
+          <label>
+            <span>Shaft Ratio</span>
+
+            <span class="range-container">
               <input
                 type="range"
                 id="shaft-ratio"
@@ -418,13 +410,16 @@
                 max="1"
                 step="0.1"
                 value="0.3"
-                disabled=""
+                disabled
               />
-              <span id="shaft-ratio-label" class="number-label">0.3</span>
-            </div>
+              <span id="shaft-ratio-label" class="number-label" for="shaft-ratio"> 0.3 </span>
+            </span>
+          </label>
 
-            <label for="cropping-range">Cropping</label>
-            <div class="range-container">
+          <label>
+            <span>Cropping</span>
+
+            <span class="range-container">
               <input
                 type="range"
                 id="cropping-range"
@@ -432,15 +427,16 @@
                 max="20"
                 step="0.1"
                 value="3"
-                disabled=""
+                disabled
               />
-              <span id="cropping-label" class="number-label">3</span>
-            </div>
-          </div>
+              <span id="cropping-label" class="number-label" for="cropping-range"> 3 </span>
+            </span>
+          </label>
         </div>
       </div>
       <div class="description-panel">
-        <h1>Arrow Edge Style Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Arrow Edge Style</h1>
 
         <p>
           The <a href="https://docs.yworks.com/yfileshtml/api/ArrowEdgeStyle" class="api" target="_blank">ArrowEdgeStyle</a> provides several properties to customize its shape.

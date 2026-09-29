@@ -767,16 +767,14 @@ function createLayoutGridDescriptors() {
  * Wires up the UI.
  */
 function initializeUI() {
-  const runHierarchicalLayoutButton = document.querySelector(
-    "button[data-command='HierarchicalLayout']"
-  )
+  const runHierarchicalLayoutButton = document.querySelector('#hierarchical-layout')
   runHierarchicalLayoutButton.addEventListener('click', async () => {
     if (canExecuteAnyLayout()) {
       await runLayout(new HierarchicalLayout())
     }
   })
 
-  const runOrganicLayoutButton = document.querySelector("button[data-command='OrganicLayout']")
+  const runOrganicLayoutButton = document.querySelector('#organic-layout')
   runOrganicLayoutButton.addEventListener('click', async () => {
     if (canExecuteOrganicLayout()) {
       await runLayout(new OrganicLayout())

@@ -858,6 +858,54 @@ export function getAllEntries(): Array<DemoEntry | HiddenEntry> {
       }
     },
     {
+      id: 'dashboard',
+      name: 'Dashboard',
+      demoPath: 'showcase/dashboard/',
+      summary: 'A small, interactive data playground combining a graph, table, timeline, and map.',
+      description: `This dashboard showcases an interactive data playground that combines multiple synchronized views, including a graph, table, timeline, and map.
+        Select items in any view to see details and connections. The demo also features filtering by type, search, and export of table data as CSV.
+        Timeline events are clickable and highlight related nodes, while map pins appear for nodes with geolocation data.`,
+      category: 'showcase',
+      tags: ['interaction', 'data-analysis'],
+      keywords: [
+        'v3.1.0.3',
+        'dashboard',
+        'linked views',
+        'coordinated views',
+        'multiple views',
+        'synchronized views',
+        'gauge',
+        'pie chart',
+        'sankey',
+        'neighborhood',
+        'timeline',
+        'timeline slider',
+        'table',
+        'map',
+        'leaflet',
+        'filtering',
+        'highlighting',
+        'selection',
+        'properties',
+        'charts',
+        'organic',
+        'circular',
+        'radial',
+        'healthcare',
+        'electricity'
+      ],
+      linkedDemos: {
+        type: 'discover-more',
+        demos: [
+          'event-timeline',
+          'process-mining',
+          'supply-chain',
+          'graph-analysis',
+          'fraud-detection'
+        ]
+      }
+    },
+    {
       id: 'company-ownership',
       name: 'Company Ownership Chart',
       demoPath: 'showcase/company-ownership/',
@@ -963,16 +1011,17 @@ export function getAllEntries(): Array<DemoEntry | HiddenEntry> {
       id: 'isometric-drawing',
       name: 'Isometric Drawing',
       demoPath: 'showcase/isometricdrawing/',
-      summary: 'Displays graphs in 3D using an freely adjustable projection and WebGL rendering.',
+      summary: 'Displays graphs in 3D using a freely adjustable projection.',
       description: `This demo displays graphs in 3D using an freely adjustable projection, adding an
        extra dimension to the visualization. This can be used to show a property of the business
        data as height, or just to look nice.
        The full range of interactions supported by yFiles is available in this demo. In addition,
        each node has a special handle at its top. Use this handle to change the height of the node.`,
       category: 'showcase',
-      tags: ['webgl', 'style', 'layout', 'projection'],
+      tags: ['style', 'layout', 'projection'],
       keywords: [
         'v2.3.0.0',
+        'v3.1.0.3',
         'groups',
         'folding',
         'hierarchical',
@@ -1015,7 +1064,8 @@ export function getAllEntries(): Array<DemoEntry | HiddenEntry> {
         'notable style',
         'data analysis',
         'data management',
-        'popover'
+        'popover',
+        'heatmap'
       ],
       linkedDemos: {
         type: 'discover-more',
@@ -1038,6 +1088,7 @@ export function getAllEntries(): Array<DemoEntry | HiddenEntry> {
       tags: ['ontology', 'knowledge graphs'],
       keywords: [
         'v3.0.0.5',
+        'v3.1.0.3',
         'webgl',
         'level of detail',
         'data analysis',
@@ -1052,7 +1103,9 @@ export function getAllEntries(): Array<DemoEntry | HiddenEntry> {
         'fading',
         'beacon',
         'neighborhood',
-        'interactive'
+        'interactive',
+        'louvain',
+        'pagerank'
       ],
       linkedDemos: {
         type: 'discover-more',
@@ -1307,6 +1360,37 @@ export function getAllEntries(): Array<DemoEntry | HiddenEntry> {
           'organization-chart'
         ]
       }
+    },
+    {
+      id: 'collaborative-graph-editing',
+      name: 'Collaborative Graph Editing',
+      demoPath: 'input/collaborative-graph-editing/',
+      summary:
+        'Shows how to configure collaborative graph editing for the GraphEditorInputMode using yjs.',
+      description: `By combining yjs with the GraphEditorInputMode, you can create a collaborative
+      graph editing experience. This includes adding and removing nodes and edges, and editing node and edge
+      labels as well as their position and grouping. Additional features include undo/redo functionality,
+      conflict resolution, and style-synchronization.`,
+      category: 'input',
+      distributionType: 'needs-layout',
+      tags: ['interaction', 'editing'],
+      keywords: [
+        '3.1.0.3',
+        'editing',
+        'interaction',
+        'collaboration',
+        'live',
+        'concurrent',
+        'real-time',
+        'multiplayer',
+        'co-editing',
+        'cooperative',
+        'shared',
+        'cursors',
+        'follow',
+        'simultaneous'
+      ],
+      linkedDemos: { type: 'related-demos', demos: ['graph-editor'] }
     },
     {
       id: 'decision-tree',
@@ -2183,6 +2267,19 @@ export function getAllEntries(): Array<DemoEntry | HiddenEntry> {
         'data analysis',
         'data management'
       ]
+    },
+    {
+      id: 'legend',
+      name: 'Legend',
+      demoPath: 'view/legend/',
+      summary: 'Shows different ways to display a legend.',
+      description: `The legend explains what node types in the graph represent. It shows four different ways to
+        display the legend: an HTML sidebar, a render tree element in world coordinates, a render
+        tree element in view coordinates, and a separate graph component.`,
+      category: 'view',
+      distributionType: 'needs-layout',
+      tags: ['legend', 'node types'],
+      keywords: ['3.1.0.3']
     },
     {
       id: 'rendering-order',
@@ -3807,25 +3904,6 @@ export function getAllEntries(): Array<DemoEntry | HiddenEntry> {
       keywords: ['organic']
     },
     {
-      id: 'web-worker-webpack',
-      name: 'Web Worker Webpack',
-      demoPath: 'loading/webworker-webpack/README.html',
-      summary: 'Shows how to run a yFiles layout algorithm in a Web Worker task using Webpack.',
-      category: 'loading',
-      languageType: 'ts-only',
-      tags: ['webpack', 'web worker', 'layout'],
-      keywords: [
-        'v2.4.0.0',
-        'threads',
-        'threading',
-        'background',
-        'json',
-        'folding',
-        'hierarchical',
-        'webpack'
-      ]
-    },
-    {
       id: 'cypress',
       name: 'Cypress',
       demoPath: 'testing/cypress/README.html',
@@ -4323,6 +4401,7 @@ export function getAllEntries(): Array<DemoEntry | HiddenEntry> {
       demoPath: 'input/custom-copy-and-paste/',
       summary: 'Shows how to copy and paste graph item styles.',
       category: 'input',
+      distributionType: 'needs-layout',
       tags: ['interaction'],
       keywords: ['v3.1.0.0', 'copy', 'paste', 'styles', 'popover']
     },

@@ -39,7 +39,7 @@ import {
 } from '@yfiles/yfiles'
 import type { PasteOptions } from './CustomCopyAndPasteDemo'
 
-let hideTimer: number | undefined = undefined
+let hideTimer: ReturnType<typeof setTimeout> | number | undefined = undefined
 
 /**
  * Shows a toast with the given message.

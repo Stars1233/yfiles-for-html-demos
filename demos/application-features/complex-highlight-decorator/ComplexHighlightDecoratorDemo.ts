@@ -27,25 +27,19 @@
  **
  ***************************************************************************/
 import {
-  EdgePathLabelModel,
-  EdgeSides,
-  ExteriorNodeLabelModel,
   GraphBuilder,
   GraphComponent,
   GraphEditorInputMode,
   type GraphInputMode,
   GraphItemTypes,
-  GroupNodeStyle,
   HierarchicalLayout,
   type IGraph,
-  LabelStyle,
   LayoutExecutor,
   License,
   NodeStyleIndicatorRenderer,
   ShapeNodeShape,
   type ShapeNodeShapeStringValues,
-  ShapeNodeStyle,
-  Size
+  ShapeNodeStyle
 } from '@yfiles/yfiles'
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
@@ -144,7 +138,7 @@ function configureHoverHighlight(graphComponent: GraphComponent): void {
         nodeStyle: new ShapeNodeStyle({
           // the tag of each node contains information about the appropriate shape for the highlight
           shape: getShape(node.tag),
-          stroke: '3px #621B00',
+          stroke: '3px #f0c808',
           fill: 'transparent'
         }),
         // the margin from the actual node to its highlight visualization
@@ -160,29 +154,8 @@ function configureHoverHighlight(graphComponent: GraphComponent): void {
  */
 function initializeGraph(graph: IGraph): void {
   // set styles for this demo
-  initDemoStyles(graph, { shape: ShapeNodeShape.ELLIPSE })
-
-  // set the style, label and label parameter for group nodes
-  graph.groupNodeDefaults.style = new GroupNodeStyle({
-    tabFill: '#46a8d5',
-    stroke: '2px solid #b5dcee',
-    contentAreaFill: '#b5dcee'
-  })
-  graph.groupNodeDefaults.labels.style = new LabelStyle({
-    horizontalTextAlignment: 'left',
-    textFill: '#eee'
-  })
-
-  // set sizes and locations specific for this demo
-  graph.nodeDefaults.size = new Size(40, 40)
+  initDemoStyles(graph, { theme: 'demo-palette-12', shape: ShapeNodeShape.ELLIPSE })
   graph.nodeDefaults.shareStyleInstance = false
-  graph.nodeDefaults.labels.layoutParameter = new ExteriorNodeLabelModel({
-    margins: 5
-  }).createParameter('bottom')
-  graph.edgeDefaults.labels.layoutParameter = new EdgePathLabelModel({
-    distance: 5,
-    autoRotation: true
-  }).createRatioParameter({ sideOfEdge: EdgeSides.BELOW_EDGE })
 }
 
 /**

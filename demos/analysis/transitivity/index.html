@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Transitivity Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -148,29 +145,33 @@
 
     <link rel="stylesheet" href="./transitivity.css" />
     <style>
-      table {
+      .graph-info {
         border-collapse: separate;
         border-spacing: 0;
         padding: 0;
-      }
+        width: 100%;
 
-      tr.bottom td {
-        border-bottom: thin solid var(--color-text);
-      }
-      .table td.header {
-        color: var(--color-highlight-pink);
-        font-weight: bold;
-        padding-top: 5px;
-        padding-bottom: 5px;
-      }
+        tr.bottom td {
+          border-bottom: thin solid var(--color-text);
+        }
 
-      td {
-        text-align: left;
-        padding-bottom: 5px;
-        padding-top: 5px;
-      }
-      .table td:last-child {
-        text-align: right;
+        thead td:nth-child(2) {
+          color: var(--color-highlight-pink);
+          font-weight: bold;
+        }
+
+        td {
+          text-align: left;
+          padding: 4px;
+
+          &:first-child {
+            font-weight: bold;
+          }
+
+          &:last-child {
+            text-align: right;
+          }
+        }
       }
     </style>
   </head>
@@ -420,16 +421,9 @@
         </div>
         <div id="graphComponent"></div>
       </div>
-      <div class="interaction-panel">
-        <h2>Sample Graph</h2>
-        <p>
-          This demo shows how transitive closure and reduction algorithms of yFiles can be applied
-          to a given graph. The sample graph shows a fictional yfiles for HTML modules dependencies
-          graph. The user can select a node and investigate its dependents and dependencies.
-        </p>
-      </div>
       <div class="description-panel">
-        <h1>Transitivity Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Transitivity</h1>
 
         <div>
           <p>
@@ -438,6 +432,10 @@
             fields are social networks, dependency graphs, bioinformatics, citation graphs or
             criminal networks in which possible relations between two entities have to be quickly
             identified and investigated.
+          </p>
+          <p>
+            The sample graph shows a fictional yfiles for HTML modules dependencies graph. The user
+            can select a node and investigate its dependents and dependencies.
           </p>
         </div>
 
@@ -466,26 +464,28 @@
         </p>
 
         <h2>Graph Information</h2>
-        <table id="graph-information" class="table">
+        <table id="graph-information" class="graph-info">
+          <thead>
+            <tr class="bottom">
+              <td>Package Name</td>
+              <td></td>
+            </tr>
+          </thead>
           <tbody>
-            <tr class="bottom">
-              <td><b>Package Name:</b></td>
-              <td class="header"></td>
-            </tr>
             <tr>
-              <td><b>Number of Dependents:</b></td>
+              <td>Dependents</td>
               <td></td>
             </tr>
             <tr class="bottom">
-              <td><b>Number of Dependencies:</b></td>
+              <td>Dependencies</td>
               <td></td>
             </tr>
             <tr>
-              <td><b>Current Number of Nodes:</b></td>
+              <td>Node Count</td>
               <td></td>
             </tr>
             <tr>
-              <td><b>Current Number of Edges:</b></td>
+              <td>Edge Count</td>
               <td></td>
             </tr>
           </tbody>

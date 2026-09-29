@@ -1,0 +1,134 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+.legend-html {
+  position: absolute;
+  right: 16px;
+  top: calc(50% + 30px); /* leave space for the toolbar */
+  transform: translateY(-50%);
+  z-index: 2;
+  min-width: 180px;
+  min-height: 104px;
+  padding: 12px 14px;
+  border-radius: var(--border-radius);
+  background-color: var(--toolbar-bg);
+  box-shadow: var(--shadow-crispy-gray);
+  max-height: calc(100% - 92px);
+  width: max-content;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.legend-html--hidden {
+  display: none;
+}
+
+.legend-html__title {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.legend-html__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.legend-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 2px;
+  border-radius: var(--border-radius);
+  cursor: default;
+
+  &:hover {
+    background-color: var(--color-bg-hover);
+  }
+}
+
+.legend-gc-anchor {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  max-width: calc(100% - 32px);
+  max-height: calc(100% - 92px); /* leave space for the toolbar */
+
+  .legend-gc-container {
+    max-width: 100%;
+    height: 100% !important;
+
+    .legend-gc {
+      width: 100%;
+      height: calc(100% - 40px);
+    }
+  }
+}
+
+.legend-gc-anchor--hidden {
+  display: none;
+}
+
+.anchor--collapsed {
+  /* we need to overwrite the element's height set by GraphComponentLegend */
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.horizontal {
+  .legend-html {
+    top: auto;
+    right: auto;
+    bottom: 16px;
+    left: 50%;
+    max-width: calc(100% - 32px);
+    box-sizing: border-box;
+    transform: translateX(-50%);
+
+    .legend-html__title {
+      margin-bottom: 8px;
+    }
+
+    .legend-html__list {
+      flex-direction: row;
+      overflow-x: auto;
+    }
+
+    .legend-entry {
+      flex: 0 0 auto;
+    }
+  }
+
+  .legend-gc-container {
+    width: auto;
+  }
+}

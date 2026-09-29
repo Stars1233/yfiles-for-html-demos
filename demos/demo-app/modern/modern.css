@@ -28,7 +28,7 @@
  ***************************************************************************/
 @import url('@fontsource/poppins/600.css');
 @import url('@fontsource/poppins/400.css');
-@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,cable,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compost,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,electric_bolt,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,filter_alt,filter_alt_off,fit_page_width,folder_open,format_paint,fullscreen,gas_meter,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,home,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,ink_highlighter,ink_highlighter_off,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,mode_heat,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,replay,reset,reset_settings,save,search,set_meal,settings,shopping_cart,stop,store,sync,sunny,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,visibility_off,ward,warning,water,wheat,wind_power,zoom_in,zoom_out,zoom_out_map&display=block';
 .demo-properties__settings > h1,
 h2,
 h3,
@@ -63,7 +63,7 @@ h6 {
 @supports (appearance: base-select) {
   .interaction-panel select,
   .demo-popup select {
-    padding: 6px 14px;
+    padding: 6px 10px;
     appearance: base-select;
     border: none;
     border-radius: var(--border-radius);
@@ -122,7 +122,7 @@ h6 {
 }
 .interaction-panel select option,
 .demo-popup select option {
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-transform: none;
   padding: 10px;
   cursor: pointer;
@@ -162,14 +162,14 @@ h6 {
 }
 .interaction-panel .navigate-select:has(button) select,
 .demo-popup .navigate-select:has(button) select {
-  border-radius: var(--small-border-radius);
+  border-radius: 0;
 }
 .interaction-panel .navigate-select button,
 .demo-popup .navigate-select button {
   font-size: 1.5rem;
   display: flex;
-  width: 32px;
-  border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
+  width: 28px;
+  border-radius: 0 20px 20px 0;
   background-color: var(--toolbar-button);
 }
 .interaction-panel .navigate-select button:hover,
@@ -178,7 +178,7 @@ h6 {
 }
 .interaction-panel .navigate-select button:first-of-type,
 .demo-popup .navigate-select button:first-of-type {
-  border-radius: 20px var(--small-border-radius) var(--small-border-radius) 20px;
+  border-radius: 20px 0 0 20px;
 }
 .interaction-panel .navigate-select select,
 .demo-popup .navigate-select select {
@@ -187,8 +187,11 @@ h6 {
   color: var(--color-text);
   margin: 0;
   outline: none;
-  width: stretch;
+  width: 100%;
+  min-width: 0;
   height: auto;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .interaction-panel .navigate-select select:hover,
 .demo-popup .navigate-select select:hover {
@@ -205,7 +208,7 @@ h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
 }
 .interaction-panel .navigation-button:hover,
 .demo-popup .navigation-button:hover {
@@ -219,7 +222,15 @@ h6 {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.interaction-panel .navigation-button.labeled:has(.material-symbols-outlined),
+.demo-popup .navigation-button.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.interaction-panel .navigation-button.labeled:has(.yIcon),
+.demo-popup .navigation-button.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .interaction-panel .navigation-button.labeled:hover,
@@ -282,7 +293,7 @@ h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
 }
 .toolbar button:hover {
   background-color: var(--toolbar-bg-hover);
@@ -294,7 +305,13 @@ h6 {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.toolbar button.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.toolbar button.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .toolbar button.labeled:hover {
@@ -312,7 +329,7 @@ h6 {
 }
 @supports (appearance: base-select) {
   .toolbar select {
-    padding: 6px 14px;
+    padding: 6px 10px;
     appearance: base-select;
     border: none;
     border-radius: var(--border-radius);
@@ -363,7 +380,7 @@ h6 {
   background: var(--toolbar-bg);
 }
 .toolbar select option {
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-transform: none;
   padding: 10px;
   cursor: pointer;
@@ -475,6 +492,7 @@ h6 {
 .toolbar input[type='range'] {
   width: 100px;
   min-width: 7rem;
+  max-width: 10rem;
   -webkit-appearance: none;
   background-color: transparent;
 }
@@ -535,9 +553,9 @@ h6 {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+  padding: 6px 2px;
 }
 .toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
 .toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
@@ -580,7 +598,8 @@ h6 {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
   width: 2.25rem;
   height: 2.25rem;
 }
@@ -662,7 +681,7 @@ h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
 }
 .toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
 .toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
@@ -688,7 +707,27 @@ h6 {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.yIcon),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.yIcon),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.yIcon),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
@@ -714,6 +753,12 @@ h6 {
   outline: none;
   box-shadow: none;
 }
+.toolbar .number-label {
+  display: inline-block;
+  min-width: 1ch;
+  text-align: right;
+  margin-right: 1px;
+}
 .toolbar label:has(> input[type='checkbox']) {
   background-color: var(--toolbar-bg);
   color: var(--color-text);
@@ -729,9 +774,8 @@ h6 {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .toolbar label:has(> input[type='checkbox']) > input[type='checkbox']::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -791,20 +835,20 @@ h6 {
   background-color: transparent;
 }
 .toolbar .navigate-select:has(button) select {
-  border-radius: var(--small-border-radius);
+  border-radius: 0;
 }
 .toolbar .navigate-select button {
   font-size: 1.5rem;
   display: flex;
-  width: 32px;
-  border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
+  width: 28px;
+  border-radius: 0 20px 20px 0;
   background-color: var(--toolbar-button);
 }
 .toolbar .navigate-select button:hover {
   background-color: var(--toolbar-bg-hover);
 }
 .toolbar .navigate-select button:first-of-type {
-  border-radius: 20px var(--small-border-radius) var(--small-border-radius) 20px;
+  border-radius: 20px 0 0 20px;
 }
 .toolbar .navigate-select select {
   border: none;
@@ -812,8 +856,11 @@ h6 {
   color: var(--color-text);
   margin: 0;
   outline: none;
-  width: stretch;
+  width: 100%;
+  min-width: 0;
   height: auto;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .toolbar .navigate-select select:hover {
   background-color: var(--toolbar-bg-hover);
@@ -1019,41 +1066,46 @@ h6 {
   background-color: var(--toolbar-button);
 }
 .text-content {
+  --margin-block: 0.75rem;
   font-size: var(--body-font-size);
 }
-.text-content > :first-child {
+.text-content > :first-child,
+.text-content h2:first-child,
+.text-content h3:first-child {
   margin-top: 0 !important;
 }
 .text-content > :last-child {
   margin-bottom: 0 !important;
 }
-.text-content h1 {
-  font-size: xx-large;
-  margin: 1.2rem 0;
-}
-.text-content h2 {
-  font-size: x-large;
-}
-.text-content h3 {
-  font-size: large;
-}
+.text-content h1,
 .text-content h2,
 .text-content h3,
 .text-content h4 {
-  margin: 1.5rem 0 1rem;
+  margin: 1.25rem 0 var(--margin-block);
+  hyphens: auto;
+}
+.text-content h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+.text-content h2 {
+  font-size: 1.5rem;
+}
+.text-content h3 {
+  font-size: 1.25rem;
 }
 .text-content .text-medium {
   font-size: 130%;
 }
 .text-content ul,
 .text-content ol {
-  padding-left: 1.3em;
+  padding-left: 1.25em;
 }
 .text-content p,
 .text-content dl,
 .text-content ul,
 .text-content ul.paragraph-style li {
-  margin: 1rem 0;
+  margin-block: var(--margin-block);
 }
 .text-content li {
   margin: 0.5rem 0;
@@ -1153,6 +1205,7 @@ h6 {
 }
 #tour-dialog,
 .dialog {
+  --margin-block: 0.75rem;
   font-size: var(--body-font-size);
   border: none;
   border-radius: var(--border-radius);
@@ -1162,7 +1215,11 @@ h6 {
   font-size: 0.9rem;
 }
 #tour-dialog > :first-child,
-.dialog > :first-child {
+.dialog > :first-child,
+#tour-dialog h2:first-child,
+.dialog h2:first-child,
+#tour-dialog h3:first-child,
+.dialog h3:first-child {
   margin-top: 0 !important;
 }
 #tour-dialog > :last-child,
@@ -1170,25 +1227,28 @@ h6 {
   margin-bottom: 0 !important;
 }
 #tour-dialog h1,
-.dialog h1 {
-  font-size: xx-large;
-  margin: 1.2rem 0;
-}
-#tour-dialog h2,
-.dialog h2 {
-  font-size: x-large;
-}
-#tour-dialog h3,
-.dialog h3 {
-  font-size: large;
-}
+.dialog h1,
 #tour-dialog h2,
 .dialog h2,
 #tour-dialog h3,
 .dialog h3,
 #tour-dialog h4,
 .dialog h4 {
-  margin: 1.5rem 0 1rem;
+  margin: 1.25rem 0 var(--margin-block);
+  hyphens: auto;
+}
+#tour-dialog h1,
+.dialog h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+#tour-dialog h2,
+.dialog h2 {
+  font-size: 1.5rem;
+}
+#tour-dialog h3,
+.dialog h3 {
+  font-size: 1.25rem;
 }
 #tour-dialog .text-medium,
 .dialog .text-medium {
@@ -1198,7 +1258,7 @@ h6 {
 .dialog ul,
 #tour-dialog ol,
 .dialog ol {
-  padding-left: 1.3em;
+  padding-left: 1.25em;
 }
 #tour-dialog p,
 .dialog p,
@@ -1208,7 +1268,7 @@ h6 {
 .dialog ul,
 #tour-dialog ul.paragraph-style li,
 .dialog ul.paragraph-style li {
-  margin: 1rem 0;
+  margin-block: var(--margin-block);
 }
 #tour-dialog li,
 .dialog li {
@@ -1552,6 +1612,7 @@ h6 {
 }
 #tour-dialog {
   overflow: visible;
+  margin: 0;
 }
 #tour-dialog::before {
   content: none;
@@ -1565,9 +1626,6 @@ h6 {
   transform: rotate(45deg);
   border-radius: 2px;
 }
-#tour-dialog.tour-arrow-west {
-  margin-left: 10px;
-}
 #tour-dialog.tour-arrow-west::before {
   left: -8px;
   top: 20px;
@@ -1576,15 +1634,9 @@ h6 {
   right: -8px;
   top: 20px;
 }
-#tour-dialog.tour-arrow-north {
-  margin-top: 10px;
-}
 #tour-dialog.tour-arrow-north::before {
   left: 50%;
   top: -8px;
-}
-#tour-dialog.tour-arrow-south {
-  margin-bottom: 10px;
 }
 #tour-dialog.tour-arrow-south::before {
   left: 50%;
@@ -1659,6 +1711,13 @@ button[data-command] {
 :root[data-theme='dark'] .icon-inline,
 :root[data-theme='dark'] button[data-command] {
   font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+button.icon.yIcon,
+button .icon.yIcon,
+a .icon.yIcon,
+.icon-inline.yIcon,
+button[data-command].yIcon {
+  font-size: 1.2rem;
 }
 .icon-inline {
   font-size: inherit;
@@ -2037,9 +2096,8 @@ input:disabled {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .input-select-checkbox::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -2051,6 +2109,7 @@ input:disabled {
 .input-range {
   width: 100px;
   min-width: 7rem;
+  max-width: 10rem;
   -webkit-appearance: none;
   background-color: transparent;
 }
@@ -2193,8 +2252,10 @@ p.not-important {
   color: var(--interaction-text);
   padding: 5px 10px;
   border-radius: var(--border-radius);
+  transition: background-color 0.25s ease-in-out;
 }
-.demo-overview-link:hover {
+.demo-overview-link:hover,
+.demo-overview-link:focus-visible {
   background-color: var(--color-bg-hover);
 }
 .rail-popover .linked-demos-container,
@@ -2241,8 +2302,10 @@ p.not-important {
   color: var(--interaction-text);
   padding: 5px 10px;
   border-radius: var(--border-radius);
+  transition: background-color 0.25s ease-in-out;
 }
-#linked-demos-popover .linked-demos-container > *:hover {
+#linked-demos-popover .linked-demos-container > *:hover,
+#linked-demos-popover .linked-demos-container > *:focus-visible {
   background-color: var(--color-bg-hover);
 }
 #live-demo-popover {
@@ -2456,7 +2519,7 @@ p.not-important {
   background: none;
   font-size: 20px;
   border: none;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease-in-out;
   opacity: 0.8;
 }
 .yplay__message-host .yplay__message--close-button:hover {
@@ -2582,6 +2645,80 @@ p.not-important {
   left: 50% !important;
   top: 50% !important;
   transform: translate(-50%, -50%) !important;
+}
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  padding: 12px 48px 12px 16px;
+  color: var(--toast-color);
+  background: var(--toast-bg);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 250ms ease,
+    transform 250ms ease,
+    visibility 250ms ease;
+}
+.toast h2 {
+  font-size: 1.25rem;
+}
+.toast p + p,
+.toast h2 + p {
+  margin-block-start: 0.5rem;
+}
+.toast.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -45%);
+  pointer-events: none;
+}
+.toast .toast-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: var(--toast-color);
+  background: var(--toast-button);
+  cursor: pointer;
+  transition: background-color 150ms ease, transform 150ms ease, color 150ms ease;
+}
+.toast .toast-close:hover {
+  background: var(--toast-button-hover);
+  transform: scale(1.08);
+}
+.toast .toast-close .material-symbols-outlined {
+  font-size: 18px;
+  line-height: 1;
+}
+@media (max-width: 768px) {
+  .toast {
+    top: auto;
+    left: auto;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+    max-width: calc(100% - 32px);
+    transform: none;
+  }
+  .toast.hidden {
+    transform: translateY(20px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .toast,
+  .toast .toast-close {
+    transition: none;
+  }
 }
 :root[data-theme='light'] {
   --vsdx-logo-url: url('./resources/vsdx-logo-light.svg');

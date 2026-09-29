@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Large Graph Aggregation Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -147,18 +144,8 @@
     </script>
 
     <style>
-      .interaction-button {
-        width: 100%;
-      }
-      #run-aggregation {
-        grid-column: 1/-1;
-      }
-      input[type='range'] {
-        width: 120px;
-      }
       .number-label {
-        width: 30px;
-        display: inline-block;
+        min-width: 3ch !important;
       }
     </style>
   </head>
@@ -424,39 +411,49 @@
       </div>
       <div class="interaction-panel">
         <h2>Layout Properties</h2>
-        <div class="demo-properties__settings">
-          <label for="layout-style-select">Layout Style</label>
-          <select id="layout-style-select">
-            <option value="radial-tree">Radial Tree</option>
-            <option value="radial-group">Radial Group</option>
-          </select>
+        <div class="options-section">
+          <label
+            ><span>Layout Style</span>
+            <select id="layout-style-select">
+              <option value="radial-tree">Radial Tree</option>
+              <option value="radial-group">Radial Group</option>
+            </select>
+          </label>
         </div>
 
         <h2>Aggregation Properties</h2>
-        <div id="aggregation-properties" class="demo-properties__settings">
-          <label for="aggregation-mode-select">Aggregation Mode</label>
-          <select id="aggregation-mode-select">
-            <option value="structural">Structural</option>
-            <option value="geometric">Geometric</option>
-          </select>
+        <div id="aggregation-properties" class="options-section">
+          <label
+            ><span>Aggregation Mode</span>
+            <select id="aggregation-mode-select">
+              <option value="structural">Structural</option>
+              <option value="geometric">Geometric</option>
+            </select>
+          </label>
 
-          <label for="maximum-duration-range">Maximum Duration</label>
-          <div>
-            <input id="maximum-duration-range" type="range" min="0" max="300" value="240" />
-            <span id="stop-duration-label" class="number-label">240</span>
-          </div>
+          <label
+            ><span>Maximum Duration</span>
+            <span class="range-container">
+              <input id="maximum-duration-range" type="range" min="0" max="300" value="240" />
+              <span id="stop-duration-label" class="number-label">240</span>
+            </span>
+          </label>
 
-          <label for="minimum-cluster-size-range">Minimum Cluster Size</label>
-          <div>
-            <input id="minimum-cluster-size-range" type="range" min="1" max="50" value="5" />
-            <span id="minimum-cluster-size-label" class="number-label">5</span>
-          </div>
+          <label for="minimum-cluster-size-range"
+            ><span>Minimum Cluster Size</span>
+            <span class="range-container">
+              <input id="minimum-cluster-size-range" type="range" min="1" max="50" value="5" />
+              <span id="minimum-cluster-size-label" class="number-label">5</span>
+            </span>
+          </label>
 
-          <label for="maximum-cluster-size-range">Maximum Cluster Size</label>
-          <div>
-            <input id="maximum-cluster-size-range" type="range" min="2" max="100" value="10" />
-            <span id="maximum-cluster-size-label" class="number-label">10</span>
-          </div>
+          <label for="maximum-cluster-size-range"
+            ><span>Maximum Cluster Size</span>
+            <span class="range-container">
+              <input id="maximum-cluster-size-range" type="range" min="2" max="100" value="10" />
+              <span id="maximum-cluster-size-label" class="number-label">10</span>
+            </span>
+          </label>
           <button id="run-aggregation" class="interaction-button">Run</button>
         </div>
         <div style="height: 25px">
@@ -487,7 +484,8 @@
         </div>
       </div>
       <div class="description-panel">
-        <h1>Large Graph Aggregation Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Large Graph Aggregation</h1>
 
         <p>
           This demo shows how to use the smart <a href="https://docs.yworks.com/yfileshtml/api/NodeAggregation" class="api" target="_blank">NodeAggregation</a> algorithm for

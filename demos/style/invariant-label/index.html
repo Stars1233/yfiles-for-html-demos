@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Zoom-invariant Label Style Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -145,6 +142,16 @@
     <script type="module" async>
       import '@yfiles/demo-app/initialize-ui'
     </script>
+
+    <style>
+      .number-label {
+        min-width: 3ch !important;
+      }
+
+      #modeChooserBox {
+        max-width: 30ex !important;
+      }
+    </style>
   </head>
   <body class="demo-modern">
     <div id="splash-screen">
@@ -358,11 +365,20 @@
 
           <span class="separator"></span>
 
-          <select id="renderModeChooserBox" title="Select the render mode"></select>
+          <select title="Select the render mode to use" id="render-modes">
+            <option value="svg">SVG Style</option>
+            <option value="webgl">WebGL Style</option>
+          </select>
 
           <span class="separator"></span>
 
-          <select id="modeChooserBox" title="Select a Style For The Labels"></select>
+          <select id="modeChooserBox" title="Select a Style For The Labels">
+            <option value="FIXED_ABOVE_THRESHOLD">Fixed above zoom threshold</option>
+            <option value="FIXED_BELOW_THRESHOLD">Fixed below zoom threshold</option>
+            <option value="INVARIANT_OUTSIDE_RANGE">Fixed when outside specified range</option>
+            <option value="FIT_OWNER">Fit into the label's owner</option>
+            <option value="DEFAULT">Default behaviour</option>
+          </select>
 
           <span id="zoomThresholdControls" title="Select the zoom threshold">
             <span class="separator"></span>
@@ -377,7 +393,7 @@
               data-name="zoomThreshold"
               style="vertical-align: middle"
             />
-            <span style="margin-right: 5px" id="zoomThresholdLabel">1</span>
+            <span class="number-label" id="zoomThresholdLabel">1</span>
           </span>
 
           <span
@@ -388,17 +404,19 @@
             <span class="separator"></span>
 
             <span>Max Scale:</span>
-            <input
-              id="maxScale"
-              type="range"
-              min="1"
-              max="4"
-              value="3"
-              step="0.1"
-              data-name="maxScale"
-              style="vertical-align: middle"
-            />
-            <span style="margin-right: 5px" id="maxScaleLabel">3</span>
+            <span class="range-container">
+              <input
+                id="maxScale"
+                type="range"
+                min="1"
+                max="4"
+                value="3"
+                step="0.1"
+                data-name="maxScale"
+                style="vertical-align: middle"
+              />
+              <span class="number-label" id="maxScaleLabel">3</span>
+            </span>
           </span>
 
           <span class="separator"></span>
@@ -412,6 +430,7 @@
         <div id="graphComponent"></div>
       </div>
       <div class="description-panel">
+        <div class="subheading">Demo</div>
         <h1>Zoom-invariant Label Style</h1>
 
         <p>This demo shows label styles that render the labels independent of the zoom level.</p>

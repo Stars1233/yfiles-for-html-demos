@@ -578,7 +578,7 @@ function initializeUI() {
   const graph = graphComponent.graph
 
   const samplesComboBox = document.querySelector(`#algorithms`)
-  addNavigationButtons(samplesComboBox, 'Clustering Algorithms:').addEventListener(
+  addNavigationButtons(samplesComboBox, 'Clustering:').addEventListener(
     'change',
     onAlgorithmChanged
   )

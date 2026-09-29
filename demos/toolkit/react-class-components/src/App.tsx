@@ -34,11 +34,7 @@ import DemoDescription from './components/DemoDescription'
 export default class App extends Component {
   render() {
     return (
-      <div className="app">
-        <aside className="demo-sidebar right demo-page__description">
-          <DemoDescription />
-        </aside>
-
+      <>
         <div className="demo-header">
           <a
             href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
@@ -46,16 +42,27 @@ export default class App extends Component {
             target="_blank"
             title="yFiles Product Page"
           ></a>
-          <span className="chevron-right"></span>
-          <a href="../../../README.html" target="_blank" rel="noopener noreferrer">
+          <span className="material-symbols-outlined">chevron_right</span>
+          <a
+            href="https://www.yfiles.com/demos"
+            className="breadcrumb-wrapper"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Demos
           </a>
-          <span className="chevron-right"></span>
-          <span className="demo-title">React Class Components</span>
+          <span className="material-symbols-outlined">chevron_right</span>
+          <span id="name" className="breadcrumb-wrapper demo-name">
+            React Class Components
+          </span>
         </div>
-
-        <ReactGraphComponent />
-      </div>
+        <div className="demo-main">
+          <ReactGraphComponent />
+          <div className="demo-main__description-panel">
+            <DemoDescription />
+          </div>
+        </div>
+      </>
     )
   }
 }

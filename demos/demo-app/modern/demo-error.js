@@ -27,6 +27,7 @@
  **
  ***************************************************************************/
 import { Exception, yfiles } from '@yfiles/yfiles'
+import { createPlainDialog } from './element-utils'
 
 /**
  * Registers error handlers that show an error dialog that can send error reports to yWorks.
@@ -336,32 +337,6 @@ function createErrorDialog(errorOrMessage, tag) {
   }
 
   return dialogAnchor
-}
-
-/**
- * Creates an empty general-purpose dialog with a title bar.
- *
- * @param titleText The text for the dialog title.
- */
-export function createPlainDialog(titleText) {
-  const dialogAnchor = document.createElement('div')
-  dialogAnchor.classList.add('demo-dialog-anchor')
-
-  const dialogPanel = document.createElement('div')
-  dialogPanel.classList.add('demo-dialog')
-
-  const title = document.createElement('h2')
-  title.classList.add('demo-dialog__title')
-  title.innerHTML = titleText
-
-  const contentPanel = document.createElement('div')
-  contentPanel.classList.add('demo-dialog__content')
-
-  dialogAnchor.appendChild(dialogPanel)
-  dialogPanel.appendChild(title)
-  dialogPanel.appendChild(contentPanel)
-
-  return { dialogAnchor, dialogPanel, title, contentPanel }
 }
 
 function inErrorState() {

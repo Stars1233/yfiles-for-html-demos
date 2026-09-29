@@ -31,7 +31,7 @@ import App from './App.vue'
 import { License } from '@yfiles/yfiles'
 import licenseData from './license.json'
 
-import './assets/main.css'
+import './main.css'
 import { vuetify } from './vuetify'
 
 License.value = licenseData

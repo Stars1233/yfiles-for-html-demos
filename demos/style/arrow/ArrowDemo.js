@@ -206,9 +206,12 @@ function updateArrowStyle(filled, graphComponent) {
  */
 function initializeUI(graphComponent) {
   const slider = document.querySelector('#edge-thickness')
-  slider.addEventListener('input', () =>
-    updateEdgeThickness(parseInt(slider.value), graphComponent)
-  )
+  const input = document.querySelector('#edge-thickness-label')
+  slider.addEventListener('input', () => {
+    const thickness = slider.value
+    updateEdgeThickness(parseInt(thickness), graphComponent)
+    input.innerHTML = thickness
+  })
   const selector = document.querySelector('#arrowStyle')
   selector.addEventListener('change', () => {
     updateArrowStyle(selector.selectedIndex, graphComponent)

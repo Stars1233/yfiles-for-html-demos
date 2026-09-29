@@ -26,7 +26,7 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,cable,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compost,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,electric_bolt,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,filter_alt,filter_alt_off,fit_page_width,folder_open,format_paint,fullscreen,gas_meter,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,home,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,ink_highlighter,ink_highlighter_off,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,mode_heat,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,replay,reset,reset_settings,save,search,set_meal,settings,shopping_cart,stop,store,sync,sunny,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,visibility_off,ward,warning,water,wheat,wind_power,zoom_in,zoom_out,zoom_out_map&display=block';
 .material-symbols-outlined {
   font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -72,6 +72,13 @@ button[data-command] {
 :root[data-theme='dark'] .icon-inline,
 :root[data-theme='dark'] button[data-command] {
   font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+button.icon.yIcon,
+button .icon.yIcon,
+a .icon.yIcon,
+.icon-inline.yIcon,
+button[data-command].yIcon {
+  font-size: 1.2rem;
 }
 .icon-inline {
   font-size: inherit;
@@ -221,9 +228,8 @@ input:disabled {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .input-select-checkbox::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -235,6 +241,7 @@ input:disabled {
 .input-range {
   width: 100px;
   min-width: 7rem;
+  max-width: 10rem;
   -webkit-appearance: none;
   background-color: transparent;
 }
@@ -310,41 +317,46 @@ p.not-important {
   opacity: 0.7;
 }
 .text-content {
+  --margin-block: 0.75rem;
   font-size: var(--body-font-size);
 }
-.text-content > :first-child {
+.text-content > :first-child,
+.text-content h2:first-child,
+.text-content h3:first-child {
   margin-top: 0 !important;
 }
 .text-content > :last-child {
   margin-bottom: 0 !important;
 }
-.text-content h1 {
-  font-size: xx-large;
-  margin: 1.2rem 0;
-}
-.text-content h2 {
-  font-size: x-large;
-}
-.text-content h3 {
-  font-size: large;
-}
+.text-content h1,
 .text-content h2,
 .text-content h3,
 .text-content h4 {
-  margin: 1.5rem 0 1rem;
+  margin: 1.25rem 0 var(--margin-block);
+  hyphens: auto;
+}
+.text-content h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+.text-content h2 {
+  font-size: 1.5rem;
+}
+.text-content h3 {
+  font-size: 1.25rem;
 }
 .text-content .text-medium {
   font-size: 130%;
 }
 .text-content ul,
 .text-content ol {
-  padding-left: 1.3em;
+  padding-left: 1.25em;
 }
 .text-content p,
 .text-content dl,
 .text-content ul,
 .text-content ul.paragraph-style li {
-  margin: 1rem 0;
+  margin-block: var(--margin-block);
 }
 .text-content li {
   margin: 0.5rem 0;
@@ -456,7 +468,7 @@ h6 {
 @supports (appearance: base-select) {
   .interaction-panel select,
   .demo-popup select {
-    padding: 6px 14px;
+    padding: 6px 10px;
     appearance: base-select;
     border: none;
     border-radius: var(--border-radius);
@@ -515,7 +527,7 @@ h6 {
 }
 .interaction-panel select option,
 .demo-popup select option {
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-transform: none;
   padding: 10px;
   cursor: pointer;
@@ -555,14 +567,14 @@ h6 {
 }
 .interaction-panel .navigate-select:has(button) select,
 .demo-popup .navigate-select:has(button) select {
-  border-radius: var(--small-border-radius);
+  border-radius: 0;
 }
 .interaction-panel .navigate-select button,
 .demo-popup .navigate-select button {
   font-size: 1.5rem;
   display: flex;
-  width: 32px;
-  border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
+  width: 28px;
+  border-radius: 0 20px 20px 0;
   background-color: var(--toolbar-button);
 }
 .interaction-panel .navigate-select button:hover,
@@ -571,7 +583,7 @@ h6 {
 }
 .interaction-panel .navigate-select button:first-of-type,
 .demo-popup .navigate-select button:first-of-type {
-  border-radius: 20px var(--small-border-radius) var(--small-border-radius) 20px;
+  border-radius: 20px 0 0 20px;
 }
 .interaction-panel .navigate-select select,
 .demo-popup .navigate-select select {
@@ -580,8 +592,11 @@ h6 {
   color: var(--color-text);
   margin: 0;
   outline: none;
-  width: stretch;
+  width: 100%;
+  min-width: 0;
   height: auto;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .interaction-panel .navigate-select select:hover,
 .demo-popup .navigate-select select:hover {
@@ -598,7 +613,7 @@ h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
   text-decoration: none;
 }
 .interaction-panel .navigation-button:hover,
@@ -613,7 +628,15 @@ h6 {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.interaction-panel .navigation-button.labeled:has(.material-symbols-outlined),
+.demo-popup .navigation-button.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.interaction-panel .navigation-button.labeled:has(.yIcon),
+.demo-popup .navigation-button.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .interaction-panel .navigation-button.labeled:hover,
@@ -633,7 +656,15 @@ h6 {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.interaction-panel .navigation-button.labeled:has(.material-symbols-outlined),
+.demo-popup .navigation-button.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.interaction-panel .navigation-button.labeled:has(.yIcon),
+.demo-popup .navigation-button.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .interaction-panel .navigation-button.labeled:hover,
@@ -696,7 +727,7 @@ h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
   text-decoration: none;
 }
 .toolbar button:hover {
@@ -709,7 +740,13 @@ h6 {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.toolbar button.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.toolbar button.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .toolbar button.labeled:hover {
@@ -726,7 +763,13 @@ h6 {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.toolbar button.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.toolbar button.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .toolbar button.labeled:hover {
@@ -744,7 +787,7 @@ h6 {
 }
 @supports (appearance: base-select) {
   .toolbar select {
-    padding: 6px 14px;
+    padding: 6px 10px;
     appearance: base-select;
     border: none;
     border-radius: var(--border-radius);
@@ -795,7 +838,7 @@ h6 {
   background: var(--toolbar-bg);
 }
 .toolbar select option {
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-transform: none;
   padding: 10px;
   cursor: pointer;
@@ -907,6 +950,7 @@ h6 {
 .toolbar input[type='range'] {
   width: 100px;
   min-width: 7rem;
+  max-width: 10rem;
   -webkit-appearance: none;
   background-color: transparent;
 }
@@ -967,9 +1011,9 @@ h6 {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+  padding: 6px 2px;
 }
 .toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
 .toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
@@ -1012,7 +1056,8 @@ h6 {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
   width: 2.25rem;
   height: 2.25rem;
 }
@@ -1094,7 +1139,7 @@ h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
   text-decoration: none;
 }
 .toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
@@ -1121,7 +1166,27 @@ h6 {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.yIcon),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.yIcon),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.yIcon),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
@@ -1159,7 +1224,27 @@ h6 {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.material-symbols-outlined),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.yIcon),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.yIcon),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.yIcon),
+.toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.yIcon),
+.toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
@@ -1185,6 +1270,12 @@ h6 {
   outline: none;
   box-shadow: none;
 }
+.toolbar .number-label {
+  display: inline-block;
+  min-width: 1ch;
+  text-align: right;
+  margin-right: 1px;
+}
 .toolbar label:has(> input[type='checkbox']) {
   background-color: var(--toolbar-bg);
   color: var(--color-text);
@@ -1200,9 +1291,8 @@ h6 {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .toolbar label:has(> input[type='checkbox']) > input[type='checkbox']::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -1262,20 +1352,20 @@ h6 {
   background-color: transparent;
 }
 .toolbar .navigate-select:has(button) select {
-  border-radius: var(--small-border-radius);
+  border-radius: 0;
 }
 .toolbar .navigate-select button {
   font-size: 1.5rem;
   display: flex;
-  width: 32px;
-  border-radius: var(--small-border-radius) 20px 20px var(--small-border-radius);
+  width: 28px;
+  border-radius: 0 20px 20px 0;
   background-color: var(--toolbar-button);
 }
 .toolbar .navigate-select button:hover {
   background-color: var(--toolbar-bg-hover);
 }
 .toolbar .navigate-select button:first-of-type {
-  border-radius: 20px var(--small-border-radius) var(--small-border-radius) 20px;
+  border-radius: 20px 0 0 20px;
 }
 .toolbar .navigate-select select {
   border: none;
@@ -1283,8 +1373,11 @@ h6 {
   color: var(--color-text);
   margin: 0;
   outline: none;
-  width: stretch;
+  width: 100%;
+  min-width: 0;
   height: auto;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .toolbar .navigate-select select:hover {
   background-color: var(--toolbar-bg-hover);
@@ -1750,7 +1843,7 @@ body.demo-tutorial {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
   text-decoration: none;
 }
 .tutorial-toolbar button:hover {
@@ -1763,7 +1856,13 @@ body.demo-tutorial {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.tutorial-toolbar button.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.tutorial-toolbar button.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .tutorial-toolbar button.labeled:hover {
@@ -1780,7 +1879,13 @@ body.demo-tutorial {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.tutorial-toolbar button.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.tutorial-toolbar button.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .tutorial-toolbar button.labeled:hover {
@@ -1798,7 +1903,7 @@ body.demo-tutorial {
 }
 @supports (appearance: base-select) {
   .tutorial-toolbar select {
-    padding: 6px 14px;
+    padding: 6px 10px;
     appearance: base-select;
     border: none;
     border-radius: var(--border-radius);
@@ -1849,7 +1954,7 @@ body.demo-tutorial {
   background: var(--toolbar-bg);
 }
 .tutorial-toolbar select option {
-  font-size: 1rem;
+  font-size: 0.9rem;
   text-transform: none;
   padding: 10px;
   cursor: pointer;
@@ -1961,6 +2066,7 @@ body.demo-tutorial {
 .tutorial-toolbar input[type='range'] {
   width: 100px;
   min-width: 7rem;
+  max-width: 10rem;
   -webkit-appearance: none;
   background-color: transparent;
 }
@@ -2021,9 +2127,9 @@ body.demo-tutorial {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
+  padding: 6px 2px;
 }
 .tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
 .tutorial-toolbar div:has(> label):has(> input[type='checkbox']) > input[type='checkbox']:not(.demo-toggle-button)::after,
@@ -2066,7 +2172,8 @@ body.demo-tutorial {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
   width: 2.25rem;
   height: 2.25rem;
 }
@@ -2148,7 +2255,7 @@ body.demo-tutorial {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
   text-decoration: none;
 }
 .tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon:hover,
@@ -2175,7 +2282,27 @@ body.demo-tutorial {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.yIcon),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.yIcon),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.yIcon),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.yIcon),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.yIcon),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.yIcon),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.yIcon),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
@@ -2213,7 +2340,27 @@ body.demo-tutorial {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.yIcon),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:has(.yIcon),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.yIcon),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.yIcon.labeled:has(.yIcon),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.yIcon),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.material-symbols-outlined.labeled:has(.yIcon),
+.tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.yIcon),
+.tutorial-toolbar div:has(> label):has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.material-symbols-outlined) > label.material-symbols-outlined.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .tutorial-toolbar label:has(> input[type='checkbox']):has(> input[type='checkbox']):has(> label.yIcon) > label.yIcon.labeled:hover,
@@ -2239,6 +2386,12 @@ body.demo-tutorial {
   outline: none;
   box-shadow: none;
 }
+.tutorial-toolbar .number-label {
+  display: inline-block;
+  min-width: 1ch;
+  text-align: right;
+  margin-right: 1px;
+}
 .tutorial-toolbar label:has(> input[type='checkbox']) {
   background-color: var(--toolbar-bg);
   color: var(--color-text);
@@ -2254,9 +2407,8 @@ body.demo-tutorial {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .tutorial-toolbar label:has(> input[type='checkbox']) > input[type='checkbox']::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -2324,7 +2476,7 @@ body.demo-tutorial {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 2px;
   text-decoration: none;
 }
 .toolbar-button:hover {
@@ -2337,7 +2489,13 @@ body.demo-tutorial {
   height: fit-content;
   background-color: var(--toolbar-button);
   color: var(--toolbar-button-text);
-  border: none;
+  padding: 6px 10px;
+}
+.toolbar-button.labeled:has(.material-symbols-outlined) {
+  padding: 6px 10px 6px 2px;
+}
+.toolbar-button.labeled:has(.yIcon) {
+  gap: 10px;
   padding: 6px 10px;
 }
 .toolbar-button.labeled:hover {
@@ -2391,12 +2549,19 @@ body.demo-tutorial {
   border-radius: 0;
 }
 .tutorial-description-panel {
+  --margin-block: 0.75rem;
   font-size: var(--body-font-size);
-  color: var(--description-text);
   --panel-bg: var(--description-bg);
   --collapse-hover-bg: var(--interaction-button-hover);
-  overflow-x: hidden;
   padding: var(--dialog-padding);
+  overflow-x: hidden;
+  color: var(--description-text);
+  /* Additional small heading above the h1 */
+  /*
+    This is the anchoring element for the collapse icon.
+    By default, it is sticky on the top-left and reserves space for always-visible part of the icon.
+    If this is not desired for a specific demo, override the width and height with smaller values.
+   */
   z-index: 3;
   grid-area: description;
   z-index: 4;
@@ -2431,39 +2596,43 @@ body.demo-tutorial {
 .tutorial-description-panel::-webkit-scrollbar-thumb:hover {
   background-color: var(--scrollbar-bg);
 }
-.tutorial-description-panel > :first-child {
+.tutorial-description-panel > :first-child,
+.tutorial-description-panel h2:first-child,
+.tutorial-description-panel h3:first-child {
   margin-top: 0 !important;
 }
 .tutorial-description-panel > :last-child {
   margin-bottom: 0 !important;
 }
-.tutorial-description-panel h1 {
-  font-size: xx-large;
-  margin: 1.2rem 0;
-}
-.tutorial-description-panel h2 {
-  font-size: x-large;
-}
-.tutorial-description-panel h3 {
-  font-size: large;
-}
+.tutorial-description-panel h1,
 .tutorial-description-panel h2,
 .tutorial-description-panel h3,
 .tutorial-description-panel h4 {
-  margin: 1.5rem 0 1rem;
+  margin: 1.25rem 0 var(--margin-block);
+  hyphens: auto;
+}
+.tutorial-description-panel h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+.tutorial-description-panel h2 {
+  font-size: 1.5rem;
+}
+.tutorial-description-panel h3 {
+  font-size: 1.25rem;
 }
 .tutorial-description-panel .text-medium {
   font-size: 130%;
 }
 .tutorial-description-panel ul,
 .tutorial-description-panel ol {
-  padding-left: 1.3em;
+  padding-left: 1.25em;
 }
 .tutorial-description-panel p,
 .tutorial-description-panel dl,
 .tutorial-description-panel ul,
 .tutorial-description-panel ul.paragraph-style li {
-  margin: 1rem 0;
+  margin-block: var(--margin-block);
 }
 .tutorial-description-panel li {
   margin: 0.5rem 0;
@@ -2542,11 +2711,12 @@ body.demo-tutorial {
   padding: 0 0 0.5ex;
 }
 .tutorial-description-panel h1 {
-  color: var(--description-heading1);
-  margin-top: 0;
+  color: var(--color-gold-dark);
 }
-.tutorial-description-panel h2 {
-  color: var(--description-heading);
+.tutorial-description-panel .subheading {
+  font-size: 1rem;
+  color: var(--description-subheading);
+  font-weight: 700;
 }
 .tutorial-description-panel button.collapse {
   font-variation-settings: 'GRAD' clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
@@ -2563,14 +2733,14 @@ body.demo-tutorial {
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  position: absolute;
+  top: calc(var(--dialog-padding) * -1 + 4px);
+  right: calc(var(--dialog-padding) * -1 + 4px);
   border: none;
   border-radius: 99px;
-  position: relative;
-  top: -10px;
-  right: -10px;
-  padding: 8px;
   color: inherit;
   background-color: var(--panel-bg);
+  transition: background-color 0.25s ease-in-out;
 }
 :root[data-theme='dark'] .tutorial-description-panel button.collapse {
   font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
@@ -2578,14 +2748,14 @@ body.demo-tutorial {
 .tutorial-description-panel button.collapse:hover {
   background-color: var(--collapse-hover-bg);
 }
-.tutorial-description-panel .collapse-panel {
-  top: 0px;
+.tutorial-description-panel .collapse-anchor {
   position: sticky;
   float: right;
-  z-index: 1;
-}
-.tutorial-description-panel .collapse-panel:hover {
-  cursor: pointer;
+  top: 0;
+  z-index: 1000;
+  width: 1.5em;
+  height: 1.5em;
+  background-color: var(--panel-bg);
 }
 .tutorial-description-panel button {
   background-color: var(--toolbar-button);
@@ -2612,9 +2782,8 @@ body.demo-tutorial {
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .tutorial-description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox)::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -2631,15 +2800,18 @@ body.demo-tutorial {
 .tutorial-description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):checked::after {
   content: 'check_box';
 }
+.tutorial-description-panel input[type='checkbox']:not(.demo-toggle-button):not(.custom-checkbox):hover {
+  background-color: var(--toolbar-button);
+  box-shadow: 0 0 0 6px var(--toolbar-button);
+}
 .tutorial-description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox) {
   appearance: none;
   -webkit-appearance: none;
   display: inline-grid;
   place-content: center;
   position: relative;
-  border-radius: var(--border-radius);
-  width: 2.25rem;
-  height: 2.25rem;
+  border-radius: 6px;
+  transition: box-shadow 0.15s ease, background-color 0.15s ease;
 }
 .tutorial-description-panel input[type='checkbox'].demo-toggle-button:not(.custom-checkbox)::after {
   font-family: 'Material Symbols Outlined', sans-serif;
@@ -2664,6 +2836,7 @@ body.demo-tutorial {
 .tutorial-description-panel input[type='range'] {
   width: 100px;
   min-width: 7rem;
+  max-width: 10rem;
   -webkit-appearance: none;
   background-color: transparent;
 }
@@ -2737,7 +2910,7 @@ body.demo-tutorial {
   position: absolute;
   z-index: 5;
   background-color: var(--toolbar-bg);
-  transition: background-color 0.3s ease;
+  transition: background-color 0.25s ease-in-out;
 }
 .demo-description__drag-area:hover,
 body.demo-resizing-vertical .demo-description__drag-area--vertical,

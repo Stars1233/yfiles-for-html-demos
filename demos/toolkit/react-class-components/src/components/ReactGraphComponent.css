@@ -28,8 +28,8 @@
  ***************************************************************************/
 .graph-component-container,
 .graph-component-container .yfiles-canvascomponent {
-  width: 100%;
+  flex: 1 1 auto;
+  background-color: #ffffff;
+  border-radius: var(--border-radius);
   height: 100%;
-  background-color: white;
-  border-radius: 16px;
 }

@@ -48,7 +48,6 @@ export const detailNodeStyleTemplateSource = `({layout, tag, selected, zoom}) =>
   </text>
   <text transform="translate(10 72)">$\{tag.email}</text>
   <text transform="translate(10 88)">$\{tag.phone}</text>
-  <text transform="translate(70 88)">$\{tag.fax}</text>
 </g>
 \``
 

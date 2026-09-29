@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/style/editablepathstyle/).
 
+Demo
+
 This demo shows how to use [GeneralPathNodeStyle](https://docs.yworks.com/yfileshtml/api/GeneralPathNodeStyle) and provide interactive editing handles for the control points of the path.
 
 ## Things to Try

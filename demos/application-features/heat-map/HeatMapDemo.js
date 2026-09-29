@@ -172,8 +172,8 @@ function buildGraph(graph, graphData) {
  * Initializes the defaults for the styling in this demo.
  */
 function initializeStyles(graph) {
-  const fill = '#c1c1c1'
-  const stroke = '1.5px #4d4d4d'
+  const fill = '#e1e1e1'
+  const stroke = '1.5px #adadad'
 
   graph.nodeDefaults.style = new ShapeNodeStyle({ shape: 'ellipse', fill, stroke })
   graph.edgeDefaults.style = new PolylineEdgeStyle({ stroke })

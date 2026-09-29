@@ -53,14 +53,14 @@ import 'leaflet/dist/leaflet.css'
  * Creates a Leaflet map and adds a graph layer which contains a {@link GraphComponent}.
  * @yjs:keep = control
  */
-export function createMap(containerId, coordinateMapping, zoomChanged, leafletOptions) {
+export function createMap(container, coordinateMapping, zoomChanged, leafletOptions) {
   // use openstreetmap tiles for this demo:
   // create the tile layer with the correct attribution
   const osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   const osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
 
   // create the map
-  const worldMap = new LeafletMap(containerId, leafletOptions)
+  const worldMap = new LeafletMap(container, leafletOptions)
   worldMap.setView(new LatLng(15.538, 16.523), 3)
   worldMap.addLayer(new TileLayer(osmUrl, { minZoom: 3, maxZoom: 12, attribution: osmAttrib }))
 

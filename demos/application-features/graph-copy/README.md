@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/application-features/graph-copy/).
 
+Demo
+
 This demo shows how to use the [GraphCopier](https://docs.yworks.com/yfileshtml/api/GraphCopier) to copy a graph or part of it to another graph.
 
 ## Things to Try

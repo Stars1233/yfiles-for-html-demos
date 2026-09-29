@@ -26,79 +26,74 @@
  ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **
  ***************************************************************************/
-import './DemoDescription.css'
-
 export const DemoDescription = (props: Record<string, never>) => {
   return (
-    <div class="demo-page__description">
-      <div class="demo-description__content">
-        <h1>Solid.js demo</h1>
-        <p>
-          This demo shows how to integrate yFiles in a{' '}
-          <a href="https://www.solidjs.com/" target="_blank" rel="noopener noreferrer">
-            SolidJS
-          </a>{' '}
-          application with{' '}
-          <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer">
-            TypeScript
-          </a>{' '}
-          in project bootstrapped with{' '}
-          <a href="https://vitejs.dev/" target="_blank" rel="noopener noreferrer">
-            Vite
-          </a>
-          .
-        </p>
-        <p>
-          This application consists of separate components for the different parts, i.e. the yFiles{' '}
-          <code>GraphComponent</code>, the toolbar and the sidebars.
-        </p>
-        <p>
-          The nodes are rendered via the <code>SolidNodeTemplate</code> component class and the node
-          labels via the <code>SolidLabelTemplate</code> component class.
-        </p>
-        <h2>Running the demo</h2>
-        <p>
-          The demo is using the <code>Vite</code> for tooling, thus the following steps are required
-          to start it:
-        </p>
-        <code>
-          &gt; npm install <br />
-          &gt; npm run dev
-        </code>
-        <p>This will start the development server of the toolkit.</p>
-        <h2>Things to Try</h2>
-        <ul>
-          <li>
-            Clicking the buttons in the toolbar will execute certain actions in the SolidJS
-            component for the diagram.
-          </li>
-          <li>
-            After the graph has been changed, click{' '}
-            <span
-              class="material-symbols-outlined"
-              style={{ 'vertical-align': 'middle', 'font-size': '16px' }}
-            >
-              refresh
-            </span>{' '}
-            to reload the initial sample graph.
-          </li>
-          <li>
-            Vite's development server automatically updates the application upon code changes.
-          </li>
-        </ul>
-        <h2>App Generator</h2>
-        <p>
-          Use the{' '}
-          <a
-            href="https://www.yworks.com/products/app-generator"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div class="demo-description__content">
+      <div class="subheading">Demo</div>
+      <h1>Solid.js</h1>
+      <p>
+        This demo shows how to integrate yFiles in a{' '}
+        <a href="https://www.solidjs.com/" target="_blank" rel="noopener noreferrer">
+          SolidJS
+        </a>{' '}
+        application with{' '}
+        <a href="https://www.typescriptlang.org/" target="_blank" rel="noopener noreferrer">
+          TypeScript
+        </a>{' '}
+        in project bootstrapped with{' '}
+        <a href="https://vitejs.dev/" target="_blank" rel="noopener noreferrer">
+          Vite
+        </a>
+        .
+      </p>
+      <p>
+        This application consists of separate components for the different parts, i.e. the yFiles{' '}
+        <code>GraphComponent</code>, the toolbar and the sidebars.
+      </p>
+      <p>
+        The nodes are rendered via the <code>SolidNodeTemplate</code> component class and the node
+        labels via the <code>SolidLabelTemplate</code> component class.
+      </p>
+      <h2>Running the demo</h2>
+      <p>
+        The demo is using the <code>Vite</code> for tooling, thus the following steps are required
+        to start it:
+      </p>
+      <code>
+        &gt; npm install <br />
+        &gt; npm run dev
+      </code>
+      <p>This will start the development server of the toolkit.</p>
+      <h2>Things to Try</h2>
+      <ul>
+        <li>
+          Clicking the buttons in the toolbar will execute certain actions in the SolidJS component
+          for the diagram.
+        </li>
+        <li>
+          After the graph has been changed, click{' '}
+          <span
+            class="material-symbols-outlined"
+            style={{ 'vertical-align': 'middle', 'font-size': '16px' }}
           >
-            App Generator
-          </a>{' '}
-          to create visualization prototypes – quickly and easily.
-        </p>
-      </div>
+            refresh
+          </span>{' '}
+          to reload the initial sample graph.
+        </li>
+        <li>Vite's development server automatically updates the application upon code changes.</li>
+      </ul>
+      <h2>App Generator</h2>
+      <p>
+        Use the{' '}
+        <a
+          href="https://www.yworks.com/products/app-generator"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          App Generator
+        </a>{' '}
+        to create visualization prototypes – quickly and easily.
+      </p>
     </div>
   )
 }

@@ -52,7 +52,7 @@
     graphComponent.executeCommand(Command.DECREASE_ZOOM)
   }
   export function fitContent() {
-    graphComponent.fitGraphBounds()
+    graphComponent.executeCommand(Command.FIT_CONTENT)
   }
 
   let graphComponentDiv: HTMLDivElement
@@ -167,6 +167,3 @@
   style:width={width}
   style:height={height}
 ></div>
-
-<style>
-</style>

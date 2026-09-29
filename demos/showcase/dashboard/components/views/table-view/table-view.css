@@ -1,0 +1,122 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+/* Styles for TableViewComponent following Material Design 3 guidelines */
+
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  user-select: none;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  background-color: transparent;
+  font-family: inherit;
+  font-size: 0.875rem; /* M3 Body Medium */
+  color: light-dark(#1d1b20, #e6e1e5); /* M3 On Surface */
+}
+
+.table thead tr {
+  height: 56px; /* M3 Data Table header height */
+}
+
+.table thead th {
+  padding: 0 16px;
+  font-weight: 500;
+  font-size: 0.875rem; /* M3 Title Small */
+  border-bottom: 1px solid light-dark(#c4c7c5, #444746); /* M3 Outline Variant */
+  color: light-dark(#49454f, #cac4d0); /* M3 On Surface Variant */
+}
+
+.table tbody tr {
+  height: 52px; /* M3 Data Table row height */
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+  position: relative;
+}
+
+.table tbody tr td {
+  padding: 0 16px;
+  border-bottom: 1px solid light-dark(#c4c7c5, #444746); /* M3 Outline Variant */
+}
+
+/* M3 State Layer (Hover) */
+.table tbody tr:hover {
+  background-color: light-dark(var(--color-highlight-pink), var(--color-highlight-gold));
+  color: var(--color-text-reversed);
+}
+
+.table tbody tr:active {
+  background-color: light-dark(var(--color-highlight-pink), var(--color-highlight-gold));
+  color: var(--color-text-reversed);
+}
+
+.table tbody .row-selected {
+  background-color: light-dark(var(--color-highlight-pink), var(--color-highlight-gold));
+  color: var(--color-text-reversed);
+}
+
+.table tbody .row-selected:hover {
+  box-shadow: 0 0 100px 100px rgba(255, 255, 255, 0.25) inset;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  :host {
+    scrollbar-width: thin;
+  }
+}
+
+:host::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+@media (pointer: coarse) {
+  :host::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+}
+
+:host::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+:host::-webkit-scrollbar-thumb {
+  background-color: rgb(from var(--scrollbar-bg) r g b / 0.6);
+  border-radius: 6px;
+}
+
+:host::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-bg);
+}

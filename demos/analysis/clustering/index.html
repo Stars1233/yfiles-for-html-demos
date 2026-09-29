@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Clustering Algorithms Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -167,20 +164,6 @@
             border-radius: var(--border-radius);
           }
         }
-        .interaction-panel {
-          input[type='number'] {
-            width: auto;
-          }
-        }
-      }
-      .option-input {
-        width: 100%;
-        padding-left: 2px;
-        margin-top: 3px;
-      }
-
-      .option {
-        padding-bottom: 1em;
       }
 
       .description {
@@ -437,35 +420,26 @@
 
           <h3>Settings</h3>
 
-          <div class="option">
-            <label for="ebMinClusterNumber">Minimum Number of Clusters:</label>
-            <input
-              type="number"
-              id="ebMinClusterNumber"
-              min="1"
-              max="200"
-              class="option-input"
-              value="1"
-            />
-          </div>
-          <div class="option">
-            <label for="ebMaxClusterNumber">Maximum Number of Clusters:</label>
-            <input
-              type="number"
-              id="ebMaxClusterNumber"
-              min="1"
-              max="200"
-              class="option-input"
-              value="7"
-            />
-          </div>
-          <div class="option center-toggle">
-            <input type="checkbox" id="directed" class="demo-checkbox" />
-            <label for="directed" class="demo-checkbox">Consider Edge Direction</label>
-          </div>
-          <div class="option center-toggle">
-            <input type="checkbox" id="edgeCosts" class="demo-checkbox" />
-            <label for="edgeCosts" class="demo-checkbox">Consider Edge Costs</label>
+          <div class="options-section">
+            <label
+              ><span>Minimum Number of Clusters</span>
+              <input type="number" id="ebMinClusterNumber" min="1" max="200" value="1" />
+            </label>
+
+            <label
+              ><span>Maximum Number of Clusters:</span>
+              <input type="number" id="ebMaxClusterNumber" min="1" max="200" value="7" />
+            </label>
+
+            <label
+              ><span>Consider Edge Direction</span>
+              <input type="checkbox" id="directed" value="false" />
+            </label>
+
+            <label
+              ><span>Consider Edge Costs</span>
+              <input type="checkbox" id="edgeCosts" value="false" />
+            </label>
           </div>
 
           <h3>Things to Try</h3>
@@ -496,35 +470,24 @@
             </p>
 
             <h3>Settings</h3>
-            <div class="option">
-              <label for="distance-metrics">Distance Metric:</label>
-              <select id="distance-metrics" class="option-input">
-                <option selected="">Euclidean</option>
-                <option>Manhattan</option>
-                <option>Chebychev</option>
-              </select>
-            </div>
-            <div class="option">
-              <label for="kMeansMaxClusterNumber">Maximum Number of Clusters:</label>
-              <input
-                type="number"
-                id="kMeansMaxClusterNumber"
-                min="1"
-                max="200"
-                class="option-input"
-                value="5"
-              />
-            </div>
-            <div class="option">
-              <label for="iterations">Maximum Number of Iterations:</label>
-              <input
-                type="number"
-                id="iterations"
-                min="0"
-                max="5000"
-                class="option-input"
-                value="100"
-              />
+            <div class="options-section">
+              <label
+                ><span>Distance Metric</span>
+                <select id="distance-metrics">
+                  <option selected="">Euclidean</option>
+                  <option>Manhattan</option>
+                  <option>Chebychev</option>
+                </select>
+              </label>
+
+              <label
+                ><span>Maximum Number of Clusters:</span>
+                <input type="number" id="kMeansMaxClusterNumber" min="1" max="200" value="5" />
+              </label>
+              <label
+                ><span>Maximum Number of Iterations:</span>
+                <input type="number" id="iterations" min="0" max="5000" value="100" />
+              </label>
             </div>
 
             <h3>Things to Try</h3>
@@ -557,13 +520,15 @@
             </p>
 
             <h3>Settings</h3>
-            <div class="option">
-              <label for="linkage">Linkage:</label>
-              <select id="linkage" class="option-input">
-                <option>Single</option>
-                <option selected="">Average</option>
-                <option>Complete</option>
-              </select>
+            <div class="options-section">
+              <label
+                ><span>Linkage</span>
+                <select id="linkage">
+                  <option>Single</option>
+                  <option selected="">Average</option>
+                  <option>Complete</option>
+                </select>
+              </label>
             </div>
 
             <h3>Things to Try</h3>
@@ -647,7 +612,8 @@
         </div>
       </div>
       <div class="description-panel">
-        <h1>Clustering Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Clustering</h1>
 
         <p>
           This demo showcases a selection of clustering algorithms. The algorithms presented are the

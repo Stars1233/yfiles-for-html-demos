@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
-<!-- ////////////////////////////////////////////////////////////////////////
+  <head><!-- ////////////////////////////////////////////////////////////////////////
      // @license
      // This demo file is part of yFiles for HTML.
      // Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
@@ -36,7 +35,7 @@
 
     <link rel="stylesheet" href="./basic-demo.css" />
   </head>
-  <body class="loaded">
+  <body class="loaded demo-app">
     <div class="demo-header">
       <a
         href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
@@ -44,18 +43,26 @@
         target="_blank"
       ></a>
       <span class="chevron-right"></span>
-      <a href="../../README.html" style="cursor: pointer" target="_blank"> Demos </a>
+      <a
+        href="../../README.html"
+        style="cursor: pointer"
+        class="breadcrumb-wrapper"
+        target="_blank"
+      >
+        Demos
+      </a>
       <span class="chevron-right"></span>
-      <span>Basic Demo</span>
+      <span id="name" class="breadcrumb-wrapper demo-name">Basic Demo</span>
     </div>
 
-    <div class="main-container">
-      <div class="demo-page__main">
+    <div class="demo-main">
+      <div class="demo-main__component-panel">
         <div id="graphComponent" class="graph-component"></div>
       </div>
-      <div class="demo-page__description">
+      <div class="demo-main__description-panel">
         <div class="demo-description__content">
-          <h1>Basic Demo</h1>
+          <div class="subheading">Demo</div>
+          <h1>Basic</h1>
 
           <p>A simple demo that you can use as a starting point for your own project.</p>
           <p>

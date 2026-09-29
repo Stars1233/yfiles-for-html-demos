@@ -1,0 +1,160 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+@import '../../../../demo-app/modern/modern.css';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+  min-height: 0;
+  overflow: hidden;
+  color: var(--description-color);
+  background-color: var(--description-bg);
+  border-radius: var(--border-radius);
+  transition: all 0.2s ease-in-out;
+}
+
+.card__header {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0.2rem 0.1rem 0.5rem 0.5rem;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+::slotted(h1) {
+  flex: 1;
+  margin: 0;
+  color: var(--description-heading1);
+}
+
+::slotted(h2) {
+  flex: 1;
+  margin: 0;
+  color: var(--description-heading);
+}
+
+::slotted(div) {
+  width: 100%;
+  max-height: 100%;
+  min-height: 0;
+  height: 100%;
+}
+
+::slotted([class*='graph-component']) {
+  overflow: hidden;
+}
+
+.card__content {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 0 0.5rem;
+  overflow: auto;
+  border-radius: var(--border-radius);
+}
+
+.card__content.card--no-padding {
+  padding: 0;
+}
+
+.card__actions {
+  display: none;
+  flex-shrink: 0;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0.3rem;
+  padding-top: 0.3rem;
+  gap: 8px;
+  user-select: none;
+}
+
+.card__actions.card__actions--visible {
+  display: flex;
+}
+
+::slotted(button) {
+  height: 40px;
+  padding: 0 24px;
+  border: none;
+  border-radius: 20px;
+  background-color: var(--color-highlight-blue);
+  font-family: inherit;
+  font-size: 0.875rem !important;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  color: white;
+}
+
+::slotted(button.hovered) {
+  opacity: 0.85;
+}
+
+::slotted(button.active),
+::slotted(button.selected) {
+  background-color: var(--color-casper-blue-mid);
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .card__content {
+    scrollbar-width: thin;
+  }
+}
+
+.card__content::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+@media (pointer: coarse) {
+  .card__content::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+}
+
+.card__content::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.card__content::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 6px;
+}
+
+:host(:hover) .card__content::-webkit-scrollbar-thumb {
+  background-color: rgb(from var(--scrollbar-bg) r g b / 0.6);
+}
+
+:host(:hover) .card__content::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-bg);
+}

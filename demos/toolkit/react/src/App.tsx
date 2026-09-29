@@ -103,29 +103,34 @@ function App() {
 
   return (
     <GraphComponentProvider>
-      <div className="app">
-        <div className="demo-header">
-          <a
-            href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
-            className="y-logo"
-            target="_blank"
-            title="yFiles Product Page"
-          ></a>
-          <span className="material-symbols-outlined demo-overview">chevron_right</span>
-          <a href="../../../README.html" target="_blank" rel="noopener noreferrer">
-            Demos
-          </a>
-          <span className="material-symbols-outlined demo-overview">chevron_right</span>
-          <span>React Demo</span>
+      <div className="demo-header">
+        <a
+          href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
+          className="y-logo"
+          target="_blank"
+          title="yFiles Product Page"
+        ></a>
+        <span className="material-symbols-outlined">chevron_right</span>
+        <a
+          href="https://www.yfiles.com/demos"
+          className="breadcrumb-wrapper"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Demos
+        </a>
+        <span className="material-symbols-outlined">chevron_right</span>
+        <span id="name" className="breadcrumb-wrapper demo-name">
+          React Demo
+        </span>
+      </div>
+      <div className="demo-main">
+        <ReactGraphComponent graphData={graphData} onResetData={resetData} />
+        <div className="demo-main__interaction-panel">
+          <DemoDataPanel graphData={graphData} onAddNode={addNode} onRemoveNode={removeNode} />
         </div>
-        <div className="main">
-          <ReactGraphComponent graphData={graphData} onResetData={resetData} />
-          <div className="demo-sidebar interaction">
-            <DemoDataPanel graphData={graphData} onAddNode={addNode} onRemoveNode={removeNode} />
-          </div>
-          <div className="demo-sidebar description demo-page__description">
-            <DemoDescription />
-          </div>
+        <div className="demo-main__description-panel">
+          <DemoDescription />
         </div>
       </div>
     </GraphComponentProvider>

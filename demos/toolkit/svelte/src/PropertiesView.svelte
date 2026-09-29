@@ -6,7 +6,7 @@
   }: { person: Person | null } = $props()
 </script>
 
-<div class="demo-sidebar-content">
+<div class="demo-description__content">
   <h2>Properties</h2>
   {#if person}
     <div>
@@ -14,7 +14,6 @@
       <label>Position <input type="text" bind:value={person.position} /></label>
       <label>E-Mail <input type="text" bind:value={person.email} /></label>
       <label>Phone <input type="text" bind:value={person.phone} /></label>
-      <label>Fax <input type="text" bind:value={person.fax} /></label>
       <label>
         Business Unit
         <select bind:value={person.businessUnit}>

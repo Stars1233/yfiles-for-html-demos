@@ -31,7 +31,7 @@ import { IEdge, INode, Point } from '@yfiles/yfiles'
 import { analyzeData } from './data-analysis'
 import { getEdgeTag, getLabelTag, getNodeTag } from '../types'
 import { getEdgeStyle, getNodeStyle, getTextLabelStyle } from '../styles/graph-styles'
-import { updateGraphInformation } from '../filter-panel'
+import { updateGraphInformation } from '../filtering'
 import { removeBeaconAnimation } from '../beacon-animation'
 
 /**
@@ -90,7 +90,7 @@ function createDanglingEdges(graph, danglingEdges) {
       target,
       tag: {
         id: edge.id,
-        label: edge.label,
+        type: edge.type,
         from: edge.from,
         to: edge.to,
         problem: { type: 'danglingEdge', id: index },
@@ -169,7 +169,7 @@ function redirectEdges(graph, fromNode, toNode) {
         target: edge.targetNode === fromNode ? toNode : edge.targetNode,
         tag: {
           id: edgeTag.id,
-          label: edgeTag.label,
+          type: edgeTag.type,
           from: edgeTag.from,
           to: edgeTag.to,
           visible: true
@@ -283,7 +283,7 @@ export function updateEdgePorts(graphComponent, evt) {
     id: edgeTag.id,
     from: sourceNodeTag.id,
     to: targetNodeTag.id,
-    label: edgeTag.label,
+    type: edgeTag.type,
     visible: true
   }
 
@@ -312,7 +312,7 @@ export async function zoomToItem(graphComponent, item) {
 
   // Calculate max zoom to fit item in viewport
   const maxZoom = Math.min(componentWidth / viewRect.width, componentHeight / viewRect.height)
-  const zoom = Math.min(maxZoom, 1.5)
+  const zoom = Math.min(maxZoom, 2)
 
   await graphComponent.zoomToAnimated(zoom, new Point(viewRect.centerX, viewRect.centerY))
 }
@@ -350,5 +350,6 @@ function removeElementFromDOM(id) {
     document.querySelector('#data-problems-text').textContent = 'All problems have been resolved!'
 
     document.querySelector('#error-animation').style.display = 'none'
+    document.querySelector('.error-panel').classList.remove('visible')
   }
 }

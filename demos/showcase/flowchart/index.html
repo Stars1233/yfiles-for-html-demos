@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Flowchart Editor Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -159,6 +156,16 @@
       #dnd-panel {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
+      }
+
+      .interaction-panel #select-sample {
+        width: 100% !important;
+      }
+
+      @media (max-width: 80rem) {
+        .interaction-panel .same-size-select {
+          max-width: 140px !important;
+        }
       }
     </style>
   </head>
@@ -431,44 +438,62 @@
           <option value="LargestNumber">Largest Number</option>
         </select>
         <h2>Layout Options</h2>
-        <div class="demo-properties__settings">
-          <label for="positive-branch-direction"> 'Yes'-Branch </label>
-          <select
-            id="positive-branch-direction"
-            title="Choose a preferred direction for edges with 'Yes'-Labels"
-          >
-            <option value="1">Same As Flow</option>
-            <option value="12">Flatwise</option>
-            <option value="4">Left In Flow</option>
-            <option value="8">Right In Flow</option>
-            <option selected="" value="0">Undefined</option>
-          </select>
-          <label for="negative-branch-direction">'No'-Branch</label>
-          <select
-            id="negative-branch-direction"
-            title="Choose a preferred direction for edges with 'No'-Labels"
-          >
-            <option value="1">Same As Flow</option>
-            <option value="12">Flatwise</option>
-            <option value="4">Left In Flow</option>
-            <option value="8">Right In Flow</option>
-            <option selected="" value="0">Undefined</option>
-          </select>
-          <label for="in-edge-grouping">In-Edge Grouping</label>
-          <select id="in-edge-grouping" title="Choose in which way edges are grouped">
-            <option value="none">None</option>
-            <option value="all">All</option>
-            <option selected="" value="optimized">Optimized</option>
-          </select>
-          <label for="allow-flatwise-edges"> Allow Flatwise Edges </label>
-          <input type="checkbox" id="allow-flatwise-edges" checked="" />
+        <div class="options-section">
+          <label>
+            <span>'Yes'-Branch</span>
+            <select
+              id="positive-branch-direction"
+              title="Choose a preferred direction for edges with 'Yes'-Labels"
+              class="same-size-select"
+            >
+              <option value="1">Same As Flow</option>
+              <option value="12">Flatwise</option>
+              <option value="4">Left In Flow</option>
+              <option value="8">Right In Flow</option>
+              <option selected="" value="0">Undefined</option>
+            </select>
+          </label>
+          <label
+            ><span>'No'-Branch</span>
+            <select
+              id="negative-branch-direction"
+              title="Choose a preferred direction for edges with 'No'-Labels"
+              class="same-size-select"
+            >
+              <option value="1">Same As Flow</option>
+              <option value="12">Flatwise</option>
+              <option value="4">Left In Flow</option>
+              <option value="8">Right In Flow</option>
+              <option selected="" value="0">Undefined</option>
+            </select>
+          </label>
+
+          <label>
+            <span>In-Edge Grouping</span>
+            <select
+              id="in-edge-grouping"
+              title="Choose in which way edges are grouped"
+              class="same-size-select"
+            >
+              <option value="none">None</option>
+              <option value="all">All</option>
+              <option selected="" value="optimized">Optimized</option>
+            </select>
+          </label>
+
+          <label>
+            <span>Allow Flatwise Edges</span>
+            <input type="checkbox" id="allow-flatwise-edges" checked="" />
+          </label>
           <button id="layout-button" title="Run a Layout Algorithm">Layout</button>
         </div>
+
         <h2>Elements</h2>
         <div id="dnd-panel"></div>
       </div>
       <div class="description-panel">
-        <h1>Flowchart Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Flowchart</h1>
 
         This demo provides a number of
         <a href="https://docs.yworks.com/yfileshtml/api/INodeStyle" class="api" target="_blank">INodeStyle</a>

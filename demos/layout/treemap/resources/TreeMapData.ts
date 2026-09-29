@@ -6153,22 +6153,6 @@ export default {
       color: 'rgb(0, 138, 186)'
     },
     {
-      groupTag: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack',
-      label: 'webworker-webpack',
-      parentGroupRef: 'yFiles-for-HTML/demos-ts/loading',
-      isGroup: true,
-      size: 37788,
-      color: 'rgb(0, 182, 107)'
-    },
-    {
-      groupTag: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/src',
-      label: 'src',
-      parentGroupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack',
-      isGroup: true,
-      size: 9553,
-      color: 'rgb(0, 196, 138)'
-    },
-    {
       groupTag: 'yFiles-for-HTML/demos-ts/resources',
       label: 'resources',
       parentGroupRef: 'yFiles-for-HTML/demos-ts',
@@ -34522,76 +34506,6 @@ export default {
       color: 'rgb(0, 138, 186)'
     },
     {
-      id: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/index.template.html',
-      label: 'index.template.html\n(11.75kb)',
-      groupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack',
-      size: '12037',
-      color: 'rgb(0, 196, 138)'
-    },
-    {
-      id: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/package.json',
-      label: 'package.json\n(1.21kb)',
-      groupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack',
-      size: '1237',
-      color: 'rgb(0, 196, 138)'
-    },
-    {
-      id: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/README.html',
-      label: 'README.html\n(3.75kb)',
-      groupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack',
-      size: '3841',
-      color: 'rgb(0, 196, 138)'
-    },
-    {
-      id: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/README.md',
-      label: 'README.md\n(1.25kb)',
-      groupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack',
-      size: '1280',
-      color: 'rgb(0, 196, 138)'
-    },
-    {
-      id: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/src/WebWorkerWebpackDemo.ts',
-      label: 'WebWorkerWebpackDemo.ts\n(7.26kb)',
-      groupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/src',
-      size: '7431',
-      color: 'rgb(0, 119, 196)'
-    },
-    {
-      id: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/src/WorkerLayout.ts',
-      label: 'WorkerLayout.ts\n(2.07kb)',
-      groupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/src',
-      size: '2122',
-      color: 'rgb(0, 119, 196)'
-    },
-    {
-      id: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/tsconfig.json',
-      label: 'tsconfig.json\n(499b)',
-      groupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack',
-      size: '499',
-      color: 'rgb(0, 196, 138)'
-    },
-    {
-      id: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/webpack.config.js',
-      label: 'webpack.config.js\n(3.32kb)',
-      groupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack',
-      size: '3399',
-      color: 'rgb(0, 196, 138)'
-    },
-    {
-      id: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/webpack.dev.js',
-      label: 'webpack.dev.js\n(2.91kb)',
-      groupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack',
-      size: '2981',
-      color: 'rgb(0, 196, 138)'
-    },
-    {
-      id: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack/webpack.prod.js',
-      label: 'webpack.prod.js\n(2.89kb)',
-      groupRef: 'yFiles-for-HTML/demos-ts/loading/webworker-webpack',
-      size: '2961',
-      color: 'rgb(0, 196, 138)'
-    },
-    {
       id: 'yFiles-for-HTML/demos-ts/package.json',
       label: 'package.json\n(1.12kb)',
       groupRef: 'yFiles-for-HTML/demos-ts',
@@ -58682,20 +58596,6 @@ export default {
       color: 'rgb(0, 103, 147)'
     },
     {
-      id: 'yFiles-for-HTML/doc/api/assets/web-worker-webpack.e0458a4e.webp',
-      label: 'web-worker-webpack.e0458a4e.webp\n(27.89kb)',
-      groupRef: 'yFiles-for-HTML/doc/api/assets',
-      size: '28564',
-      color: 'rgb(0, 103, 147)'
-    },
-    {
-      id: 'yFiles-for-HTML/doc/api/assets/web-worker.55ed4e75.webp',
-      label: 'web-worker.55ed4e75.webp\n(26.93kb)',
-      groupRef: 'yFiles-for-HTML/doc/api/assets',
-      size: '27578',
-      color: 'rgb(0, 103, 147)'
-    },
-    {
       id: 'yFiles-for-HTML/doc/api/assets/webdriverio.ccd5dd87.webp',
       label: 'webdriverio.ccd5dd87.webp\n(27.89kb)',
       groupRef: 'yFiles-for-HTML/doc/api/assets',
@@ -61353,13 +61253,6 @@ export default {
       label: 'web-dev-server.webp\n(20.65kb)',
       groupRef: 'yFiles-for-HTML/doc/demo-thumbnails',
       size: '21148',
-      color: 'rgb(0, 120, 176)'
-    },
-    {
-      id: 'yFiles-for-HTML/doc/demo-thumbnails/web-worker-webpack.webp',
-      label: 'web-worker-webpack.webp\n(27.89kb)',
-      groupRef: 'yFiles-for-HTML/doc/demo-thumbnails',
-      size: '28564',
       color: 'rgb(0, 120, 176)'
     },
     {

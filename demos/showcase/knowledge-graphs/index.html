@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Interactive Knowledge Graph Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -402,20 +399,14 @@
           </button>
 
           <span class="separator"></span>
-          <div>
-            <input
-              type="checkbox"
-              id="teams-view"
-              title="Organizes the graph in teams"
-              class="demo-toggle-button"
-            />
-            <label
-              for="teams-view"
-              title="Rearrange the graph so teammates are positioned near each other"
-            >
-              Group By Teams
-            </label>
-          </div>
+          <span>
+            <label for="group-by">Group By:</label>
+            <select id="group-by">
+              <option value="clusters">Clusters</option>
+              <option value="teams">Teams</option>
+              <option value="location">Location</option>
+            </select>
+          </span>
 
           <span class="separator"></span>
           <span>
@@ -423,58 +414,44 @@
             <input type="search" id="searchBox" />
           </span>
         </div>
-        <div id="graphComponent"></div>
-        <button
-          id="show-ontology-view"
-          class="material-symbols-outlined"
-          title="Show Ontology View"
-        >
-          hub
-        </button>
-        <div id="explorer-backdrop"></div>
-        <div id="explorer-panel">
+        <div id="graphComponent" data-tip-id="graph-visualization"></div>
+        <div id="neighborhood-backdrop"></div>
+        <div id="neighborhood-panel">
           <div id="title">
-            <div id="explorer-title-text"></div>
-            <div id="explorer-close" title="Close" class="material-symbols-outlined">close</div>
+            <div id="neighborhood-title-text"></div>
+            <div id="neighborhood-close" title="Close" class="material-symbols-outlined">close</div>
           </div>
-          <div id="explorer-graphComponent"></div>
+          <div id="neighborhood-graphComponent" data-tip-id="neighborhood-component">
+            <navigation-component id="navigation"></navigation-component>
+          </div>
         </div>
       </div>
-      <div class="interaction-panel">
-        <h2>Triplet Filtering</h2>
+      <div class="interaction-panel expanded">
+        <h2>Interactive Ontology View</h2>
+        <div class="ontology-container">
+          <button
+            class="collapse icon"
+            type="button"
+            title="Collapse Ontology View"
+            aria-label="Collapse Ontology View"
+          >
+            collapse_content
+          </button>
 
-        <div id="graph-overlay" class="graph-overlay">
-          <div class="filter-dropdowns">
-            <select id="subject-combo"></select>
-            <span class="down-arrow">↓</span>
-            <select id="predicate-combo"></select>
-            <span class="down-arrow">↓</span>
-            <select id="object-combo"></select>
-          </div>
-          <div class="filter-buttons">
-            <button
-              id="apply-filtering"
-              class="labeled main-interaction-button"
-              title="Filter all elements from the graph that don't match the selected triplet"
-            >
-              Filter
+          <div class="toolbar toolbar--secondary">
+            <button data-command="DECREASE_ZOOM" id="zoom-out" title="Zoom Out">zoom_out</button>
+            <button data-command="INCREASE_ZOOM" id="zoom-in" title="Zoom In">zoom_in</button>
+            <button data-command="FIT_GRAPH_BOUNDS" id="fit-content" title="Fit Graph">
+              zoom_out_map
             </button>
-            <button
-              data-tip="Available only when WebGL is supported"
-              id="apply-fade-out"
-              title="Highlight all elements that match the selected triplet"
-              class="labeled main-interaction-button"
-            >
-              Highlight
-            </button>
-            <button
-              id="reset-filtering"
-              class="labeled main-interaction-button"
-              title="Reset the triplet filtering and highlighting"
-            >
-              Reset
+            <span class="separator"></span>
+
+            <button title="Show all hidden elements" id="reset-visibility" class="icon disabled">
+              reset_settings
             </button>
           </div>
+
+          <div id="ontology-graphComponent" data-tip-id="ontology-view"></div>
         </div>
 
         <h2>Graph Information</h2>
@@ -483,75 +460,114 @@
             <b>Matching nodes:</b> <span id="graph-nodes"></span><span class="footnote">*</span> /
             <span id="all-graph-nodes"></span>
           </span>
-          <br />
-          <span>
+          <span style="margin-left: 10px">
             <b>Matching edges:</b> <span id="graph-edges"></span><span class="footnote">*</span> /
             <span id="all-graph-edges"></span>
           </span>
           <p class="footnote">* Depending on the current triplet filtering</p>
         </div>
 
-        <h2>Data problems</h2>
-        <p><span id="data-problems-text">The data set contains the following errors:</span></p>
-        <p id="error-animation">
-          <label id="toggle_highlighting" title="Toggle highlighting of issues in the graph">
-            <input type="checkbox" id="error-beacon-animation" class="demo-checkbox" />
-            Spotlight all issues
+        <h2>Problem Detection</h2>
+        <div id="data-problems-text" data-tip-id="data-problem-detection">
+          <div class="problem-text">
+            <span class="material-symbols-outlined">warning</span>The dataset contains errors.
+          </div>
+          <label class="toggle-details" title="Show/Hide Problems">
+            <input type="checkbox" id="toggle-error-details" class="demo-checkbox" />
+            <span class="toggle-text">Click here to see details</span>
           </label>
-        </p>
-        <div id="data-problems-list"></div>
+        </div>
+        <div class="error-panel">
+          <p id="error-animation">
+            <label id="toggle_highlighting" title="Toggle highlighting of issues in the graph">
+              <input type="checkbox" id="error-beacon-animation" class="demo-checkbox" />
+              Spotlight all issues in graph (WebGL browsers only)
+            </label>
+          </p>
+          <h3>Data Problems</h3>
+          <div id="data-problems-list"></div>
+        </div>
       </div>
       <div class="description-panel">
-        <h1>Interactive Knowledge Graph Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Interactive Knowledge Graph</h1>
         <p>
-          This demo visualizes a knowledge graph and highlights potential data issues, offering
-          interactive tools to inspect and fix them.
+          This demo visualizes a knowledge graph and highlights potential data quality issues,
+          providing interactive tools to inspect and resolve them.
         </p>
         <p>
-          Knowledge graph data are typically stored as triples (subject–predicate–object). Because
-          triples can come from different sources and formats, common problems include duplicated
-          nodes, edges connected to the wrong endpoints, and isolated nodes.
+          Knowledge graphs are typically represented as triples (subject–predicate–object). Since
+          triples often come from diverse sources and formats, common issues include duplicate
+          nodes, edges connected to incorrect endpoints, and isolated nodes.
         </p>
         <p>
-          Use the right panel to locate detected problems and apply fixes directly. Alternatively,
-          select nodes or edges in the graph and use the context menu (right‑click) to repair them.
+          The visualization clusters nodes using the
+          <a href="https://docs.yworks.com/yfileshtml/api/LouvainModularityClustering" class="api" target="_blank">Louvain Modularity</a> algorithm, with node
+          colors indicating their cluster membership. Node size reflects centrality, calculated with
+          the <a href="https://docs.yworks.com/yfileshtml/api/PageRank" class="api" target="_blank">PageRank</a> algorithm.
         </p>
 
-        <h2>Things to try</h2>
+        <h2>Things to Try</h2>
+        <p>
+          Use the 'Walkthrough' at the top of the left sidebar to learn the demo basics and get
+          familiar with its features.
+        </p>
+
+        <h3>Interactive Ontology View</h3>
+        The <strong>Interactive Ontology View</strong> displays all triples in the dataset. Use it
+        to filter or fade out graph elements based on selected triples or to hide specific types
+        from the main graph.
         <ul>
           <li>
-            Open the right sidebar to see a list of detected problems. For each problem, you can
-            either zoom to the affected node(s) or apply an automatic fix.
+            Click an edge to highlight items matching its triplet (subject, predicate, object) -
+            WebGL browsers only.
           </li>
-          <li>Press the 'Show Ontology View' button to show the ontology structure triplets.</li>
+          <li>Click an edge to filter the graph to show only items matching its triplet.</li>
+          <li>Click a node or edge to show or hide its type.</li>
           <li>
-            Enable 'Spotlight all issues' to mark all problematic elements using a beacon animation
-            (available only if the browser supports WebGL).
+            Press <span class="icon-text">reset_settings</span> to reset all filters and highlights.
+          </li>
+        </ul>
+
+        <h3>Problem Detection</h3>
+        <p>
+          Click 'Click here to see details' to view detected issues. For each issue, you can zoom to
+          the affected node(s) or apply automatic fixes. Problems can also be fixed by
+          right-clicking the element and using its context menu.
+        </p>
+        <ul>
+          <li>
+            Enable 'Spotlight all issues' to highlight all problematic elements with a beacon
+            animation (WebGL browsers only).
           </li>
           <li>
-            Merge duplicated nodes (<span class="material-icon small">copy_all</span>) to
-            consolidate identical entities into a single node.
+            Merge duplicate nodes (<span class="material-icon small">copy_all</span>) to consolidate
+            identical entities.
           </li>
           <li>
-            Remove isolated nodes (<span class="material-icon small">error</span>) that are not
-            connected to the rest of the graph.
+            Remove isolated nodes (<span class="material-icon small">error</span>) that have no
+            connections to the rest of the graph.
           </li>
           <li>
             Fix edges with incorrect endpoints (<span class="material-icon small">warning</span>) by
-            selecting the edge and reconnecting its ports to the correct node(s).
+            selecting the edge and reconnecting it to the correct nodes.
           </li>
+        </ul>
+
+        <h3>Main Graph</h3>
+        <ul>
           <li>
-            Double-click on a node to open the neighborhood view panel showing all its direct
-            neighbors.
+            Double-click a node to open the neighborhood view, displaying all nodes directly
+            connected to it.
           </li>
+          <li>Change the layout using the <strong>'Group By'</strong> dropdown.</li>
+        </ul>
+
+        <h3>Interactive Neighborhood View</h3>
+        <ul>
           <li>
-            Switch layout with the <strong>Group By Teams</strong> toolbar button: This groups nodes
-            that belong to the same team next to each other for easier inspection.
-          </li>
-          <li>
-            Use the <strong>Triplet Filtering</strong> panel to filter-out or fade-out parts of the
-            graph based on selected triples (subject, predicate, or object). Note that the
-            'fade-out' operation is only available if the browser supports WebGL.
+            Click a node in this view to show its neighbors. The main graph will zoom to the
+            selected node.
           </li>
         </ul>
       </div>

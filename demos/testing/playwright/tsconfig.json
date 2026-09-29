@@ -1,7 +1,4 @@
 {
-  "compilerOptions": {
-    "types": ["node"],
-    "skipLibCheck": true
-  },
+  "compilerOptions": { "types": ["node"], "skipLibCheck": true },
   "include": ["tests/**/*.ts", "util/**/*.ts", "playwright.config.ts"]
 }

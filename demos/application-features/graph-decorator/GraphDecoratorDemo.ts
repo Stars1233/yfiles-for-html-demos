@@ -27,21 +27,15 @@
  **
  ***************************************************************************/
 import {
-  EdgePathLabelModel,
-  EdgeSides,
-  ExteriorNodeLabelModel,
   GraphBuilder,
   GraphComponent,
   GraphEditorInputMode,
-  GroupNodeStyle,
   HierarchicalLayout,
   type IGraph,
   type INode,
   IPortCandidateProvider,
-  LabelStyle,
   LayoutExecutor,
-  License,
-  Size
+  License
 } from '@yfiles/yfiles'
 
 import { initDemoStyles } from '@yfiles/demo-app/demo-styles'
@@ -154,29 +148,7 @@ function configurePortCandidateProvider(graph: IGraph): void {
  */
 function initializeGraph(graph: IGraph): void {
   // set styles for this demo
-  initDemoStyles(graph, { orthogonalEditing: true })
-
-  // set the style, label and label parameter for group nodes
-  graph.groupNodeDefaults.style = new GroupNodeStyle({
-    tabFill: '#46a8d5',
-    stroke: '2px solid #b5dcee',
-    contentAreaFill: '#b5dcee'
-  })
-  graph.groupNodeDefaults.labels.style = new LabelStyle({
-    horizontalTextAlignment: 'left',
-    textFill: '#eee'
-  })
-
-  // set sizes and locations specific for this demo
-  graph.nodeDefaults.size = new Size(40, 40)
-
-  graph.nodeDefaults.labels.layoutParameter = new ExteriorNodeLabelModel({
-    margins: 5
-  }).createParameter('bottom')
-  graph.edgeDefaults.labels.layoutParameter = new EdgePathLabelModel({
-    distance: 5,
-    autoRotation: true
-  }).createRatioParameter({ sideOfEdge: EdgeSides.BELOW_EDGE })
+  initDemoStyles(graph, { theme: 'demo-palette-12', orthogonalEditing: true })
 }
 
 run().then(finishLoading)

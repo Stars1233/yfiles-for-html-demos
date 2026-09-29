@@ -33,7 +33,7 @@ import {
   type GraphComponent,
   type GraphEditorInputMode,
   GraphItemTypes,
-  type IEdge,
+  IEdge,
   type ILabel,
   INode,
   LabelStyleIndicatorRenderer,
@@ -44,7 +44,7 @@ import {
   WebGLShapeNodeStyle
 } from '@yfiles/yfiles'
 import { getEdgeTag, getLabelTag, getNodeTag } from './types'
-import { getEdgeStyle, isVirtual } from './styles/graph-styles'
+import { getEdgeStyle, getTextLabelStyle, isVirtual } from './styles/graph-styles'
 
 /**
  * Configures visual highlighting and hover behavior for graph items.
@@ -79,9 +79,10 @@ export function configureHighlighting(graphComponent: GraphComponent): void {
   graph.decorator.labels.highlightRenderer.addFactory((label) => {
     if (isTextualLabel(label)) {
       const style = label.style as WebGLLabelStyle
+      const hasProblem = label.owner instanceof IEdge && getEdgeTag(label.owner).problem
       return new LabelStyleIndicatorRenderer({
         labelStyle: cloneWebGLLabelStyle(style, { wrapping: TextWrapping.NONE }),
-        zoomPolicy: 'world-coordinates'
+        zoomPolicy: hasProblem ? 'no-downscaling' : 'world-coordinates'
       })
     }
     return null
@@ -102,6 +103,16 @@ export function configureHighlighting(graphComponent: GraphComponent): void {
     const highlights = graphComponent.highlights
     // Clear any previous highlights
     highlights.clear()
+    if (evt.oldItem) {
+      const item = evt.oldItem as INode | IEdge
+      if (item instanceof IEdge) {
+        const label = item.labels.at(0)
+        if (label) {
+          graph.remove(label)
+        }
+      }
+      window.dispatchEvent(new CustomEvent('hover-items-changed', { detail: [] }))
+    }
 
     if (evt.item) {
       const item = evt.item as INode | IEdge
@@ -111,17 +122,36 @@ export function configureHighlighting(graphComponent: GraphComponent): void {
           graph.edgesAt(item).forEach((edge) => {
             if (isItemVisible(edge)) {
               highlights.add(edge)
-              edge.labels.forEach((label) => {
-                highlights.add(label)
-              })
             }
           })
+          window.dispatchEvent(new CustomEvent('hover-items-changed', { detail: [item] }))
         }
         // Highlight the item and its labels
         highlights.add(item)
-        item.labels.forEach((label) => {
+
+        if (item instanceof INode) {
+          item.labels.forEach((label) => {
+            highlights.add(label)
+          })
+        } else {
+          highlights.add(item.sourceNode)
+          highlights.add(item.targetNode)
+
+          window.dispatchEvent(
+            new CustomEvent('hover-items-changed', {
+              detail: [item, item.sourceNode, item.targetNode]
+            })
+          )
+
+          const tag = getEdgeTag(item)
+          const label = graph.addLabel({
+            owner: item,
+            text: tag.type,
+            style: getTextLabelStyle(item),
+            tag: { type: 'text', visible: true }
+          })
           highlights.add(label)
-        })
+        }
       }
     }
   })
@@ -130,10 +160,10 @@ export function configureHighlighting(graphComponent: GraphComponent): void {
 /**
  * Creates a new {@link WebGLLabelStyle} with the same properties as the given style but adjusted by
  * the passed options.
- * @param labelStyle - The reference style.
- * @param properties - The properties that should be adjusted.
+ * @param labelStyle - The reference style
+ * @param properties - The properties that should be adjusted
  */
-function cloneWebGLLabelStyle(
+export function cloneWebGLLabelStyle(
   labelStyle: WebGLLabelStyle,
   properties: ConstructorParameters<typeof WebGLLabelStyle>[0]
 ): WebGLLabelStyle {

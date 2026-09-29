@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/view/imageexport/).
 
+Demo
+
 This demo shows how to export the whole diagram or a part of it to a PNG image.
 
 ## Things to Try

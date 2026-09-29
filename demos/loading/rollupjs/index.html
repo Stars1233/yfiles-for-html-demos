@@ -30,41 +30,46 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Rollup.js Demo [yFiles for HTML]</title>
 
     <link rel="stylesheet" href="bundle.css" />
   </head>
-  <body class="loaded">
+  <body class="loaded demo-app">
     <div class="demo-header">
       <a
         href="https://www.yfiles.com/the-yfiles-sdk/web/yfiles-for-html"
         class="y-logo"
         target="_blank"
       ></a>
-      <span class="chevron_right">></span>
-      <a href="../../../README.html" style="cursor: pointer" target="_blank"> Demos </a>
-      <span class="chevron_right">></span>
-      <span class="demo-title">Rollup.js Demo</span>
+      <span class="chevron-right">></span>
+      <a
+        href="https://www.yfiles.com/demos/"
+        style="cursor: pointer"
+        class="breadcrumb-wrapper"
+        target="_blank"
+      >
+        Demos
+      </a>
+      <span class="chevron-right">></span>
+      <span id="name" class="breadcrumb-wrapper demo-name">Rollup.js Demo</span>
     </div>
 
-    <div class="main-container">
-      <div class="demo-page__main">
-        <div class="demo-main__graph-component">
-          <div class="demo-page__toolbar">
-            <button id="layout" title="Run layout" class="labeled">Apply Layout</button>
-          </div>
-          <div id="graphComponent" class="graph-component"></div>
+    <div class="demo-main">
+      <div class="demo-main__component-panel">
+        <div class="component-toolbar">
+          <button id="layout" title="Run layout" class="labeled">Apply Layout</button>
         </div>
+        <div id="graphComponent" class="graph-component"></div>
       </div>
-      <div class="demo-page__description">
+      <div class="demo-main__description-panel">
         <div class="demo-description__header">
           <a href="https://www.yfiles.com" class="demo-description__logo"></a>
         </div>
         <div class="demo-description__content">
-          <h1>Rollup.js Demo</h1>
+          <div class="subheading">Demo</div>
+          <h1>Rollup.js</h1>
           <p>
             This demo shows how to bundle the yFiles library in a
             <a href="https://rollupjs.org" target="_blank">rollup</a> project.

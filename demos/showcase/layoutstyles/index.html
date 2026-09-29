@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Layout Styles Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -150,6 +147,18 @@
     <link rel="stylesheet" href="./resources/styles.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.9/angular.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.7.9/angular-sanitize.min.js"></script>
+    <style>
+      .interaction-panel #layout-select-box {
+        max-width: none !important;
+      }
+
+      .interaction-panel #sample-select-box {
+        max-width: none !important;
+      }
+      .interaction-panel select {
+        max-width: 130px !important;
+      }
+    </style>
   </head>
   <body class="demo-modern">
     <div id="splash-screen">
@@ -484,20 +493,21 @@
         </div>
         <div id="graphComponent"></div>
       </div>
-      <div class="interaction-panel">
-        <div id="interactionPanelContent">
+      <div class="interaction-panel advanced-editor absolute-collapse">
+        <div id="interactionPanelContent" class="content">
           <div class="data-editor-header">
-            <h2 style="margin-top: 0">Layout Algorithm</h2>
+            <h2>Layout Algorithm</h2>
             <select tabindex="1" id="layout-select-box" title="Select a layout algorithm"></select>
           </div>
 
           <div class="data-editor-header">
-            <h2 style="margin-top: 0">Sample Graph</h2>
+            <h2>Sample Graph</h2>
             <div class="content">
               <select
                 tabindex="2"
                 id="sample-select-box"
                 title="Select a sample for the layout algorithm"
+                style="width: 100%"
               ></select>
               <button
                 data-command="OpenInSidebar"
@@ -510,7 +520,7 @@
           </div>
 
           <div class="data-editor-header">
-            <h2 style="margin-top: 0">Settings</h2>
+            <h2>Settings</h2>
           </div>
           <div class="scrollbar scroll">
             <div class="data-editor-tab">
@@ -734,7 +744,7 @@
               <!-- End Templates -->
             </div>
           </div>
-          <div id="data-editor-button-container" class="demo-form-block">
+          <div class="button-container">
             <button
               id="apply-layout-button"
               title="Apply the Layout
@@ -751,7 +761,8 @@
         </div>
       </div>
       <div class="description-panel">
-        <h1>Layout Styles Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Layout Styles</h1>
 
         <p>
           This demo showcases the most used layout algorithms of yFiles, including hierarchical,

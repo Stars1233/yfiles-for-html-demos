@@ -10,16 +10,20 @@
   },
   "devDependencies": {
     "@types/jest": "^30.0.0",
-    "jest": "~30.3.0",
+    "jest": "^30.5.1",
     "jest-puppeteer": "^11.0.0",
-    "puppeteer": "^25.4.0",
+    "puppeteer": "^25.11.0",
     "ts-jest": "^29.4.12"
   },
+  "overrides": {
+    "test-exclude": "^8.0.0"
+  },
   "allowScripts": {
-    "puppeteer@25.4.0": true,
-    "unrs-resolver@1.12.2": true
+    "puppeteer@25.11.0": true,
+    "unrs-resolver@1.12.2": true,
+    "@parcel/watcher@2.6.0": true
   },
   "dependencies": {
-    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.2+dev.tgz"
+    "@yfiles/yfiles": "../../../lib-dev/yfiles-31.0.3+dev.tgz"
   }
 }

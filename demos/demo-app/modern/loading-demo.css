@@ -28,7 +28,7 @@
  ***************************************************************************/
 @import '@fontsource/poppins/600.css';
 @import '@fontsource/poppins/400.css';
-@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,fit_page_width,folder_open,format_paint,fullscreen,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,reset,save,search,set_meal,settings,shopping_cart,stop,store,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,warning,water,wheat,zoom_in,zoom_out,zoom_out_map&display=block';
+@import 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL,wght@0..1,100..700&icon_names=account_balance,account_tree,add,add_2,add_circle,agriculture,anchor,arrow_back,arrows_outward,article,asterisk,bakery_dining,block,breakfast_dining,browse,build,cable,check_box,check_box_outline_blank,check_circle,chevron_left,chevron_right,circle,close,close_small,collapse_content,colors,compare_arrows,compost,compress,content_copy,content_cut,content_paste,copy_all,coronavirus,crop_9_16,crop_free,cut,dark_mode,delete,delete_forever,directions_boat,diversity_1,do_not_disturb_on,download,drag_indicator,eco,egg,electric_bolt,error,event,expand,expand_all,expand_content,expand_more,experiment,factory,file_open,files,filter_alt,filter_alt_off,fit_page_width,folder_open,format_paint,fullscreen,gas_meter,grain,graph_3,grid_4x4,grid_on,headset_mic,health_cross,help,home,horizontal_align_left,horizontal_align_right,hub,incomplete_circle,ink_highlighter,ink_highlighter_off,insert_chart,keyboard_arrow_down,keyboard_arrow_left,keyboard_arrow_right,keyboard_arrow_up,light_mode,lightbulb,list,local_cafe,local_pizza,local_shipping,location_city,location_on,map,menu,microbiology,mode_heat,more_horiz,new_window,nutrition,open_in_new,package_2,pause,person,play_arrow,play_circle,polyline,print,public,redo,refresh,remove,repeat,replay,reset,reset_settings,save,search,set_meal,settings,shopping_cart,stop,store,sync,sunny,toggle_off,toggle_on,tooltip_2,trending_down,undo,vertical_align_bottom,vertical_align_top,view_kanban,visibility,visibility_off,ward,warning,water,wheat,wind_power,zoom_in,zoom_out,zoom_out_map&display=block';
 .node {
   fill: #0b7189;
   stroke: #042d37;
@@ -154,7 +154,7 @@
   background: none;
   font-size: 20px;
   border: none;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease-in-out;
   opacity: 0.8;
 }
 .yplay__message-host .yplay__message--close-button:hover {
@@ -206,6 +206,13 @@ button[data-command] {
 :root[data-theme='dark'] .icon-inline,
 :root[data-theme='dark'] button[data-command] {
   font-variation-settings: 'GRAD' clamp(0, calc(400 + (0 - 400) * ((100vw - 320px) / (880 * 1px))), 400);
+}
+button.icon.yIcon,
+button .icon.yIcon,
+a .icon.yIcon,
+.icon-inline.yIcon,
+button[data-command].yIcon {
+  font-size: 1.2rem;
 }
 .icon-inline {
   font-size: inherit;

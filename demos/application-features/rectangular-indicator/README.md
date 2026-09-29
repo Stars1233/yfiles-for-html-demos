@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/application-features/rectangular-indicator/).
 
+Demo
+
 This demo shows how we can apply a rectangular indicator to a graph.
 
 ## Things to Try

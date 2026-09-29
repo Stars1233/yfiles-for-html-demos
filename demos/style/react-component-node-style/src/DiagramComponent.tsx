@@ -28,6 +28,7 @@
  ***************************************************************************/
 import { Graph, GraphComponent } from '@yfiles/yfiles'
 import { useLayoutEffect, useRef } from 'react'
+import './diagram-component.css'
 
 export function DiagramComponent(props: { initGraph: (graphComponent: GraphComponent) => void }) {
   const gcDiv = useRef<HTMLDivElement>(null)
@@ -49,5 +50,5 @@ export function DiagramComponent(props: { initGraph: (graphComponent: GraphCompo
     }
   }, [])
 
-  return <div ref={gcDiv} className="graph-component" style={{ height: '100%' }}></div>
+  return <div ref={gcDiv} className="graph-component"></div>
 }

@@ -1,0 +1,117 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+#filtering-view {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 0.1rem;
+  font-size: 0.875rem;
+}
+
+.filter-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.5rem;
+}
+
+.filter-field label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0 4px;
+  background-color: var(--description-bg);
+  color: var(--color-text);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.filter-field input,
+.filter-field select {
+  width: 100%;
+  padding: 8px;
+  font-size: 0.875rem;
+  font-family: inherit;
+  border: 1px solid var(--color-text);
+  border-radius: 4px;
+  background-color: transparent;
+  color: var(--color-text);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.filter-field input:focus,
+.filter-field select:focus {
+  border: 2px solid light-dark(var(--color-highlight-pink), var(--color-highlight-gold));
+}
+
+.filter-field input:focus + label,
+.filter-field input:not(:placeholder-shown) + label,
+.filter-field input[type='datetime-local'] + label,
+.filter-field input[type='date'] + label {
+  top: 0;
+  font-size: 12px;
+  color: light-dark(var(--color-highlight-pink), var(--color-highlight-gold));
+}
+
+/* Revert color when not focused, even if label is floating */
+.filter-field input:not(:focus):not(:placeholder-shown) + label,
+.filter-field input[type='datetime-local']:not(:focus) + label,
+.filter-field input[type='date']:not(:focus) + label {
+  color: var(--color-text);
+}
+
+.filter-field select {
+  appearance: none;
+  padding-right: 40px;
+}
+
+.filter-field select:valid + label {
+  top: 0;
+  font-size: 12px;
+}
+
+.filter-field select option {
+  background-color: var(--description-bg);
+  color: var(--color-text);
+}
+
+.filter-field select option:hover {
+  background-color: light-dark(var(--color-highlight-pink), var(--color-highlight-gold));
+  color: var(--color-text-reversed);
+}
+
+.filter-field select option:disabled {
+  color: lightgrey;
+}

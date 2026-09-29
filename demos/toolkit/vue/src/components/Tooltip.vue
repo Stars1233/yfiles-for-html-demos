@@ -40,7 +40,6 @@ export default defineComponent({
   font-size: 1.25rem;
   font-weight: 500;
   line-height: 2rem;
-  font-family: Roboto, sans-serif;
   margin: 0 0 4px 0;
 }
 
@@ -49,7 +48,6 @@ export default defineComponent({
   font-weight: 400;
   line-height: 1.5rem;
   letter-spacing: 0.03125em;
-  font-family: Roboto, sans-serif;
   color: rgba(0, 0, 0, 0.87);
   margin: 0;
 }

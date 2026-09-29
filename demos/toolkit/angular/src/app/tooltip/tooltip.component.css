@@ -34,17 +34,16 @@
   padding: 10px 15px;
   background-color: white;
   border-radius: 4px;
+  font-family: 'poppins', sans-serif;
 }
 
 h4 {
   font-size: 1.25rem !important;
-  font-family: Roboto, sans-serif;
   margin: 0 0 1em 0;
 }
 
 p {
   font-size: 1rem;
   letter-spacing: 0.03125em;
-  font-family: Roboto, sans-serif;
   margin-bottom: 0;
 }

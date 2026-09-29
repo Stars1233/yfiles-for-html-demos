@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/layout/edgelabelplacement/).
 
+Demo
+
 This demo shows how to place edge labels at the preferred location with a labeling algorithm and the [EdgeLabelPreferredPlacement](https://docs.yworks.com/yfileshtml/api/EdgeLabelPreferredPlacement) type.
 
 ## Usage

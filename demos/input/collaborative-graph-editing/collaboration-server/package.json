@@ -1,0 +1,25 @@
+{
+  "name": "@yfiles/collaboration-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start:guarded-colab-server": "cross-env HOST=0.0.0.0 PORT=3001 ENABLE_GUARD=true tsx server.ts",
+    "start:unguarded-colab-server": "cross-env HOST=0.0.0.0 PORT=3001 ENABLE_GUARD=false tsx server.ts"
+  },
+  "dependencies": {
+    "@y/websocket-server": "^0.1.1",
+    "cross-env": "^10.1.0",
+    "ws": "^8.21.3",
+    "y-websocket": "^3.1.0",
+    "yjs": "^13.6.33",
+    "tsx": "^4.23.15",
+    "@yfiles/yfiles": "../../../../lib-dev/yfiles-31.0.3+dev.tgz"
+  },
+  "devDependencies": {
+    "@types/node": "^26.3.0",
+    "@types/ws": "^8.18.1",
+    "typescript": "npm:@typescript/typescript6@~6.0.2",
+    "typescript-7": "npm:typescript@~7.0.2"
+  }
+}

@@ -35,12 +35,20 @@
 .control-button {
   width: 150px;
   height: 80px;
-  margin: 5px;
+  margin-right: 5px;
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  font-family: 'poppins', sans-serif;
+
+  &:hover {
+    background-color: #dedede;
+  }
 }
 .control-button > .material-symbols-outlined {
   margin-bottom: 5px;

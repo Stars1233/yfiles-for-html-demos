@@ -6,9 +6,7 @@ export default defineComponent({ components: { DiagramComponent } })
 </script>
 
 <template>
-  <div class="demo-main__graph-component">
-    <diagram-component />
-  </div>
+  <diagram-component />
 </template>
 
 <style scoped></style>

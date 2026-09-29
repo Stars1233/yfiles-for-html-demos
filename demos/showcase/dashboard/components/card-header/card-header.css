@@ -1,0 +1,174 @@
+/****************************************************************************
+ ** @license
+ ** This demo file is part of yFiles for HTML.
+ ** Copyright (c) 2026 by yWorks GmbH, Vor dem Kreuzberg 28,
+ ** 72070 Tuebingen, Germany. All rights reserved.
+ **
+ ** yFiles demo files exhibit yFiles for HTML functionalities. Any redistribution
+ ** of demo files in source code or binary form, with or without
+ ** modification, is not permitted.
+ **
+ ** Owners of a valid software license for a yFiles for HTML version that this
+ ** demo is shipped with are allowed to use the demo source code as basis
+ ** for their own yFiles for HTML powered applications. Use of such programs is
+ ** governed by the rights and conditions as set out in the yFiles for HTML
+ ** license agreement.
+ **
+ ** THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESS OR IMPLIED
+ ** WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ ** MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN
+ ** NO EVENT SHALL yWorks BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+ ** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ ** TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+ ** PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ ** LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ ** NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ ** SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ **
+ ***************************************************************************/
+:host {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  user-select: none;
+}
+
+::slotted(h1) {
+  flex: 1;
+  margin: 0;
+  color: var(--description-heading1);
+}
+
+::slotted(h2) {
+  flex: 1;
+  margin: 0;
+  color: var(--description-heading);
+  font-size: 1.2rem;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+  align-self: baseline;
+}
+
+button.collapse,
+button.help,
+button.close {
+  flex-shrink: 0;
+  font-family: 'Material Symbols Outlined', sans-serif;
+  font-variation-settings: 'GRAD'
+    clamp(30, calc(430 + (30 - 430) * ((100vw - 320px) / (880 * 1px))), 430);
+  font-weight: 270;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: inline-block;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  border: none;
+  border-radius: 99px;
+  width: 40px;
+  height: 40px;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button.collapse:hover,
+button.help:hover {
+  background-color: var(--toolbar-button);
+}
+
+.menu__wrapper {
+  position: relative;
+  display: flex;
+}
+
+.menu__button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 99px;
+  width: 40px;
+  height: 40px;
+  color: inherit;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.menu__button:hover {
+  background-color: var(--toolbar-button);
+}
+
+.menu__popup {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 0.5rem;
+  background-color: light-dark(#ffffff, #1e232b);
+  border: 1px solid #cfd4da;
+  border-radius: var(--border-radius);
+  display: none;
+  flex-direction: column;
+  min-width: 150px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 20000;
+}
+
+.menu__popup.show {
+  display: flex;
+}
+
+.menu__popup button {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  text-align: left;
+}
+
+.menu__popup button:hover {
+  background-color: var(--toolbar-button-hover);
+}
+
+.menu__popup button[aria-pressed='true'] {
+  background: var(--toolbar-button);
+}
+
+.help-popover {
+  position: fixed;
+  background: light-dark(var(--color-casper-blue-white), var(--color-casper-blue-mid));
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  max-width: 600px;
+  width: 90vw;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+}
+
+.help-popover__content {
+  color: var(--color-text);
+  font: inherit;
+  line-height: 1.6px;
+  font-size: 0.92rem;
+}
+
+.help-popover__content li {
+  margin-bottom: 0.5rem;
+}

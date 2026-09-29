@@ -40,9 +40,11 @@ export const SolidGraphOverviewComponent = (props: SolidGraphOverviewComponentPr
     overviewComponent = new GraphOverviewComponent(overviewDiv!, props.graphComponent())
   })
   onCleanup(() => {
-    overviewDiv.removeChild(overviewComponent.htmlElement)
-    overviewComponent.cleanUp()
-    overviewComponent.graphComponent = null
+    if (overviewComponent) {
+      overviewDiv.removeChild(overviewComponent.htmlElement)
+      overviewComponent.cleanUp()
+      overviewComponent.graphComponent = null
+    }
   })
 
   return (

@@ -27,7 +27,6 @@
  **
  ***************************************************************************/
 import React, { ChangeEvent } from 'react'
-import './DemoToolbar.css'
 
 interface DemoToolbarProps {
   resetData(): void
@@ -40,11 +39,11 @@ interface DemoToolbarProps {
 
 export default function DemoToolbar(props: DemoToolbarProps) {
   return (
-    <div className="demo-toolbar">
+    <div className="component-toolbar">
       <button title="Reset Data" onClick={props.resetData}>
         <span className="material-symbols-outlined">refresh</span>
       </button>
-      <span className="demo-separator" />
+      <span className="separator" />
       <button title="Zoom Out" onClick={props.zoomOut}>
         <span className="material-symbols-outlined">zoom_out</span>
       </button>
@@ -54,8 +53,11 @@ export default function DemoToolbar(props: DemoToolbarProps) {
       <button title="Fit Diagram" onClick={props.fitContent}>
         <span className="material-symbols-outlined">zoom_out_map</span>
       </button>
-      <span className="demo-separator" />
-      <input className="search" placeholder="Search Nodes" onChange={props.searchChange} />
+      <span className="separator" />
+      <label>
+        Search:
+        <input className="search" onChange={props.searchChange} />
+      </label>
     </div>
   )
 }

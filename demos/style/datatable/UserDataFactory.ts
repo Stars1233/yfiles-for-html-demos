@@ -57,7 +57,7 @@ const FAMILY_NAMES = [
 
 const UNITS = ['Development', 'Management', 'Marketing', 'R&D', 'Sales']
 
-export type UserData = { name: string; unit: string; email: string; phone: string; fax: string }
+export type UserData = { name: string; unit: string; email: string; phone: string }
 
 export function createNewRandomUserData(): UserData {
   const firstName = FIRST_NAMES[getRandomInt(FIRST_NAMES.length)]
@@ -67,8 +67,7 @@ export function createNewRandomUserData(): UserData {
     name: `${firstName} ${familyName}`,
     unit: UNITS[getRandomInt(UNITS.length)],
     email: `${firstName.toLowerCase() + familyName.toLowerCase()}@yoyodyne.com`,
-    phone: `555-${phoneNumber}`,
-    fax: `555-${phoneNumber + 1}`
+    phone: `555-${phoneNumber}`
   }
 }
 

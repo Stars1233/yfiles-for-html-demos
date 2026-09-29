@@ -65,11 +65,7 @@ export function ReactGraphComponent({ graphData, onResetData }: ReactGraphCompon
 
   return (
     <>
-      <div
-        className="graph-component-container"
-        style={{ width: '100%', height: '100%' }}
-        ref={graphComponentContainer}
-      >
+      <div className="graph-component-container" ref={graphComponentContainer}>
         <div className="toolbar">
           <DemoToolbar
             resetData={onResetData}
@@ -81,11 +77,11 @@ export function ReactGraphComponent({ graphData, onResetData }: ReactGraphCompon
             exportSvg={() => exportSvg(graphComponent)}
           />
         </div>
-        <div style={{ position: 'absolute', left: '20px', top: '20px' }}>
+        <div style={{ position: 'absolute', right: '20px', bottom: '20px' }}>
           <ReactGraphOverviewComponent />
         </div>
+        <ContextMenuComponent />
       </div>
-      <ContextMenuComponent />
     </>
   )
 }

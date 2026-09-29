@@ -184,6 +184,9 @@ export class Sample1LabelStyle extends LabelStyleBase<Sample1LabelStyleVisual> {
       container.appendChild(button)
 
       button.addEventListener('click', () => onMouseDown(context.canvasComponent, label), false)
+      // Stop the pointerdown event propagation, so yFiles does not start pointer capture.
+      // Otherwise, the click listener above would not be triggered.
+      button.addEventListener('pointerdown', (evt) => evt.stopPropagation())
     }
   }
 

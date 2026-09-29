@@ -27,174 +27,367 @@
  **
  ***************************************************************************/
 import {
-  EdgeDataKey,
+  BundledEdgeRouter,
+  CircularLayout,
   EdgeLabelPreferredPlacement,
   GenericLabelingData,
   GenericLayoutData,
+  GivenCoordinatesLayout,
+  GivenCoordinatesLayoutData,
   type GraphComponent,
   type IEdge,
+  IEnumerable,
+  type IGraph,
   type ILabel,
+  type ILayoutAlgorithm,
   type INode,
-  Insets,
   type LayoutData,
-  type LayoutDescriptor,
-  type LayoutEdge,
-  type LayoutEdgeLabel,
-  LayoutExecutorAsync,
+  LayoutExecutor,
   type LayoutGraph,
   LayoutGraphHider,
-  type LayoutNode,
-  type LayoutNodeLabel,
   LayoutStageBase,
-  NodeDataKey,
+  List,
   NodeLabelDataKey,
   OrganicLayout,
   OrganicLayoutData,
+  RadialLayout,
   RadialLayoutData,
-  RadialTreeLayout,
   RecursiveGroupLayout,
-  RecursiveGroupLayoutData
+  TemporaryGroupDescriptor,
+  TemporaryGroupInsertionData,
+  TemporaryGroupInsertionStage
 } from '@yfiles/yfiles'
-import { getEdgeTag, getLabelTag, getNodeTag } from './types'
+import { getLabelTag, getNodeTag } from './types'
+import { getFilteredGraph } from './filtering'
 
-export const clusterNodeDataKey = new NodeDataKey<number | undefined>('ClusterNodeDataKey')
-export const problemEdgeDataKey = new EdgeDataKey<boolean>('ProblemEdgeDataKey')
-
-let executor: LayoutExecutorAsync | null = null
+type AlgorithmConfig = { layout: ILayoutAlgorithm; layoutData: LayoutData }
+type GroupKey = string | number
 
 /**
- * Applies the layout in a web worker task.
+ * Runs the selected layout algorithm on the graph.
+ *
+ * Supported layout styles are `clusters`, `teams`, `location`, and
+ * `neighborhood`. The 'clusters' layout is used by default.
+ *
+ * @param graphComponent - The graph component whose graph should be arranged
+ * @param layoutStyle - The layout style to apply
+ * @param importantNodes - Nodes that require special handling by the layout
  */
 export async function runLayout(
-  worker: Worker,
   graphComponent: GraphComponent,
-  layoutStyle = 'organic'
+  layoutStyle: string,
+  importantNodes?: INode[]
 ): Promise<void> {
-  let layoutData
-  switch (layoutStyle) {
-    case 'organic':
-      layoutData = createOrganicLayoutData()
-      break
-    case 'neighborhood':
-      layoutData = createRadialLayoutData()
-      break
-    case 'teams':
-      layoutData = createTeamsOrganicLayoutData()
-      break
-  }
+  const config = getLayoutConfig(graphComponent, layoutStyle, importantNodes)
 
-  const layoutDescriptor = (
-    layoutStyle === 'organic'
-      ? createOrganicLayoutDescriptor()
-      : layoutStyle === 'neighborhood'
-        ? createNeighborhoodLayoutDescriptor()
-        : { name: 'UserDefined', properties: {} }
-  ) as LayoutDescriptor
-
-  executor = new LayoutExecutorAsync({
-    messageHandler: LayoutExecutorAsync.createWebWorkerMessageHandler(worker),
+  const executor = new LayoutExecutor({
     graphComponent,
-    layoutDescriptor,
-    layoutData,
+    layout: config.layout,
+    layoutData: config.layoutData,
     animationDuration: '0.1s',
     animateViewport: true,
     easedAnimation: true
   })
 
-  // run the Web Worker layout
   await executor.start()
-  executor = null
 }
 
 /**
- * Creates the object that describes the 'Organic' layout configuration to the Web Worker layout executor.
- * @returns The LayoutDescriptor for this layout
+ * Configures the layout algorithm and the layout data based on the given layout style.
+ *
+ * @param graphComponent - The graphComponent to layout
+ * @param layoutStyle - The layout style to be applied
+ * @param importantNodes - Nodes that require special handling by the layout
  */
-function createOrganicLayoutDescriptor(): LayoutDescriptor {
-  return {
-    name: 'OrganicLayout',
-    properties: {
-      nodeLabelPlacement: 'consider',
-      edgeLabelPlacement: 'integrated',
-      defaultPreferredEdgeLength: 40,
-      compactnessFactor: 1,
-      qualityTimeRatio: 0.4,
-      deterministic: true,
-      avoidNodeEdgeOverlap: true,
-      clusteringPolicy: 'louvain-modularity'
-    }
+function getLayoutConfig(
+  graphComponent: GraphComponent,
+  layoutStyle: string,
+  importantNodes?: INode[]
+): AlgorithmConfig {
+  switch (layoutStyle) {
+    case 'teams':
+    case 'location':
+      return configureCircularLayout(graphComponent, layoutStyle)
+    case 'neighborhood':
+      return configureRadialLayout(importantNodes)
+    case 'clusters':
+    default:
+      return configureClusteringLayout(graphComponent)
   }
 }
 
 /**
- * Creates the object that describes the 'Neighborhood' layout configuration to the Web Worker layout executor.
- * @returns The LayoutDescriptor for this layout
+ * Inserts temporary groups based on node cluster IDs and arranges the graph
+ * using a Recursive Group Layout with an Organic Layout as the core layout.
+ * Finally, applies a Bundled Edge Router to bundle edges and reduce visual clutter.
+ *
+ * @param graphComponent - The graphComponent to layout
  */
-function createNeighborhoodLayoutDescriptor(): LayoutDescriptor {
-  return {
-    name: 'RadialLayout',
-    properties: {
-      nodeLabelPlacement: 'ray-like',
+function configureClusteringLayout(graphComponent: GraphComponent): AlgorithmConfig {
+  const graph = graphComponent.graph
+  // Core layout used for each clustered group.
+  const organicLayout = new OrganicLayout({ compactnessFactor: 1, qualityTimeRatio: 1 })
+
+  // Applies the core layout recursively to nested group nodes.
+  const recursiveGroupLayout = new RecursiveGroupLayout({ coreLayout: organicLayout })
+
+  // Bundles edges and inserts temporary group nodes before applying the core layout.
+  const layout = new BundledEdgeRouter({
+    edgeBundling: { bundlingStrength: 0.7 },
+    strategy: 'spanner',
+    coreLayout: new TemporaryGroupInsertionStage(recursiveGroupLayout)
+  })
+
+  // Group nodes by their cluster IDs, which are derived from the Louvain clustering result.
+  const groups = groupNodesBy(graph.nodes, (node) => getNodeTag(node).clusterId!)
+  const temporaryGroupsData = createTemporaryGroupsData(
+    groups.values(),
+    () =>
+      new OrganicLayout({
+        nodeLabelPlacement: 'consider',
+        defaultPreferredEdgeLength: 70,
+        starSubstructureStyle: 'radial',
+        treeSubstructureStyle: 'radial-tree',
+        starSubstructureSize: 30,
+        defaultMinimumNodeDistance: 10
+      })
+  )
+
+  const organicLayoutData = new OrganicLayoutData({
+    // Keep nodes of the same type closer together in the final layout.
+    nodeTypes: (node: INode) => getNodeTag(node).type
+  })
+
+  return { layout, layoutData: temporaryGroupsData.combineWith(organicLayoutData) }
+}
+
+/**
+ * Groups nodes by team or by the team's location, then arranges the graph
+ * using a Recursive Group Layout with a Circular Layout as the core layout.
+ * Finally, applies a Bundled Edge Router to reduce edge crossings and visual clutter.
+ *
+ * @param graphComponent - The graphComponent to layout
+ * @param groupBy - Determines whether nodes are grouped by team or by location
+ */
+function configureCircularLayout(graphComponent: GraphComponent, groupBy: string): AlgorithmConfig {
+  const graph = graphComponent.graph
+  // Core layout used for the recursive arrangement of each group.
+  const circularLayout = new CircularLayout({
+    partitioningPolicy: 'single-cycle',
+    nodeLabelPlacement: 'consider',
+    partitionDescriptor: { minimumNodeDistance: 0 }
+  })
+  if (groupBy !== 'location') {
+    circularLayout.componentLayout.enabled = false
+    circularLayout.partitionDescriptor.minimumNodeDistance = 50
+  }
+
+  // Applies the core layout recursively to nested group nodes.
+  const recursiveGroupLayout = new RecursiveGroupLayout({ coreLayout: circularLayout })
+
+  // Bundles edges and inserts temporary group nodes before applying the core layout.
+  const layout = new BundledEdgeRouter({
+    strategy: 'force-directed',
+    edgeBundling: { bundlingStrength: 0.99, bundlingQuality: 1 },
+    coreLayout: new TemporaryGroupInsertionStage(recursiveGroupLayout)
+  })
+
+  // Group nodes by team, or by the location of their team when requested.
+  const groups = groupNodesBy(graph.nodes, (node) => {
+    return getGroupName(graph, node, groupBy)
+  })
+
+  const temporaryGroupsData = createTemporaryGroupsData(
+    groups.values(),
+    () =>
+      new OrganicLayout({
+        nodeLabelPlacement: 'consider',
+        starSubstructureStyle: 'radial-nested',
+        starSubstructureSize: 25,
+        defaultPreferredEdgeLength: 40
+      })
+  )
+  return { layout, layoutData: temporaryGroupsData }
+}
+
+/**
+ * Arranges the graph using a Radial Layout and hides non-text labels during
+ * the layout process so they do not affect the result.
+ *
+ * @param centerNodes - Nodes that require special handling by the layout
+ * @returns The layout algorithm and its associated layout data
+ */
+function configureRadialLayout(centerNodes?: INode[]): AlgorithmConfig {
+  // Wrap the radial layout in a custom stage that temporarily hides selected labels.
+  const layout = new LabelRemovalStage(
+    new RadialLayout({
+      nodeLabelPlacement: 'ray-like-leaves',
       edgeLabelPlacement: 'generic',
       maximumChildSectorAngle: 360
-    }
-  }
-}
+    })
+  )
 
-/**
- * Creates the layout data that is used to execute the radial layout.
- */
-function createRadialLayoutData(): LayoutData<INode, IEdge, ILabel, ILabel> {
   const genericLayoutData = new GenericLayoutData()
-  // Mark the labels that have to be removed from the layout.
-  // Icon labels should be hidden so that they are ignored by the layout algorithm.
+  // Hide icon labels so that they are ignored by the layout algorithm.
   genericLayoutData.addItemCollection(LabelRemovalStage.LABEL_REMOVAL_DATA_KEY).predicate = (
     label: ILabel
   ) => getLabelTag(label).type !== 'text'
 
+  // Configure edge label placement along edges.
   const genericLabelingData = new GenericLabelingData({
     edgeLabelPreferredPlacements: new EdgeLabelPreferredPlacement({
       edgeSide: 'on-edge',
       placementAlongEdge: 'at-center'
     })
   })
-  return genericLabelingData.combineWith(
-    genericLayoutData.combineWith(
-      new RadialLayoutData({ nodeTypes: (item: INode) => getNodeTag(item).clusterId })
-    )
+
+  // Use cluster IDs as the radial grouping criterion.
+  const radialLayoutData = new RadialLayoutData({
+    nodeTypes: (node: INode) => getNodeTag(node).clusterId,
+    centerNodes
+  })
+
+  return {
+    layout,
+    layoutData: genericLabelingData.combineWith(genericLayoutData.combineWith(radialLayoutData))
+  }
+}
+
+/**
+ * Groups nodes by a key derived from each node.
+ *
+ * @param nodes - The nodes to group
+ * @param getGroupKey - Returns the grouping key for a node
+ * @returns A map whose keys are group identifiers and whose values are the nodes in each group
+ */
+function groupNodesBy(
+  nodes: Iterable<INode>,
+  getGroupKey: (node: INode) => GroupKey
+): Map<GroupKey, INode[]> {
+  const groups = new Map<GroupKey, INode[]>()
+  for (const node of nodes) {
+    const groupKey = getGroupKey(node)
+    const group = groups.get(groupKey)
+
+    if (group) {
+      group.push(node)
+    } else {
+      groups.set(groupKey, [node])
+    }
+  }
+  return groups
+}
+
+/**
+ * Creates temporary group descriptors for the given node groups.
+ *
+ * @param groups - The node groups to insert temporarily into the graph
+ * @param createGroupLayout - Creates the layout used for each temporary group
+ * @returns The temporary group insertion data
+ */
+function createTemporaryGroupsData(
+  groups: Iterable<INode[]>,
+  createGroupLayout: () => OrganicLayout
+): TemporaryGroupInsertionData {
+  const data = new TemporaryGroupInsertionData()
+  for (const groupNodes of groups) {
+    const temporaryGroup = new TemporaryGroupDescriptor({
+      recursiveGroupLayoutAlgorithm: createGroupLayout()
+    })
+    data.temporaryGroups.add(temporaryGroup).items = List.from(groupNodes)
+  }
+
+  return data
+}
+
+/**
+ * Returns the grouping name for a node based on the selected circular layout mode.
+ * Nodes are grouped either by their team label or by the label of their team's location.
+ *
+ * @param graph - The graph containing the node
+ * @param node - The node whose group name should be determined
+ * @param groupBy - Determines whether grouping is based on team or location
+ * @returns The group name used for circular layout grouping
+ */
+function getGroupName(graph: IGraph, node: INode, groupBy: string): string {
+  const teamNode = getTeamNode(graph, node)
+  let groupName = getNodeTag(teamNode).label
+  if (groupBy === 'location') {
+    const locationEdge = getLocationNode(graph, teamNode)
+    if (locationEdge) {
+      groupName = getNodeTag(locationEdge.targetNode).label
+    }
+  }
+  return groupName
+}
+
+/**
+ * Returns the team node associated with the given node.
+ * If the node is already a team node, it is returned as-is.
+ * Otherwise, the function tries to find a connected team node with the same cluster ID.
+ *
+ * @param graph - The graph containing the node
+ * @param node - The node whose associated team node should be resolved
+ * @returns The matching team node, or the original node if no team node is found
+ */
+function getTeamNode(graph: IGraph, node: INode): INode {
+  const nodeTag = getNodeTag(node)
+  if (nodeTag.type === 'Team') {
+    return node
+  }
+  const isMatchingTeam = (candidate: INode): boolean => {
+    const candidateTag = getNodeTag(candidate)
+    return candidateTag.type === 'Team' && candidateTag.clusterId === nodeTag.clusterId
+  }
+
+  const teamEdge = graph.edgesAt(node).find((edge) => {
+    return isMatchingTeam(edge.sourceNode) || isMatchingTeam(edge.targetNode)
+  })
+
+  const adjacentTeam = teamEdge
+    ? isMatchingTeam(teamEdge.sourceNode)
+      ? teamEdge.sourceNode
+      : teamEdge.targetNode
+    : undefined
+  return adjacentTeam ?? graph.nodes.find(isMatchingTeam) ?? node
+}
+
+/**
+ * Returns the outgoing edge from a team node to its location node.
+ *
+ * @param graph - The graph containing the team node
+ * @param teamNode - The team node whose location edge should be found
+ * @returns The outgoing edge to a location node, or `null` if none exists
+ */
+function getLocationNode(graph: IGraph, teamNode: INode): IEdge | null {
+  return (
+    graph.outEdgesAt(teamNode).find((edge) => {
+      return getNodeTag(edge.targetNode).type === 'Location'
+    }) ?? null
   )
 }
 
 /**
- * Creates the layout data that is used to execute the organic layout.
- */
-function createOrganicLayoutData(): OrganicLayoutData {
-  return new OrganicLayoutData({
-    nodeMargins: new Insets(20),
-    edgeLabelPreferredPlacements: (label) =>
-      new EdgeLabelPreferredPlacement({
-        edgeSide: getEdgeTag(label.owner as IEdge).problem ? 'right-of-edge' : 'on-edge',
-        angleReference: 'relative-to-edge-flow',
-        distanceToEdge: 30
-      })
-  })
-}
-
-/**
- * Creates and configures the layout data required for the 'Teams' layout.
+ * Moves the incremental nodes of the graph at the center of the graphComponent and
+ * resets the edge paths so that the animation of the layout is smoother and nicer.
  *
- * Cluster information and the “edge contains a problem” flag are stored in
- * GenericLayoutData so they can be serialized and transferred to the WebWorker.
+ * @param graphComponent - The given graphComponent
+ * @param incrementalNodes - The new nodes inserted in the graphComponent
  */
-function createTeamsOrganicLayoutData(): GenericLayoutData {
-  const layoutData = new GenericLayoutData()
-  // and register the information in the data using a node mapping with a given key
-  layoutData.addItemMapping(clusterNodeDataKey).mapperFunction = (node) =>
-    getNodeTag(node).clusterId
-  layoutData.addItemMapping(problemEdgeDataKey).mapperFunction = (edge) =>
-    !!getEdgeTag(edge).problem
+export function prepareSmoothLayoutAnimation(
+  graphComponent: GraphComponent,
+  incrementalNodes: INode[]
+): void {
+  const graph = getFilteredGraph(graphComponent)
 
-  return layoutData
+  graph.applyLayout(
+    new GivenCoordinatesLayout(),
+    new GivenCoordinatesLayoutData({
+      nodeLocations: (node) =>
+        incrementalNodes.includes(node) ? graphComponent.viewport.center : node.layout.center,
+      edgePaths: IEnumerable.EMPTY
+    })
+  )
 }
 
 /**
@@ -235,92 +428,5 @@ export class LabelRemovalStage extends LayoutStageBase {
     if (dataMap) {
       hider.unhideAll()
     }
-  }
-}
-
-/**
- * Custom layout stage that organizes nodes by cluster before an organic applying layout.
- * The stage creates a group node for each cluster and then applies the
- * RecursiveGroupLayout which will arrange the content of each cluster using an organic
- * layout algorithm, while the backbone graph (grouped graph) will be arranged by a radial tree layout.
- */
-export class CustomOrganicLayoutStage extends LayoutStageBase {
-  /**
-   * Applies custom layout combining cluster grouping with organic and radial layouts.
-   *
-   * @param graph - The layout graph to arrange
-   */
-  protected applyLayoutImpl(graph: LayoutGraph): void {
-    // Group nodes by cluster ID
-    const node2cluster = new Map<number, LayoutNode>()
-    const groupNodes: LayoutNode[] = []
-
-    const clusterIdMap = graph.context.getItemData<number | undefined>(clusterNodeDataKey)!
-    graph.nodes.toArray().forEach((node) => {
-      const clusterId = clusterIdMap.get(node)
-      if (clusterId) {
-        // Create group node if cluster doesn't exist yet
-        if (!node2cluster.get(clusterId)) {
-          const group = graph.createGroupNode()
-          node2cluster.set(clusterId, group)
-          groupNodes.push(group)
-        }
-
-        // Add node to its cluster group
-        const group = node2cluster.get(clusterId)!
-        graph.setParent(node, group)
-      }
-    })
-
-    // Configure organic layout for nodes within each group
-    const organicLayout = new OrganicLayout({
-      nodeLabelPlacement: 'consider',
-      edgeLabelPlacement: 'integrated',
-      defaultPreferredEdgeLength: 0,
-      starSubstructureStyle: 'radial-nested',
-      cycleSubstructureStyle: 'circular'
-    })
-
-    // Configure radial tree layout for arranging cluster groups
-    const radialTreeLayout = new RadialTreeLayout({
-      childAlignmentPolicy: 'compact',
-      childOrderingPolicy: 'symmetric',
-      nodeLabelPlacement: 'ignore',
-      edgeLabelPlacement: 'ignore',
-      rootSelectionPolicy: 'center-root',
-      compactnessFactor: 1,
-      minimumNodeDistance: 0,
-      minimumEdgeLength: 0,
-      allowOverlaps: true,
-      preferredChildSectorAngle: 359
-    })
-
-    // Combine layouts: radial for groups, organic within groups
-    const recursiveGroupLayout = new RecursiveGroupLayout(radialTreeLayout)
-    const recursiveGroupLayoutData = new RecursiveGroupLayoutData({
-      groupNodeLayouts: organicLayout
-    })
-    // Configure edge label placement
-    const organicLayoutData = new OrganicLayoutData<
-      LayoutNode,
-      LayoutEdge,
-      LayoutNodeLabel,
-      LayoutEdgeLabel
-    >()
-    const edge2ProblemMap = graph.context.getItemData<boolean>(problemEdgeDataKey)!
-    organicLayoutData.edgeLabelPreferredPlacements = (label) =>
-      new EdgeLabelPreferredPlacement({
-        edgeSide: edge2ProblemMap.get(label.owner!) ? 'right-of-edge' : 'on-edge',
-        angleReference: 'relative-to-edge-flow',
-        distanceToEdge: 10
-      })
-
-    // Apply combined layout
-    graph.applyLayout(recursiveGroupLayout, recursiveGroupLayoutData.combineWith(organicLayoutData))
-
-    // Clean up temporary group nodes
-    groupNodes.forEach((groupNode) => {
-      graph.remove(groupNode)
-    })
   }
 }

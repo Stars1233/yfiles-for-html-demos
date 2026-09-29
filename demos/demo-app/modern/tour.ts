@@ -44,6 +44,10 @@ export type Tip = {
   dialogConfig?: TipDialogConfig
 }
 
+type RelativePosition = 'north-east' | 'north-west' | 'south-east' | 'south-west' | 'east' | 'west'
+
+type DialogPlacement = RelativePosition | 'above' | 'below'
+
 export type TipDialogConfig = {
   // Optional size and positioning.
   width?: string
@@ -52,12 +56,13 @@ export type TipDialogConfig = {
   top?: string
 
   // Optional relative positioning of the dialog to the highlighted element.
-  relativeToElement?: 'north-east' | 'north-west' | 'south-east' | 'south-west' | 'east' | 'west'
+  relativeToElement?: RelativePosition
 }
 
 export type Tour = { tips: Tip[] }
 
 const defaultPadding = 10
+const viewportPadding = 12
 
 let currentPage = 0
 let visibleTips: Tip[] = []
@@ -100,9 +105,15 @@ export function startTour(tour: Tour) {
   const dialog = createDialog()
 
   wireButtons(tour, dialog)
-  showTourPage(currentPage, dialog)
-
   dialog.show()
+  showTourPage(currentPage, dialog)
+  // The mobile menu closes as part of the same click event and may restore
+  // focus after the tour has opened. Re-apply focus once that event finishes.
+  window.setTimeout(() => {
+    if (dialog.isConnected && dialog.open) {
+      dialog.querySelector<HTMLButtonElement>('#tour-next')?.focus()
+    }
+  }, 0)
 }
 
 function closeTour(dialog: HTMLDialogElement) {
@@ -150,6 +161,8 @@ function createDialog(): HTMLDialogElement {
   }
   const dialog = document.createElement('dialog')
   dialog.id = 'tour-dialog'
+  dialog.setAttribute('role', 'dialog')
+  dialog.setAttribute('aria-labelledby', 'tour-title')
   dialog.innerHTML = `
 <div class="tour-container">
   <div id="tour-title" class="tour-title"></div>
@@ -194,12 +207,17 @@ function createDialog(): HTMLDialogElement {
 
 function showTourPage(page: number, dialog: HTMLDialogElement) {
   const tip = visibleTips[page]
+  const highlightElement = tip.highlightId ? getHighlightDomElement(tip.highlightId) : null
 
   document.getElementById('tour-title')!.innerHTML = tip.title
   document.getElementById('tour-content')!.innerHTML = tip.content
 
   if (!tip.highlightId) {
     clearHighlight()
+  }
+
+  if (highlightElement) {
+    scrollElementIntoView(highlightElement)
   }
 
   positionDialog(tip, dialog)
@@ -210,6 +228,7 @@ function showTourPage(page: number, dialog: HTMLDialogElement) {
   if (nextButton) {
     nextButton.textContent = currentPage === visibleTips.length - 1 ? 'Done' : 'Next'
     nextButton.disabled = false
+    nextButton.focus()
   }
 }
 
@@ -255,153 +274,231 @@ function isElementVisible(highlightElement: HTMLElement | null): boolean {
   return !(style.display === 'none' || style.visibility === 'hidden')
 }
 
-function computeRelativePosition(
-  rel: 'north-east' | 'north-west' | 'south-east' | 'south-west' | 'east' | 'west',
-  elementRect: { top: number; left: number; right: number; height: number; width: number },
-  dialogWidth: string,
-  padding: number
-): { top?: string; bottom?: string; left: string } {
-  const dialogWidthPx = parseFloat(dialogWidth) || 0
+type ElementRect = {
+  top: number
+  left: number
+  right: number
+  bottom: number
+  height: number
+  width: number
+}
 
-  const northAlignBottom = `calc(100vh - ${elementRect.top}px + ${padding * 0.5 + 2}px)`
-  const southAlignTop = `calc(${elementRect.top}px + ${elementRect.height}px + ${padding}px)`
-  const westAlignLeft = `calc(${elementRect.left}px - ${padding * 0.5}px)`
-  const eastAlignLeft = `calc(${elementRect.left}px - ${dialogWidth} + ${elementRect.width}px + ${padding * 0.5}px)`
+type DialogSize = { width: number; height: number }
 
-  switch (rel) {
-    case 'north-east': {
-      return {
-        bottom: northAlignBottom,
-        left: elementRect.width > dialogWidthPx ? eastAlignLeft : westAlignLeft
-      }
-    }
-    case 'north-west':
-      return {
-        bottom: northAlignBottom,
-        left: elementRect.width > dialogWidthPx ? westAlignLeft : eastAlignLeft
-      }
-    case 'south-east': {
-      return {
-        top: southAlignTop,
-        left: elementRect.width > dialogWidthPx ? eastAlignLeft : westAlignLeft
-      }
-    }
-    case 'south-west':
-      return {
-        top: southAlignTop,
-        left: elementRect.width > dialogWidthPx ? westAlignLeft : eastAlignLeft
-      }
-    case 'east':
-      return {
-        top: `calc(${elementRect.top}px - ${padding * 0.5}px)`,
-        left: `calc(${elementRect.right}px + ${padding}px)`
-      }
-    case 'west':
-      return {
-        top: `calc(${elementRect.top}px - ${padding * 0.5}px)`,
-        left: `calc(${elementRect.left}px - ${dialogWidth} - ${padding * 4}px)`
-      }
-    default:
-      return { top: `${elementRect.top}px`, left: `${elementRect.left}px` }
+type DialogPosition = { top: number; left: number; placement: DialogPlacement }
+
+type ViewportBounds = { top: number; left: number; right: number; bottom: number }
+
+function scrollElementIntoView(element: HTMLElement) {
+  const rect = element.getBoundingClientRect()
+  const viewport = getViewportBounds()
+  if (
+    rect.top >= viewport.top &&
+    rect.bottom <= viewport.bottom &&
+    rect.left >= viewport.left &&
+    rect.right <= viewport.right
+  ) {
+    return
+  }
+
+  // scrollIntoView finds the dashboard's nested scroll container automatically.
+  // Keep the tour's motion calm and comprehensible, but do not animate for
+  // users who have requested reduced motion. The scroll listener installed by
+  // applyOverlay keeps the dialog and highlight tethered while this runs.
+  const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ? 'instant'
+    : 'smooth'
+  element.scrollIntoView({ behavior, block: 'center', inline: 'nearest' })
+}
+
+function getViewportBounds(): ViewportBounds {
+  return {
+    top: viewportPadding,
+    left: viewportPadding,
+    right: Math.max(viewportPadding, window.innerWidth - viewportPadding),
+    bottom: Math.max(viewportPadding, window.innerHeight - viewportPadding)
   }
 }
 
+function getElementRect(element: HTMLElement): ElementRect {
+  const { top, left, right, bottom, height, width } = element.getBoundingClientRect()
+  return { top, left, right, bottom, height, width }
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(Math.max(value, min), max)
+}
+
+function fitsViewport(
+  position: Omit<DialogPosition, 'placement'>,
+  dialogSize: DialogSize,
+  viewport: ViewportBounds
+): boolean {
+  return (
+    position.left >= viewport.left &&
+    position.left + dialogSize.width <= viewport.right &&
+    position.top >= viewport.top &&
+    position.top + dialogSize.height <= viewport.bottom
+  )
+}
+
+function fitsVertically(
+  position: Omit<DialogPosition, 'placement'>,
+  dialogSize: DialogSize,
+  viewport: ViewportBounds
+): boolean {
+  return position.top >= viewport.top && position.top + dialogSize.height <= viewport.bottom
+}
+
+function clampToViewport(
+  position: Omit<DialogPosition, 'placement'>,
+  dialogSize: DialogSize,
+  viewport: ViewportBounds
+): Omit<DialogPosition, 'placement'> {
+  const maxTop = Math.max(viewport.top, viewport.bottom - dialogSize.height)
+  const maxLeft = Math.max(viewport.left, viewport.right - dialogSize.width)
+  return {
+    top: clamp(position.top, viewport.top, maxTop),
+    left: clamp(position.left, viewport.left, maxLeft)
+  }
+}
+
+function getRelativePosition(
+  placement: RelativePosition,
+  elementRect: ElementRect,
+  dialogSize: DialogSize,
+  padding: number
+): Omit<DialogPosition, 'placement'> {
+  const above = elementRect.top - dialogSize.height - padding
+  const below = elementRect.bottom + padding
+  const alignLeft =
+    elementRect.width >= dialogSize.width ? elementRect.left : elementRect.right - dialogSize.width
+  const alignRight =
+    elementRect.width >= dialogSize.width ? elementRect.right - dialogSize.width : elementRect.left
+
+  switch (placement) {
+    case 'north-east':
+      return { top: above, left: alignRight }
+    case 'north-west':
+      return { top: above, left: alignLeft }
+    case 'south-east':
+      return { top: below, left: alignRight }
+    case 'south-west':
+      return { top: below, left: alignLeft }
+    case 'east':
+      return { top: elementRect.top - padding * 0.5, left: elementRect.right + padding }
+    case 'west':
+      return {
+        top: elementRect.top - padding * 0.5,
+        left: elementRect.left - dialogSize.width - padding
+      }
+  }
+}
+
+function getFallbackPosition(
+  placement: 'above' | 'below',
+  elementRect: ElementRect,
+  dialogSize: DialogSize,
+  padding: number
+): Omit<DialogPosition, 'placement'> {
+  return {
+    top:
+      placement === 'above'
+        ? elementRect.top - dialogSize.height - padding
+        : elementRect.bottom + padding,
+    left: elementRect.left + (elementRect.width - dialogSize.width) / 2
+  }
+}
+
+function applyArrowClass(dialog: HTMLDialogElement, placement: DialogPlacement) {
+  removeArrowClasses(dialog)
+
+  const arrowClass =
+    placement === 'east'
+      ? 'tour-arrow-west'
+      : placement === 'west'
+        ? 'tour-arrow-east'
+        : placement === 'below' || placement.startsWith('south')
+          ? 'tour-arrow-north'
+          : 'tour-arrow-south'
+  dialog.classList.add('tour-arrow', arrowClass)
+}
+
 function positionDialog(tip: Tip, dialog: HTMLDialogElement) {
-  let width = '400px'
-  let height: string | undefined = undefined
-  let top: string | undefined = '50%'
-  let bottom: string | undefined = undefined
-  let left = '50%'
-  let center = true
-
   const config = tip.dialogConfig
-  if (config) {
-    if (config.width) {
-      width = config.width
-    }
-    if (config.height) {
-      height = config.height
-    }
+  const width = config?.width ?? '400px'
+  const highlightElement = tip.highlightId ? getHighlightDomElement(tip.highlightId) : null
 
-    dialog.style.position = 'fixed'
-    dialog.style.inset = 'auto' /* clear UA inset values if needed */
-    dialog.style.maxHeight = height ?? '70vh'
-    dialog.style.maxWidth = '450px'
+  dialog.style.position = 'fixed'
+  dialog.style.inset = 'auto' /* clear UA inset values if needed */
+  dialog.style.margin = '0'
+  dialog.style.maxHeight = config?.height ?? '70vh'
+  dialog.style.maxWidth = `${Math.max(0, Math.min(450, window.innerWidth - viewportPadding * 2))}px`
+  dialog.style.width = width
+  dialog.style.bottom = 'auto'
+  dialog.dataset.width = width
+  dialog.dataset.padding = String(tip.highlightPadding ?? defaultPadding)
+  dialog.dataset.relativeTo = ''
+  dialog.dataset.placement = ''
+  removeArrowClasses(dialog)
 
-    const highlightElement = tip.highlightId ? getHighlightDomElement(tip.highlightId) : null
+  if (config?.relativeToElement && highlightElement) {
     const padding = tip.highlightPadding ?? defaultPadding
+    const elementRect = getElementRect(highlightElement)
+    const dialogRect = dialog.getBoundingClientRect()
+    const dialogSize = { width: dialogRect.width, height: dialogRect.height }
+    const viewport = getViewportBounds()
+    const preferred = getRelativePosition(
+      config.relativeToElement,
+      elementRect,
+      dialogSize,
+      padding
+    )
+    const above = getFallbackPosition('above', elementRect, dialogSize, padding)
+    const below = getFallbackPosition('below', elementRect, dialogSize, padding)
 
-    // Compute position if the dialog is to be positioned relatively
-    if (config.relativeToElement && highlightElement) {
-      removeArrowClasses(dialog) // Remove arrow classes from previous positioning
-      center = false
-
-      const pos = computeRelativePosition(
-        config.relativeToElement,
-        highlightElement.getBoundingClientRect(),
-        width,
-        padding
-      )
-      top = pos.top
-      bottom = pos.bottom
-      left = pos.left
-
-      // Persist positioning info for viewport updates
-      dialog.dataset.relativeTo = config.relativeToElement
-      dialog.dataset.padding = String(padding)
-
-      // Configure arrow classes
-      let arrowClass = ''
-      switch (config.relativeToElement) {
-        case 'north-east':
-        case 'north-west':
-          arrowClass = 'tour-arrow-south'
-          break
-        case 'south-east':
-        case 'south-west':
-          arrowClass = 'tour-arrow-north'
-          break
-        case 'east':
-          arrowClass = 'tour-arrow-west'
-          break
-        case 'west':
-          arrowClass = 'tour-arrow-east'
-          width = `${parseInt(width) - 10}px` // Prevent arrow overlapping highlight element
-          break
-      }
-      if (arrowClass) {
-        dialog.classList.add('tour-arrow', arrowClass)
-      }
-    } else if (config.top || config.left) {
-      center = false
-      if (config.top) {
-        top = config.top
-      }
-      if (config.left) {
-        left = config.left
-      }
-      dialog.dataset.relativeTo = ''
-      dialog.dataset.padding = String(tip.highlightPadding ?? defaultPadding)
-      removeArrowClasses(dialog)
+    let position: DialogPosition
+    if (fitsViewport(preferred, dialogSize, viewport)) {
+      position = { ...preferred, placement: config.relativeToElement }
+    } else if (fitsViewport(above, dialogSize, viewport)) {
+      position = { ...above, placement: 'above' }
+    } else if (fitsViewport(below, dialogSize, viewport)) {
+      position = { ...below, placement: 'below' }
+    } else if (fitsVertically(below, dialogSize, viewport)) {
+      // Preserve a usable below placement when only its horizontal alignment
+      // overflows. This is common on mobile when the target is narrower than
+      // the dialog and sits close to the viewport edge.
+      position = { ...clampToViewport(below, dialogSize, viewport), placement: 'below' }
+    } else if (fitsVertically(above, dialogSize, viewport)) {
+      position = { ...clampToViewport(above, dialogSize, viewport), placement: 'above' }
+    } else {
+      // A very tall target or a very short viewport may leave no complete
+      // candidate. Keep the dialog visible and prefer the requested fallback.
+      position = { ...clampToViewport(above, dialogSize, viewport), placement: 'above' }
     }
+
+    dialog.style.top = `${position.top}px`
+    dialog.style.left = `${position.left}px`
+    dialog.style.transform = ''
+    dialog.dataset.relativeTo = config.relativeToElement
+    dialog.dataset.placement = position.placement
+    dialog.dataset.center = 'false'
+    applyArrowClass(dialog, position.placement)
+    return
   }
 
-  dialog.style.top = top ?? 'auto'
-  dialog.style.bottom = bottom ?? 'auto'
-  dialog.style.left = left
-  dialog.style.width = width
-
-  // Persist width for recomputation during viewport update
-  dialog.dataset.width = width
-
-  if (center) {
-    dialog.style.transform = 'translate(-50%, -50%)'
-    dialog.dataset.center = 'true'
-    removeArrowClasses(dialog)
-  } else {
+  if (config?.top || config?.left) {
+    dialog.style.top = config.top ?? '50%'
+    dialog.style.left = config.left ?? '50%'
     dialog.style.transform = ''
     dialog.dataset.center = 'false'
+    return
   }
+
+  dialog.style.top = '50%'
+  dialog.style.left = '50%'
+  dialog.style.transform = 'translate(-50%, -50%)'
+  dialog.dataset.center = 'true'
 }
 
 function removeArrowClasses(dialog: HTMLDialogElement) {
@@ -415,38 +512,11 @@ function removeArrowClasses(dialog: HTMLDialogElement) {
 }
 
 function applyOverlay(tip: Tip, dialog: HTMLDialogElement) {
-  let recomputePosition: () => void
-
   if (overlayCleanup) {
     overlayCleanup()
   }
 
-  const highlightElement = tip.highlightId
-    ? (getHighlightDomElement(tip.highlightId) as HTMLElement)
-    : null
-
-  // If dialog is positioned relative to the element, recompute its position on viewport changes
-  if (dialog.dataset?.relativeTo && highlightElement) {
-    recomputePosition = () => {
-      const dialogWidth = dialog.dataset?.width || `${dialog.getBoundingClientRect().width}px`
-      const dialogPadding = Number(
-        dialog.dataset?.padding ?? tip.highlightPadding ?? defaultPadding
-      )
-      const dialogPosition = computeRelativePosition(
-        dialog.dataset.relativeTo as any,
-        highlightElement.getBoundingClientRect(),
-        String(dialogWidth),
-        dialogPadding
-      )
-      if (dialogPosition.top || dialogPosition.bottom || dialogPosition.left) {
-        dialog.style.top = dialogPosition.top ?? 'auto'
-        dialog.style.bottom = dialogPosition.bottom ?? 'auto'
-        dialog.style.left = dialogPosition.left
-      }
-    }
-    document.addEventListener('scroll', recomputePosition, true)
-    window.addEventListener('resize', recomputePosition)
-  }
+  const highlightElement = tip.highlightId ? getHighlightDomElement(tip.highlightId) : null
 
   ensureOverlay()
 
@@ -457,32 +527,52 @@ function applyOverlay(tip: Tip, dialog: HTMLDialogElement) {
   overlay.style.display = 'block'
   overlayBlur.style.display = 'block'
 
-  if (highlightElement) {
-    overlay.style.background = ''
-    overlayBlur.style.webkitMaskImage = ''
-    overlayBlur.style.maskImage = ''
+  const recomputeLayout = () => {
+    if (highlightElement) {
+      if (dialog.dataset.relativeTo) {
+        positionDialog(tip, dialog)
+      }
+      updateOverlayHighlight(highlightElement)
+    }
+  }
 
-    let { width, height, top, left } = highlightElement.getBoundingClientRect()
-    const centerX = left + width / 2
-    const centerY = top + height / 2
-    const radX = Math.round((width / 2) * (width > height ? 1.3 : 2.5))
-    const radY = Math.round((height / 2) * (height > width ? 1.3 : 2.5))
-    overlay.style.setProperty('--x', `${centerX}px`)
-    overlay.style.setProperty('--y', `${centerY}px`)
-    overlay.style.setProperty('--rx', `${radX}px`)
-    overlay.style.setProperty('--ry', `${radY}px`)
-    overlayBlur.style.setProperty('--x', `${centerX}px`)
-    overlayBlur.style.setProperty('--y', `${centerY}px`)
-    overlayBlur.style.setProperty('--rx', `${radX}px`)
-    overlayBlur.style.setProperty('--ry', `${radY}px`)
+  recomputeLayout()
+
+  if (highlightElement) {
+    document.addEventListener('scroll', recomputeLayout, true)
+    window.addEventListener('resize', recomputeLayout)
   }
 
   overlayCleanup = () => {
-    if (dialog.dataset?.relativeTo && highlightElement) {
-      document.removeEventListener('scroll', recomputePosition, true)
-      window.removeEventListener('resize', recomputePosition)
+    if (highlightElement) {
+      document.removeEventListener('scroll', recomputeLayout, true)
+      window.removeEventListener('resize', recomputeLayout)
     }
   }
+}
+
+function updateOverlayHighlight(highlightElement: HTMLElement) {
+  if (!overlay || !overlayBlur) {
+    return
+  }
+
+  overlay.style.background = ''
+  overlayBlur.style.webkitMaskImage = ''
+  overlayBlur.style.maskImage = ''
+
+  const { width, height, top, left } = highlightElement.getBoundingClientRect()
+  const centerX = left + width / 2
+  const centerY = top + height / 2
+  const radX = Math.round((width / 2) * (width > height ? 1.3 : 2.5))
+  const radY = Math.round((height / 2) * (height > width ? 1.3 : 2.5))
+  overlay.style.setProperty('--x', `${centerX}px`)
+  overlay.style.setProperty('--y', `${centerY}px`)
+  overlay.style.setProperty('--rx', `${radX}px`)
+  overlay.style.setProperty('--ry', `${radY}px`)
+  overlayBlur.style.setProperty('--x', `${centerX}px`)
+  overlayBlur.style.setProperty('--y', `${centerY}px`)
+  overlayBlur.style.setProperty('--rx', `${radX}px`)
+  overlayBlur.style.setProperty('--ry', `${radY}px`)
 }
 
 function ensureOverlay() {

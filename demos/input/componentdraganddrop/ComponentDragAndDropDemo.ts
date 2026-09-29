@@ -266,6 +266,7 @@ function dragFinished(_evt: InputModeEventArgs, moveInputMode: MoveInputMode) {
   layoutHelper.component = moveInputMode.affectedItems.filter(
     (item: IModelItem) => item instanceof INode
   ) as IEnumerable<INode>
+  layoutHelper.finishLayout()
 }
 
 /**

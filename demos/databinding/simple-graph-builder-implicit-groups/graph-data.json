@@ -10,7 +10,6 @@
           "name": "Eric Joplin",
           "email": "ejoplin@yoyodyne.com",
           "phone": "555-0100",
-          "fax": "555-0101",
           "businessUnit": "Executive Unit",
           "status": "present",
           "icon": "#usericon_male1"
@@ -27,7 +26,6 @@
           "name": "Maria Dossantos",
           "email": "mdossantos@yoyodyne.com",
           "phone": "555-0160",
-          "fax": "555-0161",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_female1"
@@ -38,7 +36,6 @@
           "name": "Hector Donald",
           "email": "hdonald@yoyodyne.com",
           "phone": "555-0162",
-          "fax": "555-0163",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_male2"
@@ -49,7 +46,6 @@
           "name": "Michelle Douglas",
           "email": "mdouglas@yoyodyne.com",
           "phone": "555-0228",
-          "fax": "555-0229",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_female3"
@@ -60,7 +56,6 @@
           "name": "Bonnie Penney",
           "email": "bpenney@yoyodyne.com",
           "phone": "555-0234",
-          "fax": "555-0235",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_female1"
@@ -71,7 +66,6 @@
           "name": "Francis Webster",
           "email": "fwebster@yoyodyne.com",
           "phone": "555-0236",
-          "fax": "555-0237",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_male2"
@@ -82,7 +76,6 @@
           "name": "Gregory Arnold",
           "email": "garnold@yoyodyne.com",
           "phone": "555-0238",
-          "fax": "555-0239",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_male3"
@@ -99,7 +92,6 @@
           "name": "Laurie Aitken",
           "email": "laitken@yoyodyne.com",
           "phone": "555-0164",
-          "fax": "555-0165",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_female2"
@@ -110,7 +102,6 @@
           "name": "Carla Clark",
           "email": "cclark@yoyodyne.com",
           "phone": "555-0242",
-          "fax": "555-0243",
           "businessUnit": "Engineering",
           "status": "unavailable",
           "icon": "#usericon_female3"
@@ -121,7 +112,6 @@
           "name": "Cynthia Judd",
           "email": "cjudd@yoyodyne.com",
           "phone": "555-0244",
-          "fax": "555-0245",
           "businessUnit": "Engineering",
           "status": "unavailable",
           "icon": "#usericon_female1"
@@ -132,7 +122,6 @@
           "name": "Robert Finn",
           "email": "rfinn@yoyodyne.com",
           "phone": "555-0246",
-          "fax": "555-0247",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_male2"
@@ -143,7 +132,6 @@
           "name": "Willie Schaub",
           "email": "wschaub@yoyodyne.com",
           "phone": "555-0248",
-          "fax": "555-0249",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_male3"
@@ -154,7 +142,6 @@
           "name": "Edwin Nagy",
           "email": "enagy@yoyodyne.com",
           "phone": "555-0166",
-          "fax": "555-0167",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_male1"
@@ -171,7 +158,6 @@
           "name": "John Payne",
           "email": "jpayne@yoyodyne.com",
           "phone": "555-0168",
-          "fax": "555-0169",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_male2"
@@ -182,7 +168,6 @@
           "name": "Rana Oxborough",
           "email": "roxborough@yoyodyne.com",
           "phone": "555-0176",
-          "fax": "555-0177",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_female3"
@@ -193,7 +178,6 @@
           "name": "Gary Olsen",
           "email": "golsen@yoyodyne.com",
           "phone": "555-0178",
-          "fax": "555-0179",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_male1"
@@ -204,7 +188,6 @@
           "name": "Matthew Finney",
           "email": "mfinney@yoyodyne.com",
           "phone": "555-0206",
-          "fax": "555-0207",
           "businessUnit": "Engineering",
           "status": "travel",
           "icon": "#usericon_male2"
@@ -215,7 +198,6 @@
           "name": "Julius Kelly",
           "email": "jkelly@yoyodyne.com",
           "phone": "555-0208",
-          "fax": "555-0209",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_male3"
@@ -226,7 +208,6 @@
           "name": "Charles Wylam",
           "email": "cwylam@yoyodyne.com",
           "phone": "555-0212",
-          "fax": "555-0213",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_male1"
@@ -243,7 +224,6 @@
           "name": "Mildred Shark",
           "email": "mshark@yoyodyne.com",
           "phone": "555-0156",
-          "fax": "555-0157",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_female2"
@@ -254,7 +234,6 @@
           "name": "Martha Barnes",
           "email": "mbarnes@yoyodyne.com",
           "phone": "555-0158",
-          "fax": "555-0159",
           "businessUnit": "Engineering",
           "status": "present",
           "icon": "#usericon_female3"

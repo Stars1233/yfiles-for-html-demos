@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Network Monitoring Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -415,11 +412,17 @@
             <input type="checkbox" id="toggleLabels" class="demo-toggle-button labeled" />
             <label for="toggleLabels" title="Toggle Node Labels">Toggle Labels</label>
           </div>
+          <span class="separator"></span>
+          <div>
+            <input type="checkbox" id="enableHeatMap" class="demo-toggle-button labeled" checked />
+            <label for="enableHeatMap" title="Toggle Heatmap">Toggle Heatmap</label>
+          </div>
         </div>
         <div id="graphComponent"></div>
       </div>
       <div class="description-panel">
-        <h1>Network Monitoring Demo</h1>
+        <div class="subheading">Demo</div>
+        <h1>Network Monitoring</h1>
 
         <p>
           This demo shows a basic network monitoring tool. Watch the traffic flowing through the
@@ -435,6 +438,11 @@
         <p>
           The bar charts in the node popups are created using
           <a href="https://d3js.org/" target="_blank">D3.js</a>.
+        </p>
+
+        <p>
+          A heatmap displays the current traffic of nodes and edges (available only in browsers that
+          support WebGL).
         </p>
 
         <h2>Things to Try</h2>

@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/showcase/supply-chain/).
 
+Demo
+
 This demo visualizes a bakery supply chain in France. The graph’s nodes represent single facilities and list the items produced at that location, including the current stock. The edges between products describe product flows.
 
 Click on any product or edge to highlight the corresponding product flow. Try for yourself! Highlight all products containing eggs:

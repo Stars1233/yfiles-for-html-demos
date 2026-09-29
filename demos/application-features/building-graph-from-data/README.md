@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/application-features/building-graph-from-data/).
 
+Demo
+
 This demo shows how to build a graph using the data stored in JSON-format.
 
 This demo utilizes the [IGraph](https://docs.yworks.com/yfileshtml/api/IGraph) API to create graph elements, which can be useful for handling special cases.

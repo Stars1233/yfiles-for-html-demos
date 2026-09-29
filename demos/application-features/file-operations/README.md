@@ -15,6 +15,8 @@
 
 [You can also run this demo online](https://www.yfiles.com/demos/application-features/file-operations/).
 
+Demo
+
 This demo shows various ways to open and save a graph.
 
 ## Things to Try

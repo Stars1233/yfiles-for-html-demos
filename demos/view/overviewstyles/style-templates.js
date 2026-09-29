@@ -43,7 +43,6 @@ export const detailNodeStyleTemplate = `({ layout, tag, selected, zoom }) => svg
       </text>
       <text transform='translate(100 72)'>\${tag.email}</text>
       <text transform='translate(100 88)'>\${tag.phone}</text>
-      <text transform='translate(170 88)'>\${tag.fax}</text>
     </g>
   </g>\``
 

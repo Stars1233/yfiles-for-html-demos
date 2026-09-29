@@ -85,7 +85,7 @@ type GrayTileLayerWeights = TileLayerOptions & {
  * @yjs:keep = control
  */
 export function createMap(
-  containerId: string,
+  container: string | HTMLElement,
   coordinateMapping: NodeCoordinateMapping,
   zoomChanged: ZoomChanged,
   leafletOptions?: MapOptions
@@ -96,7 +96,7 @@ export function createMap(
   const osmAttrib = 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
 
   // create the map
-  const worldMap = new LeafletMap(containerId, leafletOptions)
+  const worldMap = new LeafletMap(container, leafletOptions)
   worldMap.setView(new LatLng(15.538, 16.523), 3)
   worldMap.addLayer(new TileLayer(osmUrl, { minZoom: 3, maxZoom: 12, attribution: osmAttrib }))
 

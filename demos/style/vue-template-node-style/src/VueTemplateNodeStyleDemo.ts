@@ -192,7 +192,6 @@ function initializeStyles(): void {
     <text transform="translate(90 45)" style="font-size: 9px; text-transform: uppercase">{{tag.position}}</text>
     <text transform="translate(90 72)" style="font-size: 10px;">{{tag.email}}</text>
     <text transform="translate(90 88)" style="font-size: 10px;">{{tag.phone}}</text>
-    <text transform="translate(170 88)" style="font-size: 10px;">{{tag.fax}}</text>
   </g>
 </template>
 <template v-else>

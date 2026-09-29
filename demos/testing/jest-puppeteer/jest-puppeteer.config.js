@@ -27,6 +27,6 @@
  **
  ***************************************************************************/
 module.exports = {
-  launch: { dumpio: true, headless: 'new', defaultViewport: { width: 1400, height: 900 } },
+  launch: { headless: 'new', defaultViewport: { width: 1400, height: 900 } },
   browserContext: 'default'
 }

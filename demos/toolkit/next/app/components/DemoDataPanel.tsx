@@ -48,7 +48,7 @@ export default function DemoDataPanel(props: DemoDataPanelProps) {
 
   return (
     <div>
-      <div className="demo-sidebar-content">
+      <div className="demo-description__content">
         <h2>Graph Data</h2>
         <p>
           The following buttons add/remove items in the internal <code>graphData</code> object, that

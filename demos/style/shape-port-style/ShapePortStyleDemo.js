@@ -30,6 +30,7 @@ import {
   FreeNodePortLocationModel,
   GraphComponent,
   GraphEditorInputMode,
+  GraphModelManager,
   InteriorNodeLabelModel,
   LabelStyle,
   License,
@@ -49,7 +50,8 @@ import {
 import { colorSets, createDemoEdgeLabelStyle } from '@yfiles/demo-app/demo-styles'
 import licenseData from '../../../lib/license.json'
 import { finishLoading } from '@yfiles/demo-app/modern/finish-loading'
-import { initializeSvgWebGlSwitchButton } from './svg-webgl-switch'
+import { initializeSvgWebGlSwitchButton } from '@yfiles/demo-app/modern/svg-webgl-switch'
+import { BrowserDetection } from '@yfiles/demo-utils/BrowserDetection'
 
 /**
  * Runs the demo.
@@ -57,7 +59,9 @@ import { initializeSvgWebGlSwitchButton } from './svg-webgl-switch'
 async function run() {
   License.value = licenseData
   const graphComponent = new GraphComponent('#graphComponent')
-  graphComponent.graphModelManager = new WebGLGraphModelManager({ renderMode: 'svg' })
+  graphComponent.graphModelManager = BrowserDetection.webGL2
+    ? new WebGLGraphModelManager({ renderMode: 'svg' })
+    : new GraphModelManager()
 
   // Create and configure ports using shape port style
   initializeGraph(graphComponent.graph)

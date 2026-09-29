@@ -28,24 +28,17 @@
  ***************************************************************************/
 import {
   DragDropEffects,
-  EdgePathLabelModel,
-  EdgeSides,
-  ExteriorNodeLabelModel,
   GraphComponent,
   GraphEditorInputMode,
-  GroupNodeLabelModel,
   GroupNodeStyle,
   type IGraph,
   type INodeStyle,
-  LabelStyle,
   License,
   NodeDropInputMode,
   Point,
   Rect,
   ShapeNodeShape,
   SimpleNode,
-  Size,
-  SmartEdgeLabelModel,
   SvgExport
 } from '@yfiles/yfiles'
 import { createDemoShapeNodeStyle, initDemoStyles } from '@yfiles/demo-app/demo-styles'
@@ -102,7 +95,7 @@ function initializeDragAndDropPanel(): void {
 
   // prepare node styles for the palette
   const defaultNodeStyle = graphComponent.graph.nodeDefaults.style
-  const otherNodeStyle = createDemoShapeNodeStyle(ShapeNodeShape.ELLIPSE)
+  const otherNodeStyle = createDemoShapeNodeStyle(ShapeNodeShape.ELLIPSE, 'demo-palette-12')
 
   const defaultGroupNodeStyle = graphComponent.graph.groupNodeDefaults.style
   const nodeStyles = [defaultNodeStyle, otherNodeStyle, defaultGroupNodeStyle]
@@ -197,32 +190,7 @@ function createNodeVisual(style: INodeStyle): string {
  */
 function initializeGraph(graph: IGraph): void {
   // set styles for this demo
-  initDemoStyles(graph)
-
-  // set the style, label and label parameter for group nodes
-  graph.groupNodeDefaults.style = new GroupNodeStyle({
-    tabFill: '#46a8d5',
-    tabPosition: 'top-leading',
-    contentAreaFill: '#b5dcee',
-    contentAreaPadding: 20
-  })
-  graph.groupNodeDefaults.labels.style = new LabelStyle({
-    horizontalTextAlignment: 'left',
-    textFill: '#eee'
-  })
-  graph.groupNodeDefaults.labels.layoutParameter = new GroupNodeLabelModel().createTabParameter()
-
-  // set sizes and locations specific for this demo
-  graph.nodeDefaults.size = new Size(40, 40)
-  graph.nodeDefaults.labels.layoutParameter = new ExteriorNodeLabelModel({
-    margins: 5
-  }).createParameter('bottom')
-  graph.edgeDefaults.labels.layoutParameter = new EdgePathLabelModel({
-    distance: 5,
-    autoRotation: true
-  }).createRatioParameter({ sideOfEdge: EdgeSides.BELOW_EDGE })
-
-  graph.edgeDefaults.labels.layoutParameter = new SmartEdgeLabelModel().createParameterFromSource(0)
+  initDemoStyles(graph, { theme: 'demo-palette-12' })
 }
 
 /**
@@ -247,7 +215,7 @@ function createGraph(): void {
   })
   graph.createEdge({ source: node2, target: node4, labels: ['Label 3'] })
 
-  graphComponent.fitGraphBounds()
+  void graphComponent.fitGraphBounds()
   graph.undoEngine!.clear()
 }
 

@@ -152,8 +152,7 @@ function createGraph() {
       position: 'Chief Executive Officer',
       name: 'Eric Joplin',
       email: 'ejoplin@yoyodyne.com',
-      phone: '555-0100',
-      fax: '555-0101'
+      phone: '555-0100'
     }
   })
   const n2 = graph.createNodeAt({
@@ -162,8 +161,7 @@ function createGraph() {
       position: 'Chief Executive Assistant',
       name: 'Gary Roberts',
       email: 'groberts@yoyodyne.com',
-      phone: '555-0100',
-      fax: '555-0101'
+      phone: '555-0100'
     }
   })
   const n3 = graph.createNodeAt({
@@ -172,8 +170,7 @@ function createGraph() {
       position: 'Senior Executive Assistant',
       name: 'Alex Burns',
       email: 'aburns@yoyodyne.com',
-      phone: '555-0102',
-      fax: '555-0103'
+      phone: '555-0102'
     }
   })
   const n4 = graph.createNodeAt({
@@ -182,8 +179,7 @@ function createGraph() {
       position: 'Junior Executive Assistant',
       name: 'Linda Newland',
       email: 'lnewland@yoyodyne.com',
-      phone: '555-0112',
-      fax: '555-0113'
+      phone: '555-0112'
     }
   })
   graph.createEdge(n1, n2)

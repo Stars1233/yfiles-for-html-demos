@@ -30,7 +30,6 @@
      // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
      //
      ////////////////////////////////////////////////////////////////////////-->
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
     <title>Intersection Detection Demo - yFiles for HTML</title>
@@ -53,19 +52,17 @@
 
       :root {
         /* Brand / glow color for light mode */
-        --splash-glow-color: oklch(0.55 0.12 215);
         --splash-glow-color-transparent-90: oklch(0.55 0.12 215 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.55 0.12 215 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.55 0.12 215 / 0.35);
         --splash-glow-color-transparent-0: oklch(0.55 0.12 215 / 0);
         --splash-bg-color: #ffffff;
-        --splash-text-color: var(--splash-glow-color);
+        --splash-text-color: #00adcc;
       }
 
       :root[data-theme='dark'] {
         --splash-bg-color: oklch(0.2775 0.0279 242.63);
-        --splash-text-color: #ffffff;
-        --splash-glow-color: oklch(0.75 0.135 217);
+        --splash-text-color: #00adcc;
         --splash-glow-color-transparent-90: oklch(0.75 0.135 217 / 0.9);
         --splash-glow-color-transparent-85: oklch(0.75 0.135 217 / 0.85);
         --splash-glow-color-transparent-35: oklch(0.75 0.135 217 / 0.35);
@@ -179,38 +176,33 @@
         border-top: 1px dashed black;
       }
 
-      .option-label-wrapper {
-        display: contents;
+      .yfiles-popover__container .yfiles-tooltip {
+        background-color: var(--interaction-bg);
+        color: var(--color-text);
+        border-radius: var(--border-radius);
       }
 
-      .option-label:hover .hover-link {
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      .hover-link {
+      .api-links-demo > label > span > .hover-link {
         cursor: pointer;
-        background-color: #4caf50;
+        background-color: var(--rail-highlighted);
         color: #ffffff;
-        font-size: 10px;
         font-family: monospace;
+        display: inline;
+        margin-inline-start: 0.3rem;
         padding: 0 2px;
+        border-radius: var(--small-border-radius);
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.2s ease-in-out;
       }
 
-      .demo-properties__settings:first-of-type {
-        margin-bottom: 5px;
+      .api-links-demo > label:hover > span > .hover-link {
+        opacity: 1;
+        pointer-events: auto;
       }
 
-      .demo-properties__settings:nth-of-type(2) {
-        margin-top: 0;
-      }
-      .yfiles-popover__container .yfiles-tooltip {
-        background-color: var(--interaction-bg);
-        color: var(--color-text);
-        border-radius: var(--border-radius);
+      #considered-items-select {
+        max-width: none !important;
       }
     </style>
   </head>
@@ -435,137 +427,123 @@
       </div>
       <div class="interaction-panel">
         <h2>Algorithm Properties</h2>
-        <div class="demo-properties__settings">
-          <label class="option-label">
-            Considered Item Types
-            <a
-              href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-consideredItemTypes"
-              target="_blank"
-              class="hover-link"
-              >API→</a
-            >
+        <div class="options-section api-links-demo">
+          <label>
+            <span>
+              <span class="property-text">Considered Types</span>&nbsp;<a
+                href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-consideredItemTypes"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hover-link"
+                >API↗</a
+              >
+            </span>
+            <select id="considered-items-select">
+              <option value="all">All</option>
+              <option value="nodes">Nodes</option>
+              <option value="edges">Edges</option>
+              <option value="labels">Labels</option>
+              <option value="nodes-and-edges">Nodes and Edges</option>
+              <option value="nodes-and-labels">Nodes and Labels</option>
+            </select>
+          </label>
+          <label>
+            <span>
+              <span class="property-text">Consider Item Geometry</span>&nbsp;<a
+                href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-considerItemGeometry"
+                target="_blank"
+                class="hover-link"
+                >API↗</a
+              >
+            </span>
+
+            <input id="consider-item-geometry" type="checkbox" value="false" checked="" />
           </label>
 
-          <select id="considered-items-select" class="option-element">
-            <option value="all">All</option>
-            <option value="nodes">Nodes</option>
-            <option value="edges">Edges</option>
-            <option value="labels">Labels</option>
-            <option value="nodes-and-edges">Nodes and Edges</option>
-            <option value="nodes-and-labels">Nodes and Labels</option>
-          </select>
+          <label>
+            <span>
+              <span class="property-text">Consider Only Selected Elements</span>&nbsp;<a
+                href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-affectedItems"
+                target="_blank"
+                class="hover-link"
+                >API↗</a
+              ></span
+            >
+
+            <input id="consider-only-selection" type="checkbox" value="false" />
+          </label>
+
+          <label>
+            <span>
+              <span class="property-text">Source/Target Node Intersections</span>&nbsp;<a
+                href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-independentItems"
+                target="_blank"
+                class="hover-link"
+                >API↗</a
+              ></span
+            >
+            <input id="consider-source-target-node-intersections" type="checkbox" value="false" />
+          </label>
+
+          <label>
+            <span>
+              <span class="property-text">Content With Group Intersections</span>&nbsp;<a
+                href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-independentItems"
+                target="_blank"
+                class="hover-link"
+                >API↗</a
+              ></span
+            >
+            <input id="consider-group-content-intersections" type="checkbox" value="false" />
+          </label>
+
+          <label>
+            <span>
+              <span class="property-text"> Label With Owner Intersections</span>&nbsp;<a
+                class="hover-link"
+                href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-independentItems"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Open Label With Owner Intersections API documentation"
+                title="Open API documentation"
+                >API↗</a
+              >
+            </span>
+
+            <input id="consider-label-owner-intersections" type="checkbox" value="false" />
+          </label>
         </div>
-        <div class="demo-properties__settings">
-          <label class="option-label"
-            >Consider Item Geometry
-            <a
-              href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-considerItemGeometry"
-              target="_blank"
-              class="hover-link"
-              >API→</a
-            >
-          </label>
-          <input
-            class="option-element"
-            id="consider-item-geometry"
-            type="checkbox"
-            value="false"
-            checked=""
-          />
 
-          <label class="option-label">
-            Consider Only Selected Elements
-            <a
-              href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-affectedItems"
-              target="_blank"
-              class="hover-link"
-              >API→</a
-            >
-          </label>
-          <input
-            class="option-element"
-            id="consider-only-selection"
-            type="checkbox"
-            value="false"
-          />
-          <label class="option-label">
-            Source/Target Node Intersections
-            <a
-              href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-independentItems"
-              target="_blank"
-              class="hover-link"
-              >API→</a
-            >
-          </label>
-          <input
-            class="option-element"
-            id="consider-source-target-node-intersections"
-            type="checkbox"
-            value="false"
-          />
-          <label class="option-label">
-            Content With Group Intersections
-            <a
-              href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-independentItems"
-              target="_blank"
-              class="hover-link"
-              >API→</a
-            >
-          </label>
-          <input
-            class="option-element"
-            id="consider-group-content-intersections"
-            type="checkbox"
-            value="false"
-          />
-
-          <label class="option-label">
-            Label With Owner Intersections
-            <a
-              href="https://docs.yworks.com/yfileshtml/#/api/Intersections#Intersections-property-independentItems"
-              target="_blank"
-              class="hover-link"
-              >API→</a
-            >
-          </label>
-          <input
-            class="option-element"
-            id="consider-label-owner-intersections"
-            type="checkbox"
-            value="false"
-          />
-        </div>
         <h2>Found Intersections</h2>
-        <div class="demo-properties__settings">
-          <label class="option-label" style="font-weight: bold">Total intersection count:</label>
-          <label class="option-element" id="intersection-count">0</label>
-          <label class="option-label">
-            Node-Node
-            <span style="color: #ffc914; font-weight: bold">(yellow)</span>
-            :
+        <div class="options-section">
+          <label
+            ><span>Total intersection count:</span>
+            <label id="intersection-count">0</label>
           </label>
-          <label class="option-element" id="node-node-count">5</label>
-          <label class="option-label">
-            Node-Edge
-            <span style="color: #ca0c3b; font-weight: bold">(red)</span>
-            :
+
+          <label>
+            <span>Node-Node <span style="color: #ffc914; font-weight: bold">(yellow)</span> :</span>
+            <label id="node-node-count">5</label>
           </label>
-          <label class="option-element" id="node-edge-count">5</label>
-          <label class="option-label">
-            Edge-Edge
-            <span style="color: #ff6c00; font-weight: bold">(orange)</span>
-            :
+
+          <label>
+            <span>Node-Edge <span style="color: #ca0c3b; font-weight: bold">(red)</span> :</span>
+            <label id="node-edge-count">5</label>
           </label>
-          <label class="option-element" id="edge-edge-count">3</label>
-          <label class="option-label">
-            Label
-            <span style="color: #61a044; font-weight: bold">(green)</span>
-            :
+
+          <label>
+            <span>Edge-Edge <span style="color: #ff6c00; font-weight: bold">(orange)</span>:</span>
+            <label id="edge-edge-count">3</label>
           </label>
-          <label class="option-element" id="label-count">0</label>
+
+          <label>
+            <span>Label <span style="color: #61a044; font-weight: bold">(green)</span>:</span>
+            <label id="label-count">0</label>
+          </label>
         </div>
       </div>
       <div class="description-panel">
+        <div class="subheading">Demo</div>
         <h1>Intersection Detection</h1>
 
         <p>
